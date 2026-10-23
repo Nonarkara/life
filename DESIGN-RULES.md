@@ -1,0 +1,52 @@
+# Life: information earns its space
+
+Owner direction, 23 October 2026. Applies to every screen and future agent.
+
+## One visible home for each fact
+Do not repeat the same label, value or explanation in adjacent regions. A chart
+and its editing form may coexist when they serve distinct tasks; do not show two
+copies merely to fill a column. Accessible names may repeat visible labels for
+assistive technology. Optional comparisons must say what differs.
+
+## Data determines the graphic
+Size a graph for its observations, event density and reading task. Show the elapsed
+life by default, not decades of empty future. A three-choice setting gets three
+compact choices, not a room-sized slider. Longer histories can earn longer plots
+or an explicit detail view. Label units, domain and comparison basis. Never imply
+minute-level evidence from five-year snapshots. Preserve comparable scales where
+comparison needs them. Do not stretch sparse data to satisfy a grid.
+
+## Make the relationships visible
+Each screen has a first, second and third reading priority. Put the value, its
+label, its history and its relevant comparison together. Keep within-group gaps
+smaller than between-group gaps. A first-time viewer must distinguish what to
+read, what to compare and what to change without guessing invisible boundaries.
+Use alignment, headings and purposeful colour or line weight to establish groups;
+do not wrap every item in an identical box.
+
+## Distinguish tools from information
+Controls sit beside the information they change. Use restrained Bauhaus geometry
+for interactive affordances: a light circular decrement and an angular increment,
+with readable signs, keyboard focus and usable targets. Geometry communicates
+interaction, never ranking or a hidden value. Do not decorate every number.
+
+## Context makes numbers meaningful
+Show relevant references: past self, stated target, or a clearly identified
+modeled comparison. Never pass game values off as population data. Disclose the
+comparison sample and attrition. Colour reinforces meaning; labels and shapes
+must preserve it without colour. No invented normal range.
+
+## Fit the content
+If a column can halve its width without losing readability, comparison or usable
+controls, reconsider its allocation. Empty space may separate or emphasize; it
+must not be the residue of an arbitrary template. Never shrink text to force fit.
+Keep the approved world palette and tonal direction. Playfulness must orient.
+
+## Required review
+For each changed screen, record: reading order; every fact's visible home; why
+each chart has its length and domain; group boundaries; control-to-value mapping.
+Render real sparse and dense states at 390, 1024 and 1440 px, enlarged text and
+supported scripts. Check duplicate visible facts, empty tracks, detached labels,
+orphan columns, clipping and ambiguous actions. Have an independent reviewer
+inspect rendered evidence. A test suite cannot certify absence of spatial
+hallucination. Owner rejection overrides a prior automated or agent pass.

@@ -34,3 +34,29 @@ The side-by-side labelled radar and labelled editor failed semantic grouping des
 
 ## Languages, manual and history graphics
 Added shared EN/TH/zh-CN/JA/KO settings, text scale and reduced motion; original two-page manual at /start and built root, with Sims/1in8b credits and research limits. Histories supply accessible event glyphs and a clickable ledger; named disease/family markers exist but ungenerated events are never fabricated. Mood chords derive from Palette/Wada121/122 relationships as authored screen reconstructions.24tests pass; independent review covers layouts and source fixes, not native editorial certification. Local preview moved to127.0.0.1:4219 because another project bound4187/4188IPv4 while Life held4187IPv6, causing mixed files. No other project process touched. Earlier-origin saves remain stored in that browser origin. New isolated preview verified manual→settings→game. Source original study completed one91-year run, still not exhaustive.
+
+## Owner correction — 23 October, information and space
+Read DESIGN-RULES.md before interface work. Palette/mood approved in direction;
+composition remains under review. One visible home per fact, graphics sized for
+data density, explicit reading groups, compact controls distinct from values.
+Do not treat a sparse chart stretched across a track as useful detail. Preserve
+world animation and earned records. Current changes remove repeated review prose,
+use elapsed-life chart domains, keep values and references beside histories, and
+use restrained circle/square decrement/increment affordances. No visual pass or
+public release is claimed from automated tests.
+
+## Womb and childhood — latest owner direction
+Quiet black opening with original fetal illustration and visible 3–2–1. At default
+2×, one childhood year takes ten seconds; faster controls shorten it. Birth starts
+at zero; walking figure appears at one. Family chapters explain care, school and
+authored annual household income. Earlier-year viewing freezes childhood time and
+changes no saved outcome; return resumes. No player allocation before ten.
+Education/work choices open at fifteen; college at twenty. Route support, costs,
+income uncertainty and learning are authored tuning, explicitly not forecasts.
+Partial route history remains compatible with older saves; malformed named routes
+are rejected. Reduced-motion childhood still updates annual text without motion.
+Browser module loading failed intermittently with a multi-file dynamic graph;
+bundling the game produced a verified fresh startup, countdown and childhood.
+The local preview serves no-store and the build versions asset references.
+34 tests passed before final copy changes; actual childhood images in review/v1.
+Not yet the full requested public release or exhaustive original-game research.

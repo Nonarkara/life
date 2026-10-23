@@ -249,3 +249,139 @@ phrases.push(...`
 Age {n}: {description}|อายุ {n}: {description}|{n}岁：{description}|{n}歳：{description}|{n}세: {description}
 Flood · wave|น้ำท่วม · คลื่น|洪水 · 波浪|洪水・波|홍수 · 물결
 `.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+Life 2026 — Immersion instructions|Life 2026 — คู่มือระบบจำลองชีวิต|Life 2026 — 沉浸系统使用说明|Life 2026 — 没入システムの手引き|Life 2026 — 몰입 시스템 안내
+Life — Session setup|Life — ตั้งค่าชีวิต|Life — 人生设置|Life — セッション設定|Life — 세션 설정
+2026 · Version 1|2026 · รุ่น 1|2026 · 第1版|2026・バージョン1|2026 · 버전 1
+Immersion instructions|คู่มือระบบจำลองชีวิต|沉浸系统使用说明|没入システムの手引き|몰입 시스템 안내
+Settle into the chair.|เอนกายลงบนเก้าอี้|在座椅上躺好。|椅子に身をゆだねる。|의자에 몸을 맡기세요.
+Your body rests in the chair. A simulated lifetime unfolds around you. Choose your language and reading settings before entering.|ร่างกายพักอยู่บนเก้าอี้ ชีวิตจำลองค่อย ๆ คลี่ออก เลือกภาษาและขนาดข้อความก่อนเข้าไป|身体安歇在座椅中，一段模拟人生在周围展开。进入前请选择语言和阅读设置。|体は椅子に休み、周りにはひとつの人生が広がります。入る前に言語や文字の設定を選びます。|몸은 의자에서 쉬고, 주변에 하나의 가상 인생이 펼쳐집니다. 들어가기 전에 언어와 읽기 설정을 고르세요.
+Choose your starting conditions.|เลือกเงื่อนไขเริ่มต้น|选择初始条件。|はじめの条件を選ぶ。|시작 조건을 고르세요.
+Random is the default. You may choose a body profile, an upbringing range and a ten-point starting shape.|ค่าเริ่มต้นคือสุ่ม คุณเลือกสภาพร่างกาย ช่วงฐานะครอบครัว และคุณลักษณะเริ่มต้นสิบคะแนนได้|默认随机，也可以选择身体档案、成长资源范围和十点初始特质。|基本はランダムです。体のプロフィール、育つ環境の範囲、10ポイントの配分も選べます。|기본은 무작위입니다. 신체 프로필, 성장 환경의 범위, 10점의 초기 배분을 고를 수도 있습니다.
+Return to your record. See the decisions, people and events that shaped this life, then try another path.|กลับมาดูบันทึก ทางเลือก ผู้คน และเหตุการณ์ที่หล่อหลอมชีวิตนี้ แล้วลองอีกเส้นทาง|回到记录，查看塑造这段人生的决定、人物和事件，再尝试另一条路。|記録に戻り、この人生を形づくった選択、人々、出来事を見て、別の道も試せます。|기록으로 돌아와 이 삶을 만든 선택, 사람, 사건을 살펴보고 다른 길도 살아보세요.
+Plan for 70–80 simulated years. A life may end earlier. Choices begin at 10.|เตรียมใช้ชีวิตจำลอง 70–80 ปี ชีวิตอาจจบก่อนหน้านั้น เริ่มเลือกได้ตอนอายุ 10 ปี|为70至80年的模拟人生做准备，也可能提前结束。10岁开始选择。|70〜80年の人生を想定しますが、早く終わることもあります。選択は10歳からです。|70~80년의 가상 인생을 예상하지만 더 일찍 끝날 수도 있습니다. 선택은 10세부터 시작됩니다.
+Enter the system →|เข้าสู่ระบบ →|进入系统 →|システムに入る →|시스템 들어가기 →
+Life 2026 · Version 1 · Screen edition.|Life 2026 · รุ่น 1 · แบบหน้าจอ|Life 2026 · 第1版 · 屏幕版|Life 2026・バージョン1・画面版|Life 2026 · 버전 1 · 화면 버전
+A reclining person supported by the immersion chair|ผู้เอนกายบนเก้าอี้ระบบจำลองชีวิต|沉浸座椅承托着一个躺卧的人|没入用の椅子に横たわる人|몰입 의자에 기대어 누운 사람
+SESSION SETUP · SCREEN EDITION|ตั้งค่าชีวิต · แบบหน้าจอ|人生设置 · 屏幕版|セッション設定・画面版|세션 설정 · 화면 버전
+Who will you become?|คุณจะเป็นใคร|你会成为谁？|どんな人になるでしょう？|어떤 사람이 될까요?
+A life begins with conditions you did not earn. Let chance decide, or choose a starting range. Outcomes remain open.|ชีวิตเริ่มจากเงื่อนไขที่ไม่ได้หามาด้วยตัวเอง ปล่อยให้สุ่มหรือเลือกช่วงเริ่มต้นได้ ผลลัพธ์ยังเปิดกว้าง|人生始于并非靠自己赢得的条件。让随机决定，或选择起点范围。结果仍未确定。|人生は自分で得たのではない条件から始まります。偶然に任せるか、出発点の範囲を選ぶか。結末はまだ開かれています。|삶은 스스로 얻지 않은 조건에서 시작됩니다. 우연에 맡기거나 시작 범위를 고르세요. 결과는 아직 열려 있습니다.
+Enter a random life →|เข้าสู่ชีวิตแบบสุ่ม →|进入随机人生 →|ランダムな人生へ →|무작위 삶으로 →
+Ten points are a game constraint, not a biological law.|สิบคะแนนคือข้อจำกัดในเกม ไม่ใช่กฎทางชีววิทยา|十点是游戏限制，并非生物学定律。|10ポイントはゲームの制約で、生物学の法則ではありません。|10점은 게임의 제약이며 생물학 법칙이 아닙니다.
+Choose starting conditions|เลือกเงื่อนไขเริ่มต้น|选择初始条件|はじめの条件を選ぶ|시작 조건 고르기
+Sex-related body profile|ลักษณะร่างกายตามเพศ|与性别相关的身体档案|性に関わる体のプロフィール|성별 관련 신체 프로필
+Random|สุ่ม|随机|ランダム|무작위
+Female|หญิง|女性|女性|여성
+Male|ชาย|男性|男性|남성
+Intersex variation|ลักษณะเพศกำกวม|间性变异|インターセックスの多様性|간성 변이
+Upbringing range|ช่วงทรัพยากรเมื่อเติบโต|成长资源范围|育つ環境の範囲|성장 환경의 범위
+Limited household resources|ครอบครัวมีทรัพยากรจำกัด|家庭资源有限|家計の資源が限られる|가정의 자원이 적음
+Middle household resources|ครอบครัวมีทรัพยากรปานกลาง|家庭资源中等|家計の資源が中程度|가정의 자원이 중간
+Comfortable household resources|ครอบครัวมีทรัพยากรพร้อม|家庭资源充裕|家計の資源にゆとりがある|가정의 자원이 넉넉함
+These are fictional starting conditions. Sex does not set intelligence, empathy or career eligibility.|นี่คือเงื่อนไขจำลอง เพศไม่ได้กำหนดสติปัญญา ความเข้าใจผู้อื่น หรือสิทธิในการเลือกอาชีพ|这些是虚构初始条件。性别不决定智力、共情或职业资格。|これは架空の初期条件です。性が知性、共感、職業の資格を決めるものではありません。|이는 가상의 시작 조건입니다. 성별이 지능, 공감 능력, 직업 자격을 정하지 않습니다.
+Starting shape|คุณลักษณะเริ่มต้น|初始特质分布|はじめの配分|처음의 배분
+Choose an attribute, then adjust its points|เลือกคุณลักษณะ แล้วปรับคะแนน|选择特质，再调整点数|特性を選んでポイントを調整|특성을 고른 뒤 점수 조절
+Remove one point|ลดหนึ่งคะแนน|减少一点|1ポイント減らす|1점 빼기
+Add one point|เพิ่มหนึ่งคะแนน|增加一点|1ポイント加える|1점 더하기
+Select an attribute on the diagram. ± transfers a point to or from your largest other attribute.|เลือกคุณลักษณะบนแผนภาพ ± ย้ายหนึ่งคะแนนระหว่างข้อนี้กับข้ออื่นที่มีคะแนนมากที่สุด|选择图中的特质，±在此项与其他分数最高的特质间转移一点。|図の特性を選び、±でほかの最も高い項目と1ポイントを移します。|그림에서 특성을 고르고 ±로 다른 항목 중 가장 높은 항목과 1점을 주고받으세요.
+Begin this life →|เริ่มชีวิตนี้ →|开始这段人生 →|この人生をはじめる →|이 삶 시작하기 →
+Your starting record stays fixed. What you learn and how you live can change.|บันทึกเริ่มต้นคงเดิม แต่สิ่งที่เรียนรู้และวิธีใช้ชีวิตเปลี่ยนได้|起点记录保持不变，但学到的东西和生活方式可以改变。|出発点の記録は変わりませんが、学ぶことや生き方は変わります。|시작 기록은 유지되지만 배우는 것과 살아가는 방식은 바뀔 수 있습니다.
+This browser could not save the session. Allow local storage, then try again.|เบราว์เซอร์บันทึกชีวิตไม่ได้ โปรดอนุญาตพื้นที่เก็บข้อมูลแล้วลองใหม่|浏览器无法保存，请允许本地存储后重试。|ブラウザに保存できません。ローカル保存を許可して再試行してください。|브라우저에 저장하지 못했습니다. 로컬 저장을 허용하고 다시 시도하세요.
+Body, mind & personality|ร่างกาย จิตใจ และบุคลิกภาพ|身体、心智与人格|体、心、性格|몸, 마음, 성격
+Body, mind and experience|ร่างกาย จิตใจ และประสบการณ์|身体、心智与经历|体、心、経験|몸, 마음, 경험
+Game indices, not psychological tests. Big Five traits are separate from reasoning and emotional skills.|ค่าดัชนีในเกม ไม่ใช่แบบทดสอบจิตวิทยา บุคลิกภาพห้าด้านแยกจากการใช้เหตุผลและทักษะอารมณ์|这些是游戏指标，不是心理测验。大五人格不同于推理和情绪技能。|ゲームの指標で、心理検査ではありません。ビッグファイブは思考力や感情の技能とは別です。|게임 지표이며 심리 검사가 아닙니다. 빅 파이브는 추론, 정서적 기술과 별개입니다.
+Body strength|ความแข็งแรง|身体力量|体の強さ|신체의 힘
+Athleticism|ความสามารถทางกีฬา|运动能力|運動能力|운동 능력
+Reasoning · game index|การใช้เหตุผล · ดัชนีเกม|推理 · 游戏指标|思考力・ゲーム指標|추론 · 게임 지표
+Emotional skills · game index|ทักษะอารมณ์ · ดัชนีเกม|情绪技能 · 游戏指标|感情の技能・ゲーム指標|정서적 기술 · 게임 지표
+Empathy · game index|ความเข้าใจผู้อื่น · ดัชนีเกม|共情 · 游戏指标|共感・ゲーム指標|공감 · 게임 지표
+Your dispositions|แนวโน้มบุคลิกภาพ|性格倾向|あなたの傾向|성격의 경향
+Thin marks show your starting record. Filled bars show the current model.|ขีดบางคือค่าเริ่มต้น แถบทึบคือค่าปัจจุบันในแบบจำลอง|细线为初始记录，实心条为模型当前数值。|細い印は出発点、塗られた棒は今のモデルの値です。|가는 표시는 시작 기록, 채워진 막대는 현재 모델의 값입니다.
+Openness|เปิดรับประสบการณ์|开放性|開放性|개방성
+Conscientiousness|ความมีวินัย|尽责性|誠実性|성실성
+Extraversion|การแสดงออกต่อสังคม|外向性|外向性|외향성
+Agreeableness|ความร่วมมือประนีประนอม|宜人性|協調性|우호성
+Emotional sensitivity|ความไวต่ออารมณ์|情绪敏感性|情緒の敏感さ|정서적 민감성
+Traits suggest challenges, not career bans. Wellbeing is not a dopamine measurement.|บุคลิกภาพบอกความท้าทาย ไม่ได้ห้ามเลือกอาชีพ ความเป็นอยู่ที่ดีไม่ใช่ค่าดอปามีน|人格提示挑战，不禁止职业选择。幸福感不是多巴胺测量。|性格は課題の手がかりで、職業を禁じるものではありません。充実感はドーパミンの測定値ではありません。|성격은 도전의 단서이며 직업을 금지하지 않습니다. 삶의 만족은 도파민 측정치가 아닙니다.
+Comparison: alternate paths from the same starting conditions. This is not a population average.|เปรียบเทียบทางเลือกจำลองจากจุดเริ่มต้นเดียวกัน ไม่ใช่ค่าเฉลี่ยประชากร|比较相同起点的不同模拟路径，并非人口平均。|同じ出発点からの別の道と比較します。人口の平均ではありません。|같은 시작 조건의 다른 가상 경로와 비교합니다. 인구 평균이 아닙니다.
+Modeled mean: {value} · {n} paths|ค่าเฉลี่ยจำลอง: {value} · {n} เส้นทาง|模拟均值：{value} · {n}条路径|モデル平均：{value}・{n}の道|모델 평균: {value} · {n}개 경로
+`.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+One complete original-game life was studied, including its ending. Other branches remain untested.|ศึกษาต้นฉบับครบหนึ่งชีวิตจนจบ เส้นทางอื่นยังไม่ได้ทดสอบ|已研究原作一段完整人生及其结局，其他分支尚未测试。|原作のひとつの人生を結末まで調べました。ほかの分岐は未検証です。|원작의 한 삶을 결말까지 연구했습니다. 다른 분기는 아직 시험하지 않았습니다.
+Inherited differences and environments interact. Heritability describes population variation, not an unchangeable percentage of a person.|ความแตกต่างที่สืบทอดและสิ่งแวดล้อมมีปฏิสัมพันธ์กัน อัตราพันธุกรรมอธิบายความแปรผันในประชากร ไม่ใช่สัดส่วนตายตัวในตัวบุคคล|遗传差异与环境相互作用。遗传率描述群体差异，并非一个人不可改变的百分比。|受け継いだ違いと環境は相互に働きます。遺伝率は集団のばらつきであり、個人の変わらない割合ではありません。|물려받은 차이와 환경은 상호작용합니다. 유전율은 집단의 차이를 설명하며 한 개인의 바뀌지 않는 비율이 아닙니다.
+Big Five traits, reasoning, emotional skills and empathy are distinct. Personality can change. No trait prohibits a career.|บุคลิกภาพห้าด้าน การใช้เหตุผล ทักษะอารมณ์ และความเข้าใจผู้อื่นเป็นคนละเรื่อง บุคลิกภาพเปลี่ยนได้ และไม่ได้ห้ามเลือกอาชีพ|大五人格、推理、情绪技能和共情各不相同。人格可以改变，没有哪种特质能禁止某个职业。|ビッグファイブ、思考力、感情の技能、共感は別のものです。性格は変わり得ます。性格で職業を禁じることはできません。|빅 파이브, 추론, 정서적 기술, 공감은 서로 다릅니다. 성격은 바뀔 수 있으며 어떤 특성도 직업을 금지하지 않습니다.
+These game indices are not psychological tests or dopamine measurements. Comparisons use modeled paths, not a real population average.|ดัชนีเกมไม่ใช่แบบทดสอบจิตวิทยาหรือค่าดอปามีน การเปรียบเทียบใช้เส้นทางจำลอง ไม่ใช่ค่าเฉลี่ยประชากรจริง|游戏指标并非心理测验或多巴胺测量，比较对象是模拟路径，不是真实人口平均。|ゲームの指標は心理検査やドーパミン測定ではありません。比較するのはモデルの道で、実際の人口平均ではありません。|게임 지표는 심리 검사나 도파민 측정이 아닙니다. 실제 인구 평균이 아닌 가상 경로와 비교합니다.
+The world behind the chair|โลกเบื้องหลังเก้าอี้|座椅背后的世界|椅子の向こうの世界|의자 너머의 세계
+The chair-service premise draws on the author's Two Layers and The Convenience. This software does not claim to provide physical immersion or medical treatment.|แนวคิดบริการเก้าอี้มาจาก Two Layers และ The Convenience ของผู้เขียน ซอฟต์แวร์นี้ไม่ได้อ้างว่าให้การดื่มด่ำทางร่างกายหรือการรักษา|座椅服务的设定来自作者的Two Layers和The Convenience。本软件不声称提供身体沉浸或医疗治疗。|椅子のサービスの設定は作者のTwo LayersとThe Convenienceに基づきます。このソフトは身体的な没入や医療の提供をうたうものではありません。|의자 서비스의 설정은 작가의 Two Layers와 The Convenience에서 왔습니다. 이 소프트웨어는 신체적 몰입이나 의료 제공을 주장하지 않습니다.
+Universe 25 was an enclosed-mouse experiment, not proof that human prosperity causes extinction.|Universe 25 เป็นการทดลองหนูในพื้นที่ปิด ไม่ใช่หลักฐานว่าความมั่งคั่งทำให้มนุษย์สูญพันธุ์|Universe 25是封闭环境中的小鼠实验，不能证明人类繁荣导致灭绝。|ユニバース25は閉鎖空間のマウス実験で、人の繁栄が絶滅を招く証拠ではありません。|유니버스 25는 밀폐 공간의 생쥐 실험이며 인간의 풍요가 멸종을 초래한다는 증거가 아닙니다.
+`.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+About the comparison|เกี่ยวกับการเปรียบเทียบ|关于比较|比較について|비교 안내
+Modeled mean: {value}|ค่าเฉลี่ยจำลอง: {value}|模拟均值：{value}|モデル平均：{value}|모델 평균: {value}
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Effort|การทุ่มเท|投入|力の配分|노력
+{count} / {total} alternate paths reached age {n}.|เส้นทางทางเลือก {count} / {total} เส้นทางมาถึงอายุ {n} ปี|{count} / {total} 条替代路径到达了 {n} 岁。|別の道のうち {count} / {total} が {n} 歳に達しました。|다른 경로 {count} / {total}개가 {n}세에 도달했습니다.
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Opening Life…|กำลังเปิด Life…|正在开启 Life…|Lifeを開いています…|Life를 여는 중…
+Life could not open. Please reload to try again.|เปิด Life ไม่สำเร็จ โปรดลองโหลดใหม่|Life 无法开启，请重新加载。|Lifeを開けませんでした。再読み込みしてください。|Life를 열 수 없습니다. 다시 불러와 주세요.
+Reload Life|โหลด Life ใหม่|重新加载 Life|Lifeを再読み込み|Life 다시 불러오기
+Before your first breath.|ก่อนลมหายใจแรกของคุณ|在你的第一次呼吸之前。|はじめて息をする、その前に。|첫 숨을 쉬기 전에.
+Before birth|ก่อนเกิด|出生之前|生まれる前|태어나기 전
+A baby held within the womb|ทารกในครรภ์มารดา|在子宫中的婴儿|子宮に包まれた赤ちゃん|자궁 안의 아기
+Revisit the previous year|ย้อนดูปีก่อน|回看上一年|前年を振り返る|지난해 돌아보기
+Return to now|กลับมาปัจจุบัน|回到现在|今に戻る|현재로 돌아오기
+Your mother’s world becomes yours.|โลกของแม่กลายเป็นโลกของคุณ|母亲的世界成为了你的世界。|お母さんの世界が、あなたの世界になる。|엄마의 세상이 당신의 세상이 됩니다.
+Your family makes room for a newborn. Care comes before any ambition.|ครอบครัวเตรียมที่ให้สมาชิกใหม่ การดูแลมาก่อนความทะเยอทะยานใด ๆ|家人为新生儿腾出空间，照料先于一切抱负。|家族は新しい命を迎えます。どんな夢よりも、まず世話をすること。|가족은 새 생명을 맞이합니다. 어떤 꿈보다 돌봄이 먼저입니다.
+Your first steps.|ก้าวแรกของคุณ|你的第一步。|はじめの一歩。|첫걸음.
+Your family takes turns caring for you while keeping the household running.|คนในครอบครัวผลัดกันดูแลคุณ พร้อมกับดูแลบ้านและปากท้อง|家人轮流照顾你，同时维持家庭生活。|家族は暮らしを支えながら、交代であなたの世話をします。|가족은 살림을 꾸리며 번갈아 당신을 돌봅니다.
+A world beyond home.|โลกที่กว้างกว่าบ้าน|家门之外的世界。|家の外にも世界がある。|집 밖의 세상.
+Relatives and neighbours become familiar. Your family chooses who can help with care.|ญาติและเพื่อนบ้านเริ่มคุ้นหน้า ครอบครัวเลือกคนที่จะช่วยดูแลคุณ|亲戚和邻居变得熟悉，家人决定请谁帮忙照顾你。|親戚や近所の人が身近になり、家族は世話を頼める人を考えます。|친척과 이웃이 친숙해집니다. 가족은 돌봄을 도와줄 사람을 정합니다.
+Your family chooses a school.|ครอบครัวเลือกโรงเรียนให้คุณ|家人为你选择学校。|家族が学校を選ぶ。|가족이 학교를 고릅니다.
+The nearby public school keeps travel and school costs within reach.|โรงเรียนรัฐใกล้บ้านช่วยให้ค่าเดินทางและค่าเรียนอยู่ในกำลังจ่าย|附近的公立学校让交通和学习费用在承受范围内。|近くの公立校なら、通学費や学用品代をまかなえます。|가까운 공립학교라면 통학비와 학습비를 감당할 수 있습니다.
+Your family can afford a school farther away and activities after class.|ครอบครัวมีกำลังส่งคุณไปโรงเรียนไกลขึ้นและทำกิจกรรมหลังเลิกเรียน|家人负担得起更远的学校和课外活动。|家族には、少し遠い学校や放課後の活動を選ぶ余裕があります。|가족은 더 먼 학교와 방과 후 활동 비용을 감당할 수 있습니다.
+Your family chooses a public school and sets aside money for books and transport.|ครอบครัวเลือกโรงเรียนรัฐ และกันเงินไว้สำหรับหนังสือกับค่าเดินทาง|家人选择公立学校，为书本和交通预留费用。|家族は公立校を選び、本や通学の費用を取り分けます。|가족은 공립학교를 고르고 책과 교통비를 마련합니다.
+You begin to imagine another life.|คุณเริ่มจินตนาการถึงชีวิตที่ต่างออกไป|你开始想象另一种生活。|別の生き方を想像しはじめる。|다른 삶을 상상하기 시작합니다.
+You hear about people who study, work, make things and take unfamiliar paths. Soon the choices will be yours.|คุณได้ยินเรื่องคนที่เรียน ทำงาน สร้างสรรค์ และเดินทางที่ไม่คุ้นเคย อีกไม่นานคุณจะได้เลือกเอง|你听说有人求学、工作、创造，走上陌生的道路。很快就轮到你选择。|学び、働き、ものを作り、知らない道を歩く人の話を聞きます。もうすぐ、あなたが選ぶ番です。|배우고 일하고 만들며 낯선 길을 걷는 사람들의 이야기를 듣습니다. 곧 당신이 선택할 차례입니다.
+Family income · ฿{value} / year · game scenario|รายได้ครอบครัว · ฿{value} / ปี · สถานการณ์ในเกม|家庭收入 · ฿{value} / 年 · 游戏情境|世帯収入 · ฿{value} / 年 · ゲームの設定|가족 소득 · 연 ฿{value} · 게임 설정
+`.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+Education and work|การศึกษาและการทำงาน|教育与工作|学びと仕事|교육과 일
+Continue school|เรียนต่อ|继续上学|学校を続ける|학교 계속 다니기
+Train through an apprenticeship|ฝึกอาชีพกับผู้มีประสบการณ์|通过学徒制学习|見習いとして学ぶ|견습으로 배우기
+Try independent work|ลองทำงานอิสระ|尝试独立工作|自分の仕事に挑む|독립적인 일 시도하기
+Attend college|เรียนมหาวิทยาลัย|上大学|大学で学ぶ|대학 진학하기
+Take a salaried job|ทำงานรับเงินเดือน|从事受薪工作|給与のある仕事に就く|급여를 받는 일 하기
+Costs, family support and uncertain earnings shape this route. No path guarantees wealth.|ค่าใช้จ่าย แรงสนับสนุนจากครอบครัว และรายได้ที่ไม่แน่นอนกำหนดเส้นทางนี้ ไม่มีทางไหนรับประกันความมั่งคั่ง|费用、家庭支持和不确定的收入影响这条路。没有道路保证财富。|費用、家族の支え、不確かな収入がこの道を形づくります。裕福になれる保証はありません。|비용과 가족의 지원, 불확실한 소득이 이 길을 만듭니다. 어떤 길도 부를 보장하지 않습니다.
+You continued school. Family support helped with books and travel.|คุณเรียนต่อ ครอบครัวช่วยเรื่องหนังสือและค่าเดินทาง|你继续上学，家人的支持帮助支付书本和交通。|学校を続けました。家族の支えが本や通学の費用を助けました。|학교를 계속 다녔습니다. 가족이 책과 통학비를 도왔습니다.
+College brought study costs and more time to learn. A degree does not guarantee a job.|มหาวิทยาลัยมีค่าเรียนและให้เวลาคุณเรียนรู้มากขึ้น ปริญญาไม่ได้รับประกันงาน|大学带来了学习费用和更多学习时间，学历不保证就业。|大学では費用がかかる一方、学ぶ時間が増えました。学位は仕事を保証しません。|대학은 학비와 더 많은 배움의 시간을 가져왔습니다. 학위가 일자리를 보장하지는 않습니다.
+An apprenticeship paid a little while you learned through work.|คุณได้เงินเล็กน้อยขณะฝึกอาชีพและเรียนรู้จากงานจริง|当学徒时，你在工作中学习，也得到少量收入。|見習いの仕事では、少しの収入を得ながら実務を学びました。|견습으로 일하며 배우고 적은 수입을 얻었습니다.
+Your independent project found paying customers.|โครงการอิสระของคุณเริ่มมีลูกค้าที่จ่ายเงิน|你的独立项目找到了付费客户。|自分の企画に、お金を払ってくれるお客さんがつきました。|독립 프로젝트에 돈을 내는 고객이 생겼습니다.
+Independent work brought uneven income. The project cost more than it earned.|งานอิสระมีรายได้ไม่สม่ำเสมอ โครงการมีค่าใช้จ่ายมากกว่ารายรับ|独立工作的收入不稳定，项目支出超过了收入。|独立した仕事の収入は不安定で、企画は収入より費用がかかりました。|독립적인 일의 소득은 불규칙했습니다. 프로젝트 비용이 수입보다 컸습니다.
+Regular work supported the household. You learned on the job.|งานประจำช่วยเลี้ยงครอบครัว คุณเรียนรู้จากงานที่ทำ|固定工作支持了家庭，你在岗位上学习。|定期的な仕事が家計を支え、働きながら学びました。|정기적인 일이 가계를 지탱했습니다. 일하면서 배웠습니다.
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Your family decides|ครอบครัวเป็นผู้ตัดสินใจ|家人做决定|家族が選ぶ|가족이 결정합니다
+Looking back|ย้อนดูความทรงจำ|回望过去|振り返る|돌아보기
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Begin in the womb. Watch the countdown, your birth and the family decisions that shape childhood.|เริ่มในครรภ์ ดูการนับถอยหลัง การเกิด และการตัดสินใจของครอบครัวที่หล่อหลอมวัยเด็ก|从子宫中开始。观看倒计时、出生，以及塑造童年的家庭决定。|子宮の中から始まります。カウントダウン、誕生、幼少期を形づくる家族の選択を見守ります。|자궁 안에서 시작합니다. 카운트다운과 탄생, 어린 시절을 만드는 가족의 결정을 지켜보세요.
+Choose your starting shape before birth. From 10, direct your effort; education and work routes open at 15.|เลือกคุณลักษณะเริ่มต้นก่อนเกิด เมื่ออายุ 10 ปีเริ่มกำหนดสิ่งที่ทุ่มเท เส้นทางเรียนและงานเปิดเมื่ออายุ 15 ปี|出生前选择初始特质。10岁开始分配精力，15岁开启教育和工作路线。|生まれる前に最初の形を選びます。10歳から力の配分を決め、15歳で学びと仕事の道が開きます。|태어나기 전 시작 특성을 고릅니다. 10세부터 노력을 배분하고 15세부터 교육과 일의 길이 열립니다.
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+← Previous year|← ปีก่อน|← 上一年|← 前年|← 지난해
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+At modeled mean|เท่าค่าเฉลี่ยจำลอง|与模拟均值相同|モデル平均と同じ|모델 평균과 같음
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Habits & relationships|นิสัยและความสัมพันธ์|习惯与关系|習慣と関係|습관과 관계
+`.trim().split('\n').map(line=>line.split('|')));

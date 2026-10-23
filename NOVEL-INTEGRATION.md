@@ -1,0 +1,15 @@
+# Life v1.0 — 2026 intake
+
+Authorized latest direction: turn the illustrated manual into the immersion service from the author's fictional world, then offer constrained initial conditions before birth. Preserve existing five-language settings, records, charts and world; retain previous manual in git history. No edits to100daysofnon.
+
+Read:100daysofnon/context.md; novel/BIBLE.md world/canon and story contract;00-opening; archive portions of all ten layers-chapters, opening and ending narratives; site/experience mechanics. Source has uncommitted work; read only. Primary motifs: wide-armed white composite chair, Chair44, Authentic Inconvenience, a lifetime made meaningful through particular human obligations, time compression, records that distinguish observation and speculation. Source canon intake2031/archive3026; this2026service is an author-requested earlier v1 prototype, not a replacement for those dates. Do not import the story's extraction/atrophy protocol as a real game safety rule. Player can pause and leave.
+
+Composition: same two-page assembly manual; replace first diagram with reclining body/chair. Pages explain settle→choose conditions→live→return.2026 screen edition is in-world fiction. Contact-lens/cortical technology is speculative worldbuilding, not a medical or product capability claim.70–80years is a simulated-life expectation, not guaranteed survival or elapsed browser time.
+
+Intake: new /intake step. Default random; optional sex-related body profile and upbringing band. Attributes consume10points in a radar editor; no real IQ test or DNA predictor. Random and custom are both playable. These fields affect only documented starting state, not assumed morality, intelligence by sex/class, or guaranteed outcomes. Initial attributes fixed when born; training effort reviewed from10. Existing saved lives without intake continue unchanged. New life returns to intake. Cash presets authored game conditions, not Thai income data.
+
+Academic boundaries: Pinker's The Blank Slate is conceptual reading. Polderman2015andDeary2021summarize genetic variation, not immutable individual destiny; no per-person heritability pie chart. Gene/environment effects interact. Universe25isCalhoun1973: enclosed mice with unlimited food/water but constrained space/social conditions, not proof that humans need suffering or that prosperity causes extinction. Add linked research note; user-authored fiction premise remains legitimate fiction.
+
+Files: dist/start manual/content; new dist/intake HTML/CSS/JS and course/intake-model.js; targeted sim/game integration and translations; build routes; tests for random reproducibility, budget, presets, save compatibility and effort/attributes separation. Verify root→intake→birth→age10→five-yearcommit,5languages, large text, settings, no overflow and independent screenshot review. Publication remains subject to stated visual gates.
+
+Latest owner correction: release is Life2026version1, the massage-chair service software being built in this session.2030was an earlier framing and is superseded. Use2026/v1 consistently; do not claim physical immersion hardware exists.

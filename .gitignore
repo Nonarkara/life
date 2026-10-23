@@ -3,3 +3,5 @@
 .openai/*.local.*
 
 out/
+
+node_modules/

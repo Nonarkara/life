@@ -36,7 +36,7 @@ poly([[4,3.13,.8],[5.6,3.13,.8],[5.6,3.13,1.6],[4,3.13,1.6]],'#78958b');line([4.
 const objects=[];const add=(depth,fn)=>objects.push({depth,fn});
 add(7.4,()=>{const f=furniture[0];box(f.x,f.y,.2,f.w,f.d,.4,C.wood);box(3.3,3.5,.6,1.15,1.7,.12,C.paper);box(3.3,4,.73,1.15,1.2,.04,'#6a8a75');box(3.45,3.6,.73,.8,.3,.04,C.paper);});
 // Cradle stays in the same place through infancy and childhood.
-add(10,()=>{const f=furniture[1];box(f.x,f.y,.2,f.w,f.d,.45,C.wood);box(4.68,4.68,.65,.94,.74,.04,C.paper);if(age<3){box(4.85,4.9,.7,.6,.35,.1,C.amber,C.amber,C.amber);box(5.45,4.9,.7,.22,.35,.1,'#d3ad85','#d3ad85','#d3ad85');const eye=p(5.55,5.1,.81);c.fillStyle=C.ink;c.fillRect(eye[0],eye[1],.5,.5);}for(let x=4.6;x<5.8;x+=.2)box(x,5.45,.65,.025,.025,.3,C.wood);box(4.6,5.45,.95,1.1,.03,.03,C.wood);});
+add(10,()=>{const f=furniture[1];box(f.x,f.y,.2,f.w,f.d,.45,C.wood);box(4.68,4.68,.65,.94,.74,.04,C.paper);if(age<1){box(4.85,4.9,.7,.6,.35,.1,C.amber,C.amber,C.amber);box(5.45,4.9,.7,.22,.35,.1,'#d3ad85','#d3ad85','#d3ad85');const eye=p(5.55,5.1,.81);c.fillStyle=C.ink;c.fillRect(eye[0],eye[1],.5,.5);}for(let x=4.6;x<5.8;x+=.2)box(x,5.45,.65,.025,.025,.3,C.wood);box(4.6,5.45,.95,1.1,.03,.03,C.wood);});
 add(10,()=>{const f=furniture[2],seat=furniture[3];box(f.x,f.y,.2,f.w,f.d,.7,C.wood);box(6.1,3.7,.91,.4,.3,.02,C.paper);box(seat.x,seat.y,.2,seat.w,seat.d,.35,C.wood);});
 add(6,()=>tree(1,4));add(16,()=>tree(9,6));add(6,()=>tree(4,1));add(20,()=>tree(5,15));add(26,()=>tree(14,12));
 add(6,()=>building(-.5,-.5,2.5,2,1.4,'MARKET'));add(12,()=>building(9,-1,3,2,1.8,'SCHOOL'));add(18,()=>building(11,3,3,2,2,'WORK'));add(22,()=>building(1,11,2.3,2,1.6,'CLINIC'));
@@ -66,7 +66,7 @@ const goal=state.profiles.at(-1)?.profile.aim??'balance';
 const mom=routine('mother',age,time,goal),dad=routine('father',age,time,goal);
 if(age<70)add(mom.x+mom.y,()=>person(mom.x,mom.y,'#708a79',ground(mom.x,mom.y),1,mom));
 if(age<55)add(dad.x+dad.y,()=>person(dad.x,dad.y,'#9a7a56',ground(dad.x,dad.y),1,dad));
-if(age>=3){const child=routine('player',age,time,goal);add(child.x+child.y,()=>{const floor=ground(child.x,child.y),q=p(child.x,child.y,floor+.01);c.strokeStyle=C.amber;c.lineWidth=.5;c.beginPath();c.ellipse(q[0],q[1],5,2,0,0,Math.PI*2);c.stroke();person(child.x,child.y,C.amber,floor,age<10?.65:age>=65?.95:1,child);});}
+if(age>=1){const child=routine('player',age,time,goal);add(child.x+child.y,()=>{const floor=ground(child.x,child.y),q=p(child.x,child.y,floor+.01);c.strokeStyle=C.amber;c.lineWidth=.5;c.beginPath();c.ellipse(q[0],q[1],5,2,0,0,Math.PI*2);c.stroke();person(child.x,child.y,C.amber,floor,age<10?.65:age>=65?.95:1,child);});}
 if(age>=6){add(15,()=>person(8.4,6.4,'#c1ac76',0,.7));add(16,()=>person(9.2,6.4,'#7b8c9b',0,.7));}
 if(age>=10){add(18,()=>{person(11.4,5.7,'#a8ac8e',0);});add(8,()=>{person(8.4,0,'#9b8979',0);});}
 objects.sort((a,b)=>a.depth-b.depth);objects.forEach(o=>o.fn());
