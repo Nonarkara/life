@@ -13,7 +13,7 @@ Verified in this build:
 - Resource histories, named event symbols, modeled comparison and replay.
 - English, Thai, Chinese, Japanese and Korean phrase coverage; Thai route UI exercised.
 - Independent source and screenshot review at phone/tablet/desktop; rendered work/return frames.
-- 46 simulation/translation/path tests pass. Browser opening, memory viewing and independent-work loss exercised.
+- 49 simulation/translation/path tests pass. Browser opening, memory viewing and independent-work loss exercised.
 
 Not yet achieved:
 - Public custom-domain deployment, anonymous access and live-domain verification.

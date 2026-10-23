@@ -5,7 +5,7 @@ const order=['th','zh-CN','ja','ko'];
 export function translate(input,language='en'){
  if(language==='en'||!order.includes(language)||!input)return input;
  const source=String(input),index=order.indexOf(language),direct=dictionary.get(source);if(direct)return direct[index];
- for(const[key,values]of dictionary){if(!key.includes('{'))continue;const names=[];const pattern=key.split(/(\{\w+\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),/^\{(n|a|b)\}$/.test(part)?'([0-9]+)':'(.+?)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');const match=source.match(new RegExp('^'+pattern+'$'));if(match){let result=values[index];names.forEach((name,i)=>{result=result.replaceAll('{'+name+'}',translate(match[i+1],language));});return result;}}
+ for(const[key,values]of [...dictionary].filter(([key])=>key.includes('{')).sort((a,b)=>b[0].replace(/\{\w+\}/g,'').length-a[0].replace(/\{\w+\}/g,'').length)){const names=[];const pattern=key.split(/(\{\w+\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),/^\{(n|a|b)\}$/.test(part)?'([0-9]+)':'(.+?)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');const match=source.match(new RegExp('^'+pattern+'$'));if(match){let result=values[index];names.forEach((name,i)=>{result=result.replaceAll('{'+name+'}',translate(match[i+1],language));});return result;}}
  // Generated recap/captions join individually authored phrases and numbers.
  let result=source;
  // Named story sentences also occur inside longer life-record paragraphs.

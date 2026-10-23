@@ -58,3 +58,10 @@ Use explicit type hierarchy and compact controls; never shrink essential text
 to conceal an oversized layout. Test a sparse beginning and a dense late life,
 not just a flattering middle state. Study retention through observed choices and
 callbacks; do not claim addictiveness from popularity or imitate coercive loops.
+
+## Ending correction: diagrams must explain something
+The owner rejected the narrow diagonal isometric course surrounded by decorative
+ocean and nested rectangles. The ending leads with actual trajectories over age
+and the divergences between resources. A memory list cannot substitute for visual
+analysis. Optional source records and the world remain available, not dominant.
+Do not label every life an S-curve or invent a single scale mixing cash and health.

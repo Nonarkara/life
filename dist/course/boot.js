@@ -4,10 +4,10 @@ try {
   document.body.classList.remove('loading');
   document.getElementById('load-state').remove();
 } catch (error) {
-  console.error('Life could not open', error);
+  console.error('Life2.0 could not open', error);
   const status=document.getElementById('load-state');
-  status.textContent='Life could not open. Please reload to try again.';
+  status.textContent='Life2.0 could not open. Please reload to try again.';
   const retry=document.createElement('button');
-  retry.type='button';retry.textContent='Reload Life';retry.onclick=()=>location.reload();
+  retry.type='button';retry.textContent='Reload Life2.0';retry.onclick=()=>location.reload();
   status.append(document.createElement('br'),retry);
 }
