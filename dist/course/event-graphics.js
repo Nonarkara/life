@@ -1,0 +1,2 @@
+export const symbolPaths={cross:'M-2-6H2V-2H6V2H2V6H-2V2H-6V-2H-2Z',square:'M-5-5H5V5H-5Z',diamond:'M0-6L6 0L0 6L-6 0Z',triangle:'M0-6L6 5H-6Z',circle:'M0-5A5 5 0 1 1 0 5A5 5 0 1 1 0-5',wave:'M-7-2Q-3-7 0-2T7-2M-7 4Q-3-1 0 4T7 4'};
+export function symbolMarkup(symbol){return `<svg viewBox="-9 -9 18 18" aria-hidden="true"><path d="${symbolPaths[symbol]??symbolPaths.circle}" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>`;}

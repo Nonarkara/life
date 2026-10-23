@@ -1,10 +1,12 @@
+import {t,preferences} from './i18n.js';
+import {lifeMood,MOOD_CHORDS} from './events.js';
 import {AXES} from './sim.js';
 import {furniture} from './layout.js';
 import {routine} from './routines.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 export function drawWorld(canvas,state,age,time,mode='world'){
-const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
+Object.assign(C,MOOD_CHORDS[lifeMood(state)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawCourse(c,state);finish();return;}
 const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:1.7)*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance'),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);
@@ -12,7 +14,7 @@ const p=(x,y,z=0)=>[(x-y)*15,(x+y)*7.5-z*15];
 function poly(v,col){c.beginPath();v.forEach((a,i)=>i?c.lineTo(...p(...a)):c.moveTo(...p(...a)));c.closePath();c.fillStyle=col;c.fill();}
 function box(x,y,z,w,d,h,top=C.paper,side=C.shade,front=C.wall){poly([[x,y,z],[x,y+d,z],[x,y+d,z+h],[x,y,z+h]],side);poly([[x,y+d,z],[x+w,y+d,z],[x+w,y+d,z+h],[x,y+d,z+h]],front);poly([[x,y,z+h],[x+w,y,z+h],[x+w,y+d,z+h],[x,y+d,z+h]],top);}
 function line(a,b,col,w=.4){c.beginPath();c.moveTo(...p(...a));c.lineTo(...p(...b));c.strokeStyle=col;c.lineWidth=w;c.stroke();}
-function label(x,y,text){const q=p(x,y,.1);c.font='5px Jost';c.textAlign='center';c.fillStyle=C.ink;c.fillText(text,...q);}
+function label(x,y,text){const q=p(x,y,.1);c.font='5px '+worldFont();c.textAlign='center';c.fillStyle=C.ink;c.fillText(t(text),...q);}
 function tree(x,y){box(x,y,0,.15,.15,1.2,C.wood,C.wood,C.wood);box(x-.45,y-.45,1,1,1,.65,C.lightleaf,C.leaf,C.leaf);box(x-.25,y-.25,1.65,.6,.6,.35,C.lightleaf,C.leaf,C.leaf);}
 function building(x,y,w,d,h,name){box(x,y,0,w,d,h);box(x-.15,y-.15,h,w+.3,d+.3,.2,C.roofLight,C.roof,C.roof);for(let a=x+.3;a<x+w-.3;a+=.6){poly([[a,y+d+.01,.5],[a+.3,y+d+.01,.5],[a+.3,y+d+.01,1],[a,y+d+.01,1]],'#526b61');}box(x+w*.45,y+d,.02,.5,.12,.9,C.wood,C.wood,C.wood);if(age>=10)label(x+w/2,y+d+.6,name);}
 // Persistent land, coast and water exist before the camera can see them.
@@ -88,7 +90,9 @@ function drawCourse(c,s){
  c.strokeStyle='#eee2bc';c.lineWidth=2;c.setLineDash([4,4]);c.beginPath();pts.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.stroke();c.setLineDash([]);
  const actual=s.history.map(r=>{const base=pts[Math.round(r.age/5)],diff=AXES.reduce((n,a)=>n+Math.abs(r.effort[a.key]-(s.original?.[a.key]??2)),0);return[base[0],base[1]+diff*1.5+(r.setback>0?10:0)];});
  c.strokeStyle=C.amber;c.lineWidth=3;c.beginPath();actual.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.stroke();
- for(let i=0;i<pts.length;i++){const[x,y]=pts[i];c.fillStyle=i*5<=s.age?C.amber:C.paper;c.fillRect(x-2,y-2,4,4);c.fillStyle='#142c2b';c.font='600 8px Jost';c.textAlign='center';c.fillText(String(i*5),x,y+(i%2===0?18:-12));}
+ for(let i=0;i<pts.length;i++){const[x,y]=pts[i];c.fillStyle=i*5<=s.age?C.amber:C.paper;c.fillRect(x-2,y-2,4,4);c.fillStyle='#142c2b';c.font='600 8px '+worldFont();c.textAlign='center';c.fillText(String(i*5),x,y+(i%2===0?18:-12));}
  for(const[x,y]of actual){c.fillStyle=C.amber;c.fillRect(x-3,y-3,6,6);}
- c.fillStyle='#193f3c';c.fillRect(0,0,560,47);c.fillRect(0,304,560,36);c.fillStyle=C.paper;c.font='600 12px Jost';c.textAlign='left';c.fillText('THE COURSE OF A LIFE',16,20);c.font='8px Jost';c.fillText('Amber: lived path     Dashed: age stations still ahead',16,36);c.fillText('Detours record changed priorities and disruptive events.',16,319);if(s.death)c.fillText('Life ended at '+s.age+'. The remaining years were never promised.',16,332);
+ c.fillStyle='#193f3c';c.fillRect(0,0,560,47);c.fillRect(0,304,560,36);c.fillStyle=C.paper;c.font='600 12px '+worldFont();c.textAlign='left';c.fillText(t('THE COURSE OF A LIFE'),16,20);c.font='8px '+worldFont();c.fillText(t('Amber: lived path     Dashed: age stations still ahead'),16,36);c.fillText(t('Detours record changed priorities and disruptive events.'),16,319);if(s.death)c.fillText(t('Life ended at '+s.age+'. The remaining years were never promised.'),16,332);
 }
+
+function worldFont(){return preferences.language==='th'?'Prompt':preferences.language==='zh-CN'?'Noto Sans SC':preferences.language==='ja'?'Noto Sans JP':preferences.language==='ko'?'Noto Sans KR':'Jost';}

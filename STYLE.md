@@ -33,3 +33,11 @@ The ten-point distribution is a game constraint, not a biological law. Health, w
 Read the newer remote Palette tree at `cc80399` without merging over its local edits. Relevant additions: DESIGN-STYLES.md (Core → Tension → 2–3 styles → deliberate break → geometry check), ANTI-SPATIAL-HALLUCINATION.md (relationships and image roles), REMEDIES.md §6 (arrange, do not fill), FIGMA-PRINCIPLES.md (proximity and proportion), STYLE.md and the design-brief/lint guidance. Palette-specific product rules are not automatically rules for this game.
 
 Two compositions considered: a form with a thumbnail world, and an inhabited world with compact attached decisions. The owner's feedback selects the second. No new decorative style layer is justified by this study.
+
+
+## Manual, language and mood extension
+Intent: explain play through four original line diagrams across a flat two-page manual; compact navigation remains attached to the task. At phone widths, pages follow in reading order rather than being squeezed into columns. It is inspired by assembly-manual communication, not copied IKEA artwork.
+
+Colour relationships: improving periods use green / cream / carmine (Wada plate122); difficult periods use Lincoln Green / Ochraceous Salmon / Brown (plate121). Relationships cross-checked against Palette data/colors.json and the wada-colour-chords field guide. Device colours in events.js are authored material reconstructions, not exact printed swatches. Land and vegetation carry the scene; roofs supply a bounded warm interval; UI paper/ink and amber agency remain stable. Mood is explicitly named, never communicated through colour alone. Numeric history does not change with the palette. Cash axes remain adaptive.
+
+Native-script handling: document lang, Prompt for Thai, region-specific Noto SC/JP/KR, real400/600 weights, generous line-height, stored text scaling. Chinese currently means Simplified Chinese. Five-language editorial text is implemented; native-reader certification remains outstanding. Settings are shared by manual and game and stored only in this browser.
