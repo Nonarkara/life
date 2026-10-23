@@ -23,3 +23,14 @@ h1{font-size:calc(32px * var(--reading-scale))}h2,.world-head strong{font-size:c
 .birth-stage .stage{height:calc(100svh - 48px);display:flex;flex-direction:column}.birth-stage .stage canvas{height:0;min-height:0;max-height:none;flex:1;object-fit:cover}.birth-stage .world-head,.birth-stage #childhood-memory{flex:none}.birth-stage #age-track{display:none}
 
 .profile-habits{margin:12px 0}.profile-habits>summary{cursor:pointer;font-size:16px;text-decoration:underline;text-underline-offset:4px;padding:6px 0}
+
+/* One contextual choice takes the decision panel; it does not add a dashboard. */
+#encounter{display:flex;flex-direction:column;align-items:flex-start;gap:16px;margin:20px 0}.encounter-choice{display:block;text-align:left;padding:6px 0;max-width:30ch;border-bottom:1px solid var(--line);line-height:1.4}.encounter-choice>span{display:block;font-size:calc(18px * var(--reading-scale));font-weight:500}.encounter-choice small{display:block;color:var(--muted);font-size:calc(12px * var(--reading-scale));margin-top:4px}.encounter-choice:hover{border-color:#a35d00}.encounter-choice:focus-visible{outline:3px solid #a35d00;outline-offset:4px}
+
+.encounter-choice small span+span::before{content:' · '}
+
+/* Early histories are three compact comparisons, not three tall empty tracks. */
+.graphs svg text{font-size:calc(24px * var(--reading-scale))}.graphs.sparse svg text{font-size:calc(32px * var(--reading-scale))}
+@media(min-width:721px) and (max-width:1100px){.graphs.sparse{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:none}.graphs.sparse figure{display:block}.graphs.sparse svg{max-height:80px;margin-top:8px}.graphs.sparse figcaption .reference{max-width:19ch}}
+
+@media(min-width:721px) and (max-width:1100px){.has-encounter .decision{grid-row:1}.has-encounter .resources{grid-column:1/-1;grid-row:2}.graphs.sparse svg{max-width:220px}}

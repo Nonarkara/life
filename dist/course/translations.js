@@ -385,3 +385,99 @@ At modeled mean|เท่าค่าเฉลี่ยจำลอง|与模拟
 phrases.push(...`
 Habits & relationships|นิสัยและความสัมพันธ์|习惯与关系|習慣と関係|습관과 관계
 `.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+A TURN IN THE PATH|จุดเปลี่ยนระหว่างทาง|路上的转折|道の途中の選択|길 위의 전환점
+Cost: {value}|ค่าใช้จ่าย: {value}|费用：{value}|費用：{value}|비용: {value}
+Income: {value}|รายรับ: {value}|收入：{value}|収入：{value}|수입: {value}
+Sales uncertain|ยอดขายยังไม่แน่นอน|销售尚不确定|売れるかは未定|판매 수익은 불확실
+Mali|มะลิ|玛丽|マリ|말리
+Niran|นิรันดร์|尼兰|ニラン|니란
+Arun|อรุณ|阿伦|アルン|아룬
+Dao|ดาว|道|ダオ|다오
+A relationship changes|ความสัมพันธ์เปลี่ยนไป|关系发生变化|関係の変化|관계의 변화
+A project takes a turn|โครงการมีจุดเปลี่ยน|项目迎来转折|企画の転機|프로젝트의 전환점
+Making room for recovery|ให้พื้นที่กับการฟื้นตัว|为恢复留出空间|回復のための時間|회복을 위한 여유
+An invitation after school|คำชวนหลังเลิกเรียน|放学后的邀请|放課後の誘い|방과 후의 초대
+{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.|{friend} ชวนคุณใช้เวลาช่วงบ่ายด้วยกัน งานที่บ้านรอได้ แต่ไม่ได้หายไป|{friend}邀请你一起度过下午。家里的事可以等等，却不会消失。|{friend}が午後を一緒に過ごそうと誘います。家の用事は待ってくれますが、なくなるわけではありません。|{friend}이 함께 오후를 보내자고 합니다. 집안일은 기다려 주지만 사라지지는 않습니다.
+Make time for a new friend|แบ่งเวลาให้เพื่อนใหม่|为新朋友留出时间|新しい友人に時間を使う|새 친구를 위해 시간 내기
+Go home and finish your project|กลับบ้านไปทำสิ่งที่ค้างไว้ให้เสร็จ|回家完成自己的项目|家で作りかけを仕上げる|집에 가서 하던 일 마치기
+You and {friend} found time for each other. A friendship began.|คุณกับ{friend}หาเวลาให้กัน มิตรภาพจึงเริ่มต้นขึ้น|你和{friend}为彼此留出了时间，一段友谊开始了。|あなたと{friend}は互いのために時間を作りました。友情の始まりでした。|당신과 {friend}은 서로를 위해 시간을 냈습니다. 우정이 시작됐습니다.
+You stayed home and finished something that had been waiting.|คุณอยู่บ้านและทำสิ่งที่ค้างไว้จนเสร็จ|你留在家里，完成了搁置已久的事。|家に残って、待たせていたものを仕上げました。|집에 남아 미뤄 두었던 일을 마쳤습니다.
+A small idea needs a beginning|ไอเดียเล็ก ๆ ต้องมีจุดเริ่มต้น|一个小想法需要开始|小さな案を始めるとき|작은 아이디어의 시작
+There is room for a small creative project. Materials cost money; finding an audience will take time.|คุณพอมีพื้นที่ให้โครงการสร้างสรรค์เล็ก ๆ วัสดุต้องใช้เงิน และการหาคนดูต้องใช้เวลา|你可以做一个小小的创作。材料需要钱，找到观众需要时间。|小さな創作を始める余地があります。材料にはお金がかかり、見てくれる人に出会うには時間がかかります。|작은 창작 프로젝트를 할 여유가 있습니다. 재료에는 돈이 들고 관객을 찾는 데는 시간이 걸립니다.
+Start with what you have|เริ่มด้วยสิ่งที่มี|从现有条件开始|手元にあるものから始める|가진 것으로 시작하기
+Keep the idea for another time|เก็บไอเดียไว้ก่อน|把想法留待以后|案を別の機会まで残す|아이디어를 다음으로 남기기
+You began a project without knowing who would ever see it.|คุณเริ่มโครงการโดยยังไม่รู้ว่าจะมีใครได้เห็นมัน|你开始了项目，还不知道将来谁会看到它。|誰が見てくれるかも知らずに、企画を始めました。|누가 보게 될지도 모른 채 프로젝트를 시작했습니다.
+You kept the sketch and protected your household buffer.|คุณเก็บภาพร่างไว้และรักษาเงินสำรองครอบครัว|你保留了草图，也保住了家庭备用金。|下絵を残し、家計の蓄えを守りました。|스케치를 간직하고 가계의 여윳돈을 지켰습니다.
+Someone you want to know|ใครคนหนึ่งที่คุณอยากรู้จัก|一个你想了解的人|もっと知りたい人|더 알고 싶은 사람
+You and {partner} keep finding reasons to talk. They ask whether you would like to go on a date.|คุณกับ{partner}หาเรื่องคุยกันอยู่เสมอ อีกฝ่ายถามว่าคุณอยากไปเดตด้วยกันไหม|你和{partner}总能找到聊天的理由，对方问你愿不愿意约会。|あなたと{partner}は話す理由を見つけ続けます。デートに行かないかと誘われました。|당신과 {partner}은 자꾸 이야기할 이유를 찾습니다. 상대가 데이트를 하겠냐고 묻습니다.
+Say yes to a date|ตกลงไปเดต|答应约会|デートの誘いを受ける|데이트 제안 받아들이기
+Keep this part of life open|ยังไม่ผูกมัดในเรื่องนี้|让这部分人生保持开放|今はひとりでいる|이 부분의 삶은 열어 두기
+You and {partner} began seeing each other.|คุณกับ{partner}เริ่มคบหากัน|你和{partner}开始交往。|あなたと{partner}は付き合い始めました。|당신과 {partner}은 서로 만나기 시작했습니다.
+You chose to stay single for now. Other parts of life still mattered.|คุณเลือกอยู่เป็นโสดในตอนนี้ ชีวิตด้านอื่นยังมีความหมาย|你决定暂时保持单身，生活的其他部分同样重要。|今はひとりでいることを選びました。人生のほかの部分も大切でした。|지금은 혼자 지내기로 했습니다. 삶의 다른 부분도 소중했습니다.
+A shared future|อนาคตร่วมกัน|共同的未来|ともに過ごす未来|함께할 미래
+You and {partner} have been together for years. Both of you are ready to talk about marriage.|คุณกับ{partner}คบกันมาหลายปี ทั้งคู่พร้อมจะคุยเรื่องแต่งงาน|你和{partner}已相伴多年，双方都准备好谈谈婚姻。|あなたと{partner}は何年も一緒にいます。二人とも結婚について話す準備ができました。|당신과 {partner}은 여러 해 함께했습니다. 두 사람 모두 결혼을 이야기할 준비가 됐습니다.
+Hold a small wedding|จัดงานแต่งเล็ก ๆ|举办小型婚礼|小さな結婚式を挙げる|작은 결혼식 올리기
+Keep your commitment without a wedding|ผูกพันกันต่อไปโดยไม่จัดงานแต่ง|不举行婚礼，继续相守|式を挙げずに支え合う|결혼식 없이 함께하기
+You and {partner} married, with a small gathering of people close to you.|คุณกับ{partner}แต่งงานกัน ท่ามกลางคนสนิทกลุ่มเล็ก ๆ|你和{partner}结婚了，亲近的人们小聚庆祝。|あなたと{partner}は、親しい人を少し招いて結婚しました。|당신과 {partner}은 가까운 사람들을 모아 결혼했습니다.
+You and {partner} chose a shared life without a wedding.|คุณกับ{partner}เลือกใช้ชีวิตร่วมกันโดยไม่จัดงานแต่ง|你和{partner}选择不举行婚礼，一起生活。|あなたと{partner}は、式を挙げずにともに暮らすことを選びました。|당신과 {partner}은 결혼식 없이 함께 사는 삶을 택했습니다.
+Room for another person|พื้นที่สำหรับอีกหนึ่งชีวิต|为另一个人腾出空间|もうひとりを迎える余地|한 사람을 더 맞을 자리
+You and {partner} have talked about raising a child. Parenthood would change your household and commitments.|คุณกับ{partner}คุยเรื่องเลี้ยงลูก การเป็นพ่อแม่จะเปลี่ยนทั้งครอบครัวและภาระที่รับไว้|你和{partner}谈过抚养孩子。为人父母会改变家庭和责任。|あなたと{partner}は子育てについて話しました。親になると、家計も引き受けることも変わります。|당신과 {partner}은 아이를 키우는 일을 이야기했습니다. 부모가 되면 가정과 책임도 달라집니다.
+Begin the path to parenthood|เริ่มเส้นทางการเป็นพ่อแม่|踏上为人父母的路|親になる道を歩み始める|부모가 되는 길 시작하기
+Keep the family as it is|ใช้ชีวิตครอบครัวแบบเดิมต่อไป|保持现有的家庭|今の家族の形を続ける|지금의 가족으로 지내기
+You and {partner} began raising a child together. Daily routines changed around the child.|คุณกับ{partner}เริ่มเลี้ยงลูกด้วยกัน กิจวัตรประจำวันค่อย ๆ เปลี่ยนไปตามเด็กคนนี้|你和{partner}开始一起抚养孩子。日常生活围绕孩子发生了变化。|あなたと{partner}は子どもを育て始めました。子どもを中心に日々の暮らしが変わりました。|당신과 {partner}은 함께 아이를 키우기 시작했습니다. 아이를 중심으로 일상이 달라졌습니다.
+You chose a life without children of your own. Your home was still a family.|คุณเลือกชีวิตที่ไม่มีลูกของตัวเอง บ้านของคุณยังเป็นครอบครัวเช่นเดิม|你选择了不抚养自己孩子的生活，你的家依然是家庭。|自分の子どもを持たない生き方を選びました。その家も、変わらず家族でした。|자녀를 두지 않는 삶을 택했습니다. 그 집도 여전히 가족이었습니다.
+The work finds a doorway|ผลงานพบประตูบานหนึ่ง|作品找到了一扇门|作品に開かれた扉|작품 앞에 열린 문
+Years after you started, someone offers a small public space for your work. There is no promise of sales.|หลายปีหลังเริ่มทำงาน มีคนเสนอพื้นที่เล็ก ๆ ให้แสดงผลงาน แต่ไม่รับประกันว่าจะขายได้|开始多年后，有人愿意提供一个小空间展示你的作品，但不能保证卖出。|始めて何年もたって、小さな場所で作品を見せないかと誘われました。売れる保証はありません。|시작한 지 여러 해 뒤, 누군가 작은 전시 공간을 제안했습니다. 판매를 보장하지는 않습니다.
+Share the work|นำผลงานออกแบ่งปัน|分享作品|作品を人に見せる|작품 공개하기
+Keep making it privately|ทำงานต่อไปอย่างเป็นส่วนตัว|继续独自创作|人に見せず作り続ける|혼자 계속 만들기
+You put the work in front of other people. The response became part of its story.|คุณนำผลงานออกให้คนอื่นเห็น การตอบรับกลายเป็นส่วนหนึ่งของเรื่องราว|你把作品带到他人面前，回应也成为故事的一部分。|作品を人の前に出しました。その反応も、作品の物語の一部になりました。|작품을 사람들 앞에 내놓았습니다. 반응도 작품의 이야기가 됐습니다.
+You kept making the work for its own sake, away from an audience.|คุณทำงานต่อไปเพราะอยากทำ โดยไม่ต้องมีคนดู|你为创作本身继续创作，远离观众。|見てもらうためではなく、作ることのために作り続けました。|관객과 떨어져 만드는 일 자체를 위해 계속 만들었습니다.
+Someone bought a piece of your work.|มีคนซื้อผลงานชิ้นหนึ่งของคุณ|有人买下了你的一件作品。|作品をひとつ買ってくれた人がいました。|누군가 작품 하나를 샀습니다.
+There were no sales this time.|ครั้งนี้ยังขายไม่ได้|这次没有卖出作品。|今回は売れませんでした。|이번에는 팔리지 않았습니다.
+After the floodwater|หลังน้ำลด|洪水退去之后|水が引いたあと|홍수가 지나간 뒤
+The damage is already in your household account. Your neighbours are clearing the shared lane.|ความเสียหายถูกบันทึกในบัญชีครอบครัวแล้ว เพื่อนบ้านกำลังช่วยกันเก็บกวาดทางร่วม|损失已计入家庭账目。邻居们正在清理共用的小路。|被害はすでに家計に記録されています。近所の人たちは共有の道を片づけています。|피해는 이미 가계에 반영됐습니다. 이웃들은 함께 쓰는 골목을 치우고 있습니다.
+Join the clean-up|ร่วมเก็บกวาด|一起清理|片づけに加わる|함께 치우기
+Stay with your household|อยู่ดูแลคนในบ้าน|留在家人身边|家族のそばにいる|가족 곁에 있기
+You helped clear the lane. The repairs were still hard, but the neighbours knew one another better.|คุณช่วยเก็บกวาดทาง การซ่อมแซมยังหนัก แต่เพื่อนบ้านรู้จักกันมากขึ้น|你帮忙清理小路。修复依然艰难，邻里却更熟悉了。|道の片づけを手伝いました。修理は大変なままでしたが、近所の人とは前より親しくなりました。|골목 청소를 도왔습니다. 복구는 여전히 힘들었지만 이웃들은 더 가까워졌습니다.
+You stayed close to home and helped your household find its feet again.|คุณอยู่ใกล้บ้านและช่วยให้ครอบครัวค่อย ๆ ตั้งหลัก|你留在家附近，帮家人重新安顿。|家の近くにとどまり、家族が立て直すのを助けました。|집 가까이 머물며 가족이 다시 일어서는 일을 도왔습니다.
+A familiar voice asks for help|เสียงคุ้นเคยขอความช่วยเหลือ|熟悉的声音求助|聞き慣れた声からの頼み|익숙한 목소리의 부탁
+{friend} is going through a difficult time and asks if you can come over.|{friend}กำลังเจอช่วงเวลาที่ยากลำบาก และถามว่าคุณแวะมาหาได้ไหม|{friend}正经历艰难时期，问你能不能过来。|{friend}はつらい時期を過ごしていて、会いに来てくれないかと頼みます。|{friend}이 힘든 시간을 보내며 와 줄 수 있냐고 묻습니다.
+Go and sit with your friend|ไปนั่งเป็นเพื่อน|去陪朋友坐一会儿|友人のそばに座る|친구 곁에 가서 앉기
+Be honest about your limits and call|บอกข้อจำกัดตรง ๆ แล้วโทรหา|坦诚自己的限度，打个电话|できる範囲を伝えて電話する|한계를 솔직히 말하고 전화하기
+You sat with {friend}. You could not fix everything, but you kept showing up.|คุณนั่งอยู่กับ{friend} คุณแก้ทุกอย่างไม่ได้ แต่ยังมาอยู่เป็นเพื่อนเสมอ|你陪着{friend}。你无法解决一切，却一直在场。|{friend}のそばに座りました。すべては解決できなくても、会いに行き続けました。|{friend} 곁에 앉았습니다. 모든 걸 해결할 수는 없어도 계속 함께했습니다.
+You told {friend} what you could manage and stayed in touch by phone.|คุณบอก{friend}ตามตรงว่าช่วยได้แค่ไหน และยังคุยกันทางโทรศัพท์|你告诉{friend}自己能做多少，并通过电话保持联系。|{friend}にできることを伝え、電話で連絡を取り続けました。|{friend}에게 할 수 있는 만큼을 말하고 전화로 연락을 이어 갔습니다.
+Your child has a new question|ลูกมีคำถามใหม่|孩子有了新的问题|子どもの新しい問い|아이의 새로운 질문
+Your child is beginning to imagine a future of their own. They ask you to help them try something unfamiliar.|ลูกเริ่มจินตนาการถึงอนาคตของตัวเอง และขอให้คุณช่วยลองสิ่งที่ไม่คุ้นเคย|孩子开始想象自己的未来，请你帮忙尝试陌生的事。|子どもは自分の未来を想像しはじめ、知らないことに挑む手助けを求めます。|아이가 자신의 미래를 상상하며 낯선 일을 시도하도록 도와 달라고 합니다.
+Pay for the materials and learn together|ซื้อวัสดุแล้วเรียนรู้ด้วยกัน|购买材料，一起学习|材料を買って一緒に学ぶ|재료를 사서 함께 배우기
+Make time to listen and plan together|แบ่งเวลาฟังและวางแผนด้วยกัน|抽时间倾听，一起计划|話を聞き、一緒に考える|시간을 내어 듣고 함께 계획하기
+You and your child learned something neither of you knew before.|คุณกับลูกเรียนรู้สิ่งที่ทั้งคู่ไม่เคยรู้มาก่อน|你和孩子一起学到了双方都不曾知道的事。|あなたと子どもは、二人とも知らなかったことを学びました。|아이와 함께 둘 다 몰랐던 것을 배웠습니다.
+You listened to what your child wanted, then found a first step you could manage together.|คุณฟังว่าลูกต้องการอะไร แล้วหาก้าวแรกที่ทั้งคู่ทำร่วมกันได้|你听了孩子的愿望，然后找到了双方能一起迈出的第一步。|子どもの望みを聞き、一緒にできる最初の一歩を見つけました。|아이가 원하는 것을 듣고 함께할 수 있는 첫걸음을 찾았습니다.
+Give recovery some room|ให้เวลาตัวเองฟื้นตัว|给恢复留出余地|回復のための余地を作る|회복할 여유 만들기
+A health setback has already interrupted this period. The next step is making room for recovery.|ปัญหาสุขภาพกระทบช่วงชีวิตนี้ไปแล้ว ขั้นต่อไปคือให้เวลากับการฟื้นตัว|健康问题已经打断了这一阶段，下一步是为恢复留出余地。|健康の問題がこの時期を中断しました。次は回復のための余地を作る番です。|건강 문제가 이미 이 시기를 흔들었습니다. 이제 회복할 여유를 마련할 차례입니다.
+Pay for practical help while you recover|จ่ายค่าคนช่วยระหว่างพักฟื้น|恢复期间付费请人帮忙|回復中の手助けにお金を使う|회복하는 동안 도움에 비용 쓰기
+Reduce commitments and accept help|ลดภาระและยอมรับความช่วยเหลือ|减少负担，接受帮助|引き受けることを減らし、助けを受ける|맡은 일을 줄이고 도움받기
+Practical help gave you room to rest. Recovery became part of the plan.|ความช่วยเหลือให้พื้นที่คุณได้พัก การฟื้นตัวกลายเป็นส่วนหนึ่งของแผน|实际的帮助让你得以休息，恢复成为计划的一部分。|手助けが休む余地を作りました。回復も計画の一部になりました。|실질적인 도움 덕분에 쉴 수 있었습니다. 회복도 계획의 일부가 됐습니다.
+You reduced your commitments and let other people help while you rested.|คุณลดภาระลงและให้คนอื่นช่วยระหว่างที่พัก|你减少了负担，休息时让别人帮忙。|引き受けることを減らし、休んでいる間は人の助けを借りました。|맡은 일을 줄이고 쉬는 동안 다른 사람의 도움을 받았습니다.
+What you want to keep|สิ่งที่คุณอยากเก็บไว้|你想留下什么|残しておきたいもの|간직하고 싶은 것
+A parent has died. There is no correct way to make this loss fit into your life.|คุณสูญเสียพ่อหรือแม่ ไม่มีวิธีที่ถูกต้องเพียงแบบเดียวในการอยู่กับความสูญเสียนี้|一位父母去世了。没有唯一正确的方式安放这份失去。|親を亡くしました。この喪失を暮らしに収める、ただひとつの正解はありません。|부모님 한 분을 잃었습니다. 이 상실을 삶에 받아들이는 유일한 정답은 없습니다.
+Gather and tell stories|มารวมตัวเล่าเรื่องความทรงจำ|相聚讲述往事|集まって思い出を語る|모여 추억 이야기하기
+Keep a quieter remembrance|ระลึกถึงอย่างเงียบ ๆ|安静地纪念|静かに思い出を守る|조용히 기억하기
+You gathered stories about your parent. Grief remained, alongside memories of ordinary days.|คุณรวบรวมเรื่องราวของพ่อหรือแม่ ความเศร้ายังอยู่ พร้อมกับความทรงจำของวันธรรมดา|你收集了父母的故事。悲伤仍在，也有平凡日子的回忆。|親の話を集めました。悲しみは残り、そこには何気ない日の思い出もありました。|부모님의 이야기를 모았습니다. 슬픔과 함께 평범했던 날들의 기억도 남았습니다.
+You kept a small remembrance in your own way. There was no need to perform your grief.|คุณระลึกถึงในแบบเล็ก ๆ ของตัวเอง ไม่จำเป็นต้องแสดงความเศร้าให้ใครเห็น|你用自己的方式保留小小的纪念，不必向谁表演悲伤。|自分なりの小さな形で思い出を守りました。悲しみを人に見せる必要はありませんでした。|자신만의 작은 방식으로 기억했습니다. 슬픔을 남에게 보여 줄 필요는 없었습니다.
+Someone asks how you learned|มีคนถามว่าคุณเรียนรู้มาอย่างไร|有人问你是怎么学会的|どう学んだのかと聞かれる|어떻게 배웠는지 묻는 사람
+A younger neighbour wants to learn something you have spent years doing.|เพื่อนบ้านรุ่นน้องอยากเรียนรู้สิ่งที่คุณทำมาหลายปี|年轻的邻居想学习你做了多年的事。|若い近所の人が、あなたの長年してきたことを学びたがっています。|젊은 이웃이 당신이 오랫동안 해 온 것을 배우고 싶어 합니다.
+Make room to teach|แบ่งเวลาเพื่อสอน|留出时间教人|教える時間を作る|가르칠 시간 마련하기
+Protect your own time|รักษาเวลาของตัวเอง|守护自己的时间|自分の時間を守る|자신의 시간 지키기
+You passed on something you had learned. A part of your work now belonged to someone else.|คุณส่งต่อสิ่งที่เรียนรู้มา งานส่วนหนึ่งจึงอยู่ในมือคนอื่นต่อไป|你传授了所学，工作的一部分从此属于另一个人。|学んできたことを伝えました。あなたの仕事の一部は、別の人のものにもなりました。|배운 것을 전했습니다. 해 온 일의 일부가 이제 다른 사람에게도 이어졌습니다.
+You chose a quieter rhythm. Your years did not need one more achievement.|คุณเลือกจังหวะชีวิตที่สงบลง ชีวิตไม่จำเป็นต้องมีผลงานเพิ่มอีกชิ้น|你选择更安静的节奏，岁月不需要再添一项成就。|静かなリズムを選びました。これまでの年月に、もうひとつ実績を足す必要はありませんでした。|더 조용한 리듬을 택했습니다. 살아온 세월에 성취 하나를 더할 필요는 없었습니다.
+The afternoon returns|บ่ายวันนั้นหวนกลับมา|那个下午又回来了|あの午後が帰ってくる|다시 찾아온 오후
+{friend} suggests spending an afternoon together, much as you did when you first met.|{friend}ชวนคุณใช้เวลาช่วงบ่ายด้วยกัน เหมือนตอนที่รู้จักกันใหม่ ๆ|{friend}提议像初识时一样，一起度过一个下午。|{friend}が、出会ったころのように午後を一緒に過ごそうと誘います。|{friend}이 처음 만났을 때처럼 함께 오후를 보내자고 합니다.
+Meet your old friend|ไปพบเพื่อนเก่า|见老朋友|古くからの友人に会う|오랜 친구 만나기
+Send a long letter instead|ส่งจดหมายยาว ๆ แทน|改写一封长信|代わりに長い手紙を書く|대신 긴 편지 보내기
+You and {friend} spent another afternoon together. You remembered how the friendship began.|คุณกับ{friend}ใช้เวลาช่วงบ่ายด้วยกันอีกครั้ง และนึกถึงวันแรกของมิตรภาพ|你和{friend}又一起度过了一个下午，想起友谊开始的那天。|あなたと{friend}はまた午後を一緒に過ごし、友情の始まりを思い出しました。|당신과 {friend}은 다시 오후를 함께 보내며 우정이 시작된 날을 떠올렸습니다.
+You wrote to {friend}, remembering the ordinary afternoon when you first became friends.|คุณเขียนถึง{friend} และนึกถึงบ่ายธรรมดาวันที่เริ่มเป็นเพื่อนกัน|你写信给{friend}，想起成为朋友的那个平凡下午。|{friend}に手紙を書き、友だちになった何気ない午後を思い出しました。|{friend}에게 편지를 쓰며 친구가 된 평범한 오후를 떠올렸습니다.
+`.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+Marriage and family milestones follow your choices. Dengue, job loss and pregnancy are not yet generated by this model.|การแต่งงานและเหตุการณ์ครอบครัวเกิดตามการเลือกของคุณ แบบจำลองนี้ยังไม่สร้างเหตุการณ์ไข้เลือดออก การตกงาน หรือการตั้งครรภ์|婚姻和家庭里程碑随你的选择发生。模型尚未生成登革热、失业或怀孕事件。|結婚や家族の節目は選択に続いて起こります。デング熱、失職、妊娠はまだ生成しません。|결혼과 가족의 이정표는 선택에 따라 일어납니다. 뎅기열, 실직, 임신은 아직 생성하지 않습니다.
+`.trim().split('\n').map(line=>line.split('|')));

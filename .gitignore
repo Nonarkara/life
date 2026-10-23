@@ -5,3 +5,5 @@
 out/
 
 node_modules/
+
+.life-build-*/

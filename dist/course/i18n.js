@@ -7,7 +7,10 @@ export function translate(input,language='en'){
  const source=String(input),index=order.indexOf(language),direct=dictionary.get(source);if(direct)return direct[index];
  for(const[key,values]of dictionary){if(!key.includes('{'))continue;const names=[];const pattern=key.split(/(\{\w+\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),/^\{(n|a|b)\}$/.test(part)?'([0-9]+)':'(.+?)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');const match=source.match(new RegExp('^'+pattern+'$'));if(match){let result=values[index];names.forEach((name,i)=>{result=result.replaceAll('{'+name+'}',translate(match[i+1],language));});return result;}}
  // Generated recap/captions join individually authored phrases and numbers.
- let result=source;for(const[key,values]of [...dictionary].filter(([key])=>!key.includes('{')&&key.length>2).sort((a,b)=>b[0].length-a[0].length)){if(result.includes(key))result=result.replaceAll(key,values[index]);}return result;
+ let result=source;
+ // Named story sentences also occur inside longer life-record paragraphs.
+ for(const[key,values]of dictionary){if(!/\{(?:friend|partner)\}/.test(key))continue;const names=[];const pattern=key.split(/(\{(?:friend|partner)\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),'([A-Za-z]+)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');result=result.replace(new RegExp(pattern,'g'),(...match)=>{let out=values[index];names.forEach((name,i)=>{out=out.replaceAll('{'+name+'}',translate(match[i+1],language));});return out;});}
+ for(const[key,values]of [...dictionary].filter(([key])=>!key.includes('{')&&key.length>2).sort((a,b)=>b[0].length-a[0].length)){if(result.includes(key))result=result.replaceAll(key,values[index]);}return result;
 }
 export let preferences={language:'en',size:'standard',motion:false};
 if(typeof localStorage!=='undefined')try{const p=JSON.parse(localStorage.getItem('life-preferences-v1'));if(p){if(languages[p.language])preferences.language=p.language;if(['standard','large','extra'].includes(p.size))preferences.size=p.size;preferences.motion=p.motion===true;}}catch{}

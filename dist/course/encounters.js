@@ -1,0 +1,101 @@
+// Authored narrative rules. These effects and eligibility windows are game design,
+// not clinical, demographic or financial forecasts.
+export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
+const option=(id,label,effects,outcome)=>({id,label,...effects,outcome});
+export const ENCOUNTERS=[
+ {id:'friend',category:'connection',min:15,max:20,title:'An invitation after school',prompt:'{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.',options:[
+  option('join','Make time for a new friend',{cash:-300,wellbeing:3,flag:'friend'},'You and {friend} found time for each other. A friendship began.'),
+  option('home','Go home and finish your project',{skills:{craft:1}},'You stayed home and finished something that had been waiting.') ]},
+ {id:'project',category:'work',min:20,max:45,title:'A small idea needs a beginning',prompt:'There is room for a small creative project. Materials cost money; finding an audience will take time.',eligible:s=>s.effort.craft>=2||s.pathway==='independent',options:[
+  option('start','Start with what you have',{cash:-1200,skills:{craft:2},flag:'project'},'You began a project without knowing who would ever see it.'),
+  option('save','Keep the idea for another time',{wellbeing:1},'You kept the sketch and protected your household buffer.') ]},
+ {id:'love',category:'connection',min:20,max:40,title:'Someone you want to know',prompt:'You and {partner} keep finding reasons to talk. They ask whether you would like to go on a date.',options:[
+  option('date','Say yes to a date',{cash:-500,wellbeing:3,flag:'dating'},'You and {partner} began seeing each other.'),
+  option('single','Keep this part of life open',{wellbeing:1},'You chose to stay single for now. Other parts of life still mattered.') ]},
+ {id:'commitment',category:'connection',min:30,max:50,title:'A shared future',prompt:'You and {partner} have been together for years. Both of you are ready to talk about marriage.',eligible:s=>s.story.flags.dating!==undefined&&s.age-s.story.flags.dating>=5,options:[
+  option('marry','Hold a small wedding',{cash:-6000,wellbeing:4,flag:'married',marker:'married'},'You and {partner} married, with a small gathering of people close to you.'),
+  option('together','Keep your commitment without a wedding',{wellbeing:3,flag:'committed'},'You and {partner} chose a shared life without a wedding.') ]},
+ {id:'parenthood',category:'family',min:35,max:50,title:'Room for another person',prompt:'You and {partner} have talked about raising a child. Parenthood would change your household and commitments.',eligible:s=>s.story.flags.married!==undefined||s.story.flags.committed!==undefined,options:[
+  option('raise','Begin the path to parenthood',{cash:-4000,wellbeing:3,flag:'parent'},'You and {partner} began raising a child together. Daily routines changed around the child.'),
+  option('two','Keep the family as it is',{wellbeing:2},'You chose a life without children of your own. Your home was still a family.') ]},
+ {id:'project_return',category:'work',min:30,max:65,title:'The work finds a doorway',prompt:'Years after you started, someone offers a small public space for your work. There is no promise of sales.',eligible:s=>s.story.flags.project!==undefined&&s.age-s.story.flags.project>=10,options:[
+  option('show','Share the work',{cash:-1000,wellbeing:3,flag:'exhibited',uncertain:true},'You put the work in front of other people. The response became part of its story.'),
+  option('private','Keep making it privately',{skills:{craft:2},wellbeing:2},'You kept making the work for its own sake, away from an audience.') ]},
+ {id:'flood_help',category:'family',min:30,max:30,priority:1,title:'After the floodwater',prompt:'The damage is already in your household account. Your neighbours are clearing the shared lane.',options:[
+  option('help','Join the clean-up',{wellbeing:3,skills:{eq:1}},'You helped clear the lane. The repairs were still hard, but the neighbours knew one another better.'),
+  option('home','Stay with your household',{wellbeing:2},'You stayed close to home and helped your household find its feet again.') ]},
+ {id:'friend_care',category:'connection',min:40,max:60,title:'A familiar voice asks for help',prompt:'{friend} is going through a difficult time and asks if you can come over.',eligible:s=>s.story.flags.friend!==undefined,options:[
+  option('visit','Go and sit with your friend',{cash:-300,wellbeing:2,flag:'supportedFriend'},'You sat with {friend}. You could not fix everything, but you kept showing up.'),
+  option('call','Be honest about your limits and call',{wellbeing:1},'You told {friend} what you could manage and stayed in touch by phone.') ]},
+ {id:'child_school',category:'family',min:45,max:65,title:'Your child has a new question',prompt:'Your child is beginning to imagine a future of their own. They ask you to help them try something unfamiliar.',eligible:s=>s.story.flags.parent!==undefined&&s.age-s.story.flags.parent>=10,options:[
+  option('materials','Pay for the materials and learn together',{cash:-2000,wellbeing:3},'You and your child learned something neither of you knew before.'),
+  option('walk','Make time to listen and plan together',{wellbeing:2,skills:{eq:1}},'You listened to what your child wanted, then found a first step you could manage together.') ]},
+ {id:'health_rest',category:'health',min:40,max:75,priority:1,title:'Give recovery some room',prompt:'A health setback has already interrupted this period. The next step is making room for recovery.',eligible:s=>s.history.at(-1)?.event.includes('health setback'),options:[
+  option('support','Pay for practical help while you recover',{cash:-3000,health:4,wellbeing:1},'Practical help gave you room to rest. Recovery became part of the plan.'),
+  option('rest','Reduce commitments and accept help',{health:2,wellbeing:1},'You reduced your commitments and let other people help while you rested.') ]},
+ {id:'remember',category:'family',min:55,max:70,priority:1,title:'What you want to keep',prompt:'A parent has died. There is no correct way to make this loss fit into your life.',eligible:s=>/father dies|mother dies/.test(s.history.at(-1)?.event??''),options:[
+  option('stories','Gather and tell stories',{wellbeing:2,flag:'remembered'},'You gathered stories about your parent. Grief remained, alongside memories of ordinary days.'),
+  option('quiet','Keep a quieter remembrance',{wellbeing:2,flag:'remembered'},'You kept a small remembrance in your own way. There was no need to perform your grief.') ]},
+ {id:'mentor',category:'work',min:60,max:75,title:'Someone asks how you learned',prompt:'A younger neighbour wants to learn something you have spent years doing.',options:[
+  option('teach','Make room to teach',{wellbeing:3,flag:'mentor'},'You passed on something you had learned. A part of your work now belonged to someone else.'),
+  option('rest','Protect your own time',{wellbeing:2},'You chose a quieter rhythm. Your years did not need one more achievement.') ]},
+ {id:'friend_late',category:'connection',min:65,max:75,title:'The afternoon returns',prompt:'{friend} suggests spending an afternoon together, much as you did when you first met.',eligible:s=>s.story.flags.friend!==undefined,options:[
+  option('meet','Meet your old friend',{cash:-200,wellbeing:3},'You and {friend} spent another afternoon together. You remembered how the friendship began.'),
+  option('letter','Send a long letter instead',{wellbeing:2},'You wrote to {friend}, remembering the ordinary afternoon when you first became friends.') ]}
+];
+const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
+ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
+const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
+export const encounterById=id=>byId.get(id);
+export function eligibleEncounters(state){
+ if(state.stage!=='review'||state.age<15||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
+ const seen=new Set(state.story.seen.map(e=>e.id));
+ return ENCOUNTERS.filter(e=>state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&(!e.eligible||e.eligible(state)));
+}
+export function offerEncounter(state,roll){
+ const eligible=eligibleEncounters(state);if(!eligible.length)return state;
+ const priority=Math.min(...eligible.map(e=>e.priority??2));let pool=eligible.filter(e=>(e.priority??2)===priority);
+ const last=state.story.seen.at(-1),fresh=pool.filter(e=>e.category!==byId.get(last?.id)?.category);if(fresh.length)pool=fresh;
+ const selected=pool[Math.min(pool.length-1,Math.floor(roll*pool.length))];
+ return {...state,story:{...state.story,pending:{id:selected.id,age:state.age,candidates:eligible.map(e=>e.id)}}};
+}
+export function storyText(text,story){return text.replaceAll('{friend}',story.people.friend).replaceAll('{partner}',story.people.partner);}
+export function resolveEncounter(state,choiceId,roll){
+ const pending=state.story?.pending,encounter=byId.get(pending?.id),choice=encounter?.options.find(o=>o.id===choiceId);
+ if(!choice||state.stage!=='review'||pending.age!==state.age||state.story.seen.some(e=>e.id===pending.id))return state;
+ let cash=choice.cash??0;let outcome=choice.outcome;
+ if(choice.uncertain){if(roll<.5){cash+=4500;outcome+=' Someone bought a piece of your work.';}else outcome+=' There were no sales this time.';}
+ const cap=n=>Math.max(0,Math.min(100,n));
+ const effects={cash,health:cap(state.health+(choice.health??0))-state.health,wellbeing:cap(state.wellbeing+(choice.wellbeing??0))-state.wellbeing,skills:choice.skills??{}};
+ const flags={...state.story.flags};if(choice.flag)flags[choice.flag]=state.age;
+ const seen=[...state.story.seen,{id:pending.id,age:state.age,choice:choice.id,outcome:storyText(outcome,state.story),effects}];
+ const next={...state,cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
+ for(const[key,value]of Object.entries(effects.skills))next.skills[key]+=value;
+ const last=state.history.at(-1);
+ next.history=[...state.history.slice(0,-1),{...last,cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];
+ return next;
+}
+export function validStory(story,age,state){
+ if(story===undefined)return true;
+ if(state&&!Array.isArray(state.history))return false;
+ const axes=['physique','iq','eq','craft','drive'];
+ const effects=e=>e&&['cash','health','wellbeing'].every(k=>Number.isFinite(e[k]))&&e.skills&&Object.entries(e.skills).every(([k,v])=>axes.includes(k)&&Number.isInteger(v)&&v>=0);
+ if(!story||!story.people||!['friend','partner'].every(k=>typeof story.people[k]==='string'&&story.people[k].length<40)||!story.flags||!Array.isArray(story.seen)||story.seen.length>ENCOUNTERS.length)return false;
+ if(new Set(story.seen.map(e=>e?.id)).size!==story.seen.length||new Set(story.seen.map(e=>e?.age)).size!==story.seen.length)return false;
+ if(!story.seen.every(e=>e&&byId.has(e.id)&&Number.isInteger(e.age)&&e.age>=byId.get(e.id).min&&e.age<=byId.get(e.id).max&&e.age<=age&&byId.get(e.id).options.some(o=>o.id===e.choice)&&typeof e.outcome==='string'&&effects(e.effects)))return false;
+ if(state){
+  const flags={};let previousAge=-1;
+  for(const seen of story.seen){
+   if(seen.age<=previousAge)return false;previousAge=seen.age;
+   const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
+   const prior={...state,age:seen.age,effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null}};
+   const entry=byId.get(seen.id);if(entry.eligible&&!entry.eligible(prior))return false;
+   const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
+  }
+ }
+ const expectedFlags=Object.fromEntries(story.seen.flatMap(e=>{const flag=byId.get(e.id).options.find(o=>o.id===e.choice).flag;return flag?[[flag,e.age]]:[]}));
+ if(Object.keys(expectedFlags).length!==Object.keys(story.flags).length||Object.entries(expectedFlags).some(([key,value])=>story.flags[key]!==value))return false;
+ if(story.pending===null)return true;
+ const pending=story.pending;
+ return !!pending&&byId.has(pending.id)&&pending.age===age&&!story.seen.some(e=>e.age===age||e.id===pending.id)&&Array.isArray(pending.candidates)&&pending.candidates.includes(pending.id)&&pending.candidates.every(id=>byId.has(id))&&(!state||eligibleEncounters({...state,story:{...story,pending:null}}).some(e=>e.id===pending.id));
+}

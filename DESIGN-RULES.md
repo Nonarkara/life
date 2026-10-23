@@ -50,3 +50,11 @@ supported scripts. Check duplicate visible facts, empty tracks, detached labels,
 orphan columns, clipping and ambiguous actions. Have an independent reviewer
 inspect rendered evidence. A test suite cannot certify absence of spatial
 hallucination. Owner rejection overrides a prior automated or agent pass.
+
+## Owner clarification: handcrafted density
+Every gap must orient, separate, emphasize or make a control usable. Reject empty
+columns and fixed-height panels that add scrolling without improving reading.
+Use explicit type hierarchy and compact controls; never shrink essential text
+to conceal an oversized layout. Test a sparse beginning and a dense late life,
+not just a flattering middle state. Study retention through observed choices and
+callbacks; do not claim addictiveness from popularity or imitate coercive loops.

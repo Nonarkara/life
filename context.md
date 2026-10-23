@@ -60,3 +60,7 @@ bundling the game produced a verified fresh startup, countdown and childhood.
 The local preview serves no-store and the build versions asset references.
 34 tests passed before final copy changes; actual childhood images in review/v1.
 Not yet the full requested public release or exhaustive original-game research.
+
+## Persistent encounters and economic-world research
+Fourteen authored contextual encounters now retain named people, projects and family commitments. Resolution changes only the current snapshot, charges once, and preserves other event markers. Legacy saves remain valid; relationship flags and pending choices are validated.44 tests pass; a browser life followed friendship15, project20/exhibition35, dating25, shared flood response30, friend care40, marriage45, parenthood50 and remembrance55, ending unexpectedly60. Independent tablet review approved compact full-width history band. Ending duplicate last-event text is hidden; future age20 no longer claims school departure independently of route. Historical saves preserve their original prose.
+Research/economic-crises.md and the retained World Bank Thailand growth series define the next shared-world work. No calibrated crisis simulation or asset portfolio exists yet. Two original lives completed (91 and32); branches remain. Domain registration awaits DNS access through user-opened dashboard.

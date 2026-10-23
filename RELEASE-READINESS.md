@@ -13,11 +13,11 @@ Verified in this build:
 - Resource histories, named event symbols, modeled comparison and replay.
 - English, Thai, Chinese, Japanese and Korean phrase coverage; Thai route UI exercised.
 - Independent source and screenshot review at phone/tablet/desktop; rendered work/return frames.
-- 34 simulation/translation/path tests pass. Browser opening, memory viewing and independent-work loss exercised.
+- 44 simulation/translation/path tests pass. Browser opening, memory viewing and independent-work loss exercised.
 
 Not yet achieved:
 - Public custom-domain deployment, anonymous access and live-domain verification.
-- Exhaustive original-game exploration: one complete original life studied; more branches remain.
+- Exhaustive original-game exploration: two complete original lives studied (91 and32); more branches remain.
 - Comprehensive event deck, relationships, family formation, disease/care, recovery and late-life systems.
 - Calibrated financial, health or psychological modeling; current values are authored game tuning.
 - Whole-life repeated human playtests proving the game compelling and stronger than the original.
