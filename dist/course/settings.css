@@ -34,3 +34,19 @@ h1{font-size:calc(32px * var(--reading-scale))}h2,.world-head strong{font-size:c
 @media(min-width:721px) and (max-width:1100px){.graphs.sparse{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:none}.graphs.sparse figure{display:block}.graphs.sparse svg{max-height:80px;margin-top:8px}.graphs.sparse figcaption .reference{max-width:19ch}}
 
 @media(min-width:721px) and (max-width:1100px){.has-encounter .decision{grid-row:1}.has-encounter .resources{grid-column:1/-1;grid-row:2}.graphs.sparse svg{max-width:220px}}
+
+/* At the ending, memories lead and the complete record stays available. */
+#recap h2{font-size:calc(20px * var(--reading-scale));margin:20px 0 12px}
+#recap ol{max-height:none;overflow:visible;font-size:calc(16px * var(--reading-scale))}
+#recap .remembered-moments{list-style:none;padding:0;margin:0}
+#recap .remembered-moments li{display:grid;grid-template-columns:5.5ch minmax(0,1fr);gap:12px;margin:0 0 16px}
+.remembered-moments strong{font-size:calc(12px * var(--reading-scale));line-height:1.8;color:var(--muted)}
+.remembered-moments p{margin:0;max-width:52ch}
+.full-life-record{margin:20px 0 12px}.full-life-record summary{cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:calc(14px * var(--reading-scale))}
+.full-life-record ol{padding-left:20px}.full-life-record li{max-width:65ch}
+@media(min-width:721px){.recap-stage main{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:start}.recap-stage .stage{grid-column:1;grid-row:1}.recap-stage .decision{grid-column:2;grid-row:1/span 2;padding:20px 24px}.recap-stage .resources{grid-column:1;grid-row:2}.recap-stage .method{grid-row:3}.recap-stage .stage canvas{max-height:360px}.recap-stage .graphs{grid-template-columns:1fr;gap:18px;max-width:none}.recap-stage .graphs figure{display:grid;grid-template-columns:minmax(110px,140px) minmax(0,1fr)}.recap-stage .graphs svg{max-width:300px;max-height:100px}.recap-stage .event-list{gap:4px 16px}}
+@media(max-width:720px){#recap .remembered-moments li{grid-template-columns:5ch minmax(0,1fr);gap:8px}.recap-stage .decision{padding:16px}}
+
+.recap-stage .stage canvas{height:auto;max-height:none;aspect-ratio:1120/680;object-fit:contain}
+
+.world-bottom p{white-space:pre-line}

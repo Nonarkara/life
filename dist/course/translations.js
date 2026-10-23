@@ -1,5 +1,8 @@
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Amber: lived path · Dashed: age stations|สีอำพัน: ทางที่ใช้ชีวิตจริง · เส้นประ: ช่วงวัย|琥珀色：走过的路 · 虚线：年龄节点|琥珀色：歩んだ道 · 破線：年齢の節目|호박색: 살아온 길 · 점선: 나이의 이정표
+Moments that stayed|ช่วงเวลาที่ยังอยู่ในความทรงจำ|留下的记忆|心に残った瞬間|기억에 남은 순간
+Every five-year decision|การตัดสินใจทุกช่วงห้าปี|每个五年的决定|5年ごとのすべての選択|5년마다 내린 모든 결정
 Settings|การตั้งค่า|设置|設定|설정
 Close|ปิด|关闭|閉じる|닫기
 Language|ภาษา|语言|言語|언어

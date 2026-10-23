@@ -7,7 +7,7 @@ const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLigh
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 export function drawWorld(canvas,state,age,time,mode='world'){
 Object.assign(C,MOOD_CHORDS[lifeMood(state)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
-if(mode==='course'){drawCourse(c,state);finish();return;}
+if(mode==='course'){drawCourse(c,state,canvas.clientWidth<560);finish();return;}
 const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:1.7)*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance'),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);
 const p=(x,y,z=0)=>[(x-y)*15,(x+y)*7.5-z*15];
@@ -75,7 +75,7 @@ if(age>=5){const busX=-1+(time*.12%14);box(busX,7.25,.05,1.2,.55,.6,'#9caa93','#
 c.restore();finish();
 function finish(){const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;if(canvas.width!==bw*2||canvas.height!==bh*2){canvas.width=bw*2;canvas.height=bh*2;}out.imageSmoothingEnabled=false;out.clearRect(0,0,bw*2,bh*2);out.drawImage(canvasBuffer,0,0,bw*2,bh*2);}
 }
-function drawCourse(c,s){
+function drawCourse(c,s,compact=false){
  c.fillStyle=C.water;c.fillRect(0,0,560,340);for(let x=0;x<560;x+=19)for(let y=50;y<300;y+=13){c.fillStyle=C.waterLight;c.fillRect(x+(y%7),y,5,1);}
  const pts=Array.from({length:17},(_,i)=>{const t=i/16;return[55+t*450,275-t*190]});
  c.fillStyle=C.sand;c.beginPath();c.moveTo(20,278);c.lineTo(505,47);c.lineTo(548,88);c.lineTo(65,315);c.closePath();c.fill();
@@ -90,9 +90,10 @@ function drawCourse(c,s){
  c.strokeStyle='#eee2bc';c.lineWidth=2;c.setLineDash([4,4]);c.beginPath();pts.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.stroke();c.setLineDash([]);
  const actual=s.history.map(r=>{const base=pts[Math.round(r.age/5)],diff=AXES.reduce((n,a)=>n+Math.abs(r.effort[a.key]-(s.original?.[a.key]??2)),0);return[base[0],base[1]+diff*1.5+(r.setback>0?10:0)];});
  c.strokeStyle=C.amber;c.lineWidth=3;c.beginPath();actual.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.stroke();
- for(let i=0;i<pts.length;i++){const[x,y]=pts[i];c.fillStyle=i*5<=s.age?C.amber:C.paper;c.fillRect(x-2,y-2,4,4);c.fillStyle='#142c2b';c.font='600 8px '+worldFont();c.textAlign='center';c.fillText(String(i*5),x,y+(i%2===0?18:-12));}
+ for(let i=0;i<pts.length;i++){const[x,y]=pts[i];c.fillStyle=i*5<=s.age?C.amber:C.paper;c.fillRect(x-2,y-2,4,4);c.fillStyle='#142c2b';c.font='600 '+(compact?18:8)+'px '+worldFont();c.textAlign='center';if(!compact||i%4===0)c.fillText(String(i*5),x,y+(compact?24:i%2===0?18:-12));}
  for(const[x,y]of actual){c.fillStyle=C.amber;c.fillRect(x-3,y-3,6,6);}
- c.fillStyle='#193f3c';c.fillRect(0,0,560,47);c.fillRect(0,304,560,36);c.fillStyle=C.paper;c.font='600 12px '+worldFont();c.textAlign='left';c.fillText(t('THE COURSE OF A LIFE'),16,20);c.font='8px '+worldFont();c.fillText(t('Amber: lived path     Dashed: age stations still ahead'),16,36);c.fillText(t('Detours record changed priorities and disruptive events.'),16,319);if(s.death)c.fillText(t('Life ended at '+s.age+'. The remaining years were never promised.'),16,332);
+ // The course key and explanation live in readable HTML beneath the canvas.
+
 }
 
 function worldFont(){return preferences.language==='th'?'Prompt':preferences.language==='zh-CN'?'Noto Sans SC':preferences.language==='ja'?'Noto Sans JP':preferences.language==='ko'?'Noto Sans KR':'Jost';}
