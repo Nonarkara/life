@@ -20,4 +20,4 @@ All numbers and probabilities are authored game rules, not validated Thai statis
 - `game.js`: one time controller, keyboard-operable profile controls, radar and resource charts.
 - `review/course/`: visual evidence and independent review, including unresolved verification limits.
 
-The rejected first prototype remains in `dist/` for preservation. Hosting is configured to serve `dist/course`, not the rejected screen. No AI-generated artwork, copied game assets, paid API or backend service is used. Jost loads from Google Fonts.
+The rejected first prototype remains in `dist/` for preservation. The build copies the current course to `out/`; hosting serves that output, not the rejected screen. No AI-generated artwork, copied game assets, paid API or backend service is used. Jost loads from Google Fonts.
