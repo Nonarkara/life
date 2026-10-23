@@ -1,11 +1,12 @@
 import {AXES} from './sim.js';
-import {furniture,routes,walk} from './layout.js';
+import {furniture} from './layout.js';
+import {routine} from './routines.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 export function drawWorld(canvas,state,age,time,mode='world'){
 const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawCourse(c,state);finish();return;}
-const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.055:1.25)*(portrait?.7:1);const center=[0,75];
+const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:1.7)*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance'),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);
 const p=(x,y,z=0)=>[(x-y)*15,(x+y)*7.5-z*15];
 function poly(v,col){c.beginPath();v.forEach((a,i)=>i?c.lineTo(...p(...a)):c.moveTo(...p(...a)));c.closePath();c.fillStyle=col;c.fill();}
@@ -39,10 +40,31 @@ add(6,()=>tree(1,4));add(16,()=>tree(9,6));add(6,()=>tree(4,1));add(20,()=>tree(
 add(6,()=>building(-.5,-.5,2.5,2,1.4,'MARKET'));add(12,()=>building(9,-1,3,2,1.8,'SCHOOL'));add(18,()=>building(11,3,3,2,2,'WORK'));add(22,()=>building(1,11,2.3,2,1.6,'CLINIC'));
 add(3,()=>{building(-2,-2,1.3,1.3,2.6,'');building(0,-3,1.5,1.3,3.2,'CITY');});
 add(13,()=>{box(6.4,8.5,0,1.6,.8,.7,C.wood);box(6.25,8.35,1.65,1.9,1.1,.12,C.roofLight,C.roof,C.roof);for(const x of [6.4,7.9])box(x,8.5,.7,.05,.05,.95,C.wood);box(6.7,8.7,.7,.4,.35,.12,'#81765c');});
-function person(x,y,shirt,floor=.2,size=1){const q=p(x,y,floor);c.save();c.translate(...q);c.scale(size,size);c.fillStyle=C.ink;c.fillRect(-3,-6,2,6);c.fillRect(1,-6,2,6);c.fillStyle=shirt;c.fillRect(-4,-15,8,10);c.fillStyle='#c5a075';c.fillRect(-3,-21,6,6);c.fillStyle='#304034';c.fillRect(-3,-23,6,3);c.fillRect(-4,-21,2,4);c.fillStyle=C.ink;c.fillRect(1,-18,1,1);c.restore();}
-// Closed rectangular walks remain on clear floor, never through furniture.
-const mom=walk(time*.09,routes.mother),dad=walk(time*.065+1,routes.father);if(age<70)add(mom[0]+mom[1],()=>person(...mom,'#708a79'));if(age<55)add(dad[0]+dad[1],()=>person(...dad,'#9a7a56'));
-if(age>=3){const child=age<10?[5.5,5.9]:state.profiles.at(-1)?.profile.aim==='sport'?[9.8,9.8]:state.profiles.at(-1)?.profile.aim==='art'?[6,5.5]:[5.8,6.5];add(child[0]+child[1],()=>{const q=p(...child,.21);c.strokeStyle=C.amber;c.lineWidth=.5;c.beginPath();c.ellipse(q[0],q[1],5,2,0,0,Math.PI*2);c.stroke();person(...child,C.amber,child[1]>7?0:.2,age<10?.65:1);});}
+function person(x,y,shirt,floor=.2,size=1,activity=null){
+ const q=p(x,y,floor),moving=activity?.moving,pose=activity?.pose??'stand';
+ const seated=['rest','eat'].includes(pose),wave=moving?Math.sin(time*7)*2.3:Math.sin(time*2)*.3;
+ c.save();c.translate(...q);c.scale(size,size);
+ function limb(points,color,width){c.beginPath();points.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.stroke();}
+ const hip=seated?-4:-8,shoulder=seated?-11:-16,head=seated?-17:-22;
+ if(seated){limb([[-2,hip],[-5,-1],[2,-1]],C.ink,2.1);limb([[2,hip],[5,-1],[-2,0]],C.ink,2.1);}
+ else{limb([[-2,hip],[-2-wave*.45,-4],[-2+wave,0]],C.ink,2);limb([[2,hip],[2+wave*.45,-4],[2-wave,0]],C.ink,2);}
+ c.fillStyle=shirt;c.beginPath();c.moveTo(-3.4,shoulder);c.lineTo(3.4,shoulder);c.lineTo(3,hip);c.lineTo(-3,hip);c.closePath();c.fill();
+ const busy=['care','work','draw','study','garden','eat'].includes(pose),reach=busy?2+Math.sin(time*3)*1.3:wave;
+ limb([[-3,shoulder+1],[-4,shoulder+5],[-3+reach,shoulder+7]],'#c5a075',1.5);
+ limb([[3,shoulder+1],[4,shoulder+5],[3-reach,shoulder+7]],'#c5a075',1.5);
+ c.fillStyle='#c5a075';c.beginPath();c.ellipse(0,head+2,3,3.6,0,0,Math.PI*2);c.fill();
+ c.fillStyle=age>60&&shirt===C.amber?'#a2aaa0':'#304034';c.fillRect(-3,head-2,6,2.5);c.fillRect(-3.5,head,1.5,3);
+ c.fillStyle=C.ink;if(pose==='rest'||time%4<.12)c.fillRect(.4,head+2,1.4,.4);else c.fillRect(.8,head+1.5,.7,.8);
+ if(pose==='eat'){c.fillStyle=C.paper;c.fillRect(0,shoulder+6,3,1.5);}if(pose==='draw'){limb([[2,shoulder+5],[5,shoulder+3]],C.wood,.5);}if(pose==='study'){c.fillStyle=C.paper;c.fillRect(-3,shoulder+6,6,2);}
+ if(pose==='exercise'){limb([[-3,shoulder+1],[-5,shoulder-2-Math.sin(time*4)*2]],'#c5a075',1.5);}
+ c.restore();
+}
+function ground(x,y){if(x<3||x>7||y<3||y>7.2)return 0;return y>6.6?Math.max(0,(7.2-y)/.6*.2):.2;}
+const goal=state.profiles.at(-1)?.profile.aim??'balance';
+const mom=routine('mother',age,time,goal),dad=routine('father',age,time,goal);
+if(age<70)add(mom.x+mom.y,()=>person(mom.x,mom.y,'#708a79',ground(mom.x,mom.y),1,mom));
+if(age<55)add(dad.x+dad.y,()=>person(dad.x,dad.y,'#9a7a56',ground(dad.x,dad.y),1,dad));
+if(age>=3){const child=routine('player',age,time,goal);add(child.x+child.y,()=>{const floor=ground(child.x,child.y),q=p(child.x,child.y,floor+.01);c.strokeStyle=C.amber;c.lineWidth=.5;c.beginPath();c.ellipse(q[0],q[1],5,2,0,0,Math.PI*2);c.stroke();person(child.x,child.y,C.amber,floor,age<10?.65:age>=65?.95:1,child);});}
 if(age>=6){add(15,()=>person(8.4,6.4,'#c1ac76',0,.7));add(16,()=>person(9.2,6.4,'#7b8c9b',0,.7));}
 if(age>=10){add(18,()=>{person(11.4,5.7,'#a8ac8e',0);});add(8,()=>{person(8.4,0,'#9b8979',0);});}
 objects.sort((a,b)=>a.depth-b.depth);objects.forEach(o=>o.fn());

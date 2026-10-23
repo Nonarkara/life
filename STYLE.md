@@ -1,0 +1,35 @@
+# Life — style decisions
+
+## Core
+A person begins as the centre of a family. Their visible world expands as they grow, while daily life continues around them. Decisions bend a visible life path; the recap compares the intended path with the life actually lived.
+
+## Tension
+The world must feel inhabited while the person remains readable. More awareness means more places, not a smaller unreadable sprite or a larger interface. The owner likes the current palette and rejects space-filling rectangular controls.
+
+## Styles
+- Pixel art supplies legible silhouettes, limited material colours and the owner's supplied COURSE MAP reference. The current Canvas drawing is a geometric prototype, not finished pixel art.
+- Bauhaus supplies alignment, proportion and functional grouping for controls and charts. Controls occupy the space their task needs.
+- Surrealism supplies the metaphorical proximity of institutions and the expanding childhood world. It does not excuse incoherent furniture, broken paths or accidental character overlap.
+
+## Deliberate break
+The scene may use a miniature, game-like visual language; controls and statistics remain readable live HTML rather than imitation bitmap lettering. Geography may compress metaphorically, but movement must respect the visible floor and destinations.
+
+## Ground
+Keep the owner-approved warm paper, dark green ink, vegetation, water and terracotta materials. Amber marks player agency. These colours are not claimed as a verified Wada plate. Preserve existing Jost/Prompt roles pending an actual typography proof; do not copy Palette's fonts merely to resemble Palette.
+
+## Composition and time
+The growing world leads; the current decision follows; linked resource histories support reflection. At birth the family fills the view. The camera reveals school, neighbourhood and work with age. The retro course reference governs overview and recap, not a permanently distant opening scene.
+
+Use compact attached controls, adjacent point adjustments, selected underlines and a label-sized main action. Transparent touch targets and visible keyboard focus remain necessary. Separate groups by alignment, spacing or a rule where warranted; do not manufacture panels to fill available width.
+
+Motion communicates a routine: breakfast, journey, activity, return and rest. Age and vocation change the destination and pose. Pause freezes simulation and movement together. Avoid decorative drifting and endless walking loops. Route tests prove constraints; only live viewing can judge the feel.
+
+At narrow widths, deliberately recompose the world, decision and histories. A desktop screenshot or absence of overflow is insufficient evidence. Review real captures at 390, 1024 and 1440, and exercise the live game before claiming motion approval.
+
+## Evidence and limits
+The ten-point distribution is a game constraint, not a biological law. Health, wellbeing and cash are simulated values. No unsupported medical causality, creativity bonuses from drugs, or fabricated demographic precision. Charts must describe their units and time basis.
+
+## Palette study receipt — 23 October 2026
+Read the newer remote Palette tree at `cc80399` without merging over its local edits. Relevant additions: DESIGN-STYLES.md (Core → Tension → 2–3 styles → deliberate break → geometry check), ANTI-SPATIAL-HALLUCINATION.md (relationships and image roles), REMEDIES.md §6 (arrange, do not fill), FIGMA-PRINCIPLES.md (proximity and proportion), STYLE.md and the design-brief/lint guidance. Palette-specific product rules are not automatically rules for this game.
+
+Two compositions considered: a form with a thumbnail world, and an inhabited world with compact attached decisions. The owner's feedback selects the second. No new decorative style layer is justified by this study.
