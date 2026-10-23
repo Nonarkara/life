@@ -28,3 +28,6 @@ Replace continuous rectangular parent loops with a shared sixty-second day: morn
 
 ## Palette restudy — 23 October 2026
 Read remote Palette cc80399, including new DESIGN-STYLES, spatial narrative composition, STYLE, REMEDIES and design brief guidance. Fetched without merging into Palette's dirty working tree. Game-specific Core/Tension/Styles/Break/Ground and protected choices are recorded in STYLE.md. The study reinforces world-first composition and purposeful motion; it does not justify a cosmetic reskin. Responsive stills and routine logic received independent review; independent live motion verification timed out, so publication remains held for that visual gate.
+
+## Owner correction — duplicated priorities, 23 October 2026
+The side-by-side labelled radar and labelled editor failed semantic grouping despite prior responsive review. One aligned five-row editor now leads; the preserved radar is explicitly optional starting-shape comparison with a solid/dashed key. Total belongs to the editor heading, transfer instruction sits directly below rows, and redundant priorities effect copy is suppressed. Owner screenshot supersedes the prior composition pass.
