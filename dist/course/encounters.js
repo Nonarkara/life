@@ -1,3 +1,4 @@
+import {choiceAvailable,personalFlow} from './finance.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -5,7 +6,9 @@ const option=(id,label,effects,outcome)=>({id,label,...effects,outcome});
 export const ENCOUNTERS=[
  {id:'friend',category:'connection',min:15,max:20,title:'An invitation after school',prompt:'{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.',options:[
   option('join','Make time for a new friend',{cash:-300,wellbeing:3,flag:'friend'},'You and {friend} found time for each other. A friendship began.'),
-  option('home','Go home and finish your project',{skills:{craft:1}},'You stayed home and finished something that had been waiting.') ]},
+  option('home','Go home and finish your project',{skills:{craft:1}},'You stayed home and finished something that had been waiting.'),
+  option('together','Study together, then take a walk',{skills:{iq:1,eq:1},wellbeing:1,flag:'friend'},'You and {friend} worked through a difficult lesson, then talked on the walk home. Neither part of the afternoon lasted as long as you wanted.'),
+  option('crush','Tell your crush you would like to spend time together',{skills:{eq:2},wellbeing:2,flag:'schoolCrush'},'You made room for a school-age crush and practised listening and boundaries. Your unfinished work still needed another afternoon.') ]},
  {id:'project',category:'work',min:20,max:45,title:'A small idea needs a beginning',prompt:'There is room for a small creative project. Materials cost money; finding an audience will take time.',eligible:s=>s.effort.craft>=2||s.pathway==='independent',options:[
   option('start','Start with what you have',{cash:-1200,skills:{craft:2},flag:'project'},'You began a project without knowing who would ever see it.'),
   option('save','Keep the idea for another time',{wellbeing:1},'You kept the sketch and protected your household buffer.') ]},
@@ -62,17 +65,18 @@ export function offerEncounter(state,roll){
 export function storyText(text,story){return text.replaceAll('{friend}',story.people.friend).replaceAll('{partner}',story.people.partner);}
 export function resolveEncounter(state,choiceId,roll){
  const pending=state.story?.pending,encounter=byId.get(pending?.id),choice=encounter?.options.find(o=>o.id===choiceId);
- if(!choice||state.stage!=='review'||pending.age!==state.age||state.story.seen.some(e=>e.id===pending.id))return state;
+ if(!choice||!choiceAvailable(state,choice)||state.stage!=='review'||pending.age!==state.age||state.story.seen.some(e=>e.id===pending.id))return state;
  let cash=choice.cash??0;let outcome=choice.outcome;
  if(choice.uncertain){if(roll<.5){cash+=4500;outcome+=' Someone bought a piece of your work.';}else outcome+=' There were no sales this time.';}
  const cap=n=>Math.max(0,Math.min(100,n));
  const effects={cash,health:cap(state.health+(choice.health??0))-state.health,wellbeing:cap(state.wellbeing+(choice.wellbeing??0))-state.wellbeing,skills:choice.skills??{}};
  const flags={...state.story.flags};if(choice.flag)flags[choice.flag]=state.age;
  const seen=[...state.story.seen,{id:pending.id,age:state.age,choice:choice.id,outcome:storyText(outcome,state.story),effects}];
- const next={...state,cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
+ const funded=state.finance?personalFlow(state,'encounter:'+state.age+':'+pending.id,Math.max(0,choice.cash??0)+(choice.uncertain&&roll<.5?4500:0),Math.max(0,-(choice.cash??0))):state;
+ const next={...state,finance:funded.finance,cash:state.finance?state.cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
  for(const[key,value]of Object.entries(effects.skills))next.skills[key]+=value;
  const last=state.history.at(-1);
- next.history=[...state.history.slice(0,-1),{...last,cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];
+ next.history=[...state.history.slice(0,-1),{...last,...(next.finance?{finance:{...(last.finance??{}),available:next.finance.available,reserve:next.finance.reserve,debt:next.finance.debt}}:{}),cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];
  return next;
 }
 export function validStory(story,age,state){

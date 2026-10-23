@@ -1,6 +1,7 @@
+import {netWorth} from './finance.js';
 import {rememberedMoments} from './recap.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver;
-const metric=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
+const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
 export function growthWindows(history){
  const periods=history.slice(1).map((row,i)=>({from:history[i].age,to:row.age,cash:row.cash-history[i].cash,health:row.health-history[i].health,wellbeing:row.wellbeing-history[i].wellbeing,rate:(row.cash-history[i].cash)/(row.age-history[i].age)})).filter(r=>Number.isFinite(r.rate));
@@ -8,7 +9,7 @@ export function growthWindows(history){
  return {fastest,slowed:fastest?periods.find(r=>r.from===fastest.to&&r.rate<fastest.rate)??null:null};
 }
 export function renderEnding(root,state){
- resizeObserver?.disconnect();const rows=state.history;if(!rows.length)return;
+ resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
  const frame=document.createElement('div');frame.className='ending-visual';
  const chart=document.createElementNS(NS,'svg');chart.classList.add('ending-chart');chart.setAttribute('role','group');chart.setAttribute('aria-label','Health, wellbeing and cash across age');
  const detail=document.createElement('section');detail.className='ending-reading';

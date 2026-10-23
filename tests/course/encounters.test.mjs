@@ -1,13 +1,14 @@
+import {choiceAvailable,netWorth} from '../../dist/course/finance.js';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {newLife,configureLife,begin,live,replay,validate,rand} from '../../dist/course/sim.js';
 import {ENCOUNTERS,encounterById,eligibleEncounters,offerEncounter,resolveEncounter} from '../../dist/course/encounters.js';
 import {eventsFor} from '../../dist/course/events.js';
 import {capacities,capacityHistory,comparison} from '../../dist/course/personality.js';
 import {translate} from '../../dist/course/i18n.js';
-const settle=(s,id,roll=.2)=>s.story?.pending?resolveEncounter(s,id??encounterById(s.story.pending.id).options[0].id,roll):s;
+const settle=(s,id,roll=.2)=>{if(!s.story?.pending)return s;const options=encounterById(s.story.pending.id).options.filter(o=>choiceAvailable(s,o));return resolveEncounter(s,options.find(o=>o.id===id)?.id??options[0].id,roll);};
 test('a pending encounter cannot be skipped, replayed or charged twice',()=>{
  const before=begin(configureLife(newLife(1))),pending=live(before);assert.equal(pending.story.pending.id,'friend');assert.equal(live(pending),pending);
- const resolved=settle(pending,'join');assert.equal(resolved.cash,pending.cash-300);assert.equal(resolved.history.length,pending.history.length);assert.deepEqual(resolved.attributes,before.attributes);assert.equal(resolved.story.flags.friend,15);assert.ok(validate(resolved));
+ const resolved=settle(pending,'join');assert.equal(netWorth(resolved.finance),netWorth(pending.finance)-300);assert.equal(resolved.cash,pending.cash);assert.equal(resolved.history.length,pending.history.length);assert.deepEqual(resolved.attributes,before.attributes);assert.equal(resolved.story.flags.friend,15);assert.ok(validate(resolved));
  assert.equal(resolveEncounter(resolved,'join',.1),resolved);assert.equal(resolveEncounter(pending,'bogus',.1),pending);assert.equal(offerEncounter(resolved,.1),resolved);
 });
 test('follow-ups require the actual earlier commitment and enough elapsed years',()=>{
@@ -33,7 +34,7 @@ test('complete lives resolve contextual turns, conserve ledger changes and remai
   while(s.stage==='review'){
    const before=s;s=live(s);assert.ok(++turns<=14);if(s.story.pending){const pending=s.story.pending;assert.ok(pending.candidates.includes(pending.id));const options=encounterById(pending.id).options;s=settle(s,options[seed%options.length].id,rand(seed,s.age,'test-outcome'));}
    assert.ok(validate(JSON.parse(JSON.stringify(s))),`seed ${seed} age ${s.age}`);const row=s.history.at(-1),choice=s.story.seen.find(e=>e.age===s.age);
-   assert.equal(row.cash,before.cash+row.earnings-row.spending-row.setback+row.pathwayCash+(choice?.effects.cash??0));
+   assert.equal(row.cash,before.cash-(s.age===30?18000:0));assert.equal(s.finance.receipts.reduce((sum,r)=>sum+r.change,0),netWorth(s.finance));
   }
   assert.equal(s.story.pending,null);assert.equal(new Set(s.story.seen.map(e=>e.id)).size,s.story.seen.length);assert.deepEqual(capacityHistory(s).at(-1).reasoning,capacities(s).reasoning);
   const again=replay(s);assert.equal(again.story.seen.length,0);assert.deepEqual(again.intake,s.intake);assert.equal(again.seed,seed);
@@ -60,4 +61,15 @@ test('named story memories stay translated inside joined history paragraphs',()=
 });
 test('malformed history is rejected without throwing after a story choice',()=>{
  const s=settle(live(begin(newLife(1))));for(const history of [null,{},[null],[{}]]){assert.doesNotThrow(()=>validate({...s,history}));assert.equal(validate({...s,history}),false);}
+});
+
+test('school-age choices trade specific practice without rewriting innate traits or imposing academic failure',()=>{
+ const pending=live(begin(newLife(1)));
+ const shared=resolveEncounter(pending,'together',.2),crush=resolveEncounter(pending,'crush',.2),alone=resolveEncounter(pending,'home',.2);
+ assert.equal(shared.skills.iq,pending.skills.iq+1);assert.equal(shared.skills.eq,pending.skills.eq+1);
+ assert.equal(crush.skills.eq,pending.skills.eq+2);assert.equal(crush.skills.iq,pending.skills.iq);
+ assert.equal(alone.skills.craft,pending.skills.craft+1);
+ for(const state of [shared,crush,alone]){assert.deepEqual(state.attributes,pending.attributes);assert.equal(state.pathway,pending.pathway);assert.ok(validate(state));}
+ assert.equal(crush.story.flags.schoolCrush,15);assert.equal(crush.story.flags.dating,undefined);
+ assert.equal(eligibleEncounters({...crush,age:35}).some(e=>e.id==='commitment'),false);
 });

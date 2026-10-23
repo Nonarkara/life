@@ -22,6 +22,81 @@ Life2.0 — Immersion instructions|Life2.0 — คู่มือเข้าส
 Life2.0 · 2026 · Screen edition.|Life2.0 · 2026 · รุ่นหน้าจอ|Life2.0 · 2026 · 屏幕版|Life2.0 · 2026 · スクリーン版|Life2.0 · 2026 · 화면 버전
 Continue Life2.0 →|เล่น Life2.0 ต่อ →|继续 Life2.0 →|Life2.0 を続ける →|Life2.0 계속하기 →
 Opening Life2.0…|กำลังเปิด Life2.0…|正在打开 Life2.0…|Life2.0 を開いています…|Life2.0 여는 중…
+Life console|คอนโซลชีวิต|人生控制台|人生コンソール|인생 콘솔
+Life sections|ส่วนต่าง ๆ ของชีวิต|人生栏目|人生の項目|인생 항목
+Plan|แผน|计划|計画|계획
+Money|เงิน|金钱|お金|돈
+CV|ประวัติ|履历|履歴|이력
+World|โลก|世界|世界|세계
+History|บันทึก|记录|記録|기록
+Your money|เงินของคุณ|你的钱|あなたのお金|나의 돈
+Personal money and the household buffer are separate.|เงินส่วนตัวแยกจากเงินสำรองของครอบครัว|个人资金与家庭储备分开记录。|個人のお金と家計の備えは別に記録します。|개인 자금과 가계 예비 자금은 별도로 기록됩니다.
+Your family handles money for now. A personal allowance opens at 15.|ตอนนี้ครอบครัวดูแลเรื่องเงิน คุณจะเริ่มมีเงินส่วนตัวเมื่ออายุ 15 ปี|目前由家人管理钱，15 岁开始有个人零用钱。|今は家族がお金を管理します。15歳からお小遣いが始まります。|지금은 가족이 돈을 관리합니다. 15세부터 개인 용돈이 생깁니다.
+This life has no personal account record. Start another path to make these choices.|ชีวิตนี้ยังไม่มีบันทึกบัญชีส่วนตัว ลองเส้นทางใหม่เพื่อเลือกแผนเหล่านี้|这段人生没有个人账户记录。开始另一条人生路径即可做出这些选择。|この人生には個人の口座記録がありません。別の道でこれらの選択を試せます。|이 삶에는 개인 계좌 기록이 없습니다. 다른 경로에서 이 선택들을 할 수 있습니다.
+Spendable|เงินที่ใช้ได้|可支配现金|使えるお金|사용 가능한 돈
+Cash reserve|เงินออมสำรอง|现金储备|現金の備え|현금 예비 자금
+Debt|หนี้|债务|借金|빚
+Personal net worth|ทรัพย์สินสุทธิส่วนตัว|个人净资产|個人の純資産|개인 순자산
+Family allowance|เงินจากครอบครัว|家庭零用钱|家族からのお小遣い|가족에게 받는 용돈
+Retirement income|รายรับหลังเกษียณ|退休收入|退職後の収入|은퇴 후 소득
+Work income|รายรับจากงาน|工作收入|仕事の収入|근로 소득
+/ month|/ เดือน|/ 月|/ 月|/ 월
+A small money lesson|บทเรียนเรื่องเงินสั้น ๆ|一堂小小的理财课|小さなお金のレッスン|짧은 돈 공부
+Saving keeps options open. Enjoyment, books and classes also use money and time. There is no perfect allocation.|การออมช่วยเก็บทางเลือกไว้ ความสนุก หนังสือ และชั้นเรียนก็ใช้ทั้งเงินและเวลา ไม่มีสัดส่วนไหนสมบูรณ์แบบ|储蓄能保留选择。娱乐、书籍和课程也需要金钱与时间。没有完美的分配比例。|貯蓄は選択肢を残します。楽しみも本も授業も、お金と時間を使います。完璧な配分はありません。|저축은 선택지를 남겨 줍니다. 즐거움과 책, 수업에도 돈과 시간이 듭니다. 완벽한 배분은 없습니다.
+After essentials, split your next income|แบ่งรายรับครั้งต่อไปหลังหักค่าใช้จ่ายจำเป็น|扣除必要开支后，分配下一笔收入|必要な支出を引いた次の収入を配分|필수 지출을 뺀 다음 소득 배분
+Enjoyment|ความสนุกและพักผ่อน|娱乐与休息|楽しみと休息|즐거움과 휴식
+Books and learning|หนังสือและการเรียนรู้|书籍与学习|本と学び|책과 배움
+Allocations must fit within 100%.|สัดส่วนรวมต้องไม่เกิน 100%|分配总额不能超过 100%。|配分の合計は100%以内にしてください。|배분 합계는 100% 이하여야 합니다.
+Spendable remainder: {value}%|ส่วนที่เหลือใช้ได้: {value}%|剩余可支配部分：{value}%|使える残り：{value}%|사용 가능한 나머지: {value}%
+Housing and travel|ที่อยู่และการเดินทาง|住房与通勤|住まいと通勤|주거와 통근
+Family home|บ้านครอบครัว|与家人同住|家族の家|가족과 함께 사는 집
+Lower rent · longer commute|ค่าเช่าต่ำ · เดินทางนาน|租金较低 · 通勤较长|家賃は低め・通勤は長め|저렴한 월세 · 긴 통근
+Higher rent · shorter commute|ค่าเช่าสูง · เดินทางสั้น|租金较高 · 通勤较短|家賃は高め・通勤は短め|비싼 월세 · 짧은 통근
+Rent {rent} + travel {travel} / month · {minutes} min / day|ค่าเช่า {rent} + เดินทาง {travel} / เดือน · {minutes} นาที / วัน|租金 {rent} + 通勤 {travel} / 月 · 每天 {minutes} 分钟|家賃 {rent}＋通勤費 {travel} / 月・1日 {minutes} 分|월세 {rent} + 교통비 {travel} / 월 · 하루 {minutes}분
+A little money, a little time|ใช้เงินนิด ใช้เวลาหน่อย|一点钱，一点时间|少しのお金と時間|조금의 돈과 시간
+Enjoy a snack|กินขนมที่ชอบ|享用小吃|おやつを楽しむ|간식 즐기기
+Read a book|อ่านหนังสือ|读一本书|本を読む|책 읽기
+Comics and a conversation|อ่านการ์ตูนแล้วคุยกัน|漫画与交流|漫画を読んで語り合う|만화를 읽고 이야기 나누기
+Attend a short class|เข้าเรียนคอร์สสั้น|参加短期课程|短い講座に参加する|짧은 수업 듣기
+Play sport with friends|เล่นกีฬากับเพื่อน|和朋友运动|友達とスポーツをする|친구와 운동하기
+Resolve the current moment in Plan before spending.|ตัดสินใจเรื่องปัจจุบันในหน้าแผนก่อนใช้เงิน|请先在计划中完成当前选择，再花钱。|お金を使う前に「計画」で今の選択を終えてください。|돈을 쓰기 전에 계획에서 현재 선택을 마쳐 주세요.
+Each activity is available once at this review. Eight hours are available for these choices.|แต่ละกิจกรรมเลือกได้ครั้งเดียวในช่วงทบทวนนี้ มีเวลาสำหรับตัวเลือกเหล่านี้รวมแปดชั่วโมง|每项活动在本次回顾中只能选择一次，共有八小时可用于这些选择。|この振り返りで各活動は一度だけ選べます。これらに使える時間は合計8時間です。|이번 점검에서 각 활동은 한 번만 선택할 수 있습니다. 총 8시간을 쓸 수 있습니다.
+Personal money ledger|บัญชีเงินส่วนตัว|个人收支记录|個人のお金の記録|개인 자금 장부
+Income and spending|รายรับและรายจ่าย|收入与支出|収入と支出|수입과 지출
+Purchase|การซื้อ|购买|購入|구매
+Saving and investing|การออมและการลงทุน|储蓄与投资|貯蓄と投資|저축과 투자
+A cash reserve can meet a near-term expense. Investments can lose value, and fees reduce what you keep. This account currently models cash saving, not market returns.|เงินสำรองช่วยจ่ายค่าใช้จ่ายในระยะใกล้ การลงทุนอาจขาดทุน และค่าธรรมเนียมลดเงินที่เหลือ บัญชีนี้จำลองการออมเงินสด ยังไม่จำลองผลตอบแทนตลาด|现金储备可支付近期费用。投资可能亏损，费用也会减少你的所得。目前此账户模拟现金储蓄，尚未模拟市场回报。|現金の備えは近い将来の支出に使えます。投資は値下がりすることがあり、手数料も差し引かれます。この口座で現在扱うのは現金の貯蓄です。市場の運用益は扱いません。|현금 예비 자금은 가까운 시일의 지출에 쓸 수 있습니다. 투자는 손실이 날 수 있고 수수료도 남는 돈을 줄입니다. 현재 이 계좌는 현금 저축을 다루며 시장 수익은 계산하지 않습니다.
+Your CV|ประวัติของคุณ|你的履历|あなたの履歴|나의 이력
+Completed records, not plans. Studies do not automatically mean a degree.|บันทึกสิ่งที่เกิดขึ้นแล้ว การเข้าเรียนไม่ได้แปลว่าได้รับปริญญาเสมอไป|只记录已经发生的经历。学习经历不自动等于获得学位。|実際の経験の記録です。在学しただけで学位を得たことにはなりません。|실제로 이룬 기록입니다. 공부했다는 사실이 곧 학위를 뜻하지는 않습니다.
+Education|การศึกษา|教育|教育|교육
+Work|งาน|工作|仕事|일
+Projects|โครงการ|项目|プロジェクト|프로젝트
+Milestones|หมุดหมายชีวิต|人生里程碑|人生の節目|삶의 이정표
+School education|การศึกษาในโรงเรียน|学校教育|学校での教育|학교 교육
+College studies|การศึกษาในมหาวิทยาลัย|大学学习|大学での学び|대학 공부
+Paid apprenticeship|ฝึกงานพร้อมรายได้|带薪学徒|有給の見習い|유급 견습
+Independent work|งานอิสระ|独立工作|独立した仕事|독립적인 일
+Salaried work|งานประจำ|受薪工作|給与を得る仕事|급여를 받는 일
+Creative project begun|เริ่มโครงการสร้างสรรค์|创作项目启动|創作を始める|창작 프로젝트 시작
+Work shared publicly|นำผลงานสู่สาธารณะ|公开展示作品|作品を公開する|작품 공개
+Partnership commitment|ตกลงใช้ชีวิตร่วมกัน|伴侣承诺|パートナーとしての約束|동반자로서의 약속
+Parenthood|การเป็นพ่อแม่|成为父母|親になる|부모 되기
+Mentoring|ถ่ายทอดประสบการณ์|指导后辈|経験を伝える|경험 나누기
+Short class attended|เข้าเรียนคอร์สสั้นแล้ว|参加过短期课程|短い講座への参加|짧은 수업 참여
+Nothing recorded yet.|ยังไม่มีบันทึก|暂无记录。|まだ記録がありません。|아직 기록이 없습니다.
+Around your life|โลกรอบชีวิตคุณ|你身边的世界|人生の周りで|삶을 둘러싼 세계
+Recorded conditions in this authored world.|สภาพแวดล้อมที่บันทึกไว้ในโลกจำลองนี้|这个模拟世界中已记录的情况。|このシミュレーション世界で記録された状況です。|이 시뮬레이션 세계에 기록된 상황입니다.
+Economy|เศรษฐกิจ|经济|経済|경제
+Society|สังคม|社会|社会|사회
+Environment|สิ่งแวดล้อม|环境|環境|환경
+No economic shock recorded yet.|ยังไม่มีบันทึกเหตุการณ์กระทบเศรษฐกิจ|尚未记录经济冲击。|経済的なショックはまだ記録されていません。|아직 경제 충격이 기록되지 않았습니다.
+No environmental event recorded yet.|ยังไม่มีบันทึกเหตุการณ์ด้านสิ่งแวดล้อม|尚未记录环境事件。|環境の出来事はまだ記録されていません。|아직 환경 사건이 기록되지 않았습니다.
+These records are not an economic forecast. Historical crisis modeling is still being developed.|บันทึกเหล่านี้ไม่ใช่การพยากรณ์เศรษฐกิจ แบบจำลองวิกฤตจากประวัติศาสตร์ยังอยู่ระหว่างพัฒนา|这些记录不是经济预测。历史危机模型仍在开发中。|この記録は経済予測ではありません。歴史上の危機を扱うモデルは開発中です。|이 기록은 경제 예측이 아닙니다. 역사적 위기 모델은 개발 중입니다.
+Life event|เหตุการณ์ชีวิต|人生事件|人生の出来事|삶의 사건
+Amount from reserve|จำนวนเงินจากเงินสำรอง|从储备转出的金额|備えから移す金額|예비 자금에서 옮길 금액
+Move to spendable|ย้ายมาเป็นเงินที่ใช้ได้|转为可支配现金|使えるお金に移す|사용 가능한 돈으로 옮기기
+{amount} · {hours} h|{amount} · {hours} ชม.|{amount} · {hours} 小时|{amount}・{hours}時間|{amount} · {hours}시간
+Born into {home} · {place}|เกิดใน{home} · {place}|出生于{home} · {place}|{home}に生まれる・{place}|{home}에서 태어남 · {place}
 Settings|การตั้งค่า|设置|設定|설정
 Close|ปิด|关闭|閉じる|닫기
 Language|ภาษา|语言|言語|언어
@@ -136,7 +211,7 @@ Work slows. Your time becomes your own again.|งานเริ่มเบา�
 Floodwater damages the family home. Repairs take money and time.|น้ำท่วมบ้าน การซ่อมแซมใช้ทั้งเงินและเวลา|洪水损坏了家，修复需要金钱和时间。|家が浸水し、修理にお金と時間がかかります。|홍수로 집이 망가졌습니다. 수리에 돈과 시간이 듭니다.
 Your father dies. The family has to find a different rhythm.|พ่อจากไป ครอบครัวต้องปรับชีวิตใหม่|父亲离世，家人需要重新适应生活。|父を亡くし、家族は新しい暮らし方を探します。|아버지가 세상을 떠났습니다. 가족은 새로운 일상을 찾아야 합니다.
 Your mother dies. Familiar places carry different memories.|แม่จากไป สถานที่คุ้นเคยมีความทรงจำเปลี่ยนไป|母亲离世，熟悉的地方承载了不同的回忆。|母を亡くし、見慣れた場所にも違う記憶が重なります。|어머니가 세상을 떠났습니다. 익숙한 장소의 기억도 달라집니다.
-A work interruption reduces the household buffer.|งานสะดุด เงินสำรองครอบครัวลดลง|工作中断，家庭储备金减少。|仕事が途切れ、家計の備えが減ります。|일이 중단되어 가계 여유 자금이 줄었습니다.
+A work interruption reduces your personal funds.|งานสะดุด เงินส่วนตัวของคุณลดลง|工作中断，你的个人资金减少。|仕事が途切れ、個人のお金が減ります。|일이 중단되어 개인 자금이 줄었습니다.
 An unexpected commission or extra work brings a little breathing room.|งานพิเศษที่ไม่ได้คาดไว้ช่วยให้พอมีเงินเหลือ|意外的委托或额外工作带来一些余裕。|思いがけない依頼や仕事で、少し余裕が生まれます。|뜻밖의 의뢰나 추가 일이 작은 여유를 줍니다.
 A health setback interrupts your plans.|ปัญหาสุขภาพทำให้แผนสะดุด|健康问题打乱了计划。|体調を崩し、予定が中断します。|건강 문제로 계획이 중단됩니다.
 The rest was never promised.|วันข้างหน้าไม่เคยมีใครรับประกัน|余生从未被保证。|その先は、約束されていませんでした。|그 이후는 약속된 적 없었습니다.
@@ -502,4 +577,11 @@ You wrote to {friend}, remembering the ordinary afternoon when you first became 
 `.trim().split('\n').map(line=>line.split('|')));
 phrases.push(...`
 Marriage and family milestones follow your choices. Dengue, job loss and pregnancy are not yet generated by this model.|การแต่งงานและเหตุการณ์ครอบครัวเกิดตามการเลือกของคุณ แบบจำลองนี้ยังไม่สร้างเหตุการณ์ไข้เลือดออก การตกงาน หรือการตั้งครรภ์|婚姻和家庭里程碑随你的选择发生。模型尚未生成登革热、失业或怀孕事件。|結婚や家族の節目は選択に続いて起こります。デング熱、失職、妊娠はまだ生成しません。|결혼과 가족의 이정표는 선택에 따라 일어납니다. 뎅기열, 실직, 임신은 아직 생성하지 않습니다.
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Study together, then take a walk|เรียนด้วยกัน แล้วไปเดินเล่น|一起学习，然后散步|一緒に勉強してから散歩する|함께 공부한 뒤 산책하기
+You and {friend} worked through a difficult lesson, then talked on the walk home. Neither part of the afternoon lasted as long as you wanted.|คุณกับ{friend}ช่วยกันทำบทเรียนยาก ๆ แล้วคุยกันระหว่างเดินกลับบ้าน แต่ละอย่างมีเวลาน้อยกว่าที่ต้องการ|你和{friend}一起攻克难懂的功课，再一路聊着回家。学习和聊天的时间都比你想要的短。|{friend}と難しい課題に取り組み、帰り道で話しました。勉強も会話も、思ったほど長くはできませんでした。|{friend}과 어려운 과제를 풀고 집으로 걸어가며 이야기했습니다. 공부도 대화도 원하는 만큼 오래 하지는 못했습니다.
+Tell your crush you would like to spend time together|บอกคนที่แอบชอบว่าอยากใช้เวลาด้วยกัน|告诉心动的人你想一起相处|気になる相手に一緒に過ごしたいと伝える|좋아하는 친구에게 함께 시간을 보내고 싶다고 말하기
+You made room for a school-age crush and practised listening and boundaries. Your unfinished work still needed another afternoon.|คุณให้เวลากับความรักวัยเรียน ฝึกฟังและเคารพขอบเขตกัน งานที่ยังไม่เสร็จต้องหาเวลาทำวันอื่น|你为学生时代的心动留出时间，练习倾听与尊重界限。没做完的功课仍需要另一个下午。|学生時代の恋心に時間を使い、話を聴くことや境界を尊重することを学びました。残った課題には別の午後が必要でした。|학창 시절의 설렘에 시간을 내고 경청과 서로의 경계를 존중하는 법을 연습했습니다. 끝내지 못한 과제에는 다른 오후가 필요했습니다.
 `.trim().split('\n').map(line=>line.split('|')));

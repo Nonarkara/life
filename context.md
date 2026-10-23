@@ -72,3 +72,21 @@ Recap now leads with consequential remembered moments, omitting routine boilerpl
 The owner's 23:23/23:24 screenshots supersede the previous recap visual pass. Default ending now uses three aligned actual-unit tracks over age, selected-age values and one contextual event. Cash uses baht, health/wellbeing use their own 0–100 scales; no cross-unit progress score. It highlights the fastest recorded cash-growth interval (change per elapsed year), simultaneous health change and the specific slower following interval. This is descriptive, not a causal analysis or fitted universal S-curve. Complete decisions, comparisons and world remain accessible through explicit controls. Hidden ended-world animation no longer performs redundant scene updates.
 New ending graphs reviewed at390/1024/1440 and Thai extra text; currency/rounding and text-size regression fixed. Translation templates now prefer more-specific literal patterns, preventing the older generic health-change template from swallowing the word 'about'.49 tests pass, native age selector and point35 verified actual values, existing views open/close correctly. Review/ending-graphs contains current evidence; review/recap is superseded for design direction.
 Owner's name and motto: Life2.0 — What if you could live your life all over again? Updated manual, intake, game, browser titles and hosting display name. Local save identifiers deliberately unchanged to retain lives. Original-game research and economic-crisis engine remain unfinished; custom-domain DNS still pending.
+
+## Personal money, CV and owner-rejected sidebar — 24 October
+Personal account starts at15, separate from the family buffer. Editable after-cost
+budget, funded books/comics/classes, reserve transfers, rent/commute and personal
+ledger added. Paid encounters draw owned personal funds; household wages are no
+longer double-counted. Opening month excluded once; CV derives completed spans,
+projects and paid class receipts, without invented degrees. Replay retains ledger.
+School-age afternoon choices add shared study or a crush with specific acquired
+practice, no automatic academic failure or adult dating flag.62tests pass.
+Owner rejected half-screen sidebar. Superseded by desktop content-height dock,
+320–400px wide; world continues underneath short tasks. Phone retains split view;
+advance action now has its own footer rather than hiding below scroll or covering
+text. Native phone/tablet scrolling and enlarged Thai money reading exercised.
+World skyline lowered and roofs given pitched profiles; not a new 3D engine.
+Research/inherited-opportunity-design.md records generalized inherited security,
+network and aspiration mechanisms; private family narrative is excluded from
+published content. Those richer systems remain future work, as do calibrated
+crises, investment assets, admissions/scholarships and native editorial validation.

@@ -1,3 +1,4 @@
+import {netWorth} from '../../dist/course/finance.js';
 import test from 'node:test';import assert from 'node:assert/strict';
 import {childhoodChapter} from '../../dist/course/childhood.js';
 import {newLife,configureLife,live} from '../../dist/course/sim.js';
@@ -20,7 +21,7 @@ test('education routes unlock by age; independent work has upside and downside w
  const state={...begin(newLife(1)),age:20,pathway:'independent'};
  assert.ok(pathwayPeriod(state,.1).cash>0);assert.ok(pathwayPeriod(state,.8).cash<0);
  const college=live({...state,pathway:'college'}),work=live({...state,pathway:'work'});
- assert.ok(college.cash<work.cash);assert.ok(college.skills.iq>work.skills.iq);
+ assert.ok(netWorth(college.finance)<netWorth(work.finance));assert.equal(college.cash,work.cash);assert.ok(college.skills.iq>work.skills.iq);
  assert.equal(college.history.at(-1).pathway,'college');
 });
 import {validate} from '../../dist/course/sim.js';

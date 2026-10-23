@@ -27,3 +27,12 @@ Not yet achieved:
 
 Evidence: review/v1/childhood-source-review.md and its referenced screenshots.
 Files named failed-startup-* document the fault, never a visual pass.
+
+24 October increment:62tests pass. Personal ledger/budget, funded purchases,
+reserve transfer, housing/commute and evidence-derived CV added; nativeUI flow15
+allowance→book/comics/class→budget25%→20project→reserve transfer→near-workhousing
+verified. Tablet document1024x768 fits exactly; Thai extra phone inner scroll reaches
+last help while world/navigation persist. Screenshots in review/console; dock
+replaces owner-rejected oversized half-screen panel. This is not full-game or
+public-domain approval. Inherited opportunity/network/admissions mechanics remain
+specified rather than implemented. Graphic change is a bounded Canvas refinement.
