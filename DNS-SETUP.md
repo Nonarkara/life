@@ -1,9 +1,16 @@
 # life.nonarkara.org — hosting
 
 Hosting: Cloudflare Pages project `life` (production branch `main`), serving `out/`
-from `npm run build`. Custom domain `life.nonarkara.org` is attached to that Pages
-project; the nonarkara.org zone is in the same Cloudflare account, so Pages adds the
-CNAME itself.
+from `npm run build`. Live at https://life-5wz.pages.dev (deployed 24 October 2026).
+Custom domain `life.nonarkara.org` is attached to the Pages project (status
+`initializing`). It needs one proxied DNS record in the nonarkara.org zone:
+
+| Type | Name | Target | Proxy |
+| --- | --- | --- | --- |
+| CNAME | life | life-5wz.pages.dev | on |
+
+Wrangler's OAuth login cannot write DNS (it only offers `zone:read`), so this
+record needs a DNS-edit API token or the owner.
 
 Deploy:
 
