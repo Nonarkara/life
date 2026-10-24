@@ -17,11 +17,10 @@ body.console-mode:not(.birth-stage){height:100dvh;overflow:hidden}
 @container(max-width:400px){.cv-grid{grid-template-columns:1fr}.small-purchases button{gap:10px}}
 
 .reserve-transfer{display:flex;align-items:center;gap:16px;margin:8px 0}.reserve-transfer input{width:7ch;background:none;border:0;border-bottom:1px solid var(--muted);font:inherit;color:inherit}.reserve-transfer button{font-size:calc(13px * var(--reading-scale));padding:4px 0;border-bottom:1px solid var(--muted)}
-/* A content-sized control dock: the world keeps the space below short tasks. */
+/* A narrow reading column beside the world: nothing is drawn underneath it. */
 @media(min-width:721px){
- .console-mode:not(.birth-stage):not(.recap-stage) main{position:relative;display:block}
- .console-mode:not(.birth-stage):not(.recap-stage) .console-reader{position:absolute;right:0;top:0;width:clamp(320px,28vw,400px);max-height:calc(100% - 82px);background:var(--paper);border-left:1px solid var(--line);border-bottom:1px solid var(--line);z-index:2}
- .console-mode:not(.birth-stage):not(.recap-stage) .world-head{padding-right:calc(clamp(320px,28vw,400px) + 12px)}
+ .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-columns:minmax(0,1fr) clamp(320px,28vw,400px)}
+ .console-mode:not(.birth-stage):not(.recap-stage) .console-reader{background:var(--paper);border-left:1px solid var(--line)}
 }
 .console-panel{scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--muted) var(--paper)}
 .console-panel::-webkit-scrollbar{width:6px}
