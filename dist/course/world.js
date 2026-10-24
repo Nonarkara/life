@@ -6,6 +6,7 @@ import {routine} from './routines.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 export function drawWorld(canvas,state,age,time,mode='world'){
+const labels=[];
 Object.assign(C,MOOD_CHORDS[lifeMood(state)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawCourse(c,state,canvas.clientWidth<560);finish();return;}
 const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance'),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
@@ -14,9 +15,8 @@ const p=(x,y,z=0)=>[(x-y)*15,(x+y)*7.5-z*15];
 function poly(v,col){c.beginPath();v.forEach((a,i)=>i?c.lineTo(...p(...a)):c.moveTo(...p(...a)));c.closePath();c.fillStyle=col;c.fill();}
 function box(x,y,z,w,d,h,top=C.paper,side=C.shade,front=C.wall){poly([[x,y,z],[x,y+d,z],[x,y+d,z+h],[x,y,z+h]],side);poly([[x,y+d,z],[x+w,y+d,z],[x+w,y+d,z+h],[x,y+d,z+h]],front);poly([[x,y,z+h],[x+w,y,z+h],[x+w,y+d,z+h],[x,y+d,z+h]],top);}
 function line(a,b,col,w=.4){c.beginPath();c.moveTo(...p(...a));c.lineTo(...p(...b));c.strokeStyle=col;c.lineWidth=w;c.stroke();}
-const labels=[];function label(x,y,text){labels.push([p(x,y,.1),t(text)]);}
-// Names keep one readable size while the camera widens with age.
-function drawLabels(){c.font=(5*1.7/Math.min(zoom,1.7)).toFixed(2)+'px '+worldFont();c.textAlign='center';c.lineJoin='round';c.lineWidth=1.6;c.strokeStyle=C.paper;c.fillStyle=C.ink;for(const[q,text]of labels){c.strokeText(text,...q);c.fillText(text,...q);}}
+// Place names are drawn on the final canvas at a fixed screen size, above everything.
+function label(x,y,text){const m=c.getTransform().transformPoint(new DOMPoint(...p(x,y,.1)));labels.push([m.x,m.y,t(text)]);}
 function tree(x,y){box(x,y,0,.15,.15,1.2,C.wood,C.wood,C.wood);box(x-.45,y-.45,1,1,1,.65,C.lightleaf,C.leaf,C.leaf);box(x-.25,y-.25,1.65,.6,.6,.35,C.lightleaf,C.leaf,C.leaf);}
 function building(x,y,w,d,h,name){box(x,y,0,w,d,h);poly([[x-.15,y-.15,h],[x+w+.15,y-.15,h],[x+w+.15,y+d/2,h+.5],[x-.15,y+d/2,h+.5]],C.roofLight);poly([[x-.15,y+d/2,h+.5],[x+w+.15,y+d/2,h+.5],[x+w+.15,y+d+.15,h],[x-.15,y+d+.15,h]],C.roof);poly([[x+w+.01,y,h],[x+w+.01,y+d/2,h+.5],[x+w+.01,y+d,h]],C.wall);for(let a=x+.3;a<x+w-.3;a+=.6){poly([[a,y+d+.01,.5],[a+.3,y+d+.01,.5],[a+.3,y+d+.01,1],[a,y+d+.01,1]],'#526b61');}box(x+w*.45,y+d,.02,.5,.12,.9,C.wood,C.wood,C.wood);if(age>=10)label(x+w/2,y+d+.6,name);}
 // Persistent land, coast and water exist before the camera can see them.
@@ -76,8 +76,8 @@ if(age>=10){add(18,()=>{person(11.4,5.7,'#a8ac8e',0);});add(8,()=>{person(8.4,0,
 objects.sort((a,b)=>a.depth-b.depth);objects.forEach(o=>o.fn());
 // Passing traffic has its own lane and remains independent of the player.
 if(age>=5){const busX=-1+(time*.12%14);box(busX,7.25,.05,1.2,.55,.6,'#9caa93','#697d6d','#8f9b80');box(busX+.15,7.26,.65,.8,.5,.05,C.paper);}
-drawLabels();c.restore();finish();
-function finish(){const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;if(canvas.width!==bw*2||canvas.height!==bh*2){canvas.width=bw*2;canvas.height=bh*2;}out.imageSmoothingEnabled=false;out.clearRect(0,0,bw*2,bh*2);out.drawImage(canvasBuffer,0,0,bw*2,bh*2);}
+c.restore();finish();
+function finish(){const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;if(canvas.width!==bw*2||canvas.height!==bh*2){canvas.width=bw*2;canvas.height=bh*2;}out.imageSmoothingEnabled=false;out.clearRect(0,0,bw*2,bh*2);out.drawImage(canvasBuffer,0,0,bw*2,bh*2);if(!labels.length)return;const k=canvas.width/Math.max(1,canvas.clientWidth),size=11*k,pad=3*k;out.font='600 '+size+'px '+worldFont();out.textAlign='center';out.textBaseline='middle';for(const[x,y,text]of labels){const w=out.measureText(text).width,cx=Math.min(Math.max(x*2,w/2+pad),bw*2-w/2-pad);if(y*2<0||y*2>bh*2)continue;out.fillStyle=C.paper;out.fillRect(cx-w/2-pad,y*2-size/2-pad,w+pad*2,size+pad*2);out.fillStyle=C.ink;out.fillText(text,cx,y*2);}}
 }
 function drawCourse(c,s,compact=false){
  c.fillStyle=C.water;c.fillRect(0,0,560,340);for(let x=0;x<560;x+=19)for(let y=50;y<300;y+=13){c.fillStyle=C.waterLight;c.fillRect(x+(y%7),y,5,1);}

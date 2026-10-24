@@ -15,7 +15,7 @@ export function initConsole({getState,change}){
   const p=element('section');p.id='console-'+key;p.className='console-panel';p.setAttribute('aria-label',label);panes[key]=p;
  }
  panes.plan.append(decision);panes.history.append(resources,method);reader.append(nav,...Object.values(panes));const actions=element('div',undefined,'console-actions');actions.append(reader.querySelector('#commit'));reader.append(actions);main.append(reader);
- const hud=element('dl',undefined,'life-hud');stage.append(hud);
+ const hud=element('dl',undefined,'life-hud'),wide=matchMedia('(min-width:721px)'),placeHud=()=>wide.matches?reader.insertBefore(hud,actions):stage.append(hud);placeHud();wide.addEventListener('change',placeHud);
  const header=document.querySelector('header');new ResizeObserver(()=>document.documentElement.style.setProperty('--life-header-height',header.getBoundingClientRect().height+'px')).observe(header);
  function select(key){active=key;actions.hidden=key!=='plan';if(key==='money')moneyPane(getState());if(key==='cv')cvPane(getState());if(key==='world')worldPane(getState());for(const[k,p]of Object.entries(panes)){p.hidden=k!==key;buttons[k].setAttribute('aria-pressed',String(k===key));}panes[key].scrollTop=0;}
  const heading=(pane,title,note)=>{pane.replaceChildren(element('h1',title));if(note)pane.append(element('p',note,'console-note'));};
