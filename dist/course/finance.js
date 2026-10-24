@@ -20,7 +20,7 @@ export function monthlyFlow(state,row){
  const studying=state.age<20&&row?.pathway==='school'||row?.pathway==='college'&&state.age<25;
  const income=studying?allowance(state):state.age<20?(row?.pathway==='vocational'?5000:2500):Math.max(0,Math.round(row?.earnings??grossMonthlyPay(state)*(state.age>=60?1:({school:0,college:0,vocational:.6,independent:.2,work:1}[row?.pathway]??1))));
  const home=HOUSING[state.finance?.housing??'family'];
- return {income,essential:studying?0:state.age<20?1200:4000+home.rent+home.transport,commute:studying?30:home.minutes,source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
+ return {income,essential:studying?Math.round(allowance(state)*.7):state.age<20?1200:4000+home.rent+home.transport,commute:studying?30:home.minutes,source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
 }
 export function advanceFinance(before,next){
  if(next.age<=before.age)return next;

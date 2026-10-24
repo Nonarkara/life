@@ -1,4 +1,5 @@
 import {netWorth} from './finance.js';
+import {preferences} from './i18n.js';
 import {rememberedMoments} from './recap.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
@@ -33,7 +34,7 @@ export function renderEnding(root,state){
    const top=24+i*102,base=top+68,all=[0,...rows.map(r=>r[key])],min=key==='cash'?Math.min(...all):0,max=key==='cash'?Math.max(...all):100,span=max-min||1,y=v=>base-(v-min)/span*52;
    if(fastest)chart.append(svg('rect',{x:x(fastest.from),y:top+4,width:x(fastest.to)-x(fastest.from),height:64,fill:'#a32750','fill-opacity':.07}));
    chart.append(svg('text',{x:left,y:top-6,class:'ending-metric',fill:color},name+(key==='cash'?' · ฿':'')));
-   for(const v of [...new Set([min,max])]){chart.append(svg('text',{x:left-8,y:y(v)+4,'text-anchor':'end',class:'ending-tick'},key==='cash'?(Math.abs(v)>=1000?Math.round(v/1000)+'k':Math.round(v)):v));chart.append(svg('line',{x1:left,x2:width-right,y1:y(v),y2:y(v),stroke:'#b4b9a9','stroke-width':.7}));}
+   for(const v of [...new Set([min,max])]){chart.append(svg('text',{x:left-8,y:y(v)+4,'text-anchor':'end',class:'ending-tick'},key==='cash'?new Intl.NumberFormat(preferences.language,{notation:'compact',maximumFractionDigits:1}).format(v):v));chart.append(svg('line',{x1:left,x2:width-right,y1:y(v),y2:y(v),stroke:'#b4b9a9','stroke-width':.7}));}
    if(min<0)chart.append(svg('line',{x1:left,x2:width-right,y1:y(0),y2:y(0),stroke:'#b4b9a9','stroke-dasharray':'3 3'}));
    chart.append(svg('line',{x1:x(selected),x2:x(selected),y1:top+4,y2:base,stroke:'#52635b','stroke-dasharray':'2 4'}));
    chart.append(svg('polyline',{points:rows.map(r=>`${x(r.age)},${y(r[key])}`).join(' '),fill:'none',stroke:color,'stroke-width':2.5}));
