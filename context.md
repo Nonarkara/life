@@ -102,3 +102,15 @@ clipping, student allowance banking (students now pay 70% for school meals/trave
 Family savings / Your own money labels. Open: decision panel overlaps world on
 desktop, place labels occluded, world static after 20, flat retirement cash, live
 motion not watched, native-language review, crisis/investment/inheritance systems.
+
+## World and retirement fixes — 24 October 2026 (Claude)
+Owner asked to fix four reviewer findings. Desktop/tablet reader is now a 320–400px
+column beside the world, not an overlay (owner's earlier "world continues underneath"
+dock is superseded by this request); stats sit at its foot. Place names render on the
+final canvas at 11 CSS px with a paper backing, above all objects, clamped inside the
+canvas. Camera widens 20→~58; town adds houses at 25/35/45/55 (layout.js townGrowth,
+route-tested, mutation-checked). Pension = max(฿3,000, 40% of age-59 pay) replacing a
+flat ฿7,000 equal to retirement costs. Two independent screenshot checks; second
+found labels unreadable, fixed and re-verified. 65 tests. Deployed build 188a3a9f2a65
+to life.nonarkara.org; full lives on the live domain at 1440 and 390 reach the ending
+with no errors. Open: empty space mid-column on desktop, edge cropping, sparse intake.

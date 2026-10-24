@@ -92,7 +92,7 @@ No AI-generated artwork, no copied game assets, no paid API and no backend.
 
 ```bash
 npm install
-npm test          # 63 simulation, finance, translation and path tests
+npm test          # 65 simulation, finance, translation and path tests
 npm run dev       # builds to out/ and serves http://127.0.0.1:4219/
 ```
 
@@ -118,9 +118,9 @@ There are no runtime dependencies. esbuild bundles the game module graph at buil
 Not yet done, stated plainly:
 
 - Animation quality has been judged only in still screenshots, not watched live.
-- On desktop the decision panel covers part of the world, and place names are drawn behind buildings and people.
-- The world stops visibly growing after age 20.
-- After 60, retirement income exactly equals costs, so the money line is flat.
+- On desktop the reading column has empty space between a short task and the stats at its foot.
+- The camera follows the player, so buildings at the edge of the world can be cropped.
+- The setup screen at `/intake` is mostly empty on a phone.
 - No economic-crisis engine, investments, credit, scholarships or admissions, inherited networks, late-life care or recovery systems yet. The research for them is in `research/`.
 - The five languages have not been checked by native editors.
 - No repeated human playtests yet. Whether the game is good is not settled by tests.
