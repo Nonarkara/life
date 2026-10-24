@@ -94,8 +94,8 @@ crises, investment assets, admissions/scholarships and native editorial validati
 ## Public release — 24 October 2026 (Claude)
 Hosting moved from the never-live OpenAI Sites binding to Cloudflare Pages project
 `life` (https://life-5wz.pages.dev), repo github.com/Nonarkara/life (public).
-Custom domain life.nonarkara.org attached to Pages; awaiting one CNAME
-life → life-5wz.pages.dev (see DNS-SETUP.md). Verified: four full headless lives
+Custom domain https://life.nonarkara.org is live (CNAME life → life-5wz.pages.dev,
+proxied); a full phone life on it reached the ending with no errors. Verified: four full headless lives
 (390/1024/1440/Thai extra-large) plus one on the live URL reach the ending with no
 errors or horizontal overflow; 63 tests. Independent review blockers fixed: phone HUD
 clipping, student allowance banking (students now pay 70% for school meals/travel),

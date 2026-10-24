@@ -4,7 +4,7 @@
 
 Life2.0 is a free browser game about one Thai life, from the womb to old age. You don't choose where you are born. You do choose, every five years, where your time goes. When the life ends you see what it became, and then you can live it again in the same world, under the same storms, floods and lucky breaks, and find out which differences were yours.
 
-- Play: **https://life-5wz.pages.dev** now · **https://life.nonarkara.org** once its DNS record is added
+- Play: **https://life.nonarkara.org**
 - Manual: `/start` · Session setup: `/intake` · The game: `/course`
 - Languages: English, ไทย, 简体中文, 日本語, 한국어
 - No account, no analytics, no backend. Your life is saved only in your own browser. Fonts load from Google Fonts.
