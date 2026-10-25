@@ -1,6 +1,6 @@
 # Graphics upgrade: evidence and limits
 
-25 October 2026. Source baseline: 0bbc473. Current candidate build: 2215d5022868.
+25 October 2026. Source baseline: 0bbc473. Released build: befd48c0d958 (code fc31ca5).
 
 ## What was exercised
 
@@ -69,3 +69,17 @@ excluded multi-dot filenames. Fixed with a regression for that exact import, and
 build identity now includes generated output and the transformation scripts.
 Two identical builds agree on befd48c0d958.78tests pass. The screenshot
 public-desktop.png records the failed first smoke, never a3D release approval.
+
+## Corrected public verification
+Cloudflare deployment1ad434bf serves befd48c0d958. Three consecutive matching
+probes on the canonical alias, then custom domain verify boot, game bundle and
+console CSS. The boot explicitly imports game.bundle.js?v=befd48c0d958.
+The existing custom-domain browser retained its age15 life and showed the new
+world-renderer canvas; the old canvas is hidden except when the overview is
+selected. Screenshot public-3d-verified.png is the actual current3D result.
+Public Pause and overview→world work. Two reduced-motion screenshot byte hashes
+match after resuming the review, then the original normal-motion preference was
+restored. Subsequent caption/movement reached walking home; no warning/error
+logs were captured. Fresh public alias intake reached the newborn scene with
+both parents visible (public-opening.png). Its3s countdown elapsed before that
+capture; that still does not document the numbers. No user save was reset.

@@ -1,4 +1,4 @@
-## Graphics candidate —25 October 2026
+## Public graphics release —25 October 2026
 
 Build `befd48c0d958` adds the locally bundled Three.js world, record-based routines,
 articulated actors, furniture support, dock-aware framing, architectural cutaways,
@@ -6,8 +6,19 @@ compact desktop dock and Settings pause. 78 tests pass. Independent source and
 responsive still review cleared this bounded update. Browser workflow, evidence
 versions and remaining limits: `review/visual-upgrade/README.md`.
 
-Public deployment verification for this candidate is pending. The published build
-below remains the previous release until that verification is recorded.
+Shipped code: `fc31ca5`; public build: `befd48c0d958`; immutable deployment:
+https://1ad434bf.life-5wz.pages.dev. Three consecutive byte-matching boot/bundle/CSS
+probes passed on the canonical alias, then https://life.nonarkara.org. The boot
+imports the versioned bundle. Bundle SHA-256:
+`253cc65ccba0251e6146836ec04865ef3c9e32c474d95caf5438e76cddc457fd`.
+An existing custom-domain browser retained its saved age-15 life and now shows a
+visible `world-renderer` with the legacy canvas hidden. Pause, overview and return
+to 3D were exercised. Reduced-motion screenshots match byte-for-byte while the
+unpaused review stays static; the preference was restored. Normal motion resumed
+and the caption reached walking home. No warning/error logs were captured.
+A fresh alias-origin random intake reached the newborn/family scene with both
+parents visible. Evidence: public-3d-verified.png and public-opening.png.
+The prior published status below is retained as history.
 
 ## Current status —25October2026
 

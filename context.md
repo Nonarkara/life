@@ -158,3 +158,14 @@ collegecutaways make the actor visible. These are stylized miniatures, not
 photorealism, fullSimsAI, or measured10xquality. Wider handoff work—autonomy,
 economic exposure/holdings, relocation, event-addressed replay and relationships—
 remains real implementation work, not something this engine solves.
+
+## Public cache correction and verification
+First graphics upload2215d5022868 passed server probes but an existing browser
+kept old2D. The loader's multi-dot game.bundle.js import was not versioned.
+Fixed the matcher and hashed generated output plus build transforms;78tests
+pass and repeated builds give befd48c0d958. Public deployment1ad434bf now passes
+three matching probes per alias/custom domain and actual old-browser3D DOM/
+screenshot verification with its saved life retained. Public pause, overview,
+normal/reducedmotion and a fresh alias-origin newborn scene were exercised.
+RELEASE-READINESS.md records exact hashes and receipts. No full-game completion
+or exhaustive original-game study is claimed.

@@ -85,3 +85,11 @@ Release judgment applies to this bounded implementation only, preserving the ove
 Verified placard placement now uses85% building width (applies to all named buildings, not only school). Vocational committed context hides player work chair/laptop for the route and shows a wood workpiece; hammer head is visible only in craft pose. Changes remain presentation-only. No demonstrated source regression in these refinements; final placard fit still needs actual public capture because all building labels moved.
 
 Independently ran the new orthographic cutaway regression: pass. It constructs an off-centre child anchor and genuine occluder that the old perspective-style ray misses, then confirms hidden growth is ignored. This is meaningful executable evidence for the fixed ray behavior. No public-byte, newborn or deployed-browser smoke verification performed by this reviewer at this step.
+
+## Loader cache correction audit — buildbefd48c0d958
+
+Read asset-versions.mjs/build.mjs and generated out/course/boot.js. The corrected URL pattern accepts multi-dot game.bundle.js; generated boot explicitly imports ./game.bundle.js?v=befd48c0d958, matching out/build.json. Independently ran asset-version regression: pass, including ordinary JS/CSS references, multi-dot dynamic import, idempotency and no alteration of HTTPS URL.
+
+Build hash includes authored build scripts plus generated unversioned output with output-relative sorted paths. Temporary directory randomness is excluded; builder-only fixes now change the asset key. This is coherent cache-key ownership for the current graph. Parent reports two identical builds producing the same ID; reviewer did not rebuild over the output being deployed.
+
+Prior public2215 upload is not evidence that3D reached users: the observed stale unversioned bundle explains the discrepancy. Source/generated loader correction passes this focused audit; actual public HTML→versioned boot→versioned bundle bytes and real world-renderer DOM still require deployed smoke verification. Query versioning alone is not a live-browser graphics pass.
