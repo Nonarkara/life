@@ -1,0 +1,51 @@
+{
+  "build": "45c8e88b629d",
+  "assets": {
+    "course/boot.js": "27a477f740f90599fa8130edccf918ebaa609246d167df79ed9ff83f900ee2e2",
+    "course/game.bundle.js": "8086619bcb9f773a75d19375f7f20c958f72f4a42a70dd2f1f101b90d6bfb106",
+    "course/course.css": "8f688058b948f554b2a9a5512b402fd29abca95802832fc0e987daa49ee3c609",
+    "course/console.css": "ab1f59785f8330819dbc5429dec6ae7404de1074f06bf6da078fde711a32c3ec",
+    "course/personal-console.css": "ae5c9021c7b8d835c5ca2ce0eaa161de9593c1ccc182774488e5f3a1a2abe649",
+    "course/economy.css": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+    "course/fonts.js": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+    "course/settings.css": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+    "study/scene-study.bundle.js": "34b9cb1150f1773952c5e581ea986c989aefa2ae093d6b26c632d1c6f009bf28"
+  },
+  "hosts": {
+    "https://life-5wz.pages.dev": [
+      {
+        "attempt": 1,
+        "build": "45c8e88b629d",
+        "matches": true
+      },
+      {
+        "attempt": 2,
+        "build": "45c8e88b629d",
+        "matches": true
+      },
+      {
+        "attempt": 3,
+        "build": "45c8e88b629d",
+        "matches": true
+      }
+    ],
+    "https://life.nonarkara.org": [
+      {
+        "attempt": 1,
+        "build": "45c8e88b629d",
+        "matches": true
+      },
+      {
+        "attempt": 2,
+        "build": "45c8e88b629d",
+        "matches": true
+      },
+      {
+        "attempt": 3,
+        "build": "45c8e88b629d",
+        "matches": true
+      }
+    ]
+  },
+  "checkedAt": "2026-10-25T16:17:17Z"
+}

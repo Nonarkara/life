@@ -214,3 +214,12 @@ roles and diffuse backgrounds/cel figures replace unowned material choices. Exis
 world, Canvas fallback, saves and outcomes remain. /study fixtures do not touch saves.
 Independent source review is bounded; logo-removal recognition and human playtesting
 are still needed. Reciprocal partner commitments and deeper domestic changes remain.
+
+Publication: bc278f9 pushed; Pagesbfcbfe4c/build45c8e88b629d. Both canonical and
+customdomain pass3consecutive graph-hash probes. Actual public age15save retained;
+buy100/sell100 deducts exactly2fees, reload preserves1,498 andrealized-2. Public
+scene-study12 andmatched35eveningbranches render with no browsererrors.121tests
+and independent bounded source/visual review pass. See review/biography/PUBLIC-RELEASE.md.
+A native screenshot still returned a416pxcrop after a viewport request; it is
+explicitly failed evidence. Replacement selected-tab screenshot is1440x900 and
+DOMmatches. Never infer screenshot dimensions from the viewport call alone.

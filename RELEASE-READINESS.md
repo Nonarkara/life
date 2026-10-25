@@ -1,3 +1,15 @@
+# Current release -25October2026
+
+Published source bc278f9, build45c8e88b629d, Pagesbfcbfe4c. The current release
+adds conserved portfolio holdings, shared economic-world history, compact money
+controls, Palette material roles and the first inhabited-biography scene milestone.
+121tests pass; independent source/rendered review, actual public startup/trades/save
+retention and3matching asset probes per host completed.
+Evidence: review/biography/PUBLIC-RELEASE.md and review/economy/public-assets.json.
+The earlier records below are historical; their deployment/engine gaps are
+superseded only by the named evidence above. Overall product superiority and
+exhaustive original-game study remain unproven and unfinished.
+
 ## Personal console release —25 October 2026
 
 Build `b58148524e8e`: OCEAN/Condition/Five-year goals, compact single-owner HUD,
