@@ -1,16 +1,18 @@
 import {drawScene3D} from './scene3d.js';
 import {t,preferences} from './i18n.js';
-import {lifeMood,MOOD_CHORDS} from './events.js';
+import {lifeMoodAt,MOOD_CHORDS} from './events.js';
 import {AXES} from './sim.js';
 import {furniture,townGrowth} from './layout.js';
 import {routine,routineContext} from './routines.js';
+import {RESIDENCES,roomFurniture} from './locations.js';
+import {revealedPlaces,floorAt,CITY_BLOCKS} from './district3d.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 export function drawWorld(canvas,state,age,time,mode='world'){
 if(drawScene3D(canvas,state,age,time,mode))return;
-const context=routineContext(state);
+const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];
-Object.assign(C,MOOD_CHORDS[lifeMood(state)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
+Object.assign(C,MOOD_CHORDS[lifeMoodAt(state,age)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawCourse(c,state,canvas.clientWidth<560);finish();return;}
 const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance',context),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:document.body.classList.contains('console-mode')&&state.stage!=='birth'?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);
@@ -23,13 +25,15 @@ function label(x,y,text){const m=c.getTransform().transformPoint(new DOMPoint(..
 function tree(x,y){box(x,y,0,.15,.15,1.2,C.wood,C.wood,C.wood);box(x-.45,y-.45,1,1,1,.65,C.lightleaf,C.leaf,C.leaf);box(x-.25,y-.25,1.65,.6,.6,.35,C.lightleaf,C.leaf,C.leaf);}
 function building(x,y,w,d,h,name){box(x,y,0,w,d,h);poly([[x-.15,y-.15,h],[x+w+.15,y-.15,h],[x+w+.15,y+d/2,h+.5],[x-.15,y+d/2,h+.5]],C.roofLight);poly([[x-.15,y+d/2,h+.5],[x+w+.15,y+d/2,h+.5],[x+w+.15,y+d+.15,h],[x-.15,y+d+.15,h]],C.roof);poly([[x+w+.01,y,h],[x+w+.01,y+d/2,h+.5],[x+w+.01,y+d,h]],C.wall);for(let a=x+.3;a<x+w-.3;a+=.6){poly([[a,y+d+.01,.5],[a+.3,y+d+.01,.5],[a+.3,y+d+.01,1],[a,y+d+.01,1]],'#526b61');}box(x+w*.45,y+d,.02,.5,.12,.9,C.wood,C.wood,C.wood);if(age>=10)label(x+w/2,y+d+.6,name);}
 // Persistent land, coast and water exist before the camera can see them.
-poly([[-9,-6,0],[21,-6,0],[21,19,0],[-9,19,0]],C.water);for(let x=-8;x<22;x+=1.1)for(let y=-5;y<20;y+=1.8)line([x,y,.01],[x+.35,y,.01],C.waterLight,.22);
+poly([[-16,-6,0],[40,-6,0],[40,24,0],[-16,24,0]],C.water);for(let x=-8;x<22;x+=1.1)for(let y=-5;y<20;y+=1.8)line([x,y,.01],[x+.35,y,.01],C.waterLight,.22);
 poly([[-3,-3,.01],[15,-3,.01],[17,1,.01],[16,15,.01],[3,17,.01],[-4,10,.01]],C.sand);
 poly([[-2.5,-2.5,.02],[14.5,-2.5,.02],[16.5,1,.02],[15.5,14.5,.02],[3,16.5,.02],[-3.5,9.5,.02]],C.land);
 for(let x=-2;x<16;x+=.6)for(let y=-2;y<15;y+=.8){if((Math.round(x*10)+Math.round(y*10))%3===0)line([x,y,.03],[x+.13,y+.06,.03],C.grass,.22);}
 // Street axes, shared continuous ground plane and paths.
 poly([[-2,7,.04],[15,7,.04],[15,8.1,.04],[-2,8.1,.04]],C.road);poly([[7.2,-2,.04],[8.2,-2,.04],[8.2,15,.04],[7.2,15,.04]],C.road);
 for(let x=-1;x<15;x+=1.5)line([x,7.55,.05],[x+.6,7.55,.05],C.paper,.14);
+if(revealed.homes.has('far')){box(-11,2,.01,7,7,.02,C.land);box(-11,6.8,.01,9,1.6,.02,C.land);box(-11,7,.04,9,1.1,.02,C.road);}
+if(revealed.city||revealed.homes.has('nearLocal')){box(15,6.8,.01,20,2.7,.02,C.land);box(15,7,.04,20,1.1,.02,C.road);if(revealed.city){box(31.2,7,.01,1.8,8.4,.02,C.land);box(31.5,7,.04,1.1,8.4,.02,C.road);box(28.5,13.8,.04,4,1,.02,C.road);}}
 // Flood is an environmental event, never a scene reset.
 if(state.history.some(r=>r.age===30)&&age>=30&&age<36)poly([[1,6.8,.07],[10,6.8,.07],[10,8.4,.07],[1,8.4,.07]],'#719a97');
 // Farm plots and football pitch are districts, not floating props.
@@ -39,6 +43,14 @@ poly([[9,9,.04],[13,9,.04],[13,12,.04],[9,12,.04]],'#65875a');for(const pair of 
 box(3,3,0,4,4,.2,'#ad9064');for(let x=3;x<7;x+=.35)line([x,3,.21],[x,7,.21],'#92764f',.12);box(3,3,.2,4,.12,1.8,C.wall,C.shade,C.wall);box(3,3,.2,.12,4,1.8,C.wall,C.shade,C.shade);
 poly([[4,3.13,.8],[5.6,3.13,.8],[5.6,3.13,1.6],[4,3.13,1.6]],'#78958b');line([4.8,3.14,.8],[4.8,3.14,1.6],C.wood,.12);
 const objects=[];const add=(depth,fn)=>objects.push({depth,fn});
+for(const id of revealed.homes){if(id==='family')continue;const room=RESIDENCES[id],[x,y]=room.base;add(x+y+8,()=>{
+ box(x-.6,y-.6,.01,5.2,5.2,.02,C.land);box(x,y,0,4,3.6,.2,C.wood);poly([[x,y+3.6,.2],[x+4,y+3.6,.2],[x+4,y+4.2,0],[x,y+4.2,0]],C.wood);box(x,y,.2,4,.1,2,C.wall);box(x,y,.2,.1,3.6,2,C.wall);box(x+1,y+.12,.9,1.6,.04,.9,'#78918a');
+ const [bed,sofa,desk]=roomFurniture(room);box(bed.x,bed.y,.2,bed.w,bed.d,.4,C.wood);box(bed.x+.04,bed.y+.04,.6,bed.w-.08,bed.d-.08,.12,C.paper);box(bed.x+.04,bed.y+.6,.73,bed.w-.08,bed.d-.65,.04,'#769282');box(sofa.x,sofa.y,.2,sofa.w,sofa.d,.4,'#8b9b89');box(sofa.x,sofa.y,.6,sofa.w,.13,.4,'#788a77');box(desk.x,desk.y,.2,desk.w,desk.d,.65,C.wood);box(desk.x+.08,desk.y+.1,.86,.32,.24,.02,C.paper);
+ box(room.origin[0]-.2,room.origin[1]-.2,.2,.4,.4,.45,C.wood);box(x+.15,y+.18,.2,.5,.22,1.15,C.wood);tree(x+2.7,y+.35);if(age>=20)label(x+1.8,y+4.5,room.label);
+});}
+if(revealed.city){box(23.2,8.2,.005,10.4,9.4,.02,'#a7a18b');for(const b of CITY_BLOCKS)add(b.x+b.z+b.w+b.d,()=>{box(b.x,b.z,0,b.w,b.d,b.h,'#8d8b78',C.shade,C.wall);box(b.x-.05,b.z-.05,b.h,b.w+.1,b.d+.1,.12,'#8d8b78');});}
+if(revealed.city)add(36,()=>{box(24.4,2.4,.01,6.2,4.6,.02,C.land);building(25,3,5,2.2,2.4,'City work district');box(26.86,6.11,.78,.83,.52,.06,C.wood);box(27.1,5.6,0,.4,.4,.5,C.wood);if(context.pathway==='vocational')box(27.08,6.24,.85,.3,.18,.08,'#bea37a');else{box(27.06,6.2,.85,.34,.23,.025,'#536760');box(27.06,6.4,.87,.34,.025,.23,'#526a66');}tree(30,8.7);});
+
 add(12.8,()=>{const f=furniture.find(f=>f.id==='dining');box(f.x,f.y,.2,f.w,f.d,.75,C.wood);});
 add(7.4,()=>{const f=furniture[0];box(f.x,f.y,.2,f.w,f.d,.4,C.wood);box(3.3,3.5,.6,1.15,1.7,.12,C.paper);box(3.3,4,.73,1.15,1.2,.04,'#6a8a75');box(3.45,3.6,.73,.8,.3,.04,C.paper);});
 // Cradle stays in the same place through infancy and childhood.
@@ -69,7 +81,7 @@ function person(x,y,shirt,floor=.2,size=1,activity=null){
  if(pose==='exercise'){limb([[-3,shoulder+1],[-5,shoulder-2-Math.sin(time*4)*2]],'#c5a075',1.5);}
  c.restore();
 }
-function ground(x,y){if(x<3||x>7||y<3||y>7.2)return 0;return y>6.6?Math.max(0,(7.2-y)/.6*.2):.2;}
+function ground(x,y){return floorAt(x,y)*1.25;}
 const goal=state.profiles.at(-1)?.profile.aim??'balance';
 const mom=routine('mother',age,time,goal,context),dad=routine('father',age,time,goal,context);
 if(age<70)add(mom.x+mom.y,()=>person(mom.x,mom.y,'#708a79',ground(mom.x,mom.y),1,mom));

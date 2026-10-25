@@ -129,3 +129,12 @@ Not yet done, stated plainly:
 ## The question it leaves you with
 
 A life game can't tell you how to live. It can show you the shape of one: where the hours went, what they bought, what chance did, and what was left when it ended. Then it gives you something no one actually gets, the same world a second time. What you change, and what you find you would not change, is the part the game can't author.
+
+## Personal console release —25October2026
+Three aligned desktop instruments bring personality, condition and five-year
+intent together; phone users switch between them. Original CC0 music has an
+explicit Music/Mute control. Independent housing becomes the actual routine
+home, and city work opens another district with explicit rent/pay/travel rules.
+Furnished studios, inhabited streets, task props and closer framing improve the
+world.105 tests pass. Ikigai is an authored completed-priority proxy, not a
+psychological measurement. Runtime/release receipts: review/personal-console/.

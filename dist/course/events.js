@@ -7,6 +7,7 @@ export function eventsFor(row){
  return [...recorded,...types.filter(type=>!recorded.some(e=>e.type===type)).map(type=>({type}))].map(e=>({...e,age:row.age,...EVENT_TYPES[e.type]}));
 }
 export function lifeMood(state){const previous=state.history.at(-2),latest=state.history.at(-1);if(!previous||!latest)return 'steady';const change=latest.wellbeing-previous.wellbeing;return change<=-2||latest.health-previous.health<=-8||latest.cash-previous.cash<=-10000?'difficult':change>0&&latest.cash>=previous.cash||latest.cash-previous.cash>=8000?'bright':'steady';}
+export function lifeMoodAt(state,age){return lifeMood({...state,history:state.history.filter(row=>row.age<=age)});}
 export const MOOD_CHORDS={
  steady:{land:'#7d9764',grass:'#9caf73',water:'#507e82',waterLight:'#7dabad',roof:'#a15f49',roofLight:'#bb7b57',leaf:'#476b48',lightleaf:'#668651'},
  bright:{land:'#6ca78c',grass:'#d4c57c',water:'#507e82',waterLight:'#9ac8bd',roof:'#b65363',roofLight:'#d78080',leaf:'#326f61',lightleaf:'#8abb8a'},

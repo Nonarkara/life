@@ -1,3 +1,15 @@
+## Personal console release —25 October 2026
+
+Build `b58148524e8e`: OCEAN/Condition/Five-year goals, compact single-owner HUD,
+phone console tabs, original CC0 Music/Mute, effective-age independent residences
+and city work, richer miniature districts, and corrected cutaway shader
+invalidation.105 tests pass. Real browser chapter30–35, public preparation,
+responsive dimensions, five language controls, enlarged Thai, birth containment
+and remaining limits are recorded in `review/personal-console/README.md`.
+Ikigai is a completed-priority follow-through game proxy, not a psychological test.
+Public deployment receipt follows after verification. Earlier releases below
+are retained as history.
+
 ## Public graphics release —25 October 2026
 
 Build `befd48c0d958` adds the locally bundled Three.js world, record-based routines,

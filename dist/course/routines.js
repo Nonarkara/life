@@ -1,5 +1,6 @@
 // A shared 60-second day: home, journey, activity, return, evening.
 // Paths use the same world coordinates as the room and its furniture.
+import {RESIDENCES,WORKPLACES,locationContext} from './locations.js';
 export const HOME={mother:[5,6.25],father:[6.4,6.25],player:[5.7,5.8]};
 export const HOME_FACING={mother:Math.PI/2,father:-Math.PI/2,player:0};
 const EXIT=[[6.75,6.8],[6.75,7.2],[8.5,7.2]];
@@ -19,7 +20,9 @@ export function samplePath(path,fraction){const traveled=pathLength(path)*Math.m
 export function dayPhase(time){const t=((time%60)+60)%60;return t<8?'Morning':t<20?'On the way':t<36?'Daytime':t<48?'Coming home':'Evening';}
 export function routine(actor,age,time,goal='balance',context={}){
  const t=((time%60)+60)%60;
- if(actor==='player'&&age>=20&&context.recovering)return {x:HOME.player[0],y:HOME.player[1],dx:0,dy:0,moving:false,facing:HOME_FACING.player,pose:t<8?'eat':t>=48?'rest':'recover',action:'Recovering at home',phase:dayPhase(time)};
+ const home=actor==='player'&&age>=20?(context.residence??RESIDENCES.family):RESIDENCES.family;
+ const originHome=actor==='player'?home.origin:HOME[actor];
+ if(actor==='player'&&age>=20&&context.recovering)return {x:originHome[0],y:originHome[1],dx:0,dy:0,moving:false,facing:HOME_FACING.player,pose:t<8?'eat':t>=48?'rest':'recover',action:'Recovering at home',phase:dayPhase(time)};
  let key=actor==='mother'?(age<3?'care':'stall'):actor==='father'?'work':age<6?'home':age<18?'school':age>=60?'garden':goal==='sport'?'sport':goal==='art'?'art':'work';
  if(actor==='player'){
   if(age>=15&&age<60){
@@ -37,6 +40,13 @@ export function routine(actor,age,time,goal='balance',context={}){
  if(actor==='player'&&context.recovering&&age>=20)route={...route,pose:'recover',action:'Recovering at home'};
  // The adult player starts from their own place in the home, not the father's.
  if(actor==='player'&&key==='work')route={...route,path:[HOME.player,[6.5,5.8],...EXIT,[10.3,7.2],[10.3,5.8],[11.3,5.8]]};
+ if(actor==='player'&&age>=20){
+  if(key==='work'){const work=context.workplace??WORKPLACES.local;route={...route,path:[home.origin,...home.pathToRoad,...work.approach,work.destination]};}
+  else if(home.id!=='family'){
+   if(key==='art'||key==='home'){const dx=home.base[0]-3,dy=home.base[1]-3;route={...route,path:route.path.map(([x,y])=>[x+dx,y+dy])};}
+   else route={...route,path:[home.origin,...home.pathToRoad,[8.5,7.2],...route.path.slice(5)]};
+  }
+ }
  const origin=route.path[0],isHome=t<8||t>=48;
  if(isHome)return{x:origin[0],y:origin[1],dx:0,dy:0,moving:false,facing:HOME_FACING[actor],pose:t>=48?'rest':'eat',action:t>=48?'Resting at home':'Breakfast at home',phase:dayPhase(time)};
  if(t>=20&&t<36){const p=route.path.at(-1);return{x:p[0],y:p[1],dx:0,dy:0,moving:false,pose:route.pose,action:route.action,phase:dayPhase(time)};}
@@ -45,4 +55,4 @@ export function routine(actor,age,time,goal='balance',context={}){
 export function routineCaption(age,time,goal,context){const actor=age<3?'mother':'player';const r=routine(actor,age,time,goal,context);return `${r.phase} · ${age<3?'Mother: ':''}${r.action.toLowerCase()}.`;}
 export function routeFixtures(){return Object.values(destinations).map(d=>d.path);}
 
-export function routineContext(state){return {pathway:state.history.at(-1)?.pathway??state.pathway,recovering:state.health<60&&/health setback/.test(state.history.at(-1)?.event??'')};}
+export function routineContext(state,age=state.age){const completed=state.history?.filter(row=>row.age<=age).at(-1),activity=state.history?.filter(row=>(row.from??row.age)<=age).at(-1);return {...locationContext(state,age),pathway:activity?.pathway??(age===state.age?state.pathway:undefined),recovering:(completed?.health??100)<60&&/health setback/.test(completed?.event??'')};}

@@ -633,3 +633,59 @@ Working independently|ทำงานอิสระ|独立工作|独立して�
 At college|อยู่ที่มหาวิทยาลัย|在大学|大学で学ぶ|대학에서 공부하기
 Recovering at home|พักฟื้นที่บ้าน|在家休养|家で療養する|집에서 회복하기
 `.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Music|ดนตรี|音乐|音楽|음악
+Mute|ปิดเสียง|静音|ミュート|음소거
+Music unavailable|ไม่สามารถเล่นดนตรีได้|音乐不可用|音楽を再生できません|음악을 재생할 수 없습니다
+Personal dashboard|คอนโซลส่วนตัว|个人仪表盘|個人コンソール|개인 대시보드
+Personal consoles|คอนโซลส่วนตัว|个人控制台|個人のコンソール|개인 콘솔
+Condition|สภาวะชีวิต|当前状态|現在の状態|현재 상태
+Five-year goals|เป้าหมายห้าปี|五年目标|5年間の目標|5년 목표
+Personality · game indices|บุคลิกภาพ · ค่าจำลองในเกม|人格 · 游戏指标|性格・ゲーム内指標|성격 · 게임 지표
+Thin mark: your starting record.|ขีดบางแสดงค่าเริ่มต้น|细线表示初始记录。|細い線は開始時の記録です。|가는 표시는 시작 기록입니다.
+{trait}: {value} / 100; starting {start}.|{trait}: {value} / 100 เริ่มต้นที่ {start}|{trait}：{value} / 100；初始值 {start}。|{trait}：{value} / 100、開始時 {start}。|{trait}: {value} / 100, 시작값 {start}.
+Reasoning · IQ|การใช้เหตุผล · IQ|推理 · IQ|推論・IQ|추론 · IQ
+Emotional skills · EQ|ทักษะทางอารมณ์ · EQ|情绪技能 · EQ|感情に関わる技能・EQ|정서적 기술 · EQ
+Ikigai|อิคิไก|生きがい|生きがい|이키가이
+Priorities put into action|ช่วงที่ลงมือทำตามสิ่งสำคัญ|付诸行动的阶段重点|優先したことを行動に移した時期|우선순위를 행동으로 옮긴 시기
+Not yet recorded|ยังไม่มีบันทึก|尚无记录|まだ記録なし|아직 기록 없음
+About Ikigai in this game|อิคิไกในเกมนี้คืออะไร|关于游戏中的生きがい|このゲームの生きがいについて|이 게임의 이키가이 안내
+Recorded follow-through toward a chosen priority. This game proxy is not a psychological test or a measure of your real purpose. Chapters without an eligible opportunity are not graded.|บันทึกว่าคุณได้ลงมือทำตามสิ่งสำคัญที่เลือกไว้เพียงใด ค่าประกอบในเกมนี้ไม่ใช่แบบทดสอบทางจิตวิทยาหรือการวัดความหมายของชีวิตจริง ช่วงที่ไม่มีโอกาสให้ลงมือทำจะไม่ถูกนับ|记录是否践行了所选重点。这一游戏代理指标不是心理测试，也不衡量你真实的人生意义。没有相应机会的阶段不计入。|選んだ優先事項に沿って行動した記録です。心理検査でも実際の人生の意味を測る尺度でもありません。該当する機会のなかった時期は評価しません。|선택한 우선순위를 행동으로 옮긴 기록입니다. 이 게임 지표는 심리 검사나 실제 삶의 의미를 재는 척도가 아닙니다. 해당 기회가 없던 시기는 평가하지 않습니다.
+Ages {from}–{to}|อายุ {from}–{to}|年龄 {from}–{to}|{from}～{to}歳|{from}–{to}세
+Current chapter|ช่วงชีวิตปัจจุบัน|当前阶段|現在の時期|현재 시기
+Goal notes|รายละเอียดเป้าหมาย|目标说明|目標について|목표 설명
+Goals open at your next review.|กำหนดเป้าหมายได้เมื่อถึงช่วงทบทวนถัดไป|下次回顾时可设定目标。|次の振り返りで目標を設定できます。|다음 회고에서 목표를 설정할 수 있습니다.
+Practice|การฝึกฝน|练习|練習|연습
+Life choices|ทางเลือกชีวิต|生活选择|暮らしの選択|삶의 선택
+Recorded|มีบันทึกการลงมือทำ|已有行动记录|行動の記録あり|행동 기록 있음
+No matching action recorded|ไม่พบบันทึกการกระทำที่สอดคล้อง|没有相应的行动记录|該当する行動の記録なし|해당 행동 기록 없음
+Work base|พื้นที่ทำงาน|工作地点|仕事の拠点|근무 지역
+Local work district|ย่านทำงานในพื้นที่|本地工作区|地元の仕事場|지역 근무지
+City work district|ย่านทำงานในเมือง|城市工作区|都心の仕事場|도시 근무지
+Your rental home|บ้านเช่าของคุณ|你的租屋|賃貸の住まい|임대 주택
+Your local studio|ห้องพักใกล้งานในพื้นที่|本地单间住所|地元のワンルーム|지역 원룸
+Your city studio|ห้องพักใกล้งานในเมือง|城市单间住所|都心のワンルーム|도시 원룸
+Outer neighbourhood|ย่านรอบนอก|外围社区|郊外の地区|외곽 동네
+Local neighbourhood|ละแวกบ้านเดิม|本地社区|地元の地区|기존 동네
+City district|ย่านในเมือง|城市区域|都心の地区|도시 지역
+City work: 15% higher authored work pay. Living farther away adds travel costs and time. Allowances and pensions are unchanged.|งานในเมืองให้รายได้จากงานสูงขึ้น 15% ตามกติกาที่เขียนขึ้นสำหรับเกม การอยู่ไกลเพิ่มค่าเดินทางและเวลา เงินจากครอบครัวและเงินเกษียณไม่เพิ่มตาม|游戏设定城市工作收入高15%。住得更远会增加通勤成本与时间。零用钱和退休收入不变。|ゲームの設定では都心の仕事の収入は15%増えます。遠くに住むと通勤費と時間が増えます。仕送りと年金は増えません。|게임 규칙상 도시 근무 소득은 15% 높습니다. 멀리 살면 통근 비용과 시간이 늘어납니다. 용돈과 은퇴 소득은 변하지 않습니다.
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Small Hours · original music (CC0).|Small Hours · ดนตรีต้นฉบับ (CC0)|Small Hours · 原创音乐（CC0）。|Small Hours・オリジナル音楽（CC0）。|Small Hours · 오리지널 음악(CC0).
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+In transit|ระหว่างเดินทาง|途中|移動中|이동 중
+Age {n}: {place}. {activity}.|อายุ {n}: {place} {activity}|{n}岁：{place}。{activity}。|{n}歳：{place}。{activity}。|{n}세: {place}. {activity}.
+Recorded at age {n}|บันทึกเมื่ออายุ {n}|记录于{n}岁|{n}歳の記録|{n}세 기록
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Latest event|เหตุการณ์ล่าสุด|最近事件|直近の出来事|최근 사건
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Game proxy · eligible chapters|ค่าประกอบในเกม · ช่วงที่มีโอกาส|游戏指标 · 有对应机会的阶段|ゲーム指標・対象の時期|게임 지표 · 기회가 있던 시기
+`.trim().split('\n').map(line=>line.split('|')));

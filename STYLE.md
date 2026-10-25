@@ -52,3 +52,16 @@ closer activities on phones. Foreground buildings become cutaways only while
 obstructing actual head/torso anchors. Place labels sit toward building corners
 to avoid covering the person's task. Existing Palette chords and liveHTML type
 remain; graphics never fabricate achievements or change recorded outcomes.
+
+## Three instruments — 25 October 2026
+The owner wants compact information with clear ownership: OCEAN / Condition /
+Five-year goals form three bounded instruments below the world. Current action
+is a content-height dock,254px for ordinary planning, wider only for denser records.
+Point editing uses ten discrete slots, one label and one value; starting radar
+is a disclosure. Never duplicate the moved HUD or goals inside the action panel.
+At720px and below, one selected personal console occupies the lower band.
+Use live viewport geometry before naming screenshot sizes; a native preview
+wrapper can stay the old size after a viewport request. Whole monetary values
+and /100 values must not split; enlarged type can scroll within a named panel.
+New districts inherit the existing Palette mood chords; displayed age filters
+palette history so future events cannot darken earlier years.

@@ -169,3 +169,25 @@ screenshot verification with its saved life retained. Public pause, overview,
 normal/reducedmotion and a fresh alias-origin newborn scene were exercised.
 RELEASE-READINESS.md records exact hashes and receipts. No full-game completion
 or exhaustive original-game study is claimed.
+
+## Personal consoles, independent places and music — 25 October 2026
+The current slice adds three persistent desktop instruments: OCEAN, Condition
+(personal money, physical health, wellbeing, IQ/EQ game indices, Ikigai proxy),
+and five-year goals. Original HUD/goal controls are moved, not duplicated; all
+other panels/charts/history remain. Phone uses three instrument tabs. Standard
+1440/1366/1024 laptop and390 phone document dimensions match the viewport; long
+records and enlarged type use contained scrolling. Thai extra corrected after
+actual controls clipped and financial digits wrapped.
+Ikigai is a completed-priority follow-through fraction of eligible chapters, not
+Ikigai-9 or a measure of real purpose. Pending opportunities are ungraded, and
+changing the next plan cannot rewrite the fraction. All actual life-direction
+keys are tested. No physiology or outcome bonus is attached to this metric.
+Adult housing/work choices have effective ages, retained history and real routine
+origins. City work extends the world; independent adults eat/rest at their own
+home while parents remain at theirs. City pay/travel tuning is explicitly authored.
+Furnished rooms, city blocks/transit/bicycle/planters and closer adult framing
+upgrade the miniature. No full Sims autonomy or transport boarding is claimed.
+Original Small Hours instrumental synthesis is CC0, explicitly started and muted
+from the header, suspended on hidden pages; audible quality is not yet listened
+to by a human.105 tests pass. See review/personal-console/README.md for runtime
+evidence and limits. Existing saves and five language controls are retained.

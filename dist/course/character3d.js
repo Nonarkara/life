@@ -10,6 +10,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
  mesh(new T.CylinderGeometry(.06,.07,.1,8),flesh,body,0,1.41,0);
  const head=new T.Group();head.position.set(0,1.57,0);body.add(head);
  sphere(.15,flesh,head,0,0,0,.88,1.08,.86);
+ for(const x of [-.132,.132])sphere(.025,flesh,head,x,-.005,0,.55,1,.75);
  const hairCap=sphere(.151,hairMat,head,0,.065,-.015,.9,.68,.87);
  sphere(.025,flesh,head,0,-.005,.128,.7,1,1);
  for(const x of [-.05,.05])sphere(.009,shoe,head,x,.012,.12,1,.7,.5);
@@ -21,7 +22,9 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   return {pivot,bend,length:lowerLength};
  }
  const legs=[limb(-.1,.84,.39,.39,trousers),limb(.1,.84,.39,.39,trousers)];
- for(const leg of legs)mesh(new T.BoxGeometry(.115,.065,.21),shoe,leg.bend,0,-.39,.05);
+ for(const leg of legs){mesh(new T.BoxGeometry(.115,.065,.21),shoe,leg.bend,0,-.39,.05);mesh(new T.BoxGeometry(.12,.018,.215),material('#66736a'),leg.bend,0,-.421,.05);}
+ // A small collar clarifies the neck/torso joint at the closer camera scale.
+ mesh(new T.BoxGeometry(.13,.025,.055),paper,body,0,1.345,.105);
  const arms=[limb(-.24,1.29,.28,.26,cloth),limb(.24,1.29,.28,.26,cloth)];
  for(const arm of arms){arm.bend.children[0].material=flesh;sphere(.049,flesh,arm.bend,0,-.27,0);}
  const book=new T.Group();body.add(book);book.position.set(0,1.02,.34);
