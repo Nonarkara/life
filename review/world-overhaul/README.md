@@ -1,8 +1,8 @@
 # World overhaul release evidence — 26 October 2026
 
-Commit `180284f`, build `67ec0f7a1bef`, Cloudflare Pages deployment `6a396e1a`.
+Commit `7f79c4c`, build `67ec0f7a1bef`, Cloudflare Pages deployment `7d9267ca`.
 Live URLs:
-- Canonical preview: `https://6a396e1a.life-5wz.pages.dev/course/`
+- Canonical previews: `https://7d9267ca.life-5wz.pages.dev/course/` and `https://6a396e1a.life-5wz.pages.dev/course/`
 - Production domain: `https://life.nonarkara.org/course/`
 
 ## Automated Test Suite

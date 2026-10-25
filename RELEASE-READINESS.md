@@ -1,7 +1,7 @@
 # Current release — 26 October 2026: World Overhaul & Inhabited Life
 
-Published source 180284f, build 67ec0f7a1bef, Cloudflare Pages deployment 6a396e1a.
-Live at canonical preview https://6a396e1a.life-5wz.pages.dev and production custom domain https://life.nonarkara.org/course/ .
+Published source 7f79c4c, build 67ec0f7a1bef, Cloudflare Pages deployment 7d9267ca (canonical preview https://7d9267ca.life-5wz.pages.dev and immutable https://6a396e1a.life-5wz.pages.dev).
+Live at production custom domain https://life.nonarkara.org/course/ .
 This release completes the World Overhaul Plan (phases 1–7):
 - Diverse birth regions across Thailand (Khlong Toei, Khon Kaen, Bang Na, Pak Phanang, Samut Prakan, Sukhumvit) and adult relocations abroad (Boston, London, Tokyo, Singapore).
 - Region conservation law: exactly one region at every age, preserved across pay, cost, housing and Three.js environments.
