@@ -1,6 +1,7 @@
 // Personal accounts use whole game baht; prices/effects are authored, not estimates.
 import {WORKPLACES} from './locations.js';
 import {REGIONS,MOVE_TARGETS,regionIdFor} from './regions.js';
+import {careerFactor} from './life-choices.js';
 import {holdingsValue,validHoldings,markHoldings,validInvestmentLedger} from './investments.js';
 import {periodEconomy} from './economy.js';
 export {WORKPLACES};
@@ -85,7 +86,7 @@ export function validFinance(f,age,world){
  if(!f||!validHoldings(f.holdings)||!Number.isSafeInteger(netWorth(f))||!validInvestmentLedger(f,age,world)||!validFinanceLocation(f,age)||!Array.isArray(f.receipts)||f.receipts.some(r=>!r||!validFinanceLocation(r,r.age)))return false;
  return !!f&&f.version===1&&integer(f.openedAt)&&f.openedAt>=15&&f.openedAt<=age&&['available','reserve','debt'].every(k=>integer(f[k]))&&validBudget(f.budget)&&Object.hasOwn(HOUSING,f.housing)&&Array.isArray(f.receipts)&&f.receipts.length<=1000&&f.receipts.every(r=>r&&typeof r.id==='string'&&integer(r.age)&&r.age>=f.openedAt&&r.age<=age&&['opening','period','purchase','encounter','trade','market'].includes(r.kind)&&integer(r.income)&&integer(r.expense)&&Number.isSafeInteger(r.change)&&r.change===r.income-r.expense)&&new Set(f.receipts.map(r=>r.id)).size===f.receipts.length&&Array.isArray(f.purchases)&&f.purchases.length<=100&&f.purchases.every(p=>p&&Object.hasOwn(PURCHASES,p.key)&&integer(p.age)&&p.age>=f.openedAt&&p.age<=age&&p.cost===PURCHASES[p.key].cost&&p.hours===PURCHASES[p.key].hours)&&new Set(f.purchases.map(p=>p.age+':'+p.key)).size===f.purchases.length&&f.receipts.reduce((sum,r)=>sum+r.change,0)===netWorth(f)&&f.receipts.filter(r=>r.kind==='purchase').length===f.purchases.length&&f.purchases.every(p=>f.receipts.some(r=>r.id==='purchase:'+p.age+':'+p.key&&r.age===p.age&&r.kind==='purchase'&&r.income===0&&r.expense===p.cost&&r.change===-p.cost))&&[...new Set(f.purchases.map(p=>p.age))].every(age=>f.purchases.filter(p=>p.age===age).reduce((sum,p)=>sum+p.hours,0)<=8);
 }
-export function grossMonthlyPay(s){const e=s.effort;return s.age<20?0:s.age>=60?Math.max(3000,Math.round(grossMonthlyPay({...s,age:59})*.4)):12000+e.drive*2000+e.iq*1100+s.attributes.iq*500+e.craft*1000+e.physique*900+Math.min(6000,(s.skills.iq*70+s.skills.craft*60+s.skills.eq*45+s.skills.physique*50));}
+export function grossMonthlyPay(s){const e=s.effort;return s.age<20?0:s.age>=60?Math.max(3000,Math.round(grossMonthlyPay({...s,age:59})*.4)):careerFactor(s)*(12000+e.drive*2000+e.iq*1100+s.attributes.iq*500+e.craft*1000+e.physique*900+Math.min(6000,(s.skills.iq*70+s.skills.craft*60+s.skills.eq*45+s.skills.physique*50)));}
 export function choiceAvailable(state,choice){return !state.finance||Math.max(0,-(choice.cash??0))<=state.finance.available+state.finance.reserve;}
 export function personalFlow(state,id,income,expense){
  const f=state.finance;if(!f||!integer(income)||!integer(expense)||expense>f.available+f.reserve||f.receipts.some(r=>r.id===id))return state;

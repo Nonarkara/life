@@ -9,6 +9,7 @@ import {t} from './i18n.js';
 import {createDistricts,floorAt,overlappingReaderWidth} from './district3d.js';
 import {createRegionScenery} from './region3d.js';
 import {regionAt,region,regionIdFor,household,appearance,childhoodAway} from './regions.js';
+import {dogAt} from './life-choices.js';
 import {rand} from './sim.js';
 const scenes=new WeakMap();
 export function cameraSpan(age,phone=false){return age<1?3.5+age*2:phone?Math.min(9,5+age*.12):age<10?5.5+age*.3:age<20?8.5+(age-10)*.13:9.8+Math.min(40,age-20)*.03;}
@@ -111,6 +112,7 @@ function createScene(original){
  const glow=new T.PointLight('#ffc070',0,6,1.6);glow.position.set(3.6,1.6,5.2);scene.add(glow);
  round(6.75,3.35,.38,.18,'#4f7a4a',1,1.4,1);box(6.62,3.22,.16,.26,.26,.22,'#a5533f');
  const toys=new T.Group();scene.add(toys);box(4.55,6.12,.165,.09,.09,.09,'#c0563f',toys);box(4.62,6.02,.165,.09,.09,.09,'#d8b25a',toys);box(4.59,6.07,.255,.09,.09,.09,'#3f6f8a',toys);
+ const dogGroup=new T.Group();dogGroup.position.set(2.7,0,5.2);scene.add(dogGroup);box(-.12,-.08,.05,.24,.16,.18,'#a26a3c',dogGroup);round(.14,0,.22,.1,'#945c30',1,1,1.1,dogGroup);box(.1,-.1,.28,.04,.05,.08,'#693e1e',dogGroup);box(.1,.05,.28,.04,.05,.08,'#693e1e',dogGroup);box(-.18,-.03,.14,.08,.05,.1,'#825026',dogGroup);for(const [dx,dz]of [[-.08,-.06],[.06,-.06],[-.08,.06],[.06,.06]])box(dx,dz,.01,.06,.06,.1,'#784420',dogGroup);
  // A laptop and bench distinguish salaried work from school and craft.
  const laptop=new T.Group();scene.add(laptop);box(11.06,6.2,.85,.34,.23,.025,'#536760',laptop);const screen=box(11.06,6.4,.86,.34,.025,.23,'#526a66',laptop);screen.rotation.x=-.15;
  const workpiece=box(11.08,6.24,.85,.3,.18,.08,'#bea37a');
@@ -119,7 +121,7 @@ function createScene(original){
  const scenery=createRegionScenery({scene,box,round,tree,label,registerBuilding});
  const districts=createDistricts({scene,box,round,chair,table,tree,label,registerBuilding});
  // The artist carries a sketchbook; the exit aisle stays clear.
- box(6.4,8.5,0,1.6,.8,.78,'#9d8965');box(6.2,8.3,1.65,2,1.2,.08,'#ab7658');for(const x of [6.4,7.9])box(x,8.5,.78,.045,.045,.85,'#77684f');for(let i=0;i<4;i++)round(6.65+i*.28,8.8,.85,.09,'#b5a16d');
+ const stall=new T.Group();scene.add(stall);box(6.4,8.5,0,1.6,.8,.78,'#9d8965',stall);box(6.2,8.3,1.65,2,1.2,.08,'#ab7658',stall);for(const x of [6.4,7.9])box(x,8.5,.78,.045,.045,.85,'#77684f',stall);for(let i=0;i<4;i++)round(6.65+i*.28,8.8,.85,.09,'#b5a16d',1,1,1,stall);registerBuilding(stall);
  const flood=box(1,6.8,.065,9,1.6,.025,'#809e98');flood.material=new T.MeshStandardMaterial({color:'#809e98',transparent:true,opacity:.55,roughness:.4});
  const actors={mother:createCharacter({shirt:'#718979',sex:'female'}),father:createCharacter({shirt:'#87735c'}),player:createCharacter({shirt:'#bd914d'})};for(const actor of Object.values(actors))scene.add(actor.root);
  const neighbors=[[8.4,6.4,'#93957b'],[9.2,6.4,'#788c98'],[12.9,6.3,'#9a8e72'],[8.4,0,'#8f7a69']].map(([x,z,shirt])=>{const a=createCharacter({shirt});scene.add(a.root);return {a,x,z};});
@@ -134,7 +136,7 @@ function createScene(original){
   // Thai school uniform: white shirt, navy shorts or skirt.
   if(role==='player'&&age>=6&&age<18&&region(regionId).country==='TH')return {shirt:'#efeee8',bottom:'#2f3d5c',skirt:sex==='female',...layers};
   const bottom=['#364744','#2f3a40','#5a4a3a','#3f4f5f'][Math.floor(r('b')*4)];
-  return {shirt:list[Math.floor(r('s')*list.length)],bottom:sex==='female'&&r('k')<.55?list[Math.floor(r('k2')*list.length)]:bottom,skirt:sex==='female'&&r('k')<.55,...layers};
+  return {shirt:list[Math.floor(r('s')*list.length)],bottom:sex==='female'&&r('k')<.72?list[Math.floor(r('k2')*list.length)]:bottom,skirt:sex==='female'&&r('k')<.72,...layers};
  }
  function applyLooks(state,age,here,born){
   const hh=household(state.birth),seed=state.seed;
@@ -186,7 +188,7 @@ function createScene(original){
   const manual=context.pathway==='vocational'&&age>=15&&age<60;workChair.visible=!manual;laptop.visible=!manual;workpiece.visible=manual;infant.visible=age<1;cradleGroup.visible=age<6;bus.visible=age>=5;bus.position.set(-1+time*.12%14,0,7.25);for(const[from,group]of growth)group.visible=age>=from;
   flood.visible=state.history.some(r=>r.age===30)&&age>=30&&age<36;
   const mood=lifeMoodAt(state,age);if(mood!==lastMood){lastMood=mood;const chord=MOOD_CHORDS[mood];land.material.color.set(place.look.ground).lerp(new T.Color(chord.land),.35);materials.get('#899273')?.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);materials.get('#526c50')?.color.set(chord.leaf);materials.get('#5b7f80')?.color.set(place.look.water).lerp(new T.Color(chord.water),.3);scene.background.set(chord.waterLight).lerp(new T.Color(chord.water),.6);for(const b of buildings)for(const {material}of b.surfaces){if(material.userData.roof)material.color.set(chord.roof).lerp(new T.Color('#766350'),.45);if(material.userData.ground)material.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);}}
-  const evening=time%60>=48;sun.intensity=evening?1.1:2.5;hemi.intensity=evening?.75:1.4;sun.color.set(evening?'#ffcf9a':'#fff2d1');glow.intensity=evening?2.6:0;shade.material.emissiveIntensity=evening?.9:0;toys.visible=age>=1&&age<8;
+  const evening=time%60>=48;sun.intensity=evening?1.1:2.5;hemi.intensity=evening?.75:1.4;sun.color.set(evening?'#ffcf9a':'#fff2d1');glow.intensity=evening?2.6:0;shade.material.emissiveIntensity=evening?.9:0;toys.visible=age>=1&&age<8;dogGroup.visible=dogAt(state,age);
   // Architectural cutaways keep the protagonist readable through foreground buildings.
   scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);
   const hidden=age>=1?obscuringBuildings(camera,Object.values(actors.player.anchors),buildings.map(b=>b.group),ray):new Set();

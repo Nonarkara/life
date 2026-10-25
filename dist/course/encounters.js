@@ -1,4 +1,5 @@
 import {choiceAvailable,personalFlow} from './finance.js';
+import {mismatched,partnerNature,together} from './life-choices.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -15,9 +16,10 @@ export const ENCOUNTERS=[
  {id:'love',category:'connection',min:20,max:40,title:'Someone you want to know',prompt:'You and {partner} keep finding reasons to talk. They ask whether you would like to go on a date.',options:[
   option('date','Say yes to a date',{cash:-500,wellbeing:3,flag:'dating'},'You and {partner} began seeing each other.'),
   option('single','Keep this part of life open',{wellbeing:1},'You chose to stay single for now. Other parts of life still mattered.') ]},
- {id:'commitment',category:'connection',min:30,max:50,title:'A shared future',prompt:'You and {partner} have been together for years. Both of you are ready to talk about marriage.',eligible:s=>s.story.flags.dating!==undefined&&s.age-s.story.flags.dating>=5,options:[
+ {id:'commitment',category:'connection',min:30,max:50,priority:1,title:'A shared future',prompt:'You and {partner} have been together for years. Both of you are ready to talk about marriage.',eligible:s=>s.story.flags.dating!==undefined&&s.age-s.story.flags.dating>=5,options:[
   option('marry','Hold a small wedding',{cash:-6000,wellbeing:4,flag:'married',marker:'married'},'You and {partner} married, with a small gathering of people close to you.'),
-  option('together','Keep your commitment without a wedding',{wellbeing:3,flag:'committed'},'You and {partner} chose a shared life without a wedding.') ]},
+  option('together','Keep your commitment without a wedding',{wellbeing:3,flag:'committed'},'You and {partner} chose a shared life without a wedding.'),
+  option('apart','Stay together, each caring for your own parents',{wellbeing:2,flag:'apart'},'You and {partner} stayed committed while each of you looked after your own parents, in two homes.') ]},
  {id:'parenthood',category:'family',min:35,max:50,title:'Room for another person',prompt:'You and {partner} have talked about raising a child. Parenthood would change your household and commitments.',eligible:s=>s.story.flags.married!==undefined||s.story.flags.committed!==undefined,options:[
   option('raise','Begin the path to parenthood',{cash:-4000,wellbeing:3,flag:'parent'},'You and {partner} began raising a child together. Daily routines changed around the child.'),
   option('two','Keep the family as it is',{wellbeing:2},'You chose a life without children of your own. Your home was still a family.') ]},
@@ -46,6 +48,25 @@ export const ENCOUNTERS=[
   option('meet','Meet your old friend',{cash:-200,wellbeing:3},'You and {friend} spent another afternoon together. You remembered how the friendship began.'),
   option('letter','Send a long letter instead',{wellbeing:2},'You wrote to {friend}, remembering the ordinary afternoon when you first became friends.') ]}
 ];
+// The big forks. Each is offered once; consequences unfold over later periods.
+ENCOUNTERS.push(
+ {id:'mismatch',category:'work',min:25,max:40,priority:1,title:'Is this the work you trained for?',prompt:'Years into your field, the days feel wrong. You can retrain, stay, or leave to build something of your own.',eligible:s=>mismatched(s),options:[
+  option('stay','Stay and make it work',{wellbeing:-1},'You stayed. The pay held; the days still felt heavy.'),
+  option('switch','Retrain in something closer to you',{cash:-20000,skills:{craft:1,iq:1},flag:'switched'},'You started again in a field that fit you better. It cost time and savings.'),
+  option('own','Leave to build your own venture',{cash:-10000,flag:'founder',pathway:'independent'},'You left to build something of your own. The income would be uneven.') ]},
+ {id:'hard_marriage',category:'connection',min:35,max:65,priority:1,title:'The home has become hard',prompt:'Life with {partner} has turned into constant conflict and control. What you could not see at the start is clear now.',eligible:s=>together(s)&&partnerNature(s)==='difficult',options:[
+  option('endure','Stay for now',{wellbeing:-2},'You stayed. The conflict stayed too.'),
+  option('counsel','Try counselling together',{cash:-5000,flag:'counselled'},'You and {partner} went to counselling. Whether it would hold was not yet known.'),
+  option('leave','Leave and rebuild on your own',{cash:-20000,wellbeing:-3,flag:'separated'},'You left. The first years alone were costly and quiet, and they were yours.') ]},
+ {id:'crossroads',category:'work',min:30,max:50,title:'A crossroads at work',prompt:'Your job is steady but narrow. You could stay, move to another employer, quit to study further, or start your own venture.',eligible:s=>['work','vocational'].includes(s.pathway??s.history.at(-1)?.pathway)&&s.story.flags.founder===undefined,options:[
+  option('stay','Stay where you are',{wellbeing:1},'You stayed. Steady work left room for the rest of life.'),
+  option('change','Move to another employer',{flag:'changedJob'},'You changed employers. The new pay and colleagues were a gamble.'),
+  option('study','Quit to study for a graduate degree',{cash:-60000,skills:{iq:3},flag:'graduate',pathway:'college'},'You quit to study again. You could also choose to study abroad by changing where you live.'),
+  option('own','Start your own venture',{cash:-15000,flag:'founder',pathway:'independent'},'You started your own venture. Some years would pay; many would not.') ]},
+ {id:'dog',category:'family',min:25,max:60,title:'A dog that needs a home',prompt:'A neighbour has a young dog who needs a home. A dog costs money and time, and gives back every day.',options:[
+  option('not','Not now',{},'You let someone else give the dog a home.'),
+  option('adopt','Bring the dog home',{cash:-3000,wellbeing:3,flag:'dog'},'You brought the dog home. Mornings now began with a walk.') ]}
+);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
@@ -73,7 +94,7 @@ export function resolveEncounter(state,choiceId,roll){
  const flags={...state.story.flags};if(choice.flag)flags[choice.flag]=state.age;
  const seen=[...state.story.seen,{id:pending.id,age:state.age,choice:choice.id,outcome:storyText(outcome,state.story),effects}];
  const funded=state.finance?personalFlow(state,'encounter:'+state.age+':'+pending.id,Math.max(0,choice.cash??0)+(choice.uncertain&&roll<.5?4500:0),Math.max(0,-(choice.cash??0))):state;
- const next={...state,finance:funded.finance,cash:state.finance?state.cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
+ const next={...state,...(choice.pathway?{pathway:choice.pathway}:{}),finance:funded.finance,cash:state.finance?state.cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
  for(const[key,value]of Object.entries(effects.skills))next.skills[key]+=value;
  const last=state.history.at(-1);
  next.history=[...state.history.slice(0,-1),{...last,...(next.finance?{finance:{...(last.finance??{}),available:next.finance.available,reserve:next.finance.reserve,debt:next.finance.debt}}:{}),cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];

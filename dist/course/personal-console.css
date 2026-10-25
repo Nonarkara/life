@@ -48,3 +48,5 @@
 
 /* The You tab exists only where the board has left the screen (phones). */
 @media(min-width:721px){.console-nav>[aria-controls=console-you]{display:none}}
+/* Thai and enlarged text keep the phone header to one line: the brand yields its tagline first. */
+@media(max-width:720px){body.console-mode header{flex-wrap:nowrap;gap:8px}body.console-mode header>div{display:flex;flex-wrap:nowrap;gap:10px;min-width:0}body.console-mode header>div button{white-space:nowrap;font-size:min(calc(14px * var(--reading-scale)),3.6vw)}body.console-mode header>a span{display:none}}

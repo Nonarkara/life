@@ -65,7 +65,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   Object.assign(look,Object.fromEntries(Object.entries(next).filter(([,v])=>v!==undefined)));
   if(next.shirt)cloth.color.set(next.shirt);if(next.skin)flesh.color.set(next.skin);if(next.bottom){trousers.color.set(next.bottom);skirtMat.color.set(next.bottom);}
   if(next.hair&&!look.greyed)hairMat.color.set(next.hair);
-  const shoulder=look.sex==='female'?.8:look.sex==='male'?.94:.86,hip=look.sex==='female'?1.12:look.sex==='male'?.92:1.02;
+  const shoulder=look.sex==='female'?.76:look.sex==='male'?1:.86,hip=look.sex==='female'?1.18:look.sex==='male'?.9:1.04;
   torso.scale.set(shoulder*look.build,1.08,.52*(look.sex==='female'?1.06:1));hips.scale.set(hip*look.build,.55,.62);
   for(const arm of arms)arm.pivot.position.x=Math.sign(arm.pivot.position.x)*.27*shoulder*look.build;
   for(const [name,g]of Object.entries(styles))g.visible=name===look.hairStyle;

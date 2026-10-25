@@ -1,3 +1,4 @@
+import {ikigai} from './ikigai.js';
 import {TRAITS,personality,capacities} from './personality.js';
 import {purpose} from './purpose.js';
 import {FOCUSES} from './motivations.js';
@@ -27,7 +28,8 @@ export function initPersonalConsole({getState,isMoving=()=>false}){
   TRAITS.forEach(([key,label],i)=>{const row=el('div',undefined,'ocean-row'),name=el('span'),letter=el('b','OCEAN'[i]);name.append(letter,document.createTextNode(label));const track=el('div',undefined,'ocean-track');track.setAttribute('role','img');track.setAttribute('aria-label',`${label}: ${p.current[key]} / 100; starting ${p.initial[key]}.`);const fill=el('span'),start=el('i');fill.style.width=p.current[key]+'%';start.style.left=p.initial[key]+'%';track.append(fill,start);row.append(name,track,el('output',String(p.current[key])));traits.append(row);});
   recordedAt.textContent='Recorded at age '+s.age;const c=capacities(s),meaning=purpose(s);capacitiesEl.replaceChildren();
   for(const [label,value]of [['Reasoning · IQ',c.reasoning],['Emotional skills · EQ',c.emotionalSkills]]){const row=el('div',undefined,'capacity-instrument');row.append(el('span',label),el('strong',value+' / 100'));const bar=el('span',undefined,'condition-track'),fill=el('i');fill.style.width=value+'%';bar.append(fill);row.append(bar);capacitiesEl.append(row);}
-  const meaningRow=el('div',undefined,'purpose-instrument');meaningRow.append(el('span','Ikigai'),el('strong',meaning.eligible?meaning.met+' / '+meaning.eligible:'—'),el('small',meaning.eligible?'Game proxy · eligible chapters':'Not yet recorded'));capacitiesEl.append(meaningRow);
+  // The third pillar: contentment. It acts on body and mind, so it sits beside them.
+  const k=ikigai(s),meaningRow=el('div',undefined,'purpose-instrument');meaningRow.append(el('span','Contentment · Ikigai'),el('strong',k?k.score+' / 100':'—'),el('small',k?'Love '+k.parts.love+' · Skill '+k.parts.good+' · Giving '+k.parts.world+' · Enough '+k.parts.paid:'Recorded from age 15'));if(k){const bar=el('span',undefined,'condition-track'),fill=el('i');fill.style.width=k.score+'%';bar.append(fill);meaningRow.append(bar);}capacitiesEl.append(meaningRow);
   let facts=purposeDetails.querySelector('.purpose-facts');if(!facts){facts=el('div',undefined,'purpose-facts');purposeDetails.append(facts);}facts.replaceChildren();
   for(const r of meaning.records.slice(-3)){const line=el('p',`${r.from}–${r.to} · ${FOCUSES[r.focus]} · ${r.met?'Recorded':'No matching action recorded'}`);facts.append(line);}
   const feedback=document.getElementById('focus-feedback');if(feedback&&!feedback.hidden)purposeDetails.append(feedback);

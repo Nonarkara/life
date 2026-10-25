@@ -1,7 +1,7 @@
 // Places a life can begin in or move to. Pay and cost factors are authored game
 // tuning, not wage or price statistics. Every region reuses the shared world
 // coordinates; institutions are metaphorical neighbours, not a real map.
-const THAI=['#8a5a3c','#9b6a48','#a87754','#b5855f','#c2946c','#7c5036'];
+const THAI=['#7c5036','#9b6a48','#b5855f','#c99a70','#d8ad84','#e4c09a','#a87754'];
 const WIDE=['#5a3a26','#7c5036','#9b6a48','#b5855f','#d2a47c','#e6c3a0','#f0d5bd'];
 export const REGIONS={
  'samut-prakan':{country:'TH',place:'Samut Prakan',home:'a market-stall household',bands:['middle'],style:'market',sign:'th',pay:1,cost:1,skin:THAI,hair:['#1f2622','#2a2620'],look:{ground:'#849573',water:'#5b7f80',wall:'#e5d9b9',floor:'#a58d69',roof:'#99634f'}},
