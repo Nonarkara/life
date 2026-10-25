@@ -1,5 +1,6 @@
 import {choiceAvailable,personalFlow} from './finance.js';
 import {mismatched,partnerNature,together} from './life-choices.js';
+import {LESSONS} from './lessons.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -67,6 +68,7 @@ ENCOUNTERS.push(
   option('not','Not now',{},'You let someone else give the dog a home.'),
   option('adopt','Bring the dog home',{cash:-3000,wellbeing:3,flag:'dog'},'You brought the dog home. Mornings now began with a walk.') ]}
 );
+ENCOUNTERS.push(...LESSONS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
@@ -76,8 +78,8 @@ export function eligibleEncounters(state){
  const seen=new Set(state.story.seen.map(e=>e.id));
  return ENCOUNTERS.filter(e=>state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&(!e.eligible||e.eligible(state)));
 }
-export function offerEncounter(state,roll){
- const eligible=eligibleEncounters(state);if(!eligible.length)return state;
+export function offerEncounter(state,roll,keep=()=>true){
+ const eligible=eligibleEncounters(state).filter(keep);if(!eligible.length)return state;
  const priority=Math.min(...eligible.map(e=>e.priority??2));let pool=eligible.filter(e=>(e.priority??2)===priority);
  const last=state.story.seen.at(-1),fresh=pool.filter(e=>e.category!==byId.get(last?.id)?.category);if(fresh.length)pool=fresh;
  const selected=pool[Math.min(pool.length-1,Math.floor(roll*pool.length))];

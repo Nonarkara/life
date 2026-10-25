@@ -28,7 +28,7 @@ test('city work pay premium excludes allowance and pension and discloses the add
  assert.equal(city.income,23000);assert.equal(city.essential-local.essential,1000);assert.equal(city.commute-local.commute,50);
  const student={...setWorkplace(base,'city'),age:22};assert.equal(monthlyFlow(student,{pathway:'college'}).income,1500);
  const pension={...setWorkplace(base,'city'),age:65};assert.equal(monthlyFlow(pension,{earnings:7000,pathway:'work'}).income,7000);
- const near=setHousing(setWorkplace(base,'city'),'near'),nearFlow=monthlyFlow(near,{earnings:20000,pathway:'work'});assert.equal(nearFlow.commute,20);assert.equal(nearFlow.essential,11000);
+ const near=setHousing(setWorkplace(base,'city'),'near'),nearFlow=monthlyFlow(near,{earnings:20000,pathway:'work'});assert.equal(nearFlow.commute,20);assert.equal(nearFlow.essential,16000);
 });
 test('independently housed college students pay rent and transport without a city allowance premium',()=>{
  const base={...teen(),age:22},family=monthlyFlow(base,{pathway:'college'}),rented=monthlyFlow(setHousing(setWorkplace(base,'city'),'near'),{pathway:'college'});

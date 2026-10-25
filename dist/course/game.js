@@ -54,6 +54,7 @@ function renderEncounter(){
  const scene=encounterById(pending.id);$('editor').hidden=true;$('commit').hidden=true;$('last-event').hidden=true;
  $('chapter').textContent='A TURN IN THE PATH';$('stage-count').textContent='';$('title').textContent=storyText(scene.title,state.story);
  $('narrative').hidden=false;$('narrative').textContent=storyText(scene.prompt,state.story);
+ if(scene.stop){const stop=document.createElement('p');stop.className='encounter-stop';stop.textContent='Time stops until you choose.';root.append(stop);}
  for(const choice of scene.options){const button=document.createElement('button');button.type='button';button.className='encounter-choice';button.disabled=!choiceAvailable(state,choice);const label=document.createElement('span');label.textContent=choice.label;button.append(label);
  const terms=[];if(choice.cash<0)terms.push('Cost: '+money(-choice.cash));if(choice.cash>0)terms.push('Income: '+money(choice.cash));if(choice.uncertain)terms.push('Sales uncertain');
  if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}

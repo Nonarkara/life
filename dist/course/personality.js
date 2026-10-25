@@ -15,4 +15,4 @@ export function comparison(state){
 }
 function mean(rows,key){return rows.length?rows.reduce((sum,row)=>sum+row[key],0)/rows.length:null;}
 
-export function capacityHistory(state){let skills=Object.fromEntries(AXES.map(a=>[a.key,0]));return state.history.map(row=>{if(row.from!==undefined)for(const axis of AXES)skills[axis.key]+=Math.round(row.effort[axis.key]*(row.growth??1))+(axis.key==='iq'?(row.pathwayLearning??0):0)+(row.storySkills?.[axis.key]??0)+(row.financeSkills?.[axis.key]??0);return {age:row.age,...capacities({...state,age:row.age,skills:{...skills},history:state.history.filter(r=>r.age<=row.age)})};});}
+export function capacityHistory(state){let skills=Object.fromEntries(AXES.map(a=>[a.key,0]));return state.history.map(row=>{if(row.from!==undefined)for(const axis of AXES)skills[axis.key]+=Math.round(row.effort[axis.key]*(row.growth??1))+(axis.key==='iq'?(row.pathwayLearning??0):0)+(row.storySkills?.[axis.key]??0)+(row.consequenceSkills?.[axis.key]??0)+(row.financeSkills?.[axis.key]??0);return {age:row.age,...capacities({...state,age:row.age,skills:{...skills},history:state.history.filter(r=>r.age<=row.age)})};});}

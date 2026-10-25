@@ -1,3 +1,4 @@
+import {choiceAvailable} from '../../dist/course/finance.js';
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {REGIONS,BAND_REGIONS,MOVE_TARGETS,regionAt,regionIdFor,HOUSEHOLDS,household} from '../../dist/course/regions.js';
 import {PROPS,FOOTPRINTS} from '../../dist/course/region3d.js';
@@ -5,7 +6,8 @@ import {newLife,configureLife,begin,live,validate,replay} from '../../dist/cours
 import {setRegion,monthlyFlow} from '../../dist/course/finance.js';
 import {resolveEncounter,encounterById} from '../../dist/course/encounters.js';
 import {routine} from '../../dist/course/routines.js';
-const settle=s=>s.story?.pending?resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.2):s;
+// Like a player, take the first option this life can afford.
+const settle=s=>s.story?.pending?resolveEncounter(s,encounterById(s.story.pending.id).options.find(o=>choiceAvailable(s,o)).id,.2):s;
 const to=(s,age)=>{while(s.age<age&&s.stage==='review')s=settle(live(settle(s)));return settle(s);};
 test('a birth region matches its upbringing band, and place text agrees with it',()=>{for(const [band,ids]of Object.entries(BAND_REGIONS))for(let seed=1;seed<30;seed++){const s=configureLife(newLife(seed),{upbringing:band});assert.ok(ids.includes(s.birth.region));assert.equal(s.birth.place,REGIONS[s.birth.region].place);assert.ok(validate(s));}});
 test('legacy saves without a region keep the original look',()=>{assert.equal(regionIdFor({place:'Nakhon Sawan'}),'nakhon-sawan');assert.equal(regionIdFor({place:'Samut Prakan'}),'samut-prakan');assert.equal(regionIdFor(undefined),'samut-prakan');});

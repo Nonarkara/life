@@ -38,7 +38,7 @@ export function monthlyFlow(state,row){
  const income=Math.round(baseIncome*(!studying&&state.age>=20&&state.age<60?(WORKPLACES[workplace]?.payFactor??1)*place.pay:1));
  const studentHome=studying&&state.age>=20&&housing!=='family',studentCity=studentHome&&housing==='near'&&workplace==='city';
  const k=adultCosts?place.cost:1;
- return {income,rent:Math.round((studying&&housing==='family'?0:home.rent)*k),transport:Math.round((studying&&housing==='family'?0:home.transport+((cityTravel||studentCity)?CITY_TRAVEL.expense:0))*k),essential:Math.round((studying?Math.round(allowance(state)*.7)+(studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0):state.age<20?1200:4000+home.rent+home.transport+(cityTravel?CITY_TRAVEL.expense:0))*k),commute:studying?(studentHome?(studentCity?80:home.minutes):30):home.minutes+(cityTravel?CITY_TRAVEL.minutes:0),source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
+ return {income,rent:Math.round((studying&&housing==='family'?0:home.rent)*k),transport:Math.round((studying&&housing==='family'?0:home.transport+((cityTravel||studentCity)?CITY_TRAVEL.expense:0))*k),essential:Math.round((studying?Math.round(allowance(state)*.7)+(studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0):state.age<20?1200:9000+home.rent+home.transport+(cityTravel?CITY_TRAVEL.expense:0))*k),commute:studying?(studentHome?(studentCity?80:home.minutes):30):home.minutes+(cityTravel?CITY_TRAVEL.minutes:0),source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
 }
 export function advanceFinance(before,next){
  if(next.age<=before.age)return next;
@@ -56,15 +56,18 @@ export function advanceFinance(before,next){
  if(free<0){let need=-free;const wallet=Math.min(available,need);available-=wallet;need-=wallet;const buffer=Math.min(reserve,need);reserve-=buffer;need-=buffer;debt+=need;free=0;}
  else{const repaid=Math.min(debt,free);debt-=repaid;free-=repaid;}
  const fun=Math.floor(free*f.budget.fun/100),learn=Math.floor(free*f.budget.learn/100),saved=Math.floor(free*f.budget.save/100);
- reserve+=saved;available+=free-fun-learn-saved;
+ // The spendable remainder pays for everyday living; a small part is left over. What you
+ // choose to save is what builds a runway (authored tuning, not a household survey).
+ const remainder=free-fun-learn-saved,lifestyle=Math.floor(remainder*.85);
+ reserve+=saved;available+=remainder-lifestyle;
  const focus=(before.effort.iq+before.effort.craft)/10,travel=Math.max(.4,1-flow.commute/240);
  const learning=Math.min(6,Math.floor(learn/3000*focus*travel));
  const delta=Math.min(2,fun/Math.max(1,months)/500)-(debt>0?2:0);
  const wellbeing=cap(next.wellbeing+delta),skills={...next.skills,iq:next.skills.iq+learning};
  const since=f.locationSince??(before.age>=20?before.age:undefined),locationRecord=since===undefined?{}:{locationSince:since};
  if(f.region)Object.assign(locationRecord,{region:f.region,regionSince:f.regionSince??20});
- const finance={...f,...locationRecord,available,reserve,debt,receipts:[...f.receipts,{id,age:next.age,kind:'period',months,income,essential,fun,learn,saved,expense:essential+fun+learn,change:income-essential-fun-learn,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord}]};
- const snapshot={available,reserve,debt,income,essential,fun,learn,months,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord};
+ const finance={...f,...locationRecord,available,reserve,debt,receipts:[...f.receipts,{id,age:next.age,kind:'period',months,income,essential,fun,learn,lifestyle,saved,expense:essential+fun+learn+lifestyle,change:income-essential-fun-learn-lifestyle,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord}]};
+ const snapshot={available,reserve,debt,income,essential,fun,learn,lifestyle,months,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord};
  if(![available,reserve,debt,income,essential].every(integer)||!Number.isSafeInteger(netWorth(finance)))return before;
  return {...next,finance,wellbeing,skills,history:[...next.history.slice(0,-1),{...row,wellbeing,finance:{...snapshot,...(f.holdings?{holdings:structuredClone(f.holdings),realizedGain:f.realizedGain??0}:{})},...(before.economy?{economy:{from:before.age,to:next.age,incomeAdjustment,contractions:economic.contractions.map(r=>r.age),marketChange:f.receipts.filter(r=>r.kind==='market'&&r.age>before.age&&r.age<=next.age).reduce((n,r)=>n+r.change,0)}}:{}),financeSkills:{iq:learning}}]};
 }

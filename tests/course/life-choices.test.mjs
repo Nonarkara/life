@@ -1,9 +1,11 @@
+import {choiceAvailable} from '../../dist/course/finance.js';
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {newLife,configureLife,begin,live,validate} from '../../dist/course/sim.js';
 import {MAJORS,majorFit,careerFactor,partnerNature,ventureSwing} from '../../dist/course/life-choices.js';
 import {grossMonthlyPay} from '../../dist/course/finance.js';
 import {resolveEncounter,encounterById,eligibleEncounters} from '../../dist/course/encounters.js';
-const settle=s=>s.story?.pending?resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.2):s;
+// Like a player, take the first option this life can afford.
+const settle=s=>s.story?.pending?resolveEncounter(s,encounterById(s.story.pending.id).options.find(o=>choiceAvailable(s,o)).id,.2):s;
 const to=(s,age)=>{while(s.age<age&&s.stage==='review')s=settle(live(settle(s)));return settle(s);};
 const base=(seed=7)=>to(begin(configureLife(newLife(seed),{upbringing:'middle'})),20);
 test('every major has axes, pay and cost; fit rewards practice on its axes',()=>{for(const m of Object.values(MAJORS))assert.ok(m.axes.length&&m.pay>0&&m.cost>0);const s=base();const art={...s,effort:{physique:0,iq:0,eq:2,craft:8,drive:0}},sci={...s,effort:{physique:0,iq:8,eq:0,craft:2,drive:0}};assert.ok(majorFit(art,'arts')>majorFit(sci,'arts'));assert.ok(majorFit(sci,'computing')>majorFit(art,'medicine')-0.01);});
