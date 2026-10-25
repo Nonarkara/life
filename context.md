@@ -114,3 +114,19 @@ flat ฿7,000 equal to retirement costs. Two independent screenshot checks; seco
 found labels unreadable, fixed and re-verified. 65 tests. Deployed build 188a3a9f2a65
 to life.nonarkara.org; full lives on the live domain at 1440 and 390 reach the ending
 with no errors. Open: empty space mid-column on desktop, edge cropping, sparse intake.
+
+## Discussion feedback — 25 October 2026
+Read the owner-supplied24October meeting summary and transcript; raw recording text
+remains outside repository. DISCUSSION-IMPROVEMENTS.md separates product decisions
+from unverified claims and future systems. First slice: optional six-needs chapter
+priority, independent of life direction, with evidence from the completed period.
+Robbins is credited as a coaching lens, not a diagnostic test. Selecting a label
+changes no resources/skills/personality. Past focus persists when next focus changes;
+legacy profiles remain valid. All new phrases mapped toTH/zh-CN/JA/KO.
+71tests pass. Real UI20growth→25→decline invitation→12reasoningpracticepoints;
+nextfocus changed and reloaded without rewriting priorgrowth. Thai editing→English
+switch verified after independent reviewer caught pretranslated-source bug. Phone
+reader scroll reaches lower controls while scene/nav/advance remain visible.
+Screenshots review/discussion, independent source/visual review review/motivations.
+No silent timed defaults, relocation, portfolio, crisis or medical causal rules added.
+Current production hosting is Cloudflare Pages life, not the superseded Sites binding.

@@ -587,3 +587,39 @@ You and {friend} worked through a difficult lesson, then talked on the walk home
 Tell your crush you would like to spend time together|บอกคนที่แอบชอบว่าอยากใช้เวลาด้วยกัน|告诉心动的人你想一起相处|気になる相手に一緒に過ごしたいと伝える|좋아하는 친구에게 함께 시간을 보내고 싶다고 말하기
 You made room for a school-age crush and practised listening and boundaries. Your unfinished work still needed another afternoon.|คุณให้เวลากับความรักวัยเรียน ฝึกฟังและเคารพขอบเขตกัน งานที่ยังไม่เสร็จต้องหาเวลาทำวันอื่น|你为学生时代的心动留出时间，练习倾听与尊重界限。没做完的功课仍需要另一个下午。|学生時代の恋心に時間を使い、話を聴くことや境界を尊重することを学びました。残った課題には別の午後が必要でした。|학창 시절의 설렘에 시간을 내고 경청과 서로의 경계를 존중하는 법을 연습했습니다. 끝내지 못한 과제에는 다른 오후가 필요했습니다.
 `.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+What matters most in this chapter?|อะไรสำคัญที่สุดในช่วงชีวิตนี้?|这一阶段最看重什么？|この時期に一番大切にしたいことは？|이번 시기에 가장 중요한 것은?
+No particular focus|ยังไม่มีจุดเน้นเฉพาะ|暂不设定重点|特に決めない|특별히 정하지 않음
+Security and stability|ความมั่นคงและเสถียรภาพ|安全与稳定|安心と安定|안전과 안정
+Variety and discovery|ความหลากหลายและการค้นพบ|变化与探索|変化と発見|다양성과 발견
+Recognition|การได้รับการยอมรับ|获得认可|認められること|인정받기
+Love and connection|ความรักและความผูกพัน|爱与联结|愛とつながり|사랑과 유대
+Learning and growth|การเรียนรู้และเติบโต|学习与成长|学びと成長|배움과 성장
+Contribution|การช่วยเหลือส่วนรวม|付出与贡献|人や社会への貢献|기여
+Build room for setbacks; watch your cash and obligations.|เผื่อรับเหตุสะดุด ดูเงินที่มีและภาระที่ต้องจ่าย|为挫折留出余地，留意现金和负担。|不測の事態に備え、お金と支払いを見直しましょう。|어려움에 대비해 현금과 지출 의무를 살펴보세요.
+Try a different route or begin something unfamiliar.|ลองเส้นทางใหม่ หรือเริ่มสิ่งที่ยังไม่คุ้นเคย|尝试不同的道路，或开始陌生的事。|別の道や、まだ知らないことを試しましょう。|다른 길을 시도하거나 낯선 일을 시작해 보세요.
+Put work into the world; recognition is not guaranteed.|นำผลงานออกสู่สายตาคนอื่น การยอมรับไม่ใช่สิ่งที่รับประกันได้|把作品带到世人面前，但认可并无保证。|仕事や作品を人に届けましょう。評価は約束されません。|작업을 세상에 선보이세요. 인정은 보장되지 않습니다.
+Make time for people and notice whether support is mutual.|ให้เวลากับผู้คน และสังเกตว่าช่วยเหลือกันทั้งสองฝ่ายหรือไม่|为他人留出时间，也留意支持是否相互。|人と過ごす時間をつくり、支え合えているか見てみましょう。|사람들에게 시간을 내고 서로 돕고 있는지 살펴보세요.
+Give learning and practice time as well as money.|ให้ทั้งเวลาและเงินกับการเรียนรู้และฝึกฝน|为学习与练习投入时间，也投入金钱。|学びと練習に、お金だけでなく時間も使いましょう。|배움과 연습에 돈뿐 아니라 시간도 쓰세요.
+Make room to help or teach without promising a reward.|ให้เวลากับการช่วยเหลือหรือสอน โดยไม่รับประกันผลตอบแทน|留出帮助或教导他人的空间，不保证回报。|見返りを約束せず、人を助けたり教えたりする時間を。|보상을 기대하기보다 돕거나 가르칠 시간을 마련하세요.
+Choose a focus; your actions and circumstances still shape the outcome.|เลือกจุดเน้น ผลลัพธ์ยังขึ้นกับการกระทำและสถานการณ์ของคุณ|选择重点，结果仍由行动与处境共同塑造。|大切にしたいことを選んでも、結果は行動と状況に左右されます。|중점을 정해도 결과는 행동과 상황에 따라 달라집니다.
+About these six needs|เกี่ยวกับความต้องการทั้งหก|关于这六种需求|6つのニーズについて|여섯 가지 욕구에 관하여
+Inspired by Tony Robbins’ six human needs. A coaching lens, not a psychological test.|ได้แนวคิดจากความต้องการหกด้านของโทนี ร็อบบินส์ ใช้เป็นมุมมองทบทวนชีวิต ไม่ใช่แบบทดสอบทางจิตวิทยา|灵感来自托尼·罗宾斯的六种人类需求，作为反思视角，而非心理测试。|トニー・ロビンズの6つのニーズを参考にした振り返りの視点です。心理検査ではありません。|토니 로빈스의 여섯 가지 욕구에서 착안한 성찰 관점이며 심리 검사가 아닙니다.
+Framework source|ที่มาของกรอบแนวคิด|框架来源|枠組みの出典|개념 출처
+Last chapter|ช่วงชีวิตที่ผ่านมา|上一阶段|前の時期|지난 시기
+Chapter focus|จุดเน้นช่วงชีวิต|阶段重点|その時期の重点|시기의 중점
+No comparable personal-money record for this period.|ช่วงนี้ไม่มีบันทึกเงินส่วนตัวที่เปรียบเทียบกันได้|这一阶段没有可比的个人财务记录。|この期間に比較できる個人のお金の記録はありません。|이 시기에는 비교할 개인 자금 기록이 없습니다.
+Personal net worth changed by {value}.|ทรัพย์สินสุทธิส่วนตัวเปลี่ยนไป {value}|个人净资产变化了 {value}。|個人の純資産は{value}変化しました。|개인 순자산이 {value} 변했습니다.
+New routes or projects recorded: {value}.|บันทึกเส้นทางหรือโครงการใหม่: {value}|记录的新路线或项目：{value}。|記録された新しい道や企画：{value}件。|기록된 새로운 경로나 프로젝트: {value}건.
+Public work or mentoring moments: {value}.|การเผยแพร่ผลงานหรือสอนผู้อื่น: {value}|公开作品或指导他人的时刻：{value}。|作品の公開や指導の場面：{value}回。|작업 공개 또는 멘토링의 순간: {value}회.
+Shared moments recorded: {value}.|บันทึกช่วงเวลาที่ใช้ร่วมกัน: {value}|记录的共同经历：{value}。|記録された人と過ごす場面：{value}回。|기록된 함께한 순간: {value}회.
+Reasoning practice gained: {value} game points.|การฝึกใช้เหตุผลเพิ่ม: {value} แต้มในเกม|推理练习增加：{value} 游戏点数。|推論の練習で増えたゲーム内ポイント：{value}。|추론 연습 증가: 게임 내 {value}점.
+Helping or teaching moments: {value}.|ช่วงเวลาช่วยเหลือหรือสอน: {value}|帮助或教导他人的时刻：{value}。|人を助けたり教えたりした場面：{value}回。|도움 또는 가르침의 순간: {value}회.
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(...`
+Life direction|ทิศทางชีวิต|人生方向|人生の方向|삶의 방향
+This chapter’s priority|สิ่งสำคัญในช่วงชีวิตนี้|这一阶段的重点|この時期の優先事項|이번 시기의 우선순위
+Your direction affects wellbeing in this model. A chapter priority records what you value.|ทิศทางชีวิตมีผลต่อความเป็นอยู่ในแบบจำลองนี้ จุดเน้นแต่ละช่วงบันทึกสิ่งที่คุณให้ความสำคัญ|人生方向影响模型中的幸福感，阶段重点记录你珍视什么。|人生の方向はモデル上の幸福感に影響します。時期の優先事項は大切にしたいことの記録です。|삶의 방향은 모델의 행복감에 영향을 줍니다. 시기의 우선순위는 소중히 여기는 것을 기록합니다.
+`.trim().split('\n').map(line=>line.split('|')));

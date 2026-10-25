@@ -28,3 +28,7 @@ body.console-mode:not(.birth-stage){height:100dvh;overflow:hidden}
 .console-panel::-webkit-scrollbar-track{background:var(--paper)}
 .console-panel::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px}
 .console-actions{flex:none;padding:8px 20px;background:var(--paper);border-top:1px solid var(--line)}.console-actions[hidden],.console-actions:has(button[hidden]){display:none}.console-actions #commit{margin:0}
+.focus-feedback{margin:14px 0;padding-top:10px;border-top:1px solid var(--line)}
+.focus-feedback h2{font-size:calc(12px * var(--reading-scale));font-weight:500;margin:0 0 4px;color:var(--muted)}
+.focus-feedback p{font-size:calc(14px * var(--reading-scale));margin:4px 0;line-height:1.45}
+.focus-source{margin:8px 0}.focus-source p,.focus-source a{font-size:calc(12px * var(--reading-scale))}
