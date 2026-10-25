@@ -1,3 +1,16 @@
+## Current status —25October2026
+
+Public URL https://life.nonarkara.org is live on Cloudflare Pages. This supersedes
+older DNS/private-hosting blockers retained below as history. Buildde58e8f2adc5
+contains optional six-needs priorities and completed-chapter evidence;71tests pass.
+The direct Pages alias and custom domain report that build, public game bundle
+matches local output, and a public birth→10connectionfocus→15sharedstudy walkthrough
+shows one recordedsharedmoment. This does not prove full-game completion.
+
+Remaining: shared economic world/investments, relocation, explicit inaction/default
+outcomes, richer reciprocal relationships, native editorial review, full art/motion
+work and repeated human playtests. Detailed sequence: DISCUSSION-IMPROVEMENTS.md.
+
 # Life 2026 v1 — release evidence and remaining work
 
 23 October 2026. The full objective remains a free public game at

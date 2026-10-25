@@ -20,3 +20,10 @@ record retains optional focus, without mixed-language fragments.
 Independent source/visual review: review/motivations/source-review.md. This pass
 does not certify native editorial quality, clinical validity, economic simulation,
 new-world mobility, or whole-game superiority to the original.
+
+Public verification: commit9e72307, Pages deployment459123f0, buildde58e8f2adc5.
+Both life-5wz.pages.dev/build.json and life.nonarkara.org/build.json match. Bundle
+bytes from public alias match out/course/game.bundle.js. Python urllib request to
+immutable deployment URL returned403; curl publicalias and realbrowsercustomdomain
+succeeded. Public browser birth→10connectionfocus→15sharedstudy displaysone actual
+sharedmoment. Public screenshot live-chapter-feedback.png. Preview settings restored.

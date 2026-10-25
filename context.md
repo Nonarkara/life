@@ -130,3 +130,8 @@ reader scroll reaches lower controls while scene/nav/advance remain visible.
 Screenshots review/discussion, independent source/visual review review/motivations.
 No silent timed defaults, relocation, portfolio, crisis or medical causal rules added.
 Current production hosting is Cloudflare Pages life, not the superseded Sites binding.
+
+25October publication proof:9e72307 pushed, Pages459123f0; public buildde58e8f2adc5
+verified from directalias and customdomain, servedgamebundle matches localbytes.
+Real publicbirth→10connection→15sharedstudy showsone sharedmoment;71tests. Current
+URL https://life.nonarkara.org. Screenshotreview/discussion/live-chapter-feedback.png.
