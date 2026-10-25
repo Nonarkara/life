@@ -92,7 +92,7 @@ No AI-generated artwork, no copied game assets, no paid API and no backend.
 
 ```bash
 npm install
-npm test          # 77 simulation, finance, translation, movement and 3D visibility tests
+npm test          # 78 simulation, finance, translation, movement and 3D visibility tests
 npm run dev       # builds to out/ and serves http://127.0.0.1:4219/
 ```
 
@@ -115,7 +115,7 @@ Three.js0.185.0 (MIT) supplies the locally bundled 3D world. esbuild minifies th
 
 **Previous release — v1 (2026.1), 24 October 2026.** Verified: four complete headless lives on phone, tablet, desktop and Thai with extra-large text, all reaching the ending with no script errors and no horizontal overflow. 63 tests pass. An independent review found three blockers (clipped money on phones, students banking almost all their pocket money, one label used for two different money pots), and all three are fixed.
 
-**Graphics update —25October2026.** Articulated characters, directional stride, age growth, supported seating, distinct task props, real lighting and architectural cutaways. Committed routes drive school, college, trade, independent work and recovery poses. A content-height desktop dock and dock-aware camera preserve the protagonist; phones show the current activity more closely.77tests pass. Independent source and responsive still review passed for this bounded update; current release verification is recorded in RELEASE-READINESS.md.
+**Graphics update —25October2026.** Articulated characters, directional stride, age growth, supported seating, distinct task props, real lighting and architectural cutaways. Committed routes drive school, college, trade, independent work and recovery poses. A content-height desktop dock and dock-aware camera preserve the protagonist; phones show the current activity more closely.78tests pass. Independent source and responsive still review passed for this bounded update; current release verification is recorded in RELEASE-READINESS.md.
 
 Not yet done, stated plainly:
 

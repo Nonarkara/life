@@ -152,7 +152,7 @@ phones focus on the activity. Raycast cutaways use parallel orthographic rays
 through actual scaledhead/torso anchors. Settings pauses until explicitResume;
 visibility handler pauses when documenthidden. Background/sleep behavior and
 GPU failurefallback remain unverified at runtime, not claimed from source.
-77tests pass including the off-centre child occlusion regression. Independent
+78tests pass including the off-centre child occlusion regression. Independent
 review cleared source and final390/768portrait/820portrait/1024/1440stills;
 collegecutaways make the actor visible. These are stylized miniatures, not
 photorealism, fullSimsAI, or measured10xquality. Wider handoff work—autonomy,

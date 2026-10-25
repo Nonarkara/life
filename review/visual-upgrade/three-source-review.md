@@ -79,3 +79,9 @@ motion-return is correctly described by its actual Daytime / at college caption,
 Bounded gate: no remaining demonstrated source or visual blocker for the supplied graphics/routine upgrade. Scene geometry, shading, directional rig, supported seating and task differentiation materially improve baseline. This does not certify a10× numerical quality factor, photorealism, Sims-level autonomy, complete actor avoidance, uninterrupted animation smoothness or all activities at all ages. Current opening/infant and enlarged-native UI final-build walkthrough are not independently witnessed; older657f Thai-extra Money capture establishes typography only. WebGL unavailable/context-loss fallback and cleanup are source-reviewed, not browser-fault-injected. Parent reports76 full tests; independent reviewer previously ran13 targeted rig/routine tests successfully.
 
 Release judgment applies to this bounded implementation only, preserving the overall project’s separate feature/release requirements. No browser actions or source changes performed by reviewer.
+
+## Focused post-gate source receipt — commit368f889/build2215d5022868
+
+Verified placard placement now uses85% building width (applies to all named buildings, not only school). Vocational committed context hides player work chair/laptop for the route and shows a wood workpiece; hammer head is visible only in craft pose. Changes remain presentation-only. No demonstrated source regression in these refinements; final placard fit still needs actual public capture because all building labels moved.
+
+Independently ran the new orthographic cutaway regression: pass. It constructs an off-centre child anchor and genuine occluder that the old perspective-style ray misses, then confirms hidden growth is ignored. This is meaningful executable evidence for the fixed ray behavior. No public-byte, newborn or deployed-browser smoke verification performed by this reviewer at this step.

@@ -60,3 +60,12 @@ protection but were not fault-injected in the browser. Native editorial review,
 full task-contact/actor-avoidance work, recurring human playtests and the broader
 handoff simulation backlog remain outstanding. Original-game research is useful
 but not exhaustive. No new economic, medical or personality calibration is claimed.
+
+## Public cache defect caught by smoke test
+The first upload2215d5022868 passed server byte probes, but an existing public
+browser rendered its cached old2D world. DOM showed a new boot URL; the boot
+file still imported unversioned game.bundle.js. The asset-reference pattern had
+excluded multi-dot filenames. Fixed with a regression for that exact import, and
+build identity now includes generated output and the transformation scripts.
+Two identical builds agree on befd48c0d958.78tests pass. The screenshot
+public-desktop.png records the failed first smoke, never a3D release approval.

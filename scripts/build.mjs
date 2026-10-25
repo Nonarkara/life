@@ -1,5 +1,6 @@
 import {cpSync,mkdirSync,readdirSync,readFileSync,mkdtempSync,existsSync,renameSync,rmSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {versionReferences} from './asset-versions.mjs';
 const output=mkdtempSync('.life-build-');
 try {
 for(const file of readdirSync('dist/course')){cpSync('dist/course/'+file,output+'/'+file);assert.deepEqual(readFileSync(output+'/'+file),readFileSync('dist/course/'+file));}
@@ -22,10 +23,13 @@ await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:
 const {createHash}=await import('node:crypto');
 const {writeFileSync}=await import('node:fs');
 function files(root){return readdirSync(root,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(root+'/'+e.name):[root+'/'+e.name]).sort();}
-const buildId=createHash('sha256').update(files('dist').map(p=>readFileSync(p)).reduce((a,b)=>Buffer.concat([a,b]),Buffer.alloc(0))).digest('hex').slice(0,12);
+const buildHash=createHash('sha256');
+for(const path of ['scripts/build.mjs','scripts/asset-versions.mjs'])buildHash.update(path).update('\0').update(readFileSync(path)).update('\0');
+for(const path of files(output))buildHash.update(path.slice(output.length+1)).update('\0').update(readFileSync(path)).update('\0');
+const buildId=buildHash.digest('hex').slice(0,12);
 for(const path of files(output).filter(p=>/\.(html|js)$/.test(p))){
  const source=readFileSync(path,'utf8');
- const versioned=source.replace(/(['"])((?:\.{1,2}\/)?[\w\/-]+\.(?:js|css))\1/g,(_,quote,url)=>quote+url+'?v='+buildId+quote);
+ const versioned=versionReferences(source,buildId);
  writeFileSync(path,versioned);
 }
 writeFileSync(output+'/build.json',JSON.stringify({version:'2026.1',build:buildId})+'\n');
