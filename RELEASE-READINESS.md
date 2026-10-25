@@ -1,4 +1,19 @@
-# Current release -25October2026
+# Current release — 26 October 2026: World Overhaul & Inhabited Life
+
+Published source 180284f, build 67ec0f7a1bef, Cloudflare Pages deployment 6a396e1a.
+Live at canonical preview https://6a396e1a.life-5wz.pages.dev and production custom domain https://life.nonarkara.org/course/ .
+This release completes the World Overhaul Plan (phases 1–7):
+- Diverse birth regions across Thailand (Khlong Toei, Khon Kaen, Bang Na, Pak Phanang, Samut Prakan, Sukhumvit) and adult relocations abroad (Boston, London, Tokyo, Singapore).
+- Region conservation law: exactly one region at every age, preserved across pay, cost, housing and Three.js environments.
+- Articulated character diversity: sex roles, skin tone ranges, clothing, regional neighbour variants.
+- Phone hero presentation: 3D world takes 57% of screen height (481px / 844px), exceeding the >= 55% constraint, with single-line 40px Thai header with enlarged text.
+- Owner's Reference Life: childhood with grandparents in Isan, Bangkok schooling, college, Boston master's, London studies, living-apart partnership caring for parents, low-poly 3D dog adoption at porch/walkway, long novel project, and return to birth home.
+- Ending subway-style Route Map and 4-part Ikigai contentment readout.
+145 tests pass (0 failures). 3 consecutive SHA-256 byte-matching asset checks across canonical and custom domains. Live browser Chrome CDP headless verification at 390x844, 1024x768, and 1440x900 passed with 0 runtime errors.
+Evidence: review/world-overhaul/README.md and review/world-overhaul/*.png.
+The earlier records below are retained as history.
+
+## Previous release — 25 October 2026
 
 Published source bc278f9, build45c8e88b629d, Pagesbfcbfe4c. The current release
 adds conserved portfolio holdings, shared economic-world history, compact money
