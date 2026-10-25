@@ -1,0 +1,47 @@
+{
+  "build": "b58148524e8e",
+  "assets": {
+    "course/boot.js": "85d30e99c9e814dc9a49505515a1f7efc389e232e9f73867102fd9a71362004a",
+    "course/game.bundle.js": "e4a8f103b0a892349e0ca5418b55089d636901ad1570955577e6c293565506a2",
+    "course/course.css": "34c93c4483070b0b215ae66ebfe26d9dd880f232495a34ab6254c31e685fc560",
+    "course/console.css": "ab1f59785f8330819dbc5429dec6ae7404de1074f06bf6da078fde711a32c3ec",
+    "course/personal-console.css": "ae5c9021c7b8d835c5ca2ce0eaa161de9593c1ccc182774488e5f3a1a2abe649"
+  },
+  "hosts": {
+    "https://life-5wz.pages.dev": [
+      {
+        "attempt": 1,
+        "build": "b58148524e8e",
+        "matches": true
+      },
+      {
+        "attempt": 2,
+        "build": "b58148524e8e",
+        "matches": true
+      },
+      {
+        "attempt": 3,
+        "build": "b58148524e8e",
+        "matches": true
+      }
+    ],
+    "https://life.nonarkara.org": [
+      {
+        "attempt": 3,
+        "build": "b58148524e8e",
+        "matches": true
+      },
+      {
+        "attempt": 4,
+        "build": "b58148524e8e",
+        "matches": true
+      },
+      {
+        "attempt": 5,
+        "build": "b58148524e8e",
+        "matches": true
+      }
+    ]
+  },
+  "checkedAt": "2026-10-25T05:25:51Z"
+}

@@ -57,3 +57,23 @@ including material.version enter/repeat/restore. final-canopy-thai-820.png shows
 the actual b58148524e8e seated worker's head, torso, hands and laptop through
 the translucent canopy, plus all three enlarged Thai instruments. Source and
 rendered checks must agree; the prior ray-only pass was insufficient.
+
+## Publication
+Code dc3c25c pushed to origin/main (first HTTP push408, successful retryHTTP1.1).
+Cloudflare Pages deployment https://7092d5c4.life-5wz.pages.dev completed.
+Buildb58148524e8e passed three consecutive full boot/bundle/courseCSS/consoleCSS/
+personal-consoleCSS SHA256 checks on https://life-5wz.pages.dev, then
+https://life.nonarkara.org. Boot imports the versioned game bundle. Exact receipt:
+public-assets.json. Python's default HTTP client received403; curl worked, and
+compressed transfer avoided a slow full-bundle timeout. A transient custom-domain
+connection reset restarted the streak; the eventual three matches are consecutive.
+
+PUBLIC BROWSER LIMIT: existing/fresh in-app browser reloads reported offline
+ERR_INTERNET_DISCONNECTED and tool attachment timeouts. Native Chrome access
+also timed out. Public pixels and old public save retention could not be verified
+in this release, despite verified exact served assets. Do not describe local
+screenshots as public screenshots. Local b58148524e8e UI, responsive dimensions,
+chapter30–35, music control and cutaway were actually exercised. Phone Goal notes
+was opened through UI: panel160px/client,237pxscroll, document390x844 unchanged.
+Independent source/rendered scoped gate passes; audio listening/native editorial/
+continuous motion-quality approval remain outstanding.

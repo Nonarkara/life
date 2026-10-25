@@ -55,3 +55,13 @@ Evidence boundary: actual files are1024×576,820×615 and820×1168 respectively.
 Remaining demonstrated world blocker: English820 current Daytime/atwork capture shows the city canopy opaque across the protagonist’s head/shoulders, with only partial amber body/legs visible under its edge. This repeats the earlier protagonist-occlusion failure in a new structure despite source registration. Metrics/goal grouping corrections pass separately; the combined world-and-console release gate remains held until a current work-task frame shows readable head/torso/task and final Thai portrait consoles are visibly covered by evidence.
 
 No source edits/browser actions performed. Do not report the previous source cutaway test as proving every new canopy/material is visually correct.
+
+## Actual viewport final receipt — b58148524e8e
+
+Independently reopened actual-1440, actual-1366, actual-1024 and actual-390 / actual-phone-ocean / actual-phone-goals at original detail. These full viewport captures resolve the earlier cropped-wrapper evidence gap. Three laptop consoles have distinct, readable grouping; whole money and ratio values; recorded age is separate from future goal ages. All three phone tab states remain readable with visible primary navigation and advance action. Goal notes sits at the phone bottom edge, so its expanded/scroll interaction is not established by these stills.
+
+Final-canopy-thai-820 (820×1180, enlarged Thai) visibly contains all three console panels and the full task dock. Labels wrap within their groups, numbers remain whole, and the effort controls remain visible. This closes the previously missing enlarged-Thai portrait console evidence. No native-speaker certification is implied.
+
+The current working actor's head, torso, hands and laptop are now visible through the translucent canopy. Source applyCutaway restores baseline properties, updates opacity each call, and invalidates the material only on transparent/depthWrite state edges. This closes the demonstrated opaque-canopy blocker for the captured work state. It does not prove every building/camera/motion state.
+
+Scoped verdict: no remaining demonstrated release blocker in this console integration and canopy correction. Actual viewport English desktop/tablet/phone and enlarged Thai820 captured states pass the independent visual gate. Earlier purpose/validation corrections remain closed; root reports105 full tests, not independently rerun here. No browser or product-source changes performed. Public deployment verification remains root's responsibility.

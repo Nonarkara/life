@@ -191,3 +191,11 @@ Original Small Hours instrumental synthesis is CC0, explicitly started and muted
 from the header, suspended on hidden pages; audible quality is not yet listened
 to by a human.105 tests pass. See review/personal-console/README.md for runtime
 evidence and limits. Existing saves and five language controls are retained.
+
+Publication: dc3c25c pushed, Pages7092d5c4; buildb58148524e8e serves exact hashes
+from canonical/custom domains (3consecutive each). Public in-app preview reports
+offline and Chrome app inspection times out, so public pixels/save retention are
+unverified this slice. Local final console/canopy and responsive workflows pass.
+The owner's latest oversized-editor screenshot is from the earlier public UI;
+compact28pxcontrols, single-label ten-slot rows and content-height254pxdesktop
+dock are now deployed. Actual local evidence is not called a public screenshot.

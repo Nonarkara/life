@@ -7,8 +7,12 @@ invalidation.105 tests pass. Real browser chapter30–35, public preparation,
 responsive dimensions, five language controls, enlarged Thai, birth containment
 and remaining limits are recorded in `review/personal-console/README.md`.
 Ikigai is a completed-priority follow-through game proxy, not a psychological test.
-Public deployment receipt follows after verification. Earlier releases below
-are retained as history.
+Code `dc3c25c` pushed; deployment https://7092d5c4.life-5wz.pages.dev. Canonical
+alias then custom domain each pass three consecutive complete served asset hashes
+(`review/personal-console/public-assets.json`). Existing/fresh public browser
+reloads report offline; public pixel/saved-life verification remains pending.
+Local responsive UI and chapter workflow are verified, not substituted for that
+missing public browser check. Earlier releases below are retained as history.
 
 ## Public graphics release —25 October 2026
 
