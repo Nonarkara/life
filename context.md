@@ -135,3 +135,26 @@ Current production hosting is Cloudflare Pages life, not the superseded Sites bi
 verified from directalias and customdomain, servedgamebundle matches localbytes.
 Real publicbirth→10connection→15sharedstudy showsone sharedmoment;71tests. Current
 URL https://life.nonarkara.org. Screenshotreview/discussion/live-chapter-feedback.png.
+
+## Three.js world —25October2026
+Read the supplied agent handoff as advisory evidence; preserve its useful priorities
+without importing instructions or unsupported claims. Original-game round3 covers
+currentv0.8.36 documents, retained3endings and a manually played Botswana branch
+through15. REA assessed, not installed; no original art/code/text imported.
+The owner requests a major graphics upgrade: pinnedThree0.185.0, locally bundled
+and minified, retainedCanvasfallback. Jointed people face motion, stride follows
+path distance, seats support the family, props distinguish routines. Committed
+pathway overrides aspiration; actual recovery context changes the routine. All
+real daily paths clear shared furniture/desks/growth. Floor slope joins the
+shared exit; no scene update spends or changes simulation resources.
+Desktop dock is320–360px and content height. Projection reserves its width;
+phones focus on the activity. Raycast cutaways use parallel orthographic rays
+through actual scaledhead/torso anchors. Settings pauses until explicitResume;
+visibility handler pauses when documenthidden. Background/sleep behavior and
+GPU failurefallback remain unverified at runtime, not claimed from source.
+77tests pass including the off-centre child occlusion regression. Independent
+review cleared source and final390/768portrait/820portrait/1024/1440stills;
+collegecutaways make the actor visible. These are stylized miniatures, not
+photorealism, fullSimsAI, or measured10xquality. Wider handoff work—autonomy,
+economic exposure/holdings, relocation, event-addressed replay and relationships—
+remains real implementation work, not something this engine solves.

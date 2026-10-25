@@ -92,11 +92,11 @@ No AI-generated artwork, no copied game assets, no paid API and no backend.
 
 ```bash
 npm install
-npm test          # 65 simulation, finance, translation and path tests
+npm test          # 77 simulation, finance, translation, movement and 3D visibility tests
 npm run dev       # builds to out/ and serves http://127.0.0.1:4219/
 ```
 
-There are no runtime dependencies. esbuild bundles the game module graph at build time.
+Three.js0.185.0 (MIT) supplies the locally bundled 3D world. esbuild minifies the module graph. The original Canvas world remains the fallback when WebGL fails; the overview and charts remain available. No game state depends on the renderer.
 
 ## Repository map
 
@@ -113,12 +113,13 @@ There are no runtime dependencies. esbuild bundles the game module graph at buil
 
 ## Status
 
-**v1 (2026.1), 24 October 2026.** Verified: four complete headless lives on phone, tablet, desktop and Thai with extra-large text, all reaching the ending with no script errors and no horizontal overflow. 63 tests pass. An independent review found three blockers (clipped money on phones, students banking almost all their pocket money, one label used for two different money pots), and all three are fixed.
+**Previous release — v1 (2026.1), 24 October 2026.** Verified: four complete headless lives on phone, tablet, desktop and Thai with extra-large text, all reaching the ending with no script errors and no horizontal overflow. 63 tests pass. An independent review found three blockers (clipped money on phones, students banking almost all their pocket money, one label used for two different money pots), and all three are fixed.
+
+**Graphics update —25October2026.** Articulated characters, directional stride, age growth, supported seating, distinct task props, real lighting and architectural cutaways. Committed routes drive school, college, trade, independent work and recovery poses. A content-height desktop dock and dock-aware camera preserve the protagonist; phones show the current activity more closely.77tests pass. Independent source and responsive still review passed for this bounded update; current release verification is recorded in RELEASE-READINESS.md.
 
 Not yet done, stated plainly:
 
-- Animation quality has been judged only in still screenshots, not watched live.
-- On desktop the reading column has empty space between a short task and the stats at its foot.
+- The lead exercised changing routines live; the independent graphics review used source and stills. Continuous human motion-quality approval and WebGL-failure injection remain outstanding.
 - The camera follows the player, so buildings at the edge of the world can be cropped.
 - The setup screen at `/intake` is mostly empty on a phone.
 - No economic-crisis engine, investments, credit, scholarships or admissions, inherited networks, late-life care or recovery systems yet. The research for them is in `research/`.

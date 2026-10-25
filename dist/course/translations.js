@@ -623,3 +623,13 @@ Life direction|ทิศทางชีวิต|人生方向|人生の方向|�
 This chapter’s priority|สิ่งสำคัญในช่วงชีวิตนี้|这一阶段的重点|この時期の優先事項|이번 시기의 우선순위
 Your direction affects wellbeing in this model. A chapter priority records what you value.|ทิศทางชีวิตมีผลต่อความเป็นอยู่ในแบบจำลองนี้ จุดเน้นแต่ละช่วงบันทึกสิ่งที่คุณให้ความสำคัญ|人生方向影响模型中的幸福感，阶段重点记录你珍视什么。|人生の方向はモデル上の幸福感に影響します。時期の優先事項は大切にしたいことの記録です。|삶의 방향은 모델의 행복감에 영향을 줍니다. 시기의 우선순위는 소중히 여기는 것을 기록합니다.
 `.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+Learning a trade|ฝึกทักษะอาชีพ|学习一门手艺|職業技能を学ぶ|기술 배우기
+learning a trade|ฝึกทักษะอาชีพ|学习一门手艺|職業技能を学ぶ|기술 배우기
+working independently|ทำงานอิสระ|独立工作|独立して働く|독립적으로 일하기
+at college|เรียนมหาวิทยาลัย|在大学学习|大学で学ぶ|대학에서 공부
+recovering at home|พักฟื้นที่บ้าน|在家休养|自宅で療養する|집에서 회복하기
+Working independently|ทำงานอิสระ|独立工作|独立して働く|독립적으로 일하기
+At college|อยู่ที่มหาวิทยาลัย|在大学|大学で学ぶ|대학에서 공부하기
+Recovering at home|พักฟื้นที่บ้าน|在家休养|家で療養する|집에서 회복하기
+`.trim().split('\n').map(line=>line.split('|')));

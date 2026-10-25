@@ -41,3 +41,14 @@ Intent: explain play through four original line diagrams across a flat two-page 
 Colour relationships: improving periods use green / cream / carmine (Wada plate122); difficult periods use Lincoln Green / Ochraceous Salmon / Brown (plate121). Relationships cross-checked against Palette data/colors.json and the wada-colour-chords field guide. Device colours in events.js are authored material reconstructions, not exact printed swatches. Land and vegetation carry the scene; roofs supply a bounded warm interval; UI paper/ink and amber agency remain stable. Mood is explicitly named, never communicated through colour alone. Numeric history does not change with the palette. Cash axes remain adaptive.
 
 Native-script handling: document lang, Prompt for Thai, region-specific Noto SC/JP/KR, real400/600 weights, generous line-height, stored text scaling. Chinese currently means Simplified Chinese. Five-language editorial text is implemented; native-reader certification remains outstanding. Settings are shared by manual and game and stored only in this browser.
+
+##3D presentation —25October2026
+The owner requested a substantial graphics upgrade. The default world now uses
+locally bundledThree.js, with the olderCanvas rendition retained as fallback.
+Rounded human proportions, grounded furniture, material light and contact shadows
+replace enlarged polygon sprites; this remains a deliberately stylized miniature.
+The camera reserves the dock's actual width, follows the person after6 and shows
+closer activities on phones. Foreground buildings become cutaways only while
+obstructing actual head/torso anchors. Place labels sit toward building corners
+to avoid covering the person's task. Existing Palette chords and liveHTML type
+remain; graphics never fabricate achievements or change recorded outcomes.

@@ -1,15 +1,18 @@
+import {drawScene3D} from './scene3d.js';
 import {t,preferences} from './i18n.js';
 import {lifeMood,MOOD_CHORDS} from './events.js';
 import {AXES} from './sim.js';
 import {furniture,townGrowth} from './layout.js';
-import {routine} from './routines.js';
+import {routine,routineContext} from './routines.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 export function drawWorld(canvas,state,age,time,mode='world'){
+if(drawScene3D(canvas,state,age,time,mode))return;
+const context=routineContext(state);
 const labels=[];
 Object.assign(C,MOOD_CHORDS[lifeMood(state)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawCourse(c,state,canvas.clientWidth<560);finish();return;}
-const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance'),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
+const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance',context),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:document.body.classList.contains('console-mode')&&state.stage!=='birth'?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);
 const p=(x,y,z=0)=>[(x-y)*15,(x+y)*7.5-z*15];
 function poly(v,col){c.beginPath();v.forEach((a,i)=>i?c.lineTo(...p(...a)):c.moveTo(...p(...a)));c.closePath();c.fillStyle=col;c.fill();}
@@ -36,6 +39,7 @@ poly([[9,9,.04],[13,9,.04],[13,12,.04],[9,12,.04]],'#65875a');for(const pair of 
 box(3,3,0,4,4,.2,'#ad9064');for(let x=3;x<7;x+=.35)line([x,3,.21],[x,7,.21],'#92764f',.12);box(3,3,.2,4,.12,1.8,C.wall,C.shade,C.wall);box(3,3,.2,.12,4,1.8,C.wall,C.shade,C.shade);
 poly([[4,3.13,.8],[5.6,3.13,.8],[5.6,3.13,1.6],[4,3.13,1.6]],'#78958b');line([4.8,3.14,.8],[4.8,3.14,1.6],C.wood,.12);
 const objects=[];const add=(depth,fn)=>objects.push({depth,fn});
+add(12.8,()=>{const f=furniture.find(f=>f.id==='dining');box(f.x,f.y,.2,f.w,f.d,.75,C.wood);});
 add(7.4,()=>{const f=furniture[0];box(f.x,f.y,.2,f.w,f.d,.4,C.wood);box(3.3,3.5,.6,1.15,1.7,.12,C.paper);box(3.3,4,.73,1.15,1.2,.04,'#6a8a75');box(3.45,3.6,.73,.8,.3,.04,C.paper);});
 // Cradle stays in the same place through infancy and childhood.
 add(10,()=>{const f=furniture[1];box(f.x,f.y,.2,f.w,f.d,.45,C.wood);box(4.68,4.68,.65,.94,.74,.04,C.paper);if(age<1){box(4.85,4.9,.7,.6,.35,.1,C.amber,C.amber,C.amber);box(5.45,4.9,.7,.22,.35,.1,'#d3ad85','#d3ad85','#d3ad85');const eye=p(5.55,5.1,.81);c.fillStyle=C.ink;c.fillRect(eye[0],eye[1],.5,.5);}for(let x=4.6;x<5.8;x+=.2)box(x,5.45,.65,.025,.025,.3,C.wood);box(4.6,5.45,.95,1.1,.03,.03,C.wood);});
@@ -67,12 +71,12 @@ function person(x,y,shirt,floor=.2,size=1,activity=null){
 }
 function ground(x,y){if(x<3||x>7||y<3||y>7.2)return 0;return y>6.6?Math.max(0,(7.2-y)/.6*.2):.2;}
 const goal=state.profiles.at(-1)?.profile.aim??'balance';
-const mom=routine('mother',age,time,goal),dad=routine('father',age,time,goal);
+const mom=routine('mother',age,time,goal,context),dad=routine('father',age,time,goal,context);
 if(age<70)add(mom.x+mom.y,()=>person(mom.x,mom.y,'#708a79',ground(mom.x,mom.y),1,mom));
 if(age<55)add(dad.x+dad.y,()=>person(dad.x,dad.y,'#9a7a56',ground(dad.x,dad.y),1,dad));
-if(age>=1){const child=routine('player',age,time,goal);add(child.x+child.y,()=>{const floor=ground(child.x,child.y),q=p(child.x,child.y,floor+.01);c.strokeStyle=C.amber;c.lineWidth=.5;c.beginPath();c.ellipse(q[0],q[1],5,2,0,0,Math.PI*2);c.stroke();person(child.x,child.y,C.amber,floor,age<10?.65:age>=65?.95:1,child);});}
+if(age>=1){const child=routine('player',age,time,goal,context);add(child.x+child.y,()=>{const floor=ground(child.x,child.y),q=p(child.x,child.y,floor+.01);c.strokeStyle=C.amber;c.lineWidth=.5;c.beginPath();c.ellipse(q[0],q[1],5,2,0,0,Math.PI*2);c.stroke();person(child.x,child.y,C.amber,floor,age<10?.65:age>=65?.95:1,child);});}
 if(age>=6){add(15,()=>person(8.4,6.4,'#c1ac76',0,.7));add(16,()=>person(9.2,6.4,'#7b8c9b',0,.7));}
-if(age>=10){add(18,()=>{person(11.4,5.7,'#a8ac8e',0);});add(8,()=>{person(8.4,0,'#9b8979',0);});}
+if(age>=10){add(18,()=>{person(12.9,6.3,'#a8ac8e',0);});add(8,()=>{person(8.4,0,'#9b8979',0);});}
 objects.sort((a,b)=>a.depth-b.depth);objects.forEach(o=>o.fn());
 // Passing traffic has its own lane and remains independent of the player.
 if(age>=5){const busX=-1+(time*.12%14);box(busX,7.25,.05,1.2,.55,.6,'#9caa93','#697d6d','#8f9b80');box(busX+.15,7.26,.65,.8,.5,.05,C.paper);}

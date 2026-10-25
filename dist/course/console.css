@@ -32,3 +32,13 @@ body.console-mode:not(.birth-stage){height:100dvh;overflow:hidden}
 .focus-feedback h2{font-size:calc(12px * var(--reading-scale));font-weight:500;margin:0 0 4px;color:var(--muted)}
 .focus-feedback p{font-size:calc(14px * var(--reading-scale));margin:4px 0;line-height:1.45}
 .focus-source{margin:8px 0}.focus-source p,.focus-source a{font-size:calc(12px * var(--reading-scale))}
+
+.stage canvas[hidden]{display:none!important}.stage .world-renderer{image-rendering:auto}
+/* Short tasks form a dock; the scene earns the space beneath them. */
+@media(min-width:721px){
+ .console-mode:not(.birth-stage):not(.recap-stage) main{--dock-width:clamp(320px,25vw,360px);position:relative;grid-template-columns:minmax(0,1fr) var(--dock-width)}
+ .console-mode:not(.birth-stage):not(.recap-stage) .stage{grid-column:1 / -1;grid-row:1}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-head,.console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{padding-right:calc(var(--dock-width) + 12px)}
+ .console-mode:not(.birth-stage):not(.recap-stage) .console-reader{grid-column:2;grid-row:1;align-self:start;max-height:100%;z-index:1;border-bottom:1px solid var(--line)}
+ .console-mode:not(.birth-stage):not(.recap-stage) .console-panel{flex:0 1 auto}
+}

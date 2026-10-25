@@ -16,7 +16,7 @@ for(const entry of readdirSync('dist',{withFileTypes:true}))if(entry.isFile())cp
 mkdirSync(output+'/intake',{recursive:true});cpSync('dist/intake',output+'/intake',{recursive:true});
 
 const {build}=await import('esbuild');
-await build({entryPoints:['dist/course/game.js'],bundle:true,format:'esm',outfile:output+'/course/game.bundle.js'});
+await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',outfile:output+'/course/game.bundle.js'});
 
 // A build owns one module graph. Old preview caches must not mix its files.
 const {createHash}=await import('node:crypto');

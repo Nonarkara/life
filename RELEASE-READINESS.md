@@ -1,3 +1,14 @@
+## Graphics candidate —25 October 2026
+
+Build `2215d5022868` adds the locally bundled Three.js world, record-based routines,
+articulated actors, furniture support, dock-aware framing, architectural cutaways,
+compact desktop dock and Settings pause. 77 tests pass. Independent source and
+responsive still review cleared this bounded update. Browser workflow, evidence
+versions and remaining limits: `review/visual-upgrade/README.md`.
+
+Public deployment verification for this candidate is pending. The published build
+below remains the previous release until that verification is recorded.
+
 ## Current status —25October2026
 
 Public URL https://life.nonarkara.org is live on Cloudflare Pages. This supersedes
