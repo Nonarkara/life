@@ -65,3 +65,25 @@ wrapper can stay the old size after a viewport request. Whole monetary values
 and /100 values must not split; enlarged type can scroll within a named panel.
 New districts inherit the existing Palette mood chords; displayed age filters
 palette history so future events cannot darken earlier years.
+
+## Inhabited biography and Palette241 — 25 October2026
+Core: recognize an ordinary life through a recurring room and carried objects.
+Tension: architectural detail must describe use; extra geometry cannot substitute
+for persistent consequences. References: KMUTT Tirapas shophouse field study;
+Unpacking developer's recurring possessions; Japanese-animation separation of
+painted backgrounds and cel figures (technique reference, no artist imitation).
+Material chord241, verified in Palette colors.json: Red Orange / Dark Medici Blue /
+Pale Lemon Yellow / Isabella Color. Authored screen reconstructions assign cream
+to plaster/paper, cool blue-green to shutters/foliage/shadow, ochre to wood and
+red-orange to one recurring school case. Existing bright122/difficult121 moods
+remain. UI amber still means agency, and charts keep actual units/labels.
+The first all-toon pass flattened and darkened the room; rejected during actual
+pixel review. Final backgrounds use diffuse Lambert material with contact shadows;
+figures use a cached three-step cel ramp. No bloom/postprocessing or art assets.
+Shared case appears from school age and follows the actual residence; bought
+books/comics, independent workspace and recorded remembrance use elapsed evidence.
+No real school achievement, photo, religion or psychological narrative is inferred.
+The street is fictional soi-inspired architecture, not a survey of the birthplace.
+/study is a clearly labelled fixture comparison with the actual renderer and no
+access to the player's save. Adult commute duration changes routine boundaries
+from the existing financial commute model, without changing earnings/outcomes.

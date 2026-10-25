@@ -1,6 +1,7 @@
 // A shared 60-second day: home, journey, activity, return, evening.
 // Paths use the same world coordinates as the room and its furniture.
 import {RESIDENCES,WORKPLACES,locationContext} from './locations.js';
+import {recordedCommute,commuteSchedule} from './biography.js';
 export const HOME={mother:[5,6.25],father:[6.4,6.25],player:[5.7,5.8]};
 export const HOME_FACING={mother:Math.PI/2,father:-Math.PI/2,player:0};
 const EXIT=[[6.75,6.8],[6.75,7.2],[8.5,7.2]];
@@ -47,12 +48,13 @@ export function routine(actor,age,time,goal='balance',context={}){
    else route={...route,path:[home.origin,...home.pathToRoad,[8.5,7.2],...route.path.slice(5)]};
   }
  }
- const origin=route.path[0],isHome=t<8||t>=48;
- if(isHome)return{x:origin[0],y:origin[1],dx:0,dy:0,moving:false,facing:HOME_FACING[actor],pose:t>=48?'rest':'eat',action:t>=48?'Resting at home':'Breakfast at home',phase:dayPhase(time)};
+ const schedule=actor==='player'&&age>=20&&key==='work'?commuteSchedule(context.commute):commuteSchedule(null);
+ const origin=route.path[0],isHome=t<schedule.depart||t>=schedule.home;
+ if(isHome)return{x:origin[0],y:origin[1],dx:0,dy:0,moving:false,facing:HOME_FACING[actor],pose:t>=schedule.home?'rest':'eat',action:t>=schedule.home?'Resting at home':'Breakfast at home',phase:dayPhase(time)};
  if(t>=20&&t<36){const p=route.path.at(-1);return{x:p[0],y:p[1],dx:0,dy:0,moving:false,pose:route.pose,action:route.action,phase:dayPhase(time)};}
- const returning=t>=36,path=returning?[...route.path].reverse():route.path;const p=samplePath(path,(t-(returning?36:8))/12);return{...p,moving:true,pose:'walk',action:returning?'Walking home':'Walking to '+(key==='care'?'the cradle':key==='stall'?'the stall':key==='school'?'school':key==='sport'?'training':key==='art'?'the desk':key==='garden'?'the garden':key==='home'?'play at home':key==='play'?'play outside':'work'),phase:dayPhase(time)};
+ const returning=t>=36,path=returning?[...route.path].reverse():route.path;const p=samplePath(path,(t-(returning?schedule.leave:schedule.depart))/schedule.duration);return{...p,moving:true,pose:'walk',phase:returning?'Coming home':'On the way',action:returning?'Walking home':'Walking to '+(key==='care'?'the cradle':key==='stall'?'the stall':key==='school'?'school':key==='sport'?'training':key==='art'?'the desk':key==='garden'?'the garden':key==='home'?'play at home':key==='play'?'play outside':'work')};
 }
 export function routineCaption(age,time,goal,context){const actor=age<3?'mother':'player';const r=routine(actor,age,time,goal,context);return `${r.phase} · ${age<3?'Mother: ':''}${r.action.toLowerCase()}.`;}
 export function routeFixtures(){return Object.values(destinations).map(d=>d.path);}
 
-export function routineContext(state,age=state.age){const completed=state.history?.filter(row=>row.age<=age).at(-1),activity=state.history?.filter(row=>(row.from??row.age)<=age).at(-1);return {...locationContext(state,age),pathway:activity?.pathway??(age===state.age?state.pathway:undefined),recovering:(completed?.health??100)<60&&/health setback/.test(completed?.event??'')};}
+export function routineContext(state,age=state.age){const completed=state.history?.filter(row=>row.age<=age).at(-1),activity=state.history?.filter(row=>(row.from??row.age)<=age).at(-1);return {...locationContext(state,age),commute:recordedCommute(state,age,activity?.pathway??(age===state.age?state.pathway:undefined)),pathway:activity?.pathway??(age===state.age?state.pathway:undefined),recovering:(completed?.health??100)<60&&/health setback/.test(completed?.event??'')};}

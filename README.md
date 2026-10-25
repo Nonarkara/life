@@ -122,7 +122,7 @@ Not yet done, stated plainly:
 - The lead exercised changing routines live; the independent graphics review used source and stills. Continuous human motion-quality approval and WebGL-failure injection remain outstanding.
 - The camera follows the player, so buildings at the edge of the world can be cropped.
 - The setup screen at `/intake` is mostly empty on a phone.
-- No economic-crisis engine, investments, credit, scholarships or admissions, inherited networks, late-life care or recovery systems yet. The research for them is in `research/`.
+- No calibrated crisis probabilities, full credit products, scholarships or admissions, inherited networks, or comprehensive late-life care systems yet. The research for them is in `research/`.
 - The five languages have not been checked by native editors.
 - No repeated human playtests yet. Whether the game is good is not settled by tests.
 
@@ -138,3 +138,18 @@ home, and city work opens another district with explicit rent/pay/travel rules.
 Furnished studios, inhabited streets, task props and closer framing improve the
 world.105 tests pass. Ikigai is an authored completed-priority proxy, not a
 psychological measurement. Runtime/release receipts: review/personal-console/.
+
+## Economic world and inhabited biography -25October2026
+Funded bond/equity holdings include cost basis, fees, realized/unrealized results
+and ledger validation. Observed Thai GDP sequences supply elapsed scenario history;
+authored investment/wage rules translate that world into game effects. Sampling is
+biased scenario design, not an estimated crisis frequency or investment forecast.
+
+A fictional soi street, recurring school case, purchased books, work corner and
+recorded remembrance make domestic evidence visible. Longer commutes change time
+at home. Palette241 informs the steady material chord; diffuse backgrounds and
+cel figures separate place from people. The explicit /study/ comparison presents
+three ages and two work/housing branches without reading or changing saved lives.
+121tests pass. Human recognition, native editorial certification and measured
+animation/performance comparisons remain open. Review receipts: review/economy/
+and review/inhabited/source-review.md.

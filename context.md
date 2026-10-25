@@ -199,3 +199,18 @@ unverified this slice. Local final console/canopy and responsive workflows pass.
 The owner's latest oversized-editor screenshot is from the earlier public UI;
 compact28pxcontrols, single-label ten-slot rows and content-height254pxdesktop
 dock are now deployed. Actual local evidence is not called a public screenshot.
+
+## Current continuation — economic world and inhabited biography
+The previous released buildb58148524e8e was observed working again publicly with
+its saved age15 life intact. New work adds actual funded bond/equity holdings,
+conserved fee/gain ledger, elapsed shared economic history and contraction facts.
+History separates personal net worth from preserved household cash. Scenario
+sampling is deliberately authored/biased; GDP observations are sourced, fund
+returns are game rules, and crisis probability is not empirically calibrated.
+The owner's new direction replaces generic miniature-town ambition with inhabited
+biography. First milestone: fictional soi frontages, three life stages, persistent
+school case, recorded purchases/remembrance and near/far work routines. Palette241
+roles and diffuse backgrounds/cel figures replace unowned material choices. Existing
+world, Canvas fallback, saves and outcomes remain. /study fixtures do not touch saves.
+Independent source review is bounded; logo-removal recognition and human playtesting
+are still needed. Reciprocal partner commitments and deeper domestic changes remain.

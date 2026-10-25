@@ -1,4 +1,4 @@
-import {choiceAvailable} from './finance.js';
+import {netWorth,choiceAvailable} from './finance.js';
 import {encounterById,resolveEncounter} from './encounters.js';
 import {rand,clamp,AXES,newLife,configureLife,begin,live} from './sim.js';
 export const TRAITS=[['openness','Openness'],['conscientiousness','Conscientiousness'],['extraversion','Extraversion'],['agreeableness','Agreeableness'],['neuroticism','Emotional sensitivity']];
@@ -11,7 +11,7 @@ export function capacities(state){const trained=state.skills,base=state.attribut
 const cohorts=new Map();
 export function comparison(state){
  const key=JSON.stringify([state.seed,state.intake??null,state.attributes]);if(!cohorts.has(key)){const paths=[];for(let i=0;i<32;i++){let s=state.intake?configureLife(newLife(state.seed),state.intake):newLife(state.seed);s={...s,attributes:{...state.attributes},effort:{...state.attributes}};s=begin(s);for(let age=10;age<80&&s.stage==='review';age+=5){const effort=Object.fromEntries(AXES.map(a=>[a.key,0]));for(let n=0;n<10;n++)effort[AXES[Math.floor(rand(i+1,age*10+n,'cohort')*AXES.length)].key]++;s=live({...s,effort});if(s.story?.pending){const choices=encounterById(s.story.pending.id).options.filter(choice=>choiceAvailable(s,choice));s=resolveEncounter(s,choices[Math.floor(rand(i+1,age,'cohort-choice')*choices.length)].id,rand(i+1,age,'cohort-result'));}}paths.push(s.history);}cohorts.set(key,paths);}
- const paths=cohorts.get(key),rows=paths.flatMap(path=>path.filter(row=>row.age===state.age));return {count:rows.length,total:32,health:mean(rows,'health'),wellbeing:mean(rows,'wellbeing'),cash:mean(rows,'cash')};
+ const paths=cohorts.get(key),rows=paths.flatMap(path=>path.filter(row=>row.age===state.age));return {count:rows.length,total:32,health:mean(rows,'health'),wellbeing:mean(rows,'wellbeing'),cash:mean(rows,'cash'),personalCash:rows.length?rows.reduce((sum,r)=>sum+(r.finance?netWorth(r.finance):0),0)/rows.length:null};
 }
 function mean(rows,key){return rows.length?rows.reduce((sum,row)=>sum+row[key],0)/rows.length:null;}
 

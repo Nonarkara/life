@@ -71,3 +71,13 @@ test('actual city canopy cuts away above seated work at portrait-tablet camera a
  districts.city.visible=false;actor.update({x:27.3,y:5.8,moving:false,pose:'work'},35,26);scene.updateMatrixWorld(true);assert.equal(obscuringBuildings(camera,Object.values(actor.anchors),groups).has(districts.canopy),false);
  scene.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});
 });
+
+test('illustrated figures settle turns without changing the authoritative walking position',()=>{
+ const actor=createCharacter(),body=actor.root.children[0];
+ actor.update({x:2,y:3,moving:true,pose:'walk',dx:1,dy:0,distance:0},35,0);
+ assert.equal(body.rotation.y,Math.PI/2);
+ actor.update({x:2.1,y:3,moving:true,pose:'walk',dx:0,dy:1,distance:.1},35,.05);
+ assert.ok(body.rotation.y>0&&body.rotation.y<Math.PI/2);assert.equal(actor.root.position.x,2.1);assert.equal(actor.root.position.z,3);
+ actor.update({x:2.1,y:3,moving:false,pose:'rest',facing:0},35,100);
+ assert.equal(body.rotation.y,0);actor.root.traverse(o=>{o.geometry?.dispose();o.material?.dispose();});
+});

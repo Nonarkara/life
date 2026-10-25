@@ -15,7 +15,7 @@ test('legacy and childhood stay in family home; nearby rental follows current di
 });
 test('independent city worker eats, travels, works and returns to their own home; parents do not move',()=>{
  const s=state(),c=routineContext(s),home=RESIDENCES.far.origin;
- for(const time of [4,54]){const r=routine('player',35,time,'art',c);assert.deepEqual([r.x,r.y],home);}
+ for(const time of [1,54]){const r=routine('player',35,time,'art',c);assert.deepEqual([r.x,r.y],home);}
  const atWork=routine('player',35,26,'art',c);assert.deepEqual([atWork.x,atWork.y],WORKPLACES.city.destination);
  for(const actor of ['mother','father'])assert.deepEqual(routine(actor,35,4,'balance',c),routine(actor,35,4));
 });

@@ -1,5 +1,23 @@
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Scene study|ศึกษาฉาก|场景研究|シーン比較|장면 연구
+Scene study controls|ตัวควบคุมการศึกษาฉาก|场景研究控制|シーン比較の操作|장면 연구 조작
+Play Life2.0|เล่น Life2.0|游玩 Life2.0|Life2.0 をプレイ|Life2.0 플레이
+Age|อายุ|年龄|年齢|나이
+Branch|เส้นทาง|分支|分岐|분기
+Moment|ช่วงเวลา|时刻|場面|순간
+Work near family|ทำงานใกล้ครอบครัว|在家人附近工作|家族の近くで働く|가족 가까이에서 일하기
+Distant work · move out|ทำงานไกล · ย้ายออก|远处工作 · 搬出去|遠方の仕事・独立|먼 곳에서 일하기 · 독립
+Breakfast|มื้อเช้า|早餐|朝食|아침 식사
+Journey|เดินทาง|旅程|移動|이동
+Animate|เล่นภาพเคลื่อนไหว|播放动画|動かす|애니메이션
+Authored comparison fixtures. Your saved life is untouched.|ฉากสมมติเพื่อเปรียบเทียบ ไม่เปลี่ยนชีวิตที่คุณบันทึกไว้|人为编写的比较场景。不会更改你保存的人生。|比較用に制作したシーンです。保存した人生には影響しません。|비교를 위해 만든 장면입니다. 저장된 삶은 바뀌지 않습니다.
+Same camera rules and time in both branches. Objects and routines use the actual game renderer.|ทั้งสองเส้นทางใช้กติกากล้องและเวลาเดียวกัน สิ่งของและกิจวัตรแสดงด้วยตัวเรนเดอร์จริงของเกม|两个分支使用相同的镜头规则和时间。物品与日常活动使用实际游戏渲染器。|両方の分岐で同じカメラ規則と時刻を使い、ゲーム本体の描画で持ち物と日課を表示します。|두 분기는 같은 카메라 규칙과 시각을 사용합니다. 물건과 일상은 실제 게임 렌더러로 표시됩니다.
+What the room remembers|สิ่งที่ห้องเก็บไว้|房间记得什么|部屋に残る記憶|방에 남은 기억
+The red school case stays with you when you move.|กระเป๋านักเรียนสีแดงย้ายไปกับคุณ|红色书包随着你搬家。|赤い通学かばんは引っ越しても一緒です。|빨간 책가방은 이사할 때도 함께합니다.
+Commute: {value} min / day. Longer journeys leave less time at home.|เดินทาง: {value} นาทีต่อวัน ยิ่งเดินทางนาน เวลาที่บ้านยิ่งน้อย|通勤：每天{value}分钟。路程越长，在家时间越少。|通勤：1日{value}分。移動が長いほど家での時間が減ります。|통근: 하루 {value}분. 이동이 길수록 집에서 보내는 시간이 줄어듭니다.
+A small remembrance follows a recorded loss.|ของที่ระลึกเล็ก ๆ หลังการสูญเสียที่บันทึกไว้|记录中的丧亲之后，留下一件小小纪念物。|記録された別れの後に、小さな記念品が残ります。|기록된 상실 이후 작은 추억의 물건이 남습니다.
+Fictional soi-inspired architecture; possessions reflect recorded choices, not a surveyed household.|สถาปัตยกรรมซอยสมมติ สิ่งของสะท้อนทางเลือกที่บันทึกไว้ ไม่ใช่บ้านที่สำรวจจริง|虚构的巷弄建筑；物品反映已记录的选择，并非实地家庭调查。|架空の路地を参考にした建築です。持ち物は記録された選択を反映し、実在の世帯の調査ではありません。|가상의 골목에서 영감을 받은 건축입니다. 물건은 기록된 선택을 반영하며 실제 가구 조사 결과가 아닙니다.
 Your own money|เงินของคุณเอง|你自己的钱|自分のお金|내 돈
 Family savings|เงินออมของครอบครัว|家庭存款|家族の貯金|가족 저축
 Amber: lived path · Dashed: age stations|สีอำพัน: ทางที่ใช้ชีวิตจริง · เส้นประ: ช่วงวัย|琥珀色：走过的路 · 虚线：年龄节点|琥珀色：歩んだ道 · 破線：年齢の節目|호박색: 살아온 길 · 점선: 나이의 이정표
@@ -153,7 +171,6 @@ Physical health|สุขภาพร่างกาย|身体健康|体の健�
 Wellbeing|ความเป็นอยู่ที่ดี|幸福感|心の充実|삶의 만족
 Household buffer|เงินสำรองครอบครัว|家庭储备金|家計の備え|가계 여유 자금
 Events|เหตุการณ์|事件|出来事|사건
-Age|อายุ|年龄|年齢|나이
 No major event recorded.|ยังไม่มีเหตุการณ์สำคัญ|尚无重大事件记录。|大きな出来事の記録はありません。|기록된 주요 사건이 없습니다.
 Select a marker to read the event.|เลือกสัญลักษณ์เพื่ออ่านเหตุการณ์|选择标记查看事件。|印を選ぶと出来事が読めます。|표시를 선택하면 사건을 읽을 수 있습니다.
 Flood damage|ความเสียหายจากน้ำท่วม|洪水损失|洪水の被害|홍수 피해
@@ -418,12 +435,10 @@ phrases.push(...`
 About the comparison|เกี่ยวกับการเปรียบเทียบ|关于比较|比較について|비교 안내
 Modeled mean: {value}|ค่าเฉลี่ยจำลอง: {value}|模拟均值：{value}|モデル平均：{value}|모델 평균: {value}
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Effort|การทุ่มเท|投入|力の配分|노력
 {count} / {total} alternate paths reached age {n}.|เส้นทางทางเลือก {count} / {total} เส้นทางมาถึงอายุ {n} ปี|{count} / {total} 条替代路径到达了 {n} 岁。|別の道のうち {count} / {total} が {n} 歳に達しました。|다른 경로 {count} / {total}개가 {n}세에 도달했습니다.
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Opening Life…|กำลังเปิด Life…|正在开启 Life…|Lifeを開いています…|Life를 여는 중…
 Life could not open. Please reload to try again.|เปิด Life ไม่สำเร็จ โปรดลองโหลดใหม่|Life 无法开启，请重新加载。|Lifeを開けませんでした。再読み込みしてください。|Life를 열 수 없습니다. 다시 불러와 주세요.
@@ -462,25 +477,20 @@ Your independent project found paying customers.|โครงการอิส�
 Independent work brought uneven income. The project cost more than it earned.|งานอิสระมีรายได้ไม่สม่ำเสมอ โครงการมีค่าใช้จ่ายมากกว่ารายรับ|独立工作的收入不稳定，项目支出超过了收入。|独立した仕事の収入は不安定で、企画は収入より費用がかかりました。|독립적인 일의 소득은 불규칙했습니다. 프로젝트 비용이 수입보다 컸습니다.
 Regular work supported the household. You learned on the job.|งานประจำช่วยเลี้ยงครอบครัว คุณเรียนรู้จากงานที่ทำ|固定工作支持了家庭，你在岗位上学习。|定期的な仕事が家計を支え、働きながら学びました。|정기적인 일이 가계를 지탱했습니다. 일하면서 배웠습니다.
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Your family decides|ครอบครัวเป็นผู้ตัดสินใจ|家人做决定|家族が選ぶ|가족이 결정합니다
 Looking back|ย้อนดูความทรงจำ|回望过去|振り返る|돌아보기
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Begin in the womb. Watch the countdown, your birth and the family decisions that shape childhood.|เริ่มในครรภ์ ดูการนับถอยหลัง การเกิด และการตัดสินใจของครอบครัวที่หล่อหลอมวัยเด็ก|从子宫中开始。观看倒计时、出生，以及塑造童年的家庭决定。|子宮の中から始まります。カウントダウン、誕生、幼少期を形づくる家族の選択を見守ります。|자궁 안에서 시작합니다. 카운트다운과 탄생, 어린 시절을 만드는 가족의 결정을 지켜보세요.
 Choose your starting shape before birth. From 10, direct your effort; education and work routes open at 15.|เลือกคุณลักษณะเริ่มต้นก่อนเกิด เมื่ออายุ 10 ปีเริ่มกำหนดสิ่งที่ทุ่มเท เส้นทางเรียนและงานเปิดเมื่ออายุ 15 ปี|出生前选择初始特质。10岁开始分配精力，15岁开启教育和工作路线。|生まれる前に最初の形を選びます。10歳から力の配分を決め、15歳で学びと仕事の道が開きます。|태어나기 전 시작 특성을 고릅니다. 10세부터 노력을 배분하고 15세부터 교육과 일의 길이 열립니다.
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 ← Previous year|← ปีก่อน|← 上一年|← 前年|← 지난해
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 At modeled mean|เท่าค่าเฉลี่ยจำลอง|与模拟均值相同|モデル平均と同じ|모델 평균과 같음
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Habits & relationships|นิสัยและความสัมพันธ์|习惯与关系|習慣と関係|습관과 관계
 `.trim().split('\n').map(line=>line.split('|')));
@@ -580,14 +590,12 @@ You wrote to {friend}, remembering the ordinary afternoon when you first became 
 phrases.push(...`
 Marriage and family milestones follow your choices. Dengue, job loss and pregnancy are not yet generated by this model.|การแต่งงานและเหตุการณ์ครอบครัวเกิดตามการเลือกของคุณ แบบจำลองนี้ยังไม่สร้างเหตุการณ์ไข้เลือดออก การตกงาน หรือการตั้งครรภ์|婚姻和家庭里程碑随你的选择发生。模型尚未生成登革热、失业或怀孕事件。|結婚や家族の節目は選択に続いて起こります。デング熱、失職、妊娠はまだ生成しません。|결혼과 가족의 이정표는 선택에 따라 일어납니다. 뎅기열, 실직, 임신은 아직 생성하지 않습니다.
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Study together, then take a walk|เรียนด้วยกัน แล้วไปเดินเล่น|一起学习，然后散步|一緒に勉強してから散歩する|함께 공부한 뒤 산책하기
 You and {friend} worked through a difficult lesson, then talked on the walk home. Neither part of the afternoon lasted as long as you wanted.|คุณกับ{friend}ช่วยกันทำบทเรียนยาก ๆ แล้วคุยกันระหว่างเดินกลับบ้าน แต่ละอย่างมีเวลาน้อยกว่าที่ต้องการ|你和{friend}一起攻克难懂的功课，再一路聊着回家。学习和聊天的时间都比你想要的短。|{friend}と難しい課題に取り組み、帰り道で話しました。勉強も会話も、思ったほど長くはできませんでした。|{friend}과 어려운 과제를 풀고 집으로 걸어가며 이야기했습니다. 공부도 대화도 원하는 만큼 오래 하지는 못했습니다.
 Tell your crush you would like to spend time together|บอกคนที่แอบชอบว่าอยากใช้เวลาด้วยกัน|告诉心动的人你想一起相处|気になる相手に一緒に過ごしたいと伝える|좋아하는 친구에게 함께 시간을 보내고 싶다고 말하기
 You made room for a school-age crush and practised listening and boundaries. Your unfinished work still needed another afternoon.|คุณให้เวลากับความรักวัยเรียน ฝึกฟังและเคารพขอบเขตกัน งานที่ยังไม่เสร็จต้องหาเวลาทำวันอื่น|你为学生时代的心动留出时间，练习倾听与尊重界限。没做完的功课仍需要另一个下午。|学生時代の恋心に時間を使い、話を聴くことや境界を尊重することを学びました。残った課題には別の午後が必要でした。|학창 시절의 설렘에 시간을 내고 경청과 서로의 경계를 존중하는 법을 연습했습니다. 끝내지 못한 과제에는 다른 오후가 필요했습니다.
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 What matters most in this chapter?|อะไรสำคัญที่สุดในช่วงชีวิตนี้?|这一阶段最看重什么？|この時期に一番大切にしたいことは？|이번 시기에 가장 중요한 것은?
 No particular focus|ยังไม่มีจุดเน้นเฉพาะ|暂不设定重点|特に決めない|특별히 정하지 않음
@@ -617,7 +625,6 @@ Shared moments recorded: {value}.|บันทึกช่วงเวลาท�
 Reasoning practice gained: {value} game points.|การฝึกใช้เหตุผลเพิ่ม: {value} แต้มในเกม|推理练习增加：{value} 游戏点数。|推論の練習で増えたゲーム内ポイント：{value}。|추론 연습 증가: 게임 내 {value}점.
 Helping or teaching moments: {value}.|ช่วงเวลาช่วยเหลือหรือสอน: {value}|帮助或教导他人的时刻：{value}。|人を助けたり教えたりした場面：{value}回。|도움 또는 가르침의 순간: {value}회.
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Life direction|ทิศทางชีวิต|人生方向|人生の方向|삶의 방향
 This chapter’s priority|สิ่งสำคัญในช่วงชีวิตนี้|这一阶段的重点|この時期の優先事項|이번 시기의 우선순위
@@ -633,7 +640,6 @@ Working independently|ทำงานอิสระ|独立工作|独立して�
 At college|อยู่ที่มหาวิทยาลัย|在大学|大学で学ぶ|대학에서 공부하기
 Recovering at home|พักฟื้นที่บ้าน|在家休养|家で療養する|집에서 회복하기
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Music|ดนตรี|音乐|音楽|음악
 Mute|ปิดเสียง|静音|ミュート|음소거
@@ -671,21 +677,98 @@ Local neighbourhood|ละแวกบ้านเดิม|本地社区|地元�
 City district|ย่านในเมือง|城市区域|都心の地区|도시 지역
 City work: 15% higher authored work pay. Living farther away adds travel costs and time. Allowances and pensions are unchanged.|งานในเมืองให้รายได้จากงานสูงขึ้น 15% ตามกติกาที่เขียนขึ้นสำหรับเกม การอยู่ไกลเพิ่มค่าเดินทางและเวลา เงินจากครอบครัวและเงินเกษียณไม่เพิ่มตาม|游戏设定城市工作收入高15%。住得更远会增加通勤成本与时间。零用钱和退休收入不变。|ゲームの設定では都心の仕事の収入は15%増えます。遠くに住むと通勤費と時間が増えます。仕送りと年金は増えません。|게임 규칙상 도시 근무 소득은 15% 높습니다. 멀리 살면 통근 비용과 시간이 늘어납니다. 용돈과 은퇴 소득은 변하지 않습니다.
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Small Hours · original music (CC0).|Small Hours · ดนตรีต้นฉบับ (CC0)|Small Hours · 原创音乐（CC0）。|Small Hours・オリジナル音楽（CC0）。|Small Hours · 오리지널 음악(CC0).
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 In transit|ระหว่างเดินทาง|途中|移動中|이동 중
 Age {n}: {place}. {activity}.|อายุ {n}: {place} {activity}|{n}岁：{place}。{activity}。|{n}歳：{place}。{activity}。|{n}세: {place}. {activity}.
 Recorded at age {n}|บันทึกเมื่ออายุ {n}|记录于{n}岁|{n}歳の記録|{n}세 기록
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Latest event|เหตุการณ์ล่าสุด|最近事件|直近の出来事|최근 사건
 `.trim().split('\n').map(line=>line.split('|')));
-
 phrases.push(...`
 Game proxy · eligible chapters|ค่าประกอบในเกม · ช่วงที่มีโอกาส|游戏指标 · 有对应机会的阶段|ゲーム指標・対象の時期|게임 지표 · 기회가 있던 시기
 `.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+Investments|การลงทุน|投资|投資|투자
+Invest|ลงทุน|投资|投資|투자
+Budget|งบประมาณ|预算|予算|예산
+Money sections|ส่วนการเงิน|财务分区|お金の項目|재무 항목
+Fund|กองทุน|基金|ファンド|펀드
+Bond fund|กองทุนตราสารหนี้|债券基金|債券ファンド|채권형 펀드
+Equity fund|กองทุนหุ้น|股票基金|株式ファンド|주식형 펀드
+Value|มูลค่า|市值|評価額|평가액
+Cost basis|ต้นทุน|成本|取得原価|취득 원가
+Unrealized: {value}|ยังไม่รับรู้: {value}|未实现：{value}|未実現損益：{value}|미실현 손익: {value}
+Realized after fees: {value}|รับรู้หลังค่าธรรมเนียม: {value}|扣费后已实现：{value}|手数料後の実現損益：{value}|수수료 차감 후 실현 손익: {value}
+No investments yet. Buying a fund moves spendable cash into a holding; it does not create wealth.|ยังไม่ได้ลงทุน การซื้อกองทุนย้ายเงินใช้ได้ไปเป็นสินทรัพย์ ไม่ได้สร้างความมั่งคั่งทันที|尚未投资。买入基金是把可用现金转为持仓，并不会立即创造财富。|まだ投資はありません。購入は使える現金を保有資産に移すもので、富を生み出す操作ではありません。|아직 투자 내역이 없습니다. 펀드 매수는 사용 가능한 현금을 보유 자산으로 옮길 뿐, 부를 만들어 내지 않습니다.
+Fund value to trade · ฿|มูลค่ากองทุนที่จะซื้อขาย · ฿|交易基金价值 · ฿|売買する評価額 · ฿|거래할 펀드 금액 · ฿
+Buy|ซื้อ|买入|買う|매수
+Sell|ขาย|卖出|売る|매도
+Fee: {value} per trade.|ค่าธรรมเนียม {value} ต่อครั้ง|每笔交易费用：{value}。|1回の手数料：{value}。|거래 1회 수수료: {value}.
+Buy needs {cost}; sell returns {proceeds}.|ซื้อใช้เงิน {cost} ขายได้เงิน {proceeds}|买入需{cost}；卖出到账{proceeds}。|購入に必要：{cost}、売却の受取額：{proceeds}。|매수 필요액 {cost}, 매도 수령액 {proceeds}.
+Enter a positive whole-baht amount.|ใส่จำนวนบาทเต็มที่มากกว่าศูนย์|请输入大于零的整数泰铢金额。|正の整数バーツ額を入力してください。|0보다 큰 정수 바트 금액을 입력하세요.
+Resolve the current moment before trading.|ตัดสินใจเหตุการณ์ปัจจุบันก่อนซื้อขาย|请先处理当前事件再交易。|今の出来事を決めてから売買してください。|현재 사건을 결정한 뒤 거래하세요.
+Money controls reopen at your next review.|ปรับการเงินได้อีกครั้งเมื่อถึงรอบทบทวนหน้า|财务操作将在下次回顾时开放。|お金の操作は次の振り返りで再開します。|재무 조작은 다음 검토 시점에 다시 열립니다.
+Not enough cash to buy, or holdings to sell this amount.|เงินซื้อหรือกองทุนที่จะขายไม่พอสำหรับจำนวนนี้|现金或持仓不足以交易此金额。|この額の購入または売却に必要な現金・保有額が足りません。|이 금액을 매수할 현금이나 매도할 보유액이 부족합니다.
+Trading is closed for this life.|ชีวิตนี้สิ้นสุดการซื้อขายแล้ว|这段人生的交易已结束。|この人生の売買は終了しました。|이 삶의 거래는 종료되었습니다.
+Bought {value}; fee {fee}.|ซื้อ {value} ค่าธรรมเนียม {fee}|已买入{value}；费用{fee}。|{value}を購入、手数料{fee}。|{value} 매수, 수수료 {fee}.
+Sold {value}; realized result {gain}.|ขาย {value} ผลรับรู้ {gain}|已卖出{value}；已实现损益{gain}。|{value}を売却、実現損益{gain}。|{value} 매도, 실현 손익 {gain}.
+Trade could not be completed. Check the amount and available funds.|ซื้อขายไม่สำเร็จ ตรวจจำนวนและเงินที่ใช้ได้|交易未完成，请检查金额和可用资金。|売買できませんでした。金額と使える資金を確認してください。|거래하지 못했습니다. 금액과 사용 가능한 자금을 확인하세요.
+What these funds mean|รู้จักกองทุนในเกม|了解这些基金|このファンドについて|이 펀드의 의미
+Cost basis includes buy fees. Value minus cost basis is an unrealized gain or loss. Selling releases part of that basis.|ต้นทุนรวมค่าธรรมเนียมซื้อ มูลค่าลบต้นทุนคือกำไรหรือขาดทุนที่ยังไม่รับรู้ เมื่อขายจะตัดต้นทุนส่วนนั้นออก|成本包含买入费用。市值减成本为未实现损益，卖出时按比例扣除成本。|取得原価は購入手数料を含みます。評価額との差が未実現損益です。売却分の原価は保有原価から差し引きます。|취득 원가에는 매수 수수료가 포함됩니다. 평가액과 원가의 차이가 미실현 손익이며, 매도한 부분의 원가는 차감됩니다.
+These are fictional fund accounts. Annual returns are authored scenarios, not historical fund performance or a forecast.|เป็นบัญชีกองทุนสมมติ ผลตอบแทนรายปีเป็นกติกาเกม ไม่ใช่ผลงานกองทุนในอดีตหรือคำพยากรณ์|这些是虚构基金账户。年度回报是游戏情景，不是历史基金业绩或预测。|架空のファンド口座です。年次リターンはゲームの設定で、過去の運用実績や予測ではありません。|가상의 펀드 계좌입니다. 연간 수익률은 게임 시나리오이며 실제 과거 성과나 예측이 아닙니다.
+Both funds can lose value. Each trade costs 0.5%, rounded to whole game baht with a ฿1 minimum. Purchases use cash; trading creates no new debt.|ทั้งสองกองทุนขาดทุนได้ ค่าซื้อขาย 0.5% ปัดเป็นบาทในเกม ขั้นต่ำ ฿1 ไม่กู้เงินมาลงทุน|两类基金都可能亏损。交易费为0.5%，按整数游戏泰铢计，最低฿1；不提供融资投资。|どちらも値下がりします。売買手数料は0.5%、整数ゲームバーツに丸め、最低฿1です。借入による投資はできません。|두 펀드 모두 손실이 날 수 있습니다. 거래 수수료는 0.5%이며 게임 바트 정수로 반올림하고 최소 ฿1입니다. 투자용 차입은 제공하지 않습니다.
+Cash pays bills immediately. Investments are sold only when you choose; a portfolio can rise while your cash runs out.|เงินสดจ่ายบิลได้ทันที กองทุนขายเมื่อคุณเลือกเท่านั้น พอร์ตอาจโตแต่เงินสดหมดได้|现金可直接支付账单。只有你选择时才卖出投资；持仓上涨时现金也可能耗尽。|現金はすぐ支払いに使えます。投資の売却は自分で選びます。資産が増えても現金が尽きることがあります。|현금은 바로 지출에 쓸 수 있습니다. 투자 자산은 선택할 때만 매도됩니다. 포트폴리오가 올라도 현금은 바닥날 수 있습니다.
+Trade record|บันทึกการลงทุน|投资记录|売買記録|거래 기록
+Bought|ซื้อแล้ว|买入|購入|매수
+Sold|ขายแล้ว|卖出|売却|매도
+Market change|ผลจากตลาด|市场变动|市場の変化|시장 변동
+Trading fee|ค่าซื้อขาย|交易费|売買手数料|거래 수수료
+Shared economy|เศรษฐกิจร่วมกัน|共同经济环境|共通の経済|공통 경제
+Sampled GDP growth · % per year|ตัวอย่างการเติบโต GDP · % ต่อปี|抽样GDP增长 · 每年%|標本GDP成長率・年率%|표본 GDP 성장률 · 연간 %
+Scenario years {from}–{to}|ปีในฉากจำลอง {from}–{to}|情景年份{from}–{to}|シナリオ年{from}–{to}|시나리오 연도 {from}–{to}
+The economy unfolds as you live. Future years are hidden.|เศรษฐกิจค่อย ๆ เผยตามชีวิต ปีอนาคตยังไม่แสดง|经济随人生展开，未来年份暂不显示。|経済は人生とともに進み、未来の年は表示しません。|경제는 삶과 함께 펼쳐지며 미래 연도는 숨겨집니다.
+Historical GDP samples; fictional calendar. Wage effects and fund returns are game rules, not predictions.|ใช้ตัวอย่าง GDP ในอดีตกับปฏิทินสมมติ ผลต่อรายได้และกองทุนเป็นกติกาเกม ไม่ใช่การพยากรณ์|GDP取自历史样本，日历为虚构。工资影响和基金回报是游戏规则，不是预测。|歴史上のGDP標本と架空の暦です。賃金への影響とリターンはゲーム設定で、予測ではありません。|과거 GDP 표본과 가상의 달력입니다. 임금 효과와 펀드 수익률은 게임 규칙이지 예측이 아닙니다.
+This saved life joins the economy at age {n}. Earlier records stay unchanged.|ชีวิตที่บันทึกไว้นี้เริ่มระบบเศรษฐกิจเมื่ออายุ {n} ปี บันทึกก่อนหน้ายังคงเดิม|这段存档人生于{n}岁加入经济情景，此前记录不变。|この保存済み人生は{n}歳から経済に参加し、それ以前の記録は変えません。|이 저장된 삶은 {n}세부터 경제에 참여하며 이전 기록은 바뀌지 않습니다.
+Latest completed chapter|ช่วงชีวิตที่จบล่าสุด|最近完成的阶段|直近で終えた章|최근 완료한 시기
+Work income effect: {value}|ผลต่อรายได้จากงาน: {value}|工作收入影响：{value}|勤労収入への影響：{value}|근로 소득 효과: {value}
+Held investments changed: {value}|มูลค่าการลงทุนเปลี่ยน: {value}|持有投资变动：{value}|保有投資の変化：{value}|보유 투자 변동: {value}
+Annual scenario record|บันทึกฉากจำลองรายปี|年度情景记录|年ごとのシナリオ記録|연간 시나리오 기록
+Historical sample|ตัวอย่างจากอดีต|历史样本|歴史上の標本|과거 표본
+GDP growth|การเติบโต GDP|GDP增长|GDP成長率|GDP 성장률
+Bond fund return|ผลตอบแทนกองทุนตราสารหนี้|债券基金回报|債券ファンドのリターン|채권형 펀드 수익률
+Equity fund return|ผลตอบแทนกองทุนหุ้น|股票基金回报|株式ファンドのリターン|주식형 펀드 수익률
+Contraction years: {n}|ปีที่เศรษฐกิจหดตัว: {n}|经济收缩年份数：{n}|縮小した年：{n}|경제 수축 연도 수: {n}
+A historical parallel|บทเรียนเทียบจากอดีต|历史对照|歴史からの類例|역사적 사례
+About this economy|ที่มาของเศรษฐกิจจำลอง|关于此经济情景|この経済について|이 경제에 관하여
+In 1997, short-term foreign borrowing, long investments and currency exposure made Thailand vulnerable. A cash cushion and manageable obligations create options, but do not guarantee protection.|ปี 2540 การกู้ต่างประเทศระยะสั้นเพื่อลงทุนระยะยาวและความเสี่ยงค่าเงินทำให้ไทยเปราะบาง เงินสำรองและภาระที่รับไหวช่วยเพิ่มทางเลือก แต่ไม่ได้รับประกันว่าจะรอด|1997年，短期外债、长期投资和汇率敞口使泰国脆弱。现金缓冲和可承受的债务增加选择，但不能保证免受损失。|1997年、短期の外貨借入と長期投資、為替リスクがタイの弱点になりました。現金の備えと無理のない負担は選択肢を増やしますが、保護を保証しません。|1997년 단기 외화 차입, 장기 투자, 환율 노출이 태국을 취약하게 했습니다. 현금 여유와 감당 가능한 의무는 선택지를 늘리지만 피해 방지를 보장하지 않습니다.
+A GDP contraction is not the same as a banking crisis. This scenario samples recorded growth and keeps contraction spells together; it does not schedule a crisis every few years.|GDP หดตัวไม่ใช่เรื่องเดียวกับวิกฤตธนาคาร ฉากนี้สุ่มช่วงการเติบโตจากอดีต ไม่ได้กำหนดวิกฤตทุกไม่กี่ปี|GDP收缩不等同于银行危机。本情景抽取历史增长区段，不会每隔几年固定安排危机。|GDP縮小と銀行危機は同じではありません。歴史の成長区間を使い、数年ごとの危機を予定しません。|GDP 수축과 은행 위기는 다릅니다. 과거 성장 구간을 표본으로 쓰며 몇 년마다 위기를 고정하지 않습니다.
+Growth observations: Thailand, World Bank, 1961–2025. The 1997–98 contraction is one spell. Fund returns are separately authored; GDP is not a stock-market return.|ข้อมูลการเติบโตของไทยจากธนาคารโลก 2504–2568 การหดตัวปี 2540–41 เป็นช่วงเดียวกัน ผลตอบแทนกองทุนแต่งแยกจาก GDP ซึ่งไม่ใช่ผลตอบแทนตลาดหุ้น|增长数据来自世界银行1961–2025年泰国观测。1997–98年为同一次收缩。基金回报另行设定；GDP不是股市回报。|世界銀行のタイ1961～2025年の観測です。1997～98年は一続きの縮小です。リターンは別途設定され、GDPは株式収益率ではありません。|세계은행의 1961–2025년 태국 성장 관측치입니다. 1997–98년 수축은 한 시기입니다. 펀드 수익률은 별도 설정이며 GDP는 주식 수익률이 아닙니다.
+Your investments are valued only after you own them. Cash can pay an unexpected bill without selling a fund. Losses, fees, missed income and starting conditions still matter.|การลงทุนคิดผลเฉพาะหลังถือครอง เงินสดจ่ายบิลไม่คาดคิดได้โดยไม่ขายกองทุน การขาดทุน ค่าธรรมเนียม รายได้ที่หายไป และฐานะเริ่มต้นยังสำคัญ|仅对已持有的投资进行估值。现金可支付意外账单而无需卖出基金。亏损、费用、收入损失及起点仍然重要。|保有後だけ評価を反映します。現金があれば売却せず予期せぬ請求を払えます。損失、手数料、失う収入、出発条件も影響します。|보유한 뒤에만 평가가 적용됩니다. 현금이 있으면 펀드를 팔지 않고 예상치 못한 청구를 낼 수 있습니다. 손실, 수수료, 소득 감소, 출발 조건도 중요합니다.
+World Bank · GDP growth|ธนาคารโลก · การเติบโต GDP|世界银行 · GDP增长|世界銀行・GDP成長率|세계은행 · GDP 성장률
+Bank of Thailand · 1997 crisis|ธนาคารแห่งประเทศไทย · วิกฤต 2540|泰国央行 · 1997年危机|タイ中央銀行・1997年危機|태국 중앙은행 · 1997년 위기
+SEC · Asset allocation|SEC สหรัฐฯ · การจัดสรรสินทรัพย์|美国SEC · 资产配置|米国SEC・資産配分|미국 SEC · 자산 배분
+The sampler favors some years and crisis starts. Its crisis frequency is not the frequency measured in Thailand.|การสุ่มให้น้ำหนักบางปีและต้นช่วงวิกฤตมากกว่า ความถี่ในเกมไม่ใช่ความถี่ที่วัดได้ของไทย|抽样偏重某些年份和危机起点，游戏中的危机频率不是泰国实测频率。|一部の年や危機の始まりを多めに抽出します。危機の頻度はタイで測定された頻度ではありません。|일부 연도와 위기 시작점이 더 자주 뽑힙니다. 게임의 위기 빈도는 태국의 실측 빈도가 아닙니다.
+Investment repricing|มูลค่าการลงทุนเปลี่ยน|投资重新估值|投資の再評価|투자 재평가
+Economic contraction|เศรษฐกิจหดตัว|经济收缩|経済の縮小|경제 수축
+Household buffer history|ประวัติเงินสำรองครอบครัว|家庭储备历史|家計の備えの記録|가계 예비금 기록
+A shared-world comparison is unavailable for a life that joined the economy later.|ชีวิตที่เริ่มระบบเศรษฐกิจภายหลังยังเทียบกับโลกเดียวกันไม่ได้|后来加入经济情景的人生暂无法进行同世界比较。|途中から経済に参加した人生には共通世界の比較を表示しません。|나중에 경제에 참여한 삶은 동일 세계 비교를 제공하지 않습니다.
+Alternate paths keep cash and do not trade funds.|เส้นทางเปรียบเทียบเก็บเงินสดและไม่ซื้อขายกองทุน|对比路径持有现金，不交易基金。|比較の経路は現金を持ち、ファンドを売買しません。|비교 경로는 현금을 보유하고 펀드를 거래하지 않습니다.
+`.trim().split('\n').map(line=>line.split('|')));
+phrases.push(...`
+Economic record begins at age {n}.|บันทึกเศรษฐกิจเริ่มเมื่ออายุ {n} ปี|经济记录始于{n}岁。|経済の記録は{n}歳から。|경제 기록은 {n}세부터 시작됩니다.
+Historical GDP · game fund returns|GDP จากอดีต · ผลตอบแทนกองทุนตามกติกา|历史GDP · 游戏设定基金回报|歴史上のGDP・設定されたリターン|과거 GDP · 게임 설정 펀드 수익률
+In 2009, the global recession hit Thai exports. Stronger bank starting positions helped the financial system, but did not protect every household.|ปี 2552 เศรษฐกิจโลกถดถอยกระทบส่งออกไทย ฐานะธนาคารที่แข็งแรงขึ้นช่วยระบบการเงิน แต่ไม่ได้คุ้มครองทุกครอบครัว|2009年全球衰退冲击泰国出口。银行更强的初始状况帮助了金融体系，但未能保护所有家庭。|2009年、世界不況がタイの輸出を直撃しました。銀行の健全な出発状態は金融制度を支えましたが、すべての家計を守ったわけではありません。|2009년 세계 불황은 태국 수출에 타격을 주었습니다. 은행의 더 튼튼한 초기 여건은 금융 시스템에 도움이 됐지만 모든 가계를 보호하지는 못했습니다.
+In 2020, the pandemic disrupted tourism, exports and work. Financial cushions gave some people options; they did not replace lost jobs or public support.|ปี 2563 โรคระบาดกระทบท่องเที่ยว ส่งออก และงาน เงินสำรองช่วยให้บางคนมีทางเลือก แต่ไม่ทดแทนงานที่เสียไปหรือการช่วยเหลือรัฐ|2020年疫情扰乱旅游、出口和工作。财务缓冲让一些人有选择，但无法取代失去的工作或公共支持。|2020年、感染症が観光・輸出・仕事を混乱させました。資金の備えは選択肢を増やしても、失った仕事や公的支援に代わるものではありません。|2020년 감염병은 관광, 수출, 일자리를 흔들었습니다. 재정적 여유는 일부 사람에게 선택지를 주었지만 잃은 일자리나 공적 지원을 대신하지 못했습니다.
+IMF · 2009 assessment|IMF · ประเมินปี 2552|IMF · 2009年评估|IMF・2009年の評価|IMF · 2009년 평가
+World Bank · 2020 shock|ธนาคารโลก · วิกฤตปี 2563|世界银行 · 2020年冲击|世界銀行・2020年の衝撃|세계은행 · 2020년 충격
+`.trim().split('\n').map(line=>line.split('|')));
+phrases.push(['{metric} by age: {values}','{metric} ตามอายุ: {values}','{metric}按年龄：{values}','年齢別の{metric}：{values}','나이에 따른 {metric}: {values}']);
+phrases.push(['Move cash from reserve','ย้ายเงินจากเงินสำรอง','从储备转出现金','備えの現金を移す','예비금에서 현금 이동'],['Amount · ฿','จำนวนเงิน · ฿','金额 · ฿','金額 · ฿','금액 · ฿']);
+phrases.push(['Cash share of assets','สัดส่วนเงินสดในสินทรัพย์','资产中现金比例','資産の現金比率','자산 중 현금 비중'],['Source: {n} annual observations; {count} contraction spells. This does not establish a cycle.','แหล่งข้อมูลมี {n} ปี และช่วงหดตัว {count} ช่วง ยังสรุปเป็นวัฏจักรไม่ได้','来源含{n}年观测和{count}次收缩，不能据此确定周期。','出典には年次観測{n}件、縮小期{count}回があり、これだけで周期は定まりません。','출처에는 연간 관측 {n}개와 수축기 {count}회가 있으며, 이것만으로 주기를 정할 수 없습니다.']);
+phrases.push(['Reserve and debt','เงินสำรองและหนี้','储备与债务','備えと借金','예비금과 부채']);
+
+phrases.push(['Commute: {value} min / day','เดินทาง: {value} นาทีต่อวัน','通勤：每天{value}分钟','通勤：1日{value}分','통근: 하루 {value}분']);

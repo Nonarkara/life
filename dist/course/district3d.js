@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {illustratedMaterial} from './art-direction.js';
 import {RESIDENCES,residenceAt,workplaceAt,roomFurniture,locationSince} from './locations.js';
 export const CITY_BLOCKS=[{x:23.5,z:9,w:1.2,d:3,h:2.6},{x:29.6,z:9,w:1.2,d:3,h:3},{x:24,z:15.6,w:3,d:1.4,h:2.5}];
 
@@ -32,7 +33,7 @@ export function createDistricts({scene,box,round,chair,table,tree,label,register
  box(29.3,9,.02,1.3,.45,.4,'#9a896d',urban);box(29.15,8.9,1.8,1.6,.8,.07,'#879181',urban);for(const x of [29.2,30.6])box(x,9.5,0,.05,.05,1.8,'#6f7d6b',urban);
  box(30.9,9.2,0,.04,.04,1.5,'#6f7d6b',urban);box(30.76,9.2,1.3,.32,.04,.24,'#d8cfb5',urban);
  for(const x of [25.4,28.8]){box(x,15,.02,.35,.35,.3,'#a68161',urban);round(x+.17,15.17,.55,.23,'#657d5d',1,1,1,urban);}
- for(const x of [30.1,30.65]){const wheel=new T.Mesh(new T.TorusGeometry(.2,.025,5,18),new T.MeshStandardMaterial({color:'#46574e'}));wheel.position.set(x,.23,12.7);urban.add(wheel);}box(30.1,12.68,.35,.55,.035,.035,'#8c8068',urban);
+ for(const x of [30.1,30.65]){const wheel=new T.Mesh(new T.TorusGeometry(.2,.025,5,18),illustratedMaterial('#46574e'));wheel.position.set(x,.23,12.7);urban.add(wheel);}box(30.1,12.68,.35,.55,.035,.035,'#8c8068',urban);
  registerBuilding(urban);
  // Ground and road are contiguous with the existing neighbourhood, not islands.
  box(-11,2,-.015,7,7,.025,'#899273',west);box(-11,6.8,-.015,9,1.6,.025,'#899273',west);box(-11,7,.02,9,1.1,.02,'#bcb7a5',west);
@@ -45,7 +46,7 @@ export function createDistricts({scene,box,round,chair,table,tree,label,register
   const group=new T.Group();scene.add(group);rooms.set(room.id,group);const [x,z]=room.base;
   box(x-.6,z-.6,-.015,5.2,5.2,.025,'#899273',group);
   box(x,z,0,4,3.6,.16,'#aa9472',group);for(let a=x;a<x+4;a+=.25)box(a,z,.162,.008,3.6,.004,'#8e7b5f',group);
-  const ramp=new T.BufferGeometry();ramp.setAttribute('position',new T.Float32BufferAttribute([x,.16,z+3.6,x+4,.16,z+3.6,x+4,0,z+4.2,x,0,z+4.2],3));ramp.setIndex([0,2,1,0,3,2]);ramp.computeVertexNormals();const rampMesh=new T.Mesh(ramp,new T.MeshStandardMaterial({color:'#aa9472',roughness:.9}));rampMesh.receiveShadow=true;group.add(rampMesh);
+  const ramp=new T.BufferGeometry();ramp.setAttribute('position',new T.Float32BufferAttribute([x,.16,z+3.6,x+4,.16,z+3.6,x+4,0,z+4.2,x,0,z+4.2],3));ramp.setIndex([0,2,1,0,3,2]);ramp.computeVertexNormals();const rampMesh=new T.Mesh(ramp,illustratedMaterial('#aa9472'));rampMesh.receiveShadow=true;group.add(rampMesh);
   box(x,z,.16,4,.1,2.2,'#e5d9b9',group);box(x,z,.16,.1,3.6,2.2,'#d7caab',group);
   box(x+1,z+.11,.85,1.6,.03,.95,'#829a92',group);box(x+1.78,z+.15,.85,.035,.02,.95,'#d4d0b9',group);
   for(const a of [.92,2.6])box(x+a,z+.18,.8,.12,.04,1.08,'#b9aa85',group);

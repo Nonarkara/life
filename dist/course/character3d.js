@@ -1,8 +1,9 @@
 import * as T from 'three';
+import {illustratedMaterial} from './art-direction.js';
 // All poses are presentation only. One simulation clock supplies time.
 export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',height=1}={}){
  const root=new T.Group(),body=new T.Group();root.add(body);
- const material=c=>new T.MeshStandardMaterial({color:c,roughness:.9});
+ const material=color=>illustratedMaterial(color,{character:true});
  const cloth=material(shirt),flesh=material(skin),trousers=material('#364744'),shoe=material('#253733'),hairMat=material(hair),paper=material('#efe6d3');
  const mesh=(g,m,parent,x=0,y=0,z=0)=>{const o=new T.Mesh(g,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;};
  const sphere=(r,m,parent,x,y,z,sx=1,sy=1,sz=1)=>{const o=mesh(new T.SphereGeometry(r,12,10),m,parent,x,y,z);o.scale.set(sx,sy,sz);return o;};
@@ -38,7 +39,10 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
  const ball=mesh(new T.SphereGeometry(.13,14,10),paper,root,.35,.13,.4);
  const ballStripe=mesh(new T.TorusGeometry(.131,.012,4,16),shoe,ball);ballStripe.rotation.x=.7;
  
+ let previousTime=null;
  function update(activity,age,time,{elder=false,scale=1}={}){
+  const dt=previousTime===null?0:time-previousTime,blend=dt>0&&dt<1?1-Math.exp(-dt*8):1;previousTime=time;
+  const oldFacing=body.rotation.y,oldHeight=body.position.y,oldJoints=[...legs,...arms].map(l=>[l.pivot.rotation.x,l.bend.rotation.x]);
   const a=activity,walking=a.moving,cycle=(a.distance??time*.7)*Math.PI*2/(.65*scale),step=Math.sin(cycle),pose=a.pose;
   root.position.set(a.x,0,a.y);root.scale.setScalar(height*scale);
   const target=walking?Math.atan2(a.dx,a.dy):pose==='care'?-2.3:a.facing??0;
@@ -62,6 +66,10 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   if(pose==='care'){for(const arm of arms){arm.pivot.rotation.x=-.8;arm.bend.rotation.x=-.6;}head.rotation.x=.3;}
   if(pose==='garden'){body.rotation.x=.13;arms[1].pivot.rotation.x=-.4;can.rotation.z=.25+Math.sin(time)*.08;}
   if(ball.visible){ball.position.set(.3+Math.sin(time*2)*.18,.14+Math.abs(Math.sin(time*2))*.12,.45);legs[1].pivot.rotation.x=Math.sin(time*2)*.3;arms[0].pivot.rotation.z=.2;}
+  // Held activity poses settle into place; turning takes the shortest arc.
+  body.rotation.y=oldFacing+Math.atan2(Math.sin(body.rotation.y-oldFacing),Math.cos(body.rotation.y-oldFacing))*blend;
+  body.position.y=oldHeight+(body.position.y-oldHeight)*blend;
+  [...legs,...arms].forEach((l,i)=>{l.pivot.rotation.x=oldJoints[i][0]+(l.pivot.rotation.x-oldJoints[i][0])*blend;l.bend.rotation.x=oldJoints[i][1]+(l.bend.rotation.x-oldJoints[i][1])*blend;});
   if(elder){body.rotation.x+=.06;hairCap.material.color.set('#a4aaa2');}else hairCap.material.color.set(hair);
  }
  return {root,update,anchors:{head,torso}};

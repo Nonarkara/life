@@ -1,3 +1,4 @@
+import {netWorth} from './finance.js';
 // A player-chosen coaching lens, not a personality test or a hidden stat.
 export const FOCUSES={
  security:'Security and stability',variety:'Variety and discovery',recognition:'Recognition',
@@ -19,7 +20,7 @@ export function focusEvidence(state,row=state.history.at(-1)){
  if(focus==='security'){
   const previous=state.history.filter(r=>r.age<=row.from).at(-1)?.finance;
   if(!previous||!row.finance)return {focus,from:row.from,to:row.age,text:'No comparable personal-money record for this period.'};
-  value=(row.finance.available+row.finance.reserve-row.finance.debt)-(previous.available+previous.reserve-previous.debt);
+  value=netWorth(row.finance)-netWorth(previous);
   text='Personal net worth changed by {value}.';value='฿'+Math.round(value).toLocaleString('en');
  }else if(focus==='variety'){
   const previous=state.history.filter(r=>r.age<=row.from).at(-1)?.pathway;
