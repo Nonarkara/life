@@ -1,0 +1,12 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+import {ikigai} from '../../dist/course/ikigai.js';
+const row=(from,effort,aim='art')=>({from,age:from+5,effort,profile:{aim}});
+const life=({effort,aim='art',seen=[],periods=[]})=>({history:[0,10,15,20,25,30].map(a=>row(a,effort,aim)).filter(r=>r.from>=10),story:{seen},finance:{receipts:periods},cash:0});
+const art={physique:1,iq:1,eq:1,craft:6,drive:1},money={physique:0,iq:2,eq:0,craft:0,drive:8};
+const good=[25,30,35].map(age=>({kind:'period',age,income:30000,essential:20000}));
+test('Ikigai has four readings and needs recorded history',()=>{assert.equal(ikigai({history:[]}),null);const r=ikigai(life({effort:art}));assert.deepEqual(Object.keys(r.parts),['love','good','world','paid']);for(const v of Object.values(r.parts))assert.ok(v>=0&&v<=100);});
+test('money alone cannot max Ikigai',()=>{const rich=ikigai(life({effort:money,aim:'art',periods:good}));assert.equal(rich.parts.paid,100);assert.ok(rich.score<60,rich.score);});
+test('passion, practice, care and enough income together score high',()=>{const seen=[{id:'project',choice:'start'},{id:'project_return',choice:'show'},{id:'flood_help',choice:'help'},{id:'friend_care',choice:'visit'},{id:'mentor',choice:'teach'},{id:'child_school',choice:'help'}];const r=ikigai(life({effort:art,seen,periods:good}));assert.ok(r.score>=75,JSON.stringify(r));assert.ok(r.overlaps.mission>50);});
+test('starting attributes do not count; only practice does',()=>{const a=life({effort:art}),b={...life({effort:art}),attributes:{physique:0,iq:0,eq:0,craft:10,drive:0}};assert.deepEqual(ikigai(a).parts,ikigai(b).parts);});
+test('care for others raises what the world gets from you',()=>{const lonely=ikigai(life({effort:art})).parts.world,caring=ikigai(life({effort:art,seen:[{id:'friend_care',choice:'visit'},{id:'mentor',choice:'teach'}]})).parts.world;assert.ok(caring>lonely);});
+test('income that does not cover costs lowers what sustains you, whatever the savings',()=>{const short=ikigai(life({effort:art,periods:[{kind:'period',age:25,income:10000,essential:20000},{kind:'period',age:30,income:30000,essential:20000}]}));assert.equal(short.parts.paid,50);});
