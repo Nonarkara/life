@@ -38,7 +38,7 @@ test('cutaway invalidates the opaque shader exactly on entering and leaving tran
 test('adult camera preserves a legible human scale and joins school/adult spans continuously',()=>{
  assert.equal(cameraSpan(10),8.5);assert.equal(cameraSpan(20),9.8);assert.equal(cameraSpan(60),11);
  for(const age of [10,20])assert.ok(Math.abs(cameraSpan(age-.0001)-cameraSpan(age+.0001))<.0001);
- const span=cameraSpan(35),camera=new T.OrthographicCamera(-span,span,span/2,-span/2,.1,100);camera.position.set(12,18,12);camera.lookAt(0,0,0);camera.updateMatrixWorld(true);const feet=new T.Vector3(0,0,0).project(camera),head=new T.Vector3(0,1.72,0).project(camera),projectedHeight=Math.abs(head.y-feet.y)*560/2;assert.ok(projectedHeight>=60&&projectedHeight<=70);assert.equal(cameraSpan(35,true),5);assert.equal(cameraSpan(0),3.5);
+ const span=cameraSpan(35),camera=new T.OrthographicCamera(-span,span,span/2,-span/2,.1,100);camera.position.set(12,18,12);camera.lookAt(0,0,0);camera.updateMatrixWorld(true);const feet=new T.Vector3(0,0,0).project(camera),head=new T.Vector3(0,1.72,0).project(camera),projectedHeight=Math.abs(head.y-feet.y)*560/2;assert.ok(projectedHeight>=60&&projectedHeight<=70);assert.equal(cameraSpan(35,true),9);assert.equal(cameraSpan(0),3.5);
 });
 test('all home origins have supported floor and their ramps meet the street continuously',()=>{
  for(const room of Object.values(RESIDENCES)){const[x,z]=room.origin;assert.equal(floorAt(x,z),.16);assert.ok(Math.abs(floorAt(room.base[0]+3.75,room.base[1]+4.2))<1e-12);assert.ok(Math.abs(floorAt(room.base[0]+3.75,room.base[1]+3.9)-.08)<1e-10);}

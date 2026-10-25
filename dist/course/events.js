@@ -5,7 +5,7 @@ export function eventsFor(row){
  const recorded=Array.isArray(row.events)?row.events.filter(e=>e&&EVENT_TYPES[e.type]):[];
  const text=row.event??'',types=[];
  if(row.economy?.contractions?.length)types.push('economy');if(row.economy?.marketChange)types.push('market');
- if(text.includes('Floodwater'))types.push('flood');if(/father dies|mother dies/.test(text))types.push('loss');if(text.includes('work interruption'))types.push('work');if(text.includes('commission'))types.push('commission');if(text.includes('health setback'))types.push('illness');if(text.includes('Leaving school'))types.push('school');if(text.includes('Work slows'))types.push('retirement');
+ if(text.includes('Floodwater'))types.push('flood');if(/(father|mother|grandmother) dies/.test(text))types.push('loss');if(text.includes('work interruption'))types.push('work');if(text.includes('commission'))types.push('commission');if(text.includes('health setback'))types.push('illness');if(text.includes('Leaving school'))types.push('school');if(text.includes('Work slows'))types.push('retirement');
  return [...recorded,...types.filter(type=>!recorded.some(e=>e.type===type)).map(type=>({type}))].map(e=>({...e,age:row.age,...EVENT_TYPES[e.type]}));
 }
 export function eventsForAccount(row,account){return eventsFor(row).filter(e=>e.category==='cash'&&(account==='household'?(!row.finance||e.type==='flood'):!!row.finance&&e.type!=='flood'));}

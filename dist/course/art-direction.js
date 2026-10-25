@@ -11,7 +11,7 @@ const roles=new Map([
 ]);
 let ramp;
 export function lightRamp(){
- if(!ramp){ramp=new T.DataTexture(new Uint8Array([176,176,176,220,220,220,255,255,255]),3,1,T.RGBFormat);ramp.minFilter=T.NearestFilter;ramp.magFilter=T.NearestFilter;ramp.generateMipmaps=false;ramp.needsUpdate=true;}
+ if(!ramp){ramp=new T.DataTexture(new Uint8Array([176,176,176,255,220,220,220,255,255,255,255,255]),3,1,T.RGBAFormat);ramp.minFilter=T.NearestFilter;ramp.magFilter=T.NearestFilter;ramp.generateMipmaps=false;ramp.needsUpdate=true;}
  return ramp;
 }
 export function illustratedMaterial(color,{character=false}={}){const chosen=roles.get(color)??color;return character?new T.MeshToonMaterial({color:chosen,gradientMap:lightRamp()}):new T.MeshLambertMaterial({color:chosen});}

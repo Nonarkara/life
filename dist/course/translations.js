@@ -1,5 +1,72 @@
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Your grandparents’ home.|บ้านปู่ย่าตายาย|祖父母的家|祖父母の家|조부모님의 집
+Your parents keep working in the city. You grow up with your grandparents, among their neighbours, fields and routines.|พ่อแม่ยังคงทำงานในเมือง คุณเติบโตกับปู่ย่าตายาย ท่ามกลางเพื่อนบ้าน ทุ่งนา และกิจวัตรของท่าน|父母继续在城里工作。你在祖父母身边长大，周围是他们的邻居、田地和日常。|両親は都会で働き続ける。あなたは祖父母のもとで、近所の人や田畑、その暮らしのリズムの中で育つ。|부모님은 도시에서 계속 일한다. 당신은 조부모님의 이웃과 논밭, 일상 속에서 자란다.
+Back with your parents.|กลับมาอยู่กับพ่อแม่|回到父母身边|両親のもとへ戻る|부모님 곁으로
+You return to the city. The house is busier than the one you remember, and your grandparents feel far away.|คุณกลับเข้าเมือง บ้านวุ่นวายกว่าที่จำได้ และปู่ย่าตายายรู้สึกอยู่ไกลออกไป|你回到城里。家比记忆中更热闹，祖父母却显得很远。|あなたは都会に戻る。家は記憶よりにぎやかで、祖父母が遠く感じられる。|당신은 도시로 돌아온다. 집은 기억보다 북적이고, 조부모님은 멀게 느껴진다.
+Grandparents|ปู่ย่าตายาย|祖父母|祖父母|조부모님
+What you love|สิ่งที่คุณรัก|你热爱的|好きなこと|좋아하는 것
+What you became good at|สิ่งที่คุณเก่งขึ้น|你变得擅长的|得意になったこと|잘하게 된 것
+What the world got from you|สิ่งที่โลกได้รับจากคุณ|世界从你这里得到的|世界があなたから受け取ったもの|세상이 당신에게서 받은 것
+What sustained you|สิ่งที่หล่อเลี้ยงชีวิตคุณ|支撑你生活的|あなたを支えたもの|당신을 지탱한 것
+effort toward your chosen direction, kept up and made into something|ความพยายามไปในทางที่เลือก ทำต่อเนื่องจนเกิดผลงาน|朝着选择的方向持续努力并做出成果|選んだ方向への努力を続け、形にしたこと|선택한 방향으로 꾸준히 노력해 무언가를 만든 것
+practice, not what you were born with|มาจากการฝึกฝน ไม่ใช่สิ่งที่ติดตัวมาแต่เกิด|来自练习，而非天生|生まれつきではなく、練習から|타고난 것이 아니라 연습에서
+help, care, teaching, raising others|การช่วยเหลือ ดูแล สอน และเลี้ยงดูผู้อื่น|帮助、照顾、教导、养育他人|助け、世話、教え、育てること|돕고, 돌보고, 가르치고, 키우는 것
+chapters where income covered costs; enough, not wealth|ช่วงชีวิตที่รายได้พอกับค่าใช้จ่าย คือความพอ ไม่ใช่ความร่ำรวย|收入足以支付开销的阶段：是足够，而非富有|収入が支出をまかなえた期間。豊かさではなく、足りること|수입이 비용을 감당한 시기. 부가 아니라 충분함
+Overall is the geometric mean of the four, so one strong reading cannot carry the others. A game proxy, not a psychological test.|คะแนนรวมคือค่าเฉลี่ยเรขาคณิตของทั้งสี่ ด้านใดด้านหนึ่งที่สูงจึงไม่อาจแบกด้านอื่นได้ เป็นตัวแทนในเกม ไม่ใช่แบบทดสอบทางจิตวิทยา|总分是四项的几何平均数，单项再高也无法代替其他各项。这是游戏中的近似，并非心理测验。|総合は四つの幾何平均なので、一つが高くても他を補えません。ゲーム上の目安で、心理検査ではありません。|종합 점수는 네 가지의 기하평균이므로 하나가 높아도 나머지를 대신할 수 없습니다. 게임상의 근사치이며 심리 검사가 아닙니다.
+Ikigai {n} / 100|อิคิไก {n} / 100|生之意义 {n} / 100|生きがい {n} / 100|이키가이 {n} / 100
+Amber: the life you lived · one line per place · rings mark a move.|สีอำพัน: ชีวิตที่คุณใช้จริง · หนึ่งเส้นต่อหนึ่งสถานที่ · วงกลมคือการย้าย|琥珀色：你走过的人生 · 每个地方一条线 · 圆环表示迁居|琥珀色：あなたが生きた道・場所ごとに一本の線・輪は引っ越し|호박색: 당신이 살아온 길 · 장소마다 한 줄 · 고리는 이사
+Where your life went|ชีวิตของคุณไปที่ไหนบ้าง|你的人生去过哪里|あなたの人生がたどった場所|당신의 삶이 지나간 곳
+Study|เรียนต่อ|求学|進学|진학
+Love|ความรัก|爱情|恋|사랑
+Loss|การสูญเสีย|失去|別れ|상실
+Illness|เจ็บป่วย|疾病|病気|병
+School ends|เรียนจบ|学业结束|学校を終える|학업을 마침
+Work slows|งานช้าลง|工作放缓|仕事が落ち着く|일이 줄어듦
+Project|โครงการ|项目|プロジェクト|프로젝트
+Flood|น้ำท่วม|洪水|洪水|홍수
+Back home|กลับบ้าน|回到家乡|故郷へ戻る|고향으로
+Born into {home} in {place}. Raised by {who}. For the first ten years, watch your world grow. The first choices come at 10.|เกิดใน{home}ที่{place} เติบโตมากับ{who} สิบปีแรกดูโลกค่อย ๆ กว้างขึ้น การตัดสินใจครั้งแรกเริ่มที่อายุ 10 ปี|出生于{place}的{home}，由{who}抚养长大。头十年，看着你的世界慢慢变大。第一次选择在10岁到来。|{place}の{home}に生まれ、{who}に育てられる。最初の十年は、世界が広がっていくのを見守ろう。最初の選択は10歳で訪れる。|{place}의 {home}에서 태어나 {who}의 손에 자란다. 처음 10년 동안 세상이 넓어지는 것을 지켜보자. 첫 선택은 10살에 찾아온다.
+your mother and father|แม่และพ่อ|妈妈和爸爸|母と父|엄마와 아빠
+your mother and grandmother|แม่และยาย|妈妈和外婆|母と祖母|엄마와 할머니
+your father and grandmother|พ่อและย่า|爸爸和奶奶|父と祖母|아빠와 할머니
+your two mothers|แม่สองคน|两位妈妈|二人の母|두 엄마
+your two fathers|พ่อสองคน|两位爸爸|二人の父|두 아빠
+Where you live|ที่ที่คุณอาศัยอยู่|居住地|住んでいる場所|사는 곳
+Pay ×{p} · living costs ×{c} here. Authored game tuning, not wage or price data.|ค่าจ้าง ×{p} · ค่าครองชีพ ×{c} ที่นี่ เป็นค่าที่ตั้งไว้ในเกม ไม่ใช่ข้อมูลค่าจ้างหรือราคาจริง|此处薪酬 ×{p} · 生活成本 ×{c}。为游戏设定数值，并非真实工资或物价数据。|ここでは給与 ×{p}・生活費 ×{c}。ゲーム上の設定値で、実際の賃金や物価ではありません。|이곳의 급여 ×{p} · 생활비 ×{c}. 게임 설정값이며 실제 임금·물가 자료가 아닙니다.
+Khlong Toei, Bangkok|คลองเตย กรุงเทพฯ|曼谷孔堤|バンコク・クロントゥーイ|방콕 끌렁떠이
+Ban Non Sawang, Khon Kaen|บ้านโนนสว่าง ขอนแก่น|孔敬府农萨旺村|コンケン県バーン・ノンサワーン|콘깬 반논사왕
+Bang Na, Bangkok|บางนา กรุงเทพฯ|曼谷邦纳|バンコク・バンナー|방콕 방나
+Pak Phanang, Nakhon Si Thammarat|ปากพนัง นครศรีธรรมราช|洛坤府北帕南|ナコーンシータンマラート県パークパナン|나콘시탐마랏 빡파낭
+Sukhumvit, Bangkok|สุขุมวิท กรุงเทพฯ|曼谷素坤逸|バンコク・スクンビット|방콕 수쿰윗
+Toa Payoh, Singapore|โตอาปาโยห์ สิงคโปร์|新加坡大巴窑|シンガポール・トアパヨ|싱가포르 토아파요
+Nerima, Tokyo|เนริมะ โตเกียว|东京练马|東京・練馬|도쿄 네리마
+Somerville, Massachusetts|ซอมเมอร์วิลล์ แมสซาชูเซตส์|马萨诸塞州萨默维尔|マサチューセッツ州サマービル|매사추세츠 서머빌
+Walthamstow, London|วอลแธมสโตว์ ลอนดอน|伦敦沃尔瑟姆斯托|ロンドン・ウォルサムストウ|런던 월섬스토
+a household in a riverside community|ครอบครัวในชุมชนริมน้ำ|河畔社区的家庭|川沿いのコミュニティの家庭|강변 공동체의 가정
+a rice-farming household|ครอบครัวชาวนา|种稻的农家|米作りの農家|벼농사를 짓는 가정
+a household in an apartment block|ครอบครัวในอพาร์ตเมนต์|公寓楼里的家庭|集合住宅の家庭|아파트 단지의 가정
+a fishing household|ครอบครัวชาวประมง|渔民家庭|漁師の家庭|어부 가정
+a household in a large walled house|ครอบครัวในบ้านหลังใหญ่ที่มีรั้วรอบ|住在带围墙大宅里的家庭|塀に囲まれた大きな家の家庭|담장이 있는 큰 집의 가정
+Your grandmother dies. The family has to find a different rhythm.|ยายจากไป ครอบครัวต้องปรับชีวิตใหม่|祖母离世，家人需要重新找到生活的节奏。|祖母が亡くなる。家族は新しい暮らしのリズムを見つけなければならない。|할머니가 돌아가신다. 가족은 새로운 생활의 리듬을 찾아야 한다.
+Your grandmother dies. Familiar places carry different memories.|ยายจากไป สถานที่คุ้นเคยเก็บความทรงจำที่ต่างไป|祖母离世，熟悉的地方承载着不同的记忆。|祖母が亡くなる。見慣れた場所が違う記憶を帯びる。|할머니가 돌아가신다. 익숙한 곳들이 다른 기억을 품는다.
+crawling on the rug|คลานเล่นบนพรม|在地毯上爬|ラグの上をはいはい|러그 위를 기어 다니기
+taking first steps|หัดเดินก้าวแรก|迈出第一步|はじめての一歩|첫걸음 떼기
+playing with you on the rug|เล่นกับคุณบนพรม|在地毯上陪你玩|ラグの上であなたと遊ぶ|러그 위에서 당신과 놀기
+cooking dinner|ทำอาหารเย็น|做晚饭|夕食を作る|저녁 요리
+doing homework|ทำการบ้าน|写作业|宿題をする|숙제하기
+reading by the lamp|อ่านหนังสือข้างโคมไฟ|在灯旁读书|ランプのそばで読書|등불 옆에서 책 읽기
+reading on the rug|อ่านหนังสือบนพรม|在地毯上看书|ラグの上で読書|러그 위에서 책 읽기
+playing on the rug|เล่นบนพรม|在地毯上玩|ラグの上で遊ぶ|러그 위에서 놀기
+Crawling on the rug|คลานเล่นบนพรม|在地毯上爬|ラグの上をはいはい|러그 위를 기어 다니기
+Taking first steps|หัดเดินก้าวแรก|迈出第一步|はじめての一歩|첫걸음 떼기
+Playing with you on the rug|เล่นกับคุณบนพรม|在地毯上陪你玩|ラグの上であなたと遊ぶ|러그 위에서 당신과 놀기
+Cooking dinner|ทำอาหารเย็น|做晚饭|夕食を作る|저녁 요리
+Doing homework|ทำการบ้าน|写作业|宿題をする|숙제하기
+Reading by the lamp|อ่านหนังสือข้างโคมไฟ|在灯旁读书|ランプのそばで読書|등불 옆에서 책 읽기
+Reading on the rug|อ่านหนังสือบนพรม|在地毯上看书|ラグの上で読書|러그 위에서 책 읽기
+Playing on the rug|เล่นบนพรม|在地毯上玩|ラグの上で遊ぶ|러그 위에서 놀기
+You|ตัวคุณ|你|あなた|나
 Scene study|ศึกษาฉาก|场景研究|シーン比較|장면 연구
 Scene study controls|ตัวควบคุมการศึกษาฉาก|场景研究控制|シーン比較の操作|장면 연구 조작
 Play Life2.0|เล่น Life2.0|游玩 Life2.0|Life2.0 をプレイ|Life2.0 플레이

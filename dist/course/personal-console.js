@@ -6,22 +6,23 @@ export function initPersonalConsole({getState,isMoving=()=>false}){
  document.body.classList.add('personal-console');
  const last=document.getElementById('last-event'),latest=el('details',undefined,'latest-event');latest.append(el('summary','Latest event'));last.before(latest);latest.append(last);
  const board=el('section',undefined,'personal-board');board.setAttribute('aria-label','Personal dashboard');
- const nav=el('nav',undefined,'personal-tabs');nav.setAttribute('aria-label','Personal consoles');
- const panels={},buttons={};let active='condition';const phone=matchMedia('(max-width:720px)');
+ const panels={},phone=matchMedia('(max-width:720px)');
  for(const [id,title]of [['ocean','OCEAN'],['condition','Condition'],['goals','Five-year goals']]){
   const section=el('section',undefined,'personal-instrument');section.id='instrument-'+id;section.setAttribute('aria-label',title);panels[id]=section;
-  const button=el('button',title);button.type='button';button.setAttribute('aria-controls',section.id);button.onclick=()=>{active=id;arrange();};buttons[id]=button;nav.append(button);
  }
- board.append(nav,...Object.values(panels));document.querySelector('main').append(board);
+ board.append(...Object.values(panels));const main=document.querySelector('main');main.append(board);
  function heading(panel,title,caption){const h=el('div',undefined,'instrument-heading');h.append(el('h2',title));if(caption)h.append(el('small',caption));panel.append(h);}
  heading(panels.ocean,'OCEAN','Personality · game indices');const traits=el('div',undefined,'ocean-rows');panels.ocean.append(traits,el('p','Thin mark: your starting record.','instrument-key'));
  heading(panels.condition,'Condition');const recordedAt=el('small');panels.condition.querySelector('.instrument-heading').append(recordedAt);const conditions=el('div',undefined,'condition-grid'),live=el('div');live.id='condition-live';const capacitiesEl=el('div',undefined,'capacity-instruments');conditions.append(live,capacitiesEl);panels.condition.append(conditions);const hud=document.querySelector('.life-hud');if(hud)live.append(hud);
  const purposeDetails=el('details',undefined,'purpose-notes');purposeDetails.append(el('summary','About Ikigai in this game'),el('p','Recorded follow-through toward a chosen priority. This game proxy is not a psychological test or a measure of your real purpose. Chapters without an eligible opportunity are not graded.'));
  panels.condition.append(purposeDetails);
  heading(panels.goals,'Five-year goals');const period=el('strong',undefined,'goal-period'),fields=el('div',undefined,'goal-fields'),goalNotes=el('details',undefined,'goal-notes');goalNotes.append(el('summary','Goal notes'));panels.goals.append(period,fields,goalNotes);
- function arrange(){for(const[id,panel]of Object.entries(panels)){panel.hidden=phone.matches&&id!==active;buttons[id].setAttribute('aria-pressed',String(id===active));}}phone.addEventListener('change',arrange);arrange();
+ // Phones give the world the screen: the board becomes the reader's You tab.
+ const youPane=document.getElementById('console-you'),youButton=document.querySelector('[aria-controls=console-you]'),planButton=document.querySelector('[aria-controls=console-plan]');
+ const leaveYou=()=>{if(youButton?.getAttribute('aria-pressed')==='true')planButton?.click();};
+ function place(){if(phone.matches&&youPane)youPane.append(board);else{main.append(board);leaveYou();}}phone.addEventListener('change',place);place();
  function render(){
-  const s=getState(),moving=isMoving(),review=s.stage==='review'&&!moving&&!s.story?.pending;document.body.classList.toggle('is-review',review);latest.hidden=last.hidden||!last.textContent.trim();board.hidden=s.stage==='birth'||s.stage==='recap';
+  const s=getState(),moving=isMoving(),review=s.stage==='review'&&!moving&&!s.story?.pending;document.body.classList.toggle('is-review',review);latest.hidden=last.hidden||!last.textContent.trim();board.hidden=s.stage==='birth'||s.stage==='recap';if(youButton){youButton.hidden=board.hidden;if(board.hidden)leaveYou();}
   const p=personality(s);traits.replaceChildren();
   TRAITS.forEach(([key,label],i)=>{const row=el('div',undefined,'ocean-row'),name=el('span'),letter=el('b','OCEAN'[i]);name.append(letter,document.createTextNode(label));const track=el('div',undefined,'ocean-track');track.setAttribute('role','img');track.setAttribute('aria-label',`${label}: ${p.current[key]} / 100; starting ${p.initial[key]}.`);const fill=el('span'),start=el('i');fill.style.width=p.current[key]+'%';start.style.left=p.initial[key]+'%';track.append(fill,start);row.append(name,track,el('output',String(p.current[key])));traits.append(row);});
   recordedAt.textContent='Recorded at age '+s.age;const c=capacities(s),meaning=purpose(s);capacitiesEl.replaceChildren();

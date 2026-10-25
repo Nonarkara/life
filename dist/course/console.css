@@ -42,3 +42,6 @@ body.console-mode:not(.birth-stage){height:100dvh;overflow:hidden}
  .console-mode:not(.birth-stage):not(.recap-stage) .console-reader{grid-column:2;grid-row:1;align-self:start;max-height:100%;z-index:1;border-bottom:1px solid var(--line)}
  .console-mode:not(.birth-stage):not(.recap-stage) .console-panel{flex:0 1 auto}
 }
+
+.ending-route{margin:0 0 20px;padding:0}.ending-route canvas{display:block;width:100%}
+.ending-ikigai{margin:0 0 24px;max-width:760px}.ending-ikigai h2{margin:0 0 8px}.ending-ikigai dl{display:grid;grid-template-columns:minmax(0,1fr) minmax(120px,200px);gap:6px 16px;align-items:center;margin:0}.ending-ikigai dt{font-weight:600}.ending-ikigai dt small{display:block;font-weight:400;color:var(--muted)}.ending-ikigai dd{margin:0;display:flex;gap:8px;align-items:center;font-variant-numeric:tabular-nums}.ikigai-bar{flex:1;height:6px;position:relative;background:var(--line)}.ikigai-bar::after{content:'';position:absolute;left:0;top:0;bottom:0;width:var(--v);background:var(--ink)}

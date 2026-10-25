@@ -1,10 +1,11 @@
 // Personal accounts use whole game baht; prices/effects are authored, not estimates.
 import {WORKPLACES} from './locations.js';
+import {REGIONS,MOVE_TARGETS,regionIdFor} from './regions.js';
 import {holdingsValue,validHoldings,markHoldings,validInvestmentLedger} from './investments.js';
 import {periodEconomy} from './economy.js';
 export {WORKPLACES};
 export const CITY_TRAVEL={expense:1000,minutes:50};
-export const validFinanceLocation=(f,age=80)=>f===undefined||!!f&&(f.housing===undefined||Object.hasOwn(HOUSING,f.housing))&&(f.workplace===undefined||Object.hasOwn(WORKPLACES,f.workplace))&&(f.locationSince===undefined||Number.isInteger(f.locationSince)&&f.locationSince>=20&&f.locationSince<=age);
+export const validFinanceLocation=(f,age=80)=>f===undefined||!!f&&(f.housing===undefined||Object.hasOwn(HOUSING,f.housing))&&(f.workplace===undefined||Object.hasOwn(WORKPLACES,f.workplace))&&(f.locationSince===undefined||Number.isInteger(f.locationSince)&&f.locationSince>=20&&f.locationSince<=age)&&(f.region===undefined||Object.hasOwn(REGIONS,f.region))&&(f.regionSince===undefined||Number.isInteger(f.regionSince)&&f.regionSince>=20&&f.regionSince<=age);
 export const DEFAULT_BUDGET={save:20,fun:10,learn:10};
 export const HOUSING={family:{label:'Family home',rent:1500,transport:1500,minutes:60},far:{label:'Lower rent · longer commute',rent:3500,transport:1500,minutes:80},near:{label:'Higher rent · shorter commute',rent:6500,transport:500,minutes:20}};
 export const PURCHASES={snack:{label:'Enjoy a snack',cost:40,hours:0,wellbeing:1,skills:{}},book:{label:'Read a book',cost:100,hours:2,wellbeing:0,skills:{iq:1}},comics:{label:'Comics and a conversation',cost:80,hours:2,wellbeing:1,skills:{eq:1}},class:{label:'Attend a short class',cost:500,hours:4,wellbeing:0,skills:{craft:2}},sport:{label:'Play sport with friends',cost:100,hours:2,wellbeing:1,skills:{physique:1}}};
@@ -23,15 +24,20 @@ export function openFinance(state){
 export function setBudget(state,budget){return state.finance&&state.stage==='review'&&!state.story?.pending&&validBudget(budget)?{...state,finance:{...state.finance,budget:{...budget}}}:state;}
 export function setHousing(state,housing){return state.finance&&state.stage==='review'&&!state.story?.pending&&state.age>=20&&Object.hasOwn(HOUSING,housing)&&housing!==state.finance.housing?{...state,finance:{...state.finance,housing,locationSince:state.age}}:state;}
 export function setWorkplace(state,workplace){return state.finance&&state.stage==='review'&&!state.story?.pending&&state.age>=20&&Object.hasOwn(WORKPLACES,workplace)&&workplace!==(state.finance.workplace??'local')?{...state,finance:{...state.finance,workplace,locationSince:state.age}}:state;}
+// Moving is recorded with an effective age, like housing and work; the region sets pay and living costs.
+export const currentRegion=state=>state.finance?.region??regionIdFor(state.birth);
+export function setRegion(state,id){return state.finance&&state.stage==='review'&&!state.story?.pending&&state.age>=20&&MOVE_TARGETS.includes(id)&&id!==currentRegion(state)?{...state,finance:{...state.finance,region:id,regionSince:state.age}}:state;}
 export function monthlyFlow(state,row){
  const studying=state.age<20&&row?.pathway==='school'||row?.pathway==='college'&&state.age<25;
  const baseIncome=studying?allowance(state):state.age<20?(row?.pathway==='vocational'?5000:2500):Math.max(0,Math.round(row?.earnings??grossMonthlyPay(state)*(state.age>=60?1:({school:0,college:0,vocational:.6,independent:.2,work:1}[row?.pathway]??1))));
- const home=HOUSING[state.finance?.housing??'family'];
- const workplace=state.finance?.workplace??'local',housing=state.finance?.housing??'family';
+ const away=currentRegion(state)!==regionIdFor(state.birth),home=HOUSING[away&&(state.finance?.housing??'family')==='family'?'far':state.finance?.housing??'family'];
+ const workplace=state.finance?.workplace??'local',housing=away&&(state.finance?.housing??'family')==='family'?'far':state.finance?.housing??'family';
  const cityTravel=workplace==='city'&&housing!=='near'&&state.age>=20&&!studying&&state.age<60;
- const income=Math.round(baseIncome*(!studying&&state.age>=20&&state.age<60?(WORKPLACES[workplace]?.payFactor??1):1));
+ const place=REGIONS[currentRegion(state)],adultCosts=!studying&&state.age>=20;
+ const income=Math.round(baseIncome*(!studying&&state.age>=20&&state.age<60?(WORKPLACES[workplace]?.payFactor??1)*place.pay:1));
  const studentHome=studying&&state.age>=20&&housing!=='family',studentCity=studentHome&&housing==='near'&&workplace==='city';
- return {income,rent:studying&&housing==='family'?0:home.rent,transport:studying&&housing==='family'?0:home.transport+((cityTravel||studentCity)?CITY_TRAVEL.expense:0),essential:studying?Math.round(allowance(state)*.7)+(studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0):state.age<20?1200:4000+home.rent+home.transport+(cityTravel?CITY_TRAVEL.expense:0),commute:studying?(studentHome?(studentCity?80:home.minutes):30):home.minutes+(cityTravel?CITY_TRAVEL.minutes:0),source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
+ const k=adultCosts?place.cost:1;
+ return {income,rent:Math.round((studying&&housing==='family'?0:home.rent)*k),transport:Math.round((studying&&housing==='family'?0:home.transport+((cityTravel||studentCity)?CITY_TRAVEL.expense:0))*k),essential:Math.round((studying?Math.round(allowance(state)*.7)+(studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0):state.age<20?1200:4000+home.rent+home.transport+(cityTravel?CITY_TRAVEL.expense:0))*k),commute:studying?(studentHome?(studentCity?80:home.minutes):30):home.minutes+(cityTravel?CITY_TRAVEL.minutes:0),source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
 }
 export function advanceFinance(before,next){
  if(next.age<=before.age)return next;
@@ -55,6 +61,7 @@ export function advanceFinance(before,next){
  const delta=Math.min(2,fun/Math.max(1,months)/500)-(debt>0?2:0);
  const wellbeing=cap(next.wellbeing+delta),skills={...next.skills,iq:next.skills.iq+learning};
  const since=f.locationSince??(before.age>=20?before.age:undefined),locationRecord=since===undefined?{}:{locationSince:since};
+ if(f.region)Object.assign(locationRecord,{region:f.region,regionSince:f.regionSince??20});
  const finance={...f,...locationRecord,available,reserve,debt,receipts:[...f.receipts,{id,age:next.age,kind:'period',months,income,essential,fun,learn,saved,expense:essential+fun+learn,change:income-essential-fun-learn,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord}]};
  const snapshot={available,reserve,debt,income,essential,fun,learn,months,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord};
  if(![available,reserve,debt,income,essential].every(integer)||!Number.isSafeInteger(netWorth(finance)))return before;

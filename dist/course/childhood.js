@@ -9,6 +9,8 @@ export function childhoodChapter(state, age) {
   [6,'Your family chooses a school.',band==='constrained'?'The nearby public school keeps travel and school costs within reach.':band==='comfortable'?'Your family can afford a school farther away and activities after class.':'Your family chooses a public school and sets aside money for books and transport.'],
   [9,'You begin to imagine another life.','You hear about people who study, work, make things and take unfamiliar paths. Soon the choices will be yours.']
  ];
+ const away=state.birth?.childhood;
+ if(away){chapters.push([away.from,'Your grandparents’ home.','Your parents keep working in the city. You grow up with your grandparents, among their neighbours, fields and routines.'],[away.to,'Back with your parents.','You return to the city. The house is busier than the one you remember, and your grandparents feel far away.']);chapters.sort((a,b)=>a[0]-b[0]);}
  const chapter=chapters.filter(([start])=>age>=start).at(-1)??chapters[0];
  return {income,title:chapter[1],decision:chapter[2]};
 }
