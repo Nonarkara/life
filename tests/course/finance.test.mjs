@@ -1,7 +1,10 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {openFinance,advanceFinance,setBudget,setHousing,setWorkplace,buy,moveReserve,netWorth,validFinance,validFinanceLocation,monthlyFlow} from '../../dist/course/finance.js';
-import {newLife,configureLife,begin,live,validate} from '../../dist/course/sim.js';
-import {resolveEncounter,encounterById} from '../../dist/course/encounters.js';
+import {newLife,configureLife,begin,live as liveAll,validate,rand} from '../../dist/course/sim.js';
+import {offerEncounter,resolveEncounter,encounterById} from '../../dist/course/encounters.js';
+// The authored story without the blog and money lessons, with the same seeded roll.
+const live=s=>{const n=liveAll(s);if(!/^[lm]_/.test(n.story?.pending?.id??''))return n;return offerEncounter({...n,story:{...n.story,pending:null}},rand(n.seed,n.age,'encounter'),e=>!/^[lm]_/.test(e.id));};
+
 const settle=s=>s.story?.pending?resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.2):s;
 const teen=()=>openFinance(settle(live(begin(configureLife(newLife(12),{upbringing:'middle'})))));
 test('school allowance opens once and can never spend the household buffer',()=>{const s=teen();assert.equal(s.finance.receipts[0].income,1500);assert.equal(s.finance.available,1200);assert.equal(openFinance(s),s);const next=buy(s,'book');assert.equal(next.finance.available,1100);assert.equal(next.cash,s.cash);assert.deepEqual(next.attributes,s.attributes);assert.equal(next.skills.iq,s.skills.iq+1);assert.equal(buy(next,'book'),next);assert.ok(validFinance(next.finance,next.age));});

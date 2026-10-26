@@ -48,7 +48,7 @@ export function advanceFinance(before,next){
  const row=next.history.at(-1),flow=monthlyFlow(source,row),months=(next.age-before.age)*12;
  const opening=f.receipts.find(r=>r.kind==='opening'&&r.age===before.age)?.income??0;
  // Opening support already covered one month under family care. A changed route starts next month.
- const remainingMonths=months-(opening>0?1:0),adjustment=row.pathwayCash??0,shock=row.age===30?0:(row.setback??0),habits=row.habits??0;
+ const remainingMonths=months-(opening>0?1:0),adjustment=row.pathwayCash??0,shock=row.setback??0,habits=row.habits??0;
  const economic=before.economy?periodEconomy(before.economy,before.age,next.age):{rows:[],contractions:[],meanWageFactor:1};
  const incomeAdjustment=flow.source==='Work income'?Math.round(flow.income*remainingMonths*(economic.meanWageFactor-1)):0;
  const income=flow.income*remainingMonths+incomeAdjustment+Math.max(0,adjustment)+Math.max(0,-shock),essential=flow.essential*remainingMonths+Math.max(0,-adjustment)+Math.max(0,shock)+habits;

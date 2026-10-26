@@ -1,3 +1,4 @@
+import {moveReserve} from './finance.js';
 import {economyFor,periodEconomy,economyYears} from './economy.js';
 export const ASSETS={bond:{label:'Bond fund'},equity:{label:'Equity fund'}};
 const integer=n=>Number.isSafeInteger(n)&&n>=0;
@@ -55,4 +56,21 @@ export function validInvestmentLedger(f,age,world){
   }
  }
  return Object.keys(ASSETS).every(k=>integer(positions[k].value)&&integer(positions[k].basis)&&positions[k].value===holdingsOf(f)[k].value&&positions[k].basis===holdingsOf(f)[k].basis)&&realized===(f.realizedGain??0);
+}
+// Selling everything: funds become cash in the wallet, and any debt is repaid from it.
+export function sellAll(state){
+ let s=state;for(const asset of Object.keys(ASSETS)){const v=holdingsOf(s.finance)[asset].value;if(v>tradeFee(v))s=trade(s,asset,'sell',v);}
+ const f=s.finance;if(!f?.debt||!f.available)return s;
+ const repaid=Math.min(f.debt,f.available),finance={...f,available:f.available-repaid,debt:f.debt-repaid},last=s.history.at(-1);
+ return {...s,finance,history:[...s.history.slice(0,-1),{...last,finance:{...last.finance,available:finance.available,debt:finance.debt}}]};
+}
+// Choosing to invest is a standing habit: each period until 60 the savings, plus a quarter
+// of the wallet, go into funds split between bonds and shares. Markets then compound it.
+// ponytail: at 60, or when debt appears, everything is sold to cash; a gradual drawdown would keep growth after 60.
+export function autoInvest(state){
+ const f=state.finance,flags=state.story?.flags??{};if(!f||state.stage!=='review'||flags.invests===undefined)return state;
+ if(state.age>=60||f.debt>0||flags.panicSold!==undefined)return holdingsValue(f)>0||f.debt>0&&f.available>0?sellAll(state):state;
+ const amount=Math.floor((f.reserve+f.available/4)/2);if(amount<200)return state;
+ const s=f.reserve?moveReserve(state,f.reserve):state;
+ return trade(trade(s,'bond','buy',amount),'equity','buy',amount);
 }

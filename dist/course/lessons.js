@@ -2,6 +2,7 @@
 // research/nonharvard-lessons.md). Effects are authored game design, not forecasts.
 // `later` consequences return years afterwards, on the timeline and the balance sheet.
 import {regionAt,regionIdFor} from './regions.js';
+import {MONEY_LESSONS} from './money-lessons.js';
 const opt=(id,label,effects,outcome,later=[])=>({id,label,...effects,outcome,later});
 const L=(after,effects,text,when)=>({after,...effects,text,when});
 const At=(at,effects,text,when)=>({at,...effects,text,when});
@@ -100,13 +101,14 @@ export const LESSONS=[
   opt('expand','Expand and work every hour',{cash:20000,health:-2},'You opened a second place and slept less.',[L(10,{cash:120000,health:-6},'Real money, and a body that felt every hour of it.')]),
   opt('small','Stay small and excellent',{wellbeing:3},'You kept it small and knew every customer by name.',[L(10,{cash:30000,wellbeing:5},'Moderate money. People crossed town for what you made.')]) ]}
 ];
+LESSONS.push(...MONEY_LESSONS);
 // Consequences that fall due inside one five-year period, evaluated against the state
 // that period begins from. Pure: the same history always returns the same consequences.
 export function consequencesDue(state,from,to){
  const due=[];
  for(const seen of state.story?.seen??[]){
   const lesson=LESSONS.find(l=>l.id===seen.id),choice=lesson?.options.find(o=>o.id===seen.choice);
-  for(const later of choice?.later??[]){const at=later.at??seen.age+later.after;if(at>seen.age&&at>from&&at<=to&&(!later.when||later.when(state)))due.push({lesson:lesson.id,choice:choice.id,age:at,text:later.text,cash:later.cash??0,health:later.health??0,wellbeing:later.wellbeing??0,skills:later.skills??{}});}
+  for(const later of choice?.later??[]){const at=later.at??seen.age+later.after;if(at>seen.age&&at>from&&at<=to&&(!later.when||later.when(state)))due.push({lesson:lesson.id,choice:choice.id,age:at,text:later.text,cash:typeof later.cash==='function'?later.cash(state):later.cash??0,health:later.health??0,wellbeing:later.wellbeing??0,skills:later.skills??{}});}
  }
  return due;
 }

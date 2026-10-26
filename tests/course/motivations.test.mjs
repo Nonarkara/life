@@ -1,7 +1,10 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {newLife,begin,live,sanitiseProfile,validate} from '../../dist/course/sim.js';
+import {newLife,begin,live as liveAll,sanitiseProfile,validate,rand} from '../../dist/course/sim.js';
+import {offerEncounter,resolveEncounter} from '../../dist/course/encounters.js';
+// The authored story without the blog and money lessons, with the same seeded roll.
+const live=s=>{const n=liveAll(s);if(!/^[lm]_/.test(n.story?.pending?.id??''))return n;return offerEncounter({...n,story:{...n.story,pending:null}},rand(n.seed,n.age,'encounter'),e=>!/^[lm]_/.test(e.id));};
+
 import {FOCUSES,FOCUS_HINTS,focusEvidence} from '../../dist/course/motivations.js';
-import {resolveEncounter} from '../../dist/course/encounters.js';
 import {translate} from '../../dist/course/i18n.js';
 test('legacy profiles remain valid and unknown focus cannot masquerade as a saved focus',()=>{
  const old=begin(newLife(1));assert.ok(validate(old));assert.equal(sanitiseProfile(old.profile,20).focus,undefined);

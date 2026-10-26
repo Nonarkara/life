@@ -39,4 +39,4 @@ export function careerFactor(state){
 }
 // Your own venture swings: most periods cost money, some pay well.
 export function ventureSwing(state,age){const f=state.story?.flags?.founder;if(f===undefined||age<=f)return 0;return rand(state.seed,age,'venture')<.3?60000:-15000;}
-export const dogAt=(state,age)=>{const d=state.story?.flags?.dog;return d!==undefined&&age>=d&&age<d+13;};
+export const dogAt=(state,age)=>{const d=state.story?.flags?.dog;const died=state.story?.flags?.dogDied;return d!==undefined&&age>=d&&age<(died??d+13);};

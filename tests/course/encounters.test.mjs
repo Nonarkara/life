@@ -4,7 +4,7 @@ import {newLife,configureLife,begin,live as liveAll,replay,validate,rand} from '
 import {ENCOUNTERS,encounterById,eligibleEncounters,offerEncounter,resolveEncounter} from '../../dist/course/encounters.js';
 import {eventsFor} from '../../dist/course/events.js';
 // These tests walk the authored story; lessons are excluded with the same seeded roll so the sequence is unchanged.
-const live=s=>{const n=liveAll(s);if(!n.story?.pending?.id.startsWith('l_'))return n;return offerEncounter({...n,story:{...n.story,pending:null}},rand(n.seed,n.age,'encounter'),e=>!e.id.startsWith('l_'));};
+const live=s=>{const n=liveAll(s);if(!/^[lm]_/.test(n.story?.pending?.id??''))return n;return offerEncounter({...n,story:{...n.story,pending:null}},rand(n.seed,n.age,'encounter'),e=>!/^[lm]_/.test(e.id));};
 import {capacities,capacityHistory,comparison} from '../../dist/course/personality.js';
 import {translate} from '../../dist/course/i18n.js';
 const settle=(s,id,roll=.2)=>{if(!s.story?.pending)return s;const options=encounterById(s.story.pending.id).options.filter(o=>choiceAvailable(s,o));return resolveEncounter(s,options.find(o=>o.id===id)?.id??options[0].id,roll);};

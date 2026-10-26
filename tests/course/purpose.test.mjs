@@ -1,7 +1,10 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
-import {newLife,begin,live,goals} from '../../dist/course/sim.js';
+import {newLife,begin,live as liveAll,goals,rand} from '../../dist/course/sim.js';
+import {offerEncounter,resolveEncounter} from '../../dist/course/encounters.js';
+// The authored story without the blog and money lessons, with the same seeded roll.
+const live=s=>{const n=liveAll(s);if(!/^[lm]_/.test(n.story?.pending?.id??''))return n;return offerEncounter({...n,story:{...n.story,pending:null}},rand(n.seed,n.age,'encounter'),e=>!/^[lm]_/.test(e.id));};
+
 import {purpose,purposeRecord} from '../../dist/course/purpose.js';
-import {resolveEncounter} from '../../dist/course/encounters.js';
 test('purpose has no invented childhood or legacy score and planning changes cannot rewrite it',()=>{
  const initial=newLife(55);assert.equal(purpose(initial).index,null);
  const next=live({...begin(initial),profile:{...initial.profile,focus:'growth'}}),s=resolveEncounter(next,'together',.5),before=JSON.stringify(s);

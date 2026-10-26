@@ -1,3 +1,4 @@
+import {sellAll} from './investments.js';
 import {choiceAvailable,personalFlow} from './finance.js';
 import {mismatched,partnerNature,together} from './life-choices.js';
 import {LESSONS} from './lessons.js';
@@ -6,7 +7,7 @@ import {LESSONS} from './lessons.js';
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
 const option=(id,label,effects,outcome)=>({id,label,...effects,outcome});
 export const ENCOUNTERS=[
- {id:'friend',category:'connection',min:15,max:20,title:'An invitation after school',prompt:'{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.',options:[
+ {id:'friend',category:'connection',min:15,max:20,priority:1,title:'An invitation after school',prompt:'{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.',options:[
   option('join','Make time for a new friend',{cash:-300,wellbeing:3,flag:'friend'},'You and {friend} found time for each other. A friendship began.'),
   option('home','Go home and finish your project',{skills:{craft:1}},'You stayed home and finished something that had been waiting.'),
   option('together','Study together, then take a walk',{skills:{iq:1,eq:1},wellbeing:1,flag:'friend'},'You and {friend} worked through a difficult lesson, then talked on the walk home. Neither part of the afternoon lasted as long as you wanted.'),
@@ -33,7 +34,7 @@ export const ENCOUNTERS=[
  {id:'friend_care',category:'connection',min:40,max:60,title:'A familiar voice asks for help',prompt:'{friend} is going through a difficult time and asks if you can come over.',eligible:s=>s.story.flags.friend!==undefined,options:[
   option('visit','Go and sit with your friend',{cash:-300,wellbeing:2,flag:'supportedFriend'},'You sat with {friend}. You could not fix everything, but you kept showing up.'),
   option('call','Be honest about your limits and call',{wellbeing:1},'You told {friend} what you could manage and stayed in touch by phone.') ]},
- {id:'child_school',category:'family',min:45,max:65,title:'Your child has a new question',prompt:'Your child is beginning to imagine a future of their own. They ask you to help them try something unfamiliar.',eligible:s=>s.story.flags.parent!==undefined&&s.age-s.story.flags.parent>=10,options:[
+ {id:'child_school',category:'family',min:45,max:65,title:'Your child has a new question',prompt:'Your child is beginning to imagine a future of their own. They ask you to help them try something unfamiliar.',eligible:s=>s.story.flags.parent!==undefined&&s.story.flags.childLost===undefined&&s.age-s.story.flags.parent>=10,options:[
   option('materials','Pay for the materials and learn together',{cash:-2000,wellbeing:3},'You and your child learned something neither of you knew before.'),
   option('walk','Make time to listen and plan together',{wellbeing:2,skills:{eq:1}},'You listened to what your child wanted, then found a first step you could manage together.') ]},
  {id:'health_rest',category:'health',min:40,max:75,priority:1,title:'Give recovery some room',prompt:'A health setback has already interrupted this period. The next step is making room for recovery.',eligible:s=>s.history.at(-1)?.event.includes('health setback'),options:[
@@ -100,7 +101,7 @@ export function resolveEncounter(state,choiceId,roll){
  for(const[key,value]of Object.entries(effects.skills))next.skills[key]+=value;
  const last=state.history.at(-1);
  next.history=[...state.history.slice(0,-1),{...last,...(next.finance?{finance:{...(last.finance??{}),available:next.finance.available,reserve:next.finance.reserve,debt:next.finance.debt}}:{}),cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];
- return next;
+ return choice.sellAll?sellAll(next):next;
 }
 export function validStory(story,age,state){
  if(story===undefined)return true;
