@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {illustratedMaterial} from './art-direction.js';
+import {illustratedMaterial,tint} from './art-direction.js';
 import {shopfront,createInhabitedRooms} from './inhabited3d.js';
 import {createCharacter} from './character3d.js';
 import {routine,routineContext,samplePath,HOME,HOME_FACING} from './routines.js';
@@ -187,7 +187,9 @@ function createScene(original){
   districts.update(state,age);inhabited.update(state,age);
   const manual=context.pathway==='vocational'&&age>=15&&age<60;workChair.visible=!manual;laptop.visible=!manual;workpiece.visible=manual;infant.visible=age<1;cradleGroup.visible=age<6;bus.visible=age>=5;bus.position.set(-1+time*.12%14,0,7.25);for(const[from,group]of growth)group.visible=age>=from;
   flood.visible=state.history.some(r=>r.age===30)&&age>=30&&age<36;
-  const mood=lifeMoodAt(state,age);if(mood!==lastMood){lastMood=mood;const chord=MOOD_CHORDS[mood];land.material.color.set(place.look.ground).lerp(new T.Color(chord.land),.35);materials.get('#899273')?.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);materials.get('#526c50')?.color.set(chord.leaf);materials.get('#5b7f80')?.color.set(place.look.water).lerp(new T.Color(chord.water),.3);scene.background.set(chord.waterLight).lerp(new T.Color(chord.water),.6);for(const b of buildings)for(const {material}of b.surfaces){if(material.userData.roof)material.color.set(chord.roof).lerp(new T.Color('#766350'),.45);if(material.userData.ground)material.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);}}
+  const mood=lifeMoodAt(state,age);if(mood!==lastMood){lastMood=mood;const chord=MOOD_CHORDS[mood];land.material.color.set(place.look.ground).lerp(new T.Color(chord.land),.35);materials.get('#899273')?.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);materials.get('#526c50')?.color.set(chord.leaf);materials.get('#5b7f80')?.color.set(place.look.water).lerp(new T.Color(chord.water),.3);scene.background.set(chord.waterLight).lerp(new T.Color(chord.water),.6);for(const b of buildings)for(const {material}of b.surfaces){if(material.userData.roof)material.color.set(chord.roof).lerp(new T.Color('#766350'),.45);if(material.userData.ground)material.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);}
+   // Mood and region colours still pass through the world's Wada chord.
+   for(const c of [land.material.color,materials.get('#526c50')?.color,materials.get('#5b7f80')?.color,scene.background])if(c)tint(c,.28);for(const b of buildings)for(const {material}of b.surfaces)if(material.userData.roof)tint(material.color,.3);}
   const evening=time%60>=48;sun.intensity=evening?1.1:2.5;hemi.intensity=evening?.75:1.4;sun.color.set(evening?'#ffcf9a':'#fff2d1');glow.intensity=evening?2.6:0;shade.material.emissiveIntensity=evening?.9:0;toys.visible=age>=1&&age<8;dogGroup.visible=dogAt(state,age);
   // Architectural cutaways keep the protagonist readable through foreground buildings.
   scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);
