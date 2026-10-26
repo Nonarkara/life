@@ -20,15 +20,18 @@ export function ikigai(state){
  const practiced=rows.reduce((n,r)=>n+axes.reduce((m,k)=>m+(r.effort[k]??0),0),0)/axes.length;
  const good=clamp(100*Math.min(1,practiced/(rows.length*(axes.length===4?2.5:4))));
  // What the world gets from you: recorded acts of help, care, teaching and raising others.
- const acts=seen.filter(e=>CARE_IDS.has(e.id)&&HELP.has(e.choice)).length+seen.filter(e=>e.id==='parenthood'&&e.choice!=='wait').length;
- const world=clamp(100*Math.min(1,acts/4));
+ const acts=seen.filter(e=>CARE_IDS.has(e.id)&&HELP.has(e.choice)).length;
+ // Before 30 a life may simply not have met a chance to give; that is unmeasured, not zero.
+ const world=acts===0&&(state.age??0)<30?null:clamp(100*Math.min(1,acts/4));
  // What sustains you: the share of chapters in which income covered living costs. Enough, not wealth.
  const periods=(state.finance?.receipts??[]).filter(r=>r.kind==='period'&&r.age>20);
  const sustained=periods.length?periods.filter(r=>r.income>=r.essential).length/periods.length:(state.cash>=0?1:0);
  const paid=clamp(100*sustained);
  const parts={love,good,world,paid};
  // Overlap: a geometric mean, so maxing one reading cannot carry the others.
- const score=clamp(Math.pow(Object.values(parts).reduce((n,v)=>n*Math.max(1,v),1),1/4));
- const overlaps={passion:Math.min(love,good),mission:Math.min(love,world),vocation:Math.min(world,paid),profession:Math.min(good,paid)};
+ const measured=Object.values(parts).filter(v=>v!==null);
+ const score=clamp(Math.pow(measured.reduce((n,v)=>n*Math.max(1,v),1),1/measured.length));
+ const both=(a,b)=>a===null||b===null?null:Math.min(a,b);
+ const overlaps={passion:both(love,good),mission:both(love,world),vocation:both(world,paid),profession:both(good,paid)};
  return {version:'four-readings-1',score,parts,overlaps,chapters:rows.length};
 }
