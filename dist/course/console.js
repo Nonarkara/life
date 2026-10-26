@@ -68,6 +68,8 @@ export function initConsole({getState,change,isMoving=()=>false}){
   p.append(element('h2','Environment'));const flood=s.history.find(r=>eventsFor(r).some(e=>e.type==='flood'));p.append(element('p',flood?'Floodwater damages the family home. Repairs take money and time.':'No environmental event recorded yet.'));
 
  }
- function render(){const scroll=panes[active].scrollTop,s=getState();buttons.money.disabled=s.age<10;hud.replaceChildren();for(const[label,value]of [['Physical health',Math.round(s.health)+' / 100'],['Wellbeing',Math.round(s.wellbeing)+' / 100'],[s.finance?'Personal net worth':'Family savings',money(s.finance?netWorth(s.finance):s.cash)]])hud.append(element('dt',label),element('dd',value));select(active);panes[active].scrollTop=scroll;}
+ function render(){const scroll=panes[active].scrollTop,s=getState();
+  // One review surface first: a tab appears only once it has something of this life to show.
+  const end=s.stage==='recap',opens={money:15,cv:20,world:20,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active='plan';hud.replaceChildren();for(const[label,value]of [['Physical health',Math.round(s.health)+' / 100'],['Wellbeing',Math.round(s.wellbeing)+' / 100'],[s.finance?'Personal net worth':'Family savings',money(s.finance?netWorth(s.finance):s.cash)]])hud.append(element('dt',label),element('dd',value));select(active);panes[active].scrollTop=scroll;}
  return {render,select};
 }

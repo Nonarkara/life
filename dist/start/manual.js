@@ -1,4 +1,4 @@
-import {initSettings,applyPreferences,preferences} from '../course/i18n.js';
+import {initSettings,applyPreferences,preferences,t} from '../course/i18n.js';
 import {symbolMarkup} from '../course/event-graphics.js';
 for(const el of document.querySelectorAll('[data-symbol]'))el.insertAdjacentHTML('afterbegin',symbolMarkup(el.dataset.symbol));
 initSettings();
@@ -20,3 +20,5 @@ show(location.hash.slice(1),false);
 const langs=[...document.querySelectorAll('[data-lang]')],mark=()=>{for(const b of langs)b.setAttribute('aria-pressed',String(b.dataset.lang===preferences.language));};
 for(const b of langs)b.addEventListener('click',()=>{applyPreferences({language:b.dataset.lang});mark();});
 addEventListener('life-preferences',mark);mark();
+// Return hook: a life left mid-way is waiting where it stopped.
+try{const saved=JSON.parse(localStorage.getItem('life-course-v2')),el=document.getElementById('last-life');if(saved&&saved.stage!=='recap'&&saved.birth?.place&&Number.isInteger(saved.age)&&el){const paint=()=>{el.textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));};paint();el.hidden=false;addEventListener('life-preferences',paint);}}catch{}

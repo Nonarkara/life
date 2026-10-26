@@ -150,3 +150,5 @@ html[lang=th] .pamphlet{--micro:12.5px}
  .pamphlet .spread .detail-head .credits{display:block}
 }
 @media (max-width:1180px) and (min-width:721px){.pamphlet .spread{overflow-y:auto}.pamphlet .spread .detail-head,.pamphlet .spread .col{overflow:visible}}
+.pamphlet .waiting{display:block;margin:14px 0 0;padding:10px 12px;border:1px solid var(--ink);font-weight:600;text-decoration:none}
+.pamphlet .waiting[hidden]{display:none}

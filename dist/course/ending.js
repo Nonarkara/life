@@ -1,5 +1,6 @@
 import {LESSONS} from './lessons.js';
 import {ikigai} from './ikigai.js';
+import {t} from './i18n.js';
 import {drawRouteMap,routeModel,routeText} from './routemap.js';
 import {netWorth} from './finance.js';
 import {preferences} from './i18n.js';
@@ -26,6 +27,10 @@ export function renderEnding(root,state){
   if(returned.length){const h=document.createElement('h2');h.textContent='What your choices cost later';const ol=document.createElement('ol');for(const c of returned){const li=document.createElement('li'),age=document.createElement('b'),text=document.createElement('span'),from=document.createElement('small');age.textContent='Age '+c.age;from.textContent=LESSONS.find(l=>l.id===c.lesson)?.title??'';text.append(from);text.append(document.createTextNode(c.text+(c.cash?' '+(c.cash>0?'+':'−')+money(Math.abs(c.cash)):'')));li.append(age,text);ol.append(li);}box.append(h,ol);}
   if(taken.length){const h=document.createElement('h2');h.textContent='Lessons this life taught';const ol=document.createElement('ol');ol.className='taught';for(const e of taken){const l=LESSONS.find(x=>x.id===e.id),li=document.createElement('li'),title=document.createElement('b'),chose=document.createElement('span'),lesson=document.createElement('p'),link=document.createElement('a');title.textContent=l.title;chose.textContent='You chose: '+l.options.find(o=>o.id===e.choice).label;lesson.textContent=l.lesson;link.href=l.source;link.target='_blank';link.rel='noopener';link.textContent='Read the essay';li.append(title,chose,lesson,link);ol.append(li);}box.append(h,ol);}
   root.append(box);}
+ // A card to keep or send: where you went, what you were, one line in your own words.
+ const share=document.createElement('section');share.className='ending-share';const lineLabel=document.createElement('label');lineLabel.textContent='One line about this life';const words=document.createElement('input');words.type='text';words.maxLength=90;words.placeholder='In your own words';lineLabel.append(words);const save=document.createElement('button');save.type='button';save.className='primary';save.textContent='Save your life card';const status=document.createElement('p');status.className='fine';status.setAttribute('role','status');share.append(lineLabel,save,status);root.append(share);
+ save.onclick=async()=>{const blob=await lifeCard(state,words.value.trim());const file=new File([blob],'life2-card.png',{type:'image/png'});// Phones get the share sheet; computers save the file directly.
+ if(matchMedia('(pointer:coarse)').matches&&navigator.canShare?.({files:[file]})){try{await navigator.share({files:[file],title:'Life2.0',text:'life.nonarkara.org'});return;}catch{}}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life2-card.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);status.textContent='Saved as life2-card.png.';};
  const frame=document.createElement('div');frame.className='ending-visual';
  const chart=document.createElementNS(NS,'svg');chart.classList.add('ending-chart');chart.setAttribute('role','group');chart.setAttribute('aria-label','Health, wellbeing and cash across age');
  const detail=document.createElement('section');detail.className='ending-reading';
@@ -59,4 +64,17 @@ export function renderEnding(root,state){
   chart.append(svg('text',{x:left,y:353,class:'ending-tick'},'Age'));
  }
  age.onchange=show;show();let lastWidth=chart.getBoundingClientRect().width;resizeObserver=new ResizeObserver(()=>{const width=chart.getBoundingClientRect().width;if(width!==lastWidth){lastWidth=width;draw(Number(age.value));}});resizeObserver.observe(chart);
+}
+
+// The life card is drawn from the record alone: no invented praise, no score for a good life.
+export async function lifeCard(state,words){
+ const W=1200,H=630,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
+ g.fillStyle='#f4efe3';g.fillRect(0,0,W,H);g.fillStyle='#111614';g.fillRect(0,H-44,W,44);
+ const map=document.createElement('canvas');map.width=W-96;map.height=300;drawRouteMap(map,state,{width:W-96,height:300});g.drawImage(map,48,170);
+ g.fillStyle='#273d35';g.font='600 46px Jost, sans-serif';g.fillText('Life2.0',48,78);
+ g.font='26px Jost, sans-serif';g.fillText(t('Born in')+' '+t(state.birth.place)+' · '+t('Age {n}').replace('{n}',state.age),48,124);
+ const k=ikigai(state);g.font='600 22px Jost, sans-serif';const pillars=[[t('Physical health'),Math.round(state.health)],[t('Wellbeing'),Math.round(state.wellbeing)],['Ikigai',k?.score??'—']];pillars.forEach(([label,v],i)=>{g.fillText(label+' '+v,48+i*300,510);});
+ if(words){g.font='italic 26px Jost, sans-serif';g.fillText('“'+words+'”',48,560);}
+ g.fillStyle='#d9dcd2';g.font='16px JetBrains Mono, monospace';g.fillText('LIFE.NONARKARA.ORG',48,H-16);
+ return new Promise(r=>c.toBlob(r,'image/png'));
 }

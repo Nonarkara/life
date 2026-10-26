@@ -1,5 +1,32 @@
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Country of birth|ประเทศที่เกิด|出生国家|出生国|출생 국가
+Random · most lives begin in Thailand|สุ่ม · ชีวิตส่วนใหญ่เริ่มที่ประเทศไทย|随机 · 大多数人生始于泰国|ランダム・多くの人生はタイで始まる|무작위 · 대부분의 삶은 태국에서 시작됩니다
+Thailand|ไทย|泰国|タイ|태국
+Japan|ญี่ปุ่น|日本|日本|일본
+Singapore|สิงคโปร์|新加坡|シンガポール|싱가포르
+United Kingdom|สหราชอาณาจักร|英国|イギリス|영국
+United States|สหรัฐอเมริกา|美国|アメリカ|미국
+Birth record · Form L-2026|ทะเบียนการเกิด · แบบฟอร์ม L-2026|出生记录 · 表格 L-2026|出生記録・書式 L-2026|출생 기록 · 양식 L-2026
+You are born|คุณเกิดมา|你出生了|あなたは生まれる|당신이 태어납니다
+Draw again|สุ่มใหม่|重新抽取|もう一度引く|다시 뽑기
+Share this birth|แชร์การเกิดนี้|分享这次出生|この誕生をシェア|이 출생 공유하기
+Place|สถานที่|地点|場所|장소
+Raised by|เลี้ยงดูโดย|抚养者|育ててくれる人|양육자
+In this game, about 1 in {n} lives begin like this.|ในเกมนี้ ราว 1 ใน {n} ชีวิตเริ่มต้นแบบนี้|在这个游戏里，大约每 {n} 个人生中有 1 个这样开始。|このゲームでは、およそ {n} 人に 1 人がこう始まる。|이 게임에서 약 {n}명 중 1명의 삶이 이렇게 시작됩니다.
+I was born in {place}, into {home}. About 1 in {n} lives begin like this.|ผมเกิดที่{place} ใน{home} ราว 1 ใน {n} ชีวิตเริ่มต้นแบบนี้|我出生在{place}，{home}。大约每 {n} 个人生中有 1 个这样开始。|{place}の{home}に生まれた。およそ {n} 人に 1 人がこう始まる。|{place}의 {home}에서 태어났다. 약 {n}명 중 1명의 삶이 이렇게 시작된다.
+Copied. Paste it anywhere.|คัดลอกแล้ว วางที่ไหนก็ได้|已复制，可粘贴到任何地方。|コピーしました。どこにでも貼り付けられます。|복사했습니다. 어디든 붙여 넣으세요.
+Your last life is waiting: age {n}, {place} →|ชีวิตล่าสุดของคุณรออยู่: อายุ {n} ปี, {place} →|你上一次的人生还在等你：{n}岁，{place} →|前回の人生が待っている：{n}歳、{place} →|지난 삶이 기다립니다: {n}세, {place} →
+Nothing measurable changed yet. Some choices return later.|ยังไม่มีสิ่งใดเปลี่ยนแปลงที่วัดได้ บางทางเลือกจะย้อนกลับมาภายหลัง|目前还没有可衡量的变化。有些选择会在以后回来。|まだ目に見える変化はない。いくつかの選択はあとで戻ってくる。|아직 측정할 수 있는 변화는 없습니다. 어떤 선택은 나중에 돌아옵니다.
+One line about this life|หนึ่งประโยคเกี่ยวกับชีวิตนี้|关于这一生的一句话|この人生について一行|이 삶에 대한 한 줄
+In your own words|ด้วยคำพูดของคุณเอง|用你自己的话|自分の言葉で|당신의 말로
+Save your life card|บันทึกการ์ดชีวิตของคุณ|保存你的人生卡片|人生カードを保存|인생 카드 저장
+Saved as life2-card.png.|บันทึกเป็น life2-card.png แล้ว|已保存为 life2-card.png。|life2-card.png として保存しました。|life2-card.png로 저장했습니다.
+a household in a public housing flat|ครอบครัวในแฟลตการเคหะ|住在组屋里的家庭|公営住宅の家庭|공공 주택에 사는 가정
+a household in a small Tokyo apartment|ครอบครัวในอพาร์ตเมนต์เล็ก ๆ ในโตเกียว|住在东京小公寓里的家庭|東京の小さなアパートの家庭|도쿄의 작은 아파트에 사는 가정
+a household in a three-family house|ครอบครัวในบ้านสามครอบครัว|住在三户合住房里的家庭|三世帯住宅の家庭|3가구 주택에 사는 가정
+a household in a terraced house|ครอบครัวในบ้านแถว|住在联排房屋里的家庭|テラスハウスの家庭|연립주택에 사는 가정
+Born into {home} in {place}. Raised by {who}. Live one life: from ten, spend ten points every five years and face its decisions; at the end, see where you went, what it cost and what it taught, then live again in the same world.|เกิดใน{home}ที่{place} เติบโตมากับ{who} ใช้ชีวิตหนึ่งชีวิต: ตั้งแต่อายุสิบ จัดสรรสิบแต้มทุกห้าปีและเผชิญการตัดสินใจ ในตอนท้ายดูว่าคุณไปที่ไหน แลกกับอะไร และได้เรียนรู้อะไร แล้วใช้ชีวิตใหม่ในโลกเดิม|出生于{place}的{home}，由{who}抚养长大。过一次人生：从十岁起，每五年分配十点并面对抉择；最后看看你去过哪里、付出了什么、学到了什么，然后在同一个世界里再活一次。|{place}の{home}に生まれ、{who}に育てられる。一つの人生を生きよう。10歳からは5年ごとに10ポイントを配分し、決断に向き合う。最後に、どこへ行き、何を代償にし、何を学んだかを見て、同じ世界でもう一度生きる。|{place}의 {home}에서 태어나 {who}의 손에 자란다. 하나의 삶을 살아 보자. 열 살부터 5년마다 10점을 나누고 결정을 마주한다. 끝에는 어디로 갔는지, 무엇을 치렀는지, 무엇을 배웠는지 보고, 같은 세상에서 다시 산다.
 Born in|เกิดที่|出生于|生まれる場所|출생지
 Form L-2026 · Session order|แบบฟอร์ม L-2026 · คำสั่งเซสชัน|表格 L-2026 · 疗程预约|書式 L-2026・セッション申込|양식 L-2026 · 세션 신청
 A life begins with conditions you did not earn. Leave them to chance, as birth does, or set them yourself. Either way the outcome stays open.|ชีวิตเริ่มต้นจากเงื่อนไขที่คุณไม่ได้เลือก ปล่อยให้โชคชะตากำหนดเหมือนการเกิด หรือกำหนดเอง ไม่ว่าทางใด ผลลัพธ์ยังเปิดกว้าง|人生始于你无法选择的条件。像出生一样交给机缘，或自己设定。无论哪种，结局都还未定。|人生は自分で選べなかった条件から始まる。生まれのように偶然に任せるか、自分で決めるか。どちらでも結末は開かれている。|삶은 스스로 얻지 않은 조건에서 시작된다. 출생처럼 우연에 맡기거나 직접 정할 수 있다. 어느 쪽이든 결말은 열려 있다.

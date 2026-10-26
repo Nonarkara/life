@@ -26,10 +26,12 @@
   <label for="upbringing"><span class="n">02</span> Upbringing</label>
   <select id="upbringing"><option value="random">Random</option><option value="constrained">Limited household resources</option><option value="middle">Middle household resources</option><option value="comfortable">Comfortable household resources</option></select>
   <p class="fine" id="band-note">Sets family support, school and where you are born.</p>
+  <label for="country"><span class="n">03</span> Country of birth</label>
+  <select id="country"><option value="random">Random · most lives begin in Thailand</option><option value="th">Thailand</option><option value="jp">Japan</option><option value="sg">Singapore</option><option value="gb">United Kingdom</option><option value="us">United States</option></select>
   <p class="disclaimer">These are fictional starting conditions and authored game rules, not demographic data.</p>
  </article>
  <article class="panel starting-shape">
-  <h2><span class="n">03</span> Starting shape <span class="count">10 / 10 points</span></h2>
+  <h2><span class="n">04</span> Starting shape <span class="count">10 / 10 points</span></h2>
   <svg id="intake-radar" viewBox="0 0 360 280" role="group" aria-label="Choose an attribute, then adjust its points"></svg>
   <div class="point-editor"><button id="point-minus" type="button" aria-label="Remove one point" aria-describedby="selected-axis">−</button><output id="selected-points" aria-live="polite"></output><button id="point-plus" type="button" aria-label="Add one point" aria-describedby="selected-axis">+</button><span id="selected-axis"></span></div>
   <p class="fine">Select an attribute on the diagram. ± moves a point to or from your largest other attribute. Ten points are a game constraint, not a biological law.</p>
@@ -37,6 +39,7 @@
   <div class="actions"><button type="submit" class="begin">Begin this life →</button></div>
  </article>
 </form>
+<dialog id="birth-card" aria-labelledby="birth-title"><p class="eyebrow">Birth record · Form L-2026</p><h2 id="birth-title">You are born</h2><dl class="spec" id="birth-facts"></dl><p class="odds" id="birth-odds"></p><div class="actions"><button type="button" class="begin" id="birth-begin">Begin this life →</button><button type="button" class="quiet" id="birth-again">Draw again</button><button type="button" class="quiet" id="birth-share">Share this birth</button></div><p class="fine" id="birth-shared" role="status"></p></dialog>
 </main>
 <footer class="hub"><span>Hub session services</span><span>Form L-2026 · Chair 44</span><span>Screen edition · v2026.1</span><span class="wide">Your record stays in this browser</span><span>life.nonarkara.org</span></footer>
 </body></html>
