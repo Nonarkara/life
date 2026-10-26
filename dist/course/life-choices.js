@@ -1,6 +1,6 @@
 // Life-forking decisions. Pay factors, fit thresholds and odds are authored game
 // tuning, not career, marriage or health statistics.
-import {rand} from './sim.js';
+import {rand,flagsOf} from './sim.js';
 export const MAJORS={
  medicine:{label:'Medicine',axes:['iq','eq'],pay:1.6,cost:30000},
  engineering:{label:'Engineering',axes:['iq','drive'],pay:1.4,cost:20000},
@@ -22,16 +22,16 @@ export const mismatched=state=>{const m=majorOf(state);return !!m&&majorFit(stat
 // A partner's character is only partly visible when you commit. Better judgement (EQ)
 // improves the odds; it never guarantees them.
 export function partnerNature(state){
- const flags=state.story?.flags??{},since=flags.married??flags.committed??flags.apart;if(since===undefined)return null;
+ const flags=flagsOf(state),since=flags.married??flags.committed??flags.apart;if(since===undefined)return null;
  const row=(state.history??[]).find(r=>r.age===since),eq=(row?.effort?.eq??2)+(state.attributes?.eq??2);
  const q=rand(state.seed,since,'partner-nature')+eq*.025;
  return q<.22?'difficult':q>.68?'kind':'ordinary';
 }
-export const together=state=>{const f=state.story?.flags??{};return (f.married??f.committed??f.apart)!==undefined&&f.separated===undefined;};
-export const reconciled=state=>state.story?.flags?.counselled!==undefined&&rand(state.seed,state.story.flags.counselled,'counsel')<.5;
+export const together=state=>{const f=flagsOf(state);return (f.married??f.committed??f.apart)!==undefined&&f.separated===undefined;};
+export const reconciled=state=>{const f=flagsOf(state);return f.counselled!==undefined&&rand(state.seed,f.counselled,'counsel')<.5;};
 // Pay after the big decisions: field and fit, a changed job, graduate study, your own venture.
 export function careerFactor(state){
- const f=state.story?.flags??{},m=majorOf(state);let k=1;
+ const f=flagsOf(state),m=majorOf(state);let k=1;
  if(m)k*=MAJORS[m].pay*(.85+.3*majorFit(state,m));
  if(f.changedJob!==undefined)k*=.85+rand(state.seed,f.changedJob,'job-change')*.5;
  if(f.graduate!==undefined&&state.age>=f.graduate+5)k*=1.25;
@@ -39,4 +39,4 @@ export function careerFactor(state){
 }
 // Your own venture swings: most periods cost money, some pay well.
 export function ventureSwing(state,age){const f=state.story?.flags?.founder;if(f===undefined||age<=f)return 0;return rand(state.seed,age,'venture')<.3?60000:-15000;}
-export const dogAt=(state,age)=>{const d=state.story?.flags?.dog;const died=state.story?.flags?.dogDied;return d!==undefined&&age>=d&&age<(died??d+13);};
+export const dogAt=(state,age)=>{const f=flagsOf(state);const d=f.dog;const died=f.dogDied;return d!==undefined&&age>=d&&age<(died??d+13);};

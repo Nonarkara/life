@@ -26,16 +26,22 @@ export function drawRouteMap(canvas,state,fixed){
  const left=phone?16:Math.min(220,w*.24),right=24,top=phone?40:48,bottom=34,plot=w-left-right;
  const x=a=>left+a/80*plot,laneGap=Math.min(phone?54:64,(h-top-bottom)/Math.max(1,m.lanes.length)),y=i=>top+laneGap*(i+.5);
  c.font=`${size}px ${font}`;c.textBaseline='middle';
- // Lines for every place lived; names sit at the line's start.
- m.lanes.forEach((id,i)=>{c.strokeStyle=LINE;c.lineWidth=1;c.beginPath();c.moveTo(x(0),y(i));c.lineTo(x(80),y(i));c.stroke();});
+ // Lines for every place lived; the lines blur, so the map reads like flight
+ // paths rather than a ruled table. Names sit at the line's start.
+ m.lanes.forEach((id,i)=>{c.strokeStyle='rgba(201,195,178,.5)';c.lineWidth=phone?8:11;c.lineCap='round';c.beginPath();c.moveTo(x(0),y(i));c.lineTo(x(80),y(i));c.stroke();c.strokeStyle=LINE;c.lineWidth=1;c.beginPath();c.moveTo(x(0),y(i));c.lineTo(x(80),y(i));c.stroke();});
  // Text is drawn last on a paper halo, so the path never cuts through a word.
  const halo=(text,tx,ty)=>{c.lineJoin='round';c.lineWidth=4;c.strokeStyle=PAPER;c.strokeText(text,tx,ty);c.fillText(text,tx,ty);};
  // Age axis: decades, plus the end of this life.
  c.font=`${size-1}px ${font}`;c.fillStyle=MUTED;c.textAlign='center';for(let a=0;a<=80;a+=10){c.fillText(String(a),x(a),h-bottom+18);c.fillRect(x(a)-.5,h-bottom+4,1,5);}
- // The lived path: level along a place's line, a short diagonal at each move.
+ // The lived path: level along a place's line, and at each move the path
+ // curves out of one line and merges into the next, the way a flight path does.
  const lane=id=>m.lanes.indexOf(id),run=mv=>Math.min(4,Math.abs(lane(mv.to)-lane(mv.from))*laneGap/(plot/80));
  c.strokeStyle=AMBER;c.lineWidth=phone?5:6;c.lineJoin='round';c.lineCap='round';c.beginPath();c.moveTo(x(0),y(lane(m.at[0])));
- for(const mv of m.moves){c.lineTo(x(Math.max(0,mv.age-run(mv))),y(lane(mv.from)));c.lineTo(x(mv.age),y(lane(mv.to)));}
+ for(const mv of m.moves){
+  const x0=x(Math.max(0,mv.age-run(mv))),y0=y(lane(mv.from)),x1=x(mv.age),y1=y(lane(mv.to));
+  c.lineTo(x0,y0);
+  c.bezierCurveTo(x0+(x1-x0)*.55,y0,x0+(x1-x0)*.45,y1,x1,y1);
+ }
  c.lineTo(x(m.end),y(lane(m.at[m.end])));c.stroke();
  // Stations every five years on the path; interchanges where the place changed.
  for(let a=0;a<=m.end;a+=5){const py=y(lane(m.at[a]));c.fillStyle=PAPER;c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.arc(x(a),py,3,0,Math.PI*2);c.fill();c.stroke();}

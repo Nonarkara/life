@@ -1,9 +1,16 @@
-import {cpSync,mkdirSync,readdirSync,readFileSync,mkdtempSync,existsSync,renameSync,rmSync} from 'node:fs';
+import {cpSync,mkdirSync,readdirSync,readFileSync,mkdtempSync,existsSync,renameSync,rmSync,statSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {versionReferences} from './asset-versions.mjs';
 const output=mkdtempSync('.life-build-');
 try {
-for(const file of readdirSync('dist/course')){cpSync('dist/course/'+file,output+'/'+file);assert.deepEqual(readFileSync(output+'/'+file),readFileSync('dist/course/'+file));}
+const compare=(from,to)=>{
+ for(const entry of readdirSync(from,{withFileTypes:true})){
+  const source=from+'/'+entry.name,target=to+'/'+entry.name;
+  if(entry.isDirectory()){cpSync(source,target,{recursive:true});compare(source,target);continue;}
+  cpSync(source,target);assert.deepEqual(readFileSync(target),readFileSync(source));
+ }
+};
+compare('dist/course',output);
 console.log('Course output matches authored source.');
 
 // Keep gameplay and the manual at stable sibling routes.
@@ -36,6 +43,18 @@ for(const path of files(output).filter(p=>/\.(html|js)$/.test(p))){
 }
 writeFileSync(output+'/build.json',JSON.stringify({version:'2026.1',build:buildId})+'\n');
 console.log('Versioned module graph: '+buildId);
+
+// The painted stage names its art by path. Versioning those paths with the
+// build keeps a new painting from being served out of an old cache.
+const manifestPath=output+'/course/anime/manifest.json';
+if(existsSync(manifestPath)){
+ const manifest=JSON.parse(readFileSync(manifestPath,'utf8'));
+ const version=path=>path.includes('?')?path+'&v='+buildId:path+'?v='+buildId;
+ for(const[key,path]of Object.entries(manifest.plates??{}))manifest.plates[key]=version(path);
+ for(const[,frames]of Object.entries(manifest.sprites??{}))for(const[name,path]of Object.entries(frames))frames[name]=version(path);
+ writeFileSync(manifestPath,JSON.stringify(manifest,null,1)+'\n');
+ console.log('Stage art versioned with the build.');
+}
 
 // Promote only a complete build. The previous directory is our generated output.
 const previous=output+'.previous';

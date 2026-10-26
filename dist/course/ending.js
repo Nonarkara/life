@@ -5,6 +5,7 @@ import {drawRouteMap,routeModel,routeText} from './routemap.js';
 import {netWorth} from './finance.js';
 import {preferences} from './i18n.js';
 import {rememberedMoments} from './recap.js';
+import {baselineComparison} from './baseline.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
@@ -64,6 +65,32 @@ export function renderEnding(root,state){
   chart.append(svg('text',{x:left,y:353,class:'ending-tick'},'Age'));
  }
  age.onchange=show;show();let lastWidth=chart.getBoundingClientRect().width;resizeObserver=new ResizeObserver(()=>{const width=chart.getBoundingClientRect().width;if(width!==lastWidth){lastWidth=width;draw(Number(age.value));}});resizeObserver.observe(chart);
+ // The life you did not choose: the same world, with no decisions taken.
+ const comparison=baselineComparison(state);
+ if(comparison.rows.length){
+  const box=document.createElement('section');box.className='ending-baseline';box.setAttribute('aria-label','Your life and the life you did not choose');
+  const head=document.createElement('h2');head.textContent='Against the life you did not choose';
+  box.append(head);
+  const note=document.createElement('p');note.className='fine';note.textContent='Same birth, same world, same shocks. That other life spends every station in the default shape and takes no story decision. The difference is what your choices moved.';
+  box.append(note);
+  const table=document.createElement('table'),headRow=document.createElement('tr');
+  for(const label of ['Age','Money · yours / unchosen','Health · yours / unchosen','Wellbeing · yours / unchosen']){const th=document.createElement('th');th.scope='col';th.textContent=label;headRow.append(th);}
+  const head2=document.createElement('thead');head2.append(headRow);table.append(head2);
+  const body=document.createElement('tbody');
+  for(const row of comparison.rows){
+   const tr=document.createElement('tr'),ageCell=document.createElement('th');ageCell.scope='row';ageCell.textContent=String(row.age);
+   const cash=document.createElement('td'),health=document.createElement('td'),wellbeing=document.createElement('td');
+   cash.textContent=money(row.cash)+' / '+money(row.unchosenCash);
+   health.textContent=Math.round(row.health)+' / '+Math.round(row.unchosenHealth);
+   wellbeing.textContent=Math.round(row.wellbeing)+' / '+Math.round(row.unchosenWellbeing);
+   tr.append(ageCell,cash,health,wellbeing);body.append(tr);
+  }
+  table.append(body);box.append(table);
+  const delta=comparison.delta;
+  if(delta){const sign=n=>(n>=0?'+':'')+n;const line=document.createElement('p');line.className='ending-baseline-line';line.textContent='By '+comparison.rows.at(-1).age+', your choices moved money by '+sign(money(delta.cash).replace('฿',''))+' ฿, health by '+sign(Math.round(delta.health))+' and wellbeing by '+sign(Math.round(delta.wellbeing))+' against that other life.';box.append(line);}
+  if(comparison.endedEarly){const line=document.createElement('p');line.className='fine';line.textContent='That other life ended early, so its later stations are missing.';box.append(line);}
+  root.append(box);
+ }
 }
 
 // The life card is drawn from the record alone: no invented praise, no score for a good life.

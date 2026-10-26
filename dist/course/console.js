@@ -6,6 +6,8 @@ import {PURCHASES,HOUSING,openFinance,setBudget,setHousing,setWorkplace,setRegio
 import {availablePathways} from './pathways.js';
 import {buildCV} from './cv.js';
 import {eventsFor} from './events.js';
+import {baselineComparison} from './baseline.js';
+import {alternativeDeltas} from './alternatives.js';
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
 export function initConsole({getState,change,isMoving=()=>false}){
  const main=document.querySelector('main'),stage=main.querySelector('.stage'),decision=main.querySelector('.decision'),resources=main.querySelector('.resources'),method=main.querySelector('.method');
@@ -18,7 +20,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
   const b=element('button',label);b.type='button';b.setAttribute('aria-controls','console-'+key);b.onclick=()=>select(key);buttons[key]=b;nav.append(b);
   const p=element('section');p.id='console-'+key;p.className='console-panel';p.setAttribute('aria-label',label);panes[key]=p;
  }
- panes.plan.append(decision);panes.history.append(resources,method);reader.append(nav,...Object.values(panes));const actions=element('div',undefined,'console-actions');actions.append(reader.querySelector('#commit'));reader.append(actions);main.append(reader);
+ panes.plan.append(decision);panes.history.append(resources,method);const comparison=element('section',undefined,'baseline-compare');comparison.setAttribute('aria-label','Your life and the life you did not choose');panes.history.append(comparison);reader.append(nav,...Object.values(panes));const actions=element('div',undefined,'console-actions');actions.append(reader.querySelector('#commit'));reader.append(actions);main.append(reader);
  const hud=element('dl',undefined,'life-hud'),wide=matchMedia('(min-width:721px)'),placeHud=()=>{const target=document.getElementById('condition-live');if(target)target.append(hud);else if(wide.matches)reader.insertBefore(hud,actions);else stage.append(hud);};placeHud();wide.addEventListener('change',placeHud);
  const header=document.querySelector('header');new ResizeObserver(()=>document.documentElement.style.setProperty('--life-header-height',header.getBoundingClientRect().height+'px')).observe(header);
  function select(key){active=key;actions.hidden=key!=='plan'&&key!=='you';if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}if(key==='cv')cvPane(getState());if(key==='world')worldPane(getState());for(const[k,p]of Object.entries(panes)){p.hidden=k!==key;buttons[k].setAttribute('aria-pressed',String(k===key));}panes[key].scrollTop=0;}
@@ -55,6 +57,47 @@ export function initConsole({getState,change,isMoving=()=>false}){
   const p=panes.cv;heading(p,'Your CV','Completed records, not plans. Studies do not automatically mean a degree.');const grid=element('div',undefined,'cv-grid'),entries=buildCV(s);
   for(const[kind,label]of [['education','Education'],['work','Work'],['projects','Projects'],['milestones','Milestones']]){const matching=entries.filter(e=>e.kind===kind);if(!matching.length)continue;const group=element('section');group.append(element('h2',label));const list=element('ul');for(const entry of matching){const li=element('li'),date=element('span',entry.from===entry.to?'Age '+entry.from:entry.from+'–'+entry.to),text=element('span',entry.label);li.append(date,text);list.append(li);}group.append(list);grid.append(group);}if(!entries.length)p.append(element('p','Nothing recorded yet.','console-note'));p.append(grid);
  }
+ // The counterfactual: the same life with no decisions taken. The difference
+ // between the two lines is what this player's choices moved.
+ function baselinePane(s){
+  const p=comparison;p.replaceChildren();
+  p.append(element('h2','Your life and the life you did not choose'));
+  if(s.age<15||s.history.filter(row=>row.age>=10).length<2){p.append(element('p','From 15, this life is measured against the one you did not choose.','console-note'));return;}
+  const {rows,delta,endedEarly}=baselineComparison(s);
+  if(!rows.length){p.append(element('p','No comparison is available yet.','console-note'));return;}
+  p.append(element('p','Same birth, same world, same shocks. The other life spends every station in the default shape and takes no story decision, so the difference you see below is yours.','console-note'));
+  const table=element('table'),head=element('thead'),headRow=element('tr');
+  for(const label of ['Age','Money · yours / unchosen','Health · yours / unchosen','Wellbeing · yours / unchosen']){const th=element('th',undefined);th.scope='col';th.textContent=label;headRow.append(th);}
+  head.append(headRow);table.append(head);
+  const body=element('tbody');
+  for(const row of rows){
+   const tr=element('tr'),age=element('th');age.scope='row';age.textContent=String(row.age);
+   const cash=element('td'),health=element('td'),wellbeing=element('td');
+   cash.textContent=money(row.cash)+' / '+money(row.unchosenCash);
+   health.textContent=Math.round(row.health)+' / '+Math.round(row.unchosenHealth);
+   wellbeing.textContent=Math.round(row.wellbeing)+' / '+Math.round(row.unchosenWellbeing);
+   tr.append(age,cash,health,wellbeing);body.append(tr);
+  }
+  table.append(body);p.append(table);
+  if(delta){const sign=n=>(n>=0?'+':'')+n;p.append(element('p','At '+rows.at(-1).age+', your choices moved money by '+sign(money(delta.cash).replace('฿',''))+' ฿, health by '+sign(Math.round(delta.health))+' and wellbeing by '+sign(Math.round(delta.wellbeing))+' against that other life.','console-note'));}
+  if(endedEarly)p.append(element('p','That other life ended early, so its later stations are missing.','console-note'));
+  // The roads not taken: the other answer to a question, lived to the end of
+  // those five years with the same luck and the same world.
+  const roads=alternativeDeltas(s);
+  if(roads.length){
+   p.append(element('h3','The roads you did not take'));
+   p.append(element('p','At every question, each other answer was lived to the end of those five years. Same seed, same world, same luck: the only difference is the answer.','console-note'));
+   const list=element('ul','road-list');
+   for(const road of roads){
+    const item=element('li');
+    const head=element('p','road-head');head.textContent='Age '+road.station+': '+road.label;
+    const detail=element('p','fine');const sign=n=>(n>=0?'+':'')+n;
+    detail.textContent='instead of '+road.taken+' — money '+sign(money(road.cashDelta).replace('฿',''))+' ฿, health '+sign(Math.round(road.healthDelta))+', wellbeing '+sign(Math.round(road.wellbeingDelta))+' by age '+(road.station+5)+'.';
+    item.append(head,detail);list.append(item);
+   }
+   p.append(list);
+  }
+ }
  function worldPane(s){
   const p=panes.world;heading(p,'Around your life');
   renderEconomy(p,s);
@@ -70,6 +113,6 @@ export function initConsole({getState,change,isMoving=()=>false}){
  }
  function render(){const scroll=panes[active].scrollTop,s=getState();
   // One review surface first: a tab appears only once it has something of this life to show.
-  const end=s.stage==='recap',opens={money:15,cv:20,world:20,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active='plan';hud.replaceChildren();for(const[label,value]of [['Physical health',Math.round(s.health)+' / 100'],['Wellbeing',Math.round(s.wellbeing)+' / 100'],[s.finance?'Personal net worth':'Family savings',money(s.finance?netWorth(s.finance):s.cash)]])hud.append(element('dt',label),element('dd',value));select(active);panes[active].scrollTop=scroll;}
+  const end=s.stage==='recap',opens={money:15,cv:20,world:20,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active='plan';hud.replaceChildren();for(const[label,value]of [['Physical health',Math.round(s.health)+' / 100'],['Wellbeing',Math.round(s.wellbeing)+' / 100'],[s.finance?'Personal net worth':'Family savings',money(s.finance?netWorth(s.finance):s.cash)]])hud.append(element('dt',label),element('dd',value));baselinePane(s);select(active);panes[active].scrollTop=scroll;}
  return {render,select};
 }

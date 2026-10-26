@@ -223,3 +223,62 @@ and independent bounded source/visual review pass. See review/biography/PUBLIC-R
 A native screenshot still returned a416pxcrop after a viewport request; it is
 explicitly failed evidence. Replacement selected-tab screenshot is1440x900 and
 DOMmatches. Never infer screenshot dimensions from the viewport call alone.
+
+## Life 2.0 — painted stage and the lived moments, 26 October 2026
+Owner direction: throw away the generic isometric diorama for hand-drawn
+animation in a Japanese RPG/manga language, at a much wider and more realistic
+scale, and show the lived moments (friends, biking together, basketball, fist
+fights, falling in love, being bullied, good grades, bad grades, on the bed and
+off the bed). The frame is a Truman Show: one baby, a life played by actors who
+use the player's own data, the console as the control room. The simulation is
+untouched — routine, biography, records, encounters, numbers, saves and charts
+keep their meaning; only the renderer changed. The isometric diorama stays
+behind Settings → World.
+
+Art: 23 painted plates and 13 keyed sprite sheets, cut by
+scripts/prepare-anime-assets.py. Art direction is described by traits (late-80s
+cel animation, 1990s roleplaying game, confident ink line, two-tone shading,
+limited palette); no named work, character or logo is copied. Plates are wide
+21:9 paintings; figures are keyed frames drawn on twos.
+
+Beats: a beat is a lived moment with its own plate, cast and effect, and may
+only be drawn when the life records it — bikes (the friendship years), love
+(the first evening), fight (the fight that came out of the bullying), bully
+(the corridor), grades (read out of the twenty-eight questions), bed (a body
+being repaired). New encounter `bully` (15–20) gives the corridor its choice:
+push back, tell a teacher, say nothing, or ask someone to walk home with you.
+The `foughtBack` flag is what the fight beat reads.
+
+Pipeline repairs made this slice, each found by looking at the picture:
+- the figure join was O(n²) per merge and the body-clustering loop never
+  terminated once a sheet had more than four pieces; a sheet took 12 minutes
+  and never finished. It is now a spatial-grid union-find plus one assignment
+  pass: 25 seconds for every sheet.
+- rules are now filled in with the colour around them instead of punched out of
+  the drawing, so a line that crosses a figure no longer cuts the body in two;
+- only thin bands count as rules, so a head of hair above an apron is no
+  longer mistaken for a line (the mother's head had been deleted);
+- sheets whose layout is not an even grid have their panels written down by
+  hand (friend, mother, father, player, partner);
+- the model's own panel borders are used as the division when it drew them.
+
+Renderer repairs: the scene cut was a black diagonal painted over the new
+drawing; it now reveals the new drawing over the old one, with a white frame
+first. The journey band had a visible join where the plate repeated; it now
+scrolls the soi street with a soft shadow at the join, and the wide town plate
+is the street set. The stage says "waiting for its art" instead of showing a
+hole when a plate has not arrived.
+
+Verification: 178 tests pass. scripts/verify-beats.mjs plays a life until the
+moment happens, stops the life there and photographs the stage at the hour
+that moment belongs to; no console errors and no warnings. Captures in
+review/beats: love at dusk on the bridge, the fist fight in the alley with
+manga impact lines, the boy who does not let up in the classroom, two bicycles
+in the lane. A source scan and a build are not a visual approval.
+
+Still missing: the Questions tab and the pivot prompts are still English-only
+in the four other languages (the new bully encounter is translated in all
+five); the report-card beat is covered by tests but has not been photographed,
+because it needs answered questions; the adult player's face drifts between
+two player sheets; the world is not yet a full Truman Show — there is no
+control room, and the actors still follow the routine rather than a script.

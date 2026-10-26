@@ -1558,3 +1558,13 @@ phrases.push(['Cash share of assets','สัดส่วนเงินสดใ
 phrases.push(['Reserve and debt','เงินสำรองและหนี้','储备与债务','備えと借金','예비금과 부채']);
 
 phrases.push(['Commute: {value} min / day','เดินทาง: {value} นาทีต่อวัน','通勤：每天{value}分钟','通勤：1日{value}分','통근: 하루 {value}분']);
+phrases.push(['A boy who does not let up','เด็กผู้ชายที่ไม่ยอมเลิก','一个不依不饶的男孩','手を離さない少年','만지지 않는 소년']);
+phrases.push(['An older boy from another class takes your book, then your lunch, then your patience. The corridor is long and the teacher is far away.','เด็กผู้ชายจากอีกห้องเรียนเข้ามาหยิบหนังสือของคุณ ต่อมาก็หยิบข้าว แล้วก็หยิบความอดทน โถงยาว และครูอยู่ไกล','另一个班的男生先拿走你的书，再拿走你的午饭，最后拿走你的耐心。走廊很长，老师很远。','別のクラスの少年が、まず君の本を、次にお弁当を、最後には辛抱を奪って行った。廊下は長く、先生は遠い。','다른 반의 소년이 네 책을 먼저, 다음으로 급식을, 마지막으로 인내를 가져갔다. 복도는 길고 선생님은 멀다.']);
+phrases.push(['Push him back','ผลักเขากลับ','还手','押し返す','밀어내기']);
+phrases.push(['You hit back. It ended in seconds and cost you for weeks.','คุณตอบโต้ มันจบในไม่กี่วินาที แต่คุณต้องจ่ายค่ามันไปหลายสัปดาห์','你动了手。几秒钟就结束了，却让你付出了一个多星期。','あなたは打ち返した。数秒で終わったが、その代償を数週間払った。','너는 때렸다. 몇 초 만에 끝났지만, 그 비용을 몇 주간 치렀다.']);
+phrases.push(['Tell a teacher','ไปบอกครู','告诉老师','先生に言う','선생님께 말하다']);
+phrases.push(['You told a teacher. It helped less than you hoped and less than you feared.','คุณไปบอกครู มันช่วยได้น้อยกว่าที่คุณหวัง และน้อยกว่าที่คุณกลัว','你告诉了老师。它的用处比你希望的小，也比你担心的少。','先生に話した。助けは期待より少なく、恐れよりずっと少なかった。','선생님께 말했다. 도움은 바라던 것보다 적고, 두려워던 것보다 훨씬 적었다.']);
+phrases.push(['Say nothing and take it','ไม่พูดอะไร แล้วทนมัน','什么都不说，忍着','何も言わず耐える','아무 말도 하지 않고 견디기']);
+phrases.push(['You said nothing and carried it home. It sat with you the whole way.','คุณไม่ได้พูดอะไร แล้วแบกมันกลับบ้าน มันนั่งอยู่กับคุณตลอดทาง','你什么也没说，把它带回了家。一路上它都跟着你。','何も言わず、それに付き従って帰った。回家的道中、ずっと隣にあった。','아무 말 없이 그것을 집까지 질고 왔다. 온 길 내내 곁에 있었다.']);
+phrases.push(['Ask someone to walk home with you','ขอให้ใครสักคนเดินกลับบ้านด้วย','找人陪你一起走回家','誰かと一緒に帰ってもらおうと頼む','누군가와 함께 집까지 걸어 달라고 부탁하다']);
+phrases.push(['You asked someone to walk home with you. The corridor was shorter that way.','คุณขอให้ใครสักคนเดินกลับบ้านด้วย โถงนั้นดูสั้นลง','你找了人陪你走回家。那条走廊短了一些。','誰かと帰ることにした。その廊下は短くなった。','너는 누군가와 함께 걸어回家했다. 그 복도는 짧아졌다.']);

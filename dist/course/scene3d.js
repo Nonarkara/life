@@ -186,7 +186,7 @@ function createScene(original){
   }
   districts.update(state,age);inhabited.update(state,age);
   const manual=context.pathway==='vocational'&&age>=15&&age<60;workChair.visible=!manual;laptop.visible=!manual;workpiece.visible=manual;infant.visible=age<1;cradleGroup.visible=age<6;bus.visible=age>=5;bus.position.set(-1+time*.12%14,0,7.25);for(const[from,group]of growth)group.visible=age>=from;
-  flood.visible=state.history.some(r=>r.age===30)&&age>=30&&age<36;
+  flood.visible=state.history.some(r=>r.age===30&&/Floodwater/i.test(r.event??''))&&age>=30&&age<36;
   const mood=lifeMoodAt(state,age);if(mood!==lastMood){lastMood=mood;const chord=MOOD_CHORDS[mood];land.material.color.set(place.look.ground).lerp(new T.Color(chord.land),.35);materials.get('#899273')?.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);materials.get('#526c50')?.color.set(chord.leaf);materials.get('#5b7f80')?.color.set(place.look.water).lerp(new T.Color(chord.water),.3);scene.background.set(chord.waterLight).lerp(new T.Color(chord.water),.6);for(const b of buildings)for(const {material}of b.surfaces){if(material.userData.roof)material.color.set(chord.roof).lerp(new T.Color('#766350'),.45);if(material.userData.ground)material.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);}
    // Mood and region colours still pass through the world's Wada chord.
    for(const c of [land.material.color,materials.get('#526c50')?.color,materials.get('#5b7f80')?.color,scene.background])if(c)tint(c,.28);for(const b of buildings)for(const {material}of b.surfaces)if(material.userData.roof)tint(material.color,.3);}

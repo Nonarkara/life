@@ -1,0 +1,113 @@
+{
+ "plates": {
+  "home-day": "plates/home-day.webp",
+  "home-night": "plates/home-night.webp",
+  "street-day": "plates/street-day.webp",
+  "street-dusk": "plates/street-dusk.webp",
+  "school": "plates/school.webp",
+  "work": "plates/work.webp",
+  "garden": "plates/garden.webp",
+  "stall": "plates/stall.webp",
+  "bedroom-day": "plates/bedroom-day.webp",
+  "bedroom-night": "plates/bedroom-night.webp",
+  "court": "plates/court.webp",
+  "town": "plates/town.webp",
+  "street-night": "plates/street-night.webp",
+  "shop": "plates/shop.webp",
+  "hospital": "plates/hospital.webp",
+  "site": "plates/site.webp",
+  "abroad": "plates/abroad.webp",
+  "beat-court": "plates/beat-court.webp",
+  "beat-alley": "plates/beat-alley.webp",
+  "beat-classroom": "plates/beat-classroom.webp",
+  "beat-bridge": "plates/beat-bridge.webp",
+  "beat-lane": "plates/beat-lane.webp",
+  "beat-room": "plates/beat-room.webp"
+ },
+ "sprites": {
+  "player-a": {
+   "walk-a": "sprites/player-a-walk-a.webp",
+   "walk-b": "sprites/player-a-walk-b.webp",
+   "stand-a": "sprites/player-a-stand-a.webp",
+   "stand-b": "sprites/player-a-stand-b.webp"
+  },
+  "player-b": {
+   "sit-read": "sprites/player-b-sit-read.webp",
+   "sit-desk": "sprites/player-b-sit-desk.webp",
+   "stand-paint": "sprites/player-b-stand-paint.webp",
+   "kneel": "sprites/player-b-kneel.webp"
+  },
+  "child": {
+   "run": "sprites/child-run.webp",
+   "stand": "sprites/child-stand.webp",
+   "crouch": "sprites/child-crouch.webp",
+   "sit": "sprites/child-sit.webp"
+  },
+  "elder": {
+   "walk-stick": "sprites/elder-walk-stick.webp",
+   "stand": "sprites/elder-stand.webp",
+   "sit": "sprites/elder-sit.webp",
+   "kneel": "sprites/elder-kneel.webp"
+  },
+  "mother": {
+   "stand": "sprites/mother-stand.webp",
+   "basket": "sprites/mother-basket.webp",
+   "crouch": "sprites/mother-crouch.webp",
+   "cook": "sprites/mother-cook.webp"
+  },
+  "father": {
+   "stand": "sprites/father-stand.webp",
+   "tool": "sprites/father-tool.webp",
+   "sit-desk": "sprites/father-sit-desk.webp",
+   "walk": "sprites/father-walk.webp"
+  },
+  "player": {
+   "walk-a": "sprites/player-walk-a.webp",
+   "walk-b": "sprites/player-walk-b.webp",
+   "stand-a": "sprites/player-stand-a.webp",
+   "stand-b": "sprites/player-stand-b.webp"
+  },
+  "friend": {
+   "stand": "sprites/friend-stand.webp",
+   "walk": "sprites/friend-walk.webp",
+   "sit": "sprites/friend-sit.webp",
+   "wave": "sprites/friend-wave.webp"
+  },
+  "partner": {
+   "stand": "sprites/partner-stand.webp",
+   "walk": "sprites/partner-walk.webp",
+   "sit": "sprites/partner-sit.webp",
+   "wave": "sprites/partner-wave.webp"
+  },
+  "player-c": {
+   "punch": "sprites/player-c-punch.webp",
+   "dodge": "sprites/player-c-dodge.webp",
+   "cheer": "sprites/player-c-cheer.webp",
+   "lie": "sprites/player-c-lie.webp"
+  },
+  "player-bike": {
+   "ride": "sprites/player-bike-ride.webp",
+   "ride-b": "sprites/player-bike-ride-b.webp",
+   "push": "sprites/player-bike-push.webp",
+   "stand-bike": "sprites/player-bike-stand-bike.webp"
+  },
+  "friend-b": {
+   "ride": "sprites/friend-b-ride.webp",
+   "ride-b": "sprites/friend-b-ride-b.webp",
+   "push": "sprites/friend-b-push.webp",
+   "fold": "sprites/friend-b-fold.webp"
+  },
+  "child-b": {
+   "ride": "sprites/child-b-ride.webp",
+   "ride-b": "sprites/child-b-ride-b.webp",
+   "read": "sprites/child-b-read.webp",
+   "write": "sprites/child-b-write.webp"
+  },
+  "rival": {
+   "wind": "sprites/rival-wind.webp",
+   "hit": "sprites/rival-hit.webp",
+   "stagger": "sprites/rival-stagger.webp",
+   "guard": "sprites/rival-guard.webp"
+  }
+ }
+}
