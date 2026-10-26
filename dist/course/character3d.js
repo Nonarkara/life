@@ -1,5 +1,5 @@
 import * as T from 'three';
-import {illustratedMaterial} from './art-direction.js';
+import {illustratedMaterial,inkOutline} from './art-direction.js';
 // All poses are presentation only. One simulation clock supplies time.
 // Bodies differ by sex, build, height, skin, hair and clothing; every option is
 // built once and shown or recoloured by setLook, so a look change costs nothing.
@@ -75,6 +75,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   torso.scale.x*=look.coat?1.12:look.sweater?1.05:1;
  }
  setLook();
+ inkOutline(body);inkOutline(ball);
  let previousTime=null;
  function update(activity,age,time,{elder=false,scale=1}={}){
   const dt=previousTime===null?0:time-previousTime,blend=dt>0&&dt<1?1-Math.exp(-dt*8):1;previousTime=time;

@@ -39,7 +39,7 @@ function createScene(original){
  const scene=new T.Scene();try{scene.background=new T.Color('#6f8783');
  const camera=new T.OrthographicCamera(-8,8,8,-8,.1,100);
  const hemi=new T.HemisphereLight('#f4e9c6','#6a8c91',1.4);scene.add(hemi);
- const sun=new T.DirectionalLight('#fff2d1',2.5);sun.position.set(-7,17,9);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun.target);sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;sun.shadow.bias=-.0005;sun.shadow.normalBias=.035;scene.add(sun);
+ const sun=new T.DirectionalLight('#fff2d1',2.5);sun.position.set(-7,17,9);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun.target);sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;sun.shadow.bias=-.0005;sun.shadow.intensity=.6;sun.shadow.normalBias=.035;scene.add(sun);
  const materials=new Map(),geometries=new Map(),labels=[],growth=[],buildings=[];
  const mat=color=>{if(!materials.has(color))materials.set(color,illustratedMaterial(color));return materials.get(color);};
  const boxGeo=new T.BoxGeometry(1,1,1);

@@ -1,5 +1,187 @@
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Born in|เกิดที่|出生于|生まれる場所|출생지
+Form L-2026 · Session order|แบบฟอร์ม L-2026 · คำสั่งเซสชัน|表格 L-2026 · 疗程预约|書式 L-2026・セッション申込|양식 L-2026 · 세션 신청
+A life begins with conditions you did not earn. Leave them to chance, as birth does, or set them yourself. Either way the outcome stays open.|ชีวิตเริ่มต้นจากเงื่อนไขที่คุณไม่ได้เลือก ปล่อยให้โชคชะตากำหนดเหมือนการเกิด หรือกำหนดเอง ไม่ว่าทางใด ผลลัพธ์ยังเปิดกว้าง|人生始于你无法选择的条件。像出生一样交给机缘，或自己设定。无论哪种，结局都还未定。|人生は自分で選べなかった条件から始まる。生まれのように偶然に任せるか、自分で決めるか。どちらでも結末は開かれている。|삶은 스스로 얻지 않은 조건에서 시작된다. 출생처럼 우연에 맡기거나 직접 정할 수 있다. 어느 쪽이든 결말은 열려 있다.
+Drawn at random|สุ่ม|随机抽取|ランダムに決定|무작위로 결정
+Chosen within your upbringing|เลือกตามระดับฐานะครอบครัว|在你的成长背景内选定|育ちの範囲内で決定|성장 배경 안에서 결정
+Stated at birth|ระบุตอนเกิด|出生时说明|誕生時に明記|출생 시 명시
+Spread at random|กระจายแบบสุ่ม|随机分配|ランダムに配分|무작위로 배분
+Ten points|สิบแต้ม|十点|10ポイント|10점
+Household|ครอบครัว|家庭|家庭|가정
+Birthplace|บ้านเกิด|出生地|出生地|출생지
+Leave it to chance →|ปล่อยให้โชคชะตากำหนด →|交给机缘 →|偶然に任せる →|우연에 맡기기 →
+Or set your conditions|หรือกำหนดเงื่อนไขเอง|或设定你的条件|または条件を決める|또는 조건 정하기
+Changes how you look, not what you can become. Sex does not set intelligence, empathy or career eligibility.|เปลี่ยนรูปลักษณ์ ไม่ใช่สิ่งที่คุณจะเป็นได้ เพศไม่ได้กำหนดสติปัญญา ความเห็นอกเห็นใจ หรือสิทธิ์ในอาชีพ|改变的是外貌，不是你能成为什么。性别不决定智力、同理心或职业资格。|変わるのは見た目で、なれるものではない。性別は知能・共感力・職業の適性を決めない。|바뀌는 것은 외모이지 될 수 있는 것이 아니다. 성별은 지능, 공감, 직업 자격을 정하지 않는다.
+Sets family support, school and where you are born.|กำหนดการสนับสนุนจากครอบครัว โรงเรียน และสถานที่เกิด|决定家庭支持、学校和出生地。|家族の支援、学校、生まれる場所が決まる。|가족의 지원, 학교, 태어나는 곳을 정한다.
+These are fictional starting conditions and authored game rules, not demographic data.|นี่คือเงื่อนไขเริ่มต้นสมมุติและกติกาที่ตั้งไว้ในเกม ไม่ใช่ข้อมูลประชากร|这些是虚构的起始条件和设定的游戏规则，不是人口数据。|これらは架空の初期条件と設定されたゲームルールで、人口統計ではない。|이는 허구의 시작 조건이자 게임 규칙이며 인구 통계가 아니다.
+Select an attribute on the diagram. ± moves a point to or from your largest other attribute. Ten points are a game constraint, not a biological law.|เลือกคุณลักษณะบนแผนภาพ ± จะย้ายแต้มไปหรือมาจากคุณลักษณะที่มากที่สุดของคุณ สิบแต้มเป็นกติกาของเกม ไม่ใช่กฎทางชีววิทยา|在图上选择一项属性。± 会从你最大的其他属性移入或移出一点。十点是游戏限制，不是生物规律。|図で属性を選ぶ。± で一番大きな他の属性と1ポイントをやりとりする。10ポイントはゲームの制約で、生物学の法則ではない。|도표에서 속성을 고르세요. ±는 가장 큰 다른 속성과 1점을 주고받습니다. 10점은 게임의 제약이지 생물학 법칙이 아닙니다.
+Continue your last life →|เล่นชีวิตล่าสุดต่อ →|继续上一次的人生 →|前回の人生を続ける →|지난 삶 이어 가기 →
+Your record stays in this browser|บันทึกของคุณอยู่ในเบราว์เซอร์นี้|你的记录保存在此浏览器中|記録はこのブラウザに保存される|기록은 이 브라우저에 남습니다
+Life2.0|Life2.0|Life2.0|Life2.0|Life2.0
+Chair session service · Screen edition 2026|บริการเซสชันเก้าอี้ · ฉบับหน้าจอ 2026|座椅体验服务 · 屏幕版 2026|チェアセッション・サービス · スクリーン版 2026|체어 세션 서비스 · 스크린판 2026
+Overview|ภาพรวม|概览|概要|개요
+How it works|ขั้นตอน|流程|ご利用の流れ|이용 방법
+Session|เซสชัน|体验|セッション|세션
+Conditions|เงื่อนไข|条件|条件|조건
+Care & consent|การดูแลและความยินยอม|关怀与同意|ケアと同意|보호와 동의
+The record|บันทึก|记录|記録|기록
+Begin a session →|เริ่มเซสชัน →|开始体验 →|セッションを始める →|세션 시작 →
+Hub session services · Form L-2026|บริการเซสชัน Hub · แบบฟอร์ม L-2026|Hub 体验服务 · 表格 L-2026|Hub セッション・サービス · 書式 L-2026|Hub 세션 서비스 · 서식 L-2026
+A complete life, from the womb to old age, lived in one sitting. You decide how hard to try, where to go and whom to trust. Chance decides the rest. When it ends you see its shape, and you may live it again in the same world.|ชีวิตหนึ่งที่สมบูรณ์ ตั้งแต่ในครรภ์จนถึงวัยชรา ในการนั่งครั้งเดียว คุณเลือกเองว่าจะพยายามแค่ไหน จะไปที่ใด และจะไว้ใจใคร ที่เหลือเป็นเรื่องของโชค เมื่อจบลง คุณจะเห็นรูปร่างของชีวิตนั้น และเลือกใช้ชีวิตใหม่ในโลกเดิมได้|一段完整的人生，从母腹到暮年，一次坐下便可走完。努力多少、去往何处、信任何人，由你决定，其余交给机遇。结束时，你会看到这一生的轮廓，也可以在同一个世界里再活一次。|胎内から老年まで、ひとつの人生をひと座りで生きる。どれだけ努力し、どこへ行き、誰を信じるかはあなたが決め、残りは偶然が決めます。終わると人生の形が見え、同じ世界でもう一度生きることもできます。|태아에서 노년까지, 온전한 한 생애를 한자리에서 살아 봅니다. 얼마나 노력할지, 어디로 갈지, 누구를 믿을지는 당신이 정하고 나머지는 우연이 정합니다. 끝나면 삶의 모양을 보고, 같은 세상에서 다시 살 수 있습니다.
+25–40 minutes · pause or leave at any time|25–40 นาที · หยุดพักหรือออกได้ทุกเมื่อ|25–40 分钟 · 可随时暂停或离开|25–40分 · いつでも一時停止・退出できます|25–40분 · 언제든 일시정지하거나 나갈 수 있습니다
+Simulated span|ช่วงชีวิตจำลอง|模拟寿命|模擬する期間|시뮬레이션 기간
+0 to 80 years · a life may end earlier|0 ถึง 80 ปี · ชีวิตอาจจบก่อนนั้น|0 至 80 岁 · 人生可能提早结束|0〜80年 · 早く終わることもあります|0~80세 · 더 일찍 끝날 수도 있습니다
+Decisions|การตัดสินใจ|抉择|決断|결정
+Every five years · the gravest stop time|ทุกห้าปี · เรื่องใหญ่ที่สุดหยุดเวลา|每五年一次 · 重大抉择会让时间停下|5年ごと · 重大な決断では時間が止まります|5년마다 · 가장 무거운 결정은 시간을 멈춥니다
+Languages|ภาษา|语言|言語|언어
+English · ไทย · 中文 · 日本語 · 한국어|English · ไทย · 中文 · 日本語 · 한국어|English · ไทย · 中文 · 日本語 · 한국어|English · ไทย · 中文 · 日本語 · 한국어|English · ไทย · 中文 · 日本語 · 한국어
+Your record|บันทึกของคุณ|你的记录|あなたの記録|나의 기록
+Stays in this browser · no account|เก็บไว้ในเบราว์เซอร์นี้ · ไม่ต้องมีบัญชี|保存在此浏览器 · 无需账户|このブラウザ内に保存 · アカウント不要|이 브라우저에만 저장 · 계정 불필요
+Read in|อ่านเป็นภาษา|阅读语言|表示言語|읽기 언어
+English|English|English|English|English
+How a session works|เซสชันทำงานอย่างไร|体验如何进行|セッションの進み方|세션 진행 방식
+A session in four steps|เซสชันในสี่ขั้นตอน|四步完成一次体验|4つのステップ|네 단계로 보는 세션
+Your body rests. A simulated lifetime unfolds around you.|ร่างกายของคุณได้พัก ขณะที่ชีวิตจำลองค่อย ๆ คลี่ออกรอบตัว|你的身体在休息，一段模拟人生在你周围展开。|体は休み、模擬の一生があなたの周りで展開します。|몸은 쉬고, 시뮬레이션된 한 생애가 주변에 펼쳐집니다.
+Random by default, or a body profile, an upbringing and ten starting points.|สุ่มเป็นค่าเริ่มต้น หรือกำหนดลักษณะร่างกาย การเลี้ยงดู และแต้มเริ่มต้นสิบแต้ม|默认随机，也可设定身体特征、成长环境和十个起始点数。|初期設定はランダム。体のプロフィール、生い立ち、10の初期ポイントも設定できます。|기본은 무작위. 신체 특성, 성장 환경, 시작 포인트 10점을 정할 수도 있습니다.
+10 / 10|10 / 10|10 / 10|10 / 10|10 / 10
+Live, and read the turns.|ใช้ชีวิต และอ่านจุดเปลี่ยน|活下去，读懂转折。|生きて、転機を読む。|살아가며 전환점을 읽습니다.
+Childhood plays by itself. From ten you set your effort and face decisions.|วัยเด็กดำเนินไปเอง ตั้งแต่อายุสิบ คุณกำหนดความพยายามและเผชิญการตัดสินใจ|童年自动进行。从十岁起，你分配努力并面对抉择。|子ども時代は自動で進みます。10歳から努力を配分し、決断に向き合います。|어린 시절은 저절로 흘러갑니다. 열 살부터 노력을 정하고 결정을 마주합니다.
+Return and look back.|กลับมาและมองย้อน|回来，回望。|戻って、振り返る。|돌아와서 되돌아봅니다.
+Where you lived, what it cost, what it taught. Then try another path.|คุณอยู่ที่ไหน เสียอะไรไป และได้เรียนรู้อะไร จากนั้นลองเส้นทางอื่น|你住过哪里，付出了什么，学到了什么。然后试试另一条路。|どこに住み、何を失い、何を学んだか。そして別の道を試します。|어디서 살았고, 무엇을 치렀고, 무엇을 배웠는지. 그리고 다른 길을 걸어 봅니다.
+Three things keep a person alive|สามสิ่งที่ทำให้คนมีชีวิตอยู่|维系生命的三件事|人を生かす3つのもの|사람을 살게 하는 세 가지
+Body|ร่างกาย|身体|身体|몸
+Physical health. When it fails, the life ends.|สุขภาพกาย เมื่อล้มเหลว ชีวิตก็จบลง|身体健康。一旦衰竭，人生即告结束。|身体の健康。尽きれば人生が終わります。|신체 건강. 무너지면 삶이 끝납니다.
+Mind|จิตใจ|心智|心|마음
+Reasoning and emotional skill, built by practice.|การใช้เหตุผลและทักษะทางอารมณ์ ที่สร้างขึ้นจากการฝึกฝน|推理与情绪能力，靠练习养成。|推論力と感情の力。練習で育ちます。|추론과 감정 능력. 연습으로 길러집니다.
+Contentment|ความพอใจในชีวิต|满足感|充足感|만족감
+Ikigai. Low contentment wears down the body and the mind.|อิคิไก ความพอใจที่ต่ำจะบั่นทอนทั้งร่างกายและจิตใจ|生之意义。满足感低落会消磨身体与心智。|生きがい。充足感が低いと、身体も心もすり減ります。|이키가이. 만족감이 낮으면 몸과 마음이 함께 닳습니다.
+Home|บ้านเกิด|家乡|故郷|고향
+Study abroad|เรียนต่างประเทศ|海外留学|海外留学|해외 유학
+Work abroad|ทำงานต่างประเทศ|海外工作|海外就労|해외 취업
+At the end you receive a route map of where you lived, your Ikigai in four readings, and the lessons your choices taught.|ตอนจบ คุณจะได้รับแผนที่เส้นทางของที่ที่คุณเคยอยู่ อิคิไกของคุณในสี่มุม และบทเรียนจากทางเลือกของคุณ|结束时，你会得到一张居住地路线图、四个维度的生之意义，以及你的选择教会你的功课。|最後に、住んだ場所の路線図、4つの読み方による生きがい、選択が教えた教訓を受け取ります。|마지막에 살았던 곳의 노선도, 네 가지로 읽는 이키가이, 선택이 남긴 교훈을 받습니다.
+Every number is an authored game rule. Not a psychological test, a forecast, or medical or financial advice.|ทุกตัวเลขเป็นกติกาเกมที่ผู้เขียนกำหนด ไม่ใช่แบบทดสอบทางจิตวิทยา การพยากรณ์ หรือคำแนะนำทางการแพทย์หรือการเงิน|每个数字都是设定的游戏规则，不是心理测验、预测，也不是医疗或理财建议。|数字はすべて作者が定めたゲームのルールです。心理テスト、予測、医療・金融上の助言ではありません。|모든 숫자는 작가가 정한 게임 규칙입니다. 심리 검사, 예측, 의료·금융 조언이 아닙니다.
+Choices compound. Chance interrupts.|ทางเลือกทบต้น โชคเข้ามาขัดจังหวะ|选择会累积，机遇会打断。|選択は積み重なり、偶然が割り込む。|선택은 쌓이고, 우연은 끼어듭니다.
+A life runs on one clock. You can pause it, slow it or speed it up; it never runs backwards.|ชีวิตเดินด้วยนาฬิกาเรือนเดียว คุณหยุด ชะลอ หรือเร่งได้ แต่ไม่มีวันย้อนกลับ|人生只有一只时钟。你可以暂停、放慢或加快，但它永不倒转。|人生の時計はひとつ。止める、遅くする、速めることはできても、戻ることはありません。|삶은 하나의 시계로 흐릅니다. 멈추고, 늦추고, 빠르게 할 수는 있어도 거꾸로 가지는 않습니다.
+0–10 · Childhood|0–10 · วัยเด็ก|0–10 · 童年|0–10 · 子ども時代|0–10 · 어린 시절
+Your family decides. Each year is a short chapter about care, school and money at home. Some city children grow up with grandparents in the provinces.|ครอบครัวเป็นผู้ตัดสินใจ แต่ละปีเป็นบทสั้น ๆ เรื่องการดูแล โรงเรียน และเงินในบ้าน เด็กเมืองบางคนเติบโตกับปู่ย่าตายายในต่างจังหวัด|由家庭决定。每一年是一段关于照料、学校和家中经济的短章。有些城市孩子在外府由祖父母带大。|家族が決めます。一年ごとに、世話、学校、家計についての短い章が続きます。都会の子が地方の祖父母に育てられることもあります。|가족이 정합니다. 한 해 한 해가 돌봄, 학교, 집안 형편에 관한 짧은 장입니다. 도시 아이가 지방의 조부모 손에 자라기도 합니다.
+From 10 · Effort|ตั้งแต่ 10 · ความพยายาม|10 岁起 · 努力|10歳から · 努力|10세부터 · 노력
+Spread ten points across body, reasoning, emotional skill, creativity and drive. Revisit them every five years.|กระจายสิบแต้มให้ร่างกาย การใช้เหตุผล ทักษะทางอารมณ์ ความคิดสร้างสรรค์ และแรงขับ ปรับใหม่ได้ทุกห้าปี|把十个点数分配给身体、推理、情绪能力、创造力和进取心。每五年可重新调整。|10ポイントを身体、推論、感情の力、創造性、意欲に配分します。5年ごとに見直せます。|10점을 몸, 추론, 감정 능력, 창의성, 추진력에 나눕니다. 5년마다 다시 조정합니다.
+From 15 · Money|ตั้งแต่ 15 · เงิน|15 岁起 · 金钱|15歳から · お金|15세부터 · 돈
+Your own account, separate from your family's. Everyday living takes most of what you earn; what you save becomes your runway.|บัญชีของคุณเอง แยกจากของครอบครัว ค่าครองชีพกินรายได้ส่วนใหญ่ สิ่งที่เก็บได้คือระยะที่คุณอยู่รอดได้|你自己的账户，与家庭分开。日常开销吃掉大部分收入；存下的钱就是你的缓冲期。|家族とは別の、自分の口座。生活費が稼ぎの大半を占め、貯めた分があなたの持ちこたえる期間になります。|가족과 분리된 나만의 계좌. 생활비가 수입 대부분을 쓰고, 모은 돈이 버틸 수 있는 기간이 됩니다.
+From 20 · Routes and places|ตั้งแต่ 20 · เส้นทางและสถานที่|20 岁起 · 道路与地方|20歳から · 進路と場所|20세부터 · 진로와 장소
+College and a field of study, work, a trade or your own venture. Move to Bangkok, the provinces, Singapore, Tokyo, Boston or London, and back.|มหาวิทยาลัยและสาขาวิชา งาน อาชีพช่าง หรือกิจการของตัวเอง ย้ายไปกรุงเทพฯ ต่างจังหวัด สิงคโปร์ โตเกียว บอสตัน หรือลอนดอน แล้วกลับมา|大学与专业、工作、手艺或自己创业。搬到曼谷、外府、新加坡、东京、波士顿或伦敦，再回来。|大学と専攻、仕事、職人の道、自分の事業。バンコク、地方、シンガポール、東京、ボストン、ロンドンへ移り、また戻ります。|대학과 전공, 직장, 기술직, 창업. 방콕, 지방, 싱가포르, 도쿄, 보스턴, 런던으로 옮겼다가 돌아옵니다.
+Love, marriage, children, a hard boss, a loan, a funeral abroad. The gravest stop time until you choose. Many return years later.|ความรัก การแต่งงาน ลูก เจ้านายที่ยาก หนี้ งานศพในต่างแดน เรื่องใหญ่ที่สุดหยุดเวลาจนกว่าคุณจะเลือก หลายเรื่องกลับมาในอีกหลายปีต่อมา|爱情、婚姻、孩子、难缠的上司、一笔贷款、一场异乡的葬礼。重大抉择让时间停下，直到你做出选择。许多事多年后会再回来。|恋愛、結婚、子ども、厳しい上司、借金、異国での葬儀。重大な決断では選ぶまで時間が止まります。多くは何年も後に戻ってきます。|사랑, 결혼, 아이, 힘든 상사, 대출, 타국에서의 장례. 가장 무거운 결정은 선택할 때까지 시간을 멈춥니다. 많은 일이 몇 년 뒤 돌아옵니다.
+The end|ตอนจบ|终点|終わり|끝
+It may come early. Nothing guarantees eighty. Then you may live again in the same world, under the same storms.|อาจมาเร็ว ไม่มีอะไรรับประกันว่าจะถึงแปดสิบ จากนั้นคุณใช้ชีวิตใหม่ได้ในโลกเดิม ภายใต้พายุเดิม|它可能来得早，没有什么能保证活到八十。之后，你可以在同一个世界、同样的风暴下再活一次。|早く来ることもあります。80歳は保証されません。その後、同じ世界、同じ嵐の中でもう一度生きられます。|일찍 올 수도 있습니다. 여든을 보장하는 것은 없습니다. 그 뒤 같은 세상, 같은 폭풍 아래서 다시 살 수 있습니다.
+What to expect in the chair|สิ่งที่จะพบบนเก้าอี้|座椅上会经历什么|チェアで体験すること|의자에서 경험하게 될 것
+Plan for 25 to 40 minutes. A life can be paused at any decision and resumed later in this browser.|เผื่อเวลา 25 ถึง 40 นาที หยุดชีวิตไว้ที่การตัดสินใจใดก็ได้ แล้วกลับมาเล่นต่อในเบราว์เซอร์นี้|请预留 25 至 40 分钟。可在任何抉择处暂停，之后在此浏览器中继续。|25〜40分を見込んでください。どの決断でも一時停止し、このブラウザで後から再開できます。|25~40분을 예상하세요. 어느 결정에서든 멈추고 이 브라우저에서 나중에 이어갈 수 있습니다.
+Open settings|เปิดการตั้งค่า|打开设置|設定を開く|설정 열기
+Time|เวลา|时间|時間|시간
+2×, 3×, 10× or 20×. Childhood plays by itself; each later chapter is five years.|2×, 3×, 10× หรือ 20× วัยเด็กดำเนินไปเอง บทต่อจากนั้นบทละห้าปี|2×、3×、10× 或 20×。童年自动进行；之后每章五年。|2×、3×、10×、20×。子ども時代は自動で進み、以降は1章が5年です。|2×, 3×, 10×, 20×. 어린 시절은 저절로 흐르고, 이후 한 장은 5년입니다.
+Reading|การอ่าน|阅读|表示|읽기
+Standard, large or extra-large text. Reduced motion keeps every event but removes animation.|ตัวอักษรปกติ ใหญ่ หรือใหญ่พิเศษ โหมดลดการเคลื่อนไหวเก็บทุกเหตุการณ์ไว้แต่ตัดแอนิเมชัน|标准、大号或特大号字体。减少动态效果会保留所有事件，只去掉动画。|標準・大・特大の文字。視差効果を減らす設定では、出来事はそのままにアニメーションだけを省きます。|기본, 크게, 아주 크게. 동작 줄이기는 모든 사건을 유지하고 애니메이션만 없앱니다.
+English, Thai, Simplified Chinese, Japanese and Korean, switchable at any time.|อังกฤษ ไทย จีนตัวย่อ ญี่ปุ่น และเกาหลี สลับได้ทุกเมื่อ|英语、泰语、简体中文、日语和韩语，可随时切换。|英語、タイ語、簡体字中国語、日本語、韓国語。いつでも切り替えられます。|영어, 태국어, 중국어 간체, 일본어, 한국어. 언제든 바꿀 수 있습니다.
+Sound|เสียง|声音|音|소리
+Original music, Small Hours (CC0), off until you start it.|ดนตรีต้นฉบับ Small Hours (CC0) ปิดไว้จนกว่าคุณจะเปิด|原创音乐 Small Hours（CC0），在你开启前保持关闭。|オリジナル音楽 Small Hours（CC0）。再生するまでオフです。|오리지널 음악 Small Hours(CC0). 직접 켜기 전까지 꺼져 있습니다.
+Devices|อุปกรณ์|设备|端末|기기
+Phone, tablet or computer. No download, no account.|โทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์ ไม่ต้องดาวน์โหลด ไม่ต้องมีบัญชี|手机、平板或电脑。无需下载，无需账户。|スマートフォン、タブレット、パソコン。ダウンロードもアカウントも不要です。|휴대폰, 태블릿, 컴퓨터. 다운로드도 계정도 필요 없습니다.
+Saving|การบันทึก|保存|保存|저장
+Your life is stored only in this browser. Starting a new life replaces it; your last life is kept for comparison.|ชีวิตของคุณเก็บไว้ในเบราว์เซอร์นี้เท่านั้น การเริ่มชีวิตใหม่จะแทนที่ของเดิม ชีวิตล่าสุดจะเก็บไว้เปรียบเทียบ|你的人生只保存在此浏览器。开始新的人生会替换它；上一段人生会保留以供比较。|人生はこのブラウザにのみ保存されます。新しい人生を始めると置き換わり、直前の人生は比較用に残ります。|삶은 이 브라우저에만 저장됩니다. 새 삶을 시작하면 대체되고, 직전의 삶은 비교용으로 남습니다.
+You did not earn your starting line|คุณไม่ได้เลือกเส้นสตาร์ทของตัวเอง|起跑线不是你挣来的|スタートラインは自分で得たものではない|출발선은 스스로 얻은 것이 아닙니다
+Random is the default, because that is how birth works. You may set three conditions instead. None of them decides your worth or your outcome.|ค่าเริ่มต้นคือการสุ่ม เพราะการเกิดเป็นเช่นนั้น หรือจะกำหนดเงื่อนไขสามข้อเองก็ได้ ไม่มีข้อใดตัดสินคุณค่าหรือผลลัพธ์ของคุณ|默认随机，因为出生本就如此。你也可以设定三项条件。没有一项能决定你的价值或结局。|初期設定はランダム。生まれとはそういうものだからです。代わりに3つの条件を設定できます。どれもあなたの価値や結末を決めません。|기본은 무작위입니다. 태어남이 원래 그렇기 때문입니다. 대신 세 가지 조건을 정할 수 있습니다. 어느 것도 당신의 가치나 결과를 정하지 않습니다.
+Choose conditions →|เลือกเงื่อนไข →|选择条件 →|条件を選ぶ →|조건 선택 →
+Body profile|ลักษณะร่างกาย|身体特征|身体のプロフィール|신체 특성
+Female, male or intersex. It changes how you look, not what you can become.|หญิง ชาย หรืออินเตอร์เซ็กซ์ เปลี่ยนรูปลักษณ์ ไม่ได้เปลี่ยนสิ่งที่คุณจะเป็นได้|女性、男性或间性。它改变你的外貌，而不是你能成为什么。|女性、男性、インターセックス。見た目は変わっても、なれるものは変わりません。|여성, 남성, 간성. 외모가 달라질 뿐, 될 수 있는 것은 달라지지 않습니다.
+Upbringing|การเลี้ยงดู|成长环境|生い立ち|성장 환경
+Constrained, middle or comfortable household money. It sets family support, school and where you are born.|ฐานะครอบครัวจำกัด ปานกลาง หรือสบาย กำหนดการสนับสนุนจากครอบครัว โรงเรียน และที่เกิด|家庭经济拮据、中等或宽裕。它决定家庭支持、学校和出生地。|家計は苦しい、中程度、ゆとりあり。家族の支え、学校、生まれる場所が決まります。|빠듯한, 중간, 넉넉한 집안 형편. 가족의 지원, 학교, 태어날 곳이 정해집니다.
+Birthplaces|ที่เกิด|出生地|生まれる場所|출생지
+Khlong Toei riverside community · an Isan rice village · a Bang Na apartment block · a Pak Phanang fishing town · Samut Prakan · a walled house on Sukhumvit.|ชุมชนริมน้ำคลองเตย · หมู่บ้านทำนาในอีสาน · อพาร์ตเมนต์ย่านบางนา · เมืองประมงปากพนัง · สมุทรปราการ · บ้านมีรั้วรอบบนสุขุมวิท|孔堤河畔社区 · 伊桑稻作村庄 · 曼纳公寓楼 · 北汕渔镇 · 北榄府 · 素坤逸路上的高墙宅院。|クロントイの川辺のコミュニティ · イサーンの稲作の村 · バンナーの集合住宅 · パークパナンの漁師町 · サムットプラーカーン · スクンビットの塀に囲まれた家。|끌롱떠이 강변 마을 · 이산의 벼농사 마을 · 방나의 아파트 단지 · 빡파낭의 어촌 · 사뭇쁘라깐 · 수쿰윗의 담장 두른 집.
+Households|ครัวเรือน|家庭|家族構成|가구
+Two parents, a parent and a grandmother, two mothers or two fathers. Stated at birth.|พ่อแม่สองคน พ่อหรือแม่กับยาย แม่สองคน หรือพ่อสองคน ระบุตั้งแต่เกิด|父母双全、单亲与祖母、两位母亲或两位父亲。出生时即说明。|両親、親と祖母、二人の母、二人の父。誕生時に示されます。|부모 두 분, 한 부모와 할머니, 두 엄마, 두 아빠. 태어날 때 표시됩니다.
+Ten points across five attributes. A game constraint, not a biological law: practice changes what you can do.|สิบแต้มสำหรับห้าคุณลักษณะ เป็นข้อจำกัดของเกม ไม่ใช่กฎทางชีววิทยา การฝึกฝนเปลี่ยนสิ่งที่คุณทำได้|五项属性共十个点数。这是游戏限制，不是生物定律：练习会改变你的能力。|5つの属性に10ポイント。生物学の法則ではなくゲームの制約です。練習でできることは変わります。|다섯 속성에 10점. 생물학 법칙이 아닌 게임의 제약입니다. 연습하면 할 수 있는 것이 달라집니다.
+Later places|สถานที่ในภายหลัง|日后去处|その後の土地|이후의 장소
+Singapore · Tokyo · Somerville, Massachusetts · London. Pay and living costs change with the place.|สิงคโปร์ · โตเกียว · ซอมเมอร์วิลล์ แมสซาชูเซตส์ · ลอนดอน ค่าจ้างและค่าครองชีพเปลี่ยนตามสถานที่|新加坡 · 东京 · 马萨诸塞州萨默维尔 · 伦敦。收入与生活成本随地方而变。|シンガポール · 東京 · マサチューセッツ州サマービル · ロンドン。賃金と生活費は場所で変わります。|싱가포르 · 도쿄 · 매사추세츠주 서머빌 · 런던. 임금과 생활비는 장소에 따라 달라집니다.
+This is fiction, and you are in charge of it|นี่คือเรื่องแต่ง และคุณเป็นผู้ควบคุม|这是虚构，由你掌控|これはフィクションで、主導権はあなたにあります|이것은 허구이며, 주도권은 당신에게 있습니다
+You can pause or leave at any moment. Nothing here is a medical device, therapy or a test. The chair and its technology belong to the author's novel.|คุณหยุดหรือออกได้ทุกขณะ ไม่มีสิ่งใดในนี้เป็นอุปกรณ์การแพทย์ การบำบัด หรือแบบทดสอบ เก้าอี้และเทคโนโลยีของมันมาจากนวนิยายของผู้เขียน|你可以随时暂停或离开。这里没有任何医疗器械、治疗或测验。座椅及其技术出自作者的小说。|いつでも一時停止・退出できます。ここにあるものは医療機器でも治療でも検査でもありません。チェアとその技術は作者の小説のものです。|언제든 멈추거나 나갈 수 있습니다. 여기의 어떤 것도 의료기기, 치료, 검사가 아닙니다. 의자와 그 기술은 작가의 소설에서 왔습니다.
+If you feel unsafe, reach someone you trust today. In Thailand, the mental health hotline is 1323.|หากรู้สึกไม่ปลอดภัย โปรดติดต่อคนที่คุณไว้ใจวันนี้ ในประเทศไทย สายด่วนสุขภาพจิตคือ 1323|如果你感到不安全，请今天就联系你信任的人。在泰国，心理健康热线是 1323。|不安を感じたら、今日、信頼できる人に連絡してください。タイのメンタルヘルス・ホットラインは 1323 です。|안전하지 않다고 느끼면 오늘 믿을 수 있는 사람에게 연락하세요. 태국의 정신건강 상담전화는 1323입니다.
+Difficult themes|ประเด็นที่ยาก|沉重的主题|重いテーマ|어려운 주제
+Bereavement, illness, debt, a hard marriage, losing work, depression. Every branch keeps recovery possible.|การสูญเสีย ความเจ็บป่วย หนี้ ชีวิตคู่ที่ยาก การตกงาน ภาวะซึมเศร้า ทุกเส้นทางยังเปิดทางสู่การฟื้นตัว|丧亲、疾病、债务、艰难的婚姻、失业、抑郁。每条分支都保留康复的可能。|死別、病気、借金、難しい結婚、失業、うつ。どの分岐にも回復の道が残されています。|사별, 질병, 빚, 힘든 결혼, 실직, 우울. 모든 갈래에서 회복은 가능합니다.
+No verdicts|ไม่มีคำตัดสิน|没有评判|評価はしません|판정 없음
+No score for a good life. Marrying or not, children or not, staying or leaving are all valid; the game shows what each opened and closed.|ไม่มีคะแนนสำหรับชีวิตที่ดี แต่งงานหรือไม่ มีลูกหรือไม่ อยู่หรือไป ล้วนเป็นทางที่ถูกต้อง เกมแสดงว่าแต่ละทางเปิดและปิดอะไร|好的人生没有分数。结婚与否、生育与否、留下或离开，都是正当的选择；游戏只呈现每条路打开与关闭了什么。|良い人生に点数はありません。結婚するかどうか、子を持つかどうか、残るか去るか、どれも正当です。ゲームは各選択が開き、閉じたものを示します。|좋은 삶에 점수는 없습니다. 결혼 여부, 자녀 여부, 머물기와 떠나기 모두 타당합니다. 게임은 각각이 열고 닫은 것을 보여 줍니다.
+Your data|ข้อมูลของคุณ|你的数据|あなたのデータ|나의 데이터
+No account, no analytics, no backend. Your life never leaves this browser. Clearing site data deletes it.|ไม่มีบัญชี ไม่มีการวิเคราะห์ ไม่มีเซิร์ฟเวอร์ ชีวิตของคุณไม่เคยออกจากเบราว์เซอร์นี้ การล้างข้อมูลเว็บไซต์จะลบมันทิ้ง|无账户、无统计分析、无后端。你的人生从不离开此浏览器。清除网站数据即可删除。|アカウントなし、解析なし、サーバーなし。人生がこのブラウザの外に出ることはありません。サイトデータを消去すると削除されます。|계정도, 분석도, 서버도 없습니다. 삶은 이 브라우저를 떠나지 않습니다. 사이트 데이터를 지우면 삭제됩니다.
+Amounts are game rules in baht. They are not financial advice.|จำนวนเงินเป็นกติกาเกมในหน่วยบาท ไม่ใช่คำแนะนำทางการเงิน|金额是以泰铢计的游戏规则，不构成理财建议。|金額はバーツ建てのゲームのルールです。金融上の助言ではありません。|금액은 바트 단위의 게임 규칙입니다. 금융 조언이 아닙니다.
+Health|สุขภาพ|健康|健康|건강
+Effects are authored. No medically specific odds, no drug benefits.|ผลกระทบเป็นสิ่งที่ผู้เขียนกำหนด ไม่มีความน่าจะเป็นทางการแพทย์เฉพาะ ไม่มีสรรพคุณของยา|效果均为设定。不含具体医学概率，不宣称药物功效。|効果は作者が定めたものです。医学的に特定の確率も、薬の効能も扱いません。|효과는 작가가 정한 것입니다. 구체적 의학 확률도, 약의 효능도 없습니다.
+Bodies and minds|ร่างกายและจิตใจ|身体与心智|身体と心|몸과 마음
+IQ and EQ are game indices, not tests. Inborn traits never decide a career.|IQ และ EQ เป็นดัชนีในเกม ไม่ใช่แบบทดสอบ ลักษณะที่ติดตัวมาแต่เกิดไม่เคยกำหนดอาชีพ|IQ 和 EQ 是游戏指数，不是测验。先天特质从不决定职业。|IQとEQはゲーム上の指標で、検査ではありません。生まれつきの特性が職業を決めることはありません。|IQ와 EQ는 게임 지표이지 검사가 아닙니다. 타고난 특성이 직업을 정하지 않습니다.
+What you take home|สิ่งที่คุณได้กลับบ้าน|你带走的东西|持ち帰るもの|가져가는 것
+When a life ends, the session returns a record built only from what happened. Nothing is invented to fill it.|เมื่อชีวิตจบลง เซสชันจะคืนบันทึกที่สร้างจากสิ่งที่เกิดขึ้นจริงเท่านั้น ไม่มีสิ่งใดถูกแต่งเติม|人生结束时，体验会交还一份只依据真实经历生成的记录，绝不虚构填充。|人生が終わると、起きたことだけから作られた記録が渡されます。埋め合わせの創作は一切ありません。|삶이 끝나면 일어난 일만으로 만든 기록을 돌려드립니다. 채우려고 지어낸 것은 없습니다.
+Route map|แผนที่เส้นทาง|路线图|路線図|노선도
+One line per place you lived, your path in amber, moves as interchanges, with study, love, loss and coming home marked.|หนึ่งเส้นต่อหนึ่งที่ที่คุณเคยอยู่ เส้นทางของคุณเป็นสีอำพัน การย้ายเป็นจุดเปลี่ยนสาย พร้อมเครื่องหมายการเรียน ความรัก การสูญเสีย และการกลับบ้าน|每个住过的地方一条线，你的路径用琥珀色，迁居如同换乘站，并标出求学、爱情、失去与归家。|住んだ場所ごとに1本の線。あなたの道は琥珀色、移住は乗換駅で、学び、恋、喪失、帰郷が記されます。|살았던 곳마다 한 줄, 당신의 길은 호박색, 이주는 환승역이며 학업, 사랑, 상실, 귀향이 표시됩니다.
+Four readings: what you love, what you practised, what the world got from you, and whether income covered your costs. Money alone cannot fill it.|สี่มุมมอง: สิ่งที่คุณรัก สิ่งที่คุณฝึกฝน สิ่งที่โลกได้จากคุณ และรายได้พอกับรายจ่ายหรือไม่ เงินอย่างเดียวเติมไม่เต็ม|四个维度：你爱什么、你练就了什么、世界从你这里得到了什么，以及收入能否覆盖开销。单靠金钱填不满它。|4つの読み方：愛したもの、磨いたもの、世界があなたから得たもの、収入が支出をまかなえたか。お金だけでは満たせません。|네 가지 읽기: 사랑한 것, 연마한 것, 세상이 당신에게서 얻은 것, 수입이 지출을 감당했는지. 돈만으로는 채울 수 없습니다.
+Body, mind, money|ร่างกาย จิตใจ เงิน|身体、心智、金钱|身体、心、お金|몸, 마음, 돈
+Health, wellbeing and personal net worth across your ages, with the fastest change marked.|สุขภาพ ความเป็นอยู่ที่ดี และทรัพย์สินสุทธิส่วนตัวตลอดช่วงอายุ พร้อมจุดที่เปลี่ยนเร็วที่สุด|各年龄段的健康、幸福感与个人净资产，并标出变化最快之处。|年齢ごとの健康、幸福感、個人の純資産。最も急な変化に印が付きます。|나이별 건강, 웰빙, 개인 순자산. 가장 빠른 변화가 표시됩니다.
+What it cost later|สิ่งที่ต้องจ่ายในภายหลัง|日后的代价|後で払ったもの|나중에 치른 대가
+Each past choice that came back, with its age and amount.|ทุกทางเลือกในอดีตที่ย้อนกลับมา พร้อมอายุและจำนวนเงิน|每个回头找上你的旧选择，附上年龄与金额。|戻ってきた過去の選択を、その年齢と金額とともに。|되돌아온 과거의 선택을 나이와 금액과 함께.
+Lessons|บทเรียน|功课|教訓|교훈
+What each decision was teaching, linked to the essay it came from.|สิ่งที่แต่ละการตัดสินใจกำลังสอน พร้อมลิงก์ไปยังบทความต้นทาง|每个抉择在教你什么，并链接到它所出自的文章。|各決断が教えていたこと。元になったエッセイへのリンク付き。|각 결정이 가르치던 것. 출처 에세이로 연결됩니다.
+Runway|ระยะอยู่รอด|缓冲期|持ちこたえる期間|버틸 수 있는 기간
+How many months you could have lived without income at 60.|จำนวนเดือนที่คุณอยู่ได้โดยไม่มีรายได้ เมื่ออายุ 60|60 岁时，你没有收入能撑多少个月。|60歳の時点で、収入なしで暮らせた月数。|60세에 수입 없이 살 수 있었던 개월 수.
+What is measured, and what is not|สิ่งที่วัด และสิ่งที่ไม่ได้วัด|衡量了什么，没衡量什么|測っているもの、いないもの|측정하는 것과 하지 않는 것
+This prototype uses authored game rules. Its money, health changes and event odds are not measured population statistics. The graphs join five-year snapshots; markers sit at the recorded review age.|ต้นแบบนี้ใช้กติกาเกมที่ผู้เขียนกำหนด เงิน การเปลี่ยนแปลงสุขภาพ และโอกาสของเหตุการณ์ ไม่ใช่สถิติประชากรที่วัดจริง กราฟเชื่อมภาพรวมทุกห้าปี เครื่องหมายอยู่ที่อายุที่บันทึกการทบทวน|此原型使用设定的游戏规则。其中的金钱、健康变化和事件概率并非实测的人口统计。图表连接每五年的快照；标记位于记录的回顾年龄。|この試作品は作者が定めたゲームのルールを使います。お金、健康の変化、出来事の確率は実測の人口統計ではありません。グラフは5年ごとの記録をつなぎ、印は記録された振り返りの年齢に置かれます。|이 시제품은 작가가 정한 게임 규칙을 씁니다. 돈, 건강 변화, 사건 확률은 실측 인구 통계가 아닙니다. 그래프는 5년 단위 기록을 잇고, 표시는 기록된 점검 나이에 놓입니다.
+The neighbourhood|ละแวกบ้าน|街区|街並み|동네
+Metaphorical. Nearby buildings represent parts of a life, not a real map.|เป็นอุปมา อาคารรอบ ๆ แทนส่วนต่าง ๆ ของชีวิต ไม่ใช่แผนที่จริง|这是隐喻。周边建筑代表人生的各个部分，不是真实地图。|比喩です。周りの建物は人生の部分を表し、実在の地図ではありません。|은유입니다. 주변 건물은 삶의 부분을 나타낼 뿐 실제 지도가 아닙니다.
+Inheritance|การถ่ายทอดทางพันธุกรรม|遗传|遺伝|유전
+Deary et al.|Deary et al.|Deary et al.|Deary et al.|Deary et al.
+Pinker, The Blank Slate|Pinker, The Blank Slate|Pinker, The Blank Slate|Pinker, The Blank Slate|Pinker, The Blank Slate
+Personality|บุคลิกภาพ|人格|性格|성격
+Big Five traits, reasoning, emotional skills and empathy are distinct, and personality can change.|ลักษณะ Big Five การใช้เหตุผล ทักษะทางอารมณ์ และความเห็นอกเห็นใจ เป็นคนละสิ่งกัน และบุคลิกภาพเปลี่ยนได้|大五人格、推理、情绪能力与共情各不相同，人格也会改变。|ビッグファイブ特性、推論、感情の力、共感はそれぞれ別のもので、性格は変わりえます。|빅파이브 특성, 추론, 감정 능력, 공감은 서로 다르며, 성격은 변할 수 있습니다.
+Stieger et al.|Stieger et al.|Stieger et al.|Stieger et al.|Stieger et al.
+Twenty-three decisions come from the author's essays at|การตัดสินใจยี่สิบสามข้อมาจากบทความของผู้เขียนที่|二十三个抉择出自作者的文章，见|23の決断は作者のエッセイに由来します：|스물세 가지 결정은 작가의 에세이에서 왔습니다:
+nonharvard.wordpress.com|nonharvard.wordpress.com|nonharvard.wordpress.com|nonharvard.wordpress.com|nonharvard.wordpress.com
+Universe 25|Universe 25|Universe 25|Universe 25|Universe 25
+An enclosed-mouse experiment, not proof that prosperity causes extinction.|การทดลองหนูในพื้นที่ปิด ไม่ใช่ข้อพิสูจน์ว่าความมั่งคั่งนำไปสู่การสูญพันธุ์|一项封闭环境中的小鼠实验，并不证明富足导致灭绝。|閉鎖環境でのマウス実験であり、繁栄が絶滅を招く証明ではありません。|폐쇄 환경의 쥐 실험이며, 풍요가 멸종을 부른다는 증거가 아닙니다.
+Calhoun|Calhoun|Calhoun|Calhoun|Calhoun
+Prior art|งานก่อนหน้า|先例|先行作品|선행 사례
+Content of|เนื้อหาของ|内容来源：|内容：|내용:
+1in8b.life|1in8b.life|1in8b.life|1in8b.life|1in8b.life
+audited for comparison. Not yet modelled: dengue, job loss as an event, pregnancy.|ถูกตรวจสอบเพื่อเปรียบเทียบ ยังไม่ได้จำลอง: ไข้เลือดออก การตกงานในฐานะเหตุการณ์ การตั้งครรภ์|已审阅以作比较。尚未建模：登革热、作为事件的失业、怀孕。|を比較のため検証。未実装：デング熱、出来事としての失業、妊娠。|을 비교용으로 검토. 아직 미반영: 뎅기열, 사건으로서의 실직, 임신.
+WHO: HIV|WHO: HIV|WHO: HIV|WHO: HIV|WHO: HIV
+Made in Bangkok, from a novel|สร้างในกรุงเทพฯ จากนวนิยาย|曼谷制作，源自一部小说|バンコク製、小説から|방콕에서, 한 소설로부터
+The chair-service premise comes from the author's|แนวคิดบริการเก้าอี้มาจากนวนิยายของผู้เขียน|座椅服务的设定出自作者的|チェア・サービスの着想は作者の|의자 서비스의 설정은 작가의
+Two Layers|Two Layers|Two Layers|Two Layers|Two Layers
+and The Convenience. This software does not provide physical immersion or medical treatment.|และ The Convenience ซอฟต์แวร์นี้ไม่ได้ให้การดื่มด่ำทางกายภาพหรือการรักษาทางการแพทย์|与 The Convenience。本软件不提供身体沉浸或医疗。|と The Convenience から。本ソフトウェアは身体的な没入も医療も提供しません。|와 The Convenience에서 왔습니다. 이 소프트웨어는 신체 몰입이나 의료를 제공하지 않습니다.
+Inspired by|แรงบันดาลใจจาก|灵感来自|着想元|영감
+The Sims|The Sims|The Sims|The Sims|The Sims
+: everyday routines and an inhabited world.|: กิจวัตรประจำวันและโลกที่มีชีวิต|: 日常起居与有人居住的世界。|：日々の営みと人の住む世界。|: 일상과 사람이 사는 세계.
+: birth circumstances, time, reflection and a life record.|: สภาพแวดล้อมแรกเกิด เวลา การทบทวน และบันทึกชีวิต|: 出身境况、时间、反思与人生记录。|：生まれの境遇、時間、内省、人生の記録。|: 태어난 환경, 시간, 성찰, 삶의 기록.
+Small Hours · original music ·|Small Hours · ดนตรีต้นฉบับ ·|Small Hours · 原创音乐 ·|Small Hours · オリジナル音楽 ·|Small Hours · 오리지널 음악 ·
+CC0 1.0|CC0 1.0|CC0 1.0|CC0 1.0|CC0 1.0
+Colour|สี|色彩|色|색
+Palette / Sanzo Wada|ชุดสี / Sanzo Wada|配色 / 和田三造|配色 / 和田三造|팔레트 / 와다 산조
+References|อ้างอิง|参考文献|参考文献|참고 문헌
+KMUTT|KMUTT|KMUTT|KMUTT|KMUTT
+Unpacking|Unpacking|Unpacking|Unpacking|Unpacking
+Source|ซอร์สโค้ด|源代码|ソース|소스
+github.com/Nonarkara/life|github.com/Nonarkara/life|github.com/Nonarkara/life|github.com/Nonarkara/life|github.com/Nonarkara/life
+Status|สถานะ|状态|状態|상태
+Hub session services|บริการเซสชัน Hub|Hub 体验服务|Hub セッション・サービス|Hub 세션 서비스
+Form L-2026 · Chair 44|แบบฟอร์ม L-2026 · เก้าอี้ 44|表格 L-2026 · 44 号座椅|書式 L-2026 · チェア 44|서식 L-2026 · 의자 44
+Screen edition · v2026.1|ฉบับหน้าจอ · v2026.1|屏幕版 · v2026.1|スクリーン版 · v2026.1|스크린판 · v2026.1
+Independent prototype · no affiliation · original illustrations|ต้นแบบอิสระ · ไม่มีส่วนเกี่ยวข้องกับองค์กรใด · ภาพประกอบต้นฉบับ|独立原型 · 无任何隶属关系 · 原创插图|独立した試作品 · 提携なし · オリジナルイラスト|독립 시제품 · 제휴 없음 · 오리지널 일러스트
+life.nonarkara.org|life.nonarkara.org|life.nonarkara.org|life.nonarkara.org|life.nonarkara.org
+ไทย|ไทย|ไทย|ไทย|ไทย
+简体中文|简体中文|简体中文|简体中文|简体中文
+日本語|日本語|日本語|日本語|日本語
+한국어|한국어|한국어|한국어|한국어
+Pamphlet sections|ส่วนต่าง ๆ ของแผ่นพับ|手册章节|パンフレットの目次|팸플릿 목차
+Four steps|สี่ขั้นตอน|四个步骤|4つのステップ|네 단계
+What a life is measured by|ชีวิตวัดจากอะไร|人生以什么衡量|人生は何で測られるか|삶은 무엇으로 측정되는가
+A route map: a life leaves home, lives in two other places and returns|แผนที่เส้นทาง: ชีวิตหนึ่งออกจากบ้าน ไปอยู่อีกสองแห่ง แล้วกลับมา|路线图：一段人生离开家乡，在另外两地生活，然后归来|路線図：ある人生が故郷を離れ、二つの土地で暮らし、戻ってくる|노선도: 한 삶이 고향을 떠나 두 곳에서 살다가 돌아옵니다
+Starting conditions|เงื่อนไขเริ่มต้น|起始条件|初期条件|시작 조건
+Care and consent|การดูแลและความยินยอม|关怀与同意|ケアと同意|보호와 동의
 At 60, years of small savings had become a real runway.|ถึงอายุ 60 เงินออมเล็ก ๆ หลายปีกลายเป็นเงินสำรองให้ใช้ชีวิตได้จริง|到60岁时，多年的小额储蓄已成了真正的生活缓冲。|60歳になると、長年の小さな貯金が本当の蓄えになっていた。|60세가 되자 여러 해의 작은 저축이 진짜 버팀목이 되어 있었다.
 At 60, a large balance, and decades that had felt thin.|ถึงอายุ 60 มีเงินก้อนใหญ่ แต่หลายสิบปีที่ผ่านมารู้สึกแห้งแล้ง|到60岁时，账户余额可观，几十年却过得单薄。|60歳で残高は大きい。けれど何十年も、どこか薄い日々だった。|60세에 잔고는 컸지만, 지난 수십 년은 메마르게 느껴졌다.
 The trip never happened. Your parent fell ill and died before you could afford it.|ทริปนั้นไม่เคยเกิดขึ้น พ่อหรือแม่ล้มป่วยและจากไปก่อนที่คุณจะมีเงินพอ|那趟旅行从未成行。父母在你攒够钱之前就病倒离世了。|その旅は実現しなかった。費用が貯まる前に、親は病に倒れて亡くなった。|그 여행은 끝내 이루어지지 않았다. 돈을 모으기 전에 부모님이 병으로 돌아가셨다.

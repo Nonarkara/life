@@ -1,3 +1,152 @@
-.manual{background:#e0ded2}.manual header{background:var(--paper);padding:8px 24px}.manual header nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap;font-size:12px}.manual nav a{text-decoration:none}.manual nav button{font-size:12px;padding:4px 0}.manual .play-link{display:inline-block;width:max-content;max-width:100%;font-size:16px;font-weight:600;border-bottom:3px solid var(--amber);padding:6px 0;text-decoration:none}.manual main.spread{display:grid;grid-template-columns:1fr 1fr;max-width:1240px;margin:24px auto;background:var(--paper)}.manual .sheet{padding:28px 36px 20px;position:relative;min-width:0}.manual .sheet+ .sheet{border-left:1px solid #b4b9a9}.manual-title{display:flex;gap:20px;align-items:center;margin-bottom:18px}.manual-title h1{font-size:32px;max-width:14ch;margin:0}.manual-title>svg{width:64px;height:80px;flex:none;stroke:var(--ink);fill:none;stroke-width:2}.edition{font-size:12px;margin:0 0 6px}.instruction{display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;margin-bottom:24px}.step{font-size:24px;font-weight:600;line-height:1.2}.instruction h2,.manual-controls h2{font-size:24px;line-height:1.2;font-weight:500;margin:0}.instruction svg{display:block;width:100%;max-height:140px;margin:8px 0}.scene-line{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.scene-line .agency{stroke:#a35d00;stroke-width:3}.points{fill:#a35d00}.instruction p{font-size:16px;max-width:43ch;margin:0}.manual-controls{margin-left:44px}.manual-controls p{font-size:16px;max-width:43ch}.speed-diagram{font-weight:600;letter-spacing:1px;margin:12px 0}.folio{display:block;text-align:right;font-size:12px;margin-top:20px}.manual footer,.manual .notes{max-width:1240px;margin:16px auto;padding:0 36px}.manual footer{display:flex;flex-wrap:wrap;gap:8px 32px;font-size:12px}.manual footer p{margin:0}.manual .notes{background:var(--paper);padding:24px 36px}.notes p{max-width:65ch}.notes h3{font-size:16px;margin:16px 0 8px}.notes ul{padding-left:20px}.manual svg text{font-family:inherit;font-size:14px}.manual :focus-visible{outline:3px solid #a35d00;outline-offset:3px}@media(max-width:720px){.manual header{padding:8px 16px;align-items:start;gap:20px}.manual header nav{gap:6px 14px}.manual main.spread{display:block;margin:12px}.manual .sheet{padding:20px 16px}.manual .sheet+ .sheet{border-left:0;border-top:1px solid #b4b9a9}.manual-title h1{font-size:24px;max-width:18ch}.manual-title{gap:12px}.manual-title>svg{width:46px}.instruction{gap:8px;grid-template-columns:28px minmax(0,1fr);margin-bottom:20px}.instruction h2,.manual-controls h2{font-size:24px}.manual-controls{margin-left:36px}.manual footer,.manual .notes{margin:12px;padding:16px}.manual footer{padding:0 4px}.instruction p{max-width:100%}.instruction svg{margin:10px 0}.manual .notes p{font-size:calc(16px * var(--reading-scale))}}
-
-.manual-motto{max-width:30ch;font-size:calc(18px * var(--reading-scale));margin:12px 0 0;line-height:1.4}
+/* The Hub's service pamphlet: one screen, turned sheet by sheet. Three sizes:
+   display (the sheet title), body, and micro (mono specification lines). */
+.pamphlet{--display:clamp(30px,3.4vw,46px);--body:15px;--micro:11.5px;--rule:#b4b9a9;--hub:#111614;
+ --sans:'Source Sans 3','IBM Plex Sans Thai',Prompt,'Noto Sans SC','Noto Sans JP','Noto Sans KR',sans-serif;--head:Jost,'IBM Plex Sans Thai',Prompt,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+ height:100dvh;margin:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--paper);color:var(--ink);font:var(--body)/1.5 var(--sans);overflow:hidden}
+:lang(th) .pamphlet,.pamphlet:lang(th){--sans:'IBM Plex Sans Thai',Prompt,sans-serif;--head:'IBM Plex Sans Thai',Prompt,sans-serif}
+.pamphlet a{color:inherit}
+/* Bar: brand, the sheets, and the one action. Its height is its content. */
+.pamphlet .bar{display:flex;align-items:center;gap:24px;padding:10px 24px;border-bottom:1px solid var(--ink);background:var(--paper)}
+.pamphlet .brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;white-space:nowrap}
+.pamphlet .brand b{font:600 20px/1 var(--head)}
+.pamphlet .brand span{font:var(--micro)/1 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.pamphlet .menu{display:flex;gap:18px;flex:1;min-width:0}
+.pamphlet .menu button{font:inherit;padding:6px 0;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);white-space:nowrap;cursor:pointer}
+.pamphlet .menu button[aria-pressed=true]{color:var(--ink);border-bottom-color:var(--ink);font-weight:600}
+.pamphlet .bar-actions{display:flex;gap:16px;align-items:center;white-space:nowrap}
+.pamphlet .bar-actions button{font:inherit;padding:6px 0;background:none;border:0;cursor:pointer}
+.pamphlet .begin{display:inline-block;font:600 var(--body)/1.2 var(--head);padding:6px 0;border-bottom:3px solid var(--amber);text-decoration:none;color:var(--ink)}
+.pamphlet .quiet{font:inherit;padding:6px 0;background:none;border:0;border-bottom:1px solid var(--ink);cursor:pointer;color:var(--ink)}
+/* Folio: the sheet fills the space between bar and strip, exactly. */
+.pamphlet .folio{min-height:0;overflow:hidden}
+.pamphlet .sheet{height:100%;box-sizing:border-box}
+.pamphlet .sheet[hidden]{display:none}
+.pamphlet .eyebrow{font:var(--micro)/1.3 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+.pamphlet h1,.pamphlet .detail-head h2{font:600 var(--display)/1.05 var(--head);margin:0 0 12px;letter-spacing:-.01em;text-wrap:balance}
+.pamphlet p{margin:0 0 12px;max-width:62ch}
+/* Overview: three folded panels. The hero is widest because it is read first. */
+.pamphlet .overview{display:grid;grid-template-columns:1.2fr 1fr 1fr}
+.pamphlet .panel{padding:28px 28px 20px;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.pamphlet .panel+.panel{border-left:1px solid var(--rule)}
+.pamphlet .panel h2{font:600 var(--body)/1.3 var(--sans);text-transform:uppercase;letter-spacing:.04em;margin:0 0 14px;padding-bottom:8px;border-bottom:1px solid var(--ink)}
+.pamphlet .motto{font:500 calc(var(--body) * 1.35)/1.3 var(--head);margin-bottom:14px}
+.pamphlet .lede{color:var(--ink)}
+.pamphlet .spec{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:0 16px;margin:6px 0 20px;border-top:1px solid var(--ink)}
+.pamphlet .spec dt,.pamphlet .spec dd{margin:0;padding:7px 0;border-bottom:1px solid var(--rule)}
+.pamphlet .spec dt{font:var(--micro)/1.6 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.pamphlet .actions{display:flex;gap:24px;align-items:center;margin-top:auto}
+.pamphlet .step-list{list-style:none;margin:0;padding:0;display:grid;grid-template-rows:repeat(4,minmax(0,1fr));gap:10px;flex:1;min-height:0}
+.pamphlet .step-list li{display:grid;grid-template-columns:28px minmax(0,1fr) minmax(0,.9fr);gap:12px;align-items:center;min-height:0}
+.pamphlet .step-list .n{font:500 var(--micro)/1 var(--mono);align-self:start;padding-top:3px}
+.pamphlet .step-list b{display:block}
+.pamphlet .step-list p{margin:2px 0 0;color:var(--muted)}
+.pamphlet .step-list svg{width:100%;height:100%;max-height:96px;min-height:0}
+.pamphlet .scene-line{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pamphlet .scene-line .agency,.pamphlet .agency{stroke:#a35d00;stroke-width:3;fill:none}
+.pamphlet .points{fill:#a35d00}
+.pamphlet svg text{font:12px var(--mono);fill:var(--ink)}
+.pamphlet .pillars{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:10px}
+.pamphlet .pillars li{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:12px;align-items:baseline;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.pamphlet .pillars span{color:var(--muted)}
+.pamphlet .route-mini{width:100%;max-height:150px;margin:4px 0 14px}
+.pamphlet .route-mini .rails path{stroke:var(--rule);stroke-width:1}
+.pamphlet .route-mini .route{stroke:var(--amber);stroke-width:6;stroke-linejoin:round;stroke-linecap:round}
+.pamphlet .route-mini .stations circle{fill:var(--paper);stroke:var(--ink);stroke-width:2.5}
+.pamphlet .route-mini .stations .end{fill:var(--ink)}
+.pamphlet .note{color:var(--ink)}
+.pamphlet .disclaimer{margin-top:auto;padding:10px 12px;border:1px solid var(--ink);font-size:var(--body)}
+/* Detail sheets: a statement on the left, the facts on the right, read in rows. */
+.pamphlet .detail{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.6fr);gap:0}
+.pamphlet .detail-head{padding:28px 32px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:4px}
+.pamphlet .detail-head .begin,.pamphlet .detail-head .quiet{align-self:start;margin-top:auto}
+.pamphlet .hotline{padding:10px 12px;border:1px solid var(--ink);font-weight:600}
+.pamphlet .speed-diagram{font:500 calc(var(--body) * 1.2)/1 var(--mono);letter-spacing:.08em;margin-top:auto}
+.pamphlet .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:minmax(0,1fr);margin:0;padding:28px 32px;gap:0 32px;align-content:stretch}
+.pamphlet .grid dt{font:var(--micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding-top:12px;border-top:1px solid var(--ink);margin:0}
+.pamphlet .grid dd{margin:0 0 6px;padding:6px 0 14px}
+.pamphlet .grid>div{min-height:0}
+.pamphlet .event-guide{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:auto;font-size:var(--body)}
+.pamphlet .event-guide span{display:inline-flex;gap:6px;align-items:center}
+.pamphlet .event-guide svg{width:14px;height:14px}
+/* The Hub's certification strip ties the pamphlet to the archive it comes from. */
+.pamphlet .hub{display:flex;gap:28px;padding:8px 24px;background:var(--hub);color:#d9dcd2;font:var(--micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;overflow:hidden}
+.pamphlet .hub .wide{margin-left:auto}
+/* Shorter laptop screens: same composition, tighter rhythm. */
+@media (max-height:820px) and (min-width:721px){.pamphlet .panel,.pamphlet .detail-head,.pamphlet .grid{padding-top:20px;padding-bottom:14px}.pamphlet .spec dt,.pamphlet .spec dd{padding:5px 0}.pamphlet .route-mini{max-height:110px}.pamphlet .grid dd{padding-bottom:8px}}
+@media (max-width:1180px) and (min-width:721px){.pamphlet .brand span{display:none}.pamphlet .menu{gap:12px}.pamphlet .overview{grid-template-columns:1.15fr 1fr}.pamphlet .overview .measures{display:none}}
+/* Phone: the same pamphlet, one panel per sheet. The menu becomes a strip you swipe;
+   Overview keeps only its first panel because the others have sheets of their own. */
+@media (max-width:720px){
+ .pamphlet{--display:32px;--body:15px}
+ .pamphlet .bar{flex-wrap:wrap;gap:0 12px;padding:8px 16px 0}
+ .pamphlet .brand span{display:none}
+ .pamphlet .bar-actions{margin-left:auto}
+ .pamphlet .bar-actions .begin{display:none}
+ .pamphlet .menu{order:3;flex-basis:100%;overflow-x:auto;scrollbar-width:none;gap:16px;padding-top:4px}
+ .pamphlet .menu::-webkit-scrollbar{display:none}
+ .pamphlet .menu button{min-height:36px}
+ .pamphlet .overview,.pamphlet .detail{display:block;overflow-y:auto}
+ .pamphlet .overview .steps,.pamphlet .overview .measures{display:none}
+ .pamphlet .panel,.pamphlet .detail-head{padding:20px 16px;border:0;height:100%;box-sizing:border-box}
+ .pamphlet .detail{display:flex;flex-direction:column}
+ .pamphlet .detail-head{height:auto;border-bottom:1px solid var(--rule)}
+ .pamphlet .detail-head .speed-diagram,.pamphlet .detail-head .event-guide{display:none}
+ .pamphlet .grid{display:block;padding:0 16px 16px}
+ .pamphlet .grid dt{padding-top:10px}.pamphlet .grid dd{padding:4px 0 10px}
+ .pamphlet .hub{gap:16px;padding:6px 16px}.pamphlet .hub span:nth-child(n+3){display:none}
+ .pamphlet .actions{margin-top:auto}
+}
+/* The pamphlet is paper laid on a table: each sheet is as large as its content and
+   sits centred, so no sheet invents empty space. Overview is the full spread. */
+.pamphlet main.folio{max-width:none;width:auto;margin:0;padding:20px 24px;background:#dcd9cd;display:grid;place-items:center;overflow:hidden}
+.pamphlet .sheet{width:min(1360px,100%);height:auto;max-height:100%;background:var(--paper);border:1px solid var(--rule)}
+.pamphlet .overview{height:100%;max-height:820px}
+.pamphlet .grid{grid-auto-rows:auto;align-content:start;gap:0 36px}
+.pamphlet .detail{align-items:stretch}
+.pamphlet .step-list li{grid-template-columns:24px minmax(0,1.25fr) minmax(0,1fr);gap:16px}
+.pamphlet .step-list svg{max-height:84px}
+.pamphlet .panel .actions{display:flex;margin-top:auto;padding-top:12px}
+@media (max-width:720px){.pamphlet main.folio{padding:0;display:block}.pamphlet .sheet{width:100%;height:100%;max-height:none;border:0}.pamphlet .overview{max-height:none}}
+.pamphlet main.folio{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.pamphlet .langs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;margin:4px 0 0;padding-top:14px}
+.pamphlet .langs .eyebrow{margin:0;flex-basis:100%}
+.pamphlet .langs button{font:inherit;background:none;border:0;border-bottom:2px solid transparent;padding:6px 0;min-height:32px;cursor:pointer;color:var(--muted)}
+.pamphlet .langs button[aria-pressed=true]{color:var(--ink);border-bottom-color:var(--ink);font-weight:600}
+.pamphlet .step-list li{align-items:start}.pamphlet .step-list svg{align-self:center}
+@media (max-width:720px){.pamphlet .hotline{padding:8px 10px;margin-bottom:6px}.pamphlet .detail-head p{margin-bottom:8px}.pamphlet .grid dd{padding:2px 0 8px}}
+/* The page grid never grows past the viewport; a long menu scrolls inside its own strip. */
+.pamphlet{grid-template-columns:minmax(0,1fr)}
+.pamphlet .bar,.pamphlet .menu,.pamphlet .folio,.pamphlet .sheet,.pamphlet .panel{min-width:0}
+/* Thai, Chinese, Japanese and Korean are never tracked or set in a Latin monospace. */
+html:is([lang=th],[lang=zh-CN],[lang=ja],[lang=ko]) .pamphlet :is(.eyebrow,.spec dt,.grid dt,.hub,.brand span,.n,.count){font-family:var(--sans);letter-spacing:0;text-transform:none}
+/* Spreads: three full columns of facts, so every sheet fills the paper with content. */
+.pamphlet .sheet{height:100%;max-height:820px}
+.pamphlet .spread{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1fr) minmax(0,1fr)}
+.pamphlet .spread .col{padding:28px 28px 20px;border-left:1px solid var(--rule);min-height:0;overflow:hidden}
+.pamphlet .facts{margin:0}
+.pamphlet .facts>div{padding:10px 0 12px;border-top:1px solid var(--rule)}
+.pamphlet .facts>div:first-child{border-top-color:var(--ink)}
+.pamphlet .facts dt{font:600 var(--body)/1.35 var(--sans);margin:0 0 2px}
+.pamphlet .facts dd{margin:0;color:var(--muted)}
+.pamphlet .facts.compact>div{padding:6px 0 7px}
+.pamphlet .detail-head .credits{margin-top:auto}
+.pamphlet .care-lead{margin-top:auto}
+/* The main action is a solid button, not a link. One amber, used only for action. */
+.pamphlet .begin{background:var(--amber);border:0;padding:10px 18px;color:#1b1f1c;font-weight:600}
+.pamphlet .bar .begin{padding:7px 14px}
+.pamphlet .langs{padding-top:16px}
+/* Thai breaks by dictionary, not spaces; tone marks need taller lines at display size. */
+html[lang=th] .pamphlet{line-break:strict;word-break:normal}
+html[lang=th] .pamphlet :is(h1,.detail-head h2){line-height:1.35}
+html[lang=th] .pamphlet{--micro:12.5px}
+@media (max-width:1180px) and (min-width:721px){.pamphlet .spread{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.pamphlet .spread .detail-head{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--rule);padding-bottom:14px}.pamphlet .spread .detail-head .credits,.pamphlet .spread .detail-head .speed-diagram,.pamphlet .spread .detail-head .event-guide{display:none}.pamphlet .hub .wide{display:none}}
+@media (max-width:720px){.pamphlet .spread{display:block;overflow-y:auto}.pamphlet .spread .col{border-left:0;padding:14px 16px}.pamphlet .panel.hero .actions{margin-top:20px}.pamphlet .menu{padding-right:16px}}
+.pamphlet .detail-head .begin,.pamphlet .detail-head .quiet{margin-top:14px}
+@media (max-width:1180px) and (min-width:721px){
+ .pamphlet .spread{grid-template-columns:minmax(0,.8fr) minmax(0,1fr) minmax(0,1fr)}
+ .pamphlet .spread .detail-head{grid-column:auto;border-right:1px solid var(--rule);border-bottom:0}
+ .pamphlet .spread .detail-head,.pamphlet .spread .col{padding:18px 18px 12px}
+ .pamphlet .facts>div{padding:6px 0 8px}
+ .pamphlet .spread .detail-head .credits{display:block}
+}
+@media (max-width:1180px) and (min-width:721px){.pamphlet .spread{overflow-y:auto}.pamphlet .spread .detail-head,.pamphlet .spread .col{overflow:visible}}

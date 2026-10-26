@@ -11,7 +11,16 @@ const roles=new Map([
 ]);
 let ramp;
 export function lightRamp(){
- if(!ramp){ramp=new T.DataTexture(new Uint8Array([176,176,176,255,220,220,220,255,255,255,255,255]),3,1,T.RGBAFormat);ramp.minFilter=T.NearestFilter;ramp.magFilter=T.NearestFilter;ramp.generateMipmaps=false;ramp.needsUpdate=true;}
+ // Two hard bands, like a painted cel: light and one shadow, nothing in between.
+ if(!ramp){ramp=new T.DataTexture(new Uint8Array([156,156,156,255,255,255,255,255]),2,1,T.RGBAFormat);ramp.minFilter=T.NearestFilter;ramp.magFilter=T.NearestFilter;ramp.generateMipmaps=false;ramp.needsUpdate=true;}
  return ramp;
 }
-export function illustratedMaterial(color,{character=false}={}){const chosen=roles.get(color)??color;return character?new T.MeshToonMaterial({color:chosen,gradientMap:lightRamp()}):new T.MeshLambertMaterial({color:chosen});}
+// People are drawn; the world is a quieter painted set behind them. World colours
+// lean toward the paper tone so the moving figures carry the eye.
+const PAPER=new T.Color('#efe7d2');
+export function illustratedMaterial(color,{character=false}={}){const chosen=roles.get(color)??color;if(character)return new T.MeshToonMaterial({color:chosen,gradientMap:lightRamp()});const m=new T.MeshLambertMaterial({color:chosen});m.color.lerp(PAPER,.2);return m;}
+// An ink line around a drawn figure: the back faces of each part, pushed out along
+// their normals and filled flat. It reads as a 2D outline at any camera angle.
+const INK=new T.MeshBasicMaterial({color:'#25302c',side:T.BackSide});
+INK.onBeforeCompile=shader=>{shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>','#include <begin_vertex>\n transformed += normal * 0.018;');};
+export function inkOutline(root){const parts=[];root.traverse(o=>{if(o.isMesh&&!o.userData.ink)parts.push(o);});for(const o of parts){const line=new T.Mesh(o.geometry,INK);line.userData.ink=true;line.castShadow=false;line.receiveShadow=false;o.add(line);}}

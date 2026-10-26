@@ -1,6 +1,38 @@
-.intake{display:block;max-width:920px;padding:28px 24px;margin:0 auto}.intake-intro{max-width:60ch}.intake h1{max-width:24ch}.intake-intro>.primary{margin:8px 20px 12px 0}.intake-intro>a{display:inline-block;font-size:16px}.custom-intake{margin-top:20px;width:100%}.custom-intake>summary{font-size:16px;cursor:pointer;padding:8px 0;text-decoration:underline;text-underline-offset:4px}.custom-intake form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px 40px;margin-top:18px}.conditions{display:flex;flex-direction:column;align-items:start;gap:8px}.conditions label{font-weight:500;margin-top:8px}.conditions select{margin-bottom:12px}.conditions .fine{max-width:35ch}.starting-shape{max-width:400px}.starting-shape figcaption{font-size:12px;display:flex;gap:16px;flex-wrap:wrap}.starting-shape svg{display:block;width:100%;height:auto}.starting-shape svg text{font-size:16px;fill:var(--ink)}.starting-shape svg [role=button]{cursor:pointer}.starting-shape svg [aria-pressed=true] text{fill:#a35d00;font-weight:600}.point-editor{display:flex;justify-content:center;align-items:center;gap:16px}.point-editor button{width:36px;height:36px;font-size:24px;padding:0}.point-editor output{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}#selected-axis{text-align:center;margin:4px 0 8px;font-weight:500}.starting-shape>.fine{max-width:44ch;font-size:12px}.intake-submit{grid-column:1/-1}.intake-submit .fine{margin-top:12px}.custom-intake summary:focus-visible,.starting-shape svg [role=button]:focus-visible{outline:3px solid #a35d00;outline-offset:3px}header>div>a{font-size:12px;align-self:center}@media(max-width:720px){.intake{padding:20px 16px}.custom-intake form{display:block}.starting-shape{margin:20px 0}.intake-submit{margin-top:20px}.conditions label{font-size:calc(16px * var(--reading-scale))}.conditions select{font-size:calc(16px * var(--reading-scale));max-width:100%}}
-/* Keep the starting action beside the shape it commits. */
-.intake{max-width:840px}.custom-intake form{gap:12px 32px}.starting-shape svg{max-width:340px}.intake-submit{grid-column:2}.intake-intro>.primary{margin-top:4px;margin-bottom:8px}#selected-axis{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}@media(max-width:720px){.intake-submit{margin-top:12px}.starting-shape svg{max-width:360px}}
+/* Form L-2026: the session order, laid out as one pamphlet spread like the overview. */
+.intake-page .menu a{padding:6px 0;color:var(--muted);text-decoration:none;white-space:nowrap}
+.intake-page .menu a:hover{color:var(--ink)}
+.intake-page .overview.intake{grid-template-columns:1.1fr 1fr 1.1fr}
+.intake-page .conditions label{display:flex;gap:10px;align-items:baseline;font-weight:600;margin:4px 0 6px}
+.intake-page .n{font:500 var(--micro)/1 var(--mono);color:var(--muted)}
+.intake-page select{font:inherit;width:100%;padding:8px 0;border:0;border-bottom:1px solid var(--ink);background:none;color:var(--ink);margin-bottom:8px}
+.intake-page .fine{font-size:var(--body);color:var(--muted);margin:0 0 18px;max-width:52ch}
+.intake-page .conditions .disclaimer{margin-top:8px}
+.intake-page .starting-shape h2{display:flex;gap:10px;align-items:baseline}
+.intake-page .starting-shape .count{margin-left:auto;font:var(--micro)/1 var(--mono);text-transform:none;letter-spacing:0;color:var(--muted)}
+.intake-page #intake-radar{width:100%;flex:1;min-height:180px;max-height:300px}
+.intake-page #intake-radar text{font:13px var(--sans);fill:var(--ink)}
+.intake-page #intake-radar [role=button]{cursor:pointer}
+.intake-page #intake-radar [aria-pressed=true] text{font-weight:600}
+.intake-page .point-editor{display:flex;align-items:center;gap:14px;margin:4px 0 10px}
+.intake-page .point-editor button{width:36px;height:36px;font:600 18px/1 var(--sans);background:none;border:1px solid var(--ink);color:var(--ink);cursor:pointer}
+.intake-page .point-editor button:first-child{border-radius:50%}
+.intake-page .point-editor button:disabled{opacity:.35;cursor:default}
+.intake-page .point-editor output{font:600 var(--body)/1 var(--mono);min-width:6ch;text-align:center}
+.intake-page #selected-axis{color:var(--muted)}
+.intake-page #intake-error:empty{display:none}
+.intake-page #intake-error{color:#a32750;font-weight:600;margin-top:10px}
+.intake-page .panel .actions{margin-top:8px}
+.intake-page .starting-shape .actions{margin-top:8px}
+@media (max-width:1180px) and (min-width:721px){.intake-page .overview.intake{grid-template-columns:1fr 1fr}.intake-page .overview.intake .panel:first-child{grid-column:1/-1;border-bottom:1px solid var(--rule)}.intake-page .overview.intake .panel:first-child .spec{display:none}}
+/* Phone: one column you read top to bottom; the chance option first, the form below. */
+@media (max-width:720px){
+ .intake-page .menu{display:none}
+ .intake-page .overview.intake{display:block;overflow-y:auto}
+ .intake-page .overview.intake .panel{height:auto;border-bottom:1px solid var(--rule)}
+ .intake-page .overview.intake .steps,.intake-page .overview.intake .measures{display:block}
+ .intake-page .overview.intake .panel:first-child .spec{display:none}
+ .intake-page #intake-radar{max-height:240px}
+}
 
-/* Geometry identifies the editor; the value remains unboxed. */
-#point-minus{border:1px solid #b4b9a9;border-radius:50%}#point-plus{border:1px solid #b4b9a9;border-radius:0}
+/* A form is as tall as its questions: the order slip fits its content on the table. */
+@media (min-width:721px){.intake-page .sheet{height:auto}}
