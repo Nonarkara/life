@@ -276,9 +276,27 @@ review/beats: love at dusk on the bridge, the fist fight in the alley with
 manga impact lines, the boy who does not let up in the classroom, two bicycles
 in the lane. A source scan and a build are not a visual approval.
 
-Still missing: the Questions tab and the pivot prompts are still English-only
-in the four other languages (the new bully encounter is translated in all
-five); the report-card beat is covered by tests but has not been photographed,
-because it needs answered questions; the adult player's face drifts between
-two player sheets; the world is not yet a full Truman Show — there is no
-control room, and the actors still follow the routine rather than a script.
+The art is now pulled when it is needed rather than all at once: a life visits
+a few places, so the stage asks for the plate it is about to draw. The whole
+set was also trimmed (figures 400px tall at quality 82, plates at quality 68,
+4.3MB in all), and a stage that is still waiting for a picture says so on a
+dark ground instead of showing a hole.
+
+The bullying is conditional, and the condition is the life: a child who
+carried crates at the market stall instead of keeping the books, a life that
+put nothing into school, or a life that had already gone badly. It is a
+condition of the world, not a punishment for the player. The encounter is
+priority 1, so it takes the place the questions leave open, and about one
+life in seven lives it.
+
+The interface chrome of the new features is translated in all five languages:
+the Questions tab, the answer prompts, the counterfactual table, the roads
+not taken and the world setting. The twenty-eight questions themselves are
+still English-only outside English; that is the largest remaining gap.
+
+Still missing: the twenty-eight questions are not yet translated into Thai,
+Chinese, Japanese and Korean; the report-card beat is covered by tests but
+has not been photographed, because it needs answered questions; the adult
+player's face drifts between two player sheets; the world is not yet a full
+Truman Show — there is no control room, and the actors still follow the
+routine rather than a script.

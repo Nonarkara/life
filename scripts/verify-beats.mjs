@@ -97,7 +97,10 @@ const measure = `(() => {
   const data = ctx.getImageData(0, 0, world.width, world.height).data;
   let painted = 0;
   for (let i = 0; i < data.length; i += 4 * 37) {
-    if (data[i] !== 18 || data[i + 1] !== 16 || data[i + 2] !== 12) painted++;
+    // The empty stage and the "waiting for its art" ground are not a picture.
+    const empty = (data[i] === 18 && data[i + 1] === 16 && data[i + 2] === 12)
+      || (data[i] === 27 && data[i + 1] === 23 && data[i + 2] === 18);
+    if (!empty) painted++;
   }
   return { width: world.width, height: world.height, paintedSamples: painted,
            caption: document.getElementById('scene-caption')?.textContent?.trim() ?? '' };

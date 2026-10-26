@@ -34,11 +34,11 @@ export function platePath(key){return manifest?.plates?.[key]??null;}
 export function spritePath(sheet,frame){return manifest?.sprites?.[sheet]?.[frame]??null;}
 
 // Every path the manifest names is versioned at build time, so a new build of
-// the art can never be served from an old cache.
+// the art can never be served from an old cache. The plates are not all
+// fetched at once: a life only visits a few places, and the stage asks for
+// the picture it is about to draw.
 export async function prepareStageArt(){
   try{await loadManifest();}
   catch(error){pending=null;throw error;}
-  // The plates are the face of the world: they are fetched straight away.
-  for(const path of Object.values(manifest?.plates??{}))stageImage(path);
   return manifest;
 }

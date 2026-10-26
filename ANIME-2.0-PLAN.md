@@ -151,6 +151,11 @@ The bullying is a decision like any other: push him back, tell a teacher, say
 nothing and take it, or ask someone to walk home with you. The fight is
 drawn because you pushed back.
 
+The corridor belongs to a life that was already struggling: a child who
+carried crates at the market stall instead of keeping the books, a life that
+put nothing into school, or a life that had already gone badly. It is a
+condition of the world, not a punishment for the player.
+
 ## The numbers
 
 - `dist/course/baseline.js` — Life 1.0: the life you would have had by not

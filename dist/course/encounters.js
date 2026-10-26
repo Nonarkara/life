@@ -12,7 +12,7 @@ export const ENCOUNTERS=[
   option('home','Go home and finish your project',{skills:{craft:1}},'You stayed home and finished something that had been waiting.'),
   option('together','Study together, then take a walk',{skills:{iq:1,eq:1},wellbeing:1,flag:'friend'},'You and {friend} worked through a difficult lesson, then talked on the walk home. Neither part of the afternoon lasted as long as you wanted.'),
   option('crush','Tell your crush you would like to spend time together',{skills:{eq:2},wellbeing:2,flag:'schoolCrush'},'You made room for a school-age crush and practised listening and boundaries. Your unfinished work still needed another afternoon.') ]},
- {id:'bully',category:'connection',min:15,max:20,priority:1,title:'A boy who does not let up',prompt:'An older boy from another class takes your book, then your lunch, then your patience. The corridor is long and the teacher is far away.',options:[
+ {id:'bully',category:'school',min:16,max:20,priority:1,title:'A boy who does not let up',prompt:'An older boy from another class takes your book, then your lunch, then your patience. The corridor is long and the teacher is far away.',eligible:s=>(s.pivots??[]).some(r=>r.pivot==='child-roof'&&r.choice==='stall')||(s.effort?.iq??3)<=1||(s.wellbeing??70)<=45,options:[
   option('push','Push him back',{health:-5,wellbeing:-3,flag:'foughtBack'},'You hit back. It ended in seconds and cost you for weeks.'),
   option('teacher','Tell a teacher',{wellbeing:-1,skills:{eq:1}},'You told a teacher. It helped less than you hoped and less than you feared.'),
   option('endure','Say nothing and take it',{wellbeing:-4,skills:{iq:1}},'You said nothing and carried it home. It sat with you the whole way.'),

@@ -18,7 +18,7 @@ from scipy import ndimage
 
 SOURCE = Path("scratch/anime/src")
 TARGET = Path("dist/course/anime")
-SPRITE_HEIGHT = 460  # working height of a keyed figure, in pixels
+SPRITE_HEIGHT = 400  # working height of a keyed figure, in pixels
 PLATE_WIDTH = 1760   # working width of a painted plate, in pixels
 GROUND_TOLERANCE = 26
 
@@ -462,7 +462,7 @@ def prepare_sheet(name):
         scale = SPRITE_HEIGHT / out.height
         out = out.resize((max(1, round(out.width * scale)), SPRITE_HEIGHT), Image.LANCZOS)
         file = f"sprites/{name}-{SHEETS[name][index]}.webp"
-        out.save(TARGET / file, "WEBP", quality=90, method=4)
+        out.save(TARGET / file, "WEBP", quality=82, method=4)
         frames.append((SHEETS[name][index], file))
     return frames
 
@@ -473,7 +473,7 @@ def prepare_plate(name, key):
     if image.width > PLATE_WIDTH:
         image = image.resize((PLATE_WIDTH, round(image.height * PLATE_WIDTH / image.width)), Image.LANCZOS)
     file = f"plates/{key}.webp"
-    image.save(TARGET / file, "WEBP", quality=74, method=2)
+    image.save(TARGET / file, "WEBP", quality=68, method=2)
     return file
 
 
