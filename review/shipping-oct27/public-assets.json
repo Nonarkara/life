@@ -1,0 +1,490 @@
+{
+  "build": "a3525000e796",
+  "commit": "8ef5303",
+  "targets": {
+    "https://life-5wz.pages.dev": [
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78",
+          "expected": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350",
+          "expected": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab",
+          "expected": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8",
+          "expected": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae",
+          "expected": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f",
+          "expected": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78",
+          "expected": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350",
+          "expected": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab",
+          "expected": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8",
+          "expected": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae",
+          "expected": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f",
+          "expected": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78",
+          "expected": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350",
+          "expected": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab",
+          "expected": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8",
+          "expected": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae",
+          "expected": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f",
+          "expected": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        }
+      ]
+    ],
+    "https://life.nonarkara.org": [
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78",
+          "expected": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350",
+          "expected": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab",
+          "expected": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8",
+          "expected": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae",
+          "expected": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f",
+          "expected": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78",
+          "expected": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350",
+          "expected": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab",
+          "expected": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8",
+          "expected": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae",
+          "expected": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f",
+          "expected": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78",
+          "expected": "4d1f2d569c0ceeb900ba3e1b78af44c7ee82cef014dcb66c52cbd836a79e4d78"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350",
+          "expected": "afa8d82024a3a547183a6ee74741a94b143acf2737f9a1450cfc7d081f87b350"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab",
+          "expected": "16abb32cc8a1819428ac31844787e9fdc0ba2e19c7766c852fd78cda674c65ab"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8",
+          "expected": "64ba8f5a0f79d55ac3127fb6e3f51055455dbc671c263cc6b1b4488b7ee63fa8"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae",
+          "expected": "9ecdf647e5a6897da7f1dc4faa9ad1cec63642befaaed3c1cae09446278f14ae"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f",
+          "expected": "acb56461c725a8976a803a01bd22c6b3a5ae69315b33fa59e296b3fdcece727f"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        }
+      ]
+    ]
+  }
+}

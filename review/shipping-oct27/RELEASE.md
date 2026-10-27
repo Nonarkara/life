@@ -31,3 +31,13 @@ Independent source and still-image review closed commitment theft, swimming tran
 ## Publication
 
 Commit/build/deployment and public SHA-256 receipts are recorded after deployment. Public checks must retain the existing age-15 life and verify current forecast/navigation and the authored childhood scene fixture. Local age-55 effort controls were exercised and restored to their original allocation; balances and history were preserved.
+
+Published source: 8ef5303. Build: a3525000e796. Deployment:
+[745f3c8f](https://745f3c8f.life-5wz.pages.dev). Both canonical Pages and
+life.nonarkara.org matched all13 selected assets on three consecutive checks.
+Public browser retained age15, net worth฿1,498 and all unanswered questions.
+The primary action opened Questions and focused the first answer; no answer or
+balance was changed. Returning to Priorities restored the plan. Public study
+showed swimming on entry and walking from the school desk before cycling.
+No warning/error logs in checked public views. Public screenshots included.
+The temporary4221 proof server was stopped; the user's4219 preview is retained.

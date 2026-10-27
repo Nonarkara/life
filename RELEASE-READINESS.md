@@ -1,4 +1,25 @@
-# Current release — 26 October 2026: World Overhaul & Inhabited Life
+# Current release — 27 October 2026: shipping repair
+
+Published implementation8ef5303, builda3525000e796, Cloudflare deployment745f3c8f.
+Live at https://life.nonarkara.org/course/ .
+
+Preserves Gemini's30 questions, shared projection engine and childhood scenes.
+Repairs simultaneous effort commitment theft, default phone forecast occlusion,
+repeated forecast attributes, enlarged Thai number wrapping, swim entry/exit
+orientation and school bike teleport/desk clipping. Unsupported swimming/falling
+art keeps3D. Saved-life schema and existing history remain intact.
+
+213 tests pass. Independent source and pixel review cleared the bounded repair.
+Eight actual geometry cases pass; the prior oversized layout fails an isolated
+negative fixture. 13 assets match on three checks per public host. Public browser
+retained the existing age15 life and฿1,498; question navigation and childhood
+scene fixtures worked without warning/error logs. See review/shipping-oct27/RELEASE.md,
+geometry.json, geometry-falsification.json, screenshots and public-assets.json.
+
+This is not a certification of every artwork, hardware FPS or real-human playtest.
+Older release records below are historical.
+
+# Previous release — 26 October 2026: World Overhaul & Inhabited Life
 
 Published source 7f79c4c, build 67ec0f7a1bef, Cloudflare Pages deployment 7d9267ca (canonical preview https://7d9267ca.life-5wz.pages.dev and immutable https://6a396e1a.life-5wz.pages.dev).
 Live at production custom domain https://life.nonarkara.org/course/ .
