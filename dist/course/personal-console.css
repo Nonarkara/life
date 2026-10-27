@@ -83,7 +83,21 @@
 
 /* The life console: a treadmill-style deck (27 Oct 2026). Flat: one amber key, square keys,
    a true circle only for the pad. The display is the dark instrument surface. */
-.life-deck{display:grid;gap:8px;margin:4px 0 8px;max-width:420px}
+.life-deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px 20px;margin:4px 0 8px;align-items:start}
+/* Display and pad side by side when there is room; the instruments fill the row beneath. */
+.deck-instruments{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px 20px;border-top:1px solid var(--line);padding-top:10px}
+.deck-gauge h3{margin:0 0 6px;font-size:calc(12px * var(--reading-scale));font-weight:600;color:var(--muted)}
+.deck-gauge dl{display:grid;grid-template-columns:auto auto;justify-content:space-between;gap:2px 12px;margin:0}
+.deck-gauge dt{font-size:calc(14px * var(--reading-scale))}
+.deck-gauge dd{margin:0;font-size:calc(14px * var(--reading-scale));font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.deck-bar{display:flex;height:10px;gap:2px;margin:0 0 4px}
+.deck-bar span{background:var(--ink);opacity:.55}.deck-bar span:nth-child(2){opacity:.38}.deck-bar span:nth-child(3){opacity:.26}.deck-bar span:nth-child(4){opacity:.16}
+.deck-bar span.accent{background:var(--amber);opacity:1}
+.deck-legend{margin:0 0 6px;font-size:calc(12px * var(--reading-scale));color:var(--muted);line-height:1.4}
+.deck-metrics{display:flex;justify-content:center;gap:4px}
+.deck-metric{min-height:32px;padding:4px 10px;border:1px solid #2a333c;border-radius:0;background:none;color:#aab4bd;font-size:calc(12px * var(--reading-scale))}
+.deck-metric[aria-pressed=true]{color:#0a0e14;background:#e6edf3;border-color:#e6edf3}
+.deck-controls{align-self:center}
 .life-deck:not([hidden])~.plan-pair #allocation{display:none}
 .deck-screen{background:#0a0e14;color:#e6edf3;padding:10px 12px;display:grid;gap:8px}
 .deck-program{margin:0;text-align:center;font-size:calc(14px * var(--reading-scale));text-transform:uppercase;letter-spacing:.08em}
