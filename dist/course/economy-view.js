@@ -30,7 +30,10 @@ function growthChart(rows){
  chart.classList.add('economy-chart');chart.setAttribute('viewBox','0 0 300 142');chart.setAttribute('role','img');chart.setAttribute('aria-label','Sampled GDP growth · % per year');
  const first=rows[0].age,last=rows.at(-1).age,min=Math.min(0,...rows.map(r=>r.growth)),max=Math.max(0,...rows.map(r=>r.growth)),span=max-min||1,x=a=>34+(a-first)/(last-first)*250,y=v=>107-(v-min)/span*78;
  chart.append(svg('line',{x1:34,x2:284,y1:y(0),y2:y(0),stroke:'#b4b9a9'}));
- for(const n of [...new Set([min,0,max])])chart.append(svg('text',{x:29,y:y(n)+4,'text-anchor':'end'},n.toFixed(1)));
+ // The zero line is the reference the metres are measured from, so it is always
+ // labelled. A bound that would print on top of another number is left out.
+ const marks=[0,...[min,max].filter(n=>n!==0&&Math.abs(y(n)-y(0))>11)];
+ for(const n of new Set(marks))chart.append(svg('text',{x:29,y:y(n)+4,'text-anchor':'end'},n.toFixed(1)));
  chart.append(svg('polyline',{points:rows.map(r=>x(r.age)+','+y(r.growth)).join(' '),fill:'none',stroke:'#526b60','stroke-width':2}));
  for(const row of rows)chart.append(svg('circle',{cx:x(row.age),cy:y(row.growth),r:row.growth<0?3.2:1.7,fill:row.growth<0?'#a32750':'#526b60'}));
  for(const n of [...new Set([first,Math.round((first+last)/2),last])])chart.append(svg('text',{x:x(n),y:125,'text-anchor':'middle'},n));
