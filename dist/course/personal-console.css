@@ -81,43 +81,43 @@
 /* Tabs keep their own width and one gap; they are not spread to fill the bar. */
 .console-nav{justify-content:flex-start;gap:20px}
 
-/* The life console: a treadmill-style deck (27 Oct 2026). Flat: one amber key, square keys,
-   a true circle only for the pad. The display is the dark instrument surface. */
-.life-deck{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:12px 20px;margin:4px 0 8px;align-items:start}
-/* Display and pad side by side when there is room; the instruments fill the row beneath. */
-.deck-instruments{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:12px 20px;border-top:1px solid var(--line);padding-top:10px}
-.deck-gauge h3{margin:0 0 6px;font-size:calc(12px * var(--reading-scale));font-weight:600;color:var(--muted)}
-.deck-gauge dl{display:grid;grid-template-columns:auto auto;justify-content:space-between;gap:2px 12px;margin:0}
-.deck-gauge dt{font-size:calc(14px * var(--reading-scale))}
-.deck-gauge dd{margin:0;font-size:calc(14px * var(--reading-scale));font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
-.deck-bar{display:flex;height:10px;gap:2px;margin:0 0 4px}
-.deck-bar span{background:var(--ink);opacity:.55}.deck-bar span:nth-child(2){opacity:.38}.deck-bar span:nth-child(3){opacity:.26}.deck-bar span:nth-child(4){opacity:.16}
-.deck-bar span.accent{background:var(--amber);opacity:1}
-.deck-legend{margin:0 0 6px;font-size:calc(12px * var(--reading-scale));color:var(--muted);line-height:1.4}
-.deck-metrics{display:flex;justify-content:center;gap:4px}
-.deck-metric{min-height:32px;padding:4px 10px;border:1px solid #2a333c;border-radius:0;background:none;color:#aab4bd;font-size:calc(12px * var(--reading-scale))}
-.deck-metric[aria-pressed=true]{color:#0a0e14;background:#e6edf3;border-color:#e6edf3}
-.deck-controls{align-self:center}
-.life-deck:not([hidden])~.plan-pair #allocation{display:none}
-.deck-screen{background:#0a0e14;color:#e6edf3;padding:10px 12px;display:grid;gap:8px}
-.deck-program{margin:0;text-align:center;font-size:calc(14px * var(--reading-scale));text-transform:uppercase;letter-spacing:.08em}
-.deck-program:lang(th),.deck-program:lang(zh-CN),.deck-program:lang(ja),.deck-program:lang(ko){text-transform:none;letter-spacing:0}
-.deck-middle{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:end}
+/* The life console (27 Oct 2026): one instrument surface divided into labelled panels,
+   like a flight deck. Panels share one grid and one bezel line; every control carries
+   its function in words. Sizes: 12 placards and labels, 14 values, 32 the value being set. */
+.life-deck{--deck:#0a0e14;--deck-line:#2a333c;--deck-text:#e6edf3;--deck-muted:#9aa5ae;
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1px;background:var(--deck-line);border:1px solid var(--deck-line);color:var(--deck-text);margin:4px 0 8px}
+.life-deck:not([hidden])~.plan-pair{display:none}
+.deck-panel{background:var(--deck);padding:10px 12px;display:grid;align-content:start;gap:8px;min-width:0}
+.deck-placard{margin:0;font-size:calc(12px * var(--reading-scale));font-weight:600;color:var(--deck-muted);text-transform:uppercase;letter-spacing:.08em}
+.deck-placard:lang(th),.deck-placard:lang(zh-CN),.deck-placard:lang(ja),.deck-placard:lang(ko){text-transform:none;letter-spacing:0}
+.deck-label{font-size:calc(12px * var(--reading-scale));color:var(--deck-muted);min-width:7ch}
 .deck-hill{width:100%;height:auto;display:block}
-.deck-hill .on{fill:#e6edf3}.deck-hill .off{fill:#e6edf3;opacity:.14}.deck-hill .mark{fill:#f59e0b}
-.deck-inset,.deck-readout{display:grid;justify-items:center;gap:2px}
-.deck-inset b{font-size:calc(14px * var(--reading-scale));font-variant-numeric:tabular-nums}
-.deck-inset small,.deck-readout small{font-size:calc(12px * var(--reading-scale));color:#aab4bd}
-.deck-readouts{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #2a333c;padding-top:6px}
-.deck-readout b{font-size:32px;line-height:1.05;font-weight:600;font-variant-numeric:tabular-nums}
-.deck-controls{display:grid;grid-template-columns:auto auto auto;justify-content:center;gap:8px 12px;align-items:center}
-.deck-side{display:grid;gap:6px}
-.deck-key{width:100%;white-space:nowrap;min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:0;background:none;color:var(--ink);font-size:calc(14px * var(--reading-scale));line-height:1.2}
-.deck-key[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.deck-pad{position:relative;width:128px;height:128px;border:1px solid var(--line);border-radius:50%}
-.deck-pad button{position:absolute;display:flex;align-items:center;justify-content:center;border:0;background:none;color:var(--ink);font-size:calc(14px * var(--reading-scale));padding:0}
-.deck-arrow{width:36px;height:36px}
-.deck-arrow.up{top:2px;left:46px}.deck-arrow.down{bottom:2px;left:46px}.deck-arrow.left{left:2px;top:46px}.deck-arrow.right{right:2px;top:46px}
-.deck-arrow:disabled{opacity:.3}
-.deck-go{top:38px;left:38px;width:52px;height:52px;border-radius:50%;background:var(--amber)!important;color:#192e2c!important}
-.deck-pad button:focus-visible,.deck-key:focus-visible{outline:2px solid #a35d00;outline-offset:2px}
+.deck-hill .on{fill:var(--deck-text)}.deck-hill .off{fill:var(--deck-text);opacity:.14}.deck-hill .mark{fill:var(--amber)}
+.deck-axis{display:flex;justify-content:space-between;font-size:calc(12px * var(--reading-scale));color:var(--deck-muted);font-variant-numeric:tabular-nums}
+.deck-show{display:flex;align-items:center;gap:4px}
+.deck-rows{display:grid;grid-template-columns:1fr auto;gap:4px 12px;margin:0}
+.deck-rows dt{font-size:calc(14px * var(--reading-scale));color:var(--deck-muted)}
+.deck-rows dd{margin:0;font-size:calc(14px * var(--reading-scale));font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.deck-key,.deck-toggle{min-height:32px;min-width:32px;padding:4px 10px;border:1px solid var(--deck-line);border-radius:0;background:none;color:var(--deck-text);font-size:calc(14px * var(--reading-scale));line-height:1.2;white-space:nowrap}
+.deck-key:disabled{opacity:.3}
+.deck-toggle{font-size:calc(12px * var(--reading-scale));color:var(--deck-muted)}
+.deck-toggle[aria-pressed=true]{color:var(--deck);background:var(--deck-text);border-color:var(--deck-text)}
+.deck-line{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.deck-channel{font-size:calc(14px * var(--reading-scale));min-width:9ch;text-align:center}
+.deck-count{font-size:calc(12px * var(--reading-scale));color:var(--deck-muted);font-variant-numeric:tabular-nums}
+.deck-value{font-size:32px;font-weight:600;line-height:1;min-width:2.5ch;text-align:center;font-variant-numeric:tabular-nums}
+.deck-result{font-size:calc(14px * var(--reading-scale));color:var(--amber);font-weight:600}
+.deck-keys{display:grid;grid-template-columns:repeat(auto-fill,minmax(10ch,1fr));gap:6px}
+.deck-aim{display:flex;align-items:center;gap:8px;width:100%;text-align:left;color:var(--deck-muted)}
+.deck-light{width:8px;height:8px;flex:none;background:var(--deck-line)}
+.deck-aim[aria-pressed=true]{color:var(--deck-text);border-color:var(--deck-muted)}
+.deck-aim[aria-pressed=true] .deck-light{background:var(--amber)}
+.deck-bar{display:flex;height:8px;gap:2px}
+.deck-bar span{background:var(--deck-text);opacity:.5}.deck-bar span:nth-child(2){opacity:.34}.deck-bar span:nth-child(3){opacity:.22}.deck-bar span:nth-child(4){opacity:.14}
+.deck-bar span.accent{background:var(--amber);opacity:1}
+.deck-meters{display:grid;gap:6px}
+.deck-meter{display:grid;grid-template-columns:9ch 1fr 3ch;align-items:center;gap:8px;font-size:calc(14px * var(--reading-scale))}
+.deck-meter>span:first-child{color:var(--deck-muted)}
+.deck-meter b{text-align:right;font-variant-numeric:tabular-nums}
+.deck-track{height:6px;background:var(--deck-line)}.deck-fill{display:block;height:100%;background:var(--deck-text)}
+.deck-key:focus-visible,.deck-toggle:focus-visible{outline:2px solid var(--amber);outline-offset:2px}

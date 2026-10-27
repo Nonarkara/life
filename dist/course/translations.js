@@ -18,6 +18,11 @@ In this game, about 1 in {n} lives begin like this.|ในเกมนี้ ร
 I was born in {place}, into {home}. About 1 in {n} lives begin like this.|ผมเกิดที่{place} ใน{home} ราว 1 ใน {n} ชีวิตเริ่มต้นแบบนี้|我出生在{place}，{home}。大约每 {n} 个人生中有 1 个这样开始。|{place}の{home}に生まれた。およそ {n} 人に 1 人がこう始まる。|{place}의 {home}에서 태어났다. 약 {n}명 중 1명의 삶이 이렇게 시작된다.
 Copied. Paste it anywhere.|คัดลอกแล้ว วางที่ไหนก็ได้|已复制，可粘贴到任何地方。|コピーしました。どこにでも貼り付けられます。|복사했습니다. 어디든 붙여 넣으세요.
 Your last life is waiting: age {n}, {place} →|ชีวิตล่าสุดของคุณรออยู่: อายุ {n} ปี, {place} →|你上一次的人生还在等你：{n}岁，{place} →|前回の人生が待っている：{n}歳、{place} →|지난 삶이 기다립니다: {n}세, {place} →
+Set points|ตั้งแต้ม|分配点数|ポイント設定|점수 배분
+Money each month|เงินแต่ละเดือน|每月的钱|毎月のお金|매달의 돈
+Channel|ช่อง|项目|項目|항목
+Show|แสดง|显示|表示|보기
+Fun and learning|สนุกและเรียนรู้|娱乐与学习|楽しみと学び|즐거움과 배움
 Mood|อารมณ์|心情|気分|기분
 Wealth|ความมั่งคั่ง|财富|資産|재산
 Where each month went|เงินแต่ละเดือนไปไหน|每月的钱去了哪里|毎月のお金の行き先|매달 돈이 간 곳

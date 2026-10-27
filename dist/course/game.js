@@ -46,12 +46,14 @@ function allocations(){state={...state,effort:lockedEffort(state)};const root=$(
    if(b&&state.age>=15)for(const [k,label] of [['save','Save'],['fun','Fun'],['learn','Learn']]){const next=d=>setBudget(state,{...b,[k]:b[k]+5*d});channels.push({label,value:b[k]+'%',detail:(100-b.save-b.fun-b.learn)+'%',detailLabel:'Unassigned',can:d=>next(d)!==state,step:d=>{state=next(d);render();}});}
    const w=netWorth(state.finance),worth=state.finance?'฿'+(Math.abs(w)>=1e6?(w/1e6).toFixed(1)+'M':Math.round(w/1000)+'k'):'—';
    const last=state.history.at(-1)?.finance,months=last?.months||60,per=k=>Math.round((last?.[k]??0)/months),short=n=>'฿'+(Math.abs(n)>=1e6?(n/1e6).toFixed(1)+'M':Math.abs(n)>=1e3?Math.round(n/1e3)+'k':Math.round(n));
-   const instruments=[];
-   if(last?.income){const spent=['essential','lifestyle','fun','learn'].reduce((n,k)=>n+per(k),0);instruments.push({title:'Where each month went',format:v=>short(v),bar:[['Essentials',per('essential')],['Lifestyle',per('lifestyle')],['Fun',per('fun')],['Learning',per('learn')],['Saved',Math.max(0,per('income')-spent),true]],items:[['Income',short(per('income'))+' / month']]});}
-   if(state.finance){const need=per('essential')||1;instruments.push({title:'If income stopped',items:[['Runway',Math.max(0,Math.floor(w/need))+' months'],['In funds',short(holdingsValue(state.finance))],['Debt',short(state.finance.debt??0)]]});}
-   const reading=ikigai(state);if(reading)instruments.push({title:'Ikigai '+reading.score,items:[['Love',reading.parts.love??'—'],['Good at',reading.parts.good??'—'],['Gives',reading.parts.world??'—'],['Sustains',reading.parts.paid??'—']].map(([l,v])=>[l,String(v)])});
-   instruments.push({title:'Coming up',items:[['Next review','Age '+(state.age+5)],['Questions',String(waiting)],['Direction',goals[state.profile.aim]??'—']]});
-   drawDeck(deck,state,{instruments,channels,aim:state.profile.aim,setAim:k=>{state={...state,profile:sanitiseProfile({...state.profile,aim:k},state.age)};render();},commit:()=>$('commit').click(),ready:!waiting,program:waiting?'Answer '+waiting+' questions first':ERAS[era].label,health:state.health,worth,openQuestions:()=>{tab='questions';render();},waiting});}}
+   const need=per('essential')||1,runway=state.finance?Math.max(0,Math.floor(w/need))+' months':'—';
+   const status=[['Age',state.age+' · '+ERAS[era].label],['Health',String(Math.round(state.health))],['Mood',String(Math.round(state.wellbeing))],['Net worth',worth],['Runway',runway],['Debt',state.finance?short(state.finance.debt??0):'—']];
+   let money=null;if(last?.income){const spent=['essential','lifestyle','fun','learn'].reduce((n,k)=>n+per(k),0),saved=Math.max(0,per('income')-spent);
+    money={bar:[['Essentials',per('essential')],['Lifestyle',per('lifestyle')],['Fun',per('fun')],['Learning',per('learn')],['Saved',saved,true]],items:[['Income',short(per('income'))],['Essentials',short(per('essential'))],['Lifestyle',short(per('lifestyle'))],['Fun and learning',short(per('fun')+per('learn'))],['Saved',short(saved)],['In funds',short(holdingsValue(state.finance))]]};}
+   const reading=ikigai(state),ik=reading&&{score:reading.score,parts:[['Love',reading.parts.love],['Good at',reading.parts.good],['Gives',reading.parts.world],['Sustains',reading.parts.paid]]};
+   // Waiting questions are announced by the action bar, so the deck does not repeat them.
+   drawDeck(deck,state,{channels,status,money,ikigai:ik,aim:state.profile.aim,setAim:k=>{state={...state,profile:sanitiseProfile({...state.profile,aim:k},state.age)};render();}});}
+  document.querySelector('.allocation-heading')?.toggleAttribute('hidden',!deck.hidden);}
  proj.replaceChildren();
  const flow=state.age>=15?monthlyFlow(source,{pathway:route}):null;
  const notes=[];
