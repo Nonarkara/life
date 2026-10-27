@@ -3,3 +3,8 @@ test('CV combines completed work spans and never converts studies into a degree'
 test('projects require actual choices and a purchased class is not a credential',()=>{const rows=buildCV({history:[],story:{seen:[{id:'project',choice:'save',age:20},{id:'project_return',choice:'private',age:35}]},finance:{purchases:[{key:'class',age:20}],receipts:[{id:'purchase:20:class',age:20,kind:'purchase',income:0,expense:500,change:-500}]}});assert.equal(rows.length,1);assert.equal(rows[0].label,'Short class attended');assert.equal(rows[0].evidence[0].type,'purchase');});
 
 test('an unpaid class claim cannot appear on the CV',()=>{assert.deepEqual(buildCV({history:[],finance:{purchases:[{key:'class',age:20}],receipts:[]}}),[]);});
+test('answered life questions record formative milestones and scholarships on the CV',()=>{
+ const rows=buildCV({history:[{age:15,from:10,pivots:[{station:10,pivot:'child-water-bike',choice:'dive',note:'Learned both'}]},{age:25,from:20,pathway:'college',pivots:[{station:20,pivot:'college-cost',choice:'merit',note:'Scholarship'}]}]});
+ assert.ok(rows.some(r=>r.kind==='milestones'&&/swim and ride a bicycle/.test(r.label)));
+ assert.ok(rows.some(r=>r.kind==='education'&&/merit scholarship/.test(r.label)));
+});

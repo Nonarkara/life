@@ -5,8 +5,11 @@ export function childhoodChapter(state, age) {
  const chapters=[
   [0,'Your mother’s world becomes yours.','Your family makes room for a newborn. Care comes before any ambition.'],
   [1,'Your first steps.','Your family takes turns caring for you while keeping the household running.'],
+  [2,'Learning to fall and get back up.','Every step on the floor and yard ends in a tumble until your knees and hands learn how to catch you.'],
   [3,'A world beyond home.','Relatives and neighbours become familiar. Your family chooses who can help with care.'],
+  [5,'Learning to swim in the water.','Older children and neighbours teach you to float, kick and keep your head above the water.'],
   [6,'Your family chooses a school.',band==='constrained'?'The nearby public school keeps travel and school costs within reach.':band==='comfortable'?'Your family can afford a school farther away and activities after class.':'Your family chooses a public school and sets aside money for books and transport.'],
+  [8,'Learning to balance a bicycle.','A borrowed bicycle in the lane teaches balance, scraped shins and the speed of your own two legs.'],
   [9,'You begin to imagine another life.','You hear about people who study, work, make things and take unfamiliar paths. Soon the choices will be yours.']
  ];
  const away=state.birth?.childhood;

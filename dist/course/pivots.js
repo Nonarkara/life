@@ -1,5 +1,5 @@
-// The spine of a life: twenty-eight hard questions, two at every five-year
-// station from ten to seventy-five.
+// The spine of a life: thirty hard questions across the fourteen five-year
+// stations from ten to seventy-five.
 //
 // Every question is a fork with a cost on both sides. None of them is a free
 // win, and none of them asks what the player already knows. The answers are
@@ -54,6 +54,22 @@ export const PIVOTS=[
     note:'You asked for the promise in writing.'}
   ]
  },
+ {
+  id:'child-water-bike',station:10,
+  prompt:'The older kids are teaching themselves to swim in the canal and ride the borrowed bicycle down the lane. Both leave scrapes.',
+  context:'Nobody learns to balance without learning how to fall first.',
+  options:[
+   {id:'dive',label:'Jump in, take the scrapes, and learn both',cost:'Skinned knees and swallowed canal water before you find your balance.',
+    effects:{health:2,wellbeing:2,skills:{physique:1,drive:1}},locks:{physique:2},flags:{learnedSwimBike:true},
+    note:'You learned to fall, to swim in the canal, and to ride the borrowed bike.'},
+   {id:'swim',label:'Learn to swim first and keep your feet on the ground',cost:'You stay safe in deep water, though the bicycle waits.',
+    effects:{health:1,wellbeing:1,skills:{physique:1}},locks:{physique:2},flags:{learnedSwim:true},
+    note:'You learned to swim in the canal and kept a steady footing.'},
+   {id:'mend',label:'Patch the bicycle tyres and watch how the gears work',cost:'You miss the races, but your hands learn the machine.',
+    effects:{cash:1500,skills:{craft:1,iq:1}},locks:{craft:2},flags:{fixedBikes:true},
+    note:'You learned how the bicycle worked before you rode it.'}
+  ]
+ },
  // ---- station 15: schooling -------------------------------------------------
  {
   id:'school-apprentice',station:15,
@@ -87,12 +103,31 @@ export const PIVOTS=[
     note:'You worked the site and studied at night.'}
   ]
  },
+ {
+  id:'school-fall-climb',station:15,
+  prompt:'A hard fall during the district trial leaves your wrist sprained and your confidence shaken right before the practical exam.',
+  context:'Getting back up hurts more at fifteen than it did at five.',
+  options:[
+   {id:'rise',label:'Strap the wrist and finish the trial anyway',cost:'The wrist aches all term, but you do not let the fall define you.',
+    effects:{health:-2,wellbeing:3,skills:{drive:1,physique:1}},locks:{drive:2},flags:{roseAfterFall:true},
+    note:'You strapped your wrist after a hard fall and finished the trial.'},
+   {id:'retrain',label:'Switch to the written and design bench while you heal',cost:'You give up the field medal to sharpen your mind and hands.',
+    effects:{wellbeing:1,skills:{iq:1,craft:1}},locks:{iq:2},
+    note:'You turned a painful fall into quiet study at the design bench.'},
+   {id:'rest-work',label:'Step back from the trial and cover shifts at home',cost:'You heal cleanly and help the house, though the medal goes to someone else.',
+    effects:{cash:5000,health:2,wellbeing:-1,skills:{eq:1}},
+    note:'You stepped back after the fall to heal and help at home.'}
+  ]
+ },
  // ---- station 20: building --------------------------------------------------
  {
   id:'college-cost',station:20,
   prompt:'College costs more than the family can pay. A loan would follow you for a decade.',
   context:'The figures are clear. What they do not say is what a decade feels like.',
   options:[
+   {id:'merit',label:'Sit the provincial scholarship examination',cost:'Every evening goes to exam papers and tutoring younger students.',
+    requires:{iq:8},effects:{cash:-2000,health:-1,wellbeing:2,skills:{iq:2,drive:1}},locks:{iq:3},pathway:'college',flags:{meritScholar:true},
+    note:'You won a provincial merit scholarship to attend college.'},
    {id:'loan',label:'Take the loan and go',cost:'A decade of your income, decided now.',
     requires:{cash:8000},effects:{cash:-20000,wellbeing:-2,skills:{iq:1}},locks:{iq:3},pathway:'college',
     note:'You took the loan and went.'},
@@ -484,6 +519,9 @@ function available(option,state){
   if(need.health!==undefined&&state.health<need.health)return false;
   if(need.wellbeing!==undefined&&state.wellbeing<need.wellbeing)return false;
   if(need.age!==undefined&&state.age<need.age)return false;
+  if(need.iq!==undefined&&(state.skills?.iq??0)<need.iq)return false;
+  if(need.craft!==undefined&&(state.skills?.craft??0)<need.craft)return false;
+  if(need.drive!==undefined&&(state.skills?.drive??0)<need.drive)return false;
   if(need.flags&&!Object.entries(need.flags).every(([key,value])=>!!state.story?.flags?.[key]===value))return false;
   return true;
 }

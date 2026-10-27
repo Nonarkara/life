@@ -33,10 +33,13 @@ export const reconciled=state=>{const f=flagsOf(state);return f.counselled!==und
 export function careerFactor(state){
  const f=flagsOf(state),m=majorOf(state);let k=1;
  if(m)k*=MAJORS[m].pay*(.85+.3*majorFit(state,m));
+ if(f.meritScholar)k*=1.08;
+ if(f.keptTrade||f.ranStall||f.stallOwner)k*=1.08;
+ if(f.partnered!==undefined&&state.age>=f.partnered+5)k*=1.15;
  if(f.changedJob!==undefined)k*=.85+rand(state.seed,f.changedJob,'job-change')*.5;
  if(f.graduate!==undefined&&state.age>=f.graduate+5)k*=1.25;
  return k;
 }
-// Your own venture swings: most periods cost money, some pay well.
-export function ventureSwing(state,age){const f=state.story?.flags?.founder;if(f===undefined||age<=f)return 0;return rand(state.seed,age,'venture')<.3?60000:-15000;}
+// Your own venture swings: most periods cost money, some pay well; preparation shifts the odds.
+export function ventureSwing(state,age){const f=flagsOf(state).founder;if(f===undefined||age<=f)return 0;const prep=Math.min(.28,((state.skills?.drive??0)+(state.skills?.craft??0)+(state.skills?.iq??0))*.008);return rand(state.seed,age,'venture')<.3+prep?60000+Math.round(prep*50000):-15000;}
 export const dogAt=(state,age)=>{const f=flagsOf(state);const d=f.dog;const died=f.dogDied;return d!==undefined&&age>=d&&age<(died??d+13);};

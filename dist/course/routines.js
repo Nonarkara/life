@@ -13,6 +13,9 @@ const destinations={
  school:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,1.6],[10.5,1.6]],action:'At school',pose:'study'},
  play:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[9.8,9.8]],action:'Playing outside',pose:'play'},
  sport:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[10,10.5]],action:'Training',pose:'exercise'},
+ swim:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[9.6,10.2]],action:'Learning to swim',pose:'swim'},
+ bike:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,8.2],[11.2,8.2]],action:'Learning to ride a bike',pose:'ride'},
+ fall:{path:[HOME.player,[5.2,5.7]],action:'Learning to fall and get back up',pose:'fall'},
  art:{path:[HOME.player,[6,5.7],[6.8,5.5]],action:'Making art',pose:'draw'},
  garden:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,13.8],[4.7,13.8]],action:'In the garden',pose:'garden'},
  home:{path:[HOME.player,[5.2,5.7]],action:'Playing at home',pose:'play'}
@@ -45,6 +48,9 @@ export function routine(actor,age,time,goal='balance',context={}){
  if(actor==='player'&&age>=20&&context.recovering)return {x:originHome[0],y:originHome[1],dx:0,dy:0,moving:false,facing:HOME_FACING.player,pose:t<8?'eat':t>=48?'rest':'recover',action:'Recovering at home',phase:dayPhase(time)};
  let key=actor==='mother'?(age<1?'care':age<3?'floorCare':'stall'):actor==='father'?'work':age<6?'home':age<18?'school':age>=60?'garden':goal==='sport'?'sport':goal==='art'?'art':'work';
  if(actor==='player'){
+  if(age>=3&&age<4)key='fall';
+  else if(age>=5&&age<6)key='swim';
+  else if(age>=8&&age<9&&t>=36&&t<48)key='bike';
   if(age>=15&&age<60){
    if(context.pathway==='college'&&age<=25||context.pathway==='school'&&age<=20)key='school';
    else if(context.pathway==='work')key='work';
@@ -72,7 +78,8 @@ export function routine(actor,age,time,goal='balance',context={}){
  if(t>=schedule.home)return evening(actor,age,t,schedule.home,origin,actor!=='player'||age<20||home.id==='family');
  if(isHome)return{x:origin[0],y:origin[1],dx:0,dy:0,moving:false,facing:HOME_FACING[actor],pose:'eat',action:'Breakfast at home',phase:dayPhase(time)};
  if(t>=20&&t<36){const p=route.path.at(-1);return{x:p[0],y:p[1],dx:0,dy:0,moving:false,pose:route.pose,action:route.action,phase:dayPhase(time)};}
- const returning=t>=36,path=returning?[...route.path].reverse():route.path;const p=samplePath(path,(t-(returning?schedule.leave:schedule.depart))/schedule.duration);return{...p,moving:true,pose:'walk',phase:returning?'Coming home':'On the way',action:returning?'Walking home':'Walking to '+(key==='care'?'the cradle':key==='stall'?'the stall':key==='school'?'school':key==='sport'?'training':key==='art'?'the desk':key==='garden'?'the garden':key==='home'?'play at home':key==='play'?'play outside':'work')};
+ if(key==='bike'&&t>=36&&t<48){const p=samplePath([...route.path].reverse(),(t-schedule.leave)/schedule.duration);return{...p,moving:true,pose:'ride',phase:'Coming home',action:'Learning to ride a bike'};}
+ const returning=t>=36,path=returning?[...route.path].reverse():route.path;const p=samplePath(path,(t-(returning?schedule.leave:schedule.depart))/schedule.duration);return{...p,moving:true,pose:'walk',phase:returning?'Coming home':'On the way',action:returning?'Walking home':'Walking to '+(key==='care'?'the cradle':key==='stall'?'the stall':key==='school'?'school':key==='sport'?'training':key==='swim'?'the water':key==='bike'?'the lane':key==='art'?'the desk':key==='garden'?'the garden':key==='home'||key==='fall'?'play at home':key==='play'?'play outside':'work')};
 }
 export function routineCaption(age,time,goal,context){const actor=age<3?'mother':'player';const r=routine(actor,age,time,goal,context);return `${r.phase} · ${age<3?'Mother: ':''}${r.action.toLowerCase()}.`;}
 export function routeFixtures(){return Object.values(destinations).map(d=>d.path);}

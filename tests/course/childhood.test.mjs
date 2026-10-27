@@ -5,7 +5,10 @@ import {newLife,configureLife,live} from '../../dist/course/sim.js';
 test('childhood memories explain means without granting agency or changing saved resources',()=>{
  const state=configureLife(newLife(5),{upbringing:'constrained'}),before=structuredClone(state);
  assert.match(childhoodChapter(state,0).title,/mother/);
+ assert.match(childhoodChapter(state,2).title,/fall/);
+ assert.match(childhoodChapter(state,5).title,/swim/);
  assert.match(childhoodChapter(state,6).decision,/nearby public school/);
+ assert.match(childhoodChapter(state,8).title,/bicycle/);
  assert.match(childhoodChapter(state,9).title,/imagine/);
  assert.equal(live(state),state);assert.deepEqual(state,before);
 });

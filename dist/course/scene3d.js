@@ -168,7 +168,7 @@ function createScene(original){
   const activity=routine('player',age,time,goal,context),focus=homeFrame?{...activity,x:context.residence.origin[0],y:context.residence.origin[1],moving:false,pose:'eat'}:activity;
   // The camera widens with age; its target stays grounded in the character's activity.
   const phone=w<=720;
-  const span=cameraSpan(age,phone)*(age>=10&&!focus.moving&&['eat','rest','draw','recover'].includes(focus.pose)?.82:1);
+  const span=cameraSpan(age,phone)*(age>=10&&!focus.moving&&['eat','rest','draw','recover','work','craft','study','garden'].includes(focus.pose)?.82:1);
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),document.querySelector('.console-reader')?.getBoundingClientRect()):0;
   // Shift the projection, not the actor: their activity stays in the uncovered play area.
   const shift=span*dock/(2*h);

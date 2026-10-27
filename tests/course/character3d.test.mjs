@@ -10,4 +10,5 @@ test('walk stride follows distance and child seating reaches the same supported 
  actor.update(a,30,3);const one=transform(actor.root);actor.update(a,30,45);assert.deepEqual(transform(actor.root),one);
  const seat={...a,moving:false,pose:'rest'};actor.update(seat,30,25,{scale:1});const adult=(actor.root.children[0].position.y+.84)*actor.root.scale.y;
  actor.update(seat,5,25,{scale:.6});const child=(actor.root.children[0].position.y+.84)*actor.root.scale.y;assert.ok(Math.abs(adult-child)<.001);
+ for(const pose of ['ride','swim','fall']){const pa=createCharacter();pa.update({...a,moving:pose==='ride',pose},8,26,{scale:.75});const first=transform(pa.root);pa.update({...a,moving:pose==='ride',pose},8,26,{scale:.75});assert.deepEqual(transform(pa.root),first);}
 });

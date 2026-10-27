@@ -8,13 +8,14 @@ import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 const valueOf=(points,axis)=>points[axis]??0;
 const settle=s=>{if(!s.story?.pending)return s;const e=encounterById(s.story.pending.id);const o=e.options.find(o=>o.id!=='skip')??e.options[0];return resolveEncounter(s,o.id,0.5);};
 
-// The spine: twenty-eight questions, two at every station.
-test('there are twenty-eight questions, two at every station',()=>{
-  assert.equal(PIVOTS.length,28);
+// The spine: thirty questions across the fourteen stations (three formative
+// questions at 10 and 15, two at every station from 20 to 75).
+test('there are thirty questions across the fourteen stations',()=>{
+  assert.equal(PIVOTS.length,30);
   const perStation={};
   for(const pivot of PIVOTS)perStation[pivot.station]=(perStation[pivot.station]??0)+1;
-  assert.deepEqual(perStation,{10:2,15:2,20:2,25:2,30:2,35:2,40:2,45:2,50:2,55:2,60:2,65:2,70:2,75:2});
-  assert.equal(new Set(PIVOTS.map(p=>p.id)).size,28);
+  assert.deepEqual(perStation,{10:3,15:3,20:2,25:2,30:2,35:2,40:2,45:2,50:2,55:2,60:2,65:2,70:2,75:2});
+  assert.equal(new Set(PIVOTS.map(p=>p.id)).size,30);
 });
 
 test('no question is a free win and no question is closed',()=>{
@@ -132,4 +133,16 @@ test('what a point of effort is worth changes with the years',()=>{
   assert.ok(eraWeight('physique',15)>eraWeight('physique',70),'a young body answers training');
   assert.ok(eraWeight('craft',35)>eraWeight('craft',60),'the hands learn in the working years');
   assert.ok(eraWeight('iq',40)>eraWeight('iq',75),'the mind keeps learning longer than the hand');
+});
+
+test('a constrained student who builds reasoning unlocks the provincial merit scholarship at twenty',()=>{
+  let s=begin(configureLife(newLife(41),{upbringing:'constrained',attributes:{physique:1,iq:6,eq:1,craft:1,drive:1}}));
+  const collegePivot=pivotsForStation(20).find(p=>p.id==='college-cost');
+  assert.equal(openOptions(collegePivot,s).some(o=>o.id==='merit'),false,'requires built reasoning skill');
+  s={...s,age:20,cash:2000,skills:{...s.skills,iq:10}};
+  const open=openOptions(collegePivot,s);
+  assert.equal(open.some(o=>o.id==='merit'),true,'merit scholarship opens when reasoning is earned');
+  const next=applyPivot(s,collegePivot,'merit');
+  assert.equal(next.pathway,'college');
+  assert.equal(next.pivotFlags.meritScholar,true);
 });

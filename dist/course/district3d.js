@@ -23,12 +23,17 @@ export function createDistricts({scene,box,round,chair,table,tree,label,register
  const rooms=new Map(),city=new T.Group(),west=new T.Group(),east=new T.Group();scene.add(city,west,east);
  const urban=new T.Group();scene.add(urban);
  // Inhabited pavement joins the office, home and transport stop into one district.
- box(23.2,8.2,-.025,10.4,9.4,.025,'#a7a18b',urban);
- for(const b of CITY_BLOCKS){
+ box(22.4,.8,-.028,13.6,18.2,.025,'#98957e',urban);
+ box(23.2,8.2,-.02,10.4,9.4,.022,'#a7a18b',urban);
+ // Tiled civic courtyard and canal edge around the city workplace eliminate bare ground.
+ for(let x=23.5;x<32.5;x+=1.5)for(let z=1.4;z<7;z+=1.4)box(x,z,-.01,1.35,1.25,.012,(x+z)%2?'#b5ae98':'#aba38c',urban);
+ box(22.8,1,-.015,1.4,5.4,.025,'#648688',urban);box(22.75,.95,.01,1.5,.12,.18,'#9d947e',urban);box(22.75,6.3,.01,1.5,.12,.18,'#9d947e',urban);
+ for(const b of [...CITY_BLOCKS,{x:23.2,z:2.2,w:1.3,d:2.6,h:2.8},{x:30.6,z:2.4,w:1.6,d:2.8,h:3.1},{x:32.3,z:8.8,w:1.4,d:3.4,h:2.7}]){
   box(b.x,b.z,0,b.w,b.d,b.h,'#c8bda1',urban);box(b.x-.05,b.z-.05,b.h,b.w+.1,b.d+.1,.12,'#8d8b78',urban);
   box(b.x+.14,b.z+b.d+.02,.15,Math.max(.4,b.w-.28),.035,.95,'#637b72',urban);
   for(let y=1.4;y<b.h;y+=.85){box(b.x+.12,b.z+b.d+.02,y,b.w-.24,.035,.5,'#7c9189',urban);box(b.x-.08,b.z+b.d,y-.12,b.w+.16,.35,.07,'#9c927b',urban);box(b.x-.08,b.z+b.d+.3,y-.05,b.w+.16,.035,.25,'#7e806e',urban);}
  }
+ for(const [x,z]of [[24.2,1.6],[30.8,1.8],[32.8,6.2],[23.6,14.8]])tree(x,z,urban);
  // Stop faces the road; the seated waiting area stays outside the walking route.
  box(29.3,9,.02,1.3,.45,.4,'#9a896d',urban);box(29.15,8.9,1.8,1.6,.8,.07,'#879181',urban);for(const x of [29.2,30.6])box(x,9.5,0,.05,.05,1.8,'#6f7d6b',urban);
  box(30.9,9.2,0,.04,.04,1.5,'#6f7d6b',urban);box(30.76,9.2,1.3,.32,.04,.24,'#d8cfb5',urban);

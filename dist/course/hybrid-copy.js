@@ -29,4 +29,55 @@ You kept your holdings. Their value can rise or fall; future contributions still
 Sell the holdings and stop automatic investing|ขายกองทุนที่ถือและหยุดลงทุนอัตโนมัติ|卖出持仓，停止自动投资|保有分を売り、自動投資を止める|보유 자산을 팔고 자동 투자를 중단하기
 You sold your holdings and stopped automatic investing. The actual sale and fees are recorded in your account.|คุณขายกองทุนที่ถือและหยุดลงทุนอัตโนมัติ รายการขายจริงและค่าธรรมเนียมบันทึกไว้ในบัญชี|你卖出了持仓，停止自动投资。实际卖出金额和费用已记入账户。|保有分を売り、自動投資を止めました。実際の売却と手数料は口座に記録されています。|보유 자산을 팔고 자동 투자를 멈췄습니다. 실제 매도와 수수료는 계좌에 기록돼 있습니다.
 Keep the holdings|ถือหน่วยลงทุนต่อ|继续持有|保有を続ける|계속 보유하기
+Learning to fall and get back up.|หัดล้มและลุกขึ้นยืนใหม่|学习摔倒后再站起来。|転び方と立ち上がり方を覚える。|넘어지고 다시 일어서는 법을 배웁니다.
+Every step on the floor and yard ends in a tumble until your knees and hands learn how to catch you.|ทุกก้าวบนพื้นบ้านและลานดินจบลงด้วยการหกล้ม จนกว่าเข่าและมือจะเรียนรู้วิธีรับตัวคุณไว้|地板和院子里的每一步都会摔倒，直到膝盖和双手学会如何撑住自己。|床や庭での一歩ごとに転び、膝と手が自分の体を支えることを覚えていきます。|바닥과 마당을 내딛는 걸음마다 넘어지다가 무릎과 손이 몸을 받치는 법을 배웁니다.
+Learning to swim in the water.|หัดว่ายน้ำ|学习在水中游泳。|水の中で泳ぎを覚える。|물에서 수영하는 법을 배웁니다.
+Older children and neighbours teach you to float, kick and keep your head above the water.|พี่ ๆ และเพื่อนบ้านสอนให้คุณลอยตัว ตีขา และพยุงศีรษะให้พ้นน้ำ|大孩子和邻居教你漂浮、打水，把头露在水面上。|年上の子や近所の人が、浮き方やバタ足、顔を水の上に出すことを教えてくれます。|형·언니들과 이웃이 물에 뜨고 발차기하며 머리를 물 위로 유지하는 법을 가르쳐 줍니다.
+Learning to balance a bicycle.|หัดทรงตัวบนจักรยาน|学习保持自行车平衡。|自転車のバランスを覚える。|자전거 균형 잡는 법을 배웁니다.
+A borrowed bicycle in the lane teaches balance, scraped shins and the speed of your own two legs.|จักรยานที่ยืมมาปั่นในซอยสอนเรื่องการทรงตัว หน้าแข้งถลอก และความเร็วจากสองขาของคุณเอง|巷子里借来的自行车教会你平衡、擦伤的小腿，以及自己双腿蹬出的速度。|路地で借りた自転車が、バランスとすりむいたすね、自分の両足の速さを教えてくれます。|골목에서 빌린 자전거가 균형 감각과 까진 정강이, 두 다리로 달리는 속도를 가르쳐 줍니다.
+Learning to swim|หัดว่ายน้ำ|学习游泳|泳ぎを覚える|수영 배우기
+Learning to ride a bike|หัดขี่จักรยาน|学习骑自行车|自転車の練習|자전거 타기 배우기
+Learning to fall and get back up|หัดล้มและลุกขึ้นใหม่|学着摔倒后爬起来|転んで立ち上がる練習|넘어졌다가 다시 일어서기
+Walking to the water|กำลังเดินไปที่น้ำ|走向水边|水辺へ向かう|물가로 걸어갑니다
+Walking to the lane|กำลังเดินไปที่ซอย|走向巷子|路地へ向かう|골목으로 걸어갑니다
+The older kids are teaching themselves to swim in the canal and ride the borrowed bicycle down the lane. Both leave scrapes.|เด็กโตกำลังหัดว่ายน้ำในคลองและขี่จักรยานที่ยืมมาไปตามซอย ทั้งสองอย่างฝากแผลถลอกไว้|大孩子们正在运河里自学游泳，并在巷子里骑借来的自行车。这两样都会留下擦伤。|年上の子たちが運河で泳ぎを覚え、借りた自転車で路地を走っている。どちらもすり傷が絶えない。|동네 형·누나들이 운하에서 수영을 배우고 빌린 자전거를 골목에서 탄다. 둘 다 생채기를 남긴다.
+Nobody learns to balance without learning how to fall first.|ไม่มีใครเรียนรู้การทรงตัวได้โดยไม่หัดล้มก่อน|没有人不先学会摔倒就能学会平衡。|転び方を覚えずにバランスを覚える人はいない。|먼저 넘어지는 법을 배우지 않고 균형을 배우는 사람은 없다.
+Jump in, take the scrapes, and learn both|กระโดดลงไป ยอมเจ็บแผลถลอก แล้วหัดทั้งสองอย่าง|跳进去，不怕擦伤，两样都学|飛び込んで、すり傷を作りながら両方覚える|뛰어들어 상처를 감수하며 둘 다 배운다
+Skinned knees and swallowed canal water before you find your balance.|เข่าถลอกและสำลักน้ำคลองก่อนที่คุณจะหาจุดสมดุลเจอ|在找到平衡之前，先磨破膝盖、呛几口运河水。|バランスをつかむ前に、膝をすりむき運河の水を飲む。|균형을 잡기 전에 무릎이 까지고 운하 물을 삼킨다.
+You learned to fall, to swim in the canal, and to ride the borrowed bike.|คุณได้หัดล้ม หัดว่ายน้ำในคลอง และหัดขี่จักรยานที่ยืมมา|你学会了摔倒、在运河里游泳，还学会了骑借来的自行车。|転び方と運河での泳ぎ、借りた自転車の乗り方を覚えた。|너는 넘어지는 법과 운하에서 헤엄치는 법, 빌린 자전거를 타는 법을 배웠다.
+Learn to swim first and keep your feet on the ground|หัดว่ายน้ำก่อน และวางเท้าบนพื้นให้มั่น|先学游泳，双脚稳稳踩在地上|まず泳ぎを覚え、足は地面につけておく|먼저 수영을 배우고 두 발은 땅에 둔다
+You stay safe in deep water, though the bicycle waits.|คุณปลอดภัยเมื่ออยู่ในน้ำลึก แม้จักรยานจะต้องรอก่อน|你在深水里安全了，只是自行车还得等等。|深い水でも安心できるようになったが、自転車は後回しだ。|깊은 물에서도 안전해졌지만 자전거는 다음으로 미룬다.
+You learned to swim in the canal and kept a steady footing.|คุณหัดว่ายน้ำในคลองและก้าวเดินอย่างมั่นคง|你学会了在运河里游泳，也站稳了脚跟。|運河で泳ぎを覚え、足元を確かに保った。|운하에서 수영을 배우고 차분히 발을 디뎠다.
+Patch the bicycle tyres and watch how the gears work|ปะยางจักรยานและดูว่าเกียร์ทำงานอย่างไร|补自行车胎，观察齿轮怎么运转|自転車のタイヤを直し、ギアの仕組みを見る|자전거 타이어를 때우고 기어가 돌아가는 원리를 본다
+You miss the races, but your hands learn the machine.|คุณไม่ได้ลงแข่งแต่มือของคุณได้เรียนรู้จักรกล|你错过了比赛，但你的双手摸透了机器。|競争には出られないが、手が機械の仕組みを覚える。|경주는 놓치지만 손으로 기계의 이치를 익힌다.
+You learned how the bicycle worked before you rode it.|คุณเรียนรู้กลไกของจักรยานก่อนที่จะขี่มัน|在骑上自行车之前，你先弄懂了它的构造。|乗る前に、自転車がどう動くかを覚えた。|자전거를 타기 전에 어떻게 작동하는지부터 배웠다.
+A hard fall during the district trial leaves your wrist sprained and your confidence shaken right before the practical exam.|การล้มอย่างแรงในการคัดเลือกระดับเขตทำให้ข้อมือแพลงและความมั่นใจสั่นคลอนก่อนสอบปฏิบัติ|地区选拔赛上的一次重摔让你扭伤了手腕，也在实操考试前动摇了信心。|地区選考での激しい転倒で手首をひねり、実技試験の直前に自信が揺らいだ。|지구 선발전에서 크게 넘어져 실기 시험 직전에 손목을 삐고 자신감마저 흔들렸다.
+Getting back up hurts more at fifteen than it did at five.|การลุกขึ้นยืนใหม่ตอนอายุสิบห้าเจ็บกว่าตอนอายุห้าขวบ|十五岁时重新站起来，比五岁时更疼。|十五歳で立ち上がるのは、五歳のときよりずっと痛い。|열다섯 살에 다시 일어서는 것은 다섯 살 때보다 훨씬 아프다.
+Strap the wrist and finish the trial anyway|พันข้อมือแล้วลงสอบคัดเลือกให้จบ|绑紧手腕，无论如何完成选拔|手首を固定して、それでも選考を最後までやり切る|손목을 감고서라도 선발전을 끝까지 마친다
+The wrist aches all term, but you do not let the fall define you.|ข้อมือปวดไปตลอดเทอม แต่คุณไม่ยอมให้การล้มครั้งนั้นกำหนดตัวคุณ|手腕疼了一整个学期，但你没有让这次摔倒定义自己。|手首は学期中ずっと痛むが、転倒に自分を決めさせない。|손목은 학기 내내 욱신거리지만 넘어졌다는 사실에 굴복하지 않는다.
+You strapped your wrist after a hard fall and finished the trial.|คุณพันข้อมือหลังล้มอย่างแรงและสอบคัดเลือกจนจบ|重摔之后你绑紧手腕，坚持完成了选拔。|激しく転んだあと手首を固定し、選考をやり抜いた。|크게 넘어진 뒤 손목을 감고 선발전을 끝까지 완주했다.
+Switch to the written and design bench while you heal|ย้ายไปทำข้อสอบเขียนและโต๊ะออกแบบระหว่างพักฟื้น|养伤期间转去笔试与设计台|治るまでの間、筆記と設計の机に切り替える|회복하는 동안 필기와 설계 작업대로 전환한다
+You give up the field medal to sharpen your mind and hands.|คุณสละเหรียญสนามเพื่อลับคมความคิดและฝีมือ|你放弃了赛场奖牌，去磨砺头脑与双手。|競技のメダルを手放し、頭と手を磨く。|경기장 메달을 포기하는 대신 머리와 손기술을 벼린다.
+You turned a painful fall into quiet study at the design bench.|คุณเปลี่ยนการล้มที่เจ็บปวดเป็นการศึกษาอย่างเงียบ ๆ ที่โต๊ะออกแบบ|你把一次疼痛的跌倒化作了设计台前的潜心钻研。|痛い転倒をきっかけに、設計机での静かな学びに打ち込んだ。|아픈 추락을 설계 작업대에서의 조용한 탐구로 바꾸었다.
+Step back from the trial and cover shifts at home|ถอยจากการคัดเลือกแล้วกลับมาช่วยงานที่บ้าน|退出选拔，回家顶班帮忙|選考から退き、家の仕事を手伝う|선발전에서 물러나 집안일을 돕는다
+You heal cleanly and help the house, though the medal goes to someone else.|คุณหายดีและได้ช่วยบ้าน แม้เหรียญรางวัลจะเป็นของคนอื่น|你稳妥养好了伤并帮补家里，只是奖牌归了别人。|怪我はきれいに治り家も助かるが、メダルは他の人のものになる。|부상은 깨끗이 낫고 집안도 돕지만 메달은 다른 사람에게 돌아간다.
+You stepped back after the fall to heal and help at home.|คุณถอยออกมาหลังหกล้มเพื่อรักษาตัวและช่วยงานที่บ้าน|跌倒后你退了一步，回家养伤并帮家里分担。|転倒のあと一歩引き、怪我を治しながら家を手伝った。|넘어진 뒤 한발 물러나 몸을 추스르며 집안을 도왔다.
+Sit the provincial scholarship examination|เข้าสอบชิงทุนการศึกษาของจังหวัด|参加省里的奖学金考试|県の奨学金試験を受ける|도 장학금 시험에 응시한다
+Every evening goes to exam papers and tutoring younger students.|ทุกเย็นหมดไปกับข้อสอบเก่าและสอนการบ้านรุ่นน้อง|每个傍晚都花在试卷和辅导低年级学生上。|毎晩を過去問と後輩への指導に費やす。|매일 저녁을 기출문제 풀이와 후배 과외에 쏟는다.
+You won a provincial merit scholarship to attend college.|คุณสอบได้ทุนเรียนดีของจังหวัดเพื่อเข้าเรียนมหาวิทยาลัย|你考取了省级优等生奖学金去上大学。|県の成績優秀奨学金を得て大学へ進んだ。|도 우수 장학금을 받아 대학에 진학했다.
+Learned to swim and ride a bicycle|หัดว่ายน้ำและขี่จักรยานเป็น|学会游泳和骑自行车|泳ぎと自転車を覚えた|수영과 자전거 타기를 배움
+Learned to swim in the canal|หัดว่ายน้ำในคลองเป็น|学会在运河里游泳|運河で泳ぎを覚えた|운하에서 수영을 배움
+Finished the district trial after a fall|สอบคัดเลือกระดับเขตจนจบหลังหกล้ม|摔伤后坚持完成地区选拔|転倒後に地区選考をやり抜いた|부상 후 지구 선발전을 완주함
+Provincial merit scholarship|ทุนเรียนดีระดับจังหวัด|省级优等奖学金|県の成績優秀奨学金|도 우수 장학금
+Year of study abroad|เรียนต่อต่างประเทศหนึ่งปี|出国留学一年|1年間の海外留学|1년간 해외 유학
+Co-founded a workshop|ร่วมก่อตั้งโรงช่าง|合伙创办工坊|工房を共同設立|공방 공동 창업
+Became a partner in the firm|ร่วมเป็นหุ้นส่วนของกิจการ|成为公司合伙人|会社の共同経営者になった|회사의 파트너가 됨
+Bought the family home|ซื้อบ้านของครอบครัว|买下家庭住房|家族の家を購入した|가족의 집을 매입함
+Took on an apprentice|รับลูกมือฝึกงาน|收徒传艺|弟子を取った|도제를 받아들임
+Answer 1 question →|ตอบคำถาม 1 ข้อ →|回答 1 个问题 →|1つの質問に答える →|질문 1개 답하기 →
+Answer {n} questions →|ตอบคำถาม {n} ข้อ →|回答 {n} 个问题 →|{n}つの質問に答える →|질문 {n}개 답하기 →
+Starting shape · 10 points across body, mind and drive|รูปร่างเริ่มต้น · 10 คะแนนกระจายในร่างกาย ความคิด และแรงขับ|初始分配 · 10 点分布于体魄、心智与干劲|出発のかたち・体・心・意欲に10点|시작 형태 · 신체, 지성, 추진력에 10점 배분
+5-year practice: steady maintenance|การฝึกฝน 5 ปี: รักษาระดับคงที่|5年练习：稳定维持|5年間の鍛錬：安定した維持|5년 수련: 꾸준한 유지
+5-year practice: {gains}|การฝึกฝน 5 ปี: {gains}|5年练习：{gains}|5年間の鍛錬：{gains}|5년 수련: {gains}
+{source}: {income} / month · essentials {essential} / month|{source}: {income} / เดือน · ค่าใช้จ่ายจำเป็น {essential} / เดือน|{source}：每月 {income} · 基本开销每月 {essential}|{source}：月 {income}・生活必需費 月 {essential}|{source}: 월 {income} · 필수 지출 월 {essential}
 `.trim().split('\n').map(line=>line.split('|'));

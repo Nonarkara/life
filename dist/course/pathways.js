@@ -12,11 +12,13 @@ export function pathwayPeriod(state,roll){
  if(state.age<15||state.age>=60)return {route,cash:0,learning:0,incomeFactor:1,description:''};
  const family=state.intake?.upbringing??'middle';
  const support=state.age<25?{constrained:2000,middle:6000,comfortable:12000}[family]:0;
+ const merit=state.pivotFlags?.meritScholar?12000:0;
+ const craftBonus=Math.min(16000,(state.skills?.craft??0)*450+(state.skills?.drive??0)*350);
  const choices={
  school:{cash:support-6000,learning:4,description:'You continued school. Family support helped with books and travel.'},
- college:{cash:support-18000,learning:10,description:'College brought study costs and more time to learn. A degree does not guarantee a job.'},
+ college:{cash:support+merit-18000,learning:10+(state.pivotFlags?.meritScholar?2:0),description:'College brought study costs and more time to learn. A degree does not guarantee a job.'},
  vocational:{cash:4000+state.skills.physique*100+state.skills.craft*150,learning:5,description:'An apprenticeship paid a little while you learned through work.'},
- independent:roll<.2?{cash:24000,learning:3,description:'Your independent project found paying customers.'}:{cash:-5000,learning:3,description:'Independent work brought uneven income. The project cost more than it earned.'},
+ independent:roll<.2+Math.min(.35,((state.skills?.craft??0)+(state.skills?.drive??0))*.012)?{cash:24000+craftBonus,learning:3,description:'Your independent project found paying customers.'}:{cash:-5000,learning:3,description:'Independent work brought uneven income. The project cost more than it earned.'},
  work:{cash:0,learning:2,description:'Regular work supported the household. You learned on the job.'}
  };
  return {route,incomeFactor:{school:0,college:.3,vocational:.6,independent:.2,work:1}[route],...choices[route]};
