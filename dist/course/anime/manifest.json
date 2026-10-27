@@ -22,7 +22,33 @@
   "beat-classroom": "plates/beat-classroom.webp",
   "beat-bridge": "plates/beat-bridge.webp",
   "beat-lane": "plates/beat-lane.webp",
-  "beat-room": "plates/beat-room.webp"
+  "beat-room": "plates/beat-room.webp",
+  "home-day@slum": "plates/home-day@slum.webp",
+  "home-night@slum": "plates/home-night@slum.webp",
+  "home-day@condo": "plates/home-day@condo.webp",
+  "home-night@condo": "plates/home-night@condo.webp",
+  "home-day@villa": "plates/home-day@villa.webp",
+  "home-night@villa": "plates/home-night@villa.webp",
+  "home-day@tower": "plates/home-day@tower.webp",
+  "home-night@tower": "plates/home-night@tower.webp",
+  "street-day@tower": "plates/street-day@tower.webp",
+  "school@tower": "plates/school@tower.webp",
+  "work@tower": "plates/work@tower.webp",
+  "home-day@tokyo": "plates/home-day@tokyo.webp",
+  "home-night@tokyo": "plates/home-night@tokyo.webp",
+  "street-day@tokyo": "plates/street-day@tokyo.webp",
+  "school@tokyo": "plates/school@tokyo.webp",
+  "work@tokyo": "plates/work@tokyo.webp",
+  "home-day@newengland": "plates/home-day@newengland.webp",
+  "home-night@newengland": "plates/home-night@newengland.webp",
+  "street-day@newengland": "plates/street-day@newengland.webp",
+  "school@newengland": "plates/school@newengland.webp",
+  "work@newengland": "plates/work@newengland.webp",
+  "home-day@brick": "plates/home-day@brick.webp",
+  "home-night@brick": "plates/home-night@brick.webp",
+  "street-day@brick": "plates/street-day@brick.webp",
+  "school@brick": "plates/school@brick.webp",
+  "work@brick": "plates/work@brick.webp"
  },
  "sprites": {
   "player-a": {
@@ -110,8 +136,105 @@
    "guard": "sprites/rival-guard.webp"
   },
   "player-m": {
+   "walk-a": "sprites/player-m-walk-a.webp",
+   "walk-b": "sprites/player-m-walk-b.webp",
    "stand-a": "sprites/player-m-stand-a.webp",
    "stand-b": "sprites/player-m-stand-b.webp"
+  },
+  "player-m-b": {
+   "sit-read": "sprites/player-m-b-sit-read.webp",
+   "sit-desk": "sprites/player-m-b-sit-desk.webp",
+   "stand-paint": "sprites/player-m-b-stand-paint.webp",
+   "kneel": "sprites/player-m-b-kneel.webp"
+  },
+  "player-m-c": {
+   "punch": "sprites/player-m-c-punch.webp",
+   "dodge": "sprites/player-m-c-dodge.webp",
+   "cheer": "sprites/player-m-c-cheer.webp",
+   "lie": "sprites/player-m-c-lie.webp"
+  },
+  "player-m-bike": {
+   "ride": "sprites/player-m-bike-ride.webp",
+   "ride-b": "sprites/player-m-bike-ride-b.webp",
+   "push": "sprites/player-m-bike-push.webp",
+   "stand-bike": "sprites/player-m-bike-stand-bike.webp"
+  },
+  "child-m": {
+   "run": "sprites/child-m-run.webp",
+   "stand": "sprites/child-m-stand.webp",
+   "crouch": "sprites/child-m-crouch.webp",
+   "sit": "sprites/child-m-sit.webp"
+  },
+  "child-m-b": {
+   "ride": "sprites/child-m-b-ride.webp",
+   "ride-b": "sprites/child-m-b-ride-b.webp",
+   "read": "sprites/child-m-b-read.webp",
+   "write": "sprites/child-m-b-write.webp"
+  },
+  "elder-m": {
+   "walk-stick": "sprites/elder-m-walk-stick.webp",
+   "stand": "sprites/elder-m-stand.webp",
+   "sit": "sprites/elder-m-sit.webp",
+   "kneel": "sprites/elder-m-kneel.webp"
+  },
+  "player-x": {
+   "walk-a": "sprites/player-x-walk-a.webp",
+   "walk-b": "sprites/player-x-walk-b.webp",
+   "stand-a": "sprites/player-x-stand-a.webp",
+   "stand-b": "sprites/player-x-stand-b.webp"
+  },
+  "player-x-b": {
+   "sit-read": "sprites/player-x-b-sit-read.webp",
+   "sit-desk": "sprites/player-x-b-sit-desk.webp",
+   "stand-paint": "sprites/player-x-b-stand-paint.webp",
+   "kneel": "sprites/player-x-b-kneel.webp"
+  },
+  "player-x-c": {
+   "punch": "sprites/player-x-c-punch.webp",
+   "dodge": "sprites/player-x-c-dodge.webp",
+   "cheer": "sprites/player-x-c-cheer.webp",
+   "lie": "sprites/player-x-c-lie.webp"
+  },
+  "player-x-bike": {
+   "ride": "sprites/player-x-bike-ride.webp",
+   "ride-b": "sprites/player-x-bike-ride-b.webp",
+   "push": "sprites/player-x-bike-push.webp",
+   "stand-bike": "sprites/player-x-bike-stand-bike.webp"
+  },
+  "child-x": {
+   "run": "sprites/child-x-run.webp",
+   "stand": "sprites/child-x-stand.webp",
+   "crouch": "sprites/child-x-crouch.webp",
+   "sit": "sprites/child-x-sit.webp"
+  },
+  "child-x-b": {
+   "ride": "sprites/child-x-b-ride.webp",
+   "ride-b": "sprites/child-x-b-ride-b.webp",
+   "read": "sprites/child-x-b-read.webp",
+   "write": "sprites/child-x-b-write.webp"
+  },
+  "elder-x": {
+   "walk-stick": "sprites/elder-x-walk-stick.webp",
+   "stand": "sprites/elder-x-stand.webp",
+   "sit": "sprites/elder-x-sit.webp",
+   "kneel": "sprites/elder-x-kneel.webp"
+  },
+  "mother-b": {
+   "stand": "sprites/mother-b-stand.webp",
+   "basket": "sprites/mother-b-basket.webp",
+   "crouch": "sprites/mother-b-crouch.webp",
+   "cook": "sprites/mother-b-cook.webp"
+  },
+  "father-b": {
+   "stand": "sprites/father-b-stand.webp",
+   "tool": "sprites/father-b-tool.webp",
+   "sit-desk": "sprites/father-b-sit-desk.webp",
+   "walk": "sprites/father-b-walk.webp"
+  },
+  "grandmother": {
+   "stand": "sprites/grandmother-stand.webp",
+   "basket": "sprites/grandmother-basket.webp",
+   "cook": "sprites/grandmother-cook.webp"
   }
  }
 }

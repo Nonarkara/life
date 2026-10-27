@@ -1,6 +1,6 @@
 import {renderInvestments} from './investment-view.js';
 import {roomRecord,recordedCommute} from './biography.js';
-import {renderEconomy} from './economy-view.js';
+import {renderEconomy,renderWorldNow} from './economy-view.js';
 import {REGIONS,MOVE_TARGETS} from './regions.js';
 import {PURCHASES,HOUSING,openFinance,setBudget,setHousing,setWorkplace,setRegion,currentRegion,WORKPLACES,buy,monthlyFlow,netWorth,moveReserve} from './finance.js';
 import {availablePathways} from './pathways.js';
@@ -9,21 +9,61 @@ import {eventsFor} from './events.js';
 import {baselineComparison} from './baseline.js';
 import {alternativeDeltas} from './alternatives.js';
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
+const ORDER=[['plan','Plan'],['you','You'],['money','Money'],['cv','CV'],['world','World'],['history','History']];
 export function initConsole({getState,change,isMoving=()=>false}){
  const main=document.querySelector('main'),stage=main.querySelector('.stage'),decision=main.querySelector('.decision'),resources=main.querySelector('.resources'),method=main.querySelector('.method');
  document.body.classList.add('console-mode');
- const reader=document.createElement('section');reader.className='console-reader';reader.setAttribute('aria-label','Life console');
- const nav=document.createElement('nav');nav.className='console-nav';nav.setAttribute('aria-label','Life sections');
- const panes={},buttons={};let active='plan',moneyView='budget';const investmentDraft={asset:'bond',amount:'1000',notice:''};
+ // A wide screen is a dashboard: your life on the left, the year around you on
+ // the right. A narrow screen is a strip of consoles you swipe through.
+ const wide=matchMedia('(min-width:1280px)');
  const element=(tag,text,className)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(className)el.className=className;return el;};
- for(const[key,label]of [['plan','Plan'],['you','You'],['money','Money'],['cv','CV'],['world','World'],['history','History']]){
+
+ // The player console: the life you are living and the decisions you make.
+ const player=element('section');player.className='player-console';player.setAttribute('aria-label','Your life');
+ const plan=element('section');plan.id='console-plan';plan.className='console-panel console-card';plan.setAttribute('aria-label','Plan');
+ // The action button is read before the decision panel is moved: a node that
+ // is not yet attached to the document cannot be found by id.
+ const commit=document.getElementById('commit');
+ plan.append(decision);
+
+ // The reader: the year around you, and the records this life keeps.
+ const reader=element('section');reader.className='console-reader';reader.setAttribute('aria-label','Life console');
+ const worldNow=element('section');worldNow.className='world-now';worldNow.setAttribute('aria-label','The year around you');
+ const nav=element('nav');nav.className='console-nav';nav.setAttribute('aria-label','Life sections');
+ const cards=element('div',undefined,'console-cards');
+ const panes={},buttons={};let active=wide.matches?'world':'plan',moneyView='budget';const investmentDraft={asset:'bond',amount:'1000',notice:''};
+ for(const[key,label]of ORDER){
   const b=element('button',label);b.type='button';b.setAttribute('aria-controls','console-'+key);b.onclick=()=>select(key);buttons[key]=b;nav.append(b);
-  const p=element('section');p.id='console-'+key;p.className='console-panel';p.setAttribute('aria-label',label);panes[key]=p;
+  const p=element('section');p.id='console-'+key;p.className='console-panel console-card';p.setAttribute('aria-label',label);panes[key]=p;
  }
- panes.plan.append(decision);panes.history.append(resources,method);const comparison=element('section',undefined,'baseline-compare');comparison.setAttribute('aria-label','Your life and the life you did not choose');panes.history.append(comparison);reader.append(nav,...Object.values(panes));const actions=element('div',undefined,'console-actions');actions.append(reader.querySelector('#commit'));reader.append(actions);main.append(reader);
- const hud=element('dl',undefined,'life-hud'),wide=matchMedia('(min-width:721px)'),placeHud=()=>{const target=document.getElementById('condition-live');if(target)target.append(hud);else if(wide.matches)reader.insertBefore(hud,actions);else stage.append(hud);};placeHud();wide.addEventListener('change',placeHud);
- const header=document.querySelector('header');new ResizeObserver(()=>document.documentElement.style.setProperty('--life-header-height',header.getBoundingClientRect().height+'px')).observe(header);
- function select(key){active=key;actions.hidden=key!=='plan'&&key!=='you';if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}if(key==='cv')cvPane(getState());if(key==='world')worldPane(getState());for(const[k,p]of Object.entries(panes)){p.hidden=k!==key;buttons[k].setAttribute('aria-pressed',String(k===key));}panes[key].scrollTop=0;}
+ panes.history.append(resources,method);const comparison=element('section',undefined,'baseline-compare');comparison.setAttribute('aria-label','Your life and the life you did not choose');panes.history.append(comparison);
+ const actions=element('div',undefined,'console-actions');actions.append(commit);
+ cards.append(...Object.values(panes).filter(p=>p.id!=='console-plan'));
+ reader.append(worldNow,nav,cards);
+ player.append(plan,actions);
+ main.append(player,reader);
+
+ // Where each piece lives depends on the width: a dashboard splits the screen,
+ // a narrow screen puts every console in one strip you swipe sideways.
+ function place(){
+  if(wide.matches){player.append(plan,actions);reader.insertBefore(worldNow,nav);}
+  else{cards.prepend(plan);panes.world.prepend(worldNow);}
+  document.body.classList.toggle('dashboard',wide.matches);
+  select(active);
+ }
+ place();wide.addEventListener('change',place);
+
+ function select(key){
+  active=key;
+  if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}
+  if(key==='cv')cvPane(getState());
+  if(key==='world')worldPane(getState());
+  // The Plan console is permanent on a wide screen; every console is a card in
+  // one swipeable strip on a narrow one.
+  for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(wide.matches?k!==key:false);buttons[k].setAttribute('aria-pressed',String(k===key));}
+  if(!wide.matches){const target=panes[key];cards.scrollTo({left:target.offsetLeft-cards.offsetLeft,behavior:'smooth'});}
+  panes[key].scrollTop=0;
+ }
  const heading=(pane,title,note)=>{pane.replaceChildren(element('h1',title));if(note)pane.append(element('p',note,'console-note'));};
  function moneyPane(s){
   const p=panes.money;heading(p,'Your money',moneyView==='budget'?'Personal money and the household buffer are separate.':undefined);
@@ -99,7 +139,11 @@ export function initConsole({getState,change,isMoving=()=>false}){
   }
  }
  function worldPane(s){
-  const p=panes.world;heading(p,'Around your life');
+  const p=panes.world;
+  // The year band is the head of this console on a narrow screen, so it stays
+  // where it is when the console is rebuilt.
+  const keep=p.querySelector('.world-now');
+  p.replaceChildren(...(keep?[keep]:[]),element('h1','Around your life'));
   renderEconomy(p,s);
   const room=roomRecord(s),record=element('details');record.append(element('summary','What the room remembers'));
   if(room.possessions.length)record.append(element('p','The red school case stays with you when you move.'));
@@ -109,10 +153,10 @@ export function initConsole({getState,change,isMoving=()=>false}){
   record.append(element('p','Fictional soi-inspired architecture; possessions reflect recorded choices, not a surveyed household.','console-note'));p.append(record);
   p.append(element('h2','Society'),element('p','Born into '+s.birth.home+' · '+s.birth.place));
   p.append(element('h2','Environment'));const flood=s.history.find(r=>eventsFor(r).some(e=>e.type==='flood'));p.append(element('p',flood?'Floodwater damages the family home. Repairs take money and time.':'No environmental event recorded yet.'));
-
  }
  function render(){const scroll=panes[active].scrollTop,s=getState();
   // One review surface first: a tab appears only once it has something of this life to show.
-  const end=s.stage==='recap',opens={money:15,cv:20,world:20,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active='plan';hud.replaceChildren();for(const[label,value]of [['Physical health',Math.round(s.health)+' / 100'],['Wellbeing',Math.round(s.wellbeing)+' / 100'],[s.finance?'Personal net worth':'Family savings',money(s.finance?netWorth(s.finance):s.cash)]])hud.append(element('dt',label),element('dd',value));baselinePane(s);select(active);panes[active].scrollTop=scroll;}
+  const end=s.stage==='recap',opens={money:15,cv:20,world:20,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active=wide.matches?'world':'plan';if(wide.matches&&active==='plan')active='world';
+  baselinePane(s);renderWorldNow(worldNow,s);select(active);panes[active].scrollTop=scroll;}
  return {render,select};
 }

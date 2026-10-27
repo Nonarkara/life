@@ -71,7 +71,30 @@ OVERRIDES = {
                (0.52, 0.00, 0.74, 1.00), (0.74, 0.00, 1.00, 1.00)],
     "partner": [(0.00, 0.00, 0.23, 1.00), (0.23, 0.00, 0.50, 1.00),
                 (0.50, 0.00, 0.757, 1.00), (0.757, 0.00, 1.00, 1.00)],
+    # Sheets the model drew as one row of four poses, measured from the
+    # drawings themselves: the four columns are read left to right.
+    "elder-m": [(0.000, 0.00, 0.289, 1.00), (0.289, 0.00, 0.482, 1.00),
+                (0.482, 0.00, 0.727, 1.00), (0.727, 0.00, 1.000, 1.00)],
+    "father-b": [(0.000, 0.00, 0.261, 1.00), (0.261, 0.00, 0.489, 1.00),
+                 (0.489, 0.00, 0.764, 1.00), (0.764, 0.00, 1.000, 1.00)],
+    "mother-b": [(0.000, 0.00, 0.239, 1.00), (0.239, 0.00, 0.491, 1.00),
+                 (0.491, 0.00, 0.746, 1.00), (0.746, 0.00, 1.000, 1.00)],
+    "rival": [(0.000, 0.00, 0.261, 1.00), (0.261, 0.00, 0.549, 1.00),
+              (0.549, 0.00, 0.761, 1.00), (0.761, 0.00, 1.000, 1.00)],
+    # The grandmother sheet holds a fifth figure, a child, under the third
+    # pose. The third panel takes the crouching grandmother above it.
+    "grandmother": [(0.000, 0.00, 0.226, 1.00), (0.226, 0.00, 0.493, 1.00),
+                    (0.493, 0.00, 0.726, 0.50), (0.726, 0.00, 1.000, 1.00)],
 }
+# A walk cycle runs one way. Where the model drew the second stride facing the
+# other way, that panel is turned so the character never turns mid-step.
+MIRROR = {("player-m", "walk-b"), ("player-x", "walk-b")}
+# A sheet drawn as one row of four has neighbours leaning into each panel. The
+# panel keeps the figure that owns it and drops the neighbour's stray limb.
+SOLO_PANEL = {"elder-m", "father-b", "mother-b", "rival"}
+# These hold a part of the same figure that is not touching it, such as the
+# pot a grandmother cooks over, so a part against the figure is kept.
+SOLO_PANEL_NEAR = {"grandmother"}
 PLATES = {
     "home-morning": "home-day",
     "home-evening": "home-night",
@@ -480,6 +503,29 @@ def prepare_sheet(name):
         left, top, right, bottom = box
         cell = cleaned[top:bottom, left:right]
         alpha = key_background(cell, ground)
+        if (name, SHEETS[name][index]) in MIRROR:
+            cell = cell[:, ::-1]
+            alpha = alpha[:, ::-1]
+        if name in SOLO_PANEL or name in SOLO_PANEL_NEAR:
+            labels, count = ndimage.label(alpha > 128)
+            if count > 1:
+                sizes = ndimage.sum_labels(labels, index=range(1, count + 1))
+                keep = int(np.argmax(sizes)) + 1
+                kept = labels == keep
+                if name in SOLO_PANEL_NEAR:
+                    boxes = ndimage.find_objects(labels)
+                    body = boxes[keep - 1]
+                    # A part of the same figure, such as the pot she cooks
+                    # over, sits against it and stays.
+                    reach = int(0.25 * (body[0].stop - body[0].start))
+                    for part, box in enumerate(boxes, start=1):
+                        if part == keep:
+                            continue
+                        near = (box[0].start < body[0].stop + reach and box[0].stop > body[0].start - reach
+                                and box[1].start < body[1].stop + reach and box[1].stop > body[1].start - reach)
+                        if near:
+                            kept |= labels == part
+                alpha = np.where(kept, alpha, 0)
         if name in FRAME_APPROVALS:
             alpha = clean_white_matte(cell, alpha)
         drawn = alpha > 128

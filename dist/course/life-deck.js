@@ -24,7 +24,7 @@ function hill(state){
   for(let r=0;r<8;r++){
    const threshold=data.min+(r+.5)/8*data.span;
    const active=value!==undefined&&(value>=0?threshold>=0&&threshold<=value:threshold<0&&threshold>=value);
-   const dot=document.createElementNS(svg.namespaceURI,'rect');dot.setAttribute('x',c*spacing+1);dot.setAttribute('y',48-r*5.5);dot.setAttribute('width',Math.min(5,spacing-2));dot.setAttribute('height',4);
+   const dot=document.createElementNS(svg.namespaceURI,'rect');dot.setAttribute('x',c*spacing+1);dot.setAttribute('y',48-r*5.5);dot.setAttribute('width',Math.min(5,spacing-2));dot.setAttribute('height',4);dot.setAttribute('rx','1.2');
    dot.setAttribute('class',active?(value<0?'on negative':'on'):'off');group.append(dot);
   }
   svg.append(group);
@@ -40,7 +40,7 @@ function hill(state){
 
 export function arrangeDeck(root){
  if(!root)return;
- const narrow=typeof matchMedia==='function'&&matchMedia('(max-width:1023px)').matches;
+ const narrow=typeof matchMedia==='function'&&matchMedia('(max-width:1279px)').matches;
  const names=narrow?['set','direction','course','status','money','ikigai']:['course','status','set','direction','money','ikigai'];
  const focused=root.contains?.(document.activeElement)?document.activeElement:null;
  root.append(...names.map(name=>root.querySelector('.deck-'+name)).filter(Boolean));
@@ -66,7 +66,16 @@ export function drawDeck(root,state,args){
 
  // SET POINTS: choose the channel, then change its value. The result is shown beside it.
  const set=panel('Set points','deck-set');
- const channel=el('div','deck-line');channel.append(el('span','deck-label','Channel'),
+ const strip=el('div','deck-strip');strip.setAttribute('role','tablist');strip.setAttribute('aria-label','Channels');
+ channels.forEach((c,idx)=>{
+  const chip=el('button','deck-chip'+(idx===selected?' active':''));
+  chip.type='button';chip.setAttribute('role','tab');chip.setAttribute('aria-selected',String(idx===selected));
+  chip.setAttribute('aria-label',c.label+': '+c.value);
+  chip.append(el('span','deck-chip-name',c.label),el('b','deck-chip-val',c.value));
+  chip.onclick=()=>{selected=idx;drawDeck(root,state,args);};
+  strip.append(chip);
+ });
+ const channel=el('div','deck-line deck-channel-line');channel.append(el('span','deck-label','Channel'),
   key('◀','Previous channel',()=>{selected=(selected-1+channels.length)%channels.length;drawDeck(root,state,args);}),
   el('b','deck-channel',ch.label),el('span','deck-count',(selected+1)+'/'+channels.length),
   key('▶','Next channel',()=>{selected=(selected+1)%channels.length;drawDeck(root,state,args);}));
@@ -74,7 +83,7 @@ export function drawDeck(root,state,args){
  value.append(el('span','deck-label',String(ch.value).includes('%')?'Budget %':'Points /10'),key('−','Lower '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(-1),{disabled:!ch.can(-1)}),out,key('+','Raise '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(1),{disabled:!ch.can(1)}),el('span','deck-result',ch.detail+' '+t(ch.detailLabel)));
  const qualify=el('details','deck-projection'),method=el('summary','','How this projection works');qualify.append(method,el('p','deck-note','Authored scenario estimate, not a real-life prediction. Includes study budget and scheduled consequences; new choices can change it.'));
  if(projection){qualify.append(el('p','deck-note',t('Age multipliers')+': '+Object.entries(projection.eraWeights).map(([k,v])=>t(eraLabels[k]??k)+' ×'+v).join(' · ')));}
- set.append(channel,value);if(ch.minimum!==undefined)set.append(el('p','deck-note',t('Minimum {n} from your choices').replace('{n}',ch.minimum)));set.append(qualify);
+ set.append(strip,channel,value);if(ch.minimum!==undefined)set.append(el('p','deck-note',t('Minimum {n} from your choices').replace('{n}',ch.minimum)));set.append(qualify);
 
  const direction=panel('Life direction','deck-direction');const keys=el('div','deck-keys');
  for(const [k,label] of AIM_KEYS){const b=key(label,'Life direction: '+label,()=>setAim(k),{pressed:aim===k,cls:'deck-key deck-aim'});b.prepend(el('i','deck-light'));keys.append(b);}
@@ -86,7 +95,7 @@ export function drawDeck(root,state,args){
   for(const [label,v,accent] of money.bar){const seg=el('span',accent?'accent':'');seg.style.flexGrow=String(v/total);bar.append(seg);}
   m.append(bar,rows(money.items));root.append(m);}
  if(ikigai){const g=panel('Ikigai '+ikigai.score,'deck-ikigai');const list=el('div','deck-meters');
-  for(const [label,v] of ikigai.parts){const row=el('div','deck-meter');const track=el('span','deck-track');const fill=el('span','deck-fill');fill.style.width=(v??0)+'%';track.append(fill);row.append(el('span','',label),track,el('b','',v===null?'—':String(v)));list.append(row);}
+  for(const [label,v] of ikigai.parts){const row=el('div','deck-meter');const line=el('div','deck-meter-line');line.append(el('span','',label),el('b','',v===null?'—':String(v)));const track=el('span','deck-track');const fill=el('span','deck-fill');fill.style.width=(v??0)+'%';track.append(fill);row.append(line,track);list.append(row);}
   g.append(list,el('p','deck-note','Authored game indices · not a psychological test.'));root.append(g);}
 
  arrangeDeck(root);

@@ -386,3 +386,37 @@ art/frame-approvals.json. Offline generation quarantines candidates and does not
 overwrite approved art. Runtime never requires the24GB authoring model.
 Full46-request batch, smooth new walk cycles, broader3D/art quality and actual
 M3hardware performance remain unfinished/unmeasured. See review/deck-release/REVIEW.md.
+
+
+## The console as a cockpit, and the art batch · 28 October 2026 (session 2)
+The console is now one screen. On a screen of 1280px or more it is a dashboard:
+your life on the left (the scene, the life deck, the decision), the year around
+you on the right (the chart of the years, three full-width meters measured from
+a centre line, and what that year did to this life). Nothing is drawn under a
+panel any more, the page never scrolls, and each console scrolls itself. Below
+1280px the consoles are one strip you swipe sideways, so a console is never
+squeezed into two columns three rows deep. The childhood memory band was a
+65-character strip with a wide empty margin; it is now a two-column instrument
+with the household income beside the memory. Measured at 390, 1024 and 1440:
+page overflow 4px, no panel overlap, the plan card overflows 24px at 1440 and
+nothing is cut in half. The transport reads Play, Pause, Fast Forward, and the
+fast-forward arrow is thicker the faster it runs, so no speed is printed as a
+number. Health, mood and net worth live once, in the deck's own panel.
+
+The local FLUX download needed the illustration LoRA named explicitly
+(ali-vilab/In-Context-LoRA:portrait-illustration.safetensors): --lora-style and
+--negative-prompt are inert on FLUX.1-schnell in this build, and a negative
+prompt cannot remove lettering from it either. With the LoRA at 4 steps a plate
+takes about 110 seconds and matches the published standard. Eighteen character
+sheets came from the MiniMax connector; eighteen were reviewed, and seventeen
+were promoted with a four-pose cut each. A one-row sheet has neighbours leaning
+into each panel, so the cutter now keeps only the figure that owns the panel; a
+walk cycle the model drew facing both ways is turned so the character never
+turns mid-step; the grandmother sheet holds a fifth figure, a child, under her
+third pose, and her crouching pose is withheld because the rule-removal pass
+mangles it. art/frame-approvals.json names every reviewed sheet and frame.
+The painted stage now draws the recorded moments: 4434 painted samples at the
+love and the bullying moments, with no console error or warning. All 28 plates
+were generated, reviewed and cut; three of them carry small signage the model
+put in a school or an office, which a negative prompt cannot remove on this
+model and which was left in rather than hidden.

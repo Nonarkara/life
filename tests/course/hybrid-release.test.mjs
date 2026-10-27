@@ -15,10 +15,18 @@ test('hybrid defaults to continuous3D for ordinary life and retains a single tru
 test('only the current scene needs coverage: missing elderly art does not erase a teenage scene, missing cycling does',()=>{
  const manifest=animeManifest(),elder=manifest.sprites.elder,ride=manifest.sprites['friend-b']['ride-b'];
  try{delete manifest.sprites.elder;assert.equal(paintedCovers(base(),17,12),true);delete manifest.sprites['friend-b']['ride-b'];assert.equal(paintedCovers(base(),17,12),false);}finally{manifest.sprites.elder=elder;manifest.sprites['friend-b']['ride-b']=ride;}
- const fatherHome={...base(20),birth:{region:'samut-prakan',household:'fathers'}};assert.equal(paintedCovers(fatherHome,20,1),false);assert.equal(paintedCovers(fatherHome,17,12),true,'absent parents are not invented in a public scene');
+ // A household paints the people it actually has, and a missing sheet keeps the3D world.
+ const fatherHome={...base(20),birth:{region:'samut-prakan',household:'fathers'}};
+ const fatherSheet=manifest.sprites['father-b'];
+ try{delete manifest.sprites['father-b'];assert.equal(paintedCovers(fatherHome,20,1),false,'a father without his painted sheet keeps the3D world');}finally{manifest.sprites['father-b']=fatherSheet;}
+ assert.equal(paintedCovers(fatherHome,20,1),true);
+ assert.equal(paintedCovers(fatherHome,17,12),true,'the household that exists is painted');
 });
 test('missing body, residence and age-specific pose retain3D instead of silently swapping people or homes',()=>{
- assert.equal(paintedCovers({...base(),intake:{sex:'male'}},17,12),false);
+ const manifest=animeManifest(),maleBike=manifest.sprites['player-m-bike'];
+ // The male cast is published now. Take it away and the scene must fall back to3D.
+ try{delete manifest.sprites['player-m-bike'];assert.equal(paintedCovers({...base(),intake:{sex:'male'}},17,12),false);}finally{manifest.sprites['player-m-bike']=maleBike;}
+ assert.equal(paintedCovers({...base(),intake:{sex:'male'}},17,12),true,'the male cast paints its own rider');
  const own={...base(35),finance:{housing:'near',workplace:'city',locationSince:30}};assert.equal(paintedCovers(own,35,1),false);
  assert.equal(paintedCovers(base(0),0,1),false);
  const elder={...base(65),history:[{age:65,event:'A health setback interrupts your plans.'}]};assert.equal(describePaintedScene(elder,65,54).beat,'bed');assert.equal(paintedCovers(elder,65,54),false,'no elderly lying pose exists');

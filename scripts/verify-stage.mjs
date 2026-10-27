@@ -112,6 +112,10 @@ try {
       let painted = 0;
       for (let i = 3; i < data.length; i += 4 * 97) if (data[i] > 8) painted++;
       const three = document.querySelector('canvas.world-renderer');
+      const box = selector => { const el = document.querySelector(selector); if (!el) return null; const r = el.getBoundingClientRect(); return { w: Math.round(r.width), h: Math.round(r.height) }; };
+      const stage = document.querySelector('.stage'), reader = document.querySelector('.console-reader');
+      const a = stage?.getBoundingClientRect(), b = reader?.getBoundingClientRect();
+      const overflow = el => { const e = document.querySelector(el); return e ? e.scrollHeight - e.clientHeight : null; };
       return {
         age: document.getElementById('age')?.textContent?.trim(),
         worldWidth: world.width, worldHeight: world.height,
@@ -119,7 +123,17 @@ try {
         threeRendererPresent: !!three,
         threeRendererHidden: three ? three.hidden : null,
         stageText: document.getElementById('scene-caption')?.textContent?.trim(),
-        manifest: !!document.querySelector('script[type=module]')
+        manifest: !!document.querySelector('script[type=module]'),
+        // The layout must not scroll the page, must not paint one panel over
+        // another, and must not clip the console it owns.
+        pageOverflow: document.documentElement.scrollHeight - document.documentElement.clientHeight,
+        stageBox: box('.stage'), readerBox: box('.console-reader'),
+        stageAspect: a && a.height ? +(a.width / a.height).toFixed(2) : null,
+        panelsOverlap: a && b ? !(a.right <= b.left || b.left >= a.right || a.bottom <= b.top || b.top >= a.bottom) : null,
+        planOverflow: overflow('#console-plan'),
+        readerOverflow: overflow('.console-cards'),
+        deckBox: box('#life-deck'),
+        transportKeys: [...document.querySelectorAll('.transport-key')].map(k => k.getAttribute('aria-label') + (k.getAttribute('aria-pressed') === 'true' ? '*' : '')),
       };
     })()`);
     console.log(name, width + 'x' + height, JSON.stringify(report));

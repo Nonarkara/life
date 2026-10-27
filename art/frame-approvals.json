@@ -1,3 +1,109 @@
 {
- "player-m": ["stand-a", "stand-b"]
+  "player-m": [
+    "walk-a",
+    "walk-b",
+    "stand-a",
+    "stand-b"
+  ],
+  "player-m-b": [
+    "sit-read",
+    "sit-desk",
+    "stand-paint",
+    "kneel"
+  ],
+  "player-m-c": [
+    "punch",
+    "dodge",
+    "cheer",
+    "lie"
+  ],
+  "player-m-bike": [
+    "ride",
+    "ride-b",
+    "push",
+    "stand-bike"
+  ],
+  "player-x": [
+    "walk-a",
+    "walk-b",
+    "stand-a",
+    "stand-b"
+  ],
+  "player-x-b": [
+    "sit-read",
+    "sit-desk",
+    "stand-paint",
+    "kneel"
+  ],
+  "player-x-c": [
+    "punch",
+    "dodge",
+    "cheer",
+    "lie"
+  ],
+  "player-x-bike": [
+    "ride",
+    "ride-b",
+    "push",
+    "stand-bike"
+  ],
+  "child-m": [
+    "run",
+    "stand",
+    "crouch",
+    "sit"
+  ],
+  "child-m-b": [
+    "ride",
+    "ride-b",
+    "read",
+    "write"
+  ],
+  "child-x": [
+    "run",
+    "stand",
+    "crouch",
+    "sit"
+  ],
+  "child-x-b": [
+    "ride",
+    "ride-b",
+    "read",
+    "write"
+  ],
+  "elder-m": [
+    "walk-stick",
+    "stand",
+    "sit",
+    "kneel"
+  ],
+  "elder-x": [
+    "walk-stick",
+    "stand",
+    "sit",
+    "kneel"
+  ],
+  "mother-b": [
+    "stand",
+    "basket",
+    "crouch",
+    "cook"
+  ],
+  "father-b": [
+    "stand",
+    "tool",
+    "sit-desk",
+    "walk"
+  ],
+  "rival": [
+    "wind",
+    "hit",
+    "stagger",
+    "guard"
+  ],
+  "grandmother": [
+    "stand",
+    "basket",
+    "cook"
+  ]
 }

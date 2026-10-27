@@ -33,9 +33,10 @@ test('actual deck renders zero unlit, negative wealth signed, six panels and one
 test('new deck qualifiers and dynamic edit names have all five-language copies',()=>{
  for(const lang of ['th','zh-CN','ja','ko'])for(const text of ['1 month','Monthly plan','Current plan · baht / month','Cash runway','Funds held','Cash left over','Monthly shortfall','Debt repayment','Recorded values','0–100 · eight display bands','Lower {axis}','Raise {axis}','Cash runway uses cash and reserve at current essential spending; funds excluded.'])assert.notEqual(translate(text,lang),text,lang+': '+text);
 });
-test('only reviewed male standing frames are published; moving poses retain fallback',async()=>{
+test('only reviewed male frames are published, and the allowlist is what the manifest holds',async()=>{
  const {readFileSync}=await import('node:fs');const manifest=JSON.parse(readFileSync(new URL('../../dist/course/anime/manifest.json',import.meta.url)));
- assert.deepEqual(Object.keys(manifest.sprites['player-m']).sort(),['stand-a','stand-b']);
- const approval=JSON.parse(readFileSync(new URL('../../art/frame-approvals.json',import.meta.url)));assert.deepEqual(approval['player-m'].sort(),Object.keys(manifest.sprites['player-m']).sort());
+ const reviewed=['stand-a','stand-b','walk-a','walk-b'];
+ assert.deepEqual(Object.keys(manifest.sprites['player-m']).sort(),reviewed);
+ const approval=JSON.parse(readFileSync(new URL('../../art/frame-approvals.json',import.meta.url)));assert.deepEqual(approval['player-m'].sort(),reviewed);
  for(const path of Object.values(manifest.sprites['player-m']))assert.ok(readFileSync(new URL('../../dist/course/anime/'+path,import.meta.url)).length>100);
 });
