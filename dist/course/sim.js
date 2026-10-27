@@ -15,7 +15,13 @@ export const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
 export function rand(seed,age,domain){let h=2166136261;for(const c of `${seed}/${age}/${domain}`){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}h+=h<<13;h^=h>>>7;h+=h<<3;h^=h>>>17;h+=h<<5;return(h>>>0)/4294967296;}
 export const balanced=()=>Object.fromEntries(AXES.map(a=>[a.key,2]));
 export const validPoints=p=>!!p&&Object.keys(p).length===5&&AXES.every(a=>Number.isInteger(p[a.key])&&p[a.key]>=0&&p[a.key]<=10)&&Object.values(p).reduce((a,b)=>a+b,0)===10;
-export function transfer(p,key,delta){if(!validPoints(p)||!AXES.some(a=>a.key===key)||![1,-1].includes(delta))return p;const other=AXES.map(a=>a.key).filter(k=>k!==key).sort((a,b)=>p[b]-p[a])[0];if(delta>0&&p[other]===0||delta<0&&p[key]===0)return p;return {...p,[key]:p[key]+delta,[other]:p[other]-delta};}
+export function transfer(p,key,delta,minima={}){
+ if(!validPoints(p)||!AXES.some(a=>a.key===key)||![1,-1].includes(delta))return p;
+ if(delta<0&&p[key]<=(minima[key]??0))return p;
+ const other=AXES.map(a=>a.key).filter(k=>k!==key&&(delta<0||p[k]>(minima[k]??0))).sort((a,b)=>p[b]-p[a])[0];
+ if(other===undefined||delta>0&&p[key]>=10)return p;
+ return {...p,[key]:p[key]+delta,[other]:p[other]-delta};
+}
 export const defaultProfile=()=>({drink:'no',smoke:'no',religion:'explore',intimacy:'unsure',aim:'balance'});
 // One view of what a life has decided: the encounters write the story's flags,
 // the questions write their own, and the world reads them together.
@@ -25,11 +31,11 @@ export const flagsOf=state=>({...(state?.story?.flags??{}),...(state?.pivotFlags
 export function lockedEffort(s){
  const locks={};for(const record of s.pivots??[])if(record.station===s.age)for(const[axis,value]of Object.entries(record.locks??{}))locks[axis]=Math.max(locks[axis]??0,value);
  if(!Object.keys(locks).length)return s.effort;
- let effort={...s.effort};let total=Object.values(effort).reduce((a,b)=>a+b,0);
+ let effort={...s.effort};
  for(const[axis,minimum]of Object.entries(locks)){
   const need=minimum-(effort[axis]??0);if(need<=0)continue;
   const donors=AXES.map(a=>a.key).filter(k=>k!==axis).sort((a,b)=>(effort[b]??0)-(effort[a]??0));
-  let left=need;for(const donor of donors){const take=Math.min(left,effort[donor]??0);if(take<=0)continue;effort[donor]-=take;left-=take;if(left<=0)break;}
+  let left=need;for(const donor of donors){const take=Math.min(left,Math.max(0,(effort[donor]??0)-(locks[donor]??0)));if(take<=0)continue;effort[donor]-=take;left-=take;if(left<=0)break;}
   effort[axis]+=need-left;
  }
  return validPoints(effort)?effort:s.effort;
@@ -54,7 +60,7 @@ function stepSkills(s){
  const practice=Object.fromEntries(AXES.map(a=>[a.key,due.reduce((n,c)=>n+(c.skills[a.key]??0),0)+Math.round(e[a.key]*growth*eraWeights[a.key])+(a.key==='iq'?pathway.learning:0)]));
  return {e,content,growth,due,pathway,eraWeights,practice};
 }
-function advancePeriod(s){s={...s,economy:economyFor(s)};const from=s.age,age=from+5,p=sanitiseProfile(s.profile,from),{e,content,growth,due,pathway,eraWeights,practice}=stepSkills(s);const adult=from>=20,retired=from>=60;const shock=rand(s.seed,age,'event');let event=age===60?'Work slows. Your time becomes your own again.':'An ordinary five years. Small habits accumulate.';let setback=0,healthShock=0;
+function advancePeriod(s){s={...s,economy:economyFor(s),effort:lockedEffort(s)};const from=s.age,age=from+5,p=sanitiseProfile(s.profile,from),{e,content,growth,due,pathway,eraWeights,practice}=stepSkills(s);const adult=from>=20,retired=from>=60;const shock=rand(s.seed,age,'event');let event=age===60?'Work slows. Your time becomes your own again.':'An ordinary five years. Small habits accumulate.';let setback=0,healthShock=0;
 if(age===30){setback=0;event='Floodwater damages the family home. Repairs take money and time.';}else if(age===55){event='Your '+household(s.birth).father.role+' dies. The family has to find a different rhythm.';}else if(age===70){event='Your '+household(s.birth).mother.role+' dies. Familiar places carry different memories.';}else if(adult&&shock<.15){setback=12000;event='A work interruption reduces your personal funds.';}else if(adult&&shock>.84){setback=-9000;event='An unexpected commission or extra work brings a little breathing room.';}
 if(age>=40&&rand(s.seed,age,'illness')<.12){healthShock=12;event+=' A health setback interrupts your plans.';}
 const earnings=grossMonthlyPay(s);

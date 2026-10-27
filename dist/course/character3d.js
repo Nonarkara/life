@@ -100,7 +100,8 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   const oldFacing=body.rotation.y,oldHeight=body.position.y,oldJoints=[...legs,...arms].map(l=>[l.pivot.rotation.x,l.bend.rotation.x]);
   const a=activity,walking=a.moving,cycle=(a.distance??time*.7)*Math.PI*2/(.65*scale),step=Math.sin(cycle),pose=a.pose;
   root.position.set(a.x,0,a.y);root.scale.setScalar(look.height*scale);
-  const target=walking?Math.atan2(a.dx,a.dy):pose==='care'?-2.3:pose==='swim'?Math.PI/2:a.facing??0;
+  // The swimmer stays aligned with the basin while entering from its narrow pier.
+  const target=pose==='swim'?Math.PI/2:walking?Math.atan2(a.dx,a.dy):pose==='care'?-2.3:a.facing??0;
   body.rotation.y=target;
   // A step is an arc: up on the passing pose, a small squash on contact.
   const contact=Math.abs(Math.cos(cycle));

@@ -80,4 +80,9 @@ Starting shape · 10 points across body, mind and drive|รูปร่างเ
 5-year practice: steady maintenance|การฝึกฝน 5 ปี: รักษาระดับคงที่|5年练习：稳定维持|5年間の鍛錬：安定した維持|5년 수련: 꾸준한 유지
 5-year practice: {gains}|การฝึกฝน 5 ปี: {gains}|5年练习：{gains}|5年間の鍛錬：{gains}|5년 수련: {gains}
 {source}: {income} / month · essentials {essential} / month|{source}: {income} / เดือน · ค่าใช้จ่ายจำเป็น {essential} / เดือน|{source}：每月 {income} · 基本开销每月 {essential}|{source}：月 {income}・生活必需費 月 {essential}|{source}: 월 {income} · 필수 지출 월 {essential}
+Predicted five-year skill gain|ทักษะที่คาดว่าจะเพิ่มในห้าปี|预计五年技能增长|今後5年の技能増加予測|향후 5년 예상 기술 증가
+Gains beside each skill · next five years|ตัวเลขข้างทักษะคือการเพิ่มในห้าปีข้างหน้า|技能旁为未来五年的增长值|各技能の横に今後5年の増加を表示|각 기술 옆에 향후 5년 증가량 표시
+How this projection works|ที่มาของค่าคาดการณ์|预测的计算方式|予測の計算方法|예측 계산 방식
+Authored scenario estimate, not a real-life prediction. Includes study budget and scheduled consequences; new choices can change it.|ค่าประมาณจากสถานการณ์ในเกม ไม่ใช่คำทำนายชีวิตจริง รวมงบเรียนรู้และผลที่กำหนดไว้แล้ว ทางเลือกใหม่อาจเปลี่ยนผลได้|这是游戏情境估算，并非现实人生预测。包含学习预算和已安排的后果，新选择可能改变结果。|ゲーム内シナリオの推計で、現実の人生の予測ではありません。学習予算と予定済みの影響を含み、新たな選択によって変わります。|게임 시나리오의 추정치이며 실제 삶의 예측이 아닙니다. 학습 예산과 예정된 영향을 포함하며 새로운 선택에 따라 달라집니다.
+Age multipliers|ตัวคูณตามวัย|年龄倍率|年齢による倍率|나이별 배율
 `.trim().split('\n').map(line=>line.split('|'));

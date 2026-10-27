@@ -146,6 +146,7 @@ function sheetFor(actor,age){
 
 // A moment of play reduced to one of the drawings the artist made.
 function roleFor(actor,age,pose,moving,set){
+  if(pose==='swim'||pose==='fall')return null; // No matching art: retain the truthful3D activity.
   if(actor==='mother'){
     if(pose==='cook')return 'cook';
     if(pose==='care'||pose==='floor')return 'crouch';

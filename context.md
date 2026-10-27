@@ -355,3 +355,16 @@ longer incur an invented inflation withdrawal. Broader calibration remains work.
 Remaining visual limit: independent review still identifies excess empty ground
 in the city3D framing. Current artwork is not a complete consistent animatedcast.
 Do not claim whole-system no-slop approval or M3hardware performance certification.
+
+## Shipping repair after Gemini review, 27 October 2026
+Authoritative period projections retained; predicted gains now live beside effort
+controls with a translated explanation disclosure. Default phone forecast clears
+the fixed action; desktop plan dock is310px max. Eight observed geometry cases
+and a restored-prior-layout negative fixture are recorded inreview/shipping-oct27.
+Simultaneous answer commitments now protect every donor's minimum; preview and
+actual periods normalize effective effort consistently before pay/skills.
+Swim entry/exit stay in water pose inside the basin, and the character aligns
+with its long axis. School bicycle return leaves desk on foot, mounts on lane,
+and dismounts at home. Unsupported painted poses keep3D. Saved schema unchanged.
+213tests and independent source/pixel review pass. Broader art quality and actual
+M3hardware performance remain unmeasured; do not inflate this bounded clearance.

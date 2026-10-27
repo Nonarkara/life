@@ -1,0 +1,174 @@
+{
+  "current": {
+    "action": {
+      "bottom": 839,
+      "client": 34,
+      "h": 36.5,
+      "scroll": 34,
+      "w": 100.8203125,
+      "x": 12,
+      "y": 802.5
+    },
+    "allocation": {
+      "bottom": 712,
+      "client": 150,
+      "h": 150,
+      "scroll": 150,
+      "w": 366,
+      "x": 12,
+      "y": 562
+    },
+    "h": 844,
+    "header": {
+      "bottom": 40,
+      "client": 38,
+      "h": 40,
+      "scroll": 38,
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "pageH": 844,
+    "pageW": 390,
+    "panel": {
+      "bottom": 796.5,
+      "client": 303,
+      "h": 302.5,
+      "scroll": 333,
+      "w": 390,
+      "x": 0,
+      "y": 494
+    },
+    "projection": {
+      "bottom": 784.390625,
+      "client": 69,
+      "h": 69.390625,
+      "scroll": 69,
+      "w": 366,
+      "x": 12,
+      "y": 715
+    },
+    "reader": {
+      "bottom": 844,
+      "client": 381,
+      "h": 382,
+      "scroll": 381,
+      "w": 390,
+      "x": 0,
+      "y": 462
+    },
+    "rowHeights": [
+      30,
+      30,
+      30,
+      30,
+      30
+    ],
+    "title": {
+      "bottom": 501,
+      "client": 1,
+      "h": 1,
+      "scroll": 29,
+      "w": 1,
+      "x": 12,
+      "y": 500
+    },
+    "w": 390,
+    "world": {
+      "bottom": 462,
+      "client": 422,
+      "h": 422,
+      "scroll": 422,
+      "w": 390,
+      "x": 0,
+      "y": 40
+    }
+  },
+  "prior": {
+    "action": {
+      "bottom": 839,
+      "client": 34,
+      "h": 36.5,
+      "scroll": 34,
+      "w": 100.8203125,
+      "x": 12,
+      "y": 802.5
+    },
+    "allocation": {
+      "bottom": 745.765625,
+      "client": 150,
+      "h": 150,
+      "scroll": 150,
+      "w": 366,
+      "x": 12,
+      "y": 595.765625
+    },
+    "h": 844,
+    "header": {
+      "bottom": 40,
+      "client": 38,
+      "h": 40,
+      "scroll": 38,
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "pageH": 844,
+    "pageW": 390,
+    "panel": {
+      "bottom": 796.5,
+      "client": 269,
+      "h": 268.734375,
+      "scroll": 325,
+      "w": 390,
+      "x": 0,
+      "y": 527.765625
+    },
+    "projection": {
+      "bottom": 810.15625,
+      "client": 61,
+      "h": 61.390625,
+      "scroll": 61,
+      "w": 366,
+      "x": 12,
+      "y": 748.765625
+    },
+    "reader": {
+      "bottom": 844,
+      "client": 347,
+      "h": 348.234375,
+      "scroll": 347,
+      "w": 390,
+      "x": 0,
+      "y": 495.765625
+    },
+    "rowHeights": [
+      30,
+      30,
+      30,
+      30,
+      30
+    ],
+    "title": {
+      "bottom": 534.765625,
+      "client": 1,
+      "h": 1,
+      "scroll": 29,
+      "w": 1,
+      "x": 12,
+      "y": 533.765625
+    },
+    "w": 390,
+    "world": {
+      "bottom": 495.765625,
+      "client": 456,
+      "h": 455.765625,
+      "scroll": 456,
+      "w": 390,
+      "x": 0,
+      "y": 40
+    }
+  },
+  "currentPass": true,
+  "priorPass": false
+}
