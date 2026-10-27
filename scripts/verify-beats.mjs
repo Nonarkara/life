@@ -22,7 +22,7 @@ const settle = s => {
 
 // Play a life until the moment we want to photograph happens, then stop there.
 function lifeAt(moment, seed) {
-  let life = begin(configureLife(newLife(seed), { upbringing: 'middle', region: 'bang-na' }));
+  let life = begin(configureLife(newLife(seed), { upbringing: 'middle', region: 'samut-prakan', sex: 'female' }));
   let guard = 0;
   while (life.age < 40 && life.stage === 'review' && guard++ < 60) {
     life = live(life);

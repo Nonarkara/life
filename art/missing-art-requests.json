@@ -1,0 +1,281 @@
+{
+ "note": "Missing Life2.0 art, 27 Oct 2026. Same style wording as MiniMax's original batches. Place results in scratch/anime/src under these file names, then run python3 scripts/prepare-anime-assets.py all.",
+ "requests": [
+  {
+   "output_file": "sheet-player-m.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: a lean 27-year-old Thai man, short straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, calm face, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: walking left to right in profile, right foot forward, arms swinging. Panel 2 top-right: walking left to right in profile, left foot forward, opposite arm swing. Panel 3 bottom-left: standing still facing the viewer, arms relaxed. Panel 4 bottom-right: standing facing the viewer, slight three-quarter turn, one hand on hip. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-player-m-b.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same lean 27-year-old Thai man, short straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: sitting cross-legged on the floor reading a book, seen from the side. Panel 2 top-right: sitting on a wooden chair at a small wooden desk, writing, seen from the side. Panel 3 bottom-left: standing at a wooden easel painting with a brush, seen from the side. Panel 4 bottom-right: kneeling on the ground planting a small potted plant, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-player-m-c.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same lean 27-year-old Thai man, short straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: throwing a punch forward, seen from the side, fist extended. Panel 2 top-right: ducking and leaning away from a blow, seen from the side. Panel 3 bottom-left: standing with both arms raised high, cheering. Panel 4 bottom-right: lying asleep on a thin floor mattress under a blanket, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-player-m-bike.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same lean 27-year-old Thai man, short straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, on a plain red city bicycle with a front basket, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: riding a bicycle to the right, seen from the side, right pedal down. Panel 2 top-right: riding the same bicycle to the right, left pedal down. Panel 3 bottom-left: walking beside the bicycle pushing it by the handlebars. Panel 4 bottom-right: standing beside the parked bicycle, facing the viewer. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-child-m.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: an 8-year-old Thai boy with short black hair, white school shirt, navy blue shorts, barefoot, round cheeks, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: running to the right in profile with a football under one arm. Panel 2 top-right: standing still facing the viewer, arms at the sides. Panel 3 bottom-left: crouching down playing with a toy car on the ground. Panel 4 bottom-right: sitting on the floor with legs out, holding a cloth toy. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-child-m-b.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same 8-year-old Thai boy, short black hair, white school shirt, navy blue shorts, on a small red bicycle where a bicycle appears, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: riding a small bicycle to the right, seen from the side, right pedal down. Panel 2 top-right: riding the same small bicycle to the right, left pedal down. Panel 3 bottom-left: sitting cross-legged on the floor reading a book. Panel 4 bottom-right: sitting on a small chair at a desk, writing in a school notebook. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-elder-m.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: a 70-year-old Thai grandfather, short white hair, thin frame, pale sage green shirt, dark grey trousers, cloth slippers, gentle lined face, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: walking to the right in profile holding a walking stick. Panel 2 top-right: standing still facing the viewer. Panel 3 bottom-left: sitting in a wooden chair reading, seen from the side. Panel 4 bottom-right: kneeling on the ground in a garden, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-player-x.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: a lean 27-year-old Thai person with an androgynous build, chin-length straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, calm face, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: walking left to right in profile, right foot forward, arms swinging. Panel 2 top-right: walking left to right in profile, left foot forward, opposite arm swing. Panel 3 bottom-left: standing still facing the viewer, arms relaxed. Panel 4 bottom-right: standing facing the viewer, slight three-quarter turn, one hand on hip. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-player-x-b.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same lean 27-year-old androgynous Thai person, chin-length straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: sitting cross-legged on the floor reading a book, seen from the side. Panel 2 top-right: sitting on a wooden chair at a small wooden desk, writing, seen from the side. Panel 3 bottom-left: standing at a wooden easel painting with a brush, seen from the side. Panel 4 bottom-right: kneeling on the ground planting a small potted plant, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-player-x-c.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same lean 27-year-old androgynous Thai person, chin-length straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: throwing a punch forward, seen from the side, fist extended. Panel 2 top-right: ducking and leaning away from a blow, seen from the side. Panel 3 bottom-left: standing with both arms raised high, cheering. Panel 4 bottom-right: lying asleep on a thin floor mattress under a blanket, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-player-x-bike.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same lean 27-year-old androgynous Thai person, chin-length straight black hair, mustard-yellow t-shirt, olive-green trousers, cream canvas shoes, on a plain red city bicycle with a front basket, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: riding a bicycle to the right, seen from the side, right pedal down. Panel 2 top-right: riding the same bicycle to the right, left pedal down. Panel 3 bottom-left: walking beside the bicycle pushing it by the handlebars. Panel 4 bottom-right: standing beside the parked bicycle, facing the viewer. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-child-x.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: an 8-year-old Thai child with chin-length black hair, white school shirt, navy blue shorts, barefoot, round cheeks, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: running to the right in profile with a football under one arm. Panel 2 top-right: standing still facing the viewer, arms at the sides. Panel 3 bottom-left: crouching down playing with a toy car on the ground. Panel 4 bottom-right: sitting on the floor with legs out, holding a cloth toy. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-child-x-b.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: the same 8-year-old Thai child, chin-length black hair, white school shirt, navy blue shorts, on a small red bicycle where a bicycle appears, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: riding a small bicycle to the right, seen from the side, right pedal down. Panel 2 top-right: riding the same small bicycle to the right, left pedal down. Panel 3 bottom-left: sitting cross-legged on the floor reading a book. Panel 4 bottom-right: sitting on a small chair at a desk, writing in a school notebook. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-elder-x.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: a 69-year-old Thai elder with an androgynous build, chin-length grey hair, pale sage green shirt, dark grey trousers, cloth slippers, gentle lined face, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: walking to the right in profile holding a walking stick. Panel 2 top-right: standing still facing the viewer. Panel 3 bottom-left: sitting in a wooden chair reading, seen from the side. Panel 4 bottom-right: kneeling on the ground in a garden, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-grandmother.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: a 66-year-old Thai grandmother, grey hair pulled into a low bun, faded green cotton blouse, a dark patterned sarong, rubber sandals, kind lined face, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: standing facing the viewer, hands folded. Panel 2 top-right: carrying a woven basket of vegetables on one hip, seen from the side. Panel 3 bottom-left: crouching down to hold a small child's shoulders, seen from the side. Panel 4 bottom-right: standing at a low stove stirring a pot, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-mother-b.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: a 42-year-old Thai woman, short cropped black hair, white cotton shirt with rolled sleeves, dark blue trousers, an apron, rubber sandals, steady face, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: standing facing the viewer, hands folded. Panel 2 top-right: carrying a woven basket of vegetables on one hip, seen from the side. Panel 3 bottom-left: crouching down to hold a small child's shoulders, seen from the side. Panel 4 bottom-right: standing at a low stove stirring a pot, seen from the side. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-father-b.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME person so the drawings can be animated: a 45-year-old Thai man with round glasses, neat greying black hair, pale blue short-sleeved shirt, grey trousers, leather sandals, quiet face, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: standing facing the viewer, arms relaxed. Panel 2 top-right: standing holding a large spanner, seen from the side. Panel 3 bottom-left: sitting on a wooden chair at a small desk, writing, seen from the side. Panel 4 bottom-right: walking to the right in profile with a cloth shoulder bag. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "sheet-rival.png",
+   "aspect_ratio": "16:9",
+   "resolution": "2K",
+   "prompt": "Sprite sheet, a 2 by 2 grid of four equal panels, each panel one full-body pose of the SAME character so the drawings can be animated: a stocky 13-year-old Thai schoolboy with a black buzz cut, natural warm brown skin, white school shirt untucked, dark navy shorts, canvas shoes, a hard scowl, drawn in late-1980s Japanese hand-painted cel animation style with confident ink outline and two-tone cel shading. Panel 1 top-left: winding up a punch with the right arm drawn back, seen from the side. Panel 2 top-right: throwing a punch forward, seen from the side, fist extended. Panel 3 bottom-left: staggering backwards with the head turned away, seen from the side. Panel 4 bottom-right: standing with both fists raised in a guard, facing three-quarters. No blood, no bruises, no injuries. Every figure fully visible head to toe, similar size, clear white space around each figure, plain flat pure white background, no shadows, no text, no panel borders, no numbers"
+  },
+  {
+   "output_file": "plate-home-morning.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the main room of a Thai wooden stilt house in the morning, seen from the side, teak plank floor and walls, wooden louvred shutters open to green trees, a woven reed mat on the floor with a low round table set with rice and small dishes for breakfast, a standing electric fan, a small shelf shrine with marigolds high on the wall, a folded mattress against the wall, soft sunlight across the floor, no Japanese elements, no paper screens, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-evening.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the same main room of a Thai wooden stilt house at night, teak plank floor and walls, shutters closed, one bare warm bulb hanging from the ceiling, a woven reed mat with a low round table, a standing fan, a small shelf shrine with a candle high on the wall, deep shadow in the corners, no Japanese elements, no paper screens, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-day@slum.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: inside a one-room home in a Bangkok riverside community in the morning, walls of painted plywood and corrugated metal, a raised wooden floor, a thin mattress, a small gas ring and pots on a shelf, a television on a crate, a window to wooden walkways over the water, laundry hanging, bright light through gaps in the roof, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-night@slum.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the same one-room riverside home in Bangkok at night, plywood and corrugated metal walls, a single fluorescent tube, a thin mattress, pots on a shelf, a small television glowing, the dark water visible through the window, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-day@condo.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: inside a small apartment in a Bangkok tower block in the morning, white tiled floor, a two-seat sofa, a compact kitchen counter with a rice cooker, a narrow balcony door with a view of other tower blocks, an air conditioner on the wall, a shoe rack by the door, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-night@condo.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the same small Bangkok apartment at night, white tiled floor, a two-seat sofa, a lamp on, city lights of other towers through the balcony door, the air conditioner light glowing, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-day@villa.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the living room of a large walled family house in Bangkok in the morning, polished stone floor, a long teak dining table, a wide sliding glass door to a lawn with a frangipani tree and a high garden wall, ceiling fans, framed photographs, a spirit house visible in the garden, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-night@villa.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the same large Bangkok family house at night, polished stone floor, the long teak table under a warm pendant lamp, the garden lit by low lamps beyond the glass, the spirit house glowing, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-day@tower.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a public housing flat in Toa Payoh, Singapore, in daylight, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-night@tower.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a public housing flat in Toa Payoh, Singapore, at night under a warm lamp, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-street-day@tower.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a covered walkway at the foot of public housing blocks in Singapore with a hawker centre and void deck, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-school@tower.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a Singapore secondary school with a covered courtyard, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-work@tower.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: an open-plan office in Singapore with glass windows over the city, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-day@tokyo.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a small apartment in Nerima, Tokyo, tatami room with sliding doors and a low table, in daylight, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-night@tokyo.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a small apartment in Nerima, Tokyo, tatami room with sliding doors and a low table, at night under a warm lamp, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-street-day@tokyo.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a quiet residential street in Tokyo with power lines, vending machines and a small shrine gate, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-school@tokyo.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a Tokyo public school corridor with shoe lockers, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-work@tokyo.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a crowded small office in Tokyo with desks pushed together, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-day@newengland.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the kitchen of a three-family wooden house in Somerville, Massachusetts in winter, radiator under a frosted window, snow on the porch outside, in daylight, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-night@newengland.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the kitchen of a three-family wooden house in Somerville, Massachusetts in winter, radiator under a frosted window, snow on the porch outside, at night under a warm lamp, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-street-day@newengland.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a snowy residential street in Somerville, Massachusetts with triple-decker wooden houses, parked cars under snow, bare trees, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-school@newengland.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a red-brick American public school in deep snow, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-work@newengland.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a university lab office in Boston with a window onto snow, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-day@brick.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the front room of a terraced house in Walthamstow, London, a gas fire, a bay window with rain on the glass, in daylight, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-home-night@brick.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: the front room of a terraced house in Walthamstow, London, a gas fire, a bay window with rain on the glass, at night under a warm lamp, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-street-day@brick.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a wet street of brick terraced houses in Walthamstow, London on a grey day, a red bus passing far away, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-school@brick.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: a London state school with a tarmac playground, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  },
+  {
+   "output_file": "plate-work@brick.png",
+   "aspect_ratio": "21:9",
+   "resolution": "2K",
+   "prompt": "Hand-painted anime background plate in the style of a 1990s Japanese roleplaying game: an office in London with a view of wet rooftops, cel-shaded with two-tone shading and confident ink line, limited palette of warm amber, bone white, teal shadow and vermilion accent, visible brush texture, wide cinematic establishing shot, no people, no text, no lettering"
+  }
+ ]
+}

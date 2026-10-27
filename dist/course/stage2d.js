@@ -8,9 +8,9 @@ import {routine,routineContext,routineCaption} from './routines.js';
 import {flagsOf} from './sim.js';
 import {homeCast} from './presentation-state.js';
 import {travelFrame} from './painted-camera.js';
-import {regionAt,REGIONS} from './regions.js';
+import {regionAt,REGIONS,household} from './regions.js';
 import {preferences,t} from './i18n.js';
-import {prepareStageArt,stageImage,platePath,spritePath} from './anime-assets.js';
+import {prepareStageArt,stageImage,platePath,spritePath,animeManifest} from './anime-assets.js';
 
 // A set is one painted plate and the places people stand on it. `ground` is the
 // fraction of the plate's height where feet meet the floor; `scale` is the
@@ -23,7 +23,8 @@ const SETS={
   street:{plate:'town',night:'street-night',ground:.86,scale:.24,span:[6.5,13]},
   court:{plate:'beat-court',ground:.86,scale:.24,span:[8,13]},
   school:{plate:'school',ground:.86,scale:.22,span:[8,13]},
-  work:{plate:'work',ground:.86,scale:.23,span:[9,14]},
+  // The office plate has its own desk in the foreground: people stand at it, close to the camera.
+  work:{plate:'work',ground:.93,scale:.40,span:[9,14]},
   shop:{plate:'shop',ground:.86,scale:.23,span:[9,14]},
   site:{plate:'site',ground:.86,scale:.23,span:[9,14]},
   abroad:{plate:'abroad',ground:.84,scale:.22,span:[9,14]},
@@ -101,6 +102,41 @@ const ROLES={
   },
 };
 
+// Who this life is drawn as. The art is named by sheet: player, child and elder for a
+// woman's life, with -m for a man and -x for an intersex body; the two parent slots take
+// the household's own people (mother-b and father-b for two mothers or two fathers).
+const SEX_SUFFIX={female:'',male:'-m',intersex:'-x'};
+// The Thai wooden house is painted; other kinds of house and every city abroad are
+// painted as variants named place@style (home-day@villa, street-day@tokyo).
+const PAINTED_HOMES=new Set(['market','village','coast']);
+const ABROAD_SETS=['home-day','street-day','school','work'];
+export const plateVariant=(key,style)=>key&&style&&platePath(`${key}@${style}`)?`${key}@${style}`:key;
+const PLAYER_SHEETS=['player','player-b','player-c','player-bike','child','child-b','elder'];
+let castLife=null;
+function parentSheet(state,slot){
+ const role=household(state?.birth)[slot].role;
+ if(role==='grandmother')return 'grandmother';
+ return role===slot?role:role+'-b';
+}
+export function castSheet(state,actor,sheet){
+ if(actor==='player'){const suffix=SEX_SUFFIX[state?.intake?.sex]??'';return suffix?sheet.replace(/^(player|child|elder)/,'$1'+suffix):sheet;}
+ if(actor==='mother'||actor==='father')return parentSheet(state,actor);
+ return sheet;
+}
+// The painted stage draws a life only when its art covers that life: the right body, the
+// right household and a home it has painted. Any other life keeps the 3D world.
+export function paintedCovers(state,age=state?.age??0){
+ const manifest=animeManifest();if(!manifest)return true;
+ // ponytail: no baby or toddler drawings yet, and the 3D world grows the child from 0 to 5.
+ if(age<5)return false;
+ const has=sheet=>!!manifest.sprites?.[sheet];
+ if(!PLAYER_SHEETS.every(sheet=>has(castSheet(state,'player',sheet))))return false;
+ if(!['mother','father'].every(slot=>has(parentSheet(state,slot))))return false;
+ const region=REGIONS[regionAt(state,age)],style=region?.style;
+ if(region?.country!=='TH')return ABROAD_SETS.every(key=>!!manifest.plates?.[`${key}@${style}`]);
+ return PAINTED_HOMES.has(style)||!!manifest.plates?.[`home-day@${style}`];
+}
+
 function sheetFor(actor,age){
   if(actor==='mother')return 'mother';
   if(actor==='father')return 'father';
@@ -138,8 +174,8 @@ function roleFor(actor,age,pose,moving,set){
   if(pose==='draw'||pose==='craft')return 'paint';
   if(pose==='garden')return 'kneel';
   if(pose==='care'||pose==='floor')return 'crouch';
-  if(pose==='study')return set==='home'?'sit':'desk';
-  if(pose==='work')return 'desk';
+  if(pose==='study')return set==='home'?'sit':set==='work'?'stand':'desk';
+  if(pose==='work')return set==='work'?'stand':'desk';
   if(pose==='eat')return 'stand';
   if(pose==='rest'||pose==='recover')return 'sit';
   if(pose==='play')return age<13?'crouch':'sit';
@@ -253,7 +289,8 @@ export function beatFor(state,age,player={}){
 export {SETS,ROLES,setFor,roleFor,sheetFor,BEATS};
 
 export function drawStage2D(canvas,state,age,time,mode,view={}){
-  if(mode!=='world')return false;
+  if(mode!=='world'||!paintedCovers(state,age))return false;
+  castLife=state;
   let entry=stages.get(canvas);
   if(entry===false)return false;
   if(!entry){
@@ -270,7 +307,12 @@ const stages=new WeakMap();
 function createStage(canvas){
   const buffer=document.createElement('canvas');
   const frame=document.createElement('canvas');
-  let width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
+  // The docked panel covers the right of the stage on wide screens. The painting still
+  // fills the frame, but its focus and its people sit in the part that can be seen.
+  const visibleWidth=(pw,dpr)=>{const panel=document.querySelector('.decision'),box=canvas.getBoundingClientRect(),dock=panel?.getBoundingClientRect();
+   if(!dock||matchMedia('(max-width:720px)').matches||dock.left>=box.right||dock.top>=box.bottom||dock.width>=box.width*.6)return pw;
+   return Math.max(pw*.5,Math.round((dock.left-box.left)*dpr));};
+  let seen=0,width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
   const reduced=()=>preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function resize(){
@@ -278,7 +320,7 @@ function createStage(canvas){
     if(w<2||h<2)return false;
     const dpr=Math.min(devicePixelRatio||1,2);
     const pw=Math.round(w*dpr),ph=Math.round(h*dpr);
-    if(pw!==width||ph!==height){width=pw;height=ph;canvas.width=pw;canvas.height=ph;buffer.width=pw;buffer.height=ph;frame.width=pw;frame.height=ph;hasFrame=false;}
+    seen=visibleWidth(pw,dpr);if(pw!==width||ph!==height){width=pw;height=ph;canvas.width=pw;canvas.height=ph;buffer.width=pw;buffer.height=ph;frame.width=pw;frame.height=ph;hasFrame=false;}
     return true;
   }
 
@@ -289,30 +331,31 @@ function createStage(canvas){
     if(!path)return null;
     const image=stageImage(path);
     if(!image||!image.complete||!image.naturalWidth)return null;
-    const scale=Math.max(width/image.naturalWidth,height/image.naturalHeight);
+    const scale=Math.max((2*width-seen)/image.naturalWidth,height/image.naturalHeight);
     const drawWidth=image.naturalWidth*scale,drawHeight=image.naturalHeight*scale;
-    const x=(width-drawWidth)/2+offset,y=height-drawHeight;
+    const x=(seen-drawWidth)/2+offset,y=height-drawHeight;
     target.drawImage(image,x,y,drawWidth,drawHeight);
     return {x,y,drawWidth,drawHeight};
   }
 
   function drawFigure(target,actor,age,activity,set,groundY,plateHeight,clock,xOverride,options={}){
-    const role=roleFor(actor,age,activity.pose,activity.moving,set);
-    const table=ROLES[sheetFor(actor,age)]?.[role]??ROLES[sheetFor(actor,age)]?.stand;
+    // A parent slot is drawn by who fills it: a grandmother or a second mother poses like a mother.
+    const kind=actor==='mother'||actor==='father'?(household(castLife?.birth)[actor].sex==='female'?'mother':'father'):actor;
+    const role=roleFor(kind,age,activity.pose,activity.moving,set);
+    const table=ROLES[sheetFor(kind,age)]?.[role]??ROLES[sheetFor(kind,age)]?.stand;
     if(!table)return null;
     const step=activity.moving?Math.floor(clock*10):Math.floor(clock*2.5);
-    const [sheet,frame]=table[step%table.length];
+    const [drawn,frame]=table[step%table.length],sheet=castSheet(castLife,actor,drawn);
     const path=spritePath(sheet,frame);
     const image=path?stageImage(path):null;
     if(!image||!image.complete||!image.naturalWidth)return null;
     const scale=options.scale??SETS[set]?.scale??.25;
-    // A body that lies down is thinner than a body that stands.
-    const flat=options.flat===true;
-    const figureHeight=plateHeight*scale*(flat?.55:1)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);
+    // Frames keep their true height on the sheet (the tallest is 400px), so a seated body is drawn seated, not stretched.
+    const figureHeight=plateHeight*scale*(image.naturalHeight/400)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);
     const figureWidth=figureHeight*(image.naturalWidth/image.naturalHeight);
     const span=SETS[set]?.span??[0,1];
     const norm=span[1]>span[0]?Math.max(-.1,Math.min(1.1,(activity.x??span[0])-span[0])/(span[1]-span[0])):.5;
-    const x=xOverride??width*.08+norm*(width*.84);
+    const x=xOverride??seen*.08+norm*(seen*.84);
     const bob=activity.moving?-Math.abs(Math.sin(clock*10))*(figureHeight*.02):0;
     const breathe=activity.moving?1:1+Math.sin(clock*2.2)*.006;
     target.save();
@@ -410,7 +453,7 @@ function createStage(canvas){
       // The heart of the picture: a drawn heart, the way a 1990s game drew it.
       const beat=1+Math.sin(clock*4)*.06;
       const size=height*.09*beat;
-      const x=width*.485,y=groundY-height*.38;
+      const x=seen*.485,y=groundY-height*.38;
       target.save();
       target.translate(x,y);
       target.beginPath();
@@ -436,8 +479,8 @@ function createStage(canvas){
         const inner=height*(.14+((i*.19)%1)*.12);
         const outer=height*(.55+((i*.13)%1)*.6);
         target.beginPath();
-        target.moveTo(width*.48+Math.cos(angle)*inner,groundY-height*.2+Math.sin(angle)*inner);
-        target.lineTo(width*.48+Math.cos(angle)*outer,groundY-height*.2+Math.sin(angle)*outer);
+        target.moveTo(seen*.48+Math.cos(angle)*inner,groundY-height*.2+Math.sin(angle)*inner);
+        target.lineTo(seen*.48+Math.cos(angle)*outer,groundY-height*.2+Math.sin(angle)*outer);
         target.stroke();
       }
       target.restore();
@@ -459,7 +502,7 @@ function createStage(canvas){
       // The good light of a morning that went well.
       target.save();
       target.globalCompositeOperation='lighter';
-      const glow=target.createRadialGradient(width*.68,height*.3,height*.05,width*.68,height*.3,height*.9);
+      const glow=target.createRadialGradient(seen*.68,height*.3,height*.05,seen*.68,height*.3,height*.9);
       glow.addColorStop(0,'rgba(255,214,140,.34)');
       glow.addColorStop(1,'rgba(255,214,140,0)');
       target.fillStyle=glow;
@@ -492,7 +535,9 @@ function createStage(canvas){
     if(next!==set){set=next;setChangedAt=time;}
     const stage=SETS[set];
     const night=player.phase==='Evening'||player.phase==='Coming home';
-    const plateKey=night&&stage.night?stage.night:stage.plate;
+    // The household's own kind of house and city, when the art has painted it.
+    const style=REGIONS[regionAt(state,age)]?.style,day=plateVariant(stage.plate,style),dark=plateVariant(stage.night,style);
+    const plateKey=night&&dark&&(dark!==stage.night||day===stage.plate)?dark:day;
     const clock=reduced()?0:time;
 
     const ctx=canvas.getContext('2d');
@@ -517,14 +562,14 @@ function createStage(canvas){
           const activity={pose:actor.pose,x:actor.x,moving:/ride|push/.test(actor.pose)};
           const anchor=actor.anchor?{x:drawn.x+actor.anchor.x*drawn.drawWidth,y:drawn.y+actor.anchor.y*drawn.drawHeight}:null;
           drawFigure(paint,actor.id,age,activity,beat,anchor?anchor.y:groundY,drawn.drawHeight,clock,
-            anchor?anchor.x:width*.08+actor.x*(width*.84),{scale:moment.scale,flat:!!anchor});
+            anchor?anchor.x:seen*.08+actor.x*(seen*.84),{scale:moment.scale,flat:!!anchor});
         }
         drawEffect(paint,clock,moment.effect,groundY);
       }
     }else if(set==='travel'){
       drawn=drawTravel(paint,clock,player,age);
       groundY=drawn?drawn.y+drawn.drawHeight*SETS.travel.ground:height*.86;
-      if(drawn)drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight,clock,width*.44);
+      if(drawn)drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight,clock,seen*.44);
     }else{
       drawn=drawPlate(paint,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*stage.ground:height*.84;
@@ -559,7 +604,7 @@ function createStage(canvas){
       const slots=slotsFor(set,present.length);
       present.forEach((actor,index)=>{actor.slot=slots[index];});
       for(const actor of present){
-        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight,clock,width*.08+actor.slot*(width*.84));
+        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight,clock,seen*.08+actor.slot*(seen*.84));
       }
     }
 
@@ -583,8 +628,8 @@ function createStage(canvas){
         const angle=i/40*Math.PI*2;
         const inner=height*(.18+((i*.17)%1)*.1);
         paint.beginPath();
-        paint.moveTo(width/2+Math.cos(angle)*inner,height*.5+Math.sin(angle)*inner);
-        paint.lineTo(width/2+Math.cos(angle)*height*1.3,height*.5+Math.sin(angle)*height*1.3);
+        paint.moveTo(seen/2+Math.cos(angle)*inner,height*.5+Math.sin(angle)*inner);
+        paint.lineTo(seen/2+Math.cos(angle)*height*1.3,height*.5+Math.sin(angle)*height*1.3);
         paint.stroke();
       }
       paint.restore();

@@ -300,3 +300,34 @@ has not been photographed, because it needs answered questions; the adult
 player's face drifts between two player sheets; the world is not yet a full
 Truman Show — there is no control room, and the actors still follow the
 routine rather than a script.
+
+## The painted stage draws each life as itself, 27 October 2026
+MiniMax's painted stage drew every life as one Thai woman in a yellow t-shirt, with
+one mother and father, in one wooden house. A man, an intersex body, a grandparent
+household, two mothers, two fathers, a slum, a condo, a villa and every city abroad
+were drawn wrongly, and a newborn was drawn as an 8-year-old schoolgirl.
+
+Rule now (dist/course/stage2d.js `castSheet`, `paintedCovers`): a life is painted
+only when the art covers it, meaning the right body, household and kind of house,
+at age 5 or older. Every other life keeps the 3D world, which already varies by sex,
+household and region. New art is picked up by name, with no code change:
+- bodies: `player|child|elder` plus `-m` (man) or `-x` (intersex), e.g. `player-m-bike`;
+- households: `grandmother`, `mother-b`, `father-b`. A parent slot is drawn by who
+  fills it, so a grandmother poses like a mother;
+- places: `<plate>@<style>`, e.g. `home-day@villa`, `street-day@tokyo`. A life abroad
+  needs home-day, street-day, school and work for its style.
+
+The missing art (18 sheets, 28 plates) is specified in art/missing-art-requests.json,
+in MiniMax's request format with its own style wording. The replacement home plates
+are a Thai stilt-house room (no shoji). The rival is regenerated without the teal
+skin and blood. Put the results in scratch/anime/src under those file names, then run
+`python3 scripts/prepare-anime-assets.py all`; sources that don't exist yet are skipped.
+No image generator is installed on the M5 (the ComfyUI + Krea note in CLAUDE.md
+did not match this machine).
+
+Other repairs: the partner sheet's hand-written panel boxes cut through two figures;
+each sheet is now scaled by one factor, so a seated body keeps its real height; on
+desktop the painting's focus and its people sit left of the docked panel; in the
+office the player stands at the painted desk instead of a second desk drawn on top
+of it; MiniMax's new CSS lost its rounded corners and was put back on the console's
+14px and 12px sizes.

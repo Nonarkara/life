@@ -18,7 +18,7 @@ from scipy import ndimage
 
 SOURCE = Path("scratch/anime/src")
 TARGET = Path("dist/course/anime")
-SPRITE_HEIGHT = 400  # working height of a keyed figure, in pixels
+SPRITE_HEIGHT = 400  # height of the tallest figure on a sheet, in pixels; the stage reads it too
 PLATE_WIDTH = 1760   # working width of a painted plate, in pixels
 GROUND_TOLERANCE = 26
 
@@ -67,8 +67,8 @@ OVERRIDES = {
                (0.47, 0.00, 0.78, 1.00), (0.78, 0.00, 1.00, 1.00)],
     "player": [(0.00, 0.00, 0.26, 1.00), (0.26, 0.00, 0.52, 1.00),
                (0.52, 0.00, 0.74, 1.00), (0.74, 0.00, 1.00, 1.00)],
-    "partner": [(0.00, 0.00, 0.22, 1.00), (0.22, 0.00, 0.41, 1.00),
-                (0.41, 0.00, 0.66, 1.00), (0.66, 0.00, 1.00, 1.00)],
+    "partner": [(0.00, 0.00, 0.23, 1.00), (0.23, 0.00, 0.50, 1.00),
+                (0.50, 0.00, 0.757, 1.00), (0.757, 0.00, 1.00, 1.00)],
 }
 PLATES = {
     "home-morning": "home-day",
@@ -96,6 +96,15 @@ PLATES = {
     "plate-beat-room": "beat-room",
 }
 
+
+# The rest of the cast (27 Oct 2026): other bodies and households, same poses as
+# the sheet each one mirrors. art/missing-art-requests.json holds their prompts.
+for _name, _base in {'player-m': 'player', 'player-m-b': 'player-b', 'player-m-c': 'player-c', 'player-m-bike': 'player-bike', 'child-m': 'child', 'child-m-b': 'child-b', 'elder-m': 'elder', 'player-x': 'player', 'player-x-b': 'player-b', 'player-x-c': 'player-c', 'player-x-bike': 'player-bike', 'child-x': 'child', 'child-x-b': 'child-b', 'elder-x': 'elder', 'grandmother': 'mother', 'mother-b': 'mother', 'father-b': 'father'}.items():
+    SHEETS[_name] = SHEETS[_base]
+    SOURCES[_name] = f"sheet-{_name}.png"
+
+# New and replacement places (27 Oct 2026); a later entry replaces an earlier key.
+PLATES.update({'plate-home-morning': 'home-day', 'plate-home-evening': 'home-night', 'plate-home-day@slum': 'home-day@slum', 'plate-home-night@slum': 'home-night@slum', 'plate-home-day@condo': 'home-day@condo', 'plate-home-night@condo': 'home-night@condo', 'plate-home-day@villa': 'home-day@villa', 'plate-home-night@villa': 'home-night@villa', 'plate-home-day@tower': 'home-day@tower', 'plate-home-night@tower': 'home-night@tower', 'plate-street-day@tower': 'street-day@tower', 'plate-school@tower': 'school@tower', 'plate-work@tower': 'work@tower', 'plate-home-day@tokyo': 'home-day@tokyo', 'plate-home-night@tokyo': 'home-night@tokyo', 'plate-street-day@tokyo': 'street-day@tokyo', 'plate-school@tokyo': 'school@tokyo', 'plate-work@tokyo': 'work@tokyo', 'plate-home-day@newengland': 'home-day@newengland', 'plate-home-night@newengland': 'home-night@newengland', 'plate-street-day@newengland': 'street-day@newengland', 'plate-school@newengland': 'school@newengland', 'plate-work@newengland': 'work@newengland', 'plate-home-day@brick': 'home-day@brick', 'plate-home-night@brick': 'home-night@brick', 'plate-street-day@brick': 'street-day@brick', 'plate-school@brick': 'school@brick', 'plate-work@brick': 'work@brick'})
 
 def longest_runs(line):
     """The longest run of drawn pixels in each row or column."""
@@ -458,13 +467,17 @@ def prepare_sheet(name):
         pad = 4
         rows = slice(max(0, int(ys.min()) - pad), int(ys.max()) + pad + 1)
         columns = slice(max(0, int(xs.min()) - pad), int(xs.max()) + pad + 1)
-        out = Image.fromarray(np.dstack([cell[rows, columns], alpha[rows, columns]]))
-        scale = SPRITE_HEIGHT / out.height
-        out = out.resize((max(1, round(out.width * scale)), SPRITE_HEIGHT), Image.LANCZOS)
-        file = f"sprites/{name}-{SHEETS[name][index]}.webp"
+        frames.append((SHEETS[name][index], Image.fromarray(np.dstack([cell[rows, columns], alpha[rows, columns]]))))
+    # One scale for the whole sheet: the tallest drawing is SPRITE_HEIGHT and a seated
+    # or kneeling body keeps its true height beside it. The stage reads that height.
+    scale = SPRITE_HEIGHT / max(out.height for _, out in frames)
+    written = []
+    for frame, out in frames:
+        out = out.resize((max(1, round(out.width * scale)), max(1, round(out.height * scale))), Image.LANCZOS)
+        file = f"sprites/{name}-{frame}.webp"
         out.save(TARGET / file, "WEBP", quality=82, method=4)
-        frames.append((SHEETS[name][index], file))
-    return frames
+        written.append((frame, file))
+    return written
 
 
 def prepare_plate(name, key):
@@ -487,10 +500,14 @@ def main():
         manifest = json.loads(manifest_path.read_text())
     if only in ("all", "plates"):
         for source, key in PLATES.items():
+            if not any((SOURCE / f"{source}{ext}").exists() for ext in (".jpg", ".png")):
+                continue  # not generated yet; the stage keeps the 3D world for lives that need it
             manifest["plates"][key] = prepare_plate(source, key)
             print(f"plate {key}", flush=True)
     if only in ("all", "sheets"):
         for name in SHEETS:
+            if not (SOURCE / SOURCES[name]).exists():
+                continue  # not generated yet
             manifest["sprites"][name] = dict(prepare_sheet(name))
             print(f"sheet {name}: {', '.join(n for n, _ in manifest['sprites'][name].items())}", flush=True)
     manifest_path.write_text(json.dumps(manifest, indent=1) + "\n")

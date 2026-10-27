@@ -132,3 +132,26 @@ test('a body that is being repaired lies down in the evening',()=>{
   assert.equal(beatFor(hurt,50,evening),'bed');
   assert.equal(beatFor(hurt,50,atSchool),null);
 });
+
+// A life is drawn as itself or not at all: the painted stage stands aside for any
+// body, household or home the art does not have, and the 3D world draws that life.
+test('the painted stage only draws lives its art covers',async()=>{
+  const {castSheet,paintedCovers}=await import('../../dist/course/stage2d.js');
+  const {prepareStageArt}=await import('../../dist/course/anime-assets.js');
+  const {readFileSync}=await import('node:fs');
+  const manifest=JSON.parse(readFileSync(new URL('../../dist/course/anime/manifest.json',import.meta.url)));
+  globalThis.fetch=async()=>({ok:true,json:async()=>manifest});await prepareStageArt();
+  const life=(sex,household,region)=>({age:20,intake:{sex},birth:{household,region},finance:undefined,history:[]});
+  assert.equal(castSheet(life('male'),'player','player-bike'),'player-m-bike');
+  assert.equal(castSheet(life('male'),'player','child-b'),'child-m-b');
+  assert.equal(castSheet(life('female'),'player','elder'),'elder');
+  assert.equal(castSheet(life('female','mothers'),'father','father'),'mother-b');
+  assert.equal(castSheet(life('female','grandfather'),'mother','mother'),'grandmother');
+  const has=sheet=>!!manifest.sprites[sheet];
+  assert.equal(paintedCovers(life('female','parents','samut-prakan')),true,'the life the art was drawn for');
+  assert.equal(paintedCovers({...life('female','parents','samut-prakan'),age:2}),false,'a baby is not drawn as a schoolgirl');
+  assert.equal(paintedCovers(life('male','parents','samut-prakan')),has('player-m')&&has('child-m')&&has('elder-m'),'a man is drawn as a man or not at all');
+  assert.equal(paintedCovers(life('female','fathers','samut-prakan')),has('father-b'));
+  assert.equal(paintedCovers(life('female','parents','sukhumvit')),!!manifest.plates['home-day@villa'],'a walled villa is not drawn as a wooden house');
+  assert.equal(paintedCovers(life('female','parents','tokyo')),!!manifest.plates['street-day@tokyo']);
+});
