@@ -48,7 +48,8 @@ export function drawDeck(root,state,args){
   key('▶',ready?'Live the next five years':program,commit,{cls:'deck-go'}),
   key('▶','Next channel',()=>{selected=(selected+1)%channels.length;drawDeck(root,state,args);},{cls:'deck-arrow right'}),
   key('▼','Lower '+ch.label,()=>ch.step(-1),{disabled:!ch.can(-1),cls:'deck-arrow down'}));
- const rightKeys=side(AIM_KEYS.slice(3));if(waiting)rightKeys.append(key('Questions · '+waiting,'Questions · '+waiting,openQuestions));
+ // Waiting questions already have the action bar and the display line; a third key would repeat them.
+ const rightKeys=side(AIM_KEYS.slice(3));
  controls.append(side(AIM_KEYS.slice(0,3)),pad,rightKeys);
  // The instruments: what the display has no room for, laid out as gauges people can read at a glance.
  const instruments=el('div','deck-instruments');
