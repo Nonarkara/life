@@ -32,3 +32,16 @@ Final build/deployment/hash receipts and public screenshot are recorded separate
 here after publication. Older hyphenated screenshots in this directory are
 intermediate evidence; desktop1440.png,working1280.png,tablet1024.png,phone390.png
 and the current language screenshots are the final visual review set.
+
+## Published result
+
+C/P:1791a8a console repair, e766951 singular-month follow-up; pushed to main.
+D:wrangler pages deploy out --project-name life --branch main
+→ https://a70ec66f.life-5wz.pages.dev ; build4ba7e74e270f.
+T:python3 scripts/verify-deck-release.py →16/16 exact SHA256 assets, three
+consecutive passes at canonical Pages and custom domain, including both male
+standing WebPs and study bundles. public-assets.json contains every digest.
+Public browser: age15 and net worth฿1,498 retained, three unanswered questions
+remain. Main action opens questions; You and Money work; no answer was submitted.
+Returned to Plan, verified “1 month,” no console warnings/errors. public-browser.json
+and public-1440.png record the actual public result. 220tests pass on final code.

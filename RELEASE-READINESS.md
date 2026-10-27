@@ -1,3 +1,21 @@
+# Current release — 28 October 2026: cockpit completion
+
+Implementation e766951 (console repair1791a8a), build4ba7e74e270f.
+Cloudflare deployment https://a70ec66f.life-5wz.pages.dev .
+Live at https://life.nonarkara.org/course/ .
+
+220tests pass with no failures or skips; independent cockpit and standing-art
+review cleared. Current financial plan, cash runway, signed/elapsed chart and
+five-language controls repaired. Six panels fit the measured laptop viewports;
+phone editing task comes first. Full geometry, negative fixture and exact public
+asset receipts are in review/deck-release.
+
+Art scope is two accepted male standing poses. The46-request batch and corrected
+walking cycle remain unfinished. Broader3D quality, M3performance and human
+playtesting are not certified by this release.
+
+---
+
 # Current release — 27 October 2026: shipping repair
 
 Published implementation8ef5303, builda3525000e796, Cloudflare deployment745f3c8f.

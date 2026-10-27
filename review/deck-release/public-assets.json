@@ -1,0 +1,598 @@
+{
+  "build": "4ba7e74e270f",
+  "commit": "e766951edf83a61a6807f4cd22075e35a138afa3",
+  "targets": {
+    "https://life-5wz.pages.dev": [
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83",
+          "expected": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609",
+          "expected": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a",
+          "expected": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb",
+          "expected": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba",
+          "expected": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba"
+        },
+        {
+          "path": "study/deck-edge.bundle.js",
+          "match": true,
+          "sha256": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5",
+          "expected": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9",
+          "expected": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-a.webp",
+          "match": true,
+          "sha256": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab",
+          "expected": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-b.webp",
+          "match": true,
+          "sha256": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8",
+          "expected": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83",
+          "expected": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609",
+          "expected": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a",
+          "expected": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb",
+          "expected": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba",
+          "expected": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba"
+        },
+        {
+          "path": "study/deck-edge.bundle.js",
+          "match": true,
+          "sha256": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5",
+          "expected": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9",
+          "expected": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-a.webp",
+          "match": true,
+          "sha256": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab",
+          "expected": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-b.webp",
+          "match": true,
+          "sha256": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8",
+          "expected": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83",
+          "expected": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609",
+          "expected": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a",
+          "expected": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb",
+          "expected": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba",
+          "expected": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba"
+        },
+        {
+          "path": "study/deck-edge.bundle.js",
+          "match": true,
+          "sha256": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5",
+          "expected": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9",
+          "expected": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-a.webp",
+          "match": true,
+          "sha256": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab",
+          "expected": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-b.webp",
+          "match": true,
+          "sha256": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8",
+          "expected": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8"
+        }
+      ]
+    ],
+    "https://life.nonarkara.org": [
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83",
+          "expected": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609",
+          "expected": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a",
+          "expected": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb",
+          "expected": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba",
+          "expected": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba"
+        },
+        {
+          "path": "study/deck-edge.bundle.js",
+          "match": true,
+          "sha256": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5",
+          "expected": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9",
+          "expected": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-a.webp",
+          "match": true,
+          "sha256": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab",
+          "expected": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-b.webp",
+          "match": true,
+          "sha256": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8",
+          "expected": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83",
+          "expected": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609",
+          "expected": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a",
+          "expected": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb",
+          "expected": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba",
+          "expected": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba"
+        },
+        {
+          "path": "study/deck-edge.bundle.js",
+          "match": true,
+          "sha256": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5",
+          "expected": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9",
+          "expected": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-a.webp",
+          "match": true,
+          "sha256": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab",
+          "expected": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-b.webp",
+          "match": true,
+          "sha256": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8",
+          "expected": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8"
+        }
+      ],
+      [
+        {
+          "path": "build.json",
+          "match": true,
+          "sha256": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83",
+          "expected": "cd810ffc47ff926243e3398ac2d8ebb4b7fdbdcc64635a835a59571885d76e83"
+        },
+        {
+          "path": "course/boot.js",
+          "match": true,
+          "sha256": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609",
+          "expected": "6918ec7eaa9e31cc35677c5fc6e7ebcf0379fab024c08a3fda080450b5bb2609"
+        },
+        {
+          "path": "course/game.bundle.js",
+          "match": true,
+          "sha256": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a",
+          "expected": "3be32ee1dcb9c03c0f0260a94ac47bb4fa6c5187e07759429317af1381a3d14a"
+        },
+        {
+          "path": "course/course.css",
+          "match": true,
+          "sha256": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46",
+          "expected": "a16018d204980102b1103cef231b0a2fd4905b4f3b64aa072669ca4c1831ec46"
+        },
+        {
+          "path": "course/console.css",
+          "match": true,
+          "sha256": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a",
+          "expected": "9a48187b0442542bed238962fc771f90350e224476e14a03e250d9c62efd128a"
+        },
+        {
+          "path": "course/personal-console.css",
+          "match": true,
+          "sha256": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb",
+          "expected": "7ae917c421aba11f65db2a1ab1e7efc764426511caf51b14c96138807bf17bfb"
+        },
+        {
+          "path": "course/economy.css",
+          "match": true,
+          "sha256": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da",
+          "expected": "d63cf615c81ef9ef9c14dc1af8a47f9090aaaaef29d9f4544c454bc2f5c2a1da"
+        },
+        {
+          "path": "course/fonts.js",
+          "match": true,
+          "sha256": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d",
+          "expected": "112f24d5dbe157091e9bb0a28161641e1d2ed98d0e33b24d274b10a0712c379d"
+        },
+        {
+          "path": "course/settings.css",
+          "match": true,
+          "sha256": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861",
+          "expected": "8ff1dfbb67f2c47c143873df25b19f23e6434644f72fa7c7596217d737fd2861"
+        },
+        {
+          "path": "study/scene-study.bundle.js",
+          "match": true,
+          "sha256": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba",
+          "expected": "450399e1ea44f3ada4cf97a5759448ac5b067386a8c4ce94ed8617dee274fcba"
+        },
+        {
+          "path": "study/deck-edge.bundle.js",
+          "match": true,
+          "sha256": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5",
+          "expected": "15fc8e2db5196be42b8cfae76dbd7a03f71b6236debbc9c151b0aeefc507e9d5"
+        },
+        {
+          "path": "course/anime/manifest.json",
+          "match": true,
+          "sha256": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9",
+          "expected": "ee06e49ff7cafd6d8b0ada77c87a10cdd0c92ef711dafa5b7f463e7b8a88cdb9"
+        },
+        {
+          "path": "course/anime/plates/beat-lane.webp",
+          "match": true,
+          "sha256": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0",
+          "expected": "33d55b7a6a9548aeccd9beda1026447bdaedaa30f582f127b56862e910a8f7b0"
+        },
+        {
+          "path": "course/anime/plates/beat-bridge.webp",
+          "match": true,
+          "sha256": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547",
+          "expected": "f5b47cd3831573086e831f69aa6448a0acad87b370c3a425db4697c4c4c57547"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-a.webp",
+          "match": true,
+          "sha256": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab",
+          "expected": "febecf3bf3c7bb946b18e00ea754f5b8eee3e88882813ee87f2f746d704408ab"
+        },
+        {
+          "path": "course/anime/sprites/player-m-stand-b.webp",
+          "match": true,
+          "sha256": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8",
+          "expected": "d46228df7255b3299ede5c64a9574238009befff4853e5466ae48996049cfec8"
+        }
+      ]
+    ]
+  }
+}

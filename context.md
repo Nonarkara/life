@@ -368,3 +368,21 @@ with its long axis. School bicycle return leaves desk on foot, mounts on lane,
 and dismounts at home. Unsupported painted poses keep3D. Saved schema unchanged.
 213tests and independent source/pixel review pass. Broader art quality and actual
 M3hardware performance remain unmeasured; do not inflate this bounded clearance.
+
+
+## Cockpit completion · 28 October 2026
+Implementation e766951 (main repair1791a8a), build4ba7e74e270f; deploymenta70ec66f.
+Six dark Palette panels get content-earned two-column width (520–600pxdock);
+phone Set points/Direction physically precede monitoring for keyboard order.
+Detailed personal board stays reachable in You rather than adjacent duplication.
+Pure deck-model.js separates current monthly flows from holdings and history,
+shows debt repayment/shortfalls and cash-only runway. Chart preserves signed
+wealth, zero and elapsed records; exact observations/qualifications remain.
+Native dynamic controls/units update/reverse on language switch. 220tests pass,
+geometry current-vs-restored310px failure proves the first expansion cause.
+Independent source/pixel review cleared this bounded cockpit/art scope.
+Two male standing frames only; rejected repeated-leg walks are excluded by
+art/frame-approvals.json. Offline generation quarantines candidates and does not
+overwrite approved art. Runtime never requires the24GB authoring model.
+Full46-request batch, smooth new walk cycles, broader3D/art quality and actual
+M3hardware performance remain unfinished/unmeasured. See review/deck-release/REVIEW.md.
