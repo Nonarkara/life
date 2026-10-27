@@ -13,7 +13,7 @@ const destinations={
  school:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,1.6],[10.5,1.6]],action:'At school',pose:'study'},
  play:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[9.8,9.8]],action:'Playing outside',pose:'play'},
  sport:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[10,10.5]],action:'Training',pose:'exercise'},
- swim:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[9.6,10.2]],action:'Learning to swim',pose:'swim'},
+ swim:{path:[HOME.player,[6.5,5.8],[6.75,6.8],[6.75,7.2],[4.3,7.2],[4.3,8.7],[4.3,9.55],[3.85,9.55]],action:'Learning to swim',pose:'swim'},
  bike:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,8.2],[11.2,8.2]],action:'Learning to ride a bike',pose:'ride'},
  fall:{path:[HOME.player,[5.2,5.7]],action:'Learning to fall and get back up',pose:'fall'},
  art:{path:[HOME.player,[6,5.7],[6.8,5.5]],action:'Making art',pose:'draw'},

@@ -5,7 +5,7 @@ import {illustratedMaterial,inkOutline,faceTexture} from './art-direction.js';
 // built once and shown or recoloured by setLook, so a look change costs nothing.
 export const HAIR_STYLES=['short','crop','side','long','bob','bun','ponytail'];
 export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',height=1,sex='male',hairStyle,build=1,bottom='#364744',skirt}={}){
- const root=new T.Group(),body=new T.Group();root.add(body);
+ const root=new T.Group(),body=new T.Group();body.rotation.order='YXZ';root.add(body);
  const material=color=>illustratedMaterial(color,{character:true});
  const cloth=material(shirt),flesh=material(skin),trousers=material(bottom),shoe=material('#253733'),hairMat=material(hair),paper=material('#efe6d3'),skirtMat=material(bottom);
  const mesh=(g,m,parent,x=0,y=0,z=0)=>{const o=new T.Mesh(g,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;};
@@ -100,7 +100,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   const oldFacing=body.rotation.y,oldHeight=body.position.y,oldJoints=[...legs,...arms].map(l=>[l.pivot.rotation.x,l.bend.rotation.x]);
   const a=activity,walking=a.moving,cycle=(a.distance??time*.7)*Math.PI*2/(.65*scale),step=Math.sin(cycle),pose=a.pose;
   root.position.set(a.x,0,a.y);root.scale.setScalar(look.height*scale);
-  const target=walking?Math.atan2(a.dx,a.dy):pose==='care'?-2.3:a.facing??0;
+  const target=walking?Math.atan2(a.dx,a.dy):pose==='care'?-2.3:pose==='swim'?Math.PI/2:a.facing??0;
   body.rotation.y=target;
   // A step is an arc: up on the passing pose, a small squash on contact.
   const contact=Math.abs(Math.cos(cycle));
@@ -127,7 +127,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   if(pose==='care'){for(const arm of arms){arm.pivot.rotation.x=-.8;arm.bend.rotation.x=-.6;}head.rotation.x=.3;}
   if(pose==='garden'){body.rotation.x=.13;arms[1].pivot.rotation.x=-.4;can.rotation.z=.25+Math.sin(time)*.08;}
   if(pose==='ride'){body.position.y=.06;body.rotation.x=.18;for(let i=0;i<2;i++){const p=cycle+i*Math.PI;legs[i].pivot.rotation.x=-.75+Math.sin(p)*.45;legs[i].bend.rotation.x=.85+Math.cos(p)*.35;arms[i].pivot.rotation.x=-.82;arms[i].bend.rotation.x=-.22;arms[i].pivot.rotation.z=(i===0?1:-1)*.12;}head.rotation.x=-.12;head.rotation.y=0;}
-  if(pose==='swim'){body.position.y=-.52+Math.sin(time*3)*.03;body.rotation.x=1.32;body.rotation.z=0;head.rotation.x=-1.05;head.rotation.y=0;for(let i=0;i<2;i++){const sign=i===0?1:-1,s=Math.sin(time*3.2+i*Math.PI);arms[i].pivot.rotation.x=-1.35+s*.55;arms[i].bend.rotation.x=-.25;legs[i].pivot.rotation.x=s*.28*sign;legs[i].bend.rotation.x=.25;}}
+  if(pose==='swim'){body.position.y=-.12+Math.sin(time*3)*.025;body.rotation.x=1.32;body.rotation.z=0;head.rotation.x=-1.05;head.rotation.y=0;for(let i=0;i<2;i++){const sign=i===0?1:-1,s=Math.sin(time*3.2+i*Math.PI);arms[i].pivot.rotation.x=-1.35+s*.55;arms[i].bend.rotation.x=-.25;legs[i].pivot.rotation.x=s*.28*sign;legs[i].bend.rotation.x=.25;}}
   if(pose==='fall'){const phase=(time%6)/6,down=phase<.45?Math.min(1,phase/.25):Math.max(0,1-(phase-.45)/.35);body.position.y=-.58*down;body.rotation.x=.95*down;body.rotation.z=.18*down;head.rotation.x=-.45*down;head.rotation.y=0;for(let i=0;i<2;i++){legs[i].pivot.rotation.x=-.85*down;legs[i].bend.rotation.x=1.1*down;arms[i].pivot.rotation.x=-1.1*down;arms[i].bend.rotation.x=-.35*(1-down);}}
   if(ball.visible){ball.position.set(.3+Math.sin(time*2)*.18,.14+Math.abs(Math.sin(time*2))*.12,.45);legs[1].pivot.rotation.x=Math.sin(time*2)*.3;arms[0].pivot.rotation.z=.2;}
   if(pose==='crawl'){body.rotation.x=1.25;body.position.y=-.02;head.rotation.x=-1;for(let i=0;i<2;i++){const sign=i===0?1:-1,s=Math.sin(cycle)*sign;arms[i].pivot.rotation.x=-1.25+s*.3;arms[i].bend.rotation.x=0;legs[i].pivot.rotation.x=-.35-s*.3;legs[i].bend.rotation.x=1.55;}}

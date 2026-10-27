@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {PIVOTS,pivotsForStation,pendingPivots,applyPivot,locksFor,openOptions} from '../../dist/course/pivots.js';
 import {stationAlternatives,alternativeDeltas,undoAnswer,reapplyAnswer} from '../../dist/course/alternatives.js';
-import {newLife,configureLife,begin,live,validate,lockedEffort,eraWeight,clamp} from '../../dist/course/sim.js';
+import {newLife,configureLife,begin,live,validate,lockedEffort,eraWeight,clamp,projectedSkillGains,AXES} from '../../dist/course/sim.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 
 const valueOf=(points,axis)=>points[axis]??0;
@@ -145,4 +145,34 @@ test('a constrained student who builds reasoning unlocks the provincial merit sc
   const next=applyPivot(s,collegePivot,'merit');
   assert.equal(next.pathway,'college');
   assert.equal(next.pivotFlags.meritScholar,true);
+});
+
+test('projectedSkillGains matches exact simulation skill deltas across pathways, scholarships and low contentment',()=>{
+  // 1. Merit scholarship grants +12 college learning instead of +10, and projection matches live(s)
+  let s=begin(configureLife(newLife(17),{upbringing:'constrained',attributes:{physique:1,iq:6,eq:1,craft:1,drive:1}}));
+  s={...s,age:20,pathway:'college',pivotFlags:{meritScholar:true},effort:{physique:2,iq:2,eq:2,craft:2,drive:2}};
+  const projScholar=projectedSkillGains(s);
+  const livedScholar=live(s);
+  for(const a of AXES){
+    assert.equal(projScholar.gains[a.key],livedScholar.skills[a.key]-s.skills[a.key],`scholarship ${a.key}`);
+  }
+  assert.ok(projScholar.pathway.learning>=12,'merit scholarship includes +2 learning');
+
+  // 2. Low contentment (ikigai < 35) dampens growth to 0.75, and projection matches live(s)
+  let lowContentLife={...s,cash:-5000,history:[{from:10,age:15,effort:{physique:10,iq:0,eq:0,craft:0,drive:0},profile:{aim:'art'}}],profile:{...s.profile,aim:'art'},wellbeing:15,health:25};
+  const projLow=projectedSkillGains(lowContentLife);
+  const livedLow=live(lowContentLife);
+  assert.equal(projLow.growth,0.75,'low contentment dampens growth');
+  for(const a of AXES){
+    assert.equal(projLow.gains[a.key],livedLow.skills[a.key]-lowContentLife.skills[a.key],`low contentment ${a.key}`);
+  }
+
+  // 3. Consequence-due life: projection matches live(s)
+  let conseqLife={...s,story:{...s.story,seen:[{id:'l_phd',choice:'phd',age:20}]}};
+  conseqLife={...conseqLife,age:25};
+  const projConseq=projectedSkillGains(conseqLife);
+  const livedConseq=live(conseqLife);
+  for(const a of AXES){
+    assert.equal(projConseq.gains[a.key],livedConseq.skills[a.key]-conseqLife.skills[a.key],`consequence ${a.key}`);
+  }
 });

@@ -60,7 +60,7 @@ export function advanceFinance(before,next){
  // choose to save is what builds a runway (authored tuning, not a household survey).
  const remainder=free-fun-learn-saved,lifestyle=Math.floor(remainder*.85);
  reserve+=saved;available+=remainder-lifestyle;
- const focus=(before.effort.iq+before.effort.craft)/10,travel=Math.max(.4,1-flow.commute/240);
+ const effort=row.effort??before.effort,focus=(effort.iq+effort.craft)/10,travel=Math.max(.4,1-flow.commute/240);
  const learning=Math.min(6,Math.floor(learn/3000*focus*travel));
  const delta=Math.min(2,fun/Math.max(1,months)/500)-(debt>0?2:0);
  const wellbeing=cap(next.wellbeing+delta),skills={...next.skills,iq:next.skills.iq+learning};

@@ -57,6 +57,13 @@ function createScene(original){
  const land=terrain([[-2.5,-2.5],[14.5,-2.5],[16.5,1],[15.5,14.5],[3,16.5],[-3.5,9.5]],0,'#849573');
  box(-2,7,.015,17,1.1,.02,'#bcb7a5');box(7.2,-2,.016,1,17,.02,'#bcb7a5');
  for(let x=-1;x<15;x+=1.5)box(x,7.53,.042,.6,.04,.005,'#e7e0cf');
+ // Neighbourhood swimming pond: stone coping, water basin and wooden access pier.
+ box(3.1,8.75,.015,2.4,1.6,.02,'#a5987e');
+ box(3.22,8.87,.01,2.16,1.36,.035,'#5b7f80');
+ box(3.5,9.25,.046,1.5,.03,.004,'#7dabad');box(3.6,9.75,.046,1.3,.03,.004,'#7dabad');
+ box(4.02,8.35,.035,.56,.75,.045,'#8a7050');
+ for(let z=8.4;z<9.08;z+=.14)box(4.04,z,.082,.52,.02,.005,'#6b5236');
+ for(const x of [4.05,4.5])box(x,9.05,0,.05,.05,.26,'#6b5236');
  // A field is usable ground; its markings sit on the same plane as the actors.
  box(9,9,.025,4,3,.015,'#76896a');
  for(const [x,z,w,d]of [[9,9,4,.025],[9,12,4,.025],[9,9,.025,3],[13,9,.025,3],[11,9,.025,3]])box(x,z,.05,w,d,.005,'#dedec7');
@@ -173,7 +180,7 @@ function createScene(original){
   // Shift the projection, not the actor: their activity stays in the uncovered play area.
   const shift=span*dock/(2*h);
   camera.left=-span*w/h/2+shift;camera.right=span*w/h/2+shift;camera.top=span/2;camera.bottom=-span/2;camera.updateProjectionMatrix();
-  const follow=age<6?0:1;target.set(5.3+(focus.x-5.3)*follow,.4,5.3+(focus.y-5.3)*follow);camera.position.copy(target).add(new T.Vector3(12,18,12));camera.lookAt(target);
+  const follow=age<5?0:1;target.set(5.3+(focus.x-5.3)*follow,.4,5.3+(focus.y-5.3)*follow);camera.position.copy(target).add(new T.Vector3(12,18,12));camera.lookAt(target);
   // The sun travels with the view so shadows exist wherever the life goes.
   sun.position.copy(target).add(new T.Vector3(-12.3,16.6,3.7));sun.target.position.copy(target);
   for(const [name,actor]of Object.entries(actors)){

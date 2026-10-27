@@ -171,12 +171,12 @@ function roleFor(actor,age,pose,moving,set){
   if(pose==='read')return actor==='player'&&age<13?'read':'sit';
   if(pose==='draw'||pose==='craft')return 'paint';
   if(pose==='garden')return 'kneel';
-  if(pose==='care'||pose==='floor')return 'crouch';
+  if(pose==='care'||pose==='floor'||pose==='fall')return 'crouch';
   if(pose==='study')return set==='home'?'sit':set==='work'?'stand':'desk';
   if(pose==='work')return set==='work'?'stand':'desk';
   if(pose==='eat')return 'stand';
   if(pose==='rest'||pose==='recover')return 'sit';
-  if(pose==='play')return age<13?'crouch':'sit';
+  if(pose==='play'||pose==='swim')return age<13?'crouch':'sit';
   return 'stand';
 }
 
@@ -190,7 +190,7 @@ function setFor(action,moving){
   if(/stall/i.test(text))return 'stall';
   if(/garden/i.test(text))return 'garden';
   if(/Training/i.test(text))return 'court';
-  if(/outside/i.test(text))return 'street';
+  if(/outside|swim|bike/i.test(text))return 'street';
   // The quiet half of the day happens in the bedroom: reading, resting,
   // homework, and the body that is being repaired.
   if(/rug|lamp|homework|Recovering|rest/i.test(text))return 'bedroom';

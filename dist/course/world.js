@@ -43,6 +43,10 @@ if(revealed.city||revealed.homes.has('nearLocal')){box(15,6.8,.01,20,2.7,.02,C.l
 if(state.history.some(r=>r.age===30)&&age>=30&&age<36)poly([[1,6.8,.07],[10,6.8,.07],[10,8.4,.07],[1,8.4,.07]],'#719a97');
 // Farm plots and football pitch are districts, not floating props.
 for(let i=0;i<4;i++){poly([[-1+i*.6,1,.04],[-.65+i*.6,1,.04],[-.65+i*.6,4,.04],[-1+i*.6,4,.04]],'#b5a05f');for(let y=1.2;y<4;y+=.3)box(-1+i*.6,y,.05,.25,.15,.18,C.grass,C.leaf,C.leaf);}
+// Neighbourhood canal pond and football pitch
+poly([[3.1,8.75,.03],[5.5,8.75,.03],[5.5,10.35,.03],[3.1,10.35,.03]],C.edge);
+poly([[3.22,8.87,.04],[5.38,8.87,.04],[5.38,10.23,.04],[3.22,10.23,.04]],C.water);
+poly([[4.02,8.35,.05],[4.58,8.35,.05],[4.58,9.1,.05],[4.02,9.1,.05]],C.wood);
 poly([[9,9,.04],[13,9,.04],[13,12,.04],[9,12,.04]],'#65875a');for(const pair of [[[9,9,.06],[13,9,.06]],[[13,9,.06],[13,12,.06]],[[13,12,.06],[9,12,.06]],[[9,12,.06],[9,9,.06]],[[11,9,.06],[11,12,.06]]])line(...pair,C.paper,.15);
 // Home is a cutaway, so walls never disappear arbitrarily with camera time.
 box(3,3,0,4,4,.2,'#ad9064');for(let x=3;x<7;x+=.35)line([x,3,.21],[x,7,.21],'#92764f',.12);box(3,3,.2,4,.12,1.8,C.wall,C.shade,C.wall);box(3,3,.2,.12,4,1.8,C.wall,C.shade,C.shade);

@@ -1,4 +1,4 @@
-import {test} from 'node:test';import assert from 'node:assert/strict';import {routine,dayPhase} from '../../dist/course/routines.js';import {blocked,taskDesks} from '../../dist/course/layout.js';
+import {test} from 'node:test';import assert from 'node:assert/strict';import * as T from 'three';import {routine,dayPhase} from '../../dist/course/routines.js';import {blocked,taskDesks} from '../../dist/course/layout.js';import {createCharacter} from '../../dist/course/character3d.js';
 test('every actor has travel, activity and rest rather than a continuous loop',()=>{for(const actor of ['mother','father','player']){assert.equal(routine(actor,12,4).pose,'eat');assert.equal(routine(actor,12,12).moving,true);assert.equal(routine(actor,12,26).moving,false);assert.equal(routine(actor,12,40).moving,true);assert.equal(routine(actor,12,54).pose,'rest');}});
 test('player routine changes with age and chosen adult vocation',()=>{assert.equal(routine('player',3,26).pose,'fall');assert.equal(routine('player',4,26).action,'Playing at home');assert.equal(routine('player',5,26).pose,'swim');assert.equal(routine('player',8,40).pose,'ride');assert.equal(routine('player',12,26).action,'At school');assert.equal(routine('player',30,26,'sport').action,'Training');assert.equal(routine('player',30,26,'art').action,'Making art');assert.equal(routine('player',65,26).action,'In the garden');assert.equal(routine('mother',0,26).action,'Caring for you');});
 test('all routine trajectories clear room furniture across complete day',()=>{for(const age of [0,4,12,30,65])for(const goal of ['balance','sport','art'])for(const actor of ['mother','father','player'])for(let t=0;t<60;t+=.05){const p=routine(actor,age,t,goal);assert.ok(!blocked([p.x,p.y]),`${actor} age${age} ${goal} at${t.toFixed(2)}: ${p.x},${p.y}`);}});
@@ -24,3 +24,30 @@ test('task desks and waiting neighbors do not intersect actual work journeys',()
 });
 
 test('a committed salaried route does not pretend to be a sport or art career',()=>{for(const goal of ['sport','art'])assert.equal(routine('player',35,26,goal,{pathway:'work'}).action,'At work');});
+
+test('childhood swimming takes place in the neighborhood canal pond and completely clears the football pitch',()=>{
+ const r=routine('player',5,26);
+ assert.equal(r.pose,'swim');
+ assert.equal(r.action,'Learning to swim');
+ // Proves swimming destination is NOT in the football pitch [9..13, 9..12]
+ const inPitch=r.x>=9&&r.x<=13&&r.y>=9&&r.y<=12;
+ assert.equal(inPitch,false,'swimming destination must be completely outside the football pitch');
+
+ // Proves swimming destination is inside the dedicated swimming canal basin
+ assert.ok(r.x>=3.22&&r.x<=5.38,'swimmer x inside canal basin');
+ assert.ok(r.y>=8.87&&r.y<=10.23,'swimmer z inside canal basin');
+
+ // In 3D, character head and torso sit inside the water basin and above water surface
+ const actor=createCharacter();
+ actor.update(r,5,26,{scale:0.655});
+ actor.root.updateMatrixWorld(true);
+ const head=actor.anchors.head.getWorldPosition(new T.Vector3());
+ const torso=actor.anchors.torso.getWorldPosition(new T.Vector3());
+
+ assert.ok(head.x>=3.22&&head.x<=5.38,`swimmer head x ${head.x} inside canal basin`);
+ assert.ok(head.z>=8.87&&head.z<=10.23,`swimmer head z ${head.z} inside canal basin`);
+ assert.ok(torso.x>=3.22&&torso.x<=5.38,`swimmer torso x ${torso.x} inside canal basin`);
+ assert.ok(torso.z>=8.87&&torso.z<=10.23,`swimmer torso z ${torso.z} inside canal basin`);
+ assert.ok(head.y>0.045,`swimmer head height ${head.y} is above water level`);
+ assert.ok(torso.y>0.045,`swimmer torso height ${torso.y} is at/above water level`);
+});
