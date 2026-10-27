@@ -108,6 +108,10 @@
    "hit": "sprites/rival-hit.webp",
    "stagger": "sprites/rival-stagger.webp",
    "guard": "sprites/rival-guard.webp"
+  },
+  "player-m": {
+   "stand-a": "sprites/player-m-stand-a.webp",
+   "stand-b": "sprites/player-m-stand-b.webp"
   }
  }
 }

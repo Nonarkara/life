@@ -21,7 +21,7 @@ export function initPersonalConsole({getState,isMoving=()=>false}){
  // Phones give the world the screen: the board becomes the reader's You tab.
  const youPane=document.getElementById('console-you'),youButton=document.querySelector('[aria-controls=console-you]'),planButton=document.querySelector('[aria-controls=console-plan]');
  const leaveYou=()=>{if(youButton?.getAttribute('aria-pressed')==='true')planButton?.click();};
- function place(){if(phone.matches&&youPane)youPane.append(board);else{main.append(board);leaveYou();}}phone.addEventListener('change',place);place();
+ function place(){if(youPane)youPane.append(board);else main.append(board);}phone.addEventListener('change',place);place();
  function render(){
   const s=getState(),moving=isMoving(),review=s.stage==='review'&&!moving&&!s.story?.pending;document.body.classList.toggle('is-review',review);latest.hidden=last.hidden||!last.textContent.trim();board.hidden=s.stage==='birth'||s.stage==='recap';if(youButton){youButton.hidden=board.hidden;if(board.hidden)leaveYou();}
   const p=personality(s);traits.replaceChildren();

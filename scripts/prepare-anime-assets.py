@@ -6,7 +6,7 @@ panels, trims each figure to its ink outline, keys the ground away without
 eating a white shirt, and writes small WebP files plus a manifest the runtime
 reads.
 
-Usage: python3 scripts/prepare-anime-assets.py [all|plates|sheets]
+Usage: python3 scripts/prepare-anime-assets.py [all|plates|sheets|sheet-name]
 """
 import json
 import sys
@@ -17,6 +17,8 @@ from PIL import Image
 from scipy import ndimage
 
 SOURCE = Path("scratch/anime/src")
+APPROVAL_FILE = Path("art/frame-approvals.json")
+FRAME_APPROVALS = json.loads(APPROVAL_FILE.read_text()) if APPROVAL_FILE.exists() else {}
 TARGET = Path("dist/course/anime")
 SPRITE_HEIGHT = 400  # height of the tallest figure on a sheet, in pixels; the stage reads it too
 PLATE_WIDTH = 1760   # working width of a painted plate, in pixels
@@ -437,8 +439,27 @@ def key_background(rgb, ground):
     return alpha
 
 
+def clean_white_matte(rgb, alpha):
+    """Remove only exterior pale ground, keeping enclosed white clothing/eyes."""
+    pale = rgb.min(axis=2) >= 200
+    seeds = np.zeros(pale.shape, dtype=bool)
+    seeds[0, :] = pale[0, :]
+    seeds[-1, :] = pale[-1, :]
+    seeds[:, 0] = pale[:, 0]
+    seeds[:, -1] = pale[:, -1]
+    exterior = ndimage.binary_propagation(seeds, mask=pale, structure=np.ones((3, 3)))
+    out = alpha.copy()
+    out[exterior] = 0
+    return out
+
+
+def sheet_source(name):
+    approved = Path("art/sources") / SOURCES[name]
+    return approved if approved.exists() else SOURCE / SOURCES[name]
+
+
 def prepare_sheet(name):
-    image = Image.open(SOURCE / SOURCES[name]).convert("RGB")
+    image = Image.open(sheet_source(name)).convert("RGB")
     rgb = np.asarray(image)
     content = rgb.min(axis=2) < 236
     ruled = rule_pixels(content)
@@ -459,6 +480,8 @@ def prepare_sheet(name):
         left, top, right, bottom = box
         cell = cleaned[top:bottom, left:right]
         alpha = key_background(cell, ground)
+        if name in FRAME_APPROVALS:
+            alpha = clean_white_matte(cell, alpha)
         drawn = alpha > 128
         if not drawn.any():
             print(f"  ! {name} panel {index}: nothing left to draw", flush=True)
@@ -473,6 +496,8 @@ def prepare_sheet(name):
     scale = SPRITE_HEIGHT / max(out.height for _, out in frames)
     written = []
     for frame, out in frames:
+        if name in FRAME_APPROVALS and frame not in FRAME_APPROVALS[name]:
+            continue  # visually rejected frames must not silently reactivate on rebuild
         out = out.resize((max(1, round(out.width * scale)), max(1, round(out.height * scale))), Image.LANCZOS)
         file = f"sprites/{name}-{frame}.webp"
         out.save(TARGET / file, "WEBP", quality=82, method=4)
@@ -492,6 +517,8 @@ def prepare_plate(name, key):
 
 def main():
     only = sys.argv[1] if len(sys.argv) > 1 else "all"
+    if only not in ("all", "plates", "sheets") and only not in SHEETS:
+        raise SystemExit("Unknown art target: " + only)
     (TARGET / "plates").mkdir(parents=True, exist_ok=True)
     (TARGET / "sprites").mkdir(parents=True, exist_ok=True)
     manifest_path = TARGET / "manifest.json"
@@ -504,9 +531,11 @@ def main():
                 continue  # not generated yet; the stage keeps the 3D world for lives that need it
             manifest["plates"][key] = prepare_plate(source, key)
             print(f"plate {key}", flush=True)
-    if only in ("all", "sheets"):
+    if only in ("all", "sheets") or only in SHEETS:
         for name in SHEETS:
-            if not (SOURCE / SOURCES[name]).exists():
+            if only in SHEETS and name != only:
+                continue
+            if not sheet_source(name).exists():
                 continue  # not generated yet
             manifest["sprites"][name] = dict(prepare_sheet(name))
             print(f"sheet {name}: {', '.join(n for n, _ in manifest['sprites'][name].items())}", flush=True)

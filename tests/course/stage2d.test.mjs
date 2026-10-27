@@ -150,7 +150,7 @@ test('the painted stage only draws lives its art covers',async()=>{
   const has=sheet=>!!manifest.sprites[sheet];
   assert.equal(paintedCovers(life('female','parents','samut-prakan')),true,'the life the art was drawn for');
   assert.equal(paintedCovers({...life('female','parents','samut-prakan'),age:2}),false,'a baby is not drawn as a schoolgirl');
-  assert.equal(paintedCovers(life('male','parents','samut-prakan')),has('player-m')&&has('child-m')&&has('elder-m'),'a man is drawn as a man or not at all');
+  assert.equal(paintedCovers(life('male','parents','samut-prakan')),!!manifest.sprites['player-m']?.['stand-a'],'the current male standing scene only needs its matching adult art');
   assert.equal(paintedCovers(life('female','fathers','samut-prakan')),has('father-b'));
   assert.equal(paintedCovers(life('female','parents','sukhumvit')),!!manifest.plates['home-day@villa'],'a walled villa is not drawn as a wooden house');
   assert.equal(paintedCovers(life('female','parents','tokyo')),!!manifest.plates['street-day@tokyo']);

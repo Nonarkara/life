@@ -1,27 +1,43 @@
 #!/bin/zsh
-# Generate the art listed in art/missing-art-requests.json with local FLUX.1-schnell (mflux).
-# Each request is generated once; an existing file is skipped, so the run can be resumed.
-# Usage: scripts/generate-missing-art.sh [only-this-output-file]
+# Offline authoring only. Output is quarantined for visual review, never live art.
+# Usage: scripts/generate-missing-art.sh [output-file | --check]
 set -u
 cd "${0:A:h}/.."
 GEN=~/Projects/_toolkit/mflux-venv/bin/mflux-generate
-OUT=scratch/anime/src
+OUT=scratch/anime/candidates
 mkdir -p "$OUT" scratch/anime/prompts
 python3 - "$@" <<'PY' > scratch/anime/prompts/queue.tsv
 import json,sys,zlib
+check='--check' in sys.argv
 for r in json.load(open('art/missing-art-requests.json'))['requests']:
-    if len(sys.argv)>1 and r['output_file']!=sys.argv[1]:continue
+    if len(sys.argv)>1 and not check and r['output_file']!=sys.argv[1]:continue
     w,h=(2016,864) if r['aspect_ratio']=='21:9' else (1536,864)
     open(f"scratch/anime/prompts/{r['output_file']}.txt",'w').write(r['prompt'])
     print(f"{r['output_file']}\t{w}\t{h}\t{zlib.crc32(r['output_file'].encode())%100000}")
 PY
+if [[ "${1:-}" == --check ]]; then
+  python3 -c 'from pathlib import Path;print("Validated queued requests:",len(Path("scratch/anime/prompts/queue.tsv").read_text().splitlines()))'
+  exit 0
+fi
+[[ -x "$GEN" ]] || { echo "Local generator unavailable; no art changed."; exit 127; }
+failed=0
 while IFS=$'\t' read -r file w h seed; do
-  [[ -f "$OUT/$file" && "$file" != sheet-rival.png ]] && continue
-  [[ "$file" == sheet-rival.png && -f "$OUT/.rival-regenerated" ]] && continue
-  echo "$(date +%T) $file"
-  "$GEN" --model schnell --steps 4 --seed "$seed" --width "$w" --height "$h" \
-    --prompt-file "scratch/anime/prompts/$file.txt" --output "$OUT/$file" >/dev/null 2>>scratch/anime/prompts/errors.log \
-    && { [[ "$file" == sheet-rival.png ]] && touch "$OUT/.rival-regenerated"; } \
-    || echo "  failed: $file"
+  [[ -s "$OUT/$file" ]] && continue
+  temporary="$OUT/.${file}.partial.png"
+  echo "$(date +%T) candidate: $file"
+  if "$GEN" --model schnell --steps 4 --seed "$seed" --width "$w" --height "$h" \
+    --prompt-file "scratch/anime/prompts/$file.txt" --output "$temporary" >/dev/null 2>>scratch/anime/prompts/errors.log \
+    && python3 - "$temporary" <<'PY'
+from PIL import Image
+import sys
+with Image.open(sys.argv[1]) as image:
+    image.verify()
+PY
+  then
+    mv "$temporary" "$OUT/$file"
+  else
+    failed=$((failed+1)); echo "  failed: $file (not promoted)"
+  fi
 done < scratch/anime/prompts/queue.tsv
-echo "done"
+echo "Candidates only; visual approval and frame coverage are required before promotion. Failures: $failed"
+(( failed == 0 ))

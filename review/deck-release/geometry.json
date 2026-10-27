@@ -1,0 +1,1000 @@
+{
+  "cases": [
+    {
+      "name": "tablet1024",
+      "action": {
+        "bottom": 762,
+        "client": 34,
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 517,
+        "y": 725.5
+      },
+      "boardVisible": false,
+      "columns": "246px 246px",
+      "deck": {
+        "bottom": 680.328125,
+        "client": 551,
+        "h": 553.328125,
+        "scroll": 551,
+        "w": 495,
+        "x": 517,
+        "y": 127
+      },
+      "edit": {
+        "bottom": 499.6328125,
+        "client": 178,
+        "h": 177.890625,
+        "scroll": 178,
+        "w": 246,
+        "x": 518,
+        "y": 321.7421875
+      },
+      "h": 768,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "h": 48.5,
+        "scroll": 47,
+        "w": 1024,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 768,
+      "pageW": 1024,
+      "panel": {
+        "bottom": 719.5,
+        "client": 632,
+        "h": 632,
+        "scroll": 719,
+        "w": 519,
+        "x": 505,
+        "y": 87.5
+      },
+      "panels": [
+        {
+          "bottom": 320.7421875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-course",
+          "y": 128
+        },
+        {
+          "bottom": 320.7421875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-status",
+          "y": 128
+        },
+        {
+          "bottom": 499.6328125,
+          "h": 177.890625,
+          "name": "deck-panel deck-set",
+          "y": 321.7421875
+        },
+        {
+          "bottom": 499.6328125,
+          "h": 177.890625,
+          "name": "deck-panel deck-direction",
+          "y": 321.7421875
+        },
+        {
+          "bottom": 679.328125,
+          "h": 178.6953125,
+          "name": "deck-panel deck-money",
+          "y": 500.6328125
+        },
+        {
+          "bottom": 679.328125,
+          "h": 178.6953125,
+          "name": "deck-panel deck-ikigai",
+          "y": 500.6328125
+        }
+      ],
+      "reader": {
+        "bottom": 768,
+        "client": 719,
+        "h": 719.5,
+        "scroll": 719,
+        "w": 520,
+        "x": 504,
+        "y": 48.5
+      },
+      "w": 1024,
+      "world": {
+        "bottom": 768,
+        "client": 720,
+        "h": 719.5,
+        "scroll": 720,
+        "w": 1024,
+        "x": 0,
+        "y": 48.5
+      }
+    },
+    {
+      "name": "working1280",
+      "action": {
+        "bottom": 714,
+        "client": 34,
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 755.40625,
+        "y": 677.5
+      },
+      "boardVisible": false,
+      "columns": "254.797px 254.797px",
+      "deck": {
+        "bottom": 657.984375,
+        "client": 529,
+        "h": 530.984375,
+        "scroll": 529,
+        "w": 512.59375,
+        "x": 755.40625,
+        "y": 127
+      },
+      "edit": {
+        "bottom": 477.2890625,
+        "client": 156,
+        "h": 155.546875,
+        "scroll": 156,
+        "w": 254.796875,
+        "x": 756.40625,
+        "y": 321.7421875
+      },
+      "h": 720,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "h": 48.5,
+        "scroll": 47,
+        "w": 1280,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 720,
+      "pageW": 1280,
+      "panel": {
+        "bottom": 671.5,
+        "client": 584,
+        "h": 584,
+        "scroll": 697,
+        "w": 536.59375,
+        "x": 743.40625,
+        "y": 87.5
+      },
+      "panels": [
+        {
+          "bottom": 320.7421875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-course",
+          "y": 128
+        },
+        {
+          "bottom": 320.7421875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-status",
+          "y": 128
+        },
+        {
+          "bottom": 477.2890625,
+          "h": 155.546875,
+          "name": "deck-panel deck-set",
+          "y": 321.7421875
+        },
+        {
+          "bottom": 477.2890625,
+          "h": 155.546875,
+          "name": "deck-panel deck-direction",
+          "y": 321.7421875
+        },
+        {
+          "bottom": 656.984375,
+          "h": 178.6953125,
+          "name": "deck-panel deck-money",
+          "y": 478.2890625
+        },
+        {
+          "bottom": 656.984375,
+          "h": 178.6953125,
+          "name": "deck-panel deck-ikigai",
+          "y": 478.2890625
+        }
+      ],
+      "reader": {
+        "bottom": 720,
+        "client": 671,
+        "h": 671.5,
+        "scroll": 671,
+        "w": 537.59375,
+        "x": 742.40625,
+        "y": 48.5
+      },
+      "w": 1280,
+      "world": {
+        "bottom": 720,
+        "client": 672,
+        "h": 671.5,
+        "scroll": 672,
+        "w": 1280,
+        "x": 0,
+        "y": 48.5
+      }
+    },
+    {
+      "name": "desktop1440",
+      "action": {
+        "bottom": 812.21875,
+        "client": 34,
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 853,
+        "y": 775.71875
+      },
+      "boardVisible": false,
+      "columns": "286px 286px",
+      "deck": {
+        "bottom": 643.328125,
+        "client": 514,
+        "h": 516.328125,
+        "scroll": 514,
+        "w": 575,
+        "x": 853,
+        "y": 127
+      },
+      "edit": {
+        "bottom": 462.6328125,
+        "client": 141,
+        "h": 140.890625,
+        "scroll": 141,
+        "w": 286,
+        "x": 854,
+        "y": 321.7421875
+      },
+      "h": 900,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "h": 48.5,
+        "scroll": 47,
+        "w": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 900,
+      "pageW": 1440,
+      "panel": {
+        "bottom": 769.71875,
+        "client": 682,
+        "h": 682.21875,
+        "scroll": 682,
+        "w": 599,
+        "x": 841,
+        "y": 87.5
+      },
+      "panels": [
+        {
+          "bottom": 320.7421875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-course",
+          "y": 128
+        },
+        {
+          "bottom": 320.7421875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-status",
+          "y": 128
+        },
+        {
+          "bottom": 462.6328125,
+          "h": 140.890625,
+          "name": "deck-panel deck-set",
+          "y": 321.7421875
+        },
+        {
+          "bottom": 462.6328125,
+          "h": 140.890625,
+          "name": "deck-panel deck-direction",
+          "y": 321.7421875
+        },
+        {
+          "bottom": 642.328125,
+          "h": 178.6953125,
+          "name": "deck-panel deck-money",
+          "y": 463.6328125
+        },
+        {
+          "bottom": 642.328125,
+          "h": 178.6953125,
+          "name": "deck-panel deck-ikigai",
+          "y": 463.6328125
+        }
+      ],
+      "reader": {
+        "bottom": 818.21875,
+        "client": 769,
+        "h": 769.71875,
+        "scroll": 769,
+        "w": 600,
+        "x": 840,
+        "y": 48.5
+      },
+      "w": 1440,
+      "world": {
+        "bottom": 900,
+        "client": 852,
+        "h": 851.5,
+        "scroll": 852,
+        "w": 1440,
+        "x": 0,
+        "y": 48.5
+      }
+    },
+    {
+      "name": "phone390",
+      "action": {
+        "bottom": 839,
+        "client": 34,
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 12,
+        "y": 802.5
+      },
+      "boardVisible": false,
+      "columns": "364px",
+      "deck": {
+        "bottom": 1502.265625,
+        "client": 969,
+        "h": 970.765625,
+        "scroll": 969,
+        "w": 366,
+        "x": 12,
+        "y": 531.5
+      },
+      "edit": {
+        "bottom": 661.546875,
+        "client": 129,
+        "h": 129.046875,
+        "scroll": 129,
+        "w": 364,
+        "x": 13,
+        "y": 532.5
+      },
+      "h": 844,
+      "header": {
+        "bottom": 40,
+        "client": 38,
+        "h": 40,
+        "scroll": 38,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "panel": {
+        "bottom": 796.5,
+        "client": 303,
+        "h": 302.5,
+        "scroll": 1054,
+        "w": 390,
+        "x": 0,
+        "y": 494
+      },
+      "panels": [
+        {
+          "bottom": 661.546875,
+          "h": 129.046875,
+          "name": "deck-panel deck-set",
+          "y": 532.5
+        },
+        {
+          "bottom": 803.4375,
+          "h": 140.890625,
+          "name": "deck-panel deck-direction",
+          "y": 662.546875
+        },
+        {
+          "bottom": 997.1796875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-course",
+          "y": 804.4375
+        },
+        {
+          "bottom": 1166.875,
+          "h": 168.6953125,
+          "name": "deck-panel deck-status",
+          "y": 998.1796875
+        },
+        {
+          "bottom": 1346.5703125,
+          "h": 178.6953125,
+          "name": "deck-panel deck-money",
+          "y": 1167.875
+        },
+        {
+          "bottom": 1501.265625,
+          "h": 153.6953125,
+          "name": "deck-panel deck-ikigai",
+          "y": 1347.5703125
+        }
+      ],
+      "reader": {
+        "bottom": 844,
+        "client": 381,
+        "h": 382,
+        "scroll": 381,
+        "w": 390,
+        "x": 0,
+        "y": 462
+      },
+      "w": 390,
+      "world": {
+        "bottom": 462,
+        "client": 422,
+        "h": 422,
+        "scroll": 422,
+        "w": 390,
+        "x": 0,
+        "y": 40
+      }
+    },
+    {
+      "name": "thai-extra390",
+      "action": {
+        "bottom": 839,
+        "client": 48,
+        "h": 50.6953125,
+        "scroll": 48,
+        "w": 181.5078125,
+        "x": 12,
+        "y": 788.3046875
+      },
+      "boardVisible": false,
+      "columns": "364px",
+      "deck": {
+        "bottom": 1948.390625,
+        "client": 1395,
+        "h": 1397.28125,
+        "scroll": 1395,
+        "w": 366,
+        "x": 12,
+        "y": 551.109375
+      },
+      "edit": {
+        "bottom": 759.2421875,
+        "client": 207,
+        "h": 207.1328125,
+        "scroll": 207,
+        "w": 364,
+        "x": 13,
+        "y": 552.109375
+      },
+      "h": 844,
+      "header": {
+        "bottom": 40,
+        "client": 38,
+        "h": 40,
+        "scroll": 38,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "panel": {
+        "bottom": 782.3046875,
+        "client": 280,
+        "h": 279.75,
+        "scroll": 1504,
+        "w": 390,
+        "x": 0,
+        "y": 502.5546875
+      },
+      "panels": [
+        {
+          "bottom": 759.2421875,
+          "h": 207.1328125,
+          "name": "deck-panel deck-set",
+          "y": 552.109375
+        },
+        {
+          "bottom": 974.359375,
+          "h": 214.1171875,
+          "name": "deck-panel deck-direction",
+          "y": 760.2421875
+        },
+        {
+          "bottom": 1210.0859375,
+          "h": 234.7265625,
+          "name": "deck-panel deck-course",
+          "y": 975.359375
+        },
+        {
+          "bottom": 1461.984375,
+          "h": 250.8984375,
+          "name": "deck-panel deck-status",
+          "y": 1211.0859375
+        },
+        {
+          "bottom": 1701.2109375,
+          "h": 238.2265625,
+          "name": "deck-panel deck-money",
+          "y": 1462.984375
+        },
+        {
+          "bottom": 1947.390625,
+          "h": 245.1796875,
+          "name": "deck-panel deck-ikigai",
+          "y": 1702.2109375
+        }
+      ],
+      "reader": {
+        "bottom": 844,
+        "client": 381,
+        "h": 382,
+        "scroll": 381,
+        "w": 390,
+        "x": 0,
+        "y": 462
+      },
+      "w": 390,
+      "world": {
+        "bottom": 462,
+        "client": 422,
+        "h": 422,
+        "scroll": 422,
+        "w": 390,
+        "x": 0,
+        "y": 40
+      }
+    }
+  ],
+  "languages": [
+    {
+      "locale": "ja",
+      "action": {
+        "bottom": 839,
+        "client": 36,
+        "h": 39,
+        "scroll": 36,
+        "w": 116.796875,
+        "x": 12,
+        "y": 800
+      },
+      "boardVisible": false,
+      "columns": "364px",
+      "deck": {
+        "bottom": 1529.921875,
+        "client": 995,
+        "h": 996.7265625,
+        "scroll": 995,
+        "w": 366,
+        "x": 12,
+        "y": 533.1953125
+      },
+      "edit": {
+        "bottom": 668.1875,
+        "client": 134,
+        "h": 133.9921875,
+        "scroll": 134,
+        "w": 364,
+        "x": 13,
+        "y": 534.1953125
+      },
+      "h": 844,
+      "header": {
+        "bottom": 40,
+        "client": 38,
+        "h": 40,
+        "scroll": 38,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "panel": {
+        "bottom": 794,
+        "client": 300,
+        "h": 300,
+        "scroll": 1084,
+        "w": 390,
+        "x": 0,
+        "y": 494
+      },
+      "panels": [
+        {
+          "bottom": 668.1875,
+          "h": 133.9921875,
+          "name": "deck-panel deck-set",
+          "y": 534.1953125
+        },
+        {
+          "bottom": 811.7734375,
+          "h": 142.5859375,
+          "name": "deck-panel deck-direction",
+          "y": 669.1875
+        },
+        {
+          "bottom": 1012.15625,
+          "h": 199.3828125,
+          "name": "deck-panel deck-course",
+          "y": 812.7734375
+        },
+        {
+          "bottom": 1183.546875,
+          "h": 170.390625,
+          "name": "deck-panel deck-status",
+          "y": 1013.15625
+        },
+        {
+          "bottom": 1364.9375,
+          "h": 180.390625,
+          "name": "deck-panel deck-money",
+          "y": 1184.546875
+        },
+        {
+          "bottom": 1528.921875,
+          "h": 162.984375,
+          "name": "deck-panel deck-ikigai",
+          "y": 1365.9375
+        }
+      ],
+      "reader": {
+        "bottom": 844,
+        "client": 381,
+        "h": 382,
+        "scroll": 381,
+        "w": 390,
+        "x": 0,
+        "y": 462
+      },
+      "w": 390,
+      "world": {
+        "bottom": 462,
+        "client": 422,
+        "h": 422,
+        "scroll": 422,
+        "w": 390,
+        "x": 0,
+        "y": 40
+      },
+      "labels": "ポイント設定\n項目\n◀\n身体能力\n1/8\n▶\n配分点 /10\n−\n1\n+\n+1 60歳まで\n予測の計算方法"
+    },
+    {
+      "locale": "ko",
+      "action": {
+        "bottom": 839,
+        "client": 36,
+        "h": 39,
+        "scroll": 36,
+        "w": 101.1015625,
+        "x": 12,
+        "y": 800
+      },
+      "boardVisible": false,
+      "columns": "364px",
+      "deck": {
+        "bottom": 1529.921875,
+        "client": 995,
+        "h": 996.7265625,
+        "scroll": 995,
+        "w": 366,
+        "x": 12,
+        "y": 533.1953125
+      },
+      "edit": {
+        "bottom": 668.1875,
+        "client": 134,
+        "h": 133.9921875,
+        "scroll": 134,
+        "w": 364,
+        "x": 13,
+        "y": 534.1953125
+      },
+      "h": 844,
+      "header": {
+        "bottom": 40,
+        "client": 38,
+        "h": 40,
+        "scroll": 38,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "panel": {
+        "bottom": 794,
+        "client": 300,
+        "h": 300,
+        "scroll": 1084,
+        "w": 390,
+        "x": 0,
+        "y": 494
+      },
+      "panels": [
+        {
+          "bottom": 668.1875,
+          "h": 133.9921875,
+          "name": "deck-panel deck-set",
+          "y": 534.1953125
+        },
+        {
+          "bottom": 811.7734375,
+          "h": 142.5859375,
+          "name": "deck-panel deck-direction",
+          "y": 669.1875
+        },
+        {
+          "bottom": 1012.15625,
+          "h": 199.3828125,
+          "name": "deck-panel deck-course",
+          "y": 812.7734375
+        },
+        {
+          "bottom": 1183.546875,
+          "h": 170.390625,
+          "name": "deck-panel deck-status",
+          "y": 1013.15625
+        },
+        {
+          "bottom": 1364.9375,
+          "h": 180.390625,
+          "name": "deck-panel deck-money",
+          "y": 1184.546875
+        },
+        {
+          "bottom": 1528.921875,
+          "h": 162.984375,
+          "name": "deck-panel deck-ikigai",
+          "y": 1365.9375
+        }
+      ],
+      "reader": {
+        "bottom": 844,
+        "client": 381,
+        "h": 382,
+        "scroll": 381,
+        "w": 390,
+        "x": 0,
+        "y": 462
+      },
+      "w": 390,
+      "world": {
+        "bottom": 462,
+        "client": 422,
+        "h": 422,
+        "scroll": 422,
+        "w": 390,
+        "x": 0,
+        "y": 40
+      },
+      "labels": "점수 배분\n항목\n◀\n신체 능력\n1/8\n▶\n배분점 /10\n−\n1\n+\n+1 60세까지\n예측 계산 방식"
+    },
+    {
+      "locale": "zh-CN",
+      "action": {
+        "bottom": 839,
+        "client": 36,
+        "h": 39,
+        "scroll": 36,
+        "w": 78.390625,
+        "x": 12,
+        "y": 800
+      },
+      "boardVisible": false,
+      "columns": "364px",
+      "deck": {
+        "bottom": 1529.921875,
+        "client": 995,
+        "h": 996.7265625,
+        "scroll": 995,
+        "w": 366,
+        "x": 12,
+        "y": 533.1953125
+      },
+      "edit": {
+        "bottom": 668.1875,
+        "client": 134,
+        "h": 133.9921875,
+        "scroll": 134,
+        "w": 364,
+        "x": 13,
+        "y": 534.1953125
+      },
+      "h": 844,
+      "header": {
+        "bottom": 40,
+        "client": 38,
+        "h": 40,
+        "scroll": 38,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "panel": {
+        "bottom": 794,
+        "client": 300,
+        "h": 300,
+        "scroll": 1084,
+        "w": 390,
+        "x": 0,
+        "y": 494
+      },
+      "panels": [
+        {
+          "bottom": 668.1875,
+          "h": 133.9921875,
+          "name": "deck-panel deck-set",
+          "y": 534.1953125
+        },
+        {
+          "bottom": 811.7734375,
+          "h": 142.5859375,
+          "name": "deck-panel deck-direction",
+          "y": 669.1875
+        },
+        {
+          "bottom": 1012.15625,
+          "h": 199.3828125,
+          "name": "deck-panel deck-course",
+          "y": 812.7734375
+        },
+        {
+          "bottom": 1183.546875,
+          "h": 170.390625,
+          "name": "deck-panel deck-status",
+          "y": 1013.15625
+        },
+        {
+          "bottom": 1364.9375,
+          "h": 180.390625,
+          "name": "deck-panel deck-money",
+          "y": 1184.546875
+        },
+        {
+          "bottom": 1528.921875,
+          "h": 162.984375,
+          "name": "deck-panel deck-ikigai",
+          "y": 1365.9375
+        }
+      ],
+      "reader": {
+        "bottom": 844,
+        "client": 381,
+        "h": 382,
+        "scroll": 381,
+        "w": 390,
+        "x": 0,
+        "y": 462
+      },
+      "w": 390,
+      "world": {
+        "bottom": 462,
+        "client": 422,
+        "h": 422,
+        "scroll": 422,
+        "w": 390,
+        "x": 0,
+        "y": 40
+      },
+      "labels": "分配点数\n项目\n◀\n体能\n1/8\n▶\n点数 /10\n−\n1\n+\n+1 到 60 岁\n预测的计算方式"
+    },
+    {
+      "locale": "en",
+      "action": {
+        "bottom": 839,
+        "client": 34,
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 12,
+        "y": 802.5
+      },
+      "boardVisible": false,
+      "columns": "364px",
+      "deck": {
+        "bottom": 1502.265625,
+        "client": 969,
+        "h": 970.765625,
+        "scroll": 969,
+        "w": 366,
+        "x": 12,
+        "y": 531.5
+      },
+      "edit": {
+        "bottom": 661.546875,
+        "client": 129,
+        "h": 129.046875,
+        "scroll": 129,
+        "w": 364,
+        "x": 13,
+        "y": 532.5
+      },
+      "h": 844,
+      "header": {
+        "bottom": 40,
+        "client": 38,
+        "h": 40,
+        "scroll": 38,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "panel": {
+        "bottom": 796.5,
+        "client": 303,
+        "h": 302.5,
+        "scroll": 1054,
+        "w": 390,
+        "x": 0,
+        "y": 494
+      },
+      "panels": [
+        {
+          "bottom": 661.546875,
+          "h": 129.046875,
+          "name": "deck-panel deck-set",
+          "y": 532.5
+        },
+        {
+          "bottom": 803.4375,
+          "h": 140.890625,
+          "name": "deck-panel deck-direction",
+          "y": 662.546875
+        },
+        {
+          "bottom": 997.1796875,
+          "h": 192.7421875,
+          "name": "deck-panel deck-course",
+          "y": 804.4375
+        },
+        {
+          "bottom": 1166.875,
+          "h": 168.6953125,
+          "name": "deck-panel deck-status",
+          "y": 998.1796875
+        },
+        {
+          "bottom": 1346.5703125,
+          "h": 178.6953125,
+          "name": "deck-panel deck-money",
+          "y": 1167.875
+        },
+        {
+          "bottom": 1501.265625,
+          "h": 153.6953125,
+          "name": "deck-panel deck-ikigai",
+          "y": 1347.5703125
+        }
+      ],
+      "reader": {
+        "bottom": 844,
+        "client": 381,
+        "h": 382,
+        "scroll": 381,
+        "w": 390,
+        "x": 0,
+        "y": 462
+      },
+      "w": 390,
+      "world": {
+        "bottom": 462,
+        "client": 422,
+        "h": 422,
+        "scroll": 422,
+        "w": 390,
+        "x": 0,
+        "y": 40
+      },
+      "labels": "SET POINTS\nChannel\n◀\nPhysique\n1/8\n▶\nPoints /10\n−\n1\n+\n+1 By age 60\nHow this projection works"
+    }
+  ]
+}
