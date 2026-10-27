@@ -31,7 +31,7 @@ test('actual deck renders zero unlit, negative wealth signed, six panels and one
  }finally{globalThis.document=previous;}
 });
 test('new deck qualifiers and dynamic edit names have all five-language copies',()=>{
- for(const lang of ['th','zh-CN','ja','ko'])for(const text of ['Monthly plan','Current plan · baht / month','Cash runway','Funds held','Cash left over','Monthly shortfall','Debt repayment','Recorded values','0–100 · eight display bands','Lower {axis}','Raise {axis}','Cash runway uses cash and reserve at current essential spending; funds excluded.'])assert.notEqual(translate(text,lang),text,lang+': '+text);
+ for(const lang of ['th','zh-CN','ja','ko'])for(const text of ['1 month','Monthly plan','Current plan · baht / month','Cash runway','Funds held','Cash left over','Monthly shortfall','Debt repayment','Recorded values','0–100 · eight display bands','Lower {axis}','Raise {axis}','Cash runway uses cash and reserve at current essential spending; funds excluded.'])assert.notEqual(translate(text,lang),text,lang+': '+text);
 });
 test('only reviewed male standing frames are published; moving poses retain fallback',async()=>{
  const {readFileSync}=await import('node:fs');const manifest=JSON.parse(readFileSync(new URL('../../dist/course/anime/manifest.json',import.meta.url)));

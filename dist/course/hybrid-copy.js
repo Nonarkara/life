@@ -107,6 +107,7 @@ Direction affects wellbeing in this model.|ทิศทางชีวิตส�
 Lower {axis} by {n}|ลด{axis}ลง {n}|将{axis}减少 {n}|{axis}を{n}下げる|{axis} {n} 낮추기
 Raise {axis} by {n}|เพิ่ม{axis}ขึ้น {n}|将{axis}增加 {n}|{axis}を{n}上げる|{axis} {n} 높이기
 Cash + reserve ÷ current essentials. Funds excluded.|เงินสดและเงินสำรอง หารค่าใช้จ่ายจำเป็นปัจจุบัน ไม่รวมกองทุน|现金及储备÷当前必要开支。不含基金。|現金と準備金÷現在の必須支出。ファンドは含みません。|현금과 예비금÷현재 필수 지출. 펀드 제외.
+1 month|1 เดือน|1 个月|1か月|1개월
 {n} months|{n} เดือน|{n} 个月|{n}か月|{n}개월
 Points /10|คะแนน /10|点数 /10|配分点 /10|배분점 /10
 Budget %|งบ %|预算 %|予算 %|예산 %
