@@ -1,3 +1,4 @@
+import {recordedFundLoss,legacyMarketPrompt} from './market-evidence.js';
 import {sellAll} from './investments.js';
 import {choiceAvailable,personalFlow} from './finance.js';
 import {mismatched,partnerNature,together} from './life-choices.js';
@@ -122,7 +123,7 @@ export function validStory(story,age,state){
    if(seen.age<=previousAge)return false;previousAge=seen.age;
    const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
    const prior={...state,age:seen.age,effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null}};
-   const entry=byId.get(seen.id);if(entry.eligible&&!entry.eligible(prior))return false;
+   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(entry.eligible&&!entry.eligible(prior))return false;
    const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
   }
  }
@@ -130,5 +131,5 @@ export function validStory(story,age,state){
  if(Object.keys(expectedFlags).length!==Object.keys(story.flags).length||Object.entries(expectedFlags).some(([key,value])=>story.flags[key]!==value))return false;
  if(story.pending===null)return true;
  const pending=story.pending;
- return !!pending&&byId.has(pending.id)&&pending.age===age&&!story.seen.some(e=>e.age===age||e.id===pending.id)&&Array.isArray(pending.candidates)&&pending.candidates.includes(pending.id)&&pending.candidates.every(id=>byId.has(id))&&(!state||eligibleEncounters({...state,story:{...story,pending:null}}).some(e=>e.id===pending.id));
+ return !!pending&&byId.has(pending.id)&&pending.age===age&&!story.seen.some(e=>e.age===age||e.id===pending.id)&&Array.isArray(pending.candidates)&&pending.candidates.includes(pending.id)&&pending.candidates.every(id=>byId.has(id))&&(!state||(eligibleEncounters({...state,story:{...story,pending:null}}).some(e=>e.id===pending.id)||pending.id==='m_crash'&&legacyMarketPrompt(state)));
 }

@@ -1,17 +1,18 @@
 // The painted stage art: one manifest, then only the plates and sprite frames a
 // life actually needs. Nothing here touches the simulation; it only draws.
-const manifestURL=new URL('./anime/manifest.json',import.meta.url);
+const manifestURL=new URL('../course/anime/manifest.json',import.meta.url);
 // Paths in the manifest are written next to the manifest, so they are resolved
 // against the art folder and never against the page.
-const artBase=new URL('./anime/',import.meta.url);
+const artBase=new URL('../course/anime/',import.meta.url);
 const images=new Map();
+const notify=()=>{if(typeof window!=='undefined')window.dispatchEvent(new Event('life-stage-art'));};
 let manifest=null,pending=null;
 
 function loadManifest(){
   if(!pending)pending=fetch(manifestURL,{cache:'no-store'}).then(response=>{
     if(!response.ok)throw new Error('stage art unavailable');
     return response.json();
-  }).then(data=>{manifest=data;return data;});
+  }).then(data=>{manifest=data;notify();return data;});
   return pending;
 }
 
@@ -24,6 +25,7 @@ export function stageImage(url){
   if(!images.has(source)){
     const image=new Image();
     image.decoding='async';
+    image.onload=notify;image.onerror=notify;
     image.src=source;
     images.set(source,image);
   }

@@ -331,3 +331,27 @@ desktop the painting's focus and its people sit left of the docked panel; in the
 office the player stands at the painted desk instead of a second desk drawn on top
 of it; MiniMax's new CSS lost its rounded corners and was put back on the console's
 14px and 12px sizes.
+
+## Approved hybrid release,27October2026
+New default Hybrid keeps ordinary routines in3D and paints supported recorded
+moments. Explicit painted/isometric preferences persist. Coverage is current-scene
+only; absent body/pose/home art retains3D. A shared scene descriptor owns cast,
+plate and caption. Paused cuts finish immediately; hidden canvas sizing reads the
+visible sibling before renderer ownership changes. Missing/failed assets never
+replace a living3D view with an unloaded frame. /study uses explicit authored
+fixtures, not save injection, to exercise the actual renderer.
+
+Inherited47-file MiniMax/Claude handoff preserved separately in1975de4. All28
+questions were already translated in that baseline; this release adds29five-language
+rows for hybrid moments and market corrections. No runtime image model or local
+24GB engine. No new character-sheet batch produced in this release.
+
+Market-loss prompts require actual owned loss. Follow-ups describe an explicitly
+labeled equal-start scenario fund basket, can rise/fall/stayflat, and do not promise
+a recovery or prescribe the player's best decision. Historical choices/ledgers
+remain intact; obsolete unresolved prompts may clear. Nominal bank balances no
+longer incur an invented inflation withdrawal. Broader calibration remains work.
+
+Remaining visual limit: independent review still identifies excess empty ground
+in the city3D framing. Current artwork is not a complete consistent animatedcast.
+Do not claim whole-system no-slop approval or M3hardware performance certification.

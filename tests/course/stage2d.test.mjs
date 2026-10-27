@@ -128,7 +128,7 @@ test('love is an evening, and the bicycles belong to the teenage years',()=>{
 });
 
 test('a body that is being repaired lies down in the evening',()=>{
-  const hurt=life({history:[{event:'A health setback interrupted the year.'}]});
+  const hurt=life({history:[{age:50,event:'A health setback interrupted the year.'}]});
   assert.equal(beatFor(hurt,50,evening),'bed');
   assert.equal(beatFor(hurt,50,atSchool),null);
 });

@@ -1,6 +1,6 @@
 import {drawRouteMap} from './routemap.js';
 import {drawScene3D,showPaintedCanvas} from './scene3d.js';
-import {drawStage2D} from './stage2d.js';
+import {drawStage2D,stageCaption} from './stage2d.js';
 import {t,preferences} from './i18n.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
 import {AXES} from './sim.js';
@@ -10,11 +10,11 @@ import {RESIDENCES,roomFurniture} from './locations.js';
 import {revealedPlaces,floorAt,CITY_BLOCKS} from './district3d.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
-export function drawWorld(canvas,state,age,time,mode='world'){
- // The painted stage is the world's face. The isometric diorama stays available
- // for anyone who prefers it; neither one touches the simulation.
- if(preferences.stage!=='isometric'&&drawStage2D(canvas,state,age,time,mode)){showPaintedCanvas(canvas);return;}
- if(drawScene3D(canvas,state,age,time,mode))return;
+export function drawWorld(canvas,state,age,time,mode='world',view={}){
+ // Hybrid keeps ordinary routines in3D and paints supported recorded moments.
+ // Explicit world preferences remain available; drawing never changes the life.
+ if(preferences.stage!=='isometric'&&drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
+ if(drawScene3D(canvas,state,age,time,mode,view))return;
 const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];
 Object.assign(C,MOOD_CHORDS[lifeMoodAt(state,age)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);

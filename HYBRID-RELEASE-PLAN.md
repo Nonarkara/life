@@ -34,3 +34,9 @@ Cloudflare Pages deploy, exact-asset probes then actual public saved-life checks
 Do not certify M3device FPS/RAM or art recognizability from screenshots.
 Next art-production batch remains consistent character/poses/grounding and authentic
 home plates; this implementation does not silently fabricate absent body/house art.
+
+QA fixture addition: /study exposes explicit recorded-moment controls and routes
+through drawWorld, preserving the home camera. It never reads or changes saves.
+Historical m_crash choices retain original eligibility for save validation; only
+unresolved prompts without an owned loss are dismissed, without ledger mutation.
+New hybrid-copy.js holds28 five-language rows separately from prior translations.

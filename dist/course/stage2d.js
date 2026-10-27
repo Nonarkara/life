@@ -5,7 +5,7 @@
 // this module only decides how that moment is drawn. It never spends money,
 // awards skill, or advances time.
 import {routine,routineContext,routineCaption} from './routines.js';
-import {flagsOf} from './sim.js';
+import {flagsOf,rand} from './sim.js';
 import {homeCast} from './presentation-state.js';
 import {travelFrame} from './painted-camera.js';
 import {regionAt,REGIONS,household} from './regions.js';
@@ -109,9 +109,7 @@ const SEX_SUFFIX={female:'',male:'-m',intersex:'-x'};
 // The Thai wooden house is painted; other kinds of house and every city abroad are
 // painted as variants named place@style (home-day@villa, street-day@tokyo).
 const PAINTED_HOMES=new Set(['market','village','coast']);
-const ABROAD_SETS=['home-day','street-day','school','work'];
 export const plateVariant=(key,style)=>key&&style&&platePath(`${key}@${style}`)?`${key}@${style}`:key;
-const PLAYER_SHEETS=['player','player-b','player-c','player-bike','child','child-b','elder'];
 let castLife=null;
 function parentSheet(state,slot){
  const role=household(state?.birth)[slot].role;
@@ -119,22 +117,22 @@ function parentSheet(state,slot){
  return role===slot?role:role+'-b';
 }
 export function castSheet(state,actor,sheet){
- if(actor==='player'){const suffix=SEX_SUFFIX[state?.intake?.sex]??'';return suffix?sheet.replace(/^(player|child|elder)/,'$1'+suffix):sheet;}
+ if(actor==='player'){const sex=state?.intake?.sex??['female','male','intersex'][Math.floor(rand(state?.seed??0,0,'intake-sex')*3)],suffix=SEX_SUFFIX[sex];return suffix?sheet.replace(/^(player|child|elder)/,'$1'+suffix):sheet;}
  if(actor==='mother'||actor==='father')return parentSheet(state,actor);
  return sheet;
 }
-// The painted stage draws a life only when its art covers that life: the right body, the
-// right household and a home it has painted. Any other life keeps the 3D world.
-export function paintedCovers(state,age=state?.age??0){
- const manifest=animeManifest();if(!manifest)return true;
- // ponytail: no baby or toddler drawings yet, and the 3D world grows the child from 0 to 5.
- if(age<5)return false;
- const has=sheet=>!!manifest.sprites?.[sheet];
- if(!PLAYER_SHEETS.every(sheet=>has(castSheet(state,'player',sheet))))return false;
- if(!['mother','father'].every(slot=>has(parentSheet(state,slot))))return false;
+// Coverage belongs to the scene being shown, never to every future age/pose.
+export function paintedCovers(state,age=state?.age??0,time=1,description=null){
+ const manifest=animeManifest();if(!manifest||age<5)return false;
+ const scene=description??describePaintedScene(state,age,time);
  const region=REGIONS[regionAt(state,age)],style=region?.style;
- if(region?.country!=='TH')return ABROAD_SETS.every(key=>!!manifest.plates?.[`${key}@${style}`]);
- return PAINTED_HOMES.has(style)||!!manifest.plates?.[`home-day@${style}`];
+ const domestic=scene.beat==='bed'||['home','bedroom'].includes(scene.set)&&!scene.beat;
+ if(region?.country!=='TH'&&!manifest.plates?.[`${scene.basePlate}@${style}`])return false;
+ if(domestic){
+  const home=scene.life.residence.id==='family'?style:scene.life.residence.id;
+  if(!PAINTED_HOMES.has(home)&&!manifest.plates?.[`${scene.basePlate}@${home}`])return false;
+ }
+ return !!platePath(scene.plate)&&scene.actors.every(actor=>{const frames=actorFrames(state,actor.id,age,actor.activity,scene.beat??scene.set);return frames.length>0&&frames.every(([sheet,frame])=>!!spritePath(sheet,frame));});
 }
 
 function sheetFor(actor,age){
@@ -170,7 +168,7 @@ function roleFor(actor,age,pose,moving,set){
   if(pose==='fold')return 'fold';
   if(pose==='guard')return 'guard';
   if(pose==='write')return 'write';
-  if(pose==='read')return 'sit';
+  if(pose==='read')return actor==='player'&&age<13?'read':'sit';
   if(pose==='draw'||pose==='craft')return 'paint';
   if(pose==='garden')return 'kneel';
   if(pose==='care'||pose==='floor')return 'crouch';
@@ -217,10 +215,10 @@ const DRAMATIC=/dies|flood|setback|interrupt|crisis|illness/i;
 const BEATS={
   // Two bicycles and one road: the years of the friendship.
   bikes:{plate:'beat-lane',ground:.80,scale:.30,effect:'speed',
-    actors:[{id:'player',pose:'ride',x:.34},{id:'friend',pose:'ride',x:.64}]},
+    actors:[{id:'player',pose:'ride',x:.34},{id:'friend',pose:'ride',x:.64,flipX:true}]},
   // The first evening that belongs to somebody else.
   love:{plate:'beat-bridge',ground:.80,scale:.26,effect:'heart',
-    actors:[{id:'player',pose:'stand',x:.38},{id:'partner',pose:'wave',x:.58}]},
+    actors:[{id:'player',pose:'stand',x:.38,anchor:{x:.40,y:.80}},{id:'partner',pose:'wave',x:.58,anchor:{x:.57,y:.71}}]},
   // A fist fight behind the shophouses.
   fight:{plate:'beat-alley',ground:.86,scale:.34,effect:'impact',
     actors:[{id:'player',pose:'punch',x:.38},{id:'rival',pose:'guard',x:.62}]},
@@ -231,7 +229,7 @@ const BEATS={
   grades:{plate:'beat-classroom',ground:.86,scale:.24,effect:'sun',
     actors:[{id:'player',pose:'write',x:.46}]},
   // The report card that did not come back well.
-  'grades-bad':{plate:'beat-classroom',ground:.86,scale:.24,effect:'grey',
+  'grades-bad':{plate:'beat-classroom',ground:.86,scale:.24,
     actors:[{id:'player',pose:'write',x:.46}]},
   // The bed, and the body that is being repaired.
   bed:{plate:'beat-room',ground:.74,scale:.30,
@@ -262,7 +260,7 @@ function gradeBeat(state,age){
 // day is quiet enough for that moment to be the thing on screen.
 export function beatFor(state,age,player={}){
   const seen=state.story?.seen??[];
-  const flags=flagsOf(state);
+  const flags=Object.fromEntries(Object.entries(flagsOf(state)).filter(([,value])=>typeof value!=='number'||value<=age));
   const action=player.action??'';
   const phase=player.phase??'';
   const moving=!!player.moving;
@@ -281,26 +279,65 @@ export function beatFor(state,age,player={}){
   // Bikes belong to the teenage years and to the way to school.
   if(flags.friend!==undefined&&age>=flags.friend&&age<=Math.min(flags.friend+6,20)&&moving&&phase==='On the way')return 'bikes';
   // A body that is being repaired lies down in the evening.
-  if(/health setback/i.test(state.history?.at(-1)?.event??'')&&(phase==='Evening'||phase==='Coming home'))return 'bed';
+  const latest=state.history?.filter(r=>r.age!==undefined&&r.age<=age).at(-1);
+  if(latest&&age<latest.age+5&&/health setback/i.test(latest.event??'')&&(phase==='Evening'||phase==='Coming home'))return 'bed';
   return null;
+}
+
+function actorFrames(state,actor,age,activity,set){
+ const kind=actor==='mother'||actor==='father'?(household(state?.birth)[actor].sex==='female'?'mother':'father'):actor;
+ const role=roleFor(kind,age,activity.pose,activity.moving,set),table=ROLES[sheetFor(kind,age)]?.[role];
+ return (activity.moving?(table??[]):(table??[]).slice(0,1)).map(([sheet,frame])=>[castSheet(state,actor,sheet),frame]);
+}
+export const MOMENT_CAPTIONS={bikes:'Cycling to school with your friend.',love:'The evening your relationship began.',fight:'The confrontation after you pushed back.',bully:'The bullying you experienced at school.',grades:'The study path you chose.',
+ 'grades-bad':'The work path you chose instead of continued study.',bed:'Making room for recovery at home.'};
+export function describePaintedScene(state,age,time){
+ const life=routineContext(state,age),goal=state.profiles?.at(-1)?.profile.aim??'balance',player=routine('player',age,time,goal,life);
+ let set=setFor(player.action,player.moving);if(age<2)set='hospital';
+ const region=REGIONS[regionAt(state,age)],style=region?.style;
+ if(region?.country!=='TH'&&(set==='work'||set==='travel'))set='abroad';
+ if(set==='work'&&(life.pathway==='vocational'||['engineering','architecture'].includes(state.major)))set='site';
+ const beat=beatFor(state,age,player),moment=beat?BEATS[beat]:null,stage=SETS[set],night=player.phase==='Evening'||player.phase==='Coming home';
+ const basePlate=moment?.plate??(night&&stage.night?stage.night:stage.plate);
+ const domestic=beat==='bed'||!beat&&['home','bedroom'].includes(set),place=domestic&&life.residence.id!=='family'?life.residence.id:style;
+ const plate=plateVariant(basePlate,place);
+ let actors;
+ if(moment)actors=moment.actors.map(a=>({...a,activity:{pose:a.pose,x:a.x,moving:/ride|push/.test(a.pose)}}));
+ else if(set==='travel')actors=[{id:'player',activity:player}];
+ else{
+  actors=set==='home'?homeCast(state,age,time,goal,life,player):[{id:'player',activity:player}];
+  const flags=Object.fromEntries(Object.entries(flagsOf(state)).filter(([,value])=>typeof value!=='number'||value<=age));
+  if((flags.married!==undefined||flags.committed!==undefined)&&flags.separated===undefined&&['home','bedroom'].includes(set))actors.push({id:'partner',activity:{pose:'stand',x:7,moving:false}});
+  if(flags.friend!==undefined&&['street','court'].includes(set))actors.push({id:'friend',activity:{pose:'stand',x:13,moving:false}});
+  actors.sort((a,b)=>(a.activity.x??0)-(b.activity.x??0));const slots=slotsFor(set,actors.length);actors=actors.map((a,i)=>({...a,slot:slots[i]}));
+ }
+ return {life,goal,player,set,beat,moment,stage,basePlate,plate,actors,caption:beat?MOMENT_CAPTIONS[beat]:routineCaption(age,time,goal,life)};
 }
 
 // Exported for the tests: the drawn world must follow the routine, not taste.
 export {SETS,ROLES,setFor,roleFor,sheetFor,BEATS};
 
+let loadingArt=null;
 export function drawStage2D(canvas,state,age,time,mode,view={}){
-  if(mode!=='world'||!paintedCovers(state,age))return false;
-  castLife=state;
-  let entry=stages.get(canvas);
-  if(entry===false)return false;
-  if(!entry){
-    entry=createStage(canvas);
-    stages.set(canvas,entry);
-    prepareStageArt().catch(error=>{console.warn('Stage art unavailable; keeping the previous world.',error);stages.set(canvas,false);});
-  }
-  try{entry.update(state,age,time,view);return true;}
-  catch(error){console.warn('Stage interrupted; keeping the previous world.',error);stages.set(canvas,false);return false;}
+ if(mode!=='world')return false;
+ if(!animeManifest()){
+  if(!loadingArt)loadingArt=prepareStageArt().catch(()=>{});
+  return false;
+ }
+ const description=describePaintedScene(state,age,time);
+ if(preferences.stage==='hybrid'&&!description.beat||!paintedCovers(state,age,time,description))return false;
+ // Keep the supported3D world until the full scene is decoded. Paused views
+ // repaint on load; failed pictures never replace a living scene with black.
+ const paths=[platePath(description.plate),...description.actors.flatMap(a=>actorFrames(state,a.id,age,a.activity,description.beat??description.set).map(([sheet,frame])=>spritePath(sheet,frame)))];
+ const pictures=paths.map(stageImage);
+ if(!pictures.every(image=>image?.complete&&image.naturalWidth>0))return false;
+ castLife=state;
+ let entry=stages.get(canvas);if(entry===false)return false;
+ if(!entry){entry=createStage(canvas);stages.set(canvas,entry);}
+ try{return entry.update(state,age,time,{...view,description})===true;}
+ catch(error){console.warn('Stage interrupted; keeping the previous world.',error);stages.set(canvas,false);return false;}
 }
+export const stageCaption=canvas=>stages.get(canvas)?.caption??null;
 
 const stages=new WeakMap();
 
@@ -309,14 +346,15 @@ function createStage(canvas){
   const frame=document.createElement('canvas');
   // The docked panel covers the right of the stage on wide screens. The painting still
   // fills the frame, but its focus and its people sit in the part that can be seen.
-  const visibleWidth=(pw,dpr)=>{const panel=document.querySelector('.decision'),box=canvas.getBoundingClientRect(),dock=panel?.getBoundingClientRect();
+  const visibleWidth=(pw,dpr)=>{const panel=document.querySelector('.decision'),box=(canvas.hidden?canvas.parentElement:canvas).getBoundingClientRect(),dock=panel?.getBoundingClientRect();
    if(!dock||matchMedia('(max-width:720px)').matches||dock.left>=box.right||dock.top>=box.bottom||dock.width>=box.width*.6)return pw;
    return Math.max(pw*.5,Math.round((dock.left-box.left)*dpr));};
   let seen=0,width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
   const reduced=()=>preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function resize(){
-    const w=canvas.clientWidth,h=canvas.clientHeight;
+    const surface=canvas.hidden?(canvas.parentElement?.querySelector('canvas:not([hidden])')??canvas.parentElement):canvas;
+    const w=surface?.clientWidth,h=surface?.clientHeight;
     if(w<2||h<2)return false;
     const dpr=Math.min(devicePixelRatio||1,2);
     const pw=Math.round(w*dpr),ph=Math.round(h*dpr);
@@ -339,13 +377,9 @@ function createStage(canvas){
   }
 
   function drawFigure(target,actor,age,activity,set,groundY,plateHeight,clock,xOverride,options={}){
-    // A parent slot is drawn by who fills it: a grandmother or a second mother poses like a mother.
-    const kind=actor==='mother'||actor==='father'?(household(castLife?.birth)[actor].sex==='female'?'mother':'father'):actor;
-    const role=roleFor(kind,age,activity.pose,activity.moving,set);
-    const table=ROLES[sheetFor(kind,age)]?.[role]??ROLES[sheetFor(kind,age)]?.stand;
-    if(!table)return null;
-    const step=activity.moving?Math.floor(clock*10):Math.floor(clock*2.5);
-    const [drawn,frame]=table[step%table.length],sheet=castSheet(castLife,actor,drawn);
+    const table=actorFrames(castLife,actor,age,activity,set);if(!table.length)return null;
+    const step=activity.moving?Math.floor(clock*3):0;
+    const [sheet,frame]=table[step%table.length];
     const path=spritePath(sheet,frame);
     const image=path?stageImage(path):null;
     if(!image||!image.complete||!image.naturalWidth)return null;
@@ -362,12 +396,12 @@ function createStage(canvas){
     target.globalAlpha=.26;
     target.fillStyle='#241d16';
     target.beginPath();
-    target.ellipse(x,groundY,figureWidth*.2,figureHeight*.035,0,0,Math.PI*2);
+    if(!options.flat)target.ellipse(x,groundY,figureWidth*.2,figureHeight*.035,0,0,Math.PI*2);
     target.fill();
     target.globalAlpha=1;
     target.translate(x,groundY+bob);
     if(activity.moving)target.rotate(Math.sin(clock*10)*.02);
-    target.scale(figureWidth/image.naturalWidth,figureHeight*breathe/image.naturalHeight);
+    target.scale((options.flipX?-1:1)*figureWidth/image.naturalWidth,figureHeight*breathe/image.naturalHeight);
     // The drawing stands on the ground line: its feet sit on it, centred above it.
     target.drawImage(image,-image.naturalWidth/2,-image.naturalHeight,image.naturalWidth,image.naturalHeight);
     target.restore();
@@ -375,8 +409,8 @@ function createStage(canvas){
   }
 
   // The journey is its own drawing: the street scrolls and the lines streak.
-  function drawTravel(target,clock,activity,age){
-    const path=platePath(SETS.travel.plate);
+  function drawTravel(target,clock,activity,age,plateKey){
+    const path=platePath(plateKey);
     const image=path?stageImage(path):null;
     if(!image||!image.complete||!image.naturalWidth)return null;
     const {x,y,drawWidth,drawHeight}=travelFrame(width,height,image.naturalWidth,image.naturalHeight,
@@ -520,24 +554,10 @@ function createStage(canvas){
   }
 
   function update(state,age,time,view={}){
-    if(!resize())return;
-    const life=routineContext(state,age);
-    const goal=state.profiles.at(-1)?.profile.aim??'balance';
-    const player=routine('player',age,time,goal,life);
-    let next=setFor(player.action,player.moving);
-    // The show opens in a hospital, on one baby.
-    if(age<2)next='hospital';
-    // The world is wide: a life can leave the country, and a trade can be built
-    // on a site rather than behind a desk.
-    const region=regionAt(state,age);
-    if(REGIONS[region]?.country!=='TH'&&(next==='work'||next==='travel'))next='abroad';
-    if(next==='work'&&(state.pathway==='vocational'||['engineering','architecture'].includes(state.major)))next='site';
-    if(next!==set){set=next;setChangedAt=time;}
-    const stage=SETS[set];
-    const night=player.phase==='Evening'||player.phase==='Coming home';
-    // The household's own kind of house and city, when the art has painted it.
-    const style=REGIONS[regionAt(state,age)]?.style,day=plateVariant(stage.plate,style),dark=plateVariant(stage.night,style);
-    const plateKey=night&&dark&&(dark!==stage.night||day===stage.plate)?dark:day;
+    if(!resize())return false;
+    const scene=view.description??describePaintedScene(state,age,time);
+    const {life,goal,player,stage,plate:plateKey,beat,moment}=scene;
+    if(scene.set!==set){set=scene.set;setChangedAt=time;}
     const clock=reduced()?0:time;
 
     const ctx=canvas.getContext('2d');
@@ -552,22 +572,20 @@ function createStage(canvas){
     paint.clearRect(0,0,width,height);
     let drawn,groundY;
     // A lived moment can take the frame: the stage shows the moment itself.
-    const beat=beatFor(state,age,player);
-    const moment=beat?BEATS[beat]:null;
-    if(moment&&platePath(moment.plate)){
-      drawn=drawPlate(paint,moment.plate);
+    if(moment&&platePath(plateKey)){
+      drawn=drawPlate(paint,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*moment.ground:height*.84;
       if(drawn){
-        for(const actor of moment.actors){
-          const activity={pose:actor.pose,x:actor.x,moving:/ride|push/.test(actor.pose)};
+        for(const actor of scene.actors){
+          const activity=actor.activity;
           const anchor=actor.anchor?{x:drawn.x+actor.anchor.x*drawn.drawWidth,y:drawn.y+actor.anchor.y*drawn.drawHeight}:null;
           drawFigure(paint,actor.id,age,activity,beat,anchor?anchor.y:groundY,drawn.drawHeight,clock,
-            anchor?anchor.x:seen*.08+actor.x*(seen*.84),{scale:moment.scale,flat:!!anchor});
+            anchor?anchor.x:seen*.08+actor.x*(seen*.84),{scale:moment.scale,flat:activity.pose==='lie',flipX:actor.flipX});
         }
         drawEffect(paint,clock,moment.effect,groundY);
       }
     }else if(set==='travel'){
-      drawn=drawTravel(paint,clock,player,age);
+      drawn=drawTravel(paint,clock,player,age,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*SETS.travel.ground:height*.86;
       if(drawn)drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight,clock,seen*.44);
     }else{
@@ -593,28 +611,19 @@ function createStage(canvas){
     // Everyone who belongs in this drawing stands in it, spaced so that no two
     // people stand on the same spot, in the order the routine puts them.
     if(set!=='travel'&&!moment){
-      const flags=flagsOf(state);
-      const present=set==='home'?homeCast(state,age,time,goal,life,player):[{id:'player',activity:player}];
-      // The people who came into the life are in the frame when they belong there.
-      const partnerKnown=flags.dating!==undefined||flags.married!==undefined||flags.committed!==undefined;
-      if(partnerKnown&&(set==='home'||set==='bedroom'))present.push({id:'partner',activity:{pose:'stand',x:7,moving:false}});
-      const friendKnown=flags.friend!==undefined;
-      if(friendKnown&&(set==='street'||set==='court'))present.push({id:'friend',activity:{pose:'stand',x:13,moving:false}});
-      present.sort((a,b)=>(a.activity.x??0)-(b.activity.x??0));
-      const slots=slotsFor(set,present.length);
-      present.forEach((actor,index)=>{actor.slot=slots[index];});
+      const present=scene.actors;
       for(const actor of present){
         drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight,clock,seen*.08+actor.slot*(seen*.84));
       }
     }
 
     // A hard moment gets a drawn frame: a white flash, then radial lines.
-    const period=state.history?.find(row=>row.from!==undefined&&age>=row.from&&age<row.age);
+    const period=state.history?.find(row=>row.age<=age&&age<row.age+1);
     if(period&&DRAMATIC.test(period.event??'')){
       const index=state.history.indexOf(period);
       if(index!==lastPeriod){lastPeriod=index;impact=reduced()?0:.55;}
     }
-    if(impact>0){
+    if(impact>0&&view.animating!==false){
       impact-=reduced()?.55:.016;
       const strength=Math.max(0,impact/.55);
       paint.save();
@@ -638,7 +647,7 @@ function createStage(canvas){
     // The cut: the new drawing is revealed by a diagonal, the old one waits
     // where the wipe has not reached. A white frame flashes first.
     const since=time-setChangedAt;
-    const cutting=!reduced()&&since<.42&&hasFrame;
+    const cutting=view.animating!==false&&!reduced()&&since>=0&&since<.42&&hasFrame;
     const out=frame.getContext('2d');
     out.setTransform(1,0,0,1,0,0);
     if(cutting){
@@ -658,9 +667,10 @@ function createStage(canvas){
     ctx.drawImage(frame,0,0);
     hasFrame=true;
 
-    const line=routineCaption(age,time,goal,life);
-    if(line!==caption){caption=line;canvas.setAttribute('aria-label',line);}
+    const line=scene.caption;
+    caption=line;canvas.setAttribute('aria-label',t(line));
+    return true;
   }
 
-  return {update};
+  return {update,get caption(){return caption;}};
 }

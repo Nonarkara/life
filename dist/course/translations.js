@@ -1,3 +1,4 @@
+import {HYBRID_PHRASES} from './hybrid-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
 Country of birth|ประเทศที่เกิด|出生国家|出生国|출생 국가
@@ -1894,3 +1895,5 @@ phrases.push(['Painted stage','ฉากที่วาดด้วยมือ'
 phrases.push(['Isometric diorama','ไดโอรามาสามมิติ','等距立体场景','アイソメトリック立体模型','아이소메트릭 디오라마']);
 
 phrases.push(['Priorities change your skills, resources and wellbeing.','สิ่งที่ให้ความสำคัญส่งผลต่อทักษะ ทรัพยากร และความเป็นอยู่ที่ดี','优先事项会影响你的技能、资源和福祉。','優先することは、技能・資源・幸福感に影響します。','우선순위는 기술, 자원과 행복에 영향을 줍니다.']);
+
+phrases.push(...HYBRID_PHRASES);
