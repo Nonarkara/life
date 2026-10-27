@@ -87,7 +87,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   for(const [name,g]of Object.entries(styles))g.visible=name===look.hairStyle;
   hairCap.scale.set(look.hairStyle==='crop'?.88:.9,look.hairStyle==='crop'?.55:.68,.87);
   expression='';
-  skirtGroup.visible=!!look.skirt&&!look.coat;coatGroup.visible=!!look.coat;scarf.visible=!!look.scarf;hat.visible=!!look.coat;if(next.scarfColor)scarfMat.color.set(next.scarfColor);
+  skirtGroup.visible=!!look.skirt&&!look.coat;coatGroup.visible=!!look.coat;scarf.visible=!!look.scarf;hat.visible=!!look.hat;if(next.scarfColor)scarfMat.color.set(next.scarfColor);
   torso.scale.x*=look.coat?1.12:look.sweater?1.05:1;
  }
  setLook();

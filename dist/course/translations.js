@@ -18,6 +18,28 @@ In this game, about 1 in {n} lives begin like this.|ในเกมนี้ ร
 I was born in {place}, into {home}. About 1 in {n} lives begin like this.|ผมเกิดที่{place} ใน{home} ราว 1 ใน {n} ชีวิตเริ่มต้นแบบนี้|我出生在{place}，{home}。大约每 {n} 个人生中有 1 个这样开始。|{place}の{home}に生まれた。およそ {n} 人に 1 人がこう始まる。|{place}의 {home}에서 태어났다. 약 {n}명 중 1명의 삶이 이렇게 시작된다.
 Copied. Paste it anywhere.|คัดลอกแล้ว วางที่ไหนก็ได้|已复制，可粘贴到任何地方。|コピーしました。どこにでも貼り付けられます。|복사했습니다. 어디든 붙여 넣으세요.
 Your last life is waiting: age {n}, {place} →|ชีวิตล่าสุดของคุณรออยู่: อายุ {n} ปี, {place} →|你上一次的人生还在等你：{n}岁，{place} →|前回の人生が待っている：{n}歳、{place} →|지난 삶이 기다립니다: {n}세, {place} →
+Balance|สมดุล|平衡|バランス|균형
+Sport|กีฬา|运动|スポーツ|스포츠
+Art|ศิลปะ|艺术|アート|예술
+Security|ความมั่นคง|安稳|安定|안정
+Connection|ความผูกพัน|联结|つながり|관계
+Net worth|ความมั่งคั่งสุทธิ|净资产|純資産|순자산
+Save|ออม|储蓄|貯蓄|저축
+Fun|สนุก|娱乐|楽しみ|즐거움
+Learn|เรียนรู้|学习|学び|배움
+Unassigned|ยังไม่จัดสรร|未分配|未配分|미배분
+By age {n}|ภายในอายุ {n}|到 {n} 岁|{n}歳まで|{n}세까지
+Live the next five years|ใช้ชีวิตห้าปีถัดไป|度过接下来的五年|次の5年を生きる|다음 5년 살기
+Previous channel|ช่องก่อนหน้า|上一项|前の項目|이전 항목
+Next channel|ช่องถัดไป|下一项|次の項目|다음 항목
+gain by age {n}|เพิ่มขึ้นภายในอายุ {n}|到 {n} 岁的增长|{n}歳までの伸び|{n}세까지의 성장
+Where they meet|จุดที่มาบรรจบกัน|交汇之处|重なるところ|만나는 곳
+each overlap is the weaker of its two readings|แต่ละจุดบรรจบใช้ค่าที่ต่ำกว่าของสองด้าน|每个交汇取两项中较弱的一项|重なりは二つの読みの弱い方|겹치는 값은 두 값 중 약한 쪽이다
+Passion|ความหลงใหล|热情|情熱|열정
+Mission|พันธกิจ|使命|使命|사명
+Vocation|อาชีพที่เรียกหา|天职|天職|천직
+Profession|วิชาชีพ|专业|職業|직업
+In 5 years|ใน 5 ปี|5 年后|5年後|5년 후
 Childhood|วัยเด็ก|童年|幼少期|어린 시절
 The house decides for you.|บ้านเป็นผู้ตัดสินใจแทน|家里替你做主。|家があなたの代わりに決める。|집이 대신 결정한다.
 Schooling|วัยเรียน|求学|学校時代|학창 시절
