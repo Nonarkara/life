@@ -1,5 +1,5 @@
 {
- "note": "Missing Life2.0 art, 27 Oct 2026. Same style wording as MiniMax's original batches. Place results in scratch/anime/src under these file names, then run python3 scripts/prepare-anime-assets.py all.",
+ "note": "Missing Life2.0 art catalogue, 27 Oct 2026. Same style wording as MiniMax’s original batches. Generate into scratch/anime/candidates, never directly into approved src or runtime assets. Inspect every candidate for anatomy, identity, complete poses and spatial consistency before promotion. Follow art/ART-RELEASE-REVIEW.md; approve specific frames in art/frame-approvals.json and process only the reviewed target, not the whole catalogue. A request is not a completed or approved asset.",
  "requests": [
   {
    "output_file": "sheet-player-m.png",
