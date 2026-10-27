@@ -37,6 +37,8 @@ function allocations(){state={...state,effort:lockedEffort(state)};const root=$(
  // The life console drives these same rules; the table above stays as its fallback and its record.
  {let deck=$('life-deck');if(!deck){deck=document.createElement('div');deck.id='life-deck';root.parentElement.before(deck);}
   deck.hidden=first||state.stage!=='review';
+  // The deck shows the five-year gain itself; the heading note would repeat it.
+  if(!deck.hidden)$('gain-note').hidden=true;
   if(!deck.hidden){const b=state.finance?.budget,waiting=pendingPivots(state).length,station=state.age,era=station<15?'childhood':station<20?'school':station<40?'building':station<60?'turning':'later';
    const channels=AXES.map(a=>({label:a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label,value:String(state.effort[a.key]),detail:(projInfo.gains[a.key]>=0?'+':'')+projInfo.gains[a.key],detailLabel:'By age '+(state.age+5),can:d=>transfer(state.effort,a.key,d,locks)!==state.effort,step:d=>{state={...state,effort:transfer(state.effort,a.key,d,locks)};render();}}));
    if(b&&state.age>=15)for(const [k,label] of [['save','Save'],['fun','Fun'],['learn','Learn']]){const next=d=>setBudget(state,{...b,[k]:b[k]+5*d});channels.push({label,value:b[k]+'%',detail:(100-b.save-b.fun-b.learn)+'%',detailLabel:'Unassigned',can:d=>next(d)!==state,step:d=>{state=next(d);render();}});}
