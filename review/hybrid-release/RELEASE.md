@@ -34,3 +34,18 @@ There is no guaranteed recovery, fixed investing-win percentage, arbitrary retir
 Sources for these qualifications: [Investor.gov diversification](https://www.investor.gov/introduction-investing/investing-basics/save-and-invest/diversify-your-investments) and [asset allocation](https://www.investor.gov/introduction-investing/getting-started/asset-allocation).
 
 Deployment and exact asset receipt: public-assets.json, generated after deployment.
+
+## Published result
+
+Implementation commit: 3de053d. Build: c2de42acda09. Cloudflare deployment:
+[4903ff48](https://4903ff48.life-5wz.pages.dev).
+
+Canonical Pages host and life.nonarkara.org each matched all 13 probed assets
+across three consecutive checks, including bundles, styles, manifest and the two
+scene plates. See public-assets.json for exact SHA-256 receipts.
+
+Public browser retained the existing age-15 life and ฿1,498 net worth with its
+unanswered questions. Hybrid settings appeared. The public fixture loaded its
+friendship painting and returned to 3D when breakfast was selected; warning/error
+logs were empty. Public screenshots are included. Independent review passed the
+bounded release, while retaining the wider city-framing limitation above.
