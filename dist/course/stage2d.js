@@ -6,6 +6,8 @@
 // awards skill, or advances time.
 import {routine,routineContext,routineCaption} from './routines.js';
 import {flagsOf} from './sim.js';
+import {homeCast} from './presentation-state.js';
+import {travelFrame} from './painted-camera.js';
 import {regionAt,REGIONS} from './regions.js';
 import {preferences,t} from './i18n.js';
 import {prepareStageArt,stageImage,platePath,spritePath} from './anime-assets.js';
@@ -334,27 +336,9 @@ function createStage(canvas){
     const path=platePath(SETS.travel.plate);
     const image=path?stageImage(path):null;
     if(!image||!image.complete||!image.naturalWidth)return null;
-    const scale=Math.max(width/image.naturalWidth,height/image.naturalHeight);
-    const drawWidth=image.naturalWidth*scale,drawHeight=image.naturalHeight*scale;
-    const offset=reduced()?0:-((clock*240)%drawWidth);
-    const x=(width-drawWidth)/2+offset,y=height-drawHeight;
-    // The street is drawn twice, so the journey can run without an edge.
+    const {x,y,drawWidth,drawHeight}=travelFrame(width,height,image.naturalWidth,image.naturalHeight,
+      reduced()?0:activity.progress,activity.phase==='Coming home');
     target.drawImage(image,x,y,drawWidth,drawHeight);
-    target.drawImage(image,x+drawWidth,y,drawWidth,drawHeight);
-    // Where the two copies meet, a soft shadow falls, the way it does between
-    // two buildings in a narrow street.
-    const join=x+drawWidth;
-    if(join>0&&join<width){
-      const band=width*.07;
-      target.save();
-      const shade=target.createLinearGradient(join-band,0,join+band,0);
-      shade.addColorStop(0,'rgba(18,16,12,0)');
-      shade.addColorStop(.5,'rgba(18,16,12,.5)');
-      shade.addColorStop(1,'rgba(18,16,12,0)');
-      target.fillStyle=shade;
-      target.fillRect(join-band,0,band*2,height);
-      target.restore();
-    }
     const speed=reduced()?0:clock*10;
     target.save();
     target.globalAlpha=.42;
@@ -565,16 +549,7 @@ function createStage(canvas){
     // people stand on the same spot, in the order the routine puts them.
     if(set!=='travel'&&!moment){
       const flags=flagsOf(state);
-      const present=[{id:'player',activity:player}];
-      if(set==='home'){
-        for(const id of ['mother','father']){
-          if(id==='mother'&&age>=70)continue;
-          if(id==='father'&&age>=55)continue;
-          const activity=routine(id,age,time,goal,life);
-          if(setFor(activity.action,activity.moving)!=='home')continue;
-          present.push({id,activity});
-        }
-      }
+      const present=set==='home'?homeCast(state,age,time,goal,life,player):[{id:'player',activity:player}];
       // The people who came into the life are in the frame when they belong there.
       const partnerKnown=flags.dating!==undefined||flags.married!==undefined||flags.committed!==undefined;
       if(partnerKnown&&(set==='home'||set==='bedroom'))present.push({id:'partner',activity:{pose:'stand',x:7,moving:false}});

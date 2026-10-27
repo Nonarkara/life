@@ -1,8 +1,14 @@
 import {phrases} from './translations.js';
+import {cacheTranslations} from './translation-cache.js';
 export const languages={en:'English',th:'ไทย','zh-CN':'简体中文',ja:'日本語',ko:'한국어'};
 export const dictionary=new Map(phrases.map(row=>[row[0],row.slice(1)]));
 const order=['th','zh-CN','ja','ko'];
+const cachedTranslation=cacheTranslations(translateUncached);
 export function translate(input,language='en'){
+ if(language==='en'||!order.includes(language)||!input)return input;
+ return cachedTranslation(String(input),language);
+}
+function translateUncached(input,language='en'){
  if(language==='en'||!order.includes(language)||!input)return input;
  const source=String(input),index=order.indexOf(language),direct=dictionary.get(source);if(direct)return direct[index];
  for(const[key,values]of [...dictionary].filter(([key])=>key.includes('{')).sort((a,b)=>b[0].replace(/\{\w+\}/g,'').length-a[0].replace(/\{\w+\}/g,'').length)){const names=[];const pattern=key.split(/(\{\w+\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),/^\{(n|a|b)\}$/.test(part)?'([0-9]+)':'(.+?)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');const match=source.match(new RegExp('^'+pattern+'$'));if(match){let result=values[index];names.forEach((name,i)=>{result=result.replaceAll('{'+name+'}',translate(match[i+1],language));});return result;}}

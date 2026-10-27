@@ -1589,3 +1589,5 @@ phrases.push(['instead of {taken} — money {cash} ฿, health {health}, wellbei
 phrases.push(['Against the life you did not choose','เทียบกับชีวิตที่คุณไม่ได้เลือก','与你没有选择的人生对照','選ばなかった人生との比較','선택하지 않은 삶과 비교']);
 phrases.push(['Painted stage','ฉากที่วาดด้วยมือ','手绘舞台','手描きステージ','손으로 그린 무대']);
 phrases.push(['Isometric diorama','ไดโอรามาสามมิติ','等距立体场景','アイソメトリック立体模型','아이소메트릭 디오라마']);
+
+phrases.push(['Priorities change your skills, resources and wellbeing.','สิ่งที่ให้ความสำคัญส่งผลต่อทักษะ ทรัพยากร และความเป็นอยู่ที่ดี','优先事项会影响你的技能、资源和福祉。','優先することは、技能・資源・幸福感に影響します。','우선순위는 기술, 자원과 행복에 영향을 줍니다.']);

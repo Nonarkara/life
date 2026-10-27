@@ -70,7 +70,12 @@ export function sellAll(state){
 export function autoInvest(state){
  const f=state.finance,flags=state.story?.flags??{};if(!f||state.stage!=='review'||flags.invests===undefined)return state;
  if(state.age>=60||f.debt>0||flags.panicSold!==undefined)return holdingsValue(f)>0||f.debt>0&&f.available>0?sellAll(state):state;
- const amount=Math.floor((f.reserve+f.available/4)/2);if(amount<200)return state;
+ const budget=Math.floor(f.reserve+f.available/4);
+ // Both fees belong inside the authorized budget. A reserve-only wallet must
+ // not silently end up holding bonds alone after the first purchase spends fees.
+ let low=0,high=Math.floor(budget/2);
+ while(low<high){const mid=Math.ceil((low+high)/2);if(2*(mid+tradeFee(mid))<=budget)low=mid;else high=mid-1;}
+ const amount=low;if(amount<200||f.receipts.length>898)return state;
  const s=f.reserve?moveReserve(state,f.reserve):state;
  return trade(trade(s,'bond','buy',amount),'equity','buy',amount);
 }

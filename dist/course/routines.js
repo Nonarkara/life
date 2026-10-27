@@ -18,7 +18,7 @@ const destinations={
  home:{path:[HOME.player,[5.2,5.7]],action:'Playing at home',pose:'play'}
 };
 function pathLength(path){return path.slice(1).reduce((n,p,i)=>n+Math.hypot(p[0]-path[i][0],p[1]-path[i][1]),0);}
-export function samplePath(path,fraction){const traveled=pathLength(path)*Math.max(0,Math.min(1,fraction));let distance=traveled;for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i],length=Math.hypot(b[0]-a[0],b[1]-a[1]);if(distance<=length)return{x:a[0]+(b[0]-a[0])*distance/length,y:a[1]+(b[1]-a[1])*distance/length,dx:b[0]-a[0],dy:b[1]-a[1],distance:traveled};distance-=length;}const p=path.at(-1);return{x:p[0],y:p[1],dx:0,dy:0,distance:traveled};}
+export function samplePath(path,fraction){const traveled=pathLength(path)*Math.max(0,Math.min(1,fraction));let distance=traveled;for(let i=1;i<path.length;i++){const a=path[i-1],b=path[i],length=Math.hypot(b[0]-a[0],b[1]-a[1]);if(distance<=length)return{x:a[0]+(b[0]-a[0])*distance/length,y:a[1]+(b[1]-a[1])*distance/length,dx:b[0]-a[0],dy:b[1]-a[1],distance:traveled,progress:Math.max(0,Math.min(1,fraction))};distance-=length;}const p=path.at(-1);return{x:p[0],y:p[1],dx:0,dy:0,distance:traveled,progress:Math.max(0,Math.min(1,fraction))};}
 export function dayPhase(time){const t=((time%60)+60)%60;return t<8?'Morning':t<20?'On the way':t<36?'Daytime':t<48?'Coming home':'Evening';}
 // The rug and kitchen corner are clear of every piece of room furniture.
 export const RUG=[4.4,6],KITCHEN=[3.75,6.1];

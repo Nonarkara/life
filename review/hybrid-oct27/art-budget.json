@@ -1,0 +1,29 @@
+{
+  "scope": "unique manifest-referenced images; not measured browser RSS",
+  "images": 79,
+  "downloadBytes": 4272370,
+  "estimatedRgbaBytes": 143469404,
+  "largestDecoded": [
+    {
+      "path": "plates/home-day.webp",
+      "downloadBytes": 89200,
+      "width": 1760,
+      "height": 982,
+      "estimatedRgbaBytes": 6913280
+    },
+    {
+      "path": "plates/street-dusk.webp",
+      "downloadBytes": 197430,
+      "width": 1760,
+      "height": 982,
+      "estimatedRgbaBytes": 6913280
+    },
+    {
+      "path": "plates/abroad.webp",
+      "downloadBytes": 101764,
+      "width": 1760,
+      "height": 747,
+      "estimatedRgbaBytes": 5258880
+    }
+  ]
+}

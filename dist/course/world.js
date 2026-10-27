@@ -1,5 +1,5 @@
 import {drawRouteMap} from './routemap.js';
-import {drawScene3D} from './scene3d.js';
+import {drawScene3D,showPaintedCanvas} from './scene3d.js';
 import {drawStage2D} from './stage2d.js';
 import {t,preferences} from './i18n.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
@@ -13,7 +13,7 @@ const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canva
 export function drawWorld(canvas,state,age,time,mode='world'){
  // The painted stage is the world's face. The isometric diorama stays available
  // for anyone who prefers it; neither one touches the simulation.
- if(preferences.stage!=='isometric'&&drawStage2D(canvas,state,age,time,mode))return;
+ if(preferences.stage!=='isometric'&&drawStage2D(canvas,state,age,time,mode)){showPaintedCanvas(canvas);return;}
  if(drawScene3D(canvas,state,age,time,mode))return;
 const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];

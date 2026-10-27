@@ -12,6 +12,11 @@ import {regionAt,region,regionIdFor,household,appearance,childhoodAway} from './
 import {dogAt} from './life-choices.js';
 import {rand} from './sim.js';
 const scenes=new WeakMap();
+// A renderer change must hide the old surface without allocating a new GPU scene.
+export function showPaintedCanvas(original){
+ const entry=scenes.get(original);if(entry&&entry!==false)entry.canvas.hidden=true;
+ original.hidden=false;
+}
 export function cameraSpan(age,phone=false){return age<1?3.5+age*2:phone?Math.min(9,5+age*.12):age<10?5.5+age*.3:age<20?8.5+(age-10)*.13:9.8+Math.min(40,age-20)*.03;}
 export function applyCutaway(base,faded){
  const material=base.material,transparent=faded||base.transparent,depthWrite=faded?false:base.depthWrite;
