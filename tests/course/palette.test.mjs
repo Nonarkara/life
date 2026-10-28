@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PALETTES, MOOD_ORDER, paletteFor, applyPalette, canvasWorld } from '../../dist/course/palettes.js';
+import { PALETTES, MOOD_ORDER, paletteFor, applyPalette, canvasWorld, HOUSE } from '../../dist/course/palettes.js';
 
 test('the palette library holds two or three dozen whole colour sets', () => {
   assert.ok(PALETTES.length >= 24 && PALETTES.length <= 36, 'palette count: ' + PALETTES.length);
@@ -30,17 +30,17 @@ test('the mood picks the family and the chapter walks through it', () => {
   assert.ok(seen.size >= 8, 'a life is never stuck in one scheme: ' + seen.size);
 });
 
-test('the console is printed in the palette, and the dark surfaces come from it', () => {
-  const root = { style: { setProperty(name, value) { this[name] = value; } }, dataset: {} };
+test('the interface keeps the house colours in every chord; the life colours the world and its stage band', () => {
+  const stages = new Set();
+  for (const palette of PALETTES) {
+    const root = { style: { setProperty(name, value) { this[name] = value; } }, dataset: {} };
+    applyPalette(palette, root);
+    for (const [name, value] of Object.entries(HOUSE)) assert.equal(root.style[name], value, palette.name + ' ' + name);
+    assert.equal(root.dataset.palette, palette.name);
+    stages.add(root.style['--stage']);
+  }
+  assert.ok(stages.size > 8, 'the stage band still follows the life');
   const palette = PALETTES.find(p => p.mood === 'steady');
-  applyPalette(palette, root);
-  assert.equal(root.style['--paper'], palette.paper);
-  assert.equal(root.style['--ink'], palette.ink);
-  assert.equal(root.style['--amber'], palette.accent);
-  assert.equal(root.dataset.palette, palette.name);
-  // The deck and the stage band are cut from the same palette, not pasted on.
-  assert.match(root.style['--deck'], /^#[0-9a-f]{6}$/i);
-  assert.notEqual(root.style['--deck'], palette.paper);
   const world = canvasWorld(palette);
   assert.equal(world.land, palette.world.land);
   assert.equal(world.amber, palette.accent, 'the canvas uses the palette accent');

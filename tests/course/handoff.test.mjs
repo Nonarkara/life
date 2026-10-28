@@ -19,8 +19,8 @@ test('every system-selected chord has readable UI accent text while preserving w
  for(const p of PALETTES){
   const tokens={},root={style:{setProperty:(k,v)=>tokens[k]=v},dataset:{}};applyPalette(p,root);
   assert.ok(contrastRatio(tokens['--deck-accent'],tokens['--deck'])>=4.5,p.name+' deck gain/focus');
-  assert.ok(contrastRatio(tokens['--accent-ink'],p.paper)>=4.5,p.name+' settings selection');
-  assert.equal(tokens['--amber'],p.accent,'authored accent is retained');
+  assert.ok(contrastRatio(tokens['--accent-ink'],tokens['--paper'])>=4.5,p.name+' settings selection');
+  assert.equal(tokens['--amber'],'#f59e0b','one house amber in every chord');
   if(contrastRatio(p.accent,tokens['--deck'])<4.5)oldFailure++;
   assert.equal(paletteFor({},50,'difficult',p.name),paletteFor({},50,'difficult'),'old pin cannot override life');
  }

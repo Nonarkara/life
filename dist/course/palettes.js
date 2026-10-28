@@ -67,20 +67,21 @@ function mix(a,b,weight=.5){
 // The console is printed in the palette: the paper, the ink, the accent the
 // controls are marked in, the rule lines, and the dark instrument surfaces the
 // life deck and the world band are cut from.
+export const HOUSE={'--paper':'#f4f0e6','--ink':'#192e2c','--muted':'#52635b','--amber':'#f59e0b','--line':'#b4b9a9',
+ '--deck':'#0a0e14','--deck-text':'#e6edf3','--deck-muted':'#9aa5ae','--deck-line':'#2a333c','--deck-accent':'#f59e0b','--accent-ink':'#875d2a'};
 export function applyPalette(palette,root=typeof document!=='undefined'?document.documentElement:null){
  if(!root)return;
  const set=(name,value)=>root.style.setProperty(name,value);
- set('--paper',palette.paper);set('--ink',palette.ink);set('--muted',palette.muted);
- set('--amber',palette.accent);set('--line',palette.line);
- const stage=mix(palette.ink,palette.world?.sky??palette.ink,.18);
+ // The interface keeps one fixed set of house colours: paper, ink, one amber and the dark
+ // instrument surface. A product's controls do not change colour with the story (owner,
+ // 29 Oct 2026: the event-painted chrome read as a hobby project). The life's chord colours
+ // the world and the stage band that frames it, where the events actually happen.
+ for(const [name,value] of Object.entries(HOUSE))set(name,value);
+ // The stage band frames the world in the house ink, leaning a little toward the life's sky.
+ const stage=mix(HOUSE['--ink'],palette.world?.sky??HOUSE['--ink'],.12);
  set('--stage',stage);
  set('--stage-text',readableAccent(palette.paper,stage));
- set('--stage-accent',readableAccent(palette.accent,stage));
- const deck=mix(palette.ink,'#000000',.25);set('--deck',deck);
- set('--deck-accent',readableAccent(palette.accent,deck));set('--accent-ink',readableAccent(palette.accent,palette.paper));
- set('--deck-line',readableAccent(mix(palette.ink,palette.paper,.4),deck,3));
- set('--deck-text',mix(palette.paper,palette.world?.sand??palette.paper,.2));
- set('--deck-muted',readableAccent(mix(palette.paper,palette.muted,.35),deck));
+ set('--stage-accent',readableAccent(HOUSE['--amber'],stage));
  root.dataset.palette=palette.name;
  root.style.colorScheme='light';
 }

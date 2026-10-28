@@ -54,11 +54,14 @@ function createScene(original){
  const materials=new Map(),geometries=new Map(),labels=[],growth=[],buildings=[];
  let appliedWorld=null;
  // Repaint the surfaces the palette owns when the mood or the chapter moves.
+ // How far the life's colour chord pulls the world's authored colours. Enough to feel, not to repaint.
+ const CHORD_TINT=.3;
  const repaint=world=>{
   if(!world||world===appliedWorld)return;appliedWorld=world;
   for(const[role,hexes]of Object.entries(SCENE_ROLES)){
    const next=world[role];if(!next)continue;
-   for(const hex of hexes){const material=materials.get(hex);if(material?.color)material.color.set(next);}
+   // A tint, not a repaint: each surface keeps its authored colour and leans toward the chord.
+   for(const hex of hexes){const material=materials.get(hex);if(material?.color)material.color.set(hex).lerp(new T.Color(next),CHORD_TINT);}
   }
   if(world.sky&&scene.background?.isColor)scene.background.set(world.sky);
  };
@@ -230,7 +233,7 @@ function createScene(original){
   districts.update(state,age);inhabited.update(state,age);
   const manual=context.pathway==='vocational'&&age>=15&&age<60;workChair.visible=!manual;laptop.visible=!manual;workpiece.visible=manual;infant.visible=age<1;cradleGroup.visible=age<6;bus.visible=age>=5;bus.position.set(-1+time*.12%14,0,7.25);for(const[from,group]of growth)group.visible=age>=from;
   flood.visible=state.history.some(r=>r.age===30&&/Floodwater/i.test(r.event??''))&&age>=30&&age<36;
-  const palette=currentPalette(),mood=palette?.name??lifeMoodAt(state,age);if(mood!==lastMood){lastMood=mood;const chord=palette?.world??MOOD_CHORDS[mood];land.material.color.set(place.look.ground).lerp(new T.Color(chord.land),.8);materials.get('#899273')?.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);materials.get('#526c50')?.color.set(chord.leaf);materials.get('#5b7f80')?.color.set(place.look.water).lerp(new T.Color(chord.water),.8);scene.background.set(chord.waterLight).lerp(new T.Color(chord.water),.6);for(const b of buildings)for(const {material}of b.surfaces){if(material.userData.roof)material.color.set(chord.roof).lerp(new T.Color('#766350'),.15);if(material.userData.ground)material.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);}
+  const palette=currentPalette(),mood=palette?.name??lifeMoodAt(state,age);if(mood!==lastMood){lastMood=mood;const chord=palette?.world??MOOD_CHORDS[mood];land.material.color.set(place.look.ground).lerp(new T.Color(chord.land),CHORD_TINT);materials.get('#899273')?.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);materials.get('#526c50')?.color.set('#526c50').lerp(new T.Color(chord.leaf),CHORD_TINT);materials.get('#5b7f80')?.color.set(place.look.water).lerp(new T.Color(chord.water),CHORD_TINT);scene.background.set('#8fa6a2').lerp(new T.Color(chord.waterLight),CHORD_TINT);for(const b of buildings)for(const {material}of b.surfaces){if(material.userData.roof)material.color.set('#8d8b78').lerp(new T.Color(chord.roof),CHORD_TINT);if(material.userData.ground)material.color.copy(land.material.color).lerp(new T.Color('#899273'),.25);}
    // Mood and region colours still pass through the world's Wada chord.
    for(const c of [land.material.color,materials.get('#526c50')?.color,materials.get('#5b7f80')?.color,scene.background])if(c)tint(c,.28);
    // Snow stays white whatever the mood; the mood shows in the sky and the water instead.
@@ -238,7 +241,7 @@ function createScene(original){
   // The sun crosses the sky through the day: low and warm in the morning, high and white at noon, gold by evening.
   const evening=time%60>=48,phase=time%60/60,sunUp=Math.max(.15,Math.sin(Math.min(1,phase/.8)*Math.PI));
   sun.position.copy(target).add(new T.Vector3(-14*Math.cos(phase*Math.PI),4+13*sunUp,6*Math.sin(phase*Math.PI)-2));
-  sun.intensity=evening?1.1:1.4+sunUp*1.3;hemi.intensity=evening?.75:1.05+sunUp*.4;sun.color.set(evening?'#ffcf9a':'#ffc98f').lerp(evening?sun.color:new T.Color('#fff4df'),evening?0:sunUp);const hard=palette?.mood==='difficult';if(hard){sun.intensity*=.72;hemi.intensity*=.82;sun.color.lerp(new T.Color(palette.world.sky),.18);}post.setNight(evening);
+  sun.intensity=evening?1.1:1.4+sunUp*1.3;hemi.intensity=evening?.75:1.05+sunUp*.4;sun.color.set(evening?'#ffcf9a':'#ffe8cf').lerp(evening?sun.color:new T.Color('#fff4df'),evening?0:sunUp);const hard=palette?.mood==='difficult';if(hard){sun.intensity*=.72;hemi.intensity*=.82;sun.color.lerp(new T.Color(palette.world.sky),.18);}post.setNight(evening);
   // Weather is the place's, drawn around wherever the life is.
   snow.visible=place.climate==='cold';rain.visible=flood.visible&&!snow.visible;
   if(snow.visible){snow.position.set(target.x,0,target.z);const p=snowGeo.attributes.position.array;for(let i=0;i<900;i++){p[i*3+1]=(9+((i*0.37)%9)-(time*.55+i*.013)%9)%9;p[i*3]=((i*7.31)%24)-12+Math.sin(time*.6+i)*.15;}snowGeo.attributes.position.needsUpdate=true;}
