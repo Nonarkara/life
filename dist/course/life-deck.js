@@ -5,7 +5,7 @@ import {deckHistory,deckBaht} from './deck-model.js';
 // The life console: one instrument surface, divided into labelled panels by function,
 // the way a flight deck is. Every control says what it changes. The panels are
 // LIFE COURSE, STATUS, SET POINTS, LIFE DIRECTION, MONEY and IKIGAI. The one action,
-// living the next five years, moves into the final instrument on wide screens.
+// living the next five years, stays beside the selected value on wide screens.
 // The deck draws and calls the actions it is given; game.js keeps every rule.
 const AIM_KEYS=[['balance','Balance'],['sport','Sport'],['art','Art'],['security','Security'],['connection','Connection']];
 const METRICS=[['health','Health'],['wellbeing','Mood'],['worth','Wealth']];
@@ -62,7 +62,8 @@ export function drawDeck(root,state,args){
  const scale=el('p','deck-note',metric==='worth'?deckBaht(chart.data.min)+' — '+deckBaht(chart.data.max):'0–100 · eight display bands');
  course.append(chart.svg,axis,show,scale,deckInfo('Recorded values',[chart.exact||t('No recorded values yet.'),'The graphs join five-year snapshots. Markers sit at the recorded review age, not an exact event date.']));
 
- const stat=panel('Status','deck-status');stat.append(rows(status),deckInfo('Cash runway',['Cash + reserve ÷ current essentials. Funds excluded.']));
+ const stat=panel('Status','deck-status');stat.append(rows(status));
+ if(status.some(([label])=>label==='Cash runway'))stat.append(deckInfo('Cash runway',['Cash + reserve ÷ current essentials. Funds excluded.']));
 
  // SET POINTS: choose the channel, then change its value. The result is shown beside it.
  const set=panel('Set points','deck-set');

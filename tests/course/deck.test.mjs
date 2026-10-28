@@ -40,3 +40,11 @@ test('only reviewed male frames are published, and the allowlist is what the man
  const approval=JSON.parse(readFileSync(new URL('../../art/frame-approvals.json',import.meta.url)));assert.deepEqual(approval['player-m'].sort(),reviewed);
  for(const path of Object.values(manifest.sprites['player-m']))assert.ok(readFileSync(new URL('../../dist/course/anime/'+path,import.meta.url)).length>100);
 });
+test('cash-runway help accompanies its reading and does not appear on a childhood status panel',()=>{
+ const previous=globalThis.document;globalThis.document={getElementById:()=>null,querySelector:()=>null,createElement:t=>new Node(t),createElementNS:(_,t)=>new Node(t),activeElement:null};
+ try{
+  const root=new Node('div'),s={age:10,history:[]},args={channels:[{label:'Physique',value:'2',detail:'+2',detailLabel:'By age 15',can:()=>true,step(){}}],aim:'balance',setAim(){},status:[['Health','90 / 100'],['Mood','65 / 100']]};
+  drawDeck(root,s,args);assert.ok(!all(root).some(n=>n.attrs['aria-label']==='Cash runway'));
+  drawDeck(root,s,{...args,status:[...args.status,['Cash runway','3 months']]});assert.ok(all(root).some(n=>n.attrs['aria-label']==='Cash runway'));
+ }finally{globalThis.document=previous;}
+});
