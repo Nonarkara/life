@@ -496,3 +496,18 @@ Profile897,phone841/844,no pageoverflow/warnings/errors. See review/console-heig
 for distinction between dense local comparison and actual public receipts.
 MSH verified lesson captured and exact-source recalltested; DESIGN-RULES hardened.
 No simulation/save/art changes. HardwareFPS/player testing still unverified.
+
+
+## Preview freshness ·28October2026
+Owner screenshot showed old narrow centered main/stackedconsole and removed
+Show/Recordedvalues/footer; freshcanonicalpage atsame1902×1178 fillsviewport.
+Originaltab browserhandles unavailable, so exactretained/cachecause unproved.
+Do not claimmixedcache.21d05d6 addsHTML/buildJSONno-store,HTMLbuildmarker and
+ordinaryentryURL/headers/hash verification alongsidequeryprobes. Build442bb1ed8bc4,
+deployment7915f531. Bothhosts direct/course/,index redirect+buildJSON exactwith
+no-store;16real/bareassetsmatchafter3probestreak.229tests,fouractualpublicviews
+1902/1440/1024/390 withmainx0,widthviewport,pagefit,onevisibleaction pass;old
+recordedshrinkwrap fails samegate. Independent reviewcleared. Age10saveunchanged,
+0/1/2/2/5points,3questions,no warn/errors. Evidence review/preview-freshness.
+NoUI/simulation/artrewrite. MSHlesson captured. Headers onlyaffect subsequent
+navigation; cannotretroactivelyreload anolderopenDOM.
