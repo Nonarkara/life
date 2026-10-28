@@ -58,3 +58,20 @@ Ordinary routines still draw in 3D; only the recorded moments are painted, and
 that is the hybrid setting, not a rollback. The grandmother's crouching pose
 has no published frame and keeps its 3D fallback. Three plates carry small
 signage the model drew. Actual M3 hardware performance is still unmeasured.
+
+
+## Second release · 28 October 2026, 12:56
+
+Build `b0ee1fc5c220` replaced `4f50b23ea92c` on the same project and branch.
+
+The world took the page. The band is 1080 by 431, which is the painted plate's
+own 21:9, and the 3D camera is capped to the town's width so the frame is
+filled with the town instead of empty ground. The head band and the caption
+band are half as thick. The life console is one row of six compact panels
+(213px, where it was two rows of three) and the plan card no longer overflows
+at all. The year column is 360px and packed.
+
+Measured on the deployment: at 1440 the world band is 2.51 to 1, the deck is
+213px, the plan card overflows 0, the page overflows 4px, no panel overlaps
+another, and there is no console error. One ordinary view costs 13 requests and
+744 kB, the same as before the redesign. 223 tests pass.
