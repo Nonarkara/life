@@ -56,6 +56,7 @@ const ROLES={
     stand:[['child','stand'],['child','stand']],
     sit:[['child','sit'],['child','sit']],
     crouch:[['child','crouch'],['child','crouch']],
+    desk:[['child-b','write']],
     read:[['child-b','read'],['child-b','read']],
     write:[['child-b','write'],['child-b','write']],
     ride:[['child-b','ride'],['child-b','ride-b']],

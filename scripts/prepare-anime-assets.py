@@ -580,6 +580,8 @@ def prepare_plate(name, key):
     image.save(TARGET / file, "WEBP", quality=68, method=2)
     return file
 
+PLATES.update({'plate-bedroom-day@slum': 'bedroom-day@slum', 'plate-bedroom-night@slum': 'bedroom-night@slum', 'plate-bedroom-day@condo': 'bedroom-day@condo', 'plate-bedroom-night@condo': 'bedroom-night@condo', 'plate-bedroom-day@villa': 'bedroom-day@villa', 'plate-bedroom-night@villa': 'bedroom-night@villa', 'plate-bedroom-day@tower': 'bedroom-day@tower', 'plate-bedroom-night@tower': 'bedroom-night@tower', 'plate-bedroom-day@tokyo': 'bedroom-day@tokyo', 'plate-bedroom-night@tokyo': 'bedroom-night@tokyo', 'plate-bedroom-day@newengland': 'bedroom-day@newengland', 'plate-bedroom-night@newengland': 'bedroom-night@newengland', 'plate-bedroom-day@brick': 'bedroom-day@brick', 'plate-bedroom-night@brick': 'bedroom-night@brick'})
+
 
 def main():
     only = sys.argv[1] if len(sys.argv) > 1 else "all"

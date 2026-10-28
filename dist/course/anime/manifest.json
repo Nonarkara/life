@@ -48,7 +48,18 @@
   "home-night@brick": "plates/home-night@brick.webp",
   "street-day@brick": "plates/street-day@brick.webp",
   "school@brick": "plates/school@brick.webp",
-  "work@brick": "plates/work@brick.webp"
+  "work@brick": "plates/work@brick.webp",
+  "bedroom-day@slum": "plates/bedroom-day@slum.webp",
+  "bedroom-day@condo": "plates/bedroom-day@condo.webp",
+  "bedroom-night@condo": "plates/bedroom-night@condo.webp",
+  "bedroom-day@villa": "plates/bedroom-day@villa.webp",
+  "bedroom-night@villa": "plates/bedroom-night@villa.webp",
+  "bedroom-day@tower": "plates/bedroom-day@tower.webp",
+  "bedroom-day@tokyo": "plates/bedroom-day@tokyo.webp",
+  "bedroom-night@tokyo": "plates/bedroom-night@tokyo.webp",
+  "bedroom-night@newengland": "plates/bedroom-night@newengland.webp",
+  "bedroom-day@brick": "plates/bedroom-day@brick.webp",
+  "bedroom-night@brick": "plates/bedroom-night@brick.webp"
  },
  "sprites": {
   "player-a": {
