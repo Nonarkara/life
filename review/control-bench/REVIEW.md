@@ -59,3 +59,20 @@ This is a bounded composition correction, not a blanket artwork/FPS/touch or
 external playtesting certification. Local IAB module entries did not start;
 verification moved to an isolated HTTPS preview. No debug state was injected.
 Publication and public preserved-save receipts follow main deployment.
+
+## Final preservation and publication followup
+
+233 tests pass. Independent review cleared final map captures at build e0d3cc48eb10.
+The existing full-screen route axis was covered by the floating bench (route-before.png).
+The same route model now opens as a compact native dialog over the world, pauses and
+restores playback and focus, and sizes to recorded lanes. The age axis spans lived
+age, including non-decade endpoints. Existing ending render/export remains intact.
+Four authored sparse/dense desktop/phone captures show complete places and events;
+route.json records exact viewport bounds. route-game.json verifies Escape/focus and
+playback restoration in the actual isolated saved game. No production life advanced.
+
+Gemini's additional reconciliation report names historical source5e5f239. Git confirms
+it is already an ancestor of current main; no repeat cherry-pick is appropriate.
+Its roster, charts, transport and accepted assets remain; its reserved full-height
+reader composition is the current defect corrected here. Its old visual approval
+is not evidence against the user's newer screenshot. Public receipts follow below.

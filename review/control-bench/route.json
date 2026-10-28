@@ -1,0 +1,122 @@
+{
+  "build": "e0d3cc48eb10",
+  "cases": [
+    {
+      "life": "10",
+      "size": "desktop",
+      "canvas": {
+        "bottom": 528.5,
+        "height": 128,
+        "left": 517,
+        "right": 923,
+        "top": 400.5,
+        "width": 406,
+        "x": 517,
+        "y": 400.5
+      },
+      "description": "Where your life went: Nakhon Sawan 0–10.",
+      "dialog": {
+        "bottom": 582.5,
+        "height": 265,
+        "left": 496,
+        "right": 944,
+        "top": 317.5,
+        "width": 448,
+        "x": 496,
+        "y": 317.5
+      },
+      "h": 900,
+      "pageH": 900,
+      "pageW": 1440,
+      "w": 1440
+    },
+    {
+      "life": "10",
+      "size": "phone",
+      "canvas": {
+        "bottom": 490,
+        "height": 128,
+        "left": 36.6015625,
+        "right": 353.3984375,
+        "top": 362,
+        "width": 316.796875,
+        "x": 36.6015625,
+        "y": 362
+      },
+      "description": "Where your life went: Nakhon Sawan 0–10.",
+      "dialog": {
+        "bottom": 565,
+        "height": 286,
+        "left": 15.6015625,
+        "right": 374.3984375,
+        "top": 279,
+        "width": 358.796875,
+        "x": 15.6015625,
+        "y": 279
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "w": 390
+    },
+    {
+      "life": "route",
+      "size": "desktop",
+      "canvas": {
+        "bottom": 633.5,
+        "height": 338,
+        "left": 405,
+        "right": 1035,
+        "top": 295.5,
+        "width": 630,
+        "x": 405,
+        "y": 295.5
+      },
+      "description": "Where your life went: Nakhon Sawan 0–20; Bang Na, Bangkok 20–30; Nerima, Tokyo 30–40; Walthamstow, London 40–50; Nakhon Sawan 50–55.",
+      "dialog": {
+        "bottom": 687.5,
+        "height": 475,
+        "left": 384,
+        "right": 1056,
+        "top": 212.5,
+        "width": 672,
+        "x": 384,
+        "y": 212.5
+      },
+      "h": 900,
+      "pageH": 900,
+      "pageW": 1440,
+      "w": 1440
+    },
+    {
+      "life": "route",
+      "size": "phone",
+      "canvas": {
+        "bottom": 571,
+        "height": 290,
+        "left": 36.6015625,
+        "right": 353.3984375,
+        "top": 281,
+        "width": 316.796875,
+        "x": 36.6015625,
+        "y": 281
+      },
+      "description": "Where your life went: Nakhon Sawan 0–20; Bang Na, Bangkok 20–30; Nerima, Tokyo 30–40; Walthamstow, London 40–50; Nakhon Sawan 50–55.",
+      "dialog": {
+        "bottom": 646,
+        "height": 448,
+        "left": 15.6015625,
+        "right": 374.3984375,
+        "top": 198,
+        "width": 358.796875,
+        "x": 15.6015625,
+        "y": 198
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "w": 390
+    }
+  ],
+  "logs": []
+}

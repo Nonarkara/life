@@ -1,3 +1,4 @@
+import {openRouteView} from '../course/route-view.js';
 // Explicit visual fixtures; this module never reads or writes the saved life.
 import {newLife,begin,AXES,transfer} from '../course/sim.js';
 import {openFinance,setBudget} from '../course/finance.js';
@@ -10,14 +11,20 @@ import {initSettings} from '../course/i18n.js';
 import {setPalette,paletteFor} from '../course/palettes.js';
 const $=id=>document.getElementById(id),pick=document.createElement('select');
 pick.setAttribute('aria-label','Review life');
-for(const [value,label]of [['10','Review: childhood · 10'],['55','Review: adult · 55']]){const option=document.createElement('option');option.value=value;option.textContent=label;pick.append(option);}
+for(const [value,label]of [['10','Review: childhood · 10'],['55','Review: adult · 55'],['route','Review: moves and events · 55']]){const option=document.createElement('option');option.value=value;option.textContent=label;pick.append(option);}
 const reviewHeader=document.querySelector('header');reviewHeader.style.flexWrap='wrap';pick.style.maxWidth='100%';pick.style.minWidth='0';reviewHeader.append(pick);
 document.body.classList.remove('loading');document.body.classList.add('is-review');$('load-state').remove();
 let state;
-function fixture(age){
+function fixture(age,moves=false){
  let s={...begin(newLife(17)),age,pathway:age>=20?'work':'school',stage:'review',intake:{sex:'female'},health:72,wellbeing:68,original:{physique:2,iq:2,eq:2,craft:2,drive:2}};
  if(age>=15){s=openFinance(s);s.finance={...s.finance,available:15000,reserve:40000};}
  s.history=[0,10,15,20,25,30,35,40,45,50,55].filter(a=>a<=age).map(a=>({age:a,from:Math.max(0,a-5),pathway:a<20?'school':'work',effort:{...s.effort},profile:{...s.profile},health:90-a*.3,wellbeing:60+a*.1,cash:18000,...(a>=15?{finance:{...s.finance}}:{})}));
+ if(moves){
+  const itinerary=[['bang-na',20],['tokyo',30],['london',40],[s.birth.region,50]];
+  for(const row of s.history)if(row.age>=20){const [region,regionSince]=itinerary.filter(([,since])=>since<=row.age).at(-1);row.finance={...row.finance,region,regionSince};}
+  s.finance={...s.finance,region:s.birth.region,regionSince:50};
+  for(const [age,event]of [[25,'Leaving school'],[40,'Floodwater damages the family home.'],[55,'Work slows']])s.history.find(row=>row.age===age).event=event;
+ }
  return s;
 }
 state=fixture(10);
@@ -35,4 +42,5 @@ function render(){
  drawDeck(deck,state,{channels,status,money,aim:state.profile.aim,setAim:aim=>{state={...state,profile:{...state.profile,aim}};render();},ikigai:state.age>=15?{score:60,parts:[['Love',65],['Good at',70],['Gives',45],['Sustains',60]]}:null});
  consoleUI.render();personal.render();requestAnimationFrame(()=>drawWorld($('world'),state,state.age,25,'world',{animating:false}));$('scene-caption').textContent=drawWorld($('world'),state,state.age,25,'world',{animating:false})?.caption??'Review fixture';
 }
-pick.onchange=()=>{state=fixture(Number(pick.value));render();};window.addEventListener('resize',render);window.addEventListener('life-stage-art',render);window.addEventListener('life-preferences',render);initSettings();render();
+$('overview').hidden=false;$('overview').textContent='Life course';$('overview').onclick=()=>openRouteView(state,{trigger:$('overview')});
+pick.onchange=()=>{state=fixture(pick.value==='route'?55:Number(pick.value),pick.value==='route');render();};window.addEventListener('resize',render);window.addEventListener('life-stage-art',render);window.addEventListener('life-preferences',render);initSettings();render();
