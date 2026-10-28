@@ -57,21 +57,20 @@ export function renderWorldNow(root,s){
   const row=el('div',undefined,'world-meter');
   const line=el('div',undefined,'world-meter-line');
   line.append(el('span',label),el('b',(value>=0?'+':'−')+Math.abs(value).toFixed(1)+' %'));
-  const track=el('span',undefined,'world-meter-track'),fill=el('i',value<0?'negative':'');
+  const track=el('span',undefined,'world-meter-track'),fill=el('i',undefined,value<0?'negative':'');
   fill.style.width=(Math.abs(value)/scale*50)+'%';
   if(value<0)fill.style.right='50%';else fill.style.left='50%';
   track.append(fill);row.append(line,track);meters.append(row);
  }
  root.append(meters,el('p','Each bar runs from the centre line; the widest bar on this scale is ±'+scale.toFixed(0)+' %.','world-now-note'));
  const chapter=s.history.at(-1)?.economy;
- if(chapter){const group=el('section',undefined,'economy-exposure');group.append(el('h3','What that year did to you'),el('p','Work income effect: '+money(chapter.incomeAdjustment)+' / month'),el('p','Your holdings changed: '+money(chapter.marketChange)),el('p','Contraction years in that chapter: '+chapter.contractions.length));root.append(group);}
+ if(chapter){const group=el('section',undefined,'economy-exposure');group.append(el('h3','Latest completed chapter'),el('p','Totals for ages '+chapter.from+'–'+chapter.to,'world-now-note'),el('p','Work income effect: '+money(chapter.incomeAdjustment)),el('p','Your holdings changed: '+money(chapter.marketChange)),el('p','Contraction years in that chapter: '+chapter.contractions.length));root.append(group);}
 }
 export function renderEconomy(root,s){
  const world=economyFor(s),rows=economyYears(world,s.age),section=el('section',undefined,'economy-view');section.setAttribute('aria-label','Shared economy');
  section.append(el('h2','Shared economy'));
  if(!s.economy||world.activeFrom>0)section.append(el('p','Economic record begins at age '+world.activeFrom+'.','console-note'));
- if(rows.length>1)section.append(el('p','Scenario years '+rows[0].year+'–'+rows.at(-1).year,'console-note'));
- else section.append(el('p','The economy unfolds as you live. Future years are hidden.','console-note'));
+ if(rows.length<2)section.append(el('p','The economy unfolds as you live. Future years are hidden.','console-note'));
  section.append(el('p','Historical GDP · game fund returns','console-note'));
  const details=el('details');details.append(el('summary','Annual scenario record'));const list=el('ol',undefined,'economy-years');
  for(const r of rows.slice().reverse()){

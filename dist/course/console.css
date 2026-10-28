@@ -27,9 +27,11 @@ body.console-mode{height:100dvh;overflow:hidden}
 .console-panel h1{font-size:calc(17px * var(--reading-scale));margin:0 0 4px}
 .console-panel h2{font-size:calc(13px * var(--reading-scale));margin:10px 0 4px}
 .console-note{font-size:calc(12px * var(--reading-scale));line-height:1.5;max-width:60ch;color:var(--muted)}
-.console-actions{flex:none;padding:4px 12px;background:var(--paper);border-top:1px solid var(--line)}
+/* Save state and the action share one compact row; full event prose stays in Plan. */
+.console-actions{flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:3px 12px;background:var(--paper);border-top:1px solid var(--line)}
+.console-actions #save-status{margin:0;font-size:calc(12px * var(--reading-scale));color:var(--muted);white-space:normal}
+.console-actions #commit{margin:0;max-width:24ch}
 .console-actions[hidden],.console-actions:has(button[hidden]){display:none}
-.console-actions #commit{margin:0}
 .console-panel{scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--muted) var(--paper)}
 .console-panel::-webkit-scrollbar{width:6px}
 .console-panel::-webkit-scrollbar-track{background:var(--paper)}
@@ -103,3 +105,19 @@ body.console-mode{height:100dvh;overflow:hidden}
 #choice-result{margin:0 0 14px;padding:10px 12px;border-left:3px solid var(--amber);background:rgba(245,158,11,.08)}
 #choice-result p{margin:0 0 4px}#choice-result .moved{font-variant-numeric:tabular-nums;color:var(--muted);margin:0}
 .ending-share{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:end;margin:0 0 24px;max-width:760px}.ending-share label{display:grid;gap:4px;flex:1;min-width:240px;font-weight:600}.ending-share input{font:inherit;padding:8px 0;border:0;border-bottom:1px solid var(--ink);background:none;color:inherit}.ending-share .fine{flex-basis:100%;margin:0}
+
+/* Header size follows native type; the working surface receives the exact remainder. */
+body.console-mode{display:flex;flex-direction:column}
+body.console-mode>header{flex:none}
+.console-mode main{flex:1;min-height:0;height:0}
+@media(min-width:1280px){
+ .console-mode:not(.birth-stage):not(.recap-stage) .player-console{max-height:46dvh}
+}
+
+@media(min-width:1280px) and (max-width:1399px){
+ .console-mode:not(.birth-stage):not(.recap-stage) .player-console{max-height:51dvh}
+}
+/* Enlarged native text earns more decision room, rather than smaller controls. */
+@media(max-width:1279px){
+ html[data-text-size=extra] .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-rows:minmax(120px,28dvh) minmax(0,1fr) auto}
+}

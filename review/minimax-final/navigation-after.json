@@ -1,0 +1,26 @@
+[
+  {
+    "action": "Keyboard focus scroll into Money",
+    "nearest": "console-money",
+    "scroll": 780,
+    "selected": "console-money"
+  },
+  {
+    "action": "Click world",
+    "nearest": "console-world",
+    "scroll": 1560,
+    "selected": "console-world"
+  },
+  {
+    "action": "Click history",
+    "nearest": "console-history",
+    "scroll": 1950,
+    "selected": "console-history"
+  },
+  {
+    "action": "Click plan",
+    "nearest": "console-plan",
+    "scroll": 0,
+    "selected": "console-plan"
+  }
+]

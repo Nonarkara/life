@@ -173,3 +173,8 @@
  .life-deck .deck-axis{font-size:calc(11px * var(--reading-scale))}
  .life-deck .deck-strip{gap:2px}
 }
+
+/* Preserve material colours, but keep small values and focus visible in every chord. */
+.life-deck .deck-result,.life-deck .deck-chip.active .deck-chip-val{color:var(--deck-accent)}
+.life-deck .deck-set,.life-deck .deck-chip.active,.life-deck .deck-aim[aria-pressed=true]{border-color:var(--deck-accent)}
+.life-deck .deck-key:focus-visible,.life-deck .deck-toggle:focus-visible,.life-deck .deck-chip:focus-visible{outline:2px solid var(--deck-accent);outline-offset:2px}

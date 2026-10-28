@@ -52,11 +52,23 @@ export const MOOD_ORDER=['steady','bright','difficult'];
 
 // The family the mood chooses, and the chord the chapter walks to. A life
 // changes colour every five years and changes family when its mood turns.
-export function paletteFor(state,age,mood){
+export function paletteFor(state,age,mood,pinned='auto'){
+ if(pinned&&pinned!=='auto'){const chosen=PALETTES.find(p=>p.name===pinned);if(chosen)return chosen;}
  const family=PALETTES.filter(p=>p.mood===mood);
  if(!family.length)return PALETTES[0];
  const chapter=Math.max(0,Math.floor((age-10)/5));
  return family[chapter%family.length];
+}
+
+// UI accents need readable contrast even when the authored material colour is pale.
+export function contrastRatio(a,b){
+ const light=hex=>{const c=hex.slice(1).match(/../g).map(v=>parseInt(v,16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);return c[0]*.2126+c[1]*.7152+c[2]*.0722;};
+ const x=light(a),y=light(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);
+}
+function readableAccent(accent,background){
+ const end=contrastRatio('#ffffff',background)>contrastRatio('#000000',background)?'#ffffff':'#000000';
+ for(let step=0;step<=100;step++){const candidate=mix(accent,end,step/100);if(contrastRatio(candidate,background)>=4.5)return candidate;}
+ return end;
 }
 
 // Two colours mixed, so the dark instrument surface and the stage band are
@@ -77,7 +89,8 @@ export function applyPalette(palette,root=typeof document!=='undefined'?document
  set('--paper',palette.paper);set('--ink',palette.ink);set('--muted',palette.muted);
  set('--amber',palette.accent);set('--line',palette.line);
  set('--stage',mix(palette.ink,palette.world?.sky??palette.ink,.18));
- set('--deck',mix(palette.ink,'#000000',.25));
+ const deck=mix(palette.ink,'#000000',.25);set('--deck',deck);
+ set('--deck-accent',readableAccent(palette.accent,deck));set('--accent-ink',readableAccent(palette.accent,palette.paper));
  set('--deck-line',mix(palette.ink,palette.muted,.75));
  set('--deck-text',mix(palette.paper,palette.world?.sand??palette.paper,.2));
  set('--deck-muted',mix(palette.paper,palette.muted,.35));
@@ -86,7 +99,7 @@ export function applyPalette(palette,root=typeof document!=='undefined'?document
 }
 
 // The palette in force. The console, the painted canvas and the 3D scene all
-// read it, so one life changes colour in every surface at once.
+// read it. Painted illustrations retain their authored colour.
 let current=null;
 export function setPalette(palette){current=palette;applyPalette(palette);return current;}
 export function currentPalette(){return current;}

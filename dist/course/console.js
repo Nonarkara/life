@@ -23,7 +23,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
  const plan=element('section');plan.id='console-plan';plan.className='console-panel console-card';plan.setAttribute('aria-label','Plan');
  // The action button is read before the decision panel is moved: a node that
  // is not yet attached to the document cannot be found by id.
- const commit=document.getElementById('commit');
+ const commit=document.getElementById('commit'),saveStatus=document.getElementById('save-status');
  plan.append(decision);
 
  // The reader: the year around you, and the records this life keeps.
@@ -34,10 +34,11 @@ export function initConsole({getState,change,isMoving=()=>false}){
  const panes={},buttons={};let active=wide.matches?'world':'plan',moneyView='budget';const investmentDraft={asset:'bond',amount:'1000',notice:''};
  for(const[key,label]of ORDER){
   const b=element('button',label);b.type='button';b.setAttribute('aria-controls','console-'+key);b.onclick=()=>select(key);buttons[key]=b;nav.append(b);
-  const p=element('section');p.id='console-'+key;p.className='console-panel console-card';p.setAttribute('aria-label',label);panes[key]=p;
+  const p=key==='plan'?plan:element('section');p.id='console-'+key;p.className='console-panel console-card';p.setAttribute('aria-label',label);panes[key]=p;
  }
  panes.history.append(resources,method);const comparison=element('section',undefined,'baseline-compare');comparison.setAttribute('aria-label','Your life and the life you did not choose');panes.history.append(comparison);
- const actions=element('div',undefined,'console-actions');actions.append(commit);
+ const actions=element('div',undefined,'console-actions');
+ actions.append(saveStatus,commit);
  cards.append(...Object.values(panes).filter(p=>p.id!=='console-plan'));
  reader.append(worldNow,nav,cards);
  player.append(plan,actions);
@@ -46,6 +47,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
  // Where each piece lives depends on the width: a dashboard splits the screen,
  // a narrow screen puts every console in one strip you swipe sideways.
  function place(){
+  if(wide.matches&&active==='plan')active='world';
   if(wide.matches){player.append(plan,actions);reader.insertBefore(worldNow,nav);}
   else{cards.prepend(plan);panes.world.prepend(worldNow);}
   document.body.classList.toggle('dashboard',wide.matches);
@@ -53,7 +55,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
  }
  place();wide.addEventListener('change',place);
 
- function select(key){
+ function select(key,{align=true,reset=true}={}){
   active=key;
   if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}
   if(key==='cv')cvPane(getState());
@@ -61,9 +63,16 @@ export function initConsole({getState,change,isMoving=()=>false}){
   // The Plan console is permanent on a wide screen; every console is a card in
   // one swipeable strip on a narrow one.
   for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(wide.matches?k!==key:false);buttons[k].setAttribute('aria-pressed',String(k===key));}
-  if(!wide.matches){const target=panes[key];cards.scrollTo({left:target.offsetLeft-cards.offsetLeft,behavior:'smooth'});}
-  panes[key].scrollTop=0;
+  if(!wide.matches&&align){const target=panes[key];cards.scrollTo({left:cards.scrollLeft+target.getBoundingClientRect().left-cards.getBoundingClientRect().left,behavior:'instant'});}
+  if(reset)panes[key].scrollTop=0;
  }
+ // A swipe changes the selected console too; labels must describe the visible card.
+ let scrollFrame=0;
+ cards.addEventListener('scroll',()=>{if(wide.matches||scrollFrame)return;scrollFrame=requestAnimationFrame(()=>{
+  scrollFrame=0;const edge=cards.getBoundingClientRect().left;
+  const nearest=Object.entries(panes).filter(([,pane])=>!pane.hidden).sort((a,b)=>Math.abs(a[1].getBoundingClientRect().left-edge)-Math.abs(b[1].getBoundingClientRect().left-edge))[0]?.[0];
+  if(nearest&&nearest!==active)select(nearest,{align:false,reset:false});
+ });});
  const heading=(pane,title,note)=>{pane.replaceChildren(element('h1',title));if(note)pane.append(element('p',note,'console-note'));};
  function moneyPane(s){
   const p=panes.money;heading(p,'Your money',moneyView==='budget'?'Personal money and the household buffer are separate.':undefined);
@@ -156,7 +165,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
  }
  function render(){const scroll=panes[active].scrollTop,s=getState();
   // One review surface first: a tab appears only once it has something of this life to show.
-  const end=s.stage==='recap',opens={money:15,cv:20,world:20,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active=wide.matches?'world':'plan';if(wide.matches&&active==='plan')active='world';
+  const end=s.stage==='recap',opens={money:15,cv:20,world:10,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active=wide.matches?'world':'plan';if(wide.matches&&active==='plan')active='world';
   baselinePane(s);renderWorldNow(worldNow,s);select(active);panes[active].scrollTop=scroll;}
  return {render,select};
 }

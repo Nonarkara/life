@@ -1,0 +1,320 @@
+{
+  "current": {
+    "action": {
+      "bottom": 717,
+      "client": 34,
+      "display": "block",
+      "h": 36.5,
+      "scroll": 34,
+      "w": 100.8203125,
+      "x": 847.1796875,
+      "y": 680.5
+    },
+    "comparison": {
+      "bottom": 0,
+      "client": 0,
+      "display": "block",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "deck": {
+      "bottom": 671.5703125,
+      "client": 271,
+      "display": "grid",
+      "h": 273.265625,
+      "scroll": 271,
+      "w": 928,
+      "x": 16,
+      "y": 398.3046875
+    },
+    "event": {
+      "bottom": 735.3671875,
+      "client": 35,
+      "display": "block",
+      "h": 34.796875,
+      "scroll": 35,
+      "w": 468,
+      "x": 16,
+      "y": 700.5703125
+    },
+    "footer": {
+      "bottom": 720,
+      "client": 43,
+      "display": "grid",
+      "h": 43.5,
+      "scroll": 43,
+      "w": 960,
+      "x": 0,
+      "y": 676.5
+    },
+    "h": 720,
+    "header": {
+      "bottom": 48.5,
+      "client": 47,
+      "display": "flex",
+      "h": 48.5,
+      "scroll": 47,
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "main": {
+      "bottom": 720,
+      "client": 672,
+      "display": "grid",
+      "h": 671.5,
+      "scroll": 672,
+      "w": 1280,
+      "x": 0,
+      "y": 48.5
+    },
+    "pageH": 720,
+    "pageW": 1280,
+    "palette": "Plum · bright",
+    "panels": [
+      {
+        "bottom": 670.5703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-course"
+      },
+      {
+        "bottom": 670.5703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-status"
+      },
+      {
+        "bottom": 670.5703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-set"
+      },
+      {
+        "bottom": 670.5703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-direction"
+      },
+      {
+        "bottom": 670.5703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-money"
+      },
+      {
+        "bottom": 670.5703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-ikigai"
+      }
+    ],
+    "plan": {
+      "bottom": 676.5,
+      "client": 322,
+      "display": "block",
+      "h": 321.6953125,
+      "scroll": 358,
+      "w": 960,
+      "x": 0,
+      "y": 354.8046875
+    },
+    "profile": {
+      "bottom": 0,
+      "client": 0,
+      "display": "none",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "reader": {
+      "bottom": 720,
+      "client": 672,
+      "display": "flex",
+      "h": 671.5,
+      "scroll": 672,
+      "w": 320,
+      "x": 960,
+      "y": 48.5
+    },
+    "set": {
+      "bottom": 670.5703125,
+      "client": 271,
+      "display": "grid",
+      "h": 271.265625,
+      "scroll": 271,
+      "w": 153.5,
+      "x": 326,
+      "y": 399.3046875
+    },
+    "w": 1280,
+    "world": {
+      "bottom": 352.8046875,
+      "client": 304,
+      "display": "flex",
+      "h": 304.3046875,
+      "scroll": 304,
+      "w": 960,
+      "x": 0,
+      "y": 48.5
+    }
+  },
+  "negative": {
+    "action": {
+      "bottom": 720.5,
+      "client": 34,
+      "display": "block",
+      "h": 36.5,
+      "scroll": 34,
+      "w": 100.8203125,
+      "x": 847.1796875,
+      "y": 684
+    },
+    "comparison": {
+      "bottom": 0,
+      "client": 0,
+      "display": "block",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "deck": {
+      "bottom": 711.0703125,
+      "client": 271,
+      "display": "grid",
+      "h": 273.265625,
+      "scroll": 271,
+      "w": 928,
+      "x": 16,
+      "y": 437.8046875
+    },
+    "event": {
+      "bottom": 774.8671875,
+      "client": 35,
+      "display": "block",
+      "h": 34.796875,
+      "scroll": 35,
+      "w": 468,
+      "x": 16,
+      "y": 740.0703125
+    },
+    "footer": {
+      "bottom": 723.5,
+      "client": 43,
+      "display": "grid",
+      "h": 43.5,
+      "scroll": 43,
+      "w": 960,
+      "x": 0,
+      "y": 680
+    },
+    "h": 720,
+    "header": {
+      "bottom": 48.5,
+      "client": 47,
+      "display": "flex",
+      "h": 48.5,
+      "scroll": 47,
+      "w": 1280,
+      "x": 0,
+      "y": 0
+    },
+    "main": {
+      "bottom": 723.5,
+      "client": 675,
+      "display": "grid",
+      "h": 675,
+      "scroll": 675,
+      "w": 1280,
+      "x": 0,
+      "y": 48.5
+    },
+    "pageH": 724,
+    "pageW": 1280,
+    "palette": "Plum · bright",
+    "panels": [
+      {
+        "bottom": 710.0703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-course"
+      },
+      {
+        "bottom": 710.0703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-status"
+      },
+      {
+        "bottom": 710.0703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-set"
+      },
+      {
+        "bottom": 710.0703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-direction"
+      },
+      {
+        "bottom": 710.0703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-money"
+      },
+      {
+        "bottom": 710.0703125,
+        "height": 271.265625,
+        "name": "deck-panel deck-ikigai"
+      }
+    ],
+    "plan": {
+      "bottom": 680,
+      "client": 286,
+      "display": "block",
+      "h": 285.6953125,
+      "scroll": 358,
+      "w": 960,
+      "x": 0,
+      "y": 394.3046875
+    },
+    "profile": {
+      "bottom": 0,
+      "client": 0,
+      "display": "none",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "reader": {
+      "bottom": 723.5,
+      "client": 675,
+      "display": "flex",
+      "h": 675,
+      "scroll": 675,
+      "w": 320,
+      "x": 960,
+      "y": 48.5
+    },
+    "set": {
+      "bottom": 710.0703125,
+      "client": 271,
+      "display": "grid",
+      "h": 271.265625,
+      "scroll": 271,
+      "w": 153.5,
+      "x": 326,
+      "y": 438.8046875
+    },
+    "w": 1280,
+    "world": {
+      "bottom": 392.3046875,
+      "client": 344,
+      "display": "flex",
+      "h": 343.8046875,
+      "scroll": 344,
+      "w": 960,
+      "x": 0,
+      "y": 48.5
+    }
+  }
+}

@@ -66,10 +66,10 @@ export function drawDeck(root,state,args){
 
  // SET POINTS: choose the channel, then change its value. The result is shown beside it.
  const set=panel('Set points','deck-set');
- const strip=el('div','deck-strip');strip.setAttribute('role','tablist');strip.setAttribute('aria-label','Channels');
+ const strip=el('div','deck-strip');strip.setAttribute('role','group');strip.setAttribute('aria-label','Channels');
  channels.forEach((c,idx)=>{
   const chip=el('button','deck-chip'+(idx===selected?' active':''));
-  chip.type='button';chip.setAttribute('role','tab');chip.setAttribute('aria-selected',String(idx===selected));
+  chip.type='button';chip.dataset.deck='Channel '+idx;chip.setAttribute('aria-pressed',String(idx===selected));
   chip.setAttribute('aria-label',c.label+': '+c.value);
   chip.append(el('span','deck-chip-name',c.label),el('b','deck-chip-val',c.value));
   chip.onclick=()=>{selected=idx;drawDeck(root,state,args);};
@@ -85,7 +85,7 @@ export function drawDeck(root,state,args){
  value.append(el('span','deck-label',String(ch.value).includes('%')?'Budget %':'Points /10'),stepper,el('span','deck-result',ch.detail+' '+t(ch.detailLabel)));
  const qualify=el('details','deck-projection'),method=el('summary','','How this projection works');qualify.append(method,el('p','deck-note','Authored scenario estimate, not a real-life prediction. Includes study budget and scheduled consequences; new choices can change it.'));
  if(projection){qualify.append(el('p','deck-note',t('Age multipliers')+': '+Object.entries(projection.eraWeights).map(([k,v])=>t(eraLabels[k]??k)+' ×'+v).join(' · ')));}
- set.append(strip,channel,value);if(ch.minimum!==undefined)set.append(el('p','deck-note',t('Minimum {n} from your choices').replace('{n}',ch.minimum)));set.append(qualify);
+ set.append(strip,channel,value,el('p','deck-note',t(String(ch.value).includes('%')?'Allocations must fit within 100%.':'± transfers a point to or from your largest other priority.')));if(ch.minimum!==undefined)set.append(el('p','deck-note',t('Minimum {n} from your choices').replace('{n}',ch.minimum)));set.append(qualify);
 
  const direction=panel('Life direction','deck-direction');const keys=el('div','deck-keys');
  for(const [k,label] of AIM_KEYS){const b=key(label,'Life direction: '+label,()=>setAim(k),{pressed:aim===k,cls:'deck-key deck-aim'});b.prepend(el('i','deck-light'));keys.append(b);}

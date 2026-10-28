@@ -111,4 +111,21 @@ Cash + reserve ÷ current essentials. Funds excluded.|เงินสดแล�
 {n} months|{n} เดือน|{n} 个月|{n}か月|{n}개월
 Points /10|คะแนน /10|点数 /10|配分点 /10|배분점 /10
 Budget %|งบ %|预算 %|予算 %|예산 %
+Colour scheme|ชุดสี|配色方案|配色|색상 구성
+Follow the life|เปลี่ยนสีตามชีวิต|跟随人生变化|人生に合わせる|삶의 변화에 맞추기
+Controls and 3D follow this scheme. Painted illustrations keep their authored colours.|ส่วนควบคุมและโลกสามมิติใช้ชุดสีนี้ ภาพวาดคงสีตามที่ออกแบบไว้|控件和三维世界使用此配色，插画保留原有颜色。|操作画面と3D世界に適用されます。イラストは制作時の色を保ちます。|조작 화면과 3D 세계에 적용됩니다. 삽화는 원래 색상을 유지합니다.
+Steady|สงบ|平稳|穏やか|안정
+Bright|สดใส|明快|明るい|밝음
+Difficult|หม่น|低沉|沈んだ|어두움
+The year around you|โลกในปีนี้|这一年的世界|この年の世界|이 해의 세계
+Scenario year {year} · age {age}|ปีจำลอง {year} · อายุ {age}|模拟年份 {year} · {age}岁|シナリオ年 {year} · {age}歳|시나리오 연도 {year} · {age}세
+Each bar runs from the centre line; the widest bar on this scale is ±{n} %.|แต่ละแถบเริ่มจากเส้นกลาง ค่าสูงสุดของสเกลนี้คือ ±{n} %|各条形从中线延伸，此刻度最大为±{n}%。|各バーは中央線から伸び、この目盛りの最大幅は±{n}%です。|각 막대는 중앙선에서 시작하며 이 눈금의 최대폭은 ±{n}%입니다.
+Totals for ages {from}–{to}|ยอดรวมช่วงอายุ {from}–{to}|{from}至{to}岁的合计|{from}～{to}歳の合計|{from}–{to}세 기간 합계
+Your holdings changed: {value}|มูลค่ากองทุนของคุณเปลี่ยนไป: {value}|持仓变动：{value}|保有資産の変動：{value}|보유 자산 변동: {value}
+Contraction years in that chapter: {n}|จำนวนปีเศรษฐกิจหดตัวในช่วงนี้: {n}|这一阶段的经济萎缩年份数：{n}|この章の景気縮小年数：{n}|이 기간의 경제 위축 연도 수: {n}
+Channels|ช่องปรับค่า|调整项目|調整項目|조정 항목
+Your life|ชีวิตของคุณ|你的人生|あなたの人生|당신의 삶
+Time transport|การควบคุมเวลา|时间控制|時間操作|시간 조작
+Play|เล่นต่อ|播放|再生|재생
+Fast forward · {n} times faster|เร่งเวลา · เร็วขึ้น {n} เท่า|快进 · {n}倍速|早送り · {n}倍速|빨리 감기 · {n}배속
 `.trim().split('\n').map(line=>line.split('|'));

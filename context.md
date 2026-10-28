@@ -456,3 +456,17 @@ it, and the five-year chapter walks through the family, so the scheme moves as
 the life moves. The console, the painted canvas and the 3D scene read the same
 palette at once, and the deck and the world band are cut from it rather than
 pasted on top of it. 223 tests pass.
+
+## MiniMax continuation audit · 28 October 2026
+Preserved world-first layout,30chords and172approved images; reviewed pending
+palette picker and compact action changes. Fixed profile rebuild deleting static
+radar, detached duplicate Plan pane confusing navigation, resize blank-reader
+selection, full-event truncation, nullfooter nodes and actualheader page bleed.
+Palette pin is persistent; auto restores mood/age. Contrast-safe UI accents leave
+world material colours intact; illustrations retain authored colours. Native copy
+completed. World income effect is a whole-chapter total, not a monthly wage.
+227tests and independent source/pixel review pass; fiveviewport/text plus four
+native cases and restored failure pass check-minimax-release.mjs. Inspect
+review/minimax-final/REVIEW.md and actual public receipts before claiming live.
+Physicaltouchswipe and M3hardware performance remain unverified. No save schema,
+simulation rule or approved image changed by this audit.
