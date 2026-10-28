@@ -1,0 +1,206 @@
+{
+  "build": "d4a1a9a7b8d9",
+  "steps": [
+    {
+      "step": "first question",
+      "action": {
+        "bottom": 704,
+        "height": 36.5,
+        "left": 526.53125,
+        "right": 679,
+        "top": 667.5,
+        "width": 152.46875,
+        "x": 526.53125,
+        "y": 667.5
+      },
+      "canvas": {
+        "bottom": 720,
+        "height": 631,
+        "left": 0,
+        "right": 1280,
+        "top": 89,
+        "width": 1280,
+        "x": 0,
+        "y": 89
+      },
+      "h": 720,
+      "pageH": 720,
+      "pageW": 1280,
+      "palette": "Wada 157",
+      "reader": null,
+      "roles": {
+        "--deck": "#5e0e2c",
+        "--deck-accent": "#7899c1",
+        "--deck-text": "#cbb049",
+        "--ink": "#7d133a",
+        "--muted": "#78332f",
+        "--paper": "#d6b43e",
+        "--stage": "#811b3a",
+        "--stage-accent": "#9ab3d1",
+        "--stage-text": "#d6b43e"
+      },
+      "w": 1280
+    },
+    {
+      "step": "second question",
+      "action": {
+        "bottom": 704,
+        "height": 36.5,
+        "left": 526.0546875,
+        "right": 679,
+        "top": 667.5,
+        "width": 152.9453125,
+        "x": 526.0546875,
+        "y": 667.5
+      },
+      "canvas": {
+        "bottom": 720,
+        "height": 631,
+        "left": 0,
+        "right": 1280,
+        "top": 89,
+        "width": 1280,
+        "x": 0,
+        "y": 89
+      },
+      "h": 720,
+      "pageH": 720,
+      "pageW": 1280,
+      "palette": "Wada 190",
+      "reader": null,
+      "roles": {
+        "--deck": "#0d0e0f",
+        "--deck-accent": "#d96629",
+        "--deck-text": "#e9c997",
+        "--ink": "#111314",
+        "--muted": "#4e493c",
+        "--paper": "#ebd3a2",
+        "--stage": "#1b1c1b",
+        "--stage-accent": "#d96629",
+        "--stage-text": "#ebd3a2"
+      },
+      "w": 1280
+    },
+    {
+      "step": "third question",
+      "action": {
+        "bottom": 704,
+        "height": 36.5,
+        "left": 534.7265625,
+        "right": 679,
+        "top": 667.5,
+        "width": 144.2734375,
+        "x": 534.7265625,
+        "y": 667.5
+      },
+      "canvas": {
+        "bottom": 720,
+        "height": 631,
+        "left": 0,
+        "right": 1280,
+        "top": 89,
+        "width": 1280,
+        "x": 0,
+        "y": 89
+      },
+      "h": 720,
+      "pageH": 720,
+      "pageW": 1280,
+      "palette": "Wada 207",
+      "reader": null,
+      "roles": {
+        "--deck": "#0d0e0f",
+        "--deck-accent": "#a66c57",
+        "--deck-text": "#b2c4b8",
+        "--ink": "#111314",
+        "--muted": "#3f4745",
+        "--paper": "#b4cdc2",
+        "--stage": "#191c1c",
+        "--stage-accent": "#ac7663",
+        "--stage-text": "#b4cdc2"
+      },
+      "w": 1280
+    },
+    {
+      "step": "recorded outcome",
+      "action": {
+        "bottom": 704,
+        "height": 36.5,
+        "left": 551.6171875,
+        "right": 679,
+        "top": 667.5,
+        "width": 127.3828125,
+        "x": 551.6171875,
+        "y": 667.5
+      },
+      "canvas": {
+        "bottom": 720,
+        "height": 631,
+        "left": 0,
+        "right": 1280,
+        "top": 89,
+        "width": 1280,
+        "x": 0,
+        "y": 89
+      },
+      "h": 720,
+      "pageH": 720,
+      "pageW": 1280,
+      "palette": "Wada 151",
+      "reader": null,
+      "roles": {
+        "--deck": "#053b53",
+        "--deck-accent": "#f99d1b",
+        "--deck-text": "#f5e5b3",
+        "--ink": "#064f6e",
+        "--muted": "#43717b",
+        "--paper": "#f5ecc2",
+        "--stage": "#216077",
+        "--stage-accent": "#fcc77d",
+        "--stage-text": "#f5ecc2"
+      },
+      "w": 1280
+    },
+    {
+      "step": "returned to priorities",
+      "action": {
+        "bottom": 704,
+        "height": 36.5,
+        "left": 551.6171875,
+        "right": 679,
+        "top": 667.5,
+        "width": 127.3828125,
+        "x": 551.6171875,
+        "y": 667.5
+      },
+      "canvas": {
+        "bottom": 720,
+        "height": 631,
+        "left": 0,
+        "right": 1280,
+        "top": 89,
+        "width": 1280,
+        "x": 0,
+        "y": 89
+      },
+      "h": 720,
+      "pageH": 720,
+      "pageW": 1280,
+      "palette": "Wada 151",
+      "reader": null,
+      "roles": {
+        "--deck": "#053b53",
+        "--deck-accent": "#f99d1b",
+        "--deck-text": "#f5e5b3",
+        "--ink": "#064f6e",
+        "--muted": "#43717b",
+        "--paper": "#f5ecc2",
+        "--stage": "#216077",
+        "--stage-accent": "#fcc77d",
+        "--stage-text": "#f5ecc2"
+      },
+      "w": 1280
+    }
+  ],
+  "logs": []
+}

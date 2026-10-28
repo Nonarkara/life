@@ -157,3 +157,10 @@ body.console-mode>header{flex:none}
  .personal-console #narrative:empty,.personal-console #effect-preview:empty{display:none}
  .deck-action-integrated .console-actions{display:none}
 }
+
+/* Focus and hover retain contrast when an incident changes the chord. */
+.world-head button:focus-visible{outline-color:var(--stage-accent)}
+.world-bottom button:focus-visible{outline-color:var(--deck-accent)}
+.console-nav button:hover{background:none;text-decoration:underline;text-underline-offset:4px}
+.life-deck button:hover{background:var(--deck);color:var(--deck-text)}
+.life-deck #commit:hover{background:var(--deck-accent);color:var(--deck)}

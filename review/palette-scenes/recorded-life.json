@@ -1,0 +1,362 @@
+{
+  "seed": 31,
+  "changes": 46,
+  "unique": 21,
+  "sequence": [
+    {
+      "age": 10,
+      "plate": 152,
+      "reason": "chapter:steady"
+    },
+    {
+      "age": 10,
+      "plate": 147,
+      "reason": "child-roof"
+    },
+    {
+      "age": 10,
+      "plate": 149,
+      "reason": "child-sponsor"
+    },
+    {
+      "age": 10,
+      "plate": 151,
+      "reason": "child-water-bike"
+    },
+    {
+      "age": 15,
+      "plate": 147,
+      "reason": "friend"
+    },
+    {
+      "age": 15,
+      "plate": 147,
+      "reason": "friend"
+    },
+    {
+      "age": 15,
+      "plate": 147,
+      "reason": "friend"
+    },
+    {
+      "age": 15,
+      "plate": 166,
+      "reason": "school-apprentice"
+    },
+    {
+      "age": 15,
+      "plate": 216,
+      "reason": "school-leave"
+    },
+    {
+      "age": 15,
+      "plate": 170,
+      "reason": "school-fall-climb"
+    },
+    {
+      "age": 20,
+      "plate": 216,
+      "reason": "m_runway"
+    },
+    {
+      "age": 20,
+      "plate": 216,
+      "reason": "m_runway"
+    },
+    {
+      "age": 20,
+      "plate": 168,
+      "reason": "m_runway"
+    },
+    {
+      "age": 20,
+      "plate": 173,
+      "reason": "college-cost"
+    },
+    {
+      "age": 20,
+      "plate": 189,
+      "reason": "stall-paper"
+    },
+    {
+      "age": 25,
+      "plate": 139,
+      "reason": "l_defined"
+    },
+    {
+      "age": 25,
+      "plate": 139,
+      "reason": "l_defined"
+    },
+    {
+      "age": 25,
+      "plate": 189,
+      "reason": "l_defined"
+    },
+    {
+      "age": 25,
+      "plate": 145,
+      "reason": "city-pay"
+    },
+    {
+      "age": 25,
+      "plate": 155,
+      "reason": "partner-choice"
+    },
+    {
+      "age": 30,
+      "plate": 145,
+      "reason": "flood_help"
+    },
+    {
+      "age": 30,
+      "plate": 145,
+      "reason": "flood_help"
+    },
+    {
+      "age": 30,
+      "plate": 155,
+      "reason": "flood_help"
+    },
+    {
+      "age": 30,
+      "plate": 147,
+      "reason": "flood-repair"
+    },
+    {
+      "age": 30,
+      "plate": 190,
+      "reason": "flood-move"
+    },
+    {
+      "age": 35,
+      "plate": 221,
+      "reason": "m_crash"
+    },
+    {
+      "age": 35,
+      "plate": 221,
+      "reason": "m_crash"
+    },
+    {
+      "age": 35,
+      "plate": 232,
+      "reason": "m_crash"
+    },
+    {
+      "age": 35,
+      "plate": 151,
+      "reason": "year-abroad"
+    },
+    {
+      "age": 35,
+      "plate": 166,
+      "reason": "partner-business"
+    },
+    {
+      "age": 40,
+      "plate": 221,
+      "reason": "l_pension"
+    },
+    {
+      "age": 40,
+      "plate": 221,
+      "reason": "l_pension"
+    },
+    {
+      "age": 40,
+      "plate": 170,
+      "reason": "l_pension"
+    },
+    {
+      "age": 40,
+      "plate": 216,
+      "reason": "promotion-away"
+    },
+    {
+      "age": 40,
+      "plate": 170,
+      "reason": "parent-ill"
+    },
+    {
+      "age": 45,
+      "plate": 139,
+      "reason": "m_leverage"
+    },
+    {
+      "age": 45,
+      "plate": 139,
+      "reason": "m_leverage"
+    },
+    {
+      "age": 45,
+      "plate": 189,
+      "reason": "m_leverage"
+    },
+    {
+      "age": 45,
+      "plate": 173,
+      "reason": "share-offer"
+    },
+    {
+      "age": 45,
+      "plate": 189,
+      "reason": "buy-house"
+    },
+    {
+      "age": 50,
+      "plate": 147,
+      "reason": "l_kind"
+    },
+    {
+      "age": 50,
+      "plate": 147,
+      "reason": "l_kind"
+    },
+    {
+      "age": 50,
+      "plate": 147,
+      "reason": "l_kind"
+    },
+    {
+      "age": 50,
+      "plate": 123,
+      "reason": "child-city"
+    },
+    {
+      "age": 50,
+      "plate": 141,
+      "reason": "leave"
+    },
+    {
+      "age": 55,
+      "plate": 155,
+      "reason": "remember"
+    },
+    {
+      "age": 55,
+      "plate": 155,
+      "reason": "remember"
+    },
+    {
+      "age": 55,
+      "plate": 157,
+      "reason": "remember"
+    },
+    {
+      "age": 55,
+      "plate": 147,
+      "reason": "father-tools"
+    },
+    {
+      "age": 55,
+      "plate": 149,
+      "reason": "stall-takeover"
+    },
+    {
+      "age": 60,
+      "plate": 141,
+      "reason": "l_friends"
+    },
+    {
+      "age": 60,
+      "plate": 141,
+      "reason": "l_friends"
+    },
+    {
+      "age": 60,
+      "plate": 141,
+      "reason": "l_friends"
+    },
+    {
+      "age": 60,
+      "plate": 207,
+      "reason": "stay-on"
+    },
+    {
+      "age": 60,
+      "plate": 166,
+      "reason": "nephew"
+    },
+    {
+      "age": 65,
+      "plate": 211,
+      "reason": "l_injury"
+    },
+    {
+      "age": 65,
+      "plate": 211,
+      "reason": "l_injury"
+    },
+    {
+      "age": 65,
+      "plate": 216,
+      "reason": "l_injury"
+    },
+    {
+      "age": 65,
+      "plate": 216,
+      "reason": "treatment"
+    },
+    {
+      "age": 65,
+      "plate": 170,
+      "reason": "house-travel"
+    },
+    {
+      "age": 70,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 70,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 70,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 70,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 70,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 75,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 75,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 75,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 75,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 75,
+      "plate": 139,
+      "reason": "critical-health"
+    },
+    {
+      "age": 80,
+      "plate": 221,
+      "reason": "death"
+    }
+  ]
+}

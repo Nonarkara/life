@@ -1,0 +1,422 @@
+[
+  {
+    "plate": 123,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 6.162643203685146,
+      "--muted/--paper": 4.553243880924701,
+      "--deck-text/--deck": 8.072557313825278,
+      "--deck-muted/--deck": 5.45029101339436,
+      "--deck-accent/--deck": 4.531287151842694,
+      "--accent-ink/--paper": 4.570741090211964,
+      "--stage-text/--stage": 4.857352473403209,
+      "--stage-accent/--stage": 4.52922410428673
+    }
+  },
+  {
+    "plate": 141,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 7.588677690502749,
+      "--muted/--paper": 4.530678161214012,
+      "--deck-text/--deck": 8.459592484942823,
+      "--deck-muted/--deck": 5.688640214886418,
+      "--deck-accent/--deck": 5.29107463767778,
+      "--accent-ink/--paper": 4.5298463657474874,
+      "--stage-text/--stage": 5.959691277448628,
+      "--stage-accent/--stage": 4.528849375487105
+    }
+  },
+  {
+    "plate": 147,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 6.430999063672912,
+      "--muted/--paper": 4.522712267173728,
+      "--deck-text/--deck": 7.894627897704879,
+      "--deck-muted/--deck": 5.2977718811329915,
+      "--deck-accent/--deck": 4.526443252386418,
+      "--accent-ink/--paper": 4.5086139611546034,
+      "--stage-text/--stage": 5.333962533050707,
+      "--stage-accent/--stage": 4.5061490242301465
+    }
+  },
+  {
+    "plate": 149,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 7.129274789302581,
+      "--muted/--paper": 4.540096981189687,
+      "--deck-text/--deck": 7.8687143316056485,
+      "--deck-muted/--deck": 5.1447848080156175,
+      "--deck-accent/--deck": 5.728820431774645,
+      "--accent-ink/--paper": 4.609061788219601,
+      "--stage-text/--stage": 5.762329427950225,
+      "--stage-accent/--stage": 4.554181975724211
+    }
+  },
+  {
+    "plate": 151,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 7.510623020483025,
+      "--muted/--paper": 4.543594288235756,
+      "--deck-text/--deck": 9.528556588016833,
+      "--deck-muted/--deck": 6.382870782344521,
+      "--deck-accent/--deck": 5.61574736787202,
+      "--accent-ink/--paper": 4.54388138525112,
+      "--stage-text/--stage": 5.878337986024896,
+      "--stage-accent/--stage": 4.528528908509678
+    }
+  },
+  {
+    "plate": 166,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 11.540816133319293,
+      "--muted/--paper": 5.258451945066696,
+      "--deck-text/--deck": 12.411765142518284,
+      "--deck-muted/--deck": 8.147975708770165,
+      "--deck-accent/--deck": 6.354220954516212,
+      "--accent-ink/--paper": 4.57621065299213,
+      "--stage-text/--stage": 8.616335612911918,
+      "--stage-accent/--stage": 4.557551623180716
+    }
+  },
+  {
+    "plate": 168,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 7.309172713780606,
+      "--muted/--paper": 4.509542100488356,
+      "--deck-text/--deck": 8.696307471058265,
+      "--deck-muted/--deck": 6.193232559730225,
+      "--deck-accent/--deck": 4.515600784509955,
+      "--accent-ink/--paper": 5.168361733765065,
+      "--stage-text/--stage": 5.769968672620775,
+      "--stage-accent/--stage": 4.555599676753606
+    }
+  },
+  {
+    "plate": 170,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 6.112172580154017,
+      "--muted/--paper": 4.50664178574201,
+      "--deck-text/--deck": 6.979165532701163,
+      "--deck-muted/--deck": 4.793188458906403,
+      "--deck-accent/--deck": 4.5571903237111835,
+      "--accent-ink/--paper": 4.510783591325757,
+      "--stage-text/--stage": 5.035350856569199,
+      "--stage-accent/--stage": 4.50904905218114
+    }
+  },
+  {
+    "plate": 173,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 8.013545894404025,
+      "--muted/--paper": 4.508152031459075,
+      "--deck-text/--deck": 10.223633181431035,
+      "--deck-muted/--deck": 6.638337191689398,
+      "--deck-accent/--deck": 8.648698282746668,
+      "--accent-ink/--paper": 4.527109181022501,
+      "--stage-text/--stage": 6.148089645011279,
+      "--stage-accent/--stage": 5.110353658050934
+    }
+  },
+  {
+    "plate": 189,
+    "mood": "bright",
+    "ratios": {
+      "--ink/--paper": 11.151881430670425,
+      "--muted/--paper": 5.006425995001572,
+      "--deck-text/--deck": 12.264114294687271,
+      "--deck-muted/--deck": 8.08849799610344,
+      "--deck-accent/--deck": 7.787748944396358,
+      "--accent-ink/--paper": 4.581682982915141,
+      "--stage-text/--stage": 8.174196343878592,
+      "--stage-accent/--stage": 4.922437414779237
+    }
+  },
+  {
+    "plate": 139,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 9.872173307566385,
+      "--muted/--paper": 5.374626624121886,
+      "--deck-text/--deck": 10.036821335173432,
+      "--deck-muted/--deck": 6.164882328439469,
+      "--deck-accent/--deck": 8.277357356212947,
+      "--accent-ink/--paper": 4.566800495343772,
+      "--stage-text/--stage": 9.189376499995975,
+      "--stage-accent/--stage": 7.4185374342376065
+    }
+  },
+  {
+    "plate": 145,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 8.182878127501262,
+      "--muted/--paper": 4.85053188643329,
+      "--deck-text/--deck": 7.7692482048554785,
+      "--deck-muted/--deck": 5.290220482056813,
+      "--deck-accent/--deck": 4.503269505951466,
+      "--accent-ink/--paper": 4.515865214509929,
+      "--stage-text/--stage": 7.695168559591861,
+      "--stage-accent/--stage": 4.53468504418371
+    }
+  },
+  {
+    "plate": 155,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 5.117098149470238,
+      "--muted/--paper": 4.521215023618166,
+      "--deck-text/--deck": 4.952417978371427,
+      "--deck-muted/--deck": 4.560579575102161,
+      "--deck-accent/--deck": 5.299920032981296,
+      "--accent-ink/--paper": 4.568035495879006,
+      "--stage-text/--stage": 4.897020365147779,
+      "--stage-accent/--stage": 4.883495506765684
+    }
+  },
+  {
+    "plate": 157,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 5.160930794120093,
+      "--muted/--paper": 4.520719863590388,
+      "--deck-text/--deck": 6.250719230345239,
+      "--deck-muted/--deck": 4.512534753130508,
+      "--deck-accent/--deck": 4.523560424867573,
+      "--accent-ink/--paper": 4.5227858226640585,
+      "--stage-text/--stage": 4.860925886268499,
+      "--stage-accent/--stage": 4.5287740313312215
+    }
+  },
+  {
+    "plate": 190,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 12.751366428437072,
+      "--muted/--paper": 6.136037301546963,
+      "--deck-text/--deck": 12.206421214630927,
+      "--deck-muted/--deck": 7.803279313147951,
+      "--deck-accent/--deck": 5.412926432806609,
+      "--accent-ink/--paper": 4.505799118917963,
+      "--stage-text/--stage": 11.698423166801657,
+      "--stage-accent/--stage": 4.788575851273658
+    }
+  },
+  {
+    "plate": 207,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 11.048148842511406,
+      "--muted/--paper": 5.66374036060155,
+      "--deck-text/--deck": 10.563883041517123,
+      "--deck-muted/--deck": 6.835443491635552,
+      "--deck-accent/--deck": 4.512264238393042,
+      "--accent-ink/--paper": 4.517040316620759,
+      "--stage-text/--stage": 10.171665933712688,
+      "--stage-accent/--stage": 4.513687183070541
+    }
+  },
+  {
+    "plate": 211,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 7.736180922243989,
+      "--muted/--paper": 4.811881253912087,
+      "--deck-text/--deck": 7.918186349183232,
+      "--deck-muted/--deck": 4.88717055940266,
+      "--deck-accent/--deck": 7.191532528821162,
+      "--accent-ink/--paper": 4.619282551620609,
+      "--stage-text/--stage": 7.3394950805805195,
+      "--stage-accent/--stage": 6.569227884989879
+    }
+  },
+  {
+    "plate": 216,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 5.491371343165242,
+      "--muted/--paper": 4.503020807418227,
+      "--deck-text/--deck": 5.428724746491241,
+      "--deck-muted/--deck": 4.516694362047097,
+      "--deck-accent/--deck": 5.332233510147332,
+      "--accent-ink/--paper": 4.555629167164512,
+      "--stage-text/--stage": 5.236303430460472,
+      "--stage-accent/--stage": 4.902942467029663
+    }
+  },
+  {
+    "plate": 221,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 9.947248021504457,
+      "--muted/--paper": 5.344647553580057,
+      "--deck-text/--deck": 9.201239752097175,
+      "--deck-muted/--deck": 6.242982394433512,
+      "--deck-accent/--deck": 4.550587011797523,
+      "--accent-ink/--paper": 4.509410510676788,
+      "--stage-text/--stage": 9.228422974501715,
+      "--stage-accent/--stage": 4.527519722725205
+    }
+  },
+  {
+    "plate": 232,
+    "mood": "difficult",
+    "ratios": {
+      "--ink/--paper": 10.104854684893018,
+      "--muted/--paper": 5.571074269132424,
+      "--deck-text/--deck": 9.319638146295624,
+      "--deck-muted/--deck": 6.242914313104058,
+      "--deck-accent/--deck": 4.519488751520857,
+      "--accent-ink/--paper": 4.5360599329444,
+      "--stage-text/--stage": 9.411069091844949,
+      "--stage-accent/--stage": 4.600107723391846
+    }
+  },
+  {
+    "plate": 152,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 5.087737054835877,
+      "--muted/--paper": 4.579280539857139,
+      "--deck-text/--deck": 6.1789559580265445,
+      "--deck-muted/--deck": 4.5075459173004,
+      "--deck-accent/--deck": 4.527787680196521,
+      "--accent-ink/--paper": 4.550093369701415,
+      "--stage-text/--stage": 4.540160193866411,
+      "--stage-accent/--stage": 4.5154407153238525
+    }
+  },
+  {
+    "plate": 167,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 5.605754566504207,
+      "--muted/--paper": 4.540391787625561,
+      "--deck-text/--deck": 7.314558399495637,
+      "--deck-muted/--deck": 4.734494559253172,
+      "--deck-accent/--deck": 5.5605619554765315,
+      "--accent-ink/--paper": 4.577366568682159,
+      "--stage-text/--stage": 4.504814394684523,
+      "--stage-accent/--stage": 4.501538793235263
+    }
+  },
+  {
+    "plate": 171,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 5.6013458866388675,
+      "--muted/--paper": 4.588988861467414,
+      "--deck-text/--deck": 7.152281515328733,
+      "--deck-muted/--deck": 4.604181348141363,
+      "--deck-accent/--deck": 5.835278245195244,
+      "--accent-ink/--paper": 4.541771196867277,
+      "--stage-text/--stage": 4.6917105898808416,
+      "--stage-accent/--stage": 4.5286779226483445
+    }
+  },
+  {
+    "plate": 192,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 7.186673878386399,
+      "--muted/--paper": 4.56209004383651,
+      "--deck-text/--deck": 8.097317382898074,
+      "--deck-muted/--deck": 5.6088692887727785,
+      "--deck-accent/--deck": 4.5358822841315165,
+      "--accent-ink/--paper": 4.597340752093957,
+      "--stage-text/--stage": 5.5528529400595925,
+      "--stage-accent/--stage": 4.5399247541717145
+    }
+  },
+  {
+    "plate": 202,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 6.797220150688226,
+      "--muted/--paper": 4.53591072146859,
+      "--deck-text/--deck": 8.602870268363985,
+      "--deck-muted/--deck": 5.56333644196118,
+      "--deck-accent/--deck": 7.330960557192526,
+      "--accent-ink/--paper": 4.562749496757748,
+      "--stage-text/--stage": 5.27050427583598,
+      "--stage-accent/--stage": 4.536277080549252
+    }
+  },
+  {
+    "plate": 203,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 6.43863910321141,
+      "--muted/--paper": 4.58986751556352,
+      "--deck-text/--deck": 8.60138875537605,
+      "--deck-muted/--deck": 5.766898914740065,
+      "--deck-accent/--deck": 5.205032455401689,
+      "--accent-ink/--paper": 4.524474386669034,
+      "--stage-text/--stage": 4.943915960111748,
+      "--stage-accent/--stage": 4.526262921343462
+    }
+  },
+  {
+    "plate": 210,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 6.07664876416463,
+      "--muted/--paper": 4.563308934044315,
+      "--deck-text/--deck": 8.265771288388471,
+      "--deck-muted/--deck": 5.44688927161792,
+      "--deck-accent/--deck": 6.648145848699946,
+      "--accent-ink/--paper": 4.572065169497889,
+      "--stage-text/--stage": 4.7124615231657625,
+      "--stage-accent/--stage": 4.511470570955629
+    }
+  },
+  {
+    "plate": 214,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 5.963288285852323,
+      "--muted/--paper": 4.505520036723567,
+      "--deck-text/--deck": 7.324466799055269,
+      "--deck-muted/--deck": 5.098708680810055,
+      "--deck-accent/--deck": 4.5049254964314285,
+      "--accent-ink/--paper": 4.509913196550268,
+      "--stage-text/--stage": 4.780977180655181,
+      "--stage-accent/--stage": 4.573933407832528
+    }
+  },
+  {
+    "plate": 228,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 5.9963021990131775,
+      "--muted/--paper": 4.572726428880487,
+      "--deck-text/--deck": 8.249387728776087,
+      "--deck-muted/--deck": 5.3997477455366845,
+      "--deck-accent/--deck": 5.284511009510487,
+      "--accent-ink/--paper": 4.551056383024827,
+      "--stage-text/--stage": 4.909918692999014,
+      "--stage-accent/--stage": 4.513294668477073
+    }
+  },
+  {
+    "plate": 229,
+    "mood": "steady",
+    "ratios": {
+      "--ink/--paper": 7.274988897755362,
+      "--muted/--paper": 4.557708505082094,
+      "--deck-text/--deck": 8.269901416254346,
+      "--deck-muted/--deck": 5.329034013398445,
+      "--deck-accent/--deck": 7.612725748468625,
+      "--accent-ink/--paper": 4.500055204692429,
+      "--stage-text/--stage": 5.7286243251270825,
+      "--stage-accent/--stage": 5.1692737389821035
+    }
+  }
+]

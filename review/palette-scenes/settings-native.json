@@ -1,0 +1,108 @@
+{
+  "build": "d4a1a9a7b8d9",
+  "settings": {
+    "pickerCount": 0,
+    "controls": 3,
+    "text": "Settings\nClose\nLanguage\nEnglish\nไทย\n简体中文\n日本語\n한국어\nText size\nStandard\nLarge\nExtra large\nWorld\nHybrid · world and moments\nPainted stage\nIsometric diorama\n\nColours follow the events and mood of this life. Painted illustrations retain their authored colours.\n\nReduce motion\n\nSaved on this device."
+  },
+  "native": [
+    {
+      "incident": "flood",
+      "action": {
+        "bottom": 809.7109375,
+        "height": 43.6953125,
+        "left": 18,
+        "right": 215.5078125,
+        "top": 766.015625,
+        "width": 197.5078125,
+        "x": 18,
+        "y": 766.015625
+      },
+      "canvas": {
+        "bottom": 545.515625,
+        "height": 381.1015625,
+        "left": 0,
+        "right": 390,
+        "top": 164.4140625,
+        "width": 390,
+        "x": 0,
+        "y": 164.4140625
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Wada 139",
+      "reader": {
+        "bottom": 843,
+        "height": 297.484375,
+        "left": 0,
+        "right": 390,
+        "top": 545.515625,
+        "width": 390,
+        "x": 0,
+        "y": 545.515625
+      },
+      "roles": {
+        "--deck": "#040e24",
+        "--deck-accent": "#97acc8",
+        "--deck-text": "#b3bdc2",
+        "--ink": "#051230",
+        "--muted": "#374259",
+        "--paper": "#b6bfc1",
+        "--stage": "#0d1a37",
+        "--stage-accent": "#97acc8",
+        "--stage-text": "#b6bfc1"
+      },
+      "w": 390
+    },
+    {
+      "incident": "married",
+      "action": {
+        "bottom": 809.7109375,
+        "height": 43.6953125,
+        "left": 18,
+        "right": 215.5078125,
+        "top": 766.015625,
+        "width": 197.5078125,
+        "x": 18,
+        "y": 766.015625
+      },
+      "canvas": {
+        "bottom": 545.515625,
+        "height": 381.1015625,
+        "left": 0,
+        "right": 390,
+        "top": 164.4140625,
+        "width": 390,
+        "x": 0,
+        "y": 164.4140625
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Wada 166",
+      "reader": {
+        "bottom": 843,
+        "height": 297.484375,
+        "left": 0,
+        "right": 390,
+        "top": 545.515625,
+        "width": 390,
+        "x": 0,
+        "y": 545.515625
+      },
+      "roles": {
+        "--deck": "#0d2321",
+        "--deck-accent": "#f48067",
+        "--deck-text": "#fadd9b",
+        "--ink": "#112f2c",
+        "--muted": "#53624c",
+        "--paper": "#fbe6a0",
+        "--stage": "#2b4339",
+        "--stage-accent": "#f58d76",
+        "--stage-text": "#fbe6a0"
+      },
+      "w": 390
+    }
+  ]
+}

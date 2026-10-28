@@ -1,0 +1,711 @@
+{
+  "build": "d4a1a9a7b8d9",
+  "cases": [
+    {
+      "incident": "10",
+      "size": "desktop",
+      "action": {
+        "bottom": 855.5,
+        "height": 36,
+        "left": 133,
+        "right": 300,
+        "top": 819.5,
+        "width": 167,
+        "x": 133,
+        "y": 819.5
+      },
+      "canvas": {
+        "bottom": 900,
+        "height": 811,
+        "left": 0,
+        "right": 1440,
+        "top": 89,
+        "width": 1440,
+        "x": 0,
+        "y": 89
+      },
+      "h": 900,
+      "pageH": 900,
+      "pageW": 1440,
+      "palette": "Wada 123",
+      "reader": null,
+      "roles": {
+        "--deck": "#5c3341",
+        "--deck-accent": "#f58e84",
+        "--deck-text": "#f8e449",
+        "--ink": "#7a4456",
+        "--muted": "#846144",
+        "--paper": "#f8ed43",
+        "--stage": "#885754",
+        "--stage-accent": "#fcd9d5",
+        "--stage-text": "#f8ed43"
+      },
+      "w": 1440
+    },
+    {
+      "incident": "10",
+      "size": "tablet",
+      "action": {
+        "bottom": 673.578125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 637.578125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 637.578125
+      },
+      "canvas": {
+        "bottom": 479.59375,
+        "height": 388.59375,
+        "left": 0,
+        "right": 1024,
+        "top": 91,
+        "width": 1024,
+        "x": 0,
+        "y": 91
+      },
+      "h": 768,
+      "pageH": 768,
+      "pageW": 1024,
+      "palette": "Wada 123",
+      "reader": {
+        "bottom": 767,
+        "height": 287.40625,
+        "left": 0,
+        "right": 1024,
+        "top": 479.59375,
+        "width": 1024,
+        "x": 0,
+        "y": 479.59375
+      },
+      "roles": {
+        "--deck": "#5c3341",
+        "--deck-accent": "#f58e84",
+        "--deck-text": "#f8e449",
+        "--ink": "#7a4456",
+        "--muted": "#846144",
+        "--paper": "#f8ed43",
+        "--stage": "#885754",
+        "--stage-accent": "#fcd9d5",
+        "--stage-text": "#f8ed43"
+      },
+      "w": 1024
+    },
+    {
+      "incident": "10",
+      "size": "phone",
+      "action": {
+        "bottom": 733.78125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 697.78125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 697.78125
+      },
+      "canvas": {
+        "bottom": 539.796875,
+        "height": 412.296875,
+        "left": 0,
+        "right": 390,
+        "top": 127.5,
+        "width": 390,
+        "x": 0,
+        "y": 127.5
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Wada 123",
+      "reader": {
+        "bottom": 843,
+        "height": 303.203125,
+        "left": 0,
+        "right": 390,
+        "top": 539.796875,
+        "width": 390,
+        "x": 0,
+        "y": 539.796875
+      },
+      "roles": {
+        "--deck": "#5c3341",
+        "--deck-accent": "#f58e84",
+        "--deck-text": "#f8e449",
+        "--ink": "#7a4456",
+        "--muted": "#846144",
+        "--paper": "#f8ed43",
+        "--stage": "#885754",
+        "--stage-accent": "#fcd9d5",
+        "--stage-text": "#f8ed43"
+      },
+      "w": 390
+    },
+    {
+      "incident": "flood",
+      "size": "desktop",
+      "action": {
+        "bottom": 854.65625,
+        "height": 36,
+        "left": 133,
+        "right": 300,
+        "top": 818.65625,
+        "width": 167,
+        "x": 133,
+        "y": 818.65625
+      },
+      "canvas": {
+        "bottom": 900,
+        "height": 811,
+        "left": 0,
+        "right": 1440,
+        "top": 89,
+        "width": 1440,
+        "x": 0,
+        "y": 89
+      },
+      "h": 900,
+      "pageH": 900,
+      "pageW": 1440,
+      "palette": "Wada 139",
+      "reader": null,
+      "roles": {
+        "--deck": "#040e24",
+        "--deck-accent": "#97acc8",
+        "--deck-text": "#b3bdc2",
+        "--ink": "#051230",
+        "--muted": "#374259",
+        "--paper": "#b6bfc1",
+        "--stage": "#0d1a37",
+        "--stage-accent": "#97acc8",
+        "--stage-text": "#b6bfc1"
+      },
+      "w": 1440
+    },
+    {
+      "incident": "flood",
+      "size": "tablet",
+      "action": {
+        "bottom": 673.578125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 637.578125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 637.578125
+      },
+      "canvas": {
+        "bottom": 479.59375,
+        "height": 388.59375,
+        "left": 0,
+        "right": 1024,
+        "top": 91,
+        "width": 1024,
+        "x": 0,
+        "y": 91
+      },
+      "h": 768,
+      "pageH": 768,
+      "pageW": 1024,
+      "palette": "Wada 139",
+      "reader": {
+        "bottom": 767,
+        "height": 287.40625,
+        "left": 0,
+        "right": 1024,
+        "top": 479.59375,
+        "width": 1024,
+        "x": 0,
+        "y": 479.59375
+      },
+      "roles": {
+        "--deck": "#040e24",
+        "--deck-accent": "#97acc8",
+        "--deck-text": "#b3bdc2",
+        "--ink": "#051230",
+        "--muted": "#374259",
+        "--paper": "#b6bfc1",
+        "--stage": "#0d1a37",
+        "--stage-accent": "#97acc8",
+        "--stage-text": "#b6bfc1"
+      },
+      "w": 1024
+    },
+    {
+      "incident": "flood",
+      "size": "phone",
+      "action": {
+        "bottom": 733.78125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 697.78125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 697.78125
+      },
+      "canvas": {
+        "bottom": 539.796875,
+        "height": 412.296875,
+        "left": 0,
+        "right": 390,
+        "top": 127.5,
+        "width": 390,
+        "x": 0,
+        "y": 127.5
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Wada 139",
+      "reader": {
+        "bottom": 843,
+        "height": 303.203125,
+        "left": 0,
+        "right": 390,
+        "top": 539.796875,
+        "width": 390,
+        "x": 0,
+        "y": 539.796875
+      },
+      "roles": {
+        "--deck": "#040e24",
+        "--deck-accent": "#97acc8",
+        "--deck-text": "#b3bdc2",
+        "--ink": "#051230",
+        "--muted": "#374259",
+        "--paper": "#b6bfc1",
+        "--stage": "#0d1a37",
+        "--stage-accent": "#97acc8",
+        "--stage-text": "#b6bfc1"
+      },
+      "w": 390
+    },
+    {
+      "incident": "married",
+      "size": "desktop",
+      "action": {
+        "bottom": 854.65625,
+        "height": 36,
+        "left": 133,
+        "right": 300,
+        "top": 818.65625,
+        "width": 167,
+        "x": 133,
+        "y": 818.65625
+      },
+      "canvas": {
+        "bottom": 900,
+        "height": 811,
+        "left": 0,
+        "right": 1440,
+        "top": 89,
+        "width": 1440,
+        "x": 0,
+        "y": 89
+      },
+      "h": 900,
+      "pageH": 900,
+      "pageW": 1440,
+      "palette": "Wada 166",
+      "reader": null,
+      "roles": {
+        "--deck": "#0d2321",
+        "--deck-accent": "#f48067",
+        "--deck-text": "#fadd9b",
+        "--ink": "#112f2c",
+        "--muted": "#53624c",
+        "--paper": "#fbe6a0",
+        "--stage": "#2b4339",
+        "--stage-accent": "#f58d76",
+        "--stage-text": "#fbe6a0"
+      },
+      "w": 1440
+    },
+    {
+      "incident": "married",
+      "size": "tablet",
+      "action": {
+        "bottom": 673.578125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 637.578125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 637.578125
+      },
+      "canvas": {
+        "bottom": 479.59375,
+        "height": 388.59375,
+        "left": 0,
+        "right": 1024,
+        "top": 91,
+        "width": 1024,
+        "x": 0,
+        "y": 91
+      },
+      "h": 768,
+      "pageH": 768,
+      "pageW": 1024,
+      "palette": "Wada 166",
+      "reader": {
+        "bottom": 767,
+        "height": 287.40625,
+        "left": 0,
+        "right": 1024,
+        "top": 479.59375,
+        "width": 1024,
+        "x": 0,
+        "y": 479.59375
+      },
+      "roles": {
+        "--deck": "#0d2321",
+        "--deck-accent": "#f48067",
+        "--deck-text": "#fadd9b",
+        "--ink": "#112f2c",
+        "--muted": "#53624c",
+        "--paper": "#fbe6a0",
+        "--stage": "#2b4339",
+        "--stage-accent": "#f58d76",
+        "--stage-text": "#fbe6a0"
+      },
+      "w": 1024
+    },
+    {
+      "incident": "married",
+      "size": "phone",
+      "action": {
+        "bottom": 733.78125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 697.78125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 697.78125
+      },
+      "canvas": {
+        "bottom": 539.796875,
+        "height": 412.296875,
+        "left": 0,
+        "right": 390,
+        "top": 127.5,
+        "width": 390,
+        "x": 0,
+        "y": 127.5
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Wada 166",
+      "reader": {
+        "bottom": 843,
+        "height": 303.203125,
+        "left": 0,
+        "right": 390,
+        "top": 539.796875,
+        "width": 390,
+        "x": 0,
+        "y": 539.796875
+      },
+      "roles": {
+        "--deck": "#0d2321",
+        "--deck-accent": "#f48067",
+        "--deck-text": "#fadd9b",
+        "--ink": "#112f2c",
+        "--muted": "#53624c",
+        "--paper": "#fbe6a0",
+        "--stage": "#2b4339",
+        "--stage-accent": "#f58d76",
+        "--stage-text": "#fbe6a0"
+      },
+      "w": 390
+    },
+    {
+      "incident": "loss",
+      "size": "desktop",
+      "action": {
+        "bottom": 854.65625,
+        "height": 36,
+        "left": 133,
+        "right": 300,
+        "top": 818.65625,
+        "width": 167,
+        "x": 133,
+        "y": 818.65625
+      },
+      "canvas": {
+        "bottom": 900,
+        "height": 811,
+        "left": 0,
+        "right": 1440,
+        "top": 89,
+        "width": 1440,
+        "x": 0,
+        "y": 89
+      },
+      "h": 900,
+      "pageH": 900,
+      "pageW": 1440,
+      "palette": "Wada 221",
+      "reader": null,
+      "roles": {
+        "--deck": "#0d0e0f",
+        "--deck-accent": "#bb5f67",
+        "--deck-text": "#b5b2b5",
+        "--ink": "#111314",
+        "--muted": "#3f4344",
+        "--paper": "#b6bfc1",
+        "--stage": "#191b1c",
+        "--stage-accent": "#c06971",
+        "--stage-text": "#b6bfc1"
+      },
+      "w": 1440
+    },
+    {
+      "incident": "loss",
+      "size": "tablet",
+      "action": {
+        "bottom": 673.578125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 637.578125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 637.578125
+      },
+      "canvas": {
+        "bottom": 479.59375,
+        "height": 388.59375,
+        "left": 0,
+        "right": 1024,
+        "top": 91,
+        "width": 1024,
+        "x": 0,
+        "y": 91
+      },
+      "h": 768,
+      "pageH": 768,
+      "pageW": 1024,
+      "palette": "Wada 221",
+      "reader": {
+        "bottom": 767,
+        "height": 287.40625,
+        "left": 0,
+        "right": 1024,
+        "top": 479.59375,
+        "width": 1024,
+        "x": 0,
+        "y": 479.59375
+      },
+      "roles": {
+        "--deck": "#0d0e0f",
+        "--deck-accent": "#bb5f67",
+        "--deck-text": "#b5b2b5",
+        "--ink": "#111314",
+        "--muted": "#3f4344",
+        "--paper": "#b6bfc1",
+        "--stage": "#191b1c",
+        "--stage-accent": "#c06971",
+        "--stage-text": "#b6bfc1"
+      },
+      "w": 1024
+    },
+    {
+      "incident": "loss",
+      "size": "phone",
+      "action": {
+        "bottom": 733.78125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 697.78125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 697.78125
+      },
+      "canvas": {
+        "bottom": 539.796875,
+        "height": 412.296875,
+        "left": 0,
+        "right": 390,
+        "top": 127.5,
+        "width": 390,
+        "x": 0,
+        "y": 127.5
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Wada 221",
+      "reader": {
+        "bottom": 843,
+        "height": 303.203125,
+        "left": 0,
+        "right": 390,
+        "top": 539.796875,
+        "width": 390,
+        "x": 0,
+        "y": 539.796875
+      },
+      "roles": {
+        "--deck": "#0d0e0f",
+        "--deck-accent": "#bb5f67",
+        "--deck-text": "#b5b2b5",
+        "--ink": "#111314",
+        "--muted": "#3f4344",
+        "--paper": "#b6bfc1",
+        "--stage": "#191b1c",
+        "--stage-accent": "#c06971",
+        "--stage-text": "#b6bfc1"
+      },
+      "w": 390
+    },
+    {
+      "incident": "recovery",
+      "size": "desktop",
+      "action": {
+        "bottom": 854.65625,
+        "height": 36,
+        "left": 133,
+        "right": 300,
+        "top": 818.65625,
+        "width": 167,
+        "x": 133,
+        "y": 818.65625
+      },
+      "canvas": {
+        "bottom": 900,
+        "height": 811,
+        "left": 0,
+        "right": 1440,
+        "top": 89,
+        "width": 1440,
+        "x": 0,
+        "y": 89
+      },
+      "h": 900,
+      "pageH": 900,
+      "pageW": 1440,
+      "palette": "Wada 166",
+      "reader": null,
+      "roles": {
+        "--deck": "#0d2321",
+        "--deck-accent": "#f48067",
+        "--deck-text": "#fadd9b",
+        "--ink": "#112f2c",
+        "--muted": "#53624c",
+        "--paper": "#fbe6a0",
+        "--stage": "#2b4339",
+        "--stage-accent": "#f58d76",
+        "--stage-text": "#fbe6a0"
+      },
+      "w": 1440
+    },
+    {
+      "incident": "recovery",
+      "size": "tablet",
+      "action": {
+        "bottom": 673.578125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 637.578125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 637.578125
+      },
+      "canvas": {
+        "bottom": 479.59375,
+        "height": 388.59375,
+        "left": 0,
+        "right": 1024,
+        "top": 91,
+        "width": 1024,
+        "x": 0,
+        "y": 91
+      },
+      "h": 768,
+      "pageH": 768,
+      "pageW": 1024,
+      "palette": "Wada 166",
+      "reader": {
+        "bottom": 767,
+        "height": 287.40625,
+        "left": 0,
+        "right": 1024,
+        "top": 479.59375,
+        "width": 1024,
+        "x": 0,
+        "y": 479.59375
+      },
+      "roles": {
+        "--deck": "#0d2321",
+        "--deck-accent": "#f48067",
+        "--deck-text": "#fadd9b",
+        "--ink": "#112f2c",
+        "--muted": "#53624c",
+        "--paper": "#fbe6a0",
+        "--stage": "#2b4339",
+        "--stage-accent": "#f58d76",
+        "--stage-text": "#fbe6a0"
+      },
+      "w": 1024
+    },
+    {
+      "incident": "recovery",
+      "size": "phone",
+      "action": {
+        "bottom": 733.78125,
+        "height": 36,
+        "left": 18,
+        "right": 134.8203125,
+        "top": 697.78125,
+        "width": 116.8203125,
+        "x": 18,
+        "y": 697.78125
+      },
+      "canvas": {
+        "bottom": 539.796875,
+        "height": 412.296875,
+        "left": 0,
+        "right": 390,
+        "top": 127.5,
+        "width": 390,
+        "x": 0,
+        "y": 127.5
+      },
+      "h": 844,
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Wada 166",
+      "reader": {
+        "bottom": 843,
+        "height": 303.203125,
+        "left": 0,
+        "right": 390,
+        "top": 539.796875,
+        "width": 390,
+        "x": 0,
+        "y": 539.796875
+      },
+      "roles": {
+        "--deck": "#0d2321",
+        "--deck-accent": "#f48067",
+        "--deck-text": "#fadd9b",
+        "--ink": "#112f2c",
+        "--muted": "#53624c",
+        "--paper": "#fbe6a0",
+        "--stage": "#2b4339",
+        "--stage-accent": "#f58d76",
+        "--stage-text": "#fbe6a0"
+      },
+      "w": 390
+    }
+  ],
+  "logs": []
+}

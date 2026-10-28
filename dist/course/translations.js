@@ -1940,3 +1940,6 @@ phrases.push(['Isometric diorama','ไดโอรามาสามมิติ
 phrases.push(['Priorities change your skills, resources and wellbeing.','สิ่งที่ให้ความสำคัญส่งผลต่อทักษะ ทรัพยากร และความเป็นอยู่ที่ดี','优先事项会影响你的技能、资源和福祉。','優先することは、技能・資源・幸福感に影響します。','우선순위는 기술, 자원과 행복에 영향을 줍니다.']);
 
 phrases.push(...HYBRID_PHRASES);
+
+phrases.push(['Colours follow the events and mood of this life. Painted illustrations retain their authored colours.','สีเปลี่ยนตามเหตุการณ์และอารมณ์ของชีวิตนี้ ภาพวาดคงสีตามที่ออกแบบไว้','色彩随人生事件和情绪变化，绘画保留原有配色。','色は人生の出来事や気分に応じて変わります。イラストは制作時の配色を保ちます。','색은 이 삶의 사건과 분위기에 따라 달라집니다. 삽화는 원래의 색을 유지합니다.']);
+phrases.push(['Sanzo Wada colour combinations · digital data credits','ชุดสีของซันโซ วาดะ · เครดิตข้อมูลดิจิทัล','三藏和田配色组合 · 数字数据署名','和田三造の配色・デジタルデータのクレジット','와다 산조 배색 조합 · 디지털 데이터 출처']);

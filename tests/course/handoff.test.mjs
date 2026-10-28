@@ -14,7 +14,7 @@ test('repeated profile rebuilds preserve comparison, radar and disclosure state'
   assert.equal(editor.children.length,2);assert.equal(editor.querySelector('#shape-comparison'),comparison);assert.equal(comparison.open,true);assert.equal(comparison.radar.id,'radar');
  }finally{globalThis.document=before;}
 });
-test('every selectable chord has readable UI accent text while preserving world colours',()=>{
+test('every system-selected chord has readable UI accent text while preserving world colours',()=>{
  let oldFailure=0;
  for(const p of PALETTES){
   const tokens={},root={style:{setProperty:(k,v)=>tokens[k]=v},dataset:{}};applyPalette(p,root);
@@ -22,13 +22,13 @@ test('every selectable chord has readable UI accent text while preserving world 
   assert.ok(contrastRatio(tokens['--accent-ink'],p.paper)>=4.5,p.name+' settings selection');
   assert.equal(tokens['--amber'],p.accent,'authored accent is retained');
   if(contrastRatio(p.accent,tokens['--deck'])<4.5)oldFailure++;
-  assert.equal(paletteFor({},50,'difficult',p.name),p,'explicit pin overrides mood');
+  assert.equal(paletteFor({},50,'difficult',p.name),paletteFor({},50,'difficult'),'old pin cannot override life');
  }
  assert.ok(oldFailure>0,'the inherited accent must fail the contrast gate');
  assert.equal(paletteFor({},15,'bright','not-a-palette'),paletteFor({},15,'bright','auto'));
 });
 test('palette settings explanation and controls have native copy',()=>{
- for(const lang of ['th','zh-CN','ja','ko'])for(const text of ['Colour scheme','Follow the life','Steady','Bright','Difficult','Controls and 3D follow this scheme. Painted illustrations keep their authored colours.'])assert.notEqual(translate(text,lang),text,lang+': '+text);
+ for(const lang of ['th','zh-CN','ja','ko']){const text='Colours follow the events and mood of this life. Painted illustrations retain their authored colours.';assert.notEqual(translate(text,lang),text,lang+': '+text);}
 });
 
 test('world exposure shows whole-chapter money and styles negative returns without printing class names',async()=>{
