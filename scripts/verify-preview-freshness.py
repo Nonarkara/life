@@ -1,14 +1,21 @@
 """Check actual navigation URLs as well as build-scoped release probes."""
-import concurrent.futures, hashlib, json, re, subprocess, time
+import argparse, concurrent.futures, hashlib, json, re, subprocess, time
 from pathlib import Path
 from urllib.parse import urljoin
 
 root = Path(__file__).resolve().parent.parent
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--receipt', default='review/preview-freshness/public-delivery.json')
+receipt_path = root / parser.parse_args().receipt
 build = json.loads((root/'out/build.json').read_text())['build']
 html = (root/'out/course/index.html').read_bytes()
 refs = re.findall(r'(?:href|src)="([^"\s]+\.(?:css|js)\?v=[^"\s]+)"', html.decode())
 assets = {urljoin('/course/', p): (root/'out/course'/p.split('?')[0]).read_bytes() for p in refs if not p.startswith('http')}
 assets['/course/game.bundle.js?v='+build] = (root/'out/course/game.bundle.js').read_bytes()
+manifest_path = root/'out/course/anime/manifest.json'
+assets['/course/anime/manifest.json?v='+build] = manifest_path.read_bytes()
+elder_frame = json.loads(manifest_path.read_text())['sprites']['elder-x']['walk-stick']
+assets[urljoin('/course/anime/',elder_frame)] = (root/'out/course/anime'/elder_frame.split('?')[0]).read_bytes()
 receipt = {'build':build,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip(),'targets':{}}
 
 def get(url, expected):
@@ -49,4 +56,5 @@ for host in ['https://life-5wz.pages.dev','https://life.nonarkara.org']:
             assert row['match'],url+' stale asset'
     receipt['targets'][host]=target
     print(host,'PASS: direct entries, headers,',len(target['assets']),'asset URLs',flush=True)
-(root/'review/preview-freshness/public-delivery.json').write_text(json.dumps(receipt,indent=2)+'\n')
+receipt_path.parent.mkdir(parents=True, exist_ok=True)
+receipt_path.write_text(json.dumps(receipt,indent=2)+'\n')

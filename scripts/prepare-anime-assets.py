@@ -124,7 +124,9 @@ PLATES = {
 
 # The rest of the cast (27 Oct 2026): other bodies and households, same poses as
 # the sheet each one mirrors. art/missing-art-requests.json holds their prompts.
-for _name, _base in {'player-m': 'player', 'player-m-b': 'player-b', 'player-m-c': 'player-c', 'player-m-bike': 'player-bike', 'child-m': 'child', 'child-m-b': 'child-b', 'elder-m': 'elder', 'player-x': 'player', 'player-x-b': 'player-b', 'player-x-c': 'player-c', 'player-x-bike': 'player-bike', 'child-x': 'child', 'child-x-b': 'child-b', 'elder-x': 'elder', 'grandmother': 'mother', 'mother-b': 'mother', 'father-b': 'father'}.items():
+CAST_VARIANTS = {'player-m': 'player', 'player-m-b': 'player-b', 'player-m-c': 'player-c', 'player-m-bike': 'player-bike', 'child-m': 'child', 'child-m-b': 'child-b', 'elder-m': 'elder', 'player-x': 'player', 'player-x-b': 'player-b', 'player-x-c': 'player-c', 'player-x-bike': 'player-bike', 'child-x': 'child', 'child-x-b': 'child-b', 'elder-x': 'elder', 'grandmother': 'mother', 'mother-b': 'mother', 'father-b': 'father'}
+CATALOG_SHEETS = frozenset(CAST_VARIANTS) | {"rival"}
+for _name, _base in CAST_VARIANTS.items():
     SHEETS[_name] = SHEETS[_base]
     SOURCES[_name] = f"sheet-{_name}.png"
 
@@ -481,11 +483,29 @@ def sheet_source(name):
     return approved if approved.exists() else SOURCE / SOURCES[name]
 
 
+def approved_frames(name):
+    """Catalogue sheets fail closed; the older cast keeps its existing workflow."""
+    allowed = FRAME_APPROVALS.get(name)
+    if name in CATALOG_SHEETS and allowed is None:
+        raise ValueError(f"Missing frame approval for {name}; review {APPROVAL_FILE} before publishing")
+    if allowed is not None:
+        if not isinstance(allowed, list) or not allowed or not set(allowed).issubset(SHEETS[name]):
+            raise ValueError(f"Invalid frame approval for {name}")
+        return frozenset(allowed)
+    return None
+
+
 def prepare_sheet(name):
+    allowed = approved_frames(name)  # validate before decoding or writing any frame
     image = Image.open(sheet_source(name)).convert("RGB")
     rgb = np.asarray(image)
     content = rgb.min(axis=2) < 236
     ruled = rule_pixels(content)
+    if name == "elder-x":
+        # This reviewed top-left pose has no internal panel rules. Its long
+        # silhouette and cane were mistaken for rules, severing the face/hand.
+        height, width = content.shape
+        ruled[:int(height * 0.49), :int(width * 0.49)] = False
     content = content & ~ruled
     boxes = panel_boxes(content & ~ruled, content, name)
     if len(boxes) != len(SHEETS[name]):
@@ -542,7 +562,7 @@ def prepare_sheet(name):
     scale = SPRITE_HEIGHT / max(out.height for _, out in frames)
     written = []
     for frame, out in frames:
-        if name in FRAME_APPROVALS and frame not in FRAME_APPROVALS[name]:
+        if allowed is not None and frame not in allowed:
             continue  # visually rejected frames must not silently reactivate on rebuild
         out = out.resize((max(1, round(out.width * scale)), max(1, round(out.height * scale))), Image.LANCZOS)
         file = f"sprites/{name}-{frame}.webp"
@@ -565,6 +585,11 @@ def main():
     only = sys.argv[1] if len(sys.argv) > 1 else "all"
     if only not in ("all", "plates", "sheets") and only not in SHEETS:
         raise SystemExit("Unknown art target: " + only)
+    # Preflight the entire selected batch before any output is changed. A missing
+    # approval must not leave plates or earlier sheets partially republished.
+    selected = list(SHEETS) if only in ("all", "sheets") else ([only] if only in SHEETS else [])
+    for name in selected:
+        approved_frames(name)
     (TARGET / "plates").mkdir(parents=True, exist_ok=True)
     (TARGET / "sprites").mkdir(parents=True, exist_ok=True)
     manifest_path = TARGET / "manifest.json"

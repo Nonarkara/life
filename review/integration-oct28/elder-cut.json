@@ -1,0 +1,55 @@
+{
+  "source": "art/sources/sheet-elder-x.png",
+  "rows": [
+    {
+      "pose": "walk-stick",
+      "before": "303a2976f05cbf648da73b1309131d4e7e5b946e0ae6c927f7436a0ebf54eb12",
+      "after": "efc4dfca4f37fe865e27abd34871346333cec7ae3af630ea9a1f01cc954aa17c",
+      "isolatedCut": "efc4dfca4f37fe865e27abd34871346333cec7ae3af630ea9a1f01cc954aa17c",
+      "currentMatchesCut": true,
+      "unchanged": false,
+      "size": [
+        170,
+        389
+      ]
+    },
+    {
+      "pose": "stand",
+      "before": "e485b31dffd47849458caca564f0bcc40eb5afac1e085dd248f2e0c914f0ee20",
+      "after": "e485b31dffd47849458caca564f0bcc40eb5afac1e085dd248f2e0c914f0ee20",
+      "isolatedCut": "e485b31dffd47849458caca564f0bcc40eb5afac1e085dd248f2e0c914f0ee20",
+      "currentMatchesCut": true,
+      "unchanged": true,
+      "size": [
+        147,
+        400
+      ]
+    },
+    {
+      "pose": "sit",
+      "before": "524799d3a7107bfba92edc123206fec0053196704427d36b618e97ef767fec26",
+      "after": "524799d3a7107bfba92edc123206fec0053196704427d36b618e97ef767fec26",
+      "isolatedCut": "524799d3a7107bfba92edc123206fec0053196704427d36b618e97ef767fec26",
+      "currentMatchesCut": true,
+      "unchanged": true,
+      "size": [
+        240,
+        386
+      ]
+    },
+    {
+      "pose": "kneel",
+      "before": "9313eead4997bb31c5a2fa0b6f4a0defb78c9aec24cebd4c44d56cf927a6f565",
+      "after": "9313eead4997bb31c5a2fa0b6f4a0defb78c9aec24cebd4c44d56cf927a6f565",
+      "isolatedCut": "9313eead4997bb31c5a2fa0b6f4a0defb78c9aec24cebd4c44d56cf927a6f565",
+      "currentMatchesCut": true,
+      "unchanged": true,
+      "size": [
+        519,
+        324
+      ]
+    }
+  ],
+  "cause": "rule detection treated long silhouette/cane inside first panel as ruled lines",
+  "review": "Root and independent manga_audit inspected complete face, hand and cane; siblings unchanged"
+}

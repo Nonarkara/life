@@ -1,0 +1,61 @@
+# Integration reconciliation ·28October2026
+
+## Baton and verdict
+
+Started at main/origin/main a3b67b0, clean, one registered worktree, no stash.
+Fetched origin and confirmed zero ahead/behind. Gemini report5e5f239 describes
+already-contained work, not a pending branch. c26d03e,ed2c171,2b0b2e3,5e5f239
+all pass merge-base --is-ancestor HEAD. Later layout/navigation/palette/delivery
+repairs remain intact. No cherry-pick or merge was warranted.
+
+Confirm reported source lineage, but correct its blanket art-quality claim:
+elder-x walk-stick was visibly clipped despite the approved original being
+complete. Do not describe prior test counts as present validation. Current full
+suite is230tests, not220suites.
+
+## Inventory
+
+Scoped project and managed Codex metadata found no additional Life checkout;
+Claude worktrees path absent, Gemini scratch belongs to an unrelated project and
+was left uninspected. No local branches/stashes/dirty source at start. fsck found
+11unreachable blobs:7viewport PNGs and4superseded manifest/review/context
+versions, zero commits/trees. No orphaned executable change found in examined
+objects. No deletion, prune, reset or forced cleanup was performed.
+
+46catalogue inputs already accounted for:18sheetcandidates match tracked sources;
+28platecandidates match source inputs and re-encode to existing published bytes.
+Manifest31spritegroups+49platekeys resolves172uniqueimages. Source/output
+images match; candidates contain no additional eligible catalogue art. Other
+probe/trial/prev experiments remain unapproved and preserved.
+
+## Corrections
+
+1. prepare-anime-assets.py mistook the elder pose's long outline/cane for panel
+rules. Protect the known first panel interior in this reviewed sheet while
+preserving real separator lines. Isolated four-pose rebuild yields complete
+face/hand/cane:walk147×389→170×389. Other3poses are byte-identical. Only one
+published WebP changes; manifest, frame allowlists and source images unchanged.
+Root and independent reviewer inspected actual before/after/source, not just
+contact thumbnails. elder-cut.json records exact hashes.
+2. Missing approval file/entry previously allowed catalogue frames to proceed to
+image decoding. New approval validation covers18cataloguegroups and preflights
+all selected sheets before any output directory/plate/frame write. Invalid,
+empty or unknown frame lists fail. Plates-only and12processablelegacygroups
+retain their workflow; manifest-only player-a remains preserved. Grandmother's
+crouch stays withheld. New contract test executes actual Python with image
+libraries stubbed, requiring only standard library; missing approvals must fail
+before decoding/outputs. Old baseline reproduced UNAPPROVED_IMAGE_DECODE_REACHED.
+3. INTEGRATION-STATUS.md is the canonical inventory and future integration rule;
+AGENTS points to it, and old readiness sections are explicitly historical.
+4. Public verifier accepts a separate receipt path and checks the actual manifest
+and repaired elder image, alongside ordinary entries and queried/bare assets.
+
+## Verification before publication
+
+230tests pass, no skips/failures. Build2fd952699871. Diff whitespace check passes.
+Independent source/art review confirms guard preflight, complete repaired pose,
+unchanged siblings and preserved prior layout work. No new broad UI design,
+simulation/save schema change or art generation. Live receipt follows publication.
+HardwareFPS, full visual approval of every frame and external player testing are
+not certified by this bounded audit. Precise original stale-tab cause remains
+unproved. INTEGRATION-STATUS records remaining evidence gaps.

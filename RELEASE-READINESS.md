@@ -1,4 +1,15 @@
-# Current release — 28 October 2026: reviewed MiniMax continuation
+# Current release and integration record
+
+See [INTEGRATION-STATUS.md](INTEGRATION-STATUS.md) for the canonical integration
+inventory and latest source/build evidence. Historical sections below describe
+specific releases; their former open items and test counts are not the current
+state. Do not use an older handoff as a merge target without ancestry/diff review.
+
+Current audit evidence: [integration review](review/integration-oct28/REVIEW.md).
+
+---
+
+# Historical release — 28 October 2026: reviewed MiniMax continuation
 
 Codeafb8334 (main repair418ada2), buildb02dbd45afdc, deployment97ffbdab.
 Live:https://life.nonarkara.org/course/ and canonical Pages.
@@ -12,7 +23,7 @@ Physical touch and M3hardware performance are not certified.
 
 ---
 
-# Current release — 28 October 2026: cockpit completion
+# Historical release — 28 October 2026: cockpit completion
 
 Implementation e766951 (console repair1791a8a), build4ba7e74e270f.
 Cloudflare deployment https://a70ec66f.life-5wz.pages.dev .
@@ -30,7 +41,7 @@ playtesting are not certified by this release.
 
 ---
 
-# Current release — 27 October 2026: shipping repair
+# Historical release — 27 October 2026: shipping repair
 
 Published implementation8ef5303, builda3525000e796, Cloudflare deployment745f3c8f.
 Live at https://life.nonarkara.org/course/ .
