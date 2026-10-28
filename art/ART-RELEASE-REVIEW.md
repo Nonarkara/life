@@ -1,5 +1,12 @@
 # Art handoff disposition · 28 October 2026
 
+Later integration correction (232e589): a frame named in the allowlist was
+still clipped by rule detection. The elder-x walking face/hand/cane is repaired
+from the approved source; its three sibling poses remain byte-identical. Missing
+catalogue approval metadata now aborts before decoding or batch writes. Approval
+listing alone is not proof of visual quality. See
+[the integration review](../review/integration-oct28/REVIEW.md).
+
 The local FLUX model is an offline authoring tool, not a dependency of the web
 game. It needed the illustration LoRA named explicitly, because in this build
 `--lora-style` is inert on FLUX.1-schnell and `--negative-prompt` is ignored:

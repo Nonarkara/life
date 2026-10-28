@@ -511,3 +511,20 @@ recordedshrinkwrap fails samegate. Independent reviewcleared. Age10saveunchanged
 0/1/2/2/5points,3questions,no warn/errors. Evidence review/preview-freshness.
 NoUI/simulation/artrewrite. MSHlesson captured. Headers onlyaffect subsequent
 navigation; cannotretroactivelyreload anolderopenDOM.
+
+
+## Multi-agent integration closeout ·28October2026
+Gemini's5e5f239report was historical:all4reportedcommits are ancestors ofmain.
+Scopedworktrees/branches/stashes/managedmetadatafoundonlythisLifecheckout,clean
+atstarta3b67b0. fsck11blobs(7captures,4supersededdocs/manifest),nocommits/trees;
+noorphanedexecutablechangefound. No blindmerge,pruneordelete.46catalogueinputs
+alreadyintegrated;172runtimeimages retained. Oneactualdefectcorrected:elder-x
+walkface/hand/canecutbyruledetection,notpanelbounds. Sourcecomplete; isolated
+cutrepairs170x389,3siblingsbyte-identical. Catalogue18groupapprovalmetadata now
+failclosedbeforedecode/anybatchwrites;12processablelegacy+manifestplayer-a
+preserved.230tests andindependentreviewpass. Code232e589/build2fd952699871/
+deploycf339d1b;bothhostsexactordinaryentries/no-store+20assetURLsincmanifest/
+repairedframe. Actualpublicdesktop+phonepreservesage10/0,1,2,2,5/3questions,
+pagefit/oneaction/logsnone. INTEGRATION-STATUS.md iscanonicalfuturehandoffindex;
+oldreadinesssectionsmarkedhistorical. MSH2lessonscaptured+recalltested.
+HardwareFPS,touchandexternalplaytestremainunverified. See review/integration-oct28.

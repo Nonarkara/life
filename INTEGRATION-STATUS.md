@@ -5,7 +5,17 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
-## Current baseline
+## Current shipped state
+
+Source232e589, build2fd952699871, Pages deploymentcf339d1b.
+Both public domains pass exact ordinary entry/no-store and20checked asset URLs,
+including manifest and repaired elder image.230tests pass; independent review
+cleared source, frame repair and actual desktop/phone startup/save/layout checks.
+All reported Gemini/MiniMax work is contained; no pending eligible merge remains
+in the examined checkouts/objects. No scratch experiment was promoted or deleted.
+Full evidence: [review](review/integration-oct28/REVIEW.md).
+
+## Reconciliation starting baseline
 
 At this audit's start: main/origin/main both a3b67b0, runtime build442bb1ed8bc4,
 public Pages7915f531. The only registered Life worktree is this prototype.

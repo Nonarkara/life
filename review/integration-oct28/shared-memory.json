@@ -1,0 +1,13 @@
+{
+  "status": "verified",
+  "paths": [
+    "Scars/Debug-Logs/2026-10-28-catalogue-art-approval-must-fail-before-decoding-or-any-batch-writes.md",
+    "Scars/Debug-Logs/2026-10-28-sprite-rule-removal-can-sever-a-complete-pose-before-cropping.md"
+  ],
+  "recall": {
+    "limit": 2,
+    "exactSourcesRetrieved": 2
+  },
+  "source": "232e589",
+  "build": "2fd952699871"
+}

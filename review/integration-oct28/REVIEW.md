@@ -59,3 +59,22 @@ simulation/save schema change or art generation. Live receipt follows publicatio
 HardwareFPS, full visual approval of every frame and external player testing are
 not certified by this bounded audit. Precise original stale-tab cause remains
 unproved. INTEGRATION-STATUS records remaining evidence gaps.
+
+## Published closeout
+
+Code232e589,build2fd952699871,deploymentcf339d1b. Both canonical and custom
+domains passed three consecutive disposable convergence rounds, then exact
+ordinary/course/index andbuildJSON responses withno-store. All20real/bareasset
+URLs match, including the new manifest and repaired elder walking frame.
+See public-delivery.json. Actual public desktop1440×900 andphone390×844
+retain full-width/no-page-bleed, one visible advance action, age10allocation
+0/1/2/2/5 and3pendingquestions; no warning/error logs. No answer/period advanced.
+Desktop/phone screenshots and public-browser.json are actual published evidence.
+Independent reviewer reran full230test suite and cleared final source/art/public
+receipts. No remaining blocker in this integration scope.
+
+MSH: two verified lessons captured and exact-source recall-tested: catalogue
+approval preflight before outputs, and rule detection severing sprite anatomy.
+Paths in shared-memory.json. No extra Life worktree to archive, no branch to
+merge, no unique runtime code found in scoped unreachable objects. Historical
+art-quality blanket claims now carry a link to this correction.
