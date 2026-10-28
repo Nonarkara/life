@@ -528,3 +528,16 @@ repairedframe. Actualpublicdesktop+phonepreservesage10/0,1,2,2,5/3questions,
 pagefit/oneaction/logsnone. INTEGRATION-STATUS.md iscanonicalfuturehandoffindex;
 oldreadinesssectionsmarkedhistorical. MSH2lessonscaptured+recalltested.
 HardwareFPS,touchandexternalplaytestremainunverified. See review/integration-oct28.
+
+
+## 2026-10-28 control bench closeout
+Code ef65794 / build e0d3cc48eb10 / Pages21e853d4. Corrected actual sparse-reader
+space reservation and equal-weight console, not a stale-screen excuse. On-demand
+reader, compact allocation-first bench, one preserved action, narrow DOM ownership,
+whole reader scrolling and document Escape. Existing route axis occlusion repaired
+with compact native dialog, elapsed age and lane-sized chart; model/ending intact.
+233 tests and rendered geometry gate pass; independent review cleared viewport,
+native and route captures. Both public hosts exact entry+20 asset URLs verified.
+Public save10/0,1,2,2,5/3questions preserved, no console warnings/errors. See
+review/control-bench. New verified geometry lesson captured in shared memory.
+Gemini5e5f239 already ancestor; no new merge from report. No source left pending.

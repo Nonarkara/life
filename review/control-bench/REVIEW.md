@@ -76,3 +76,10 @@ it is already an ancestor of current main; no repeat cherry-pick is appropriate.
 Its roster, charts, transport and accepted assets remain; its reserved full-height
 reader composition is the current defect corrected here. Its old visual approval
 is not evidence against the user's newer screenshot. Public receipts follow below.
+
+
+Final release: source ef65794, build e0d3cc48eb10, Pages21e853d4. Both public
+hosts pass entry headers and20 exact asset URLs (public-delivery.json). Actual
+canonical public desktop save remains10/0,1,2,2,5/3questions; one action, closed
+reader, page fits, map Escape returns focus, no warning/error logs. See
+public-browser.json and live-desktop.png. Shared-memory verified lesson captured.

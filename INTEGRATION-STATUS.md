@@ -7,13 +7,18 @@ what is confirmed, corrected or rejected.
 
 ## Current shipped state
 
-Source232e589, build2fd952699871, Pages deploymentcf339d1b.
-Both public domains pass exact ordinary entry/no-store and20checked asset URLs,
-including manifest and repaired elder image.230tests pass; independent review
-cleared source, frame repair and actual desktop/phone startup/save/layout checks.
-All reported Gemini/MiniMax work is contained; no pending eligible merge remains
-in the examined checkouts/objects. No scratch experiment was promoted or deleted.
-Full evidence: [review](review/integration-oct28/REVIEW.md).
+Source ef65794, build e0d3cc48eb10, Pages deployment 21e853d4.
+Both public domains pass ordinary entry/no-store and 20 exact asset URLs.
+233 tests pass. The world now owns the viewport; references open on demand.
+The compact bench prioritizes allocation, forecast and its single advance action.
+Independent review cleared ten stage/viewport cases, Thai extra-large, reader
+scroll/focus/resize ownership, and four compact route-map views. Existing public
+age10 allocation0/1/2/2/5 and three pending questions remain; no life advanced.
+Actual live desktop screenshot and browser/delivery receipts:
+[control bench review](review/control-bench/REVIEW.md).
+All reported Gemini/MiniMax commits remain integrated. Gemini's latest report
+again names historical5e5f239, already an ancestor; do not reapply old layouts.
+Hardware FPS, touch and external player tests remain unverified.
 
 ## Reconciliation starting baseline
 
