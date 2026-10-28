@@ -137,3 +137,23 @@ body.console-mode>header{flex:none}
 .console-mode main{width:100%;margin:0}
 .console-actions:has(#save-status[hidden]){grid-template-columns:1fr}
 .console-actions:has(#save-status[hidden]) #commit{justify-self:end}
+
+/* On handheld screens the scene leads; controls occupy the remaining reading
+   surface. Captions overlay the scene instead of becoming another bottom band. */
+@media(max-width:1279px){
+ .console-mode:not(.birth-stage):not(.recap-stage) main,
+ html[data-text-size=extra] .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-rows:minmax(0,60fr) minmax(0,40fr) auto}
+ .console-mode:not(.birth-stage):not(.recap-stage) .stage{position:relative}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{position:absolute;bottom:3px;right:6px;left:auto;max-width:calc(100% - 12px);padding:2px 6px;background:var(--deck);color:var(--deck-text)}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-bottom p{margin:0}
+ .console-mode:not(.birth-stage):not(.recap-stage) #age-track{position:absolute;bottom:0;left:0;right:0;height:3px;padding:0}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-head{padding:4px 8px;gap:6px;flex-wrap:nowrap}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-head>div:first-child{gap:6px;flex-wrap:nowrap;min-width:0}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-head strong{white-space:nowrap}
+ .console-nav{padding:0 10px;gap:14px}
+ .personal-console .console-panel{padding:0 8px 8px}
+ .personal-console .tabs{margin:0;gap:12px;overflow-x:auto;white-space:nowrap}
+ .personal-console .tabs button{padding:2px 0;min-height:32px}
+ .personal-console #narrative:empty,.personal-console #effect-preview:empty{display:none}
+ .deck-action-integrated .console-actions{display:none}
+}

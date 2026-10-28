@@ -1,0 +1,158 @@
+{
+  "build": "17b2050366c0",
+  "checks": [
+    {
+      "section": "Money",
+      "count": 1,
+      "h": 844,
+      "parent": "console-actions",
+      "planActive": false,
+      "rect": {
+        "bottom": 841,
+        "height": 36.5,
+        "left": 225.53125,
+        "right": 378,
+        "top": 804.5,
+        "width": 152.46875,
+        "x": 225.53125,
+        "y": 804.5
+      },
+      "visible": true,
+      "w": 390
+    },
+    {
+      "section": "World",
+      "count": 1,
+      "h": 844,
+      "parent": "console-actions",
+      "planActive": false,
+      "rect": {
+        "bottom": 841,
+        "height": 36.5,
+        "left": 225.53125,
+        "right": 378,
+        "top": 804.5,
+        "width": 152.46875,
+        "x": 225.53125,
+        "y": 804.5
+      },
+      "visible": true,
+      "w": 390
+    },
+    {
+      "section": "You",
+      "count": 1,
+      "h": 844,
+      "parent": "console-actions",
+      "planActive": false,
+      "rect": {
+        "bottom": 841,
+        "height": 36.5,
+        "left": 225.53125,
+        "right": 378,
+        "top": 804.5,
+        "width": 152.46875,
+        "x": 225.53125,
+        "y": 804.5
+      },
+      "visible": true,
+      "w": 390
+    },
+    {
+      "section": "History",
+      "count": 1,
+      "h": 844,
+      "parent": "console-actions",
+      "planActive": false,
+      "rect": {
+        "bottom": 841,
+        "height": 36.5,
+        "left": 225.53125,
+        "right": 378,
+        "top": 804.5,
+        "width": 152.46875,
+        "x": 225.53125,
+        "y": 804.5
+      },
+      "visible": true,
+      "w": 390
+    },
+    {
+      "section": "Plan",
+      "count": 1,
+      "h": 844,
+      "parent": "deck-action-slot",
+      "planActive": true,
+      "rect": {
+        "bottom": 826.765625,
+        "height": 36,
+        "left": 18,
+        "right": 186.46875,
+        "top": 790.765625,
+        "width": 168.46875,
+        "x": 18,
+        "y": 790.765625
+      },
+      "visible": true,
+      "w": 390
+    },
+    {
+      "section": "Profile",
+      "count": 1,
+      "h": 844,
+      "parent": "console-actions",
+      "planActive": true,
+      "rect": {
+        "bottom": 841,
+        "height": 36.5,
+        "left": 225.53125,
+        "right": 378,
+        "top": 804.5,
+        "width": 152.46875,
+        "x": 225.53125,
+        "y": 804.5
+      },
+      "visible": true,
+      "w": 390
+    },
+    {
+      "section": "Questions",
+      "count": 1,
+      "h": 844,
+      "parent": "console-actions",
+      "planActive": true,
+      "rect": {
+        "bottom": 841,
+        "height": 36.5,
+        "left": 225.53125,
+        "right": 378,
+        "top": 804.5,
+        "width": 152.46875,
+        "x": 225.53125,
+        "y": 804.5
+      },
+      "visible": true,
+      "w": 390
+    },
+    {
+      "section": "Priorities",
+      "count": 1,
+      "h": 844,
+      "parent": "deck-action-slot",
+      "planActive": true,
+      "rect": {
+        "bottom": 826.765625,
+        "height": 36,
+        "left": 18,
+        "right": 186.46875,
+        "top": 790.765625,
+        "width": 168.46875,
+        "x": 18,
+        "y": 790.765625
+      },
+      "visible": true,
+      "w": 390
+    }
+  ],
+  "logs": []
+}

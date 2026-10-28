@@ -87,3 +87,14 @@ content stays reachable in one scroll region with explicit Close/Escape and
 focus return. Enlarged native type must retain the active forecast/action;
 regroup before shrinking type. Test requested versus actual capture viewports.
 A no-overflow or full-width pass does not certify hierarchy or occupied space.
+
+## Phone scene is not a thumbnail beneath chrome
+The owner rejected the28October enlarged Thai phone view. In default review,
+the actual animated canvas must be taller than the lower reading console. A
+selected value gets an intrinsic-width decrement/value/increment group, not a
+full-width distributed track. Keep its label, forecast and one next action
+together. Do not reserve a separate footer for that action when it can live in
+the active decision. Preserve reachable fallback in other sections, questions,
+profile and save failures. Caption overlays may reclaim a redundant bottom band.
+Verify the rendered Thai extra-large task, not just page overflow. The earlier
+phone geometry pass is explicitly superseded by review/phone-composition.

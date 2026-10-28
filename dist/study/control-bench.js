@@ -12,7 +12,7 @@ import {setPalette,paletteFor} from '../course/palettes.js';
 const $=id=>document.getElementById(id),pick=document.createElement('select');
 pick.setAttribute('aria-label','Review life');
 for(const [value,label]of [['10','Review: childhood · 10'],['55','Review: adult · 55'],['route','Review: moves and events · 55']]){const option=document.createElement('option');option.value=value;option.textContent=label;pick.append(option);}
-const reviewHeader=document.querySelector('header');reviewHeader.style.flexWrap='wrap';pick.style.maxWidth='100%';pick.style.minWidth='0';reviewHeader.append(pick);
+const reviewHeader=document.querySelector('header');reviewHeader.style.flexWrap='wrap';pick.style.maxWidth='100%';pick.style.minWidth='0';pick.style.fontSize='calc(12px * var(--reading-scale))';pick.style.padding='2px 18px 2px 0';reviewHeader.append(pick);
 document.body.classList.remove('loading');document.body.classList.add('is-review');$('load-state').remove();
 let state;
 function fixture(age,moves=false){

@@ -290,3 +290,34 @@
  html[data-text-size=extra] .life-deck .deck-status dd{text-align:left}
 
 }
+
+/* A selected value is an editing group, not a full-width display track. */
+@media(max-width:1279px){
+ .life-deck{margin:0;border:0;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));align-items:start}
+ .life-deck .deck-panel{padding:5px 8px;gap:3px}
+ .life-deck .deck-set{border-left:2px solid var(--deck-accent)}
+ .life-deck .deck-set .deck-placard{font-size:calc(17px * var(--reading-scale));text-transform:none;letter-spacing:0;color:var(--deck-text)}
+ .life-deck .deck-points{grid-template-columns:minmax(0,1fr) max-content;align-items:center;gap:3px 8px}
+ .life-deck .deck-value-label{grid-column:1;grid-row:1;display:grid;justify-content:start;gap:0}
+ .life-deck .deck-stepper{grid-column:2;grid-row:1;grid-template-columns:36px max-content 36px;gap:4px;justify-content:start}
+ .life-deck .deck-stepper .deck-key{min-width:36px;min-height:36px;padding:2px}
+ .life-deck .deck-value{min-width:2ch;font-size:calc(26px * var(--reading-scale))}
+ .life-deck .deck-result{grid-column:1/-1;grid-row:2}
+ .life-deck .deck-action-slot{grid-column:1/-1;grid-row:3;margin:2px 0 0}
+ .life-deck #commit{background:var(--deck-accent);color:var(--deck);min-height:36px;padding:4px 8px;text-align:left;white-space:normal;font-weight:600}
+ .life-deck .deck-strip{margin:0 0 3px;gap:3px}
+ .life-deck .deck-chip{min-height:28px;padding:3px 5px}
+ .life-deck .deck-chip-name,.life-deck .deck-chip-val{font-size:calc(11px * var(--reading-scale))}
+}
+@media(max-width:1279px){
+ .personal-console .console-panel{padding:0 8px 8px}
+ /* Read/edit the selected channel first. The full roster remains directly
+    below it, rather than pushing its forecast and action off the first view. */
+ .life-deck .deck-set{display:flex;flex-direction:column;align-items:stretch}
+ .life-deck .deck-set .deck-placard{order:0;line-height:1.4}
+ .life-deck .deck-set .deck-points{order:1}
+ .life-deck .deck-set .deck-strip{order:2;margin:5px 0 0}
+ .life-deck .deck-set .deck-note{order:3}
+ .life-deck .deck-value-label{line-height:1.4}
+ .life-deck .deck-result{line-height:1.4}
+}

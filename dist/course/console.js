@@ -65,7 +65,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
  place();wide.addEventListener('change',place);
 
  function select(key,{align=true,reset=true}={}){
-  active=key;
+  active=key;document.body.classList.toggle('plan-active',key==='plan');
   if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}
   if(key==='cv')cvPane(getState());
   if(key==='world')worldPane(getState());

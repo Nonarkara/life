@@ -5,7 +5,7 @@ import {deckHistory,deckBaht} from './deck-model.js';
 // The life console: one instrument surface, divided into labelled panels by function,
 // the way a flight deck is. Every control says what it changes. The panels are
 // LIFE COURSE, STATUS, SET POINTS, LIFE DIRECTION, MONEY and IKIGAI. The one action,
-// living the next five years, stays beside the selected value on wide screens.
+// living the next five years, stays beside the selected value at every width.
 // The deck draws and calls the actions it is given; game.js keeps every rule.
 const AIM_KEYS=[['balance','Balance'],['sport','Sport'],['art','Art'],['security','Security'],['connection','Connection']];
 const METRICS=[['health','Health'],['wellbeing','Mood'],['worth','Wealth']];
@@ -45,6 +45,8 @@ export function arrangeDeck(root){
  const names=['set','direction','status','course','money','ikigai'];
  const focused=root.contains?.(document.activeElement)?document.activeElement:null;
  root.append(...names.map(name=>root.querySelector('.deck-'+name)).filter(Boolean));
+ const set=root.querySelector('.deck-set'),points=set?.querySelector('.deck-points'),strip=set?.querySelector('.deck-strip');
+ if(points&&strip){if(matchMedia('(min-width:1280px)').matches)set.insertBefore(strip,points);else set.insertBefore(points,strip);}
  focused?.focus({preventScroll:true});
 }
 
