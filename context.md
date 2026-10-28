@@ -470,3 +470,11 @@ native cases and restored failure pass check-minimax-release.mjs. Inspect
 review/minimax-final/REVIEW.md and actual public receipts before claiming live.
 Physicaltouchswipe and M3hardware performance remain unverified. No save schema,
 simulation rule or approved image changed by this audit.
+
+Final publication:codeafb8334 (repair418ada2), buildb02dbd45afdc, deployment97ffbdab.
+Both domains pass23exactassets in3consecutivepasses; actual public age10save
+retained,0/1/2/2/5points,3pendingquestions, no console warnings/errors. Sparse
+childhood has4visible tracks; full adult has6. Auto-fit grids need definite
+mainwidth100%/margin0 inside the flex page; public-before receipt preserves the
+shrink-wrap failure. MSH lessons captured and recall-tested for both this width
+trap and attached-pane/static-sibling ownership. See review/minimax-final.

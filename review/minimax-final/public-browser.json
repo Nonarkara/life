@@ -1,0 +1,181 @@
+{
+  "url": "https://life-5wz.pages.dev/course/",
+  "build": "b02dbd45afdc",
+  "entry": "boot.js?v=b02dbd45afdc",
+  "checks": [
+    {
+      "action": "World",
+      "nearest": "console-world",
+      "scroll": 1464,
+      "selected": "console-world"
+    },
+    {
+      "action": "Plan",
+      "nearest": "console-plan",
+      "scroll": 0,
+      "selected": "console-plan"
+    }
+  ],
+  "geometry": {
+    "action": {
+      "bottom": 799,
+      "client": 34,
+      "display": "block",
+      "h": 36.5,
+      "scroll": 34,
+      "w": 152.46875,
+      "x": 201.53125,
+      "y": 762.5
+    },
+    "comparison": {
+      "bottom": 0,
+      "client": 0,
+      "display": "block",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "deck": {
+      "bottom": 1127.625,
+      "client": 686,
+      "display": "grid",
+      "h": 687.8671875,
+      "scroll": 686,
+      "w": 334,
+      "x": 16,
+      "y": 439.7578125
+    },
+    "event": {
+      "bottom": 0,
+      "client": 0,
+      "display": "none",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "footer": {
+      "bottom": 802,
+      "client": 43,
+      "display": "grid",
+      "h": 43.5,
+      "scroll": 43,
+      "w": 366,
+      "x": 0,
+      "y": 758.5
+    },
+    "h": 802,
+    "header": {
+      "bottom": 48.5,
+      "client": 47,
+      "display": "flex",
+      "h": 48.5,
+      "scroll": 47,
+      "w": 366,
+      "x": 0,
+      "y": 0
+    },
+    "main": {
+      "bottom": 802,
+      "client": 754,
+      "display": "grid",
+      "h": 753.5,
+      "scroll": 754,
+      "w": 366,
+      "x": 0,
+      "y": 48.5
+    },
+    "pageH": 802,
+    "pageW": 366,
+    "palette": "Lotus",
+    "panels": [
+      {
+        "bottom": 642.1484375,
+        "height": 201.390625,
+        "name": "deck-panel deck-set"
+      },
+      {
+        "bottom": 784.0390625,
+        "height": 140.890625,
+        "name": "deck-panel deck-direction"
+      },
+      {
+        "bottom": 968.4296875,
+        "height": 183.390625,
+        "name": "deck-panel deck-course"
+      },
+      {
+        "bottom": 1126.625,
+        "height": 157.1953125,
+        "name": "deck-panel deck-status"
+      }
+    ],
+    "plan": {
+      "bottom": 757.5,
+      "client": 361,
+      "display": "block",
+      "h": 361.2421875,
+      "scroll": 751,
+      "w": 366,
+      "x": 0,
+      "y": 396.2578125
+    },
+    "profile": {
+      "bottom": 0,
+      "client": 0,
+      "display": "none",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "reader": {
+      "bottom": 757.5,
+      "client": 404,
+      "display": "flex",
+      "h": 404.2421875,
+      "scroll": 404,
+      "w": 366,
+      "x": 0,
+      "y": 353.2578125
+    },
+    "set": {
+      "bottom": 642.1484375,
+      "client": 201,
+      "display": "grid",
+      "h": 201.390625,
+      "scroll": 201,
+      "w": 332,
+      "x": 17,
+      "y": 440.7578125
+    },
+    "w": 366,
+    "world": {
+      "bottom": 353.2578125,
+      "client": 305,
+      "display": "flex",
+      "h": 304.7578125,
+      "scroll": 305,
+      "w": 366,
+      "x": 0,
+      "y": 48.5
+    }
+  },
+  "logs": [],
+  "preserved": {
+    "age": 10,
+    "points": [
+      0,
+      1,
+      2,
+      2,
+      5
+    ],
+    "pendingQuestions": 3
+  },
+  "preferences": "auto / English / standard"
+}

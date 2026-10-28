@@ -5,6 +5,7 @@ const {cases,languages}=read('geometry.json');
 for(const c of [...cases,...languages]){
  const id=c.name??c.locale;
  assert.ok(c.plan&&c.set&&c.action&&c.deck,id+': gameplay must be loaded');
+ assert.equal(c.main.w,c.w,id+': working surface must fill viewport');
  assert.equal(c.pageW,c.w,id+': horizontal page bleed');assert.equal(c.pageH,c.h,id+': vertical page bleed');
  assert.equal(c.panels.length,6,id+': retained instrument panels');
  assert.ok(c.set.bottom<=c.plan.bottom+1,id+': complete edit/result/disclosure group must fit');
@@ -19,3 +20,10 @@ assert.ok(proof.negative.pageH>proof.negative.h);assert.ok(proof.negative.set.bo
 const old=read('navigation-before.json');assert.notEqual(old.nearest,old.selected,'observed inherited navigation must fail');
 for(const n of read('navigation-after.json'))assert.equal(n.nearest,n.selected,n.action);
 console.log('PASS: five viewport/text cases, four native cases, navigation, and restored geometry failure.');
+
+const sparse=read('public-sparse.json'),oldSparse=read('public-sparse-before.json');
+assert.equal(sparse.main.w,sparse.w);assert.equal(sparse.main.x,0);
+assert.equal(sparse.columns.split(' ').filter(n=>parseFloat(n)>0).length,sparse.panels.length);
+assert.ok(sparse.set.bottom<=sparse.plan.bottom);assert.equal(sparse.pageH,sparse.h);
+assert.ok(oldSparse.main.w<oldSparse.w,'observed shrink-wrap must fail the same width gate');
+console.log('PASS: actual public sparse layout and inherited shrink-wrap rejected.');

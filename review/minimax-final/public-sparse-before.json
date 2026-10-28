@@ -1,0 +1,151 @@
+{
+  "action": {
+    "bottom": 897,
+    "client": 34,
+    "display": "block",
+    "h": 36.5,
+    "scroll": 34,
+    "w": 152.46875,
+    "x": 542.1796875,
+    "y": 860.5
+  },
+  "comparison": {
+    "bottom": 0,
+    "client": 0,
+    "display": "block",
+    "h": 0,
+    "scroll": 0,
+    "w": 0,
+    "x": 0,
+    "y": 0
+  },
+  "deck": {
+    "bottom": 1197.40625,
+    "client": 664,
+    "display": "grid",
+    "h": 665.90625,
+    "scroll": 664,
+    "w": 301.3046875,
+    "x": 389.34375,
+    "y": 531.5
+  },
+  "event": {
+    "bottom": 0,
+    "client": 0,
+    "display": "none",
+    "h": 0,
+    "scroll": 0,
+    "w": 0,
+    "x": 0,
+    "y": 0
+  },
+  "footer": {
+    "bottom": 900,
+    "client": 43,
+    "display": "grid",
+    "h": 43.5,
+    "scroll": 43,
+    "w": 333.3046875,
+    "x": 373.34375,
+    "y": 856.5
+  },
+  "h": 900,
+  "header": {
+    "bottom": 48.5,
+    "client": 47,
+    "display": "flex",
+    "h": 48.5,
+    "scroll": 47,
+    "w": 1440,
+    "x": 0,
+    "y": 0
+  },
+  "main": {
+    "bottom": 900,
+    "client": 852,
+    "display": "grid",
+    "h": 851.5,
+    "scroll": 852,
+    "w": 693.3046875,
+    "x": 373.34375,
+    "y": 48.5
+  },
+  "pageH": 900,
+  "pageW": 1440,
+  "palette": "Lotus",
+  "panels": [
+    {
+      "bottom": 685.5390625,
+      "height": 153.0390625,
+      "name": "deck-panel deck-course"
+    },
+    {
+      "bottom": 816.3828125,
+      "height": 129.84375,
+      "name": "deck-panel deck-status"
+    },
+    {
+      "bottom": 999.71875,
+      "height": 182.3359375,
+      "name": "deck-panel deck-set"
+    },
+    {
+      "bottom": 1196.40625,
+      "height": 195.6875,
+      "name": "deck-panel deck-direction"
+    }
+  ],
+  "plan": {
+    "bottom": 856.5,
+    "client": 369,
+    "display": "block",
+    "h": 368.5,
+    "scroll": 729,
+    "w": 333.3046875,
+    "x": 373.34375,
+    "y": 488
+  },
+  "profile": {
+    "bottom": 0,
+    "client": 0,
+    "display": "none",
+    "h": 0,
+    "scroll": 0,
+    "w": 0,
+    "x": 0,
+    "y": 0
+  },
+  "reader": {
+    "bottom": 900,
+    "client": 852,
+    "display": "flex",
+    "h": 851.5,
+    "scroll": 852,
+    "w": 360,
+    "x": 706.6484375,
+    "y": 48.5
+  },
+  "set": {
+    "bottom": 999.71875,
+    "client": 182,
+    "display": "grid",
+    "h": 182.3359375,
+    "scroll": 182,
+    "w": 299.3046875,
+    "x": 390.34375,
+    "y": 817.3828125
+  },
+  "w": 1440,
+  "world": {
+    "bottom": 486,
+    "client": 438,
+    "display": "flex",
+    "h": 437.5,
+    "scroll": 438,
+    "w": 333.3046875,
+    "x": 373.34375,
+    "y": 48.5
+  },
+  "columns": "299.305px",
+  "logs": []
+}

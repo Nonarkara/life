@@ -32,7 +32,7 @@ The four inherited stage images are advisory, not this release's acceptance evid
 
 227tests pass,0fail/skipped. Independent reviewer repeated the suite and cleared
 bounded source/pixel findings. No save schema, simulation rules or approved image
-bytes changed. Current build059082f6c0a1.
+bytes changed. Final buildb02dbd45afdc.
 
 scripts/check-minimax-release.mjs checks five actual viewport/text cases and four
 native-language cases. At1280x720, edit group ends670.57 within676.5available.
@@ -56,3 +56,28 @@ No hardwareFPS/RAM certification, native editorial review, or whole-art-quality
 approval is claimed. Pixel approval covers the inspected repair scope. The image
 audit finds172referenced images,8775842compressed bytes; decoded-pixel estimates
 are not measured browser memory. Public deployment receipts follow publication.
+
+## Published result
+
+C/P:418ada2 merged the interrupted MiniMax changes and reviewed repairs.
+Sparse-grid followups1b818e0/afb8334 remove empty childhood tracks and give the
+flex working region a definite viewport width. The initial auto-fit change
+exposed shrink-wrap, caught on the actual live sparse view; its failing width
+receipt is preserved as public-sparse-before.json. Final public main is1440px
+atx0 with four260.75px visible tracks and two collapsed0tracks; full adult
+viewport captures were repeated on the final CSS. Both states pass the gate.
+
+D:wrangler pages deploy out --project-name life --branch main
+→ https://97ffbdab.life-5wz.pages.dev ; buildb02dbd45afdc.
+T:verify-minimax-release.py reports23/23exactSHA256assets in3consecutive passes
+at canonical Pages and custom domain, including palettes, profile helper and
+representative newly approved house art. public-assets.json has every digest.
+The real public age10life and0/1/2/2/5points remain, with3pending questions.
+Palette controls, repeated profile/radar rendering, World/Plan navigation work;
+console warnings/errors are empty. public-browser.json/public-sparse.json and
+public-desktop.png are actual public evidence.
+
+Independent review closed both sparse and dense layout findings. Physical touch
+swiping and M3hardware performance remain unmeasured. MSH captured and recalled
+verified lessons on attached-pane identity/static siblings and definite-width
+auto-fit grids. No life decision or period was committed by browser verification.

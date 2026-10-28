@@ -1,3 +1,17 @@
+# Current release — 28 October 2026: reviewed MiniMax continuation
+
+Codeafb8334 (main repair418ada2), buildb02dbd45afdc, deployment97ffbdab.
+Live:https://life.nonarkara.org/course/ and canonical Pages.
+227tests pass; independent source/pixel review closes inspected findings.
+23exactassetdigests match both hosts in3consecutivepasses. Actual public
+settings/profile/navigation/save verification has no console warnings/errors.
+Preserves172approved images and world-first composition; finishes palette pinning
+and fixes lifecycle/navigation/period units/contrast/geometry. Sparse and dense
+console states fit; full evidence and MSH receipts are in review/minimax-final.
+Physical touch and M3hardware performance are not certified.
+
+---
+
 # Current release — 28 October 2026: cockpit completion
 
 Implementation e766951 (console repair1791a8a), build4ba7e74e270f.
