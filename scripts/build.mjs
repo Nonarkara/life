@@ -1,4 +1,4 @@
-import {cpSync,mkdirSync,readdirSync,readFileSync,mkdtempSync,existsSync,renameSync,rmSync,statSync} from 'node:fs';
+import {cpSync,mkdirSync,readdirSync,readFileSync,writeFileSync,mkdtempSync,existsSync,renameSync,rmSync,statSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {versionReferences} from './asset-versions.mjs';
 const output=mkdtempSync('.life-build-');
@@ -28,10 +28,15 @@ const {build}=await import('esbuild');
 await build({entryPoints:['dist/study/deck-edge.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/deck-edge.bundle.js'});
 await build({entryPoints:['dist/course/scene-study.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/scene-study.bundle.js'});
 await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',outfile:output+'/course/game.bundle.js'});
+await build({entryPoints:['dist/study/control-bench.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/control-bench.bundle.js'});
+writeBenchFixture();
+function writeBenchFixture(){
+ const html=readFileSync('dist/course/index.html','utf8').replace(/(href|src)="(course|settings|console|personal-console|economy)\.css"/g,'$1="../course/$2.css"').replace('src="boot.js"','src="control-bench.bundle.js"').replace('src="fonts.js"','src="../course/fonts.js"');
+ writeFileSync(output+'/study/control-bench.html',html);
+}
 
 // A build owns one module graph. Old preview caches must not mix its files.
 const {createHash}=await import('node:crypto');
-const {writeFileSync}=await import('node:fs');
 function files(root){return readdirSync(root,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(root+'/'+e.name):[root+'/'+e.name]).sort();}
 const buildHash=createHash('sha256');
 for(const path of ['scripts/build.mjs','scripts/asset-versions.mjs'])buildHash.update(path).update('\0').update(readFileSync(path)).update('\0');

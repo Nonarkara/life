@@ -225,3 +225,68 @@
 @media(min-width:1280px){
  .life-deck .deck-meter-line>span,.life-deck .deck-meter-line>b{font-size:calc(14px * var(--reading-scale))}
 }
+
+/* Reading order: make choices, see current condition, consult the record. */
+@media(min-width:1280px){
+ .life-deck{grid-template-columns:300px 200px 180px minmax(180px,1fr);background:var(--deck);gap:0;align-items:start}
+ .life-deck:has(.deck-money){grid-template-columns:280px 170px 160px 170px 220px minmax(180px,1fr)}
+ .life-deck .deck-panel{border:0;padding:8px 12px;align-content:start}
+ .life-deck .deck-set{border:0;border-right:1px solid var(--deck-line)}
+ .life-deck .deck-set .deck-placard{font-size:calc(19px * var(--reading-scale));text-transform:none;letter-spacing:0;color:var(--deck-text);font-weight:600}
+ .life-deck .deck-direction .deck-placard{font-size:calc(15px * var(--reading-scale));text-transform:none;letter-spacing:0;color:var(--deck-text)}
+ .life-deck .deck-status .deck-placard,.life-deck .deck-course .deck-placard,.life-deck .deck-money .deck-placard,.life-deck .deck-ikigai .deck-placard{font-size:calc(11px * var(--reading-scale));color:var(--deck-muted)}
+ .life-deck .deck-strip{gap:4px;margin:4px 0 8px}
+ .life-deck .deck-chip{padding:3px 5px;min-height:25px}
+ .life-deck .deck-chip-name,.life-deck .deck-chip-val{font-size:calc(11px * var(--reading-scale))}
+ .life-deck .deck-keys{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-top:4px}
+ .life-deck .deck-aim{min-height:28px;font-size:calc(12px * var(--reading-scale))}
+ .life-deck .deck-aim:last-child{grid-column:1/-1}
+ .life-deck .deck-points{grid-template-columns:1fr auto;align-items:center;gap:4px 8px}
+ .life-deck .deck-value-label{grid-column:1/-1}
+ .life-deck .deck-stepper{grid-template-columns:28px 36px 28px}
+ .life-deck .deck-value{font-size:calc(28px * var(--reading-scale))}
+ .life-deck .deck-result{font-size:calc(15px * var(--reading-scale));text-align:right}
+ .life-deck .deck-action-slot{margin:7px 0 0;padding:0}
+ .life-deck #commit{background:var(--deck-accent);color:var(--deck);min-height:36px;padding:5px 10px;text-align:left;font-size:calc(15px * var(--reading-scale));font-weight:600}
+ .life-deck #commit:hover{color:var(--deck);filter:brightness(1.1)}
+ .life-deck .deck-hill{max-width:136px;margin:4px 0;height:44px}
+ .deck-action-integrated .tabs{padding:0 12px;margin:0;border-bottom:1px solid var(--line)}
+ .deck-action-integrated .latest-event{position:static;margin:0 12px}
+ .deck-action-integrated #console-plan{padding:0}
+ .life-deck .deck-rows{margin-top:4px;gap:4px 8px}
+ .life-deck .deck-rows dd{font-size:calc(15px * var(--reading-scale))}
+
+
+ .console-mode:not(.birth-stage):not(.recap-stage) .player-console:not(:has(.life-deck:not([hidden]))){width:min(680px,calc(100% - 24px))!important}
+ .personal-console #allocation{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:none;width:100%}
+ .personal-console #allocation .allocation-row{display:grid;grid-template-columns:28px 24px 28px;justify-content:start;gap:0;align-content:start}
+ .personal-console #allocation .allocation-row>span:first-child{grid-column:1/-1;font-size:14px;line-height:1.3;margin:4px 0}
+ .personal-console #allocation .allocation-row .allocation-lock{grid-column:1/-1;line-height:1.3;font-size:11px}
+ .personal-console .plan-pair{display:block}
+ .personal-console .plan-pair .period-projection{max-width:none;padding:5px 0}
+
+
+ .player-console>.console-nav{padding-right:250px}
+ .personal-console .player-console .tabs{position:absolute;top:0;right:12px;padding:0;margin:0;border:0;gap:12px}
+
+
+ .personal-console .player-console .tabs button{color:var(--deck-text)}
+ .personal-console .player-console .tabs button[aria-pressed=true]{border-color:var(--deck-accent)}
+ .personal-console #narrative:empty,.personal-console #effect-preview:empty{display:none}
+ .life-deck:has(.deck-money){grid-template-columns:300px 170px 180px 180px 210px minmax(180px,1fr)}
+ .life-deck .deck-panel{padding-top:6px;padding-bottom:6px}
+ .life-deck .deck-points{grid-template-columns:100px minmax(0,1fr)}
+ .life-deck .deck-stepper{grid-row:2;grid-column:1}
+ .life-deck .deck-result{grid-row:3;grid-column:1/-1;text-align:left}
+ .life-deck .deck-action-slot{grid-row:2;grid-column:2;margin:0}
+ .life-deck #commit{padding:4px 7px;font-size:calc(15px * var(--reading-scale))}
+
+ .life-deck .deck-money .deck-rows{row-gap:3px}
+
+ html[data-text-size=extra] .life-deck .deck-result{grid-row:2;grid-column:2;text-align:right}
+ html[data-text-size=extra] .life-deck .deck-action-slot{grid-row:3;grid-column:1/-1}
+ html[data-text-size=extra] .life-deck .deck-status .deck-rows{grid-template-columns:1fr;row-gap:1px}
+ html[data-text-size=extra] .life-deck .deck-status dt:not(:first-child){margin-top:4px}
+ html[data-text-size=extra] .life-deck .deck-status dd{text-align:left}
+
+}

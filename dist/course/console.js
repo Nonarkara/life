@@ -32,9 +32,9 @@ export function initConsole({getState,change,isMoving=()=>false}){
  const worldNow=element('section');worldNow.className='world-now';worldNow.setAttribute('aria-label','The year around you');
  const nav=element('nav');nav.className='console-nav';nav.setAttribute('aria-label','Life sections');
  const cards=element('div',undefined,'console-cards');
- const panes={},buttons={};let active=wide.matches?'world':'plan',moneyView='budget';const investmentDraft={asset:'bond',amount:'1000',notice:''};
+ const panes={},buttons={};let active='plan',moneyView='budget';const investmentDraft={asset:'bond',amount:'1000',notice:''};
  for(const[key,label]of ORDER){
-  const b=element('button',label);b.type='button';b.setAttribute('aria-controls','console-'+key);b.onclick=()=>select(key);buttons[key]=b;nav.append(b);
+  const b=element('button',label);b.type='button';b.setAttribute('aria-controls','console-'+key);b.onclick=()=>{select(key);if(wide.matches&&key!=='plan')closeReader.focus({preventScroll:true});};buttons[key]=b;nav.append(b);
   const p=key==='plan'?plan:element('section');p.id='console-'+key;p.className='console-panel console-card';p.setAttribute('aria-label',label);panes[key]=p;
  }
  panes.history.append(resources,method);const comparison=element('section',undefined,'baseline-compare');comparison.setAttribute('aria-label','Your life and the life you did not choose');panes.history.append(comparison);
@@ -44,16 +44,23 @@ export function initConsole({getState,change,isMoving=()=>false}){
  reader.append(worldNow,nav,cards);
  player.append(plan,actions);
  main.append(player,reader);
+ const closeReader=element('button','Close','reader-close');closeReader.type='button';
+ closeReader.onclick=()=>{const previous=buttons[active];select('plan');previous?.focus({preventScroll:true});};
+ reader.prepend(closeReader);
+ new ResizeObserver(()=>main.style.setProperty('--bench-height',player.getBoundingClientRect().height+'px')).observe(player);
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&wide.matches&&!reader.hidden&&!document.querySelector('dialog[open]')){event.preventDefault();closeReader.click();}});
 
  // Where each piece lives depends on the width: a dashboard splits the screen,
  // a narrow screen puts every console in one strip you swipe sideways.
  function place(){
+  const previousFocus=document.activeElement;
   const actionFocused=document.activeElement===commit;
-  if(wide.matches&&active==='plan')active='world';
-  if(wide.matches){player.append(plan,actions);reader.insertBefore(worldNow,nav);}
-  else{cards.prepend(plan);panes.world.prepend(worldNow);}
+  if(wide.matches){player.prepend(nav);player.append(plan,actions);reader.insertBefore(worldNow,cards);}
+  else{reader.insertBefore(nav,cards);cards.prepend(plan);panes.world.prepend(worldNow);}
+  closeReader.hidden=!wide.matches;
   document.body.classList.toggle('dashboard',wide.matches);
   select(active);if(actionFocused&&!commit.hidden)commit.focus({preventScroll:true});
+  else if(nav.contains(previousFocus)||previousFocus===closeReader)(previousFocus===closeReader&&!wide.matches?buttons[active]:previousFocus).focus({preventScroll:true});
  }
  place();wide.addEventListener('change',place);
 
@@ -65,8 +72,11 @@ export function initConsole({getState,change,isMoving=()=>false}){
   // The Plan console is permanent on a wide screen; every console is a card in
   // one swipeable strip on a narrow one.
   for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(wide.matches?k!==key:false);buttons[k].setAttribute('aria-pressed',String(k===key));}
+  reader.hidden=wide.matches&&key==='plan';worldNow.hidden=wide.matches&&key!=='world';
+  document.body.classList.toggle('reader-open',wide.matches&&key!=='plan');
+  reader.setAttribute('aria-label',ORDER.find(([k])=>k===key)?.[1]??'Life console');
   if(!wide.matches&&align){const target=panes[key];cards.scrollTo({left:cards.scrollLeft+target.getBoundingClientRect().left-cards.getBoundingClientRect().left,behavior:'instant'});}
-  if(reset)panes[key].scrollTop=0;placeDeckAction();
+  if(reset){panes[key].scrollTop=0;if(wide.matches)reader.scrollTop=0;}placeDeckAction();
  }
  // A swipe changes the selected console too; labels must describe the visible card.
  let scrollFrame=0;
@@ -165,9 +175,9 @@ export function initConsole({getState,change,isMoving=()=>false}){
   p.append(element('h2','Society'),element('p','Born into '+s.birth.home+' · '+s.birth.place));
   p.append(element('h2','Environment'));const flood=s.history.find(r=>eventsFor(r).some(e=>e.type==='flood'));p.append(element('p',flood?'Floodwater damages the family home. Repairs take money and time.':'No environmental event recorded yet.'));
  }
- function render(){const scroll=panes[active].scrollTop,s=getState();
+ function render(){const scroll=wide.matches?reader.scrollTop:panes[active].scrollTop,s=getState();
   // One review surface first: a tab appears only once it has something of this life to show.
-  const end=s.stage==='recap',opens={money:15,cv:20,world:10,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active=wide.matches?'world':'plan';if(wide.matches&&active==='plan')active='world';
-  baselinePane(s);renderWorldNow(worldNow,s);select(active);panes[active].scrollTop=scroll;}
+  const end=s.stage==='recap',opens={money:15,cv:20,world:10,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active='plan';
+  baselinePane(s);renderWorldNow(worldNow,s);select(active);if(wide.matches)reader.scrollTop=scroll;else panes[active].scrollTop=scroll;}
  return {render,select};
 }

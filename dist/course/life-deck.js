@@ -42,8 +42,7 @@ function hill(state){
 
 export function arrangeDeck(root){
  if(!root)return;
- const narrow=typeof matchMedia==='function'&&matchMedia('(max-width:1279px)').matches;
- const names=narrow?['set','direction','course','status','money','ikigai']:['course','status','set','direction','money','ikigai'];
+ const names=['set','direction','status','course','money','ikigai'];
  const focused=root.contains?.(document.activeElement)?document.activeElement:null;
  root.append(...names.map(name=>root.querySelector('.deck-'+name)).filter(Boolean));
  focused?.focus({preventScroll:true});
@@ -99,6 +98,6 @@ export function drawDeck(root,state,args){
   for(const [label,v] of ikigai.parts){const row=el('div','deck-meter');const line=el('div','deck-meter-line');line.append(el('span','',label),el('b','',v===null?'—':String(v)));const track=el('span','deck-track');const fill=el('span','deck-fill');fill.style.width=(v??0)+'%';track.append(fill);row.append(line,track);list.append(row);}
   g.append(list,el('p','deck-index-label','Game index'),deckInfo('About Ikigai in this game',['Authored game indices · not a psychological test.']));root.append(g);}
 
- arrangeDeck(root);const last=root.lastElementChild;if(last){const slot=el('div','deck-action-slot');slot.id='deck-action-slot';last.append(slot);}placeDeckAction();
+ arrangeDeck(root);const slot=el('div','deck-action-slot');slot.id='deck-action-slot';value.append(slot);placeDeckAction();
  if(focused){const again=root.querySelector(`[data-deck="${CSS.escape(focused)}"]`);(again&&!again.disabled?again:root.querySelector('.deck-set .deck-key'))?.focus({preventScroll:true});}
 }

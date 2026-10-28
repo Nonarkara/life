@@ -76,3 +76,14 @@ permanent fallback for other views, narrow screens and save failures. Reparent
 it before rebuilding its container; preserve focus. Test the actual task state,
 not only page overflow. The console-height gate records the accepted budgets and
 a controlled restored-expansion failure in review/console-height.
+
+
+## Life's control bench is a task, not an equal-card dashboard
+Default wide view gives the world its width. Reference reading reserves no
+full-height column when unselected. Allocation, gain and the single advance
+action lead; current readings and elapsed history are secondary. Size the bench
+for sparse/dense content, not the viewport's leftover width. All reference
+content stays reachable in one scroll region with explicit Close/Escape and
+focus return. Enlarged native type must retain the active forecast/action;
+regroup before shrinking type. Test requested versus actual capture viewports.
+A no-overflow or full-width pass does not certify hierarchy or occupied space.

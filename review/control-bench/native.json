@@ -1,0 +1,155 @@
+[
+  {
+    "name": "thai-extra-compact",
+    "requested": {
+      "w": 1280,
+      "h": 720
+    },
+    "action": {
+      "bottom": 696.5625,
+      "client": 44,
+      "h": 43.6953125,
+      "right": 300,
+      "scroll": 44,
+      "w": 275,
+      "x": 25,
+      "y": 652.8671875
+    },
+    "actionCount": 1,
+    "actionHost": "deck-points",
+    "bench": {
+      "bottom": 708,
+      "client": 358,
+      "h": 360.3359375,
+      "right": 1252,
+      "scroll": 358,
+      "w": 1240,
+      "x": 12,
+      "y": 347.6640625
+    },
+    "build": "dad1ec4a68fc",
+    "focus": "การตั้งค่า",
+    "gain": {
+      "bottom": 647.109375,
+      "client": 36,
+      "h": 35.6953125,
+      "right": 300,
+      "scroll": 36,
+      "w": 167,
+      "x": 133,
+      "y": 611.4140625
+    },
+    "h": 720,
+    "pageH": 720,
+    "pageW": 1280,
+    "panels": 6,
+    "primary": 26.6,
+    "reader": null,
+    "secondary": 15.4,
+    "selected": [
+      "แผน"
+    ],
+    "set": {
+      "bottom": 702.5625,
+      "client": 308,
+      "h": 307.953125,
+      "right": 313,
+      "scroll": 308,
+      "w": 300,
+      "x": 13,
+      "y": 394.609375
+    },
+    "w": 1280,
+    "world": {
+      "bottom": 720,
+      "client": 659,
+      "h": 659,
+      "right": 1280,
+      "scroll": 659,
+      "w": 1280,
+      "x": 0,
+      "y": 61
+    }
+  },
+  {
+    "name": "thai-extra-phone",
+    "requested": {
+      "w": 390,
+      "h": 844
+    },
+    "action": {
+      "bottom": 841,
+      "client": 48,
+      "h": 50.6953125,
+      "right": 378,
+      "scroll": 48,
+      "w": 181.5078125,
+      "x": 196.4921875,
+      "y": 790.3046875
+    },
+    "actionCount": 1,
+    "actionHost": "player-console",
+    "bench": {
+      "bottom": 844,
+      "client": 58,
+      "h": 58.6953125,
+      "right": 390,
+      "scroll": 58,
+      "w": 390,
+      "x": 0,
+      "y": 785.3046875
+    },
+    "build": "dad1ec4a68fc",
+    "focus": "แผน",
+    "gain": {
+      "bottom": 736.4921875,
+      "client": 33,
+      "h": 33.3203125,
+      "right": 363,
+      "scroll": 33,
+      "w": 334,
+      "x": 29,
+      "y": 703.171875
+    },
+    "h": 844,
+    "pageH": 844,
+    "pageW": 390,
+    "panels": 6,
+    "primary": 16.8,
+    "reader": {
+      "bottom": 785.3046875,
+      "client": 435,
+      "h": 435.1953125,
+      "right": 390,
+      "scroll": 435,
+      "w": 390,
+      "x": 0,
+      "y": 350.109375
+    },
+    "secondary": 16.8,
+    "selected": [
+      "แผน"
+    ],
+    "set": {
+      "bottom": 744.4921875,
+      "client": 273,
+      "h": 272.5078125,
+      "right": 373,
+      "scroll": 273,
+      "w": 356,
+      "x": 17,
+      "y": 471.984375
+    },
+    "w": 390,
+    "world": {
+      "bottom": 350.109375,
+      "client": 236,
+      "h": 236.3125,
+      "right": 390,
+      "scroll": 236,
+      "w": 390,
+      "x": 0,
+      "y": 113.796875
+    }
+  }
+]

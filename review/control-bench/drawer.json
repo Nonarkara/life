@@ -1,0 +1,365 @@
+{
+  "open": {
+    "action": {
+      "bottom": 674.65625,
+      "client": 36,
+      "h": 36,
+      "right": 300,
+      "scroll": 36,
+      "w": 167,
+      "x": 133,
+      "y": 638.65625
+    },
+    "actionCount": 1,
+    "actionHost": "deck-points",
+    "bench": {
+      "bottom": 708,
+      "client": 231,
+      "h": 233.34375,
+      "right": 1252,
+      "scroll": 231,
+      "w": 1240,
+      "x": 12,
+      "y": 474.65625
+    },
+    "build": "dad1ec4a68fc",
+    "focus": "Close",
+    "gain": {
+      "bottom": 700.15625,
+      "client": 22,
+      "h": 21.5,
+      "right": 300,
+      "scroll": 22,
+      "w": 275,
+      "x": 25,
+      "y": 678.65625
+    },
+    "h": 720,
+    "pageH": 720,
+    "pageW": 1280,
+    "panels": 6,
+    "primary": 19,
+    "reader": {
+      "bottom": 462.65625,
+      "client": 357,
+      "h": 358.65625,
+      "right": 1268,
+      "scroll": 885,
+      "w": 380,
+      "x": 888,
+      "y": 104
+    },
+    "secondary": 11,
+    "selected": [
+      "World"
+    ],
+    "set": {
+      "bottom": 706.15625,
+      "client": 196,
+      "h": 195.5,
+      "right": 313,
+      "scroll": 196,
+      "w": 300,
+      "x": 13,
+      "y": 510.65625
+    },
+    "w": 1280,
+    "world": {
+      "bottom": 720,
+      "client": 670,
+      "h": 670,
+      "right": 1280,
+      "scroll": 670,
+      "w": 1280,
+      "x": 0,
+      "y": 50
+    }
+  },
+  "lastFactVisible": true,
+  "escape": {
+    "action": {
+      "bottom": 674.65625,
+      "client": 36,
+      "h": 36,
+      "right": 300,
+      "scroll": 36,
+      "w": 167,
+      "x": 133,
+      "y": 638.65625
+    },
+    "actionCount": 1,
+    "actionHost": "deck-points",
+    "bench": {
+      "bottom": 708,
+      "client": 231,
+      "h": 233.34375,
+      "right": 1252,
+      "scroll": 231,
+      "w": 1240,
+      "x": 12,
+      "y": 474.65625
+    },
+    "build": "dad1ec4a68fc",
+    "focus": "World",
+    "gain": {
+      "bottom": 700.15625,
+      "client": 22,
+      "h": 21.5,
+      "right": 300,
+      "scroll": 22,
+      "w": 275,
+      "x": 25,
+      "y": 678.65625
+    },
+    "h": 720,
+    "pageH": 720,
+    "pageW": 1280,
+    "panels": 6,
+    "primary": 19,
+    "reader": null,
+    "secondary": 11,
+    "selected": [
+      "Plan"
+    ],
+    "set": {
+      "bottom": 706.15625,
+      "client": 196,
+      "h": 195.5,
+      "right": 313,
+      "scroll": 196,
+      "w": 300,
+      "x": 13,
+      "y": 510.65625
+    },
+    "w": 1280,
+    "world": {
+      "bottom": 720,
+      "client": 670,
+      "h": 670,
+      "right": 1280,
+      "scroll": 670,
+      "w": 1280,
+      "x": 0,
+      "y": 50
+    }
+  },
+  "closed": {
+    "action": {
+      "bottom": 674.65625,
+      "client": 36,
+      "h": 36,
+      "right": 300,
+      "scroll": 36,
+      "w": 167,
+      "x": 133,
+      "y": 638.65625
+    },
+    "actionCount": 1,
+    "actionHost": "deck-points",
+    "bench": {
+      "bottom": 708,
+      "client": 231,
+      "h": 233.34375,
+      "right": 1252,
+      "scroll": 231,
+      "w": 1240,
+      "x": 12,
+      "y": 474.65625
+    },
+    "build": "dad1ec4a68fc",
+    "focus": "World",
+    "gain": {
+      "bottom": 700.15625,
+      "client": 22,
+      "h": 21.5,
+      "right": 300,
+      "scroll": 22,
+      "w": 275,
+      "x": 25,
+      "y": 678.65625
+    },
+    "h": 720,
+    "pageH": 720,
+    "pageW": 1280,
+    "panels": 6,
+    "primary": 19,
+    "reader": null,
+    "secondary": 11,
+    "selected": [
+      "Plan"
+    ],
+    "set": {
+      "bottom": 706.15625,
+      "client": 196,
+      "h": 195.5,
+      "right": 313,
+      "scroll": 196,
+      "w": 300,
+      "x": 13,
+      "y": 510.65625
+    },
+    "w": 1280,
+    "world": {
+      "bottom": 720,
+      "client": 670,
+      "h": 670,
+      "right": 1280,
+      "scroll": 670,
+      "w": 1280,
+      "x": 0,
+      "y": 50
+    }
+  },
+  "resized": {
+    "action": {
+      "bottom": 765,
+      "client": 34,
+      "h": 36.5,
+      "right": 1012,
+      "scroll": 34,
+      "w": 100.8203125,
+      "x": 911.1796875,
+      "y": 728.5
+    },
+    "actionCount": 1,
+    "actionHost": "player-console",
+    "bench": {
+      "bottom": 768,
+      "client": 44,
+      "h": 44.5,
+      "right": 1024,
+      "scroll": 44,
+      "w": 1024,
+      "x": 0,
+      "y": 723.5
+    },
+    "build": "dad1ec4a68fc",
+    "focus": "World",
+    "gain": {
+      "bottom": 602.3359375,
+      "client": 21,
+      "h": 20.5,
+      "right": -3759.671875,
+      "scroll": 21,
+      "w": 307.328125,
+      "x": -4067,
+      "y": 581.8359375
+    },
+    "h": 768,
+    "pageH": 768,
+    "pageW": 1024,
+    "panels": 6,
+    "primary": 12,
+    "reader": {
+      "bottom": 723.5,
+      "client": 382,
+      "h": 381.6640625,
+      "right": 1024,
+      "scroll": 382,
+      "w": 1024,
+      "x": 0,
+      "y": 341.8359375
+    },
+    "secondary": 12,
+    "selected": [
+      "World"
+    ],
+    "set": {
+      "bottom": 610.3359375,
+      "client": 169,
+      "h": 169,
+      "right": -3749.671875,
+      "scroll": 169,
+      "w": 329.328125,
+      "x": -4079,
+      "y": 441.3359375
+    },
+    "w": 1024,
+    "world": {
+      "bottom": 341.8359375,
+      "client": 292,
+      "h": 291.8359375,
+      "right": 1024,
+      "scroll": 292,
+      "w": 1024,
+      "x": 0,
+      "y": 50
+    }
+  },
+  "returned": {
+    "action": {
+      "bottom": 854.65625,
+      "client": 36,
+      "h": 36,
+      "right": 300,
+      "scroll": 36,
+      "w": 167,
+      "x": 133,
+      "y": 818.65625
+    },
+    "actionCount": 1,
+    "actionHost": "deck-points",
+    "bench": {
+      "bottom": 888,
+      "client": 231,
+      "h": 233.34375,
+      "right": 1252,
+      "scroll": 231,
+      "w": 1240,
+      "x": 12,
+      "y": 654.65625
+    },
+    "build": "dad1ec4a68fc",
+    "focus": "World",
+    "gain": {
+      "bottom": 880.15625,
+      "client": 22,
+      "h": 21.5,
+      "right": 300,
+      "scroll": 22,
+      "w": 275,
+      "x": 25,
+      "y": 858.65625
+    },
+    "h": 900,
+    "pageH": 900,
+    "pageW": 1440,
+    "panels": 6,
+    "primary": 19,
+    "reader": {
+      "bottom": 642.65625,
+      "client": 537,
+      "h": 538.65625,
+      "right": 1428,
+      "scroll": 885,
+      "w": 380,
+      "x": 1048,
+      "y": 104
+    },
+    "secondary": 11,
+    "selected": [
+      "World"
+    ],
+    "set": {
+      "bottom": 886.15625,
+      "client": 196,
+      "h": 195.5,
+      "right": 313,
+      "scroll": 196,
+      "w": 300,
+      "x": 13,
+      "y": 690.65625
+    },
+    "w": 1440,
+    "world": {
+      "bottom": 900,
+      "client": 850,
+      "h": 850,
+      "right": 1440,
+      "scroll": 850,
+      "w": 1440,
+      "x": 0,
+      "y": 50
+    }
+  }
+}
