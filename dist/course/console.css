@@ -15,19 +15,19 @@ body.console-mode{height:100dvh;overflow:hidden}
 
 /* The reader: the year around you, then the consoles this life keeps. */
 .console-reader{display:flex;flex-direction:column;min-width:0;min-height:0;overflow:hidden;background:var(--paper);color:var(--ink)}
-.console-nav{display:flex;gap:18px;align-items:center;padding:7px 16px;border-bottom:1px solid var(--line);flex:none;overflow-x:auto;scrollbar-width:none}
+.console-nav{display:flex;gap:14px;align-items:center;padding:5px 12px;border-bottom:1px solid var(--line);flex:none;overflow-x:auto;scrollbar-width:none}
 .console-nav::-webkit-scrollbar{display:none}
 .console-nav button{padding:4px 0;min-height:32px;font-size:calc(14px * var(--reading-scale));white-space:nowrap}
 .console-nav button[aria-pressed=true]{border-bottom:2px solid var(--ink);font-weight:600}
 .console-cards{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
-.console-panel{min-height:0;overflow:auto;overscroll-behavior:contain;padding:10px 16px}
+.console-panel{min-height:0;overflow:auto;overscroll-behavior:contain;padding:8px 12px}
 .console-panel[hidden]{display:none}
 .console-panel .decision,.console-panel .resources{padding:0;border:0;margin:0}
 .console-panel .method{margin:16px 0 0}
-.console-panel h1{font-size:calc(24px * var(--reading-scale));margin:0 0 10px}
-.console-panel h2{font-size:calc(17px * var(--reading-scale));margin:16px 0 8px}
+.console-panel h1{font-size:calc(17px * var(--reading-scale));margin:0 0 4px}
+.console-panel h2{font-size:calc(13px * var(--reading-scale));margin:10px 0 4px}
 .console-note{font-size:calc(12px * var(--reading-scale));line-height:1.5;max-width:60ch;color:var(--muted)}
-.console-actions{flex:none;padding:8px 16px;background:var(--paper);border-top:1px solid var(--line)}
+.console-actions{flex:none;padding:4px 12px;background:var(--paper);border-top:1px solid var(--line)}
 .console-actions[hidden],.console-actions:has(button[hidden]){display:none}
 .console-actions #commit{margin:0}
 .console-panel{scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--muted) var(--paper)}
@@ -37,17 +37,18 @@ body.console-mode{height:100dvh;overflow:hidden}
 
 /* The year around you: the chart of the years, three meters measured from a
    centre line, and what that year did to this life. */
-.world-now{flex:none;padding:12px 16px 14px;border-bottom:1px solid var(--line)}
+.world-now{flex:none;padding:8px 12px 10px;border-bottom:1px solid var(--line)}
 .world-now h2{font-size:calc(12px * var(--reading-scale));font-weight:600;margin:0 0 2px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
 .world-now h2:lang(th),.world-now h2:lang(zh-CN),.world-now h2:lang(ja),.world-now h2:lang(ko){text-transform:none;letter-spacing:0}
-.world-now-note{font-size:calc(12px * var(--reading-scale));line-height:1.45;color:var(--muted);margin:6px 0 0}
-.world-now figure{margin:10px 0 0}
-.world-now figcaption{font-size:calc(12px * var(--reading-scale))}
-.world-meters{display:grid;gap:9px;margin:12px 0 0}
-.world-meter{display:grid;gap:3px}
-.world-meter-line{display:flex;justify-content:space-between;gap:12px;font-size:calc(13px * var(--reading-scale))}
+.world-now-note{font-size:calc(11px * var(--reading-scale));line-height:1.4;color:var(--muted);margin:4px 0 0}
+.world-now figure{margin:6px 0 0}
+.world-now figcaption{font-size:calc(11px * var(--reading-scale));display:block}
+.world-meters{display:grid;gap:6px;margin:8px 0 0}
+.world-meter{display:grid;gap:2px}
+.world-meter-line{display:flex;align-items:baseline;gap:6px;font-size:calc(12px * var(--reading-scale))}
+.world-meter-line>b{margin-left:auto}
 .world-meter-line b{font-variant-numeric:tabular-nums}
-.world-meter-track{position:relative;display:block;height:8px;background:#dbdccf}
+.world-meter-track{position:relative;display:block;height:6px;background:#dbdccf}
 .world-meter-track::after{content:'';position:absolute;left:50%;top:-3px;bottom:-3px;width:1px;background:var(--muted);z-index:2}
 .world-meter-track i{position:absolute;top:0;bottom:0;display:block;background:#526b60}
 .world-meter-track i.negative{background:#a32750}
@@ -55,7 +56,7 @@ body.console-mode{height:100dvh;overflow:hidden}
 /* Dashboard: a wide screen is split. Your life on the left, the year on the
    right. The Plan console is always on the left, so its name is not a tab. */
 @media(min-width:1280px){
- .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-columns:minmax(0,1fr) clamp(400px,33vw,540px);grid-template-rows:minmax(150px,32%) minmax(0,1fr)}
+ .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-columns:minmax(0,1fr) clamp(300px,25vw,360px);grid-template-rows:minmax(0,1fr) auto}
  .console-mode:not(.birth-stage):not(.recap-stage) .stage{grid-column:1;grid-row:1}
  .console-mode:not(.birth-stage):not(.recap-stage) .player-console{grid-column:1;grid-row:2}
  .console-mode:not(.birth-stage):not(.recap-stage) .console-reader{grid-column:2;grid-row:1 / span 2;border-left:1px solid var(--line)}

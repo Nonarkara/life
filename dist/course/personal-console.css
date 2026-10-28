@@ -85,7 +85,7 @@
 /* The life console: one instrument surface divided into labelled panels,
    like a flight deck. Sizes: 12 placards and labels, 14 values, 32 the value
    being set. */
-.life-deck{--deck:#172b2a;--deck-line:#40554c;--deck-text:#eee8cf;--deck-muted:#bac5b1;
+.life-deck{
  display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:1px;background:var(--deck-line);border:1px solid var(--deck-line);color:var(--deck-text);margin:4px 0 8px}
 .life-deck:not([hidden]) ~ .plan-pair{display:none}
 .deck-panel{background:var(--deck);padding:8px 10px;display:grid;align-content:start;gap:4px;min-width:0}
@@ -109,6 +109,7 @@
 .deck-value{font-size:calc(32px * var(--reading-scale));font-weight:600;line-height:1;min-width:1.5ch;text-align:center;font-variant-numeric:tabular-nums}
 .deck-result{font-size:calc(14px * var(--reading-scale));color:var(--amber);font-weight:600}
 .deck-keys{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.deck-show{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
 .deck-aim:last-child{grid-column:span 2}
 .deck-aim{display:flex;align-items:center;gap:8px;width:100%;text-align:left;color:var(--deck-muted);padding:4px 5px;gap:5px;white-space:normal;overflow-wrap:anywhere;justify-content:flex-start}
 .deck-light{width:6px;height:6px;flex:none;background:var(--deck-line)}
@@ -143,6 +144,32 @@
 .deck-chip.active .deck-chip-val{color:var(--amber)}
 .deck-aim[aria-pressed=true]{color:var(--deck-text);border-color:var(--amber);background:rgba(245,158,11,0.08)}
 .deck-aim[aria-pressed=true] .deck-light{background:var(--amber);box-shadow:0 0 4px rgba(245,158,11,0.5)}
-.deck-channel-line{display:grid;grid-template-columns:auto 30px minmax(0,1fr) auto 30px;gap:4px;align-items:center}
+.deck-channel-line{display:grid;grid-template-columns:26px minmax(0,1fr) auto 26px;gap:3px;align-items:center}
+.deck-channel-line .deck-key{min-height:26px;padding:2px 0}
+.deck-points{display:grid;gap:3px}
+.deck-stepper{display:grid;grid-template-columns:26px minmax(0,1fr) 26px;gap:3px;align-items:center}
+.deck-stepper .deck-value{text-align:center}
 .deck-channel{min-width:0}
 @media(min-width:1024px) and (max-width:1180px){.deck-keys{grid-template-columns:1fr}}
+
+/* The dashboard shows the whole life console as one row of six compact panels.
+   The world above it is the largest thing on the page, so the panels are dense
+   and their numbers sit next to their labels. */
+@media(min-width:1280px){
+ .life-deck{grid-template-columns:repeat(6,minmax(0,1fr))}
+ .life-deck .deck-panel{padding:6px 8px;gap:2px}
+ .life-deck .deck-placard{font-size:calc(11px * var(--reading-scale))}
+ .life-deck .deck-rows dt,.life-deck .deck-rows dd{font-size:calc(12px * var(--reading-scale))}
+ .life-deck .deck-rows{gap:2px 8px}
+ .life-deck .deck-keys{grid-template-columns:1fr;gap:3px}
+ .life-deck .deck-aim{font-size:calc(13px * var(--reading-scale));min-height:22px;padding:1px 4px}
+ .life-deck .deck-aim:last-child{grid-column:auto}
+ .life-deck .deck-value{font-size:calc(24px * var(--reading-scale))}
+ .life-deck .deck-note{font-size:calc(11px * var(--reading-scale))}
+ .life-deck .deck-hill{height:44px}
+ .life-deck .deck-key,.life-deck .deck-toggle{min-height:24px;padding:2px 6px;font-size:calc(12px * var(--reading-scale))}
+ .life-deck .deck-chip{font-size:calc(10px * var(--reading-scale));padding:1px 4px}
+ .life-deck .deck-chip-name{font-size:calc(9px * var(--reading-scale))}
+ .life-deck .deck-axis{font-size:calc(11px * var(--reading-scale))}
+ .life-deck .deck-strip{gap:2px}
+}

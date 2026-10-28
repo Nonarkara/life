@@ -75,12 +75,14 @@ export function drawDeck(root,state,args){
   chip.onclick=()=>{selected=idx;drawDeck(root,state,args);};
   strip.append(chip);
  });
- const channel=el('div','deck-line deck-channel-line');channel.append(el('span','deck-label','Channel'),
+ const channel=el('div','deck-line deck-channel-line');channel.append(
   key('◀','Previous channel',()=>{selected=(selected-1+channels.length)%channels.length;drawDeck(root,state,args);}),
   el('b','deck-channel',ch.label),el('span','deck-count',(selected+1)+'/'+channels.length),
   key('▶','Next channel',()=>{selected=(selected+1)%channels.length;drawDeck(root,state,args);}));
- const value=el('div','deck-line');const out=el('output','deck-value',ch.value);out.setAttribute('aria-live','polite');
- value.append(el('span','deck-label',String(ch.value).includes('%')?'Budget %':'Points /10'),key('−','Lower '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(-1),{disabled:!ch.can(-1)}),out,key('+','Raise '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(1),{disabled:!ch.can(1)}),el('span','deck-result',ch.detail+' '+t(ch.detailLabel)));
+ const value=el('div','deck-points');const out=el('output','deck-value',ch.value);out.setAttribute('aria-live','polite');
+ const stepper=el('div','deck-stepper');
+ stepper.append(key('−','Lower '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(-1),{disabled:!ch.can(-1)}),out,key('+','Raise '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(1),{disabled:!ch.can(1)}));
+ value.append(el('span','deck-label',String(ch.value).includes('%')?'Budget %':'Points /10'),stepper,el('span','deck-result',ch.detail+' '+t(ch.detailLabel)));
  const qualify=el('details','deck-projection'),method=el('summary','','How this projection works');qualify.append(method,el('p','deck-note','Authored scenario estimate, not a real-life prediction. Includes study budget and scheduled consequences; new choices can change it.'));
  if(projection){qualify.append(el('p','deck-note',t('Age multipliers')+': '+Object.entries(projection.eraWeights).map(([k,v])=>t(eraLabels[k]??k)+' ×'+v).join(' · ')));}
  set.append(strip,channel,value);if(ch.minimum!==undefined)set.append(el('p','deck-note',t('Minimum {n} from your choices').replace('{n}',ch.minimum)));set.append(qualify);

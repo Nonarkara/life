@@ -3,6 +3,7 @@ import {drawScene3D,showPaintedCanvas} from './scene3d.js';
 import {drawStage2D,stageCaption} from './stage2d.js';
 import {t,preferences} from './i18n.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
+import {canvasWorld} from './palettes.js';
 import {AXES} from './sim.js';
 import {furniture,townGrowth} from './layout.js';
 import {routine,routineContext} from './routines.js';
@@ -17,7 +18,7 @@ export function drawWorld(canvas,state,age,time,mode='world',view={}){
  if(drawScene3D(canvas,state,age,time,mode,view))return;
 const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];
-Object.assign(C,MOOD_CHORDS[lifeMoodAt(state,age)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
+Object.assign(C,canvasWorld()??MOOD_CHORDS[lifeMoodAt(state,age)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawRouteMap(canvas,state);return;}
 const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance',context),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:document.body.classList.contains('console-mode')&&state.stage!=='birth'?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);

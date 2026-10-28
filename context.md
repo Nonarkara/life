@@ -431,3 +431,28 @@ paint 4434 samples with no console error or warning, and one ordinary review
 view costs 13 requests and 741 kB. The verifiers take LIFE_BASE so the same
 measurement runs against the deployment. Record:
 review/live-2026-10-28/RELEASE.md.
+
+
+## The world takes the page · 28 October 2026 (session 3)
+The owner called the cockpit spatially hallucinated: the world was a narrow
+panoramic band with green on both sides, the bars around it were fat, and the
+right-hand column was spread out with the numbers far from their labels. The
+console is cut again. The world is now the largest thing on the page: the band
+is 1080 by 431, which is the painted plate's own 21:9, so the frame is filled
+with the town instead of floating in it. The head band and the caption band
+are half as thick. The life console is one row of six compact panels, 213px
+tall, where it was two rows of three, so the world gets the height the console
+was taking; the plan card no longer overflows at all. The year column is 360px
+and packed: the meters carry their number beside their label, the chart is
+smaller, and the headings are smaller. Measured at 1440: the world band is
+2.51 to 1, the deck is 213px, the plan card overflows 0, the page overflows
+4px, and no panel overlaps another.
+
+The colour of the game is no longer one scheme for eighty years. Thirty
+palettes are built from the game's own vocabulary: the Wada screen
+reconstructions, the soi interior chord, and the house scheme. The mood picks
+the family, so a hard year cools and darkens the world and a bright year lifts
+it, and the five-year chapter walks through the family, so the scheme moves as
+the life moves. The console, the painted canvas and the 3D scene read the same
+palette at once, and the deck and the world band are cut from it rather than
+pasted on top of it. 223 tests pass.

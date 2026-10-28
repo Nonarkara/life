@@ -12,6 +12,11 @@ import {regionAt,region,regionIdFor,household,appearance,childhoodAway} from './
 import {dogAt} from './life-choices.js';
 import {rand} from './sim.js';
 import {createPost} from './render-post.js';
+import {currentPalette} from './palettes.js';
+// The surfaces that carry the frame: sky, sea, land, sand, road, water and
+// foliage. The buildings keep their own painted colours.
+const TOWN_WIDTH=22;
+const SCENE_ROLES={sky:['#6f8783'],ground:['#5b7f80'],sand:['#b5a789'],land:['#849573','#7d9764'],road:['#bcb7a5','#c8bba1'],waterLight:['#7dabad','#a0bdba'],grass:['#9caf73','#718559','#76896a'],leaf:['#526c50','#476b48'],water:['#4e7d82']};
 const scenes=new WeakMap();
 // A renderer change must hide the old surface without allocating a new GPU scene.
 export function showPaintedCanvas(original){
@@ -47,6 +52,16 @@ function createScene(original){
  const hemi=new T.HemisphereLight('#f4e9c6','#6a8c91',1.4);scene.add(hemi);
  const sun=new T.DirectionalLight('#fff2d1',2.5);sun.position.set(-7,17,9);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun.target);sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;sun.shadow.bias=-.0005;sun.shadow.intensity=.6;sun.shadow.normalBias=.035;scene.add(sun);
  const materials=new Map(),geometries=new Map(),labels=[],growth=[],buildings=[];
+ let appliedWorld=null;
+ // Repaint the surfaces the palette owns when the mood or the chapter moves.
+ const repaint=world=>{
+  if(!world||world===appliedWorld)return;appliedWorld=world;
+  for(const[role,hexes]of Object.entries(SCENE_ROLES)){
+   const next=world[role];if(!next)continue;
+   for(const hex of hexes){const material=materials.get(hex);if(material?.color)material.color.set(next);}
+  }
+  if(world.sky&&scene.background?.isColor)scene.background.set(world.sky);
+ };
  const mat=color=>{if(!materials.has(color))materials.set(color,illustratedMaterial(color));return materials.get(color);};
  const boxGeo=new T.BoxGeometry(1,1,1);
  function box(x,z,y,w,d,h,color,parent=scene){const mesh=new T.Mesh(boxGeo,mat(color));mesh.position.set(x+w/2,y+h/2,z+d/2);mesh.scale.set(w,h,d);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
@@ -173,6 +188,7 @@ function createScene(original){
  const post=createPost(renderer,scene,camera);
  const target=new T.Vector3(),ray=new T.Raycaster();let width=0,height=0,lastMood='',lastRegion='',lastLooks='';
  function update(state,age,time,{homeFrame=false}={}){
+  repaint(currentPalette()?.world);
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,2,Math.sqrt(4.2e6/(w*h))));renderer.setSize(w,h,false);post.setSize(w,h,renderer.getPixelRatio());}
@@ -186,7 +202,11 @@ function createScene(original){
   const activity=routine('player',age,time,goal,context),focus=homeFrame?{...activity,x:context.residence.origin[0],y:context.residence.origin[1],moving:false,pose:'eat'}:activity;
   // The camera widens with age; its target stays grounded in the character's activity.
   const phone=w<=720;
-  const span=cameraSpan(age,phone)*(age>=10&&!focus.moving&&['eat','rest','draw','recover','work','craft','study','garden'].includes(focus.pose)?.82:1);
+  // The town is about twenty-two units across. A frame wider than that would
+  // show empty ground on both sides, so the view is capped and the camera moves
+  // in: the picture is filled with the town, not with the land around it.
+  const base=cameraSpan(age,phone)*(age>=10&&!focus.moving&&['eat','rest','draw','recover','work','craft','study','garden'].includes(focus.pose)?.82:1);
+  const span=base*Math.min(1,TOWN_WIDTH/(base*w/h));
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),document.querySelector('.console-reader')?.getBoundingClientRect()):0;
   // Shift the projection, not the actor: their activity stays in the uncovered play area.
   const shift=span*dock/(2*h);
