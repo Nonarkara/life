@@ -128,4 +128,5 @@ Your life|ชีวิตของคุณ|你的人生|あなたの人生|당�
 Time transport|การควบคุมเวลา|时间控制|時間操作|시간 조작
 Play|เล่นต่อ|播放|再生|재생
 Fast forward · {n} times faster|เร่งเวลา · เร็วขึ้น {n} เท่า|快进 · {n}倍速|早送り · {n}倍速|빨리 감기 · {n}배속
+Game index|ค่าจำลองในเกม|游戏指标|ゲーム内指標|게임 지표
 `.trim().split('\n').map(line=>line.split('|'));

@@ -1,3 +1,4 @@
+import {placeDeckAction} from './deck-action.js';
 import {renderInvestments} from './investment-view.js';
 import {roomRecord,recordedCommute} from './biography.js';
 import {renderEconomy,renderWorldNow} from './economy-view.js';
@@ -47,11 +48,12 @@ export function initConsole({getState,change,isMoving=()=>false}){
  // Where each piece lives depends on the width: a dashboard splits the screen,
  // a narrow screen puts every console in one strip you swipe sideways.
  function place(){
+  const actionFocused=document.activeElement===commit;
   if(wide.matches&&active==='plan')active='world';
   if(wide.matches){player.append(plan,actions);reader.insertBefore(worldNow,nav);}
   else{cards.prepend(plan);panes.world.prepend(worldNow);}
   document.body.classList.toggle('dashboard',wide.matches);
-  select(active);
+  select(active);if(actionFocused&&!commit.hidden)commit.focus({preventScroll:true});
  }
  place();wide.addEventListener('change',place);
 
@@ -64,7 +66,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
   // one swipeable strip on a narrow one.
   for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(wide.matches?k!==key:false);buttons[k].setAttribute('aria-pressed',String(k===key));}
   if(!wide.matches&&align){const target=panes[key];cards.scrollTo({left:cards.scrollLeft+target.getBoundingClientRect().left-cards.getBoundingClientRect().left,behavior:'instant'});}
-  if(reset)panes[key].scrollTop=0;
+  if(reset)panes[key].scrollTop=0;placeDeckAction();
  }
  // A swipe changes the selected console too; labels must describe the visible card.
  let scrollFrame=0;

@@ -24,7 +24,7 @@ test('elapsed chart keeps signed observations and absent records distinct',()=>{
 class Node{constructor(tag){this.tag=tag;this.children=[];this.attrs={};this.dataset={};this.style={};}append(...n){this.children.push(...n);}prepend(n){this.children.unshift(n);}replaceChildren(...n){this.children=n;}setAttribute(k,v){this.attrs[k]=String(v);}querySelector(){return null;}}
 const all=n=>[n,...n.children.filter(c=>c instanceof Node).flatMap(all)];
 test('actual deck renders zero unlit, negative wealth signed, six panels and one edit pair',()=>{
- const previous=globalThis.document;globalThis.document={createElement:t=>new Node(t),createElementNS:(_,t)=>new Node(t),activeElement:null};
+ const previous=globalThis.document;globalThis.document={getElementById:()=>null,querySelector:()=>null,createElement:t=>new Node(t),createElementNS:(_,t)=>new Node(t),activeElement:null};
  try{const root=new Node('div'),s={age:15,history:[{age:15,health:0,finance:{available:0,reserve:0,debt:5000}}]},args={channels:[{label:'Physique',value:'3',detail:'+2',detailLabel:'By age 20',can:()=>true,step:()=>{}}],aim:'balance',setAim(){},status:[],money:{bar:[],items:[]},ikigai:{score:50,parts:[]}};
  drawDeck(root,s,args);assert.equal(root.children.length,6);assert.equal(all(root).filter(n=>n.attrs.class==='on').length,0);assert.ok(!all(root).some(n=>n.tag==='span'&&n.textContent==='80'));
  const wealth=all(root).find(n=>n.dataset.deck==='Show Wealth');wealth.onclick();assert.ok(all(root).some(n=>n.attrs.class==='on negative'));assert.ok(all(root).find(n=>n.tag==='svg').attrs['aria-label'].includes('-5,000'));

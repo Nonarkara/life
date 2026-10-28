@@ -1,9 +1,11 @@
+import {releaseDeckAction,placeDeckAction} from './deck-action.js';
+import {deckInfo} from './deck-info.js';
 import {t} from './i18n.js';
 import {deckHistory,deckBaht} from './deck-model.js';
 // The life console: one instrument surface, divided into labelled panels by function,
 // the way a flight deck is. Every control says what it changes. The panels are
 // LIFE COURSE, STATUS, SET POINTS, LIFE DIRECTION, MONEY and IKIGAI. The one action,
-// living the next five years, stays on the action bar below, so it is never repeated here.
+// living the next five years, moves into the final instrument on wide screens.
 // The deck draws and calls the actions it is given; game.js keeps every rule.
 const AIM_KEYS=[['balance','Balance'],['sport','Sport'],['art','Art'],['security','Security'],['connection','Connection']];
 const METRICS=[['health','Health'],['wellbeing','Mood'],['worth','Wealth']];
@@ -51,18 +53,17 @@ export function drawDeck(root,state,args){
  const {channels,aim,setAim,notice,status,money,ikigai,projection,eraLabels={},aimDescription}=args;
  const focused=document.activeElement?.dataset?.deck;
  selected=Math.min(selected,channels.length-1);const ch=channels[selected];
- root.replaceChildren();root.className='life-deck';root.setAttribute('role','group');root.setAttribute('aria-label','Life console');
+ releaseDeckAction(root);root.replaceChildren();root.className='life-deck';root.setAttribute('role','group');root.setAttribute('aria-label','Life console');
  if(notice)root.append(el('p','deck-notice',notice));
 
  const course=panel('Life course','deck-course');
- const show=el('div','deck-show');show.append(el('span','deck-label','Show'));
+ const show=el('div','deck-show');show.setAttribute('role','group');show.setAttribute('aria-label','Life course');
  for(const [k,label] of METRICS)show.append(key(label,'Show '+label,()=>{metric=k;drawDeck(root,state,args);},{pressed:metric===k,cls:'deck-toggle'}));
  const chart=hill(state),axis=el('div','deck-axis');axis.append(el('span','',t('Age {n}').replace('{n}',0)),el('span','',t('Age {n}').replace('{n}',state.age)));
  const scale=el('p','deck-note',metric==='worth'?deckBaht(chart.data.min)+' — '+deckBaht(chart.data.max):'0–100 · eight display bands');
- const history=el('details','deck-history'),summary=el('summary','','Recorded values');history.append(summary,el('p','deck-note',chart.exact||t('No recorded values yet.')));
- course.append(chart.svg,axis,show,scale,history);
+ course.append(chart.svg,axis,show,scale,deckInfo('Recorded values',[chart.exact||t('No recorded values yet.'),'The graphs join five-year snapshots. Markers sit at the recorded review age, not an exact event date.']));
 
- const stat=panel('Status','deck-status');stat.append(rows(status),el('p','deck-note','Cash + reserve ÷ current essentials. Funds excluded.'));
+ const stat=panel('Status','deck-status');stat.append(rows(status),deckInfo('Cash runway',['Cash + reserve ÷ current essentials. Funds excluded.']));
 
  // SET POINTS: choose the channel, then change its value. The result is shown beside it.
  const set=panel('Set points','deck-set');
@@ -75,21 +76,19 @@ export function drawDeck(root,state,args){
   chip.onclick=()=>{selected=idx;drawDeck(root,state,args);};
   strip.append(chip);
  });
- const channel=el('div','deck-line deck-channel-line');channel.append(
-  key('◀','Previous channel',()=>{selected=(selected-1+channels.length)%channels.length;drawDeck(root,state,args);}),
-  el('b','deck-channel',ch.label),el('span','deck-count',(selected+1)+'/'+channels.length),
-  key('▶','Next channel',()=>{selected=(selected+1)%channels.length;drawDeck(root,state,args);}));
  const value=el('div','deck-points');const out=el('output','deck-value',ch.value);out.setAttribute('aria-live','polite');
  const stepper=el('div','deck-stepper');
  stepper.append(key('−','Lower '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(-1),{disabled:!ch.can(-1)}),out,key('+','Raise '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(1),{disabled:!ch.can(1)}));
- value.append(el('span','deck-label',String(ch.value).includes('%')?'Budget %':'Points /10'),stepper,el('span','deck-result',ch.detail+' '+t(ch.detailLabel)));
- const qualify=el('details','deck-projection'),method=el('summary','','How this projection works');qualify.append(method,el('p','deck-note','Authored scenario estimate, not a real-life prediction. Includes study budget and scheduled consequences; new choices can change it.'));
- if(projection){qualify.append(el('p','deck-note',t('Age multipliers')+': '+Object.entries(projection.eraWeights).map(([k,v])=>t(eraLabels[k]??k)+' ×'+v).join(' · ')));}
- set.append(strip,channel,value,el('p','deck-note',t(String(ch.value).includes('%')?'Allocations must fit within 100%.':'± transfers a point to or from your largest other priority.')));if(ch.minimum!==undefined)set.append(el('p','deck-note',t('Minimum {n} from your choices').replace('{n}',ch.minimum)));set.append(qualify);
+ const valueLabel=el('div','deck-value-label');valueLabel.append(el('b','deck-channel',ch.label),el('span','deck-label',String(ch.value).includes('%')?'Budget %':'Points /10'));
+ value.append(valueLabel,stepper,el('span','deck-result',ch.detail+' '+t(ch.detailLabel)));
+ const method=['Authored scenario estimate, not a real-life prediction. Includes study budget and scheduled consequences; new choices can change it.',String(ch.value).includes('%')?'Allocations must fit within 100%.':'± transfers a point to or from your largest other priority.'];
+ if(projection)method.push(t('Age multipliers')+': '+Object.entries(projection.eraWeights).map(([k,v])=>t(eraLabels[k]??k)+' ×'+v).join(' · '));
+ set.append(strip,value,deckInfo('How this projection works',method));
+ if(ch.minimum!==undefined)set.append(el('p','deck-note',t('Minimum {n} from your choices').replace('{n}',ch.minimum)));
 
  const direction=panel('Life direction','deck-direction');const keys=el('div','deck-keys');
  for(const [k,label] of AIM_KEYS){const b=key(label,'Life direction: '+label,()=>setAim(k),{pressed:aim===k,cls:'deck-key deck-aim'});b.prepend(el('i','deck-light'));keys.append(b);}
- direction.append(keys,el('p','deck-note',aimDescription??''),el('p','deck-note','Direction affects wellbeing in this model.'));
+ direction.append(keys,deckInfo('Life direction',[aimDescription??'','Direction affects wellbeing in this model.']));
 
  root.append(course,stat,set,direction);
 
@@ -98,8 +97,8 @@ export function drawDeck(root,state,args){
   m.append(bar,rows(money.items));root.append(m);}
  if(ikigai){const g=panel('Ikigai '+ikigai.score,'deck-ikigai');const list=el('div','deck-meters');
   for(const [label,v] of ikigai.parts){const row=el('div','deck-meter');const line=el('div','deck-meter-line');line.append(el('span','',label),el('b','',v===null?'—':String(v)));const track=el('span','deck-track');const fill=el('span','deck-fill');fill.style.width=(v??0)+'%';track.append(fill);row.append(line,track);list.append(row);}
-  g.append(list,el('p','deck-note','Authored game indices · not a psychological test.'));root.append(g);}
+  g.append(list,el('p','deck-index-label','Game index'),deckInfo('About Ikigai in this game',['Authored game indices · not a psychological test.']));root.append(g);}
 
- arrangeDeck(root);
+ arrangeDeck(root);const last=root.lastElementChild;if(last){const slot=el('div','deck-action-slot');slot.id='deck-action-slot';last.append(slot);}placeDeckAction();
  if(focused){const again=root.querySelector(`[data-deck="${CSS.escape(focused)}"]`);(again&&!again.disabled?again:root.querySelector('.deck-set .deck-key'))?.focus({preventScroll:true});}
 }

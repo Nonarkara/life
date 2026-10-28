@@ -123,3 +123,5 @@ body.console-mode>header{flex:none}
 }
 /* A flex child with auto side margins otherwise shrink-wraps an auto-fit deck. */
 .console-mode main{width:100%;margin:0}
+.console-actions:has(#save-status[hidden]){grid-template-columns:1fr}
+.console-actions:has(#save-status[hidden]) #commit{justify-self:end}

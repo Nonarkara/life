@@ -1,0 +1,184 @@
+{
+  "current": {
+    "action": {
+      "bottom": 894,
+      "client": 35,
+      "display": "inline-block",
+      "h": 35,
+      "scroll": 35,
+      "w": 163.171875,
+      "x": 908.828125,
+      "y": 859
+    },
+    "actionCount": 1,
+    "actionHost": "deck-action-slot",
+    "deck": {
+      "bottom": 900,
+      "client": 185,
+      "display": "grid",
+      "h": 184.7265625,
+      "scroll": 185,
+      "w": 1080,
+      "x": 0,
+      "y": 715.2734375
+    },
+    "focus": "",
+    "footer": {
+      "bottom": 0,
+      "client": 0,
+      "display": "none",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "gain": {
+      "bottom": 880.1640625,
+      "client": 21,
+      "display": "block",
+      "h": 20.5,
+      "scroll": 21,
+      "w": 161.171875,
+      "x": 370.328125,
+      "y": 859.6640625
+    },
+    "h": 900,
+    "integrated": true,
+    "lowerHeight": 221.2265625,
+    "pageH": 900,
+    "pageW": 1440,
+    "plan": {
+      "bottom": 900,
+      "client": 221,
+      "display": "block",
+      "h": 221.2265625,
+      "scroll": 221,
+      "w": 1080,
+      "x": 0,
+      "y": 678.7734375
+    },
+    "set": {
+      "bottom": 900,
+      "client": 185,
+      "display": "grid",
+      "h": 184.7265625,
+      "scroll": 185,
+      "w": 179.171875,
+      "x": 360.328125,
+      "y": 715.2734375
+    },
+    "stepper": {
+      "bottom": 856.6640625,
+      "client": 24,
+      "display": "grid",
+      "h": 24,
+      "scroll": 29,
+      "w": 161.171875,
+      "x": 370.328125,
+      "y": 832.6640625
+    },
+    "w": 1440,
+    "world": {
+      "bottom": 678.7734375,
+      "client": 630,
+      "display": "flex",
+      "h": 630.2734375,
+      "scroll": 630,
+      "w": 1080,
+      "x": 0,
+      "y": 48.5
+    }
+  },
+  "restored": {
+    "action": {
+      "bottom": 897,
+      "client": 34,
+      "display": "block",
+      "h": 36.5,
+      "scroll": 34,
+      "w": 100.8203125,
+      "x": 967.1796875,
+      "y": 860.5
+    },
+    "actionCount": 1,
+    "actionHost": "",
+    "deck": {
+      "bottom": 818.5,
+      "client": 255,
+      "display": "grid",
+      "h": 255.421875,
+      "scroll": 255,
+      "w": 1048,
+      "x": 16,
+      "y": 563.078125
+    },
+    "focus": "",
+    "footer": {
+      "bottom": 900,
+      "client": 43,
+      "display": "grid",
+      "h": 43.5,
+      "scroll": 43,
+      "w": 1080,
+      "x": 0,
+      "y": 856.5
+    },
+    "gain": {
+      "bottom": 719.96875,
+      "client": 21,
+      "display": "block",
+      "h": 20.5,
+      "scroll": 21,
+      "w": 155.828125,
+      "x": 375.6640625,
+      "y": 699.46875
+    },
+    "h": 900,
+    "integrated": false,
+    "lowerHeight": 381.421875,
+    "pageH": 900,
+    "pageW": 1440,
+    "plan": {
+      "bottom": 856.5,
+      "client": 336,
+      "display": "block",
+      "h": 335.921875,
+      "scroll": 336,
+      "w": 1080,
+      "x": 0,
+      "y": 520.578125
+    },
+    "set": {
+      "bottom": 818.5,
+      "client": 255,
+      "display": "grid",
+      "h": 255.421875,
+      "scroll": 255,
+      "w": 173.828125,
+      "x": 365.6640625,
+      "y": 563.078125
+    },
+    "stepper": {
+      "bottom": 696.46875,
+      "client": 24,
+      "display": "grid",
+      "h": 24,
+      "scroll": 29,
+      "w": 155.828125,
+      "x": 375.6640625,
+      "y": 672.46875
+    },
+    "w": 1440,
+    "world": {
+      "bottom": 518.578125,
+      "client": 470,
+      "display": "flex",
+      "h": 470.078125,
+      "scroll": 470,
+      "w": 1080,
+      "x": 0,
+      "y": 48.5
+    }
+  }
+}

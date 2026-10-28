@@ -1,0 +1,1491 @@
+{
+  "cases": [
+    {
+      "name": "desktop",
+      "action": {
+        "bottom": 897,
+        "client": 34,
+        "display": "block",
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 967.1796875,
+        "y": 860.5
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 815.5,
+        "client": 236,
+        "display": "grid",
+        "h": 237.7734375,
+        "scroll": 236,
+        "w": 1048,
+        "x": 16,
+        "y": 577.7265625
+      },
+      "event": {
+        "bottom": 879.296875,
+        "client": 35,
+        "display": "block",
+        "h": 34.796875,
+        "scroll": 35,
+        "w": 468,
+        "x": 16,
+        "y": 844.5
+      },
+      "footer": {
+        "bottom": 900,
+        "client": 43,
+        "display": "grid",
+        "h": 43.5,
+        "scroll": 43,
+        "w": 1080,
+        "x": 0,
+        "y": 856.5
+      },
+      "h": 900,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "display": "flex",
+        "h": 48.5,
+        "scroll": 47,
+        "w": 1440,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 900,
+        "client": 852,
+        "display": "grid",
+        "h": 851.5,
+        "scroll": 852,
+        "w": 1440,
+        "x": 0,
+        "y": 48.5
+      },
+      "pageH": 900,
+      "pageW": 1440,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 814.5,
+          "height": 235.7734375,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 814.5,
+          "height": 235.7734375,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 814.5,
+          "height": 235.7734375,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 814.5,
+          "height": 235.7734375,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 814.5,
+          "height": 235.7734375,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 814.5,
+          "height": 235.7734375,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 856.5,
+        "client": 322,
+        "display": "block",
+        "h": 322.2734375,
+        "scroll": 322,
+        "w": 1080,
+        "x": 0,
+        "y": 534.2265625
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 900,
+        "client": 852,
+        "display": "flex",
+        "h": 851.5,
+        "scroll": 852,
+        "w": 360,
+        "x": 1080,
+        "y": 48.5
+      },
+      "set": {
+        "bottom": 814.5,
+        "client": 236,
+        "display": "grid",
+        "h": 235.7734375,
+        "scroll": 236,
+        "w": 173.5,
+        "x": 366,
+        "y": 578.7265625
+      },
+      "w": 1440,
+      "world": {
+        "bottom": 532.2265625,
+        "client": 484,
+        "display": "flex",
+        "h": 483.7265625,
+        "scroll": 484,
+        "w": 1080,
+        "x": 0,
+        "y": 48.5
+      },
+      "nav": {
+        "nearest": "console-world",
+        "scroll": 0,
+        "selected": "console-world"
+      }
+    },
+    {
+      "name": "working",
+      "action": {
+        "bottom": 717,
+        "client": 34,
+        "display": "block",
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 847.1796875,
+        "y": 680.5
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 671.5703125,
+        "client": 271,
+        "display": "grid",
+        "h": 273.265625,
+        "scroll": 271,
+        "w": 928,
+        "x": 16,
+        "y": 398.3046875
+      },
+      "event": {
+        "bottom": 735.3671875,
+        "client": 35,
+        "display": "block",
+        "h": 34.796875,
+        "scroll": 35,
+        "w": 468,
+        "x": 16,
+        "y": 700.5703125
+      },
+      "footer": {
+        "bottom": 720,
+        "client": 43,
+        "display": "grid",
+        "h": 43.5,
+        "scroll": 43,
+        "w": 960,
+        "x": 0,
+        "y": 676.5
+      },
+      "h": 720,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "display": "flex",
+        "h": 48.5,
+        "scroll": 47,
+        "w": 1280,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 720,
+        "client": 672,
+        "display": "grid",
+        "h": 671.5,
+        "scroll": 672,
+        "w": 1280,
+        "x": 0,
+        "y": 48.5
+      },
+      "pageH": 720,
+      "pageW": 1280,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 670.5703125,
+          "height": 271.265625,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 670.5703125,
+          "height": 271.265625,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 670.5703125,
+          "height": 271.265625,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 670.5703125,
+          "height": 271.265625,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 670.5703125,
+          "height": 271.265625,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 670.5703125,
+          "height": 271.265625,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 676.5,
+        "client": 322,
+        "display": "block",
+        "h": 321.6953125,
+        "scroll": 358,
+        "w": 960,
+        "x": 0,
+        "y": 354.8046875
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 720,
+        "client": 672,
+        "display": "flex",
+        "h": 671.5,
+        "scroll": 672,
+        "w": 320,
+        "x": 960,
+        "y": 48.5
+      },
+      "set": {
+        "bottom": 670.5703125,
+        "client": 271,
+        "display": "grid",
+        "h": 271.265625,
+        "scroll": 271,
+        "w": 153.5,
+        "x": 326,
+        "y": 399.3046875
+      },
+      "w": 1280,
+      "world": {
+        "bottom": 352.8046875,
+        "client": 304,
+        "display": "flex",
+        "h": 304.3046875,
+        "scroll": 304,
+        "w": 960,
+        "x": 0,
+        "y": 48.5
+      },
+      "nav": {
+        "nearest": "console-world",
+        "scroll": 0,
+        "selected": "console-world"
+      }
+    },
+    {
+      "name": "tablet",
+      "action": {
+        "bottom": 765,
+        "client": 34,
+        "display": "block",
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 911.1796875,
+        "y": 728.5
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 853.421875,
+        "client": 425,
+        "display": "grid",
+        "h": 426.5859375,
+        "scroll": 425,
+        "w": 992,
+        "x": 16,
+        "y": 426.8359375
+      },
+      "event": {
+        "bottom": 917.21875,
+        "client": 35,
+        "display": "block",
+        "h": 34.796875,
+        "scroll": 35,
+        "w": 468,
+        "x": 16,
+        "y": 882.421875
+      },
+      "footer": {
+        "bottom": 768,
+        "client": 43,
+        "display": "grid",
+        "h": 43.5,
+        "scroll": 43,
+        "w": 1024,
+        "x": 0,
+        "y": 724.5
+      },
+      "h": 768,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "display": "flex",
+        "h": 48.5,
+        "scroll": 47,
+        "w": 1024,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 768,
+        "client": 720,
+        "display": "grid",
+        "h": 719.5,
+        "scroll": 720,
+        "w": 1024,
+        "x": 0,
+        "y": 48.5
+      },
+      "pageH": 768,
+      "pageW": 1024,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 651.7265625,
+          "height": 223.890625,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 651.7265625,
+          "height": 223.890625,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 651.7265625,
+          "height": 223.890625,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 852.421875,
+          "height": 199.6953125,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 852.421875,
+          "height": 199.6953125,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 852.421875,
+          "height": 199.6953125,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 723.5,
+        "client": 340,
+        "display": "block",
+        "h": 340.1640625,
+        "scroll": 511,
+        "w": 1024,
+        "x": 0,
+        "y": 383.3359375
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 723.5,
+        "client": 383,
+        "display": "flex",
+        "h": 383.1640625,
+        "scroll": 383,
+        "w": 1024,
+        "x": 0,
+        "y": 340.3359375
+      },
+      "set": {
+        "bottom": 651.7265625,
+        "client": 224,
+        "display": "grid",
+        "h": 223.890625,
+        "scroll": 224,
+        "w": 329.328125,
+        "x": 17,
+        "y": 427.8359375
+      },
+      "w": 1024,
+      "world": {
+        "bottom": 340.3359375,
+        "client": 292,
+        "display": "flex",
+        "h": 291.8359375,
+        "scroll": 292,
+        "w": 1024,
+        "x": 0,
+        "y": 48.5
+      },
+      "nav": {
+        "nearest": "console-plan",
+        "scroll": 0,
+        "selected": "console-plan"
+      }
+    },
+    {
+      "name": "phone",
+      "action": {
+        "bottom": 841,
+        "client": 34,
+        "display": "block",
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 277.1796875,
+        "y": 804.5
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 1556.4765625,
+        "client": 1099,
+        "display": "grid",
+        "h": 1100.7578125,
+        "scroll": 1099,
+        "w": 358,
+        "x": 16,
+        "y": 455.71875
+      },
+      "event": {
+        "bottom": 1620.2734375,
+        "client": 35,
+        "display": "block",
+        "h": 34.796875,
+        "scroll": 35,
+        "w": 358,
+        "x": 16,
+        "y": 1585.4765625
+      },
+      "footer": {
+        "bottom": 844,
+        "client": 43,
+        "display": "grid",
+        "h": 43.5,
+        "scroll": 43,
+        "w": 390,
+        "x": 0,
+        "y": 800.5
+      },
+      "h": 844,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "display": "flex",
+        "h": 48.5,
+        "scroll": 47,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 844,
+        "client": 796,
+        "display": "grid",
+        "h": 795.5,
+        "scroll": 796,
+        "w": 390,
+        "x": 0,
+        "y": 48.5
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 680.609375,
+          "height": 223.890625,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 822.5,
+          "height": 140.890625,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 1006.890625,
+          "height": 183.390625,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 1165.0859375,
+          "height": 157.1953125,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 1354.78125,
+          "height": 188.6953125,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 1555.4765625,
+          "height": 199.6953125,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 799.5,
+        "client": 387,
+        "display": "block",
+        "h": 387.28125,
+        "scroll": 1185,
+        "w": 390,
+        "x": 0,
+        "y": 412.21875
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 799.5,
+        "client": 430,
+        "display": "flex",
+        "h": 430.28125,
+        "scroll": 430,
+        "w": 390,
+        "x": 0,
+        "y": 369.21875
+      },
+      "set": {
+        "bottom": 680.609375,
+        "client": 224,
+        "display": "grid",
+        "h": 223.890625,
+        "scroll": 224,
+        "w": 356,
+        "x": 17,
+        "y": 456.71875
+      },
+      "w": 390,
+      "world": {
+        "bottom": 369.21875,
+        "client": 321,
+        "display": "flex",
+        "h": 320.71875,
+        "scroll": 321,
+        "w": 390,
+        "x": 0,
+        "y": 48.5
+      },
+      "nav": {
+        "nearest": "console-plan",
+        "scroll": 0,
+        "selected": "console-plan"
+      }
+    },
+    {
+      "name": "thai-extra-phone",
+      "action": {
+        "bottom": 840.546875,
+        "client": 48,
+        "display": "block",
+        "h": 50.6953125,
+        "scroll": 48,
+        "w": 181.5078125,
+        "x": 196.4921875,
+        "y": 789.8515625
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 1998.203125,
+        "client": 1596,
+        "display": "grid",
+        "h": 1598.21875,
+        "scroll": 1596,
+        "w": 358,
+        "x": 16,
+        "y": 399.984375
+      },
+      "event": {
+        "bottom": 2094.484375,
+        "client": 57,
+        "display": "block",
+        "h": 57.109375,
+        "scroll": 57,
+        "w": 358,
+        "x": 16,
+        "y": 2037.375
+      },
+      "footer": {
+        "bottom": 844,
+        "client": 58,
+        "display": "grid",
+        "h": 58.59375,
+        "scroll": 58,
+        "w": 390,
+        "x": 0,
+        "y": 785.40625
+      },
+      "h": 844,
+      "header": {
+        "bottom": 54.796875,
+        "client": 53,
+        "display": "flex",
+        "h": 54.796875,
+        "scroll": 53,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 844,
+        "client": 789,
+        "display": "grid",
+        "h": 789.203125,
+        "scroll": 789,
+        "w": 390,
+        "x": 0,
+        "y": 54.796875
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 781.9453125,
+          "height": 380.9609375,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 997.0625,
+          "height": 214.1171875,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 1222.3984375,
+          "height": 224.3359375,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 1455.796875,
+          "height": 232.3984375,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 1705.0234375,
+          "height": 248.2265625,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 1997.203125,
+          "height": 291.1796875,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 784.40625,
+        "client": 439,
+        "display": "block",
+        "h": 438.9765625,
+        "scroll": 1704,
+        "w": 390,
+        "x": 0,
+        "y": 345.4296875
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 784.40625,
+        "client": 493,
+        "display": "flex",
+        "h": 493.296875,
+        "scroll": 493,
+        "w": 390,
+        "x": 0,
+        "y": 291.109375
+      },
+      "set": {
+        "bottom": 781.9453125,
+        "client": 381,
+        "display": "grid",
+        "h": 380.9609375,
+        "scroll": 381,
+        "w": 356,
+        "x": 17,
+        "y": 400.984375
+      },
+      "w": 390,
+      "world": {
+        "bottom": 291.109375,
+        "client": 236,
+        "display": "flex",
+        "h": 236.3125,
+        "scroll": 236,
+        "w": 390,
+        "x": 0,
+        "y": 54.796875
+      },
+      "nav": {
+        "nearest": "console-plan",
+        "scroll": 0,
+        "selected": "console-plan"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "locale": "ja",
+      "action": {
+        "bottom": 841,
+        "client": 36,
+        "display": "block",
+        "h": 39,
+        "scroll": 36,
+        "w": 116.796875,
+        "x": 261.203125,
+        "y": 802
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 1599.7109375,
+        "client": 1136,
+        "display": "grid",
+        "h": 1138,
+        "scroll": 1136,
+        "w": 358,
+        "x": 16,
+        "y": 461.7109375
+      },
+      "event": {
+        "bottom": 1668.6953125,
+        "client": 38,
+        "display": "block",
+        "h": 38.390625,
+        "scroll": 38,
+        "w": 358,
+        "x": 16,
+        "y": 1630.3046875
+      },
+      "footer": {
+        "bottom": 844,
+        "client": 45,
+        "display": "grid",
+        "h": 46,
+        "scroll": 45,
+        "w": 390,
+        "x": 0,
+        "y": 798
+      },
+      "h": 844,
+      "header": {
+        "bottom": 52.3984375,
+        "client": 50,
+        "display": "flex",
+        "h": 52.3984375,
+        "scroll": 50,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 844,
+        "client": 792,
+        "display": "grid",
+        "h": 791.6015625,
+        "scroll": 792,
+        "w": 390,
+        "x": 0,
+        "y": 52.3984375
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 703.078125,
+          "height": 240.3671875,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 846.6640625,
+          "height": 142.5859375,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 1037.4453125,
+          "height": 189.78125,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 1197.3359375,
+          "height": 158.890625,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 1388.7265625,
+          "height": 190.390625,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 1598.7109375,
+          "height": 208.984375,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 797,
+        "client": 380,
+        "display": "block",
+        "h": 380.484375,
+        "scroll": 1226,
+        "w": 390,
+        "x": 0,
+        "y": 416.515625
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 797,
+        "client": 424,
+        "display": "flex",
+        "h": 423.8828125,
+        "scroll": 424,
+        "w": 390,
+        "x": 0,
+        "y": 373.1171875
+      },
+      "set": {
+        "bottom": 703.078125,
+        "client": 240,
+        "display": "grid",
+        "h": 240.3671875,
+        "scroll": 240,
+        "w": 356,
+        "x": 17,
+        "y": 462.7109375
+      },
+      "w": 390,
+      "world": {
+        "bottom": 373.1171875,
+        "client": 321,
+        "display": "flex",
+        "h": 320.71875,
+        "scroll": 321,
+        "w": 390,
+        "x": 0,
+        "y": 52.3984375
+      },
+      "nav": {
+        "nearest": "console-plan",
+        "scroll": 0,
+        "selected": "console-plan"
+      }
+    },
+    {
+      "locale": "ko",
+      "action": {
+        "bottom": 841,
+        "client": 36,
+        "display": "block",
+        "h": 39,
+        "scroll": 36,
+        "w": 101.1015625,
+        "x": 276.8984375,
+        "y": 802
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 1599.7109375,
+        "client": 1136,
+        "display": "grid",
+        "h": 1138,
+        "scroll": 1136,
+        "w": 358,
+        "x": 16,
+        "y": 461.7109375
+      },
+      "event": {
+        "bottom": 1668.6953125,
+        "client": 38,
+        "display": "block",
+        "h": 38.390625,
+        "scroll": 38,
+        "w": 358,
+        "x": 16,
+        "y": 1630.3046875
+      },
+      "footer": {
+        "bottom": 844,
+        "client": 45,
+        "display": "grid",
+        "h": 46,
+        "scroll": 45,
+        "w": 390,
+        "x": 0,
+        "y": 798
+      },
+      "h": 844,
+      "header": {
+        "bottom": 52.3984375,
+        "client": 50,
+        "display": "flex",
+        "h": 52.3984375,
+        "scroll": 50,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 844,
+        "client": 792,
+        "display": "grid",
+        "h": 791.6015625,
+        "scroll": 792,
+        "w": 390,
+        "x": 0,
+        "y": 52.3984375
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 703.078125,
+          "height": 240.3671875,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 846.6640625,
+          "height": 142.5859375,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 1037.4453125,
+          "height": 189.78125,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 1197.3359375,
+          "height": 158.890625,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 1388.7265625,
+          "height": 190.390625,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 1598.7109375,
+          "height": 208.984375,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 797,
+        "client": 380,
+        "display": "block",
+        "h": 380.484375,
+        "scroll": 1226,
+        "w": 390,
+        "x": 0,
+        "y": 416.515625
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 797,
+        "client": 424,
+        "display": "flex",
+        "h": 423.8828125,
+        "scroll": 424,
+        "w": 390,
+        "x": 0,
+        "y": 373.1171875
+      },
+      "set": {
+        "bottom": 703.078125,
+        "client": 240,
+        "display": "grid",
+        "h": 240.3671875,
+        "scroll": 240,
+        "w": 356,
+        "x": 17,
+        "y": 462.7109375
+      },
+      "w": 390,
+      "world": {
+        "bottom": 373.1171875,
+        "client": 321,
+        "display": "flex",
+        "h": 320.71875,
+        "scroll": 321,
+        "w": 390,
+        "x": 0,
+        "y": 52.3984375
+      },
+      "nav": {
+        "nearest": "console-plan",
+        "scroll": 0,
+        "selected": "console-plan"
+      }
+    },
+    {
+      "locale": "zh-CN",
+      "action": {
+        "bottom": 841,
+        "client": 36,
+        "display": "block",
+        "h": 39,
+        "scroll": 36,
+        "w": 78.390625,
+        "x": 299.609375,
+        "y": 802
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 1599.7109375,
+        "client": 1136,
+        "display": "grid",
+        "h": 1138,
+        "scroll": 1136,
+        "w": 358,
+        "x": 16,
+        "y": 461.7109375
+      },
+      "event": {
+        "bottom": 1649.5,
+        "client": 19,
+        "display": "block",
+        "h": 19.1953125,
+        "scroll": 19,
+        "w": 358,
+        "x": 16,
+        "y": 1630.3046875
+      },
+      "footer": {
+        "bottom": 844,
+        "client": 45,
+        "display": "grid",
+        "h": 46,
+        "scroll": 45,
+        "w": 390,
+        "x": 0,
+        "y": 798
+      },
+      "h": 844,
+      "header": {
+        "bottom": 52.3984375,
+        "client": 50,
+        "display": "flex",
+        "h": 52.3984375,
+        "scroll": 50,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 844,
+        "client": 792,
+        "display": "grid",
+        "h": 791.6015625,
+        "scroll": 792,
+        "w": 390,
+        "x": 0,
+        "y": 52.3984375
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 703.078125,
+          "height": 240.3671875,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 846.6640625,
+          "height": 142.5859375,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 1037.4453125,
+          "height": 189.78125,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 1197.3359375,
+          "height": 158.890625,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 1388.7265625,
+          "height": 190.390625,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 1598.7109375,
+          "height": 208.984375,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 797,
+        "client": 380,
+        "display": "block",
+        "h": 380.484375,
+        "scroll": 1226,
+        "w": 390,
+        "x": 0,
+        "y": 416.515625
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 797,
+        "client": 424,
+        "display": "flex",
+        "h": 423.8828125,
+        "scroll": 424,
+        "w": 390,
+        "x": 0,
+        "y": 373.1171875
+      },
+      "set": {
+        "bottom": 703.078125,
+        "client": 240,
+        "display": "grid",
+        "h": 240.3671875,
+        "scroll": 240,
+        "w": 356,
+        "x": 17,
+        "y": 462.7109375
+      },
+      "w": 390,
+      "world": {
+        "bottom": 373.1171875,
+        "client": 321,
+        "display": "flex",
+        "h": 320.71875,
+        "scroll": 321,
+        "w": 390,
+        "x": 0,
+        "y": 52.3984375
+      },
+      "nav": {
+        "nearest": "console-plan",
+        "scroll": 0,
+        "selected": "console-plan"
+      }
+    },
+    {
+      "locale": "en",
+      "action": {
+        "bottom": 841,
+        "client": 34,
+        "display": "block",
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 277.1796875,
+        "y": 804.5
+      },
+      "comparison": {
+        "bottom": 0,
+        "client": 0,
+        "display": "block",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "deck": {
+        "bottom": 1556.4765625,
+        "client": 1099,
+        "display": "grid",
+        "h": 1100.7578125,
+        "scroll": 1099,
+        "w": 358,
+        "x": 16,
+        "y": 455.71875
+      },
+      "event": {
+        "bottom": 1620.2734375,
+        "client": 35,
+        "display": "block",
+        "h": 34.796875,
+        "scroll": 35,
+        "w": 358,
+        "x": 16,
+        "y": 1585.4765625
+      },
+      "footer": {
+        "bottom": 844,
+        "client": 43,
+        "display": "grid",
+        "h": 43.5,
+        "scroll": 43,
+        "w": 390,
+        "x": 0,
+        "y": 800.5
+      },
+      "h": 844,
+      "header": {
+        "bottom": 48.5,
+        "client": 47,
+        "display": "flex",
+        "h": 48.5,
+        "scroll": 47,
+        "w": 390,
+        "x": 0,
+        "y": 0
+      },
+      "main": {
+        "bottom": 844,
+        "client": 796,
+        "display": "grid",
+        "h": 795.5,
+        "scroll": 796,
+        "w": 390,
+        "x": 0,
+        "y": 48.5
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "palette": "Plum · bright",
+      "panels": [
+        {
+          "bottom": 680.609375,
+          "height": 223.890625,
+          "name": "deck-panel deck-set"
+        },
+        {
+          "bottom": 822.5,
+          "height": 140.890625,
+          "name": "deck-panel deck-direction"
+        },
+        {
+          "bottom": 1006.890625,
+          "height": 183.390625,
+          "name": "deck-panel deck-course"
+        },
+        {
+          "bottom": 1165.0859375,
+          "height": 157.1953125,
+          "name": "deck-panel deck-status"
+        },
+        {
+          "bottom": 1354.78125,
+          "height": 188.6953125,
+          "name": "deck-panel deck-money"
+        },
+        {
+          "bottom": 1555.4765625,
+          "height": 199.6953125,
+          "name": "deck-panel deck-ikigai"
+        }
+      ],
+      "plan": {
+        "bottom": 799.5,
+        "client": 387,
+        "display": "block",
+        "h": 387.28125,
+        "scroll": 1185,
+        "w": 390,
+        "x": 0,
+        "y": 412.21875
+      },
+      "profile": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "reader": {
+        "bottom": 799.5,
+        "client": 430,
+        "display": "flex",
+        "h": 430.28125,
+        "scroll": 430,
+        "w": 390,
+        "x": 0,
+        "y": 369.21875
+      },
+      "set": {
+        "bottom": 680.609375,
+        "client": 224,
+        "display": "grid",
+        "h": 223.890625,
+        "scroll": 224,
+        "w": 356,
+        "x": 17,
+        "y": 456.71875
+      },
+      "w": 390,
+      "world": {
+        "bottom": 369.21875,
+        "client": 321,
+        "display": "flex",
+        "h": 320.71875,
+        "scroll": 321,
+        "w": 390,
+        "x": 0,
+        "y": 48.5
+      },
+      "nav": {
+        "nearest": "console-plan",
+        "scroll": 0,
+        "selected": "console-plan"
+      }
+    }
+  ]
+}

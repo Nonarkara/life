@@ -1,0 +1,648 @@
+{
+  "cases": [
+    {
+      "name": "desktop",
+      "action": {
+        "bottom": 894,
+        "client": 35,
+        "display": "inline-block",
+        "h": 35,
+        "scroll": 35,
+        "w": 163.171875,
+        "x": 908.828125,
+        "y": 859
+      },
+      "actionCount": 1,
+      "actionHost": "deck-action-slot",
+      "deck": {
+        "bottom": 900,
+        "client": 185,
+        "display": "grid",
+        "h": 184.7265625,
+        "scroll": 185,
+        "w": 1080,
+        "x": 0,
+        "y": 715.2734375
+      },
+      "focus": "",
+      "footer": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "gain": {
+        "bottom": 880.1640625,
+        "client": 21,
+        "display": "block",
+        "h": 20.5,
+        "scroll": 21,
+        "w": 161.171875,
+        "x": 370.328125,
+        "y": 859.6640625
+      },
+      "h": 900,
+      "integrated": true,
+      "lowerHeight": 221.2265625,
+      "pageH": 900,
+      "pageW": 1440,
+      "plan": {
+        "bottom": 900,
+        "client": 221,
+        "display": "block",
+        "h": 221.2265625,
+        "scroll": 221,
+        "w": 1080,
+        "x": 0,
+        "y": 678.7734375
+      },
+      "set": {
+        "bottom": 900,
+        "client": 185,
+        "display": "grid",
+        "h": 184.7265625,
+        "scroll": 185,
+        "w": 179.171875,
+        "x": 360.328125,
+        "y": 715.2734375
+      },
+      "stepper": {
+        "bottom": 856.6640625,
+        "client": 24,
+        "display": "grid",
+        "h": 24,
+        "scroll": 29,
+        "w": 161.171875,
+        "x": 370.328125,
+        "y": 832.6640625
+      },
+      "w": 1440,
+      "world": {
+        "bottom": 678.7734375,
+        "client": 630,
+        "display": "flex",
+        "h": 630.2734375,
+        "scroll": 630,
+        "w": 1080,
+        "x": 0,
+        "y": 48.5
+      }
+    },
+    {
+      "name": "working",
+      "action": {
+        "bottom": 708.5390625,
+        "client": 35,
+        "display": "inline-block",
+        "h": 35,
+        "scroll": 35,
+        "w": 143.171875,
+        "x": 808.828125,
+        "y": 673.5390625
+      },
+      "actionCount": 1,
+      "actionHost": "deck-action-slot",
+      "deck": {
+        "bottom": 720,
+        "client": 190,
+        "display": "grid",
+        "h": 190.1875,
+        "scroll": 190,
+        "w": 960,
+        "x": 0,
+        "y": 529.8125
+      },
+      "focus": "",
+      "footer": {
+        "bottom": 0,
+        "client": 0,
+        "display": "none",
+        "h": 0,
+        "scroll": 0,
+        "w": 0,
+        "x": 0,
+        "y": 0
+      },
+      "gain": {
+        "bottom": 714,
+        "client": 21,
+        "display": "block",
+        "h": 20.5,
+        "scroll": 21,
+        "w": 141.171875,
+        "x": 330.328125,
+        "y": 693.5
+      },
+      "h": 720,
+      "integrated": true,
+      "lowerHeight": 226.6875,
+      "pageH": 720,
+      "pageW": 1280,
+      "plan": {
+        "bottom": 720,
+        "client": 227,
+        "display": "block",
+        "h": 226.6875,
+        "scroll": 227,
+        "w": 960,
+        "x": 0,
+        "y": 493.3125
+      },
+      "set": {
+        "bottom": 720,
+        "client": 190,
+        "display": "grid",
+        "h": 190.1875,
+        "scroll": 190,
+        "w": 159.171875,
+        "x": 320.328125,
+        "y": 529.8125
+      },
+      "stepper": {
+        "bottom": 690.5,
+        "client": 24,
+        "display": "grid",
+        "h": 24,
+        "scroll": 29,
+        "w": 141.171875,
+        "x": 330.328125,
+        "y": 666.5
+      },
+      "w": 1280,
+      "world": {
+        "bottom": 493.3125,
+        "client": 445,
+        "display": "flex",
+        "h": 444.8125,
+        "scroll": 445,
+        "w": 960,
+        "x": 0,
+        "y": 48.5
+      }
+    },
+    {
+      "name": "tablet",
+      "action": {
+        "bottom": 765,
+        "client": 34,
+        "display": "block",
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 911.1796875,
+        "y": 728.5
+      },
+      "actionCount": 1,
+      "actionHost": "",
+      "deck": {
+        "bottom": 807.4765625,
+        "client": 379,
+        "display": "grid",
+        "h": 380.640625,
+        "scroll": 379,
+        "w": 992,
+        "x": 16,
+        "y": 426.8359375
+      },
+      "focus": "",
+      "footer": {
+        "bottom": 768,
+        "client": 43,
+        "display": "grid",
+        "h": 43.5,
+        "scroll": 43,
+        "w": 1024,
+        "x": 0,
+        "y": 724.5
+      },
+      "gain": {
+        "bottom": 588.8359375,
+        "client": 21,
+        "display": "block",
+        "h": 20.5,
+        "scroll": 21,
+        "w": 307.328125,
+        "x": 29,
+        "y": 568.3359375
+      },
+      "h": 768,
+      "integrated": false,
+      "lowerHeight": 427.6640625,
+      "pageH": 768,
+      "pageW": 1024,
+      "plan": {
+        "bottom": 723.5,
+        "client": 340,
+        "display": "block",
+        "h": 340.1640625,
+        "scroll": 465,
+        "w": 1024,
+        "x": 0,
+        "y": 383.3359375
+      },
+      "set": {
+        "bottom": 599.53125,
+        "client": 172,
+        "display": "grid",
+        "h": 171.6953125,
+        "scroll": 172,
+        "w": 329.328125,
+        "x": 17,
+        "y": 427.8359375
+      },
+      "stepper": {
+        "bottom": 565.3359375,
+        "client": 32,
+        "display": "grid",
+        "h": 32,
+        "scroll": 39,
+        "w": 307.328125,
+        "x": 29,
+        "y": 533.3359375
+      },
+      "w": 1024,
+      "world": {
+        "bottom": 340.3359375,
+        "client": 292,
+        "display": "flex",
+        "h": 291.8359375,
+        "scroll": 292,
+        "w": 1024,
+        "x": 0,
+        "y": 48.5
+      }
+    },
+    {
+      "name": "phone",
+      "action": {
+        "bottom": 841,
+        "client": 34,
+        "display": "block",
+        "h": 36.5,
+        "scroll": 34,
+        "w": 100.8203125,
+        "x": 277.1796875,
+        "y": 804.5
+      },
+      "actionCount": 1,
+      "actionHost": "",
+      "deck": {
+        "bottom": 1461.0546875,
+        "client": 1003,
+        "display": "grid",
+        "h": 1005.3359375,
+        "scroll": 1003,
+        "w": 358,
+        "x": 16,
+        "y": 455.71875
+      },
+      "focus": "",
+      "footer": {
+        "bottom": 844,
+        "client": 43,
+        "display": "grid",
+        "h": 43.5,
+        "scroll": 43,
+        "w": 390,
+        "x": 0,
+        "y": 800.5
+      },
+      "gain": {
+        "bottom": 617.71875,
+        "client": 21,
+        "display": "block",
+        "h": 20.5,
+        "scroll": 21,
+        "w": 334,
+        "x": 29,
+        "y": 597.21875
+      },
+      "h": 844,
+      "integrated": false,
+      "lowerHeight": 474.78125,
+      "pageH": 844,
+      "pageW": 390,
+      "plan": {
+        "bottom": 799.5,
+        "client": 387,
+        "display": "block",
+        "h": 387.28125,
+        "scroll": 1090,
+        "w": 390,
+        "x": 0,
+        "y": 412.21875
+      },
+      "set": {
+        "bottom": 625.71875,
+        "client": 169,
+        "display": "grid",
+        "h": 169,
+        "scroll": 169,
+        "w": 356,
+        "x": 17,
+        "y": 456.71875
+      },
+      "stepper": {
+        "bottom": 594.21875,
+        "client": 32,
+        "display": "grid",
+        "h": 32,
+        "scroll": 39,
+        "w": 334,
+        "x": 29,
+        "y": 562.21875
+      },
+      "w": 390,
+      "world": {
+        "bottom": 369.21875,
+        "client": 321,
+        "display": "flex",
+        "h": 320.71875,
+        "scroll": 321,
+        "w": 390,
+        "x": 0,
+        "y": 48.5
+      }
+    },
+    {
+      "name": "thai-extra-phone",
+      "action": {
+        "bottom": 841,
+        "client": 48,
+        "display": "block",
+        "h": 50.6953125,
+        "scroll": 48,
+        "w": 181.5078125,
+        "x": 196.4921875,
+        "y": 790.3046875
+      },
+      "actionCount": 1,
+      "actionHost": "",
+      "deck": {
+        "bottom": 1720.6640625,
+        "client": 1319,
+        "display": "grid",
+        "h": 1320.6796875,
+        "scroll": 1319,
+        "w": 358,
+        "x": 16,
+        "y": 399.984375
+      },
+      "focus": "",
+      "footer": {
+        "bottom": 844,
+        "client": 57,
+        "display": "grid",
+        "h": 57.6953125,
+        "scroll": 57,
+        "w": 390,
+        "x": 0,
+        "y": 786.3046875
+      },
+      "gain": {
+        "bottom": 665.4921875,
+        "client": 33,
+        "display": "block",
+        "h": 33.3203125,
+        "scroll": 33,
+        "w": 334,
+        "x": 29,
+        "y": 632.171875
+      },
+      "h": 844,
+      "integrated": false,
+      "lowerHeight": 552.890625,
+      "pageH": 844,
+      "pageW": 390,
+      "plan": {
+        "bottom": 785.3046875,
+        "client": 440,
+        "display": "block",
+        "h": 439.875,
+        "scroll": 1426,
+        "w": 390,
+        "x": 0,
+        "y": 345.4296875
+      },
+      "set": {
+        "bottom": 673.4921875,
+        "client": 273,
+        "display": "grid",
+        "h": 272.5078125,
+        "scroll": 273,
+        "w": 356,
+        "x": 17,
+        "y": 400.984375
+      },
+      "stepper": {
+        "bottom": 629.171875,
+        "client": 45,
+        "display": "grid",
+        "h": 44.796875,
+        "scroll": 56,
+        "w": 334,
+        "x": 29,
+        "y": 584.375
+      },
+      "w": 390,
+      "world": {
+        "bottom": 291.109375,
+        "client": 236,
+        "display": "flex",
+        "h": 236.3125,
+        "scroll": 236,
+        "w": 390,
+        "x": 0,
+        "y": 54.796875
+      }
+    },
+    {
+      "name": "japanese-phone",
+      "action": {
+        "bottom": 841,
+        "client": 36,
+        "display": "block",
+        "h": 39,
+        "scroll": 36,
+        "w": 116.796875,
+        "x": 261.203125,
+        "y": 802
+      },
+      "actionCount": 1,
+      "actionHost": "",
+      "deck": {
+        "bottom": 1489.96875,
+        "client": 1026,
+        "display": "grid",
+        "h": 1028.2578125,
+        "scroll": 1026,
+        "w": 358,
+        "x": 16,
+        "y": 461.7109375
+      },
+      "focus": "",
+      "footer": {
+        "bottom": 844,
+        "client": 45,
+        "display": "grid",
+        "h": 46,
+        "scroll": 45,
+        "w": 390,
+        "x": 0,
+        "y": 798
+      },
+      "gain": {
+        "bottom": 635.6953125,
+        "client": 22,
+        "display": "block",
+        "h": 22.3984375,
+        "scroll": 22,
+        "w": 334,
+        "x": 29,
+        "y": 613.296875
+      },
+      "h": 844,
+      "integrated": false,
+      "lowerHeight": 470.8828125,
+      "pageH": 844,
+      "pageW": 390,
+      "plan": {
+        "bottom": 797,
+        "client": 380,
+        "display": "block",
+        "h": 380.484375,
+        "scroll": 1116,
+        "w": 390,
+        "x": 0,
+        "y": 416.515625
+      },
+      "set": {
+        "bottom": 643.6953125,
+        "client": 181,
+        "display": "grid",
+        "h": 180.984375,
+        "scroll": 181,
+        "w": 356,
+        "x": 17,
+        "y": 462.7109375
+      },
+      "stepper": {
+        "bottom": 610.296875,
+        "client": 32,
+        "display": "grid",
+        "h": 32,
+        "scroll": 39,
+        "w": 334,
+        "x": 29,
+        "y": 578.296875
+      },
+      "w": 390,
+      "world": {
+        "bottom": 373.1171875,
+        "client": 321,
+        "display": "flex",
+        "h": 320.71875,
+        "scroll": 321,
+        "w": 390,
+        "x": 0,
+        "y": 52.3984375
+      }
+    }
+  ],
+  "fallback": {
+    "name": "profile",
+    "action": {
+      "bottom": 897,
+      "client": 34,
+      "display": "block",
+      "h": 36.5,
+      "scroll": 34,
+      "w": 100.8203125,
+      "x": 967.1796875,
+      "y": 860.5
+    },
+    "actionCount": 1,
+    "actionHost": "",
+    "deck": {
+      "bottom": 0,
+      "client": 0,
+      "display": "grid",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "focus": "tab-profile",
+    "footer": {
+      "bottom": 900,
+      "client": 43,
+      "display": "grid",
+      "h": 43.5,
+      "scroll": 43,
+      "w": 1080,
+      "x": 0,
+      "y": 856.5
+    },
+    "gain": {
+      "bottom": 0,
+      "client": 0,
+      "display": "block",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "h": 900,
+    "integrated": false,
+    "lowerHeight": 388.2890625,
+    "pageH": 900,
+    "pageW": 1440,
+    "plan": {
+      "bottom": 856.5,
+      "client": 343,
+      "display": "block",
+      "h": 342.7890625,
+      "scroll": 343,
+      "w": 1080,
+      "x": 0,
+      "y": 513.7109375
+    },
+    "set": {
+      "bottom": 0,
+      "client": 0,
+      "display": "grid",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "stepper": {
+      "bottom": 0,
+      "client": 0,
+      "display": "grid",
+      "h": 0,
+      "scroll": 0,
+      "w": 0,
+      "x": 0,
+      "y": 0
+    },
+    "w": 1440,
+    "world": {
+      "bottom": 511.7109375,
+      "client": 463,
+      "display": "flex",
+      "h": 463.2109375,
+      "scroll": 463,
+      "w": 1080,
+      "x": 0,
+      "y": 48.5
+    }
+  }
+}

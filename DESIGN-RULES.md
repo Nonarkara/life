@@ -65,3 +65,14 @@ ocean and nested rectangles. The ending leads with actual trajectories over age
 and the divergences between resources. A memory list cannot substitute for visual
 analysis. Optional source records and the world remain available, not dominant.
 Do not label every life an S-curve or invent a single scale mixing cash and health.
+
+
+## Instrument height and the advance action
+A prose tail in one instrument must not stretch every sibling into empty space.
+Keep the current control, units and immediate result together; full methods may
+open from a named header help control. Preserve qualifications and text size.
+Use one real advance action, integrated into wide Priorities and returned to a
+permanent fallback for other views, narrow screens and save failures. Reparent
+it before rebuilding its container; preserve focus. Test the actual task state,
+not only page overflow. The console-height gate records the accepted budgets and
+a controlled restored-expansion failure in review/console-height.

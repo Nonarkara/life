@@ -178,3 +178,50 @@
 .life-deck .deck-result,.life-deck .deck-chip.active .deck-chip-val{color:var(--deck-accent)}
 .life-deck .deck-set,.life-deck .deck-chip.active,.life-deck .deck-aim[aria-pressed=true]{border-color:var(--deck-accent)}
 .life-deck .deck-key:focus-visible,.life-deck .deck-toggle:focus-visible,.life-deck .deck-chip:focus-visible{outline:2px solid var(--deck-accent);outline-offset:2px}
+
+/* The tallest control no longer sets a prose-sized height for all its siblings. */
+.deck-panel{position:relative}
+.deck-placard{padding-right:26px;min-height:24px;display:flex;align-items:center}
+.deck-info{position:absolute;right:5px;top:4px;width:24px;min-height:24px;padding:0;border:0;background:none;color:var(--deck-muted);font:inherit;font-size:14px;cursor:pointer}
+.deck-info:focus-visible{outline:2px solid var(--deck-accent);outline-offset:1px}
+.deck-value-label{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.deck-value-label .deck-channel{text-align:left;font-size:calc(14px * var(--reading-scale))}
+.deck-value-label .deck-label{min-width:0}
+.deck-index-label{font-size:calc(11px * var(--reading-scale));color:var(--deck-muted);margin:0}
+.deck-info-dialog{max-width:min(92vw,42rem);max-height:85dvh;overflow:auto;padding:20px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit}
+.deck-info-dialog p{max-width:65ch;font-size:calc(14px * var(--reading-scale));line-height:1.5;white-space:normal}
+.deck-info-dialog .settings-head h2{font-size:calc(20px * var(--reading-scale))}
+.deck-action-slot:empty{display:none}
+@media(min-width:1280px){
+ .life-deck{margin:0;border:0}
+ .life-deck .deck-panel{padding-bottom:6px}
+ .life-deck .deck-meters{gap:5px}
+ .life-deck .deck-meter{display:grid;grid-template-columns:minmax(0,1fr) 2.5ch;gap:2px 5px}
+ .life-deck .deck-meter-line{display:contents}
+ .life-deck .deck-meter-line>span{font-size:calc(12px * var(--reading-scale))}
+ .life-deck .deck-meter-line>b{font-size:calc(12px * var(--reading-scale));grid-column:2;grid-row:auto}
+ .life-deck .deck-meter .deck-track{grid-column:1/-1;height:4px}
+ .life-deck .deck-action-slot{margin-top:auto;padding-top:4px}
+ .life-deck #commit{width:100%;text-align:right;color:var(--deck-text);font-size:calc(13px * var(--reading-scale));white-space:normal}
+ .deck-action-integrated #console-plan{padding:6px 0 0;scrollbar-gutter:auto}
+ .deck-action-integrated .console-actions{display:none}
+ .deck-action-integrated .latest-event{position:absolute;right:8px;top:4px;margin:0}
+ .deck-action-integrated .latest-event[open]{position:static;margin:4px 12px}
+ .deck-action-integrated .tabs{padding:0 12px}
+ .deck-action-integrated .player-console{position:relative;border-top:0}
+}
+
+@media(min-width:1280px){
+ .life-deck .deck-meter{grid-template-columns:7ch minmax(0,1fr) 2.5ch;align-items:center;gap:5px}
+ .life-deck .deck-meter-line>span{grid-column:1;grid-row:1;line-height:1.3}
+ .life-deck .deck-meter-line>b{grid-column:3;grid-row:1;line-height:1.3}
+ .life-deck .deck-meter .deck-track{grid-column:2;grid-row:1}
+}
+.life-deck #commit{border:0;text-decoration:none}
+.life-deck #commit:hover{color:var(--deck-accent)}
+.life-deck #commit:focus-visible{outline:2px solid var(--deck-accent);outline-offset:1px}
+/* Recover height through grouping, not by making the existing labels smaller. */
+.life-deck #commit{font-size:calc(15px * var(--reading-scale))}
+@media(min-width:1280px){
+ .life-deck .deck-meter-line>span,.life-deck .deck-meter-line>b{font-size:calc(14px * var(--reading-scale))}
+}
