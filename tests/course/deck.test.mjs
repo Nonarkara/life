@@ -26,7 +26,7 @@ const all=n=>[n,...n.children.filter(c=>c instanceof Node).flatMap(all)];
 test('actual deck renders zero unlit, negative wealth signed, six panels and one edit pair',()=>{
  const previous=globalThis.document;globalThis.document={getElementById:()=>null,querySelector:()=>null,createElement:t=>new Node(t),createElementNS:(_,t)=>new Node(t),activeElement:null};
  try{const root=new Node('div'),s={age:15,history:[{age:15,health:0,finance:{available:0,reserve:0,debt:5000}}]},args={channels:[{label:'Physique',value:'3',detail:'+2',detailLabel:'By age 20',can:()=>true,step:()=>{}}],aim:'balance',setAim(){},status:[],money:{bar:[],items:[]},ikigai:{score:50,parts:[]}};
- drawDeck(root,s,args);assert.equal(root.children.length,6);assert.equal(all(root).filter(n=>n.attrs.class==='on').length,0);assert.ok(!all(root).some(n=>n.tag==='span'&&n.textContent==='80'));
+ drawDeck(root,s,args);assert.equal(root.children.filter(n=>String(n.className??n.attrs?.class??'').includes('deck-panel')).length,6,'six panels');assert.equal(root.children.filter(n=>n.className==='deck-howto').length,1,'one explanation link');assert.equal(all(root).filter(n=>n.attrs.class==='on').length,0);assert.ok(!all(root).some(n=>n.tag==='span'&&n.textContent==='80'));
  const wealth=all(root).find(n=>n.dataset.deck==='Show Wealth');wealth.onclick();assert.ok(all(root).some(n=>n.attrs.class==='on negative'));assert.ok(all(root).find(n=>n.tag==='svg').attrs['aria-label'].includes('-5,000'));
  }finally{globalThis.document=previous;}
 });
@@ -44,7 +44,8 @@ test('cash-runway help accompanies its reading and does not appear on a childhoo
  const previous=globalThis.document;globalThis.document={getElementById:()=>null,querySelector:()=>null,createElement:t=>new Node(t),createElementNS:(_,t)=>new Node(t),activeElement:null};
  try{
   const root=new Node('div'),s={age:10,history:[]},args={channels:[{label:'Physique',value:'2',detail:'+2',detailLabel:'By age 15',can:()=>true,step(){}}],aim:'balance',setAim(){},status:[['Health','90 / 100'],['Mood','65 / 100']]};
-  drawDeck(root,s,args);assert.ok(!all(root).some(n=>n.attrs['aria-label']==='Cash runway'));
-  drawDeck(root,s,{...args,status:[...args.status,['Cash runway','3 months']]});assert.ok(all(root).some(n=>n.attrs['aria-label']==='Cash runway'));
+  const sections=()=>(all(root).find(n=>n.className==='deck-howto')?.dataset.sections??'').split('|');
+  drawDeck(root,s,args);assert.ok(!sections().includes('Cash runway'));
+  drawDeck(root,s,{...args,status:[...args.status,['Cash runway','3 months']]});assert.ok(sections().includes('Cash runway'));
  }finally{globalThis.document=previous;}
 });

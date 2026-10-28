@@ -573,3 +573,33 @@ Verifiedsharedmemorylesson captured. Current index INTEGRATION-STATUS.md;
 review/palette-scenes and research/palette-scenes holdproof/provenance.
 Six concurrent/unattributed review/stage PNG modifications preserved outsidecommit;
 no requestedsourceworkleftpending. Do not addmanualpalettecontrolsback.
+
+## Design spec — read before touching any surface (owner direction, 29 Oct 2026)
+Every agent builds to this. Three agents rebuilding the same panels in turn is why the
+product read as a hobby; the spec, not the last agent, decides.
+
+**Design Read.** A life seen through an instrument. The world is the hero and carries
+the emotion; the console is a calm, labelled instrument that never changes colour.
+Ink on paper above, one dark instrument surface below, one amber for the one action.
+
+**Named references.** For the console: a flight deck or a mixing desk, with labelled
+panels by function, a channel strip, and every control saying what it changes. For the
+world: a museum diorama under daylight.
+
+**Fixed rules.**
+- Colour: house paper #f4f0e6, ink #192e2c, muted #52635b, line #b4b9a9, one amber
+  #f59e0b (amber text on paper uses #875d2a), dark instrument #0a0e14. Life events
+  colour the world only (a 30% tint of its authored colours, `CHORD_TINT`), never the
+  interface. Guarded by tests/course/palette.test.mjs.
+- Type: 12 (placards, labels), 14 (values, body), 32 (the one value being set; the age).
+  Nothing under 12.
+- One dominant element per panel: STATUS's rows, the value in SET POINTS, the hill in
+  LIFE COURSE.
+- Explanations live in one "How these numbers work" dialog, never as a "?" per panel or
+  as on-screen footnotes.
+- The one action, living the next five years, appears once.
+- Top chrome on a phone stays near 140px or less: header, age bar, console tabs, sub-tabs.
+- Line weights by role: 1px hairlines separate cells; panel edges are 1px seams on the
+  dark surface; the header rule is 2px ink. Nothing else.
+- No rounded corners, gradients or drop shadows in the interface (§11.6). An inset 2px
+  amber underline is the only selection indicator.

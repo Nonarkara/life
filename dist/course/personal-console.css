@@ -182,12 +182,9 @@
 /* The tallest control no longer sets a prose-sized height for all its siblings. */
 .deck-panel{position:relative}
 .deck-placard{padding-right:26px;min-height:24px;display:flex;align-items:center}
-.deck-info{position:absolute;right:5px;top:4px;width:24px;min-height:24px;padding:0;border:0;background:none;color:var(--deck-muted);font:inherit;font-size:14px;cursor:pointer}
-.deck-info:focus-visible{outline:2px solid var(--deck-accent);outline-offset:1px}
 .deck-value-label{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
 .deck-value-label .deck-channel{text-align:left;font-size:calc(14px * var(--reading-scale))}
 .deck-value-label .deck-label{min-width:0}
-.deck-index-label{font-size:calc(11px * var(--reading-scale));color:var(--deck-muted);margin:0}
 .deck-info-dialog{max-width:min(92vw,42rem);max-height:85dvh;overflow:auto;padding:20px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit}
 .deck-info-dialog p{max-width:65ch;font-size:calc(14px * var(--reading-scale));line-height:1.5;white-space:normal}
 .deck-info-dialog .settings-head h2{font-size:calc(20px * var(--reading-scale))}
@@ -320,4 +317,29 @@
  .life-deck .deck-set .deck-note{order:3}
  .life-deck .deck-value-label{line-height:1.4}
  .life-deck .deck-result{line-height:1.4}
+}
+
+/* Console finish (29 Oct 2026): the channel strip is one grid of equal cells, as many
+   columns as the names allow; type on 12, 14 and 32 only; one explanation link inside the
+   last panel; the top bars as tall as what they hold. This block is last on purpose. */
+.life-deck .deck-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(calc(9ch * var(--reading-scale)),1fr));gap:4px;background:none;border:0;margin:0}
+.life-deck .deck-chip{width:100%;max-width:none;display:flex;justify-content:space-between;align-items:baseline;gap:6px;min-height:32px;padding:4px 8px;border:1px solid var(--deck-line);border-radius:0;background:var(--deck);color:var(--deck-muted);font-size:calc(12px * var(--reading-scale));text-align:left}
+.life-deck .deck-chip-name{font-size:calc(12px * var(--reading-scale));white-space:normal;overflow-wrap:anywhere}
+.life-deck .deck-chip-val{font-size:calc(12px * var(--reading-scale));font-weight:600;color:var(--deck-text)}
+.life-deck .deck-chip.active{color:var(--deck-text);border-color:var(--deck-line);border-bottom:2px solid var(--deck-accent);box-shadow:none}
+.life-deck .deck-chip.active .deck-chip-val{color:var(--deck-accent)}
+.life-deck .deck-placard,.life-deck .deck-set .deck-placard{font-size:calc(12px * var(--reading-scale));text-transform:uppercase;letter-spacing:.08em;color:var(--deck-muted)}
+.life-deck .deck-set .deck-placard:lang(th),.life-deck .deck-set .deck-placard:lang(zh-CN),.life-deck .deck-set .deck-placard:lang(ja),.life-deck .deck-set .deck-placard:lang(ko){text-transform:none;letter-spacing:0}
+.life-deck #commit{font-size:calc(14px * var(--reading-scale));font-weight:600}
+.life-deck .deck-channel,.life-deck .deck-result,.life-deck .deck-rows dt,.life-deck .deck-rows dd,.life-deck .deck-set button{font-size:calc(14px * var(--reading-scale))}
+.life-deck .deck-label{font-size:calc(12px * var(--reading-scale))}
+.life-deck .deck-value{font-size:32px;line-height:1}
+.life-deck .deck-howto{justify-self:start;margin:4px 0 0;padding:6px 0;min-height:32px;border:0;background:none;color:var(--deck-muted);font-size:calc(12px * var(--reading-scale));text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.life-deck .deck-howto:hover{color:var(--deck-text)}
+.deck-info-dialog h3{margin:14px 0 4px;font-size:calc(14px * var(--reading-scale))}
+@media(max-width:720px){
+ body>header{padding:4px 12px;min-height:0}
+ body>header>a{font-size:18px}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-head{padding:4px 12px;align-items:center}
+ .world-head span{max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
