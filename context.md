@@ -554,3 +554,22 @@ captures; gate rejects original4faults. RealQA0→15navigation and livepublicTha
 phoneverified,publicsave10/0,1,2,2,5/3questionspreserved. English/standard/playback
 restored. Bothhostsexactentries+20assets pass. Newverifiedlesson captured.
 See review/phone-composition. No pending source or merge work from this task.
+
+
+## System-directed scenario palette release ·28October2026
+User explicitly removed colour selection from player control.30 documented Wada
+combinations from Palette data snapshot a419d27; two assigned to each58encounters,
+30pivots and17eventtypes. Registry coverage fails when a newscenario lacksmapping.
+Eight actual foreground/surface pairs contrastchecked, darkestink/lightestpaper,
+inverted darkdeck/stage. Removedpicker, ignoreoldpins, nativeexplanation/credits.
+Legacy3D mood override nowusesactivechord; historicaltickcoloursbyvisibleage.
+Independentreviewcaughtarchivedpivottravelreversion andstage/transportcontrast;
+bothfixedwithrealcontinuity/rolechecks.240tests,15viewportscenes+2ThaiXL views,
+actualQAquestionpalette157→190→207→151, Prioritiesretains151, zeroerrorlogs.
+Seed31fullsimulatedlife46colourchanges/21unique, nottimedplaytest. Codee222427,
+thenChinesecreditpropername8cac42e; finalbuilda0ab04903f0f/deploy8dafd6ff.
+Publicsave10/0,1,2,2,5/3questionspreserved;bothhosts exactentries+20assetsverified.
+Verifiedsharedmemorylesson captured. Current index INTEGRATION-STATUS.md;
+review/palette-scenes and research/palette-scenes holdproof/provenance.
+Six concurrent/unattributed review/stage PNG modifications preserved outsidecommit;
+no requestedsourceworkleftpending. Do not addmanualpalettecontrolsback.

@@ -98,3 +98,14 @@ the active decision. Preserve reachable fallback in other sections, questions,
 profile and save failures. Caption overlays may reclaim a redundant bottom band.
 Verify the rendered Thai extra-large task, not just page overflow. The earlier
 phone geometry pass is explicitly superseded by review/phone-composition.
+
+## Colour follows the life, not a user theme preference
+Owner direction28October2026: palette changes belong to recorded incidents,
+choices and moods. Every current question, encounter and event type must map to
+one or two documented combinations. New scenarios must pass the coverage test.
+Setbacks use darker/cooler chords; relief and joyful moments can brighten them.
+Do not add a manual colour picker or a timer carousel. Play frequency earns the
+changes; an idle screen must not fabricate moods to satisfy a palette count.
+Use darkest ink against a suitably light reading surface, invert for dark bars,
+and prove contrast for each actual surface. Historical colour follows evidence
+available then, including archived question records, without future leakage.

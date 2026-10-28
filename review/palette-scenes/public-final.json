@@ -1,0 +1,50 @@
+{
+  "build": "a0ab04903f0f",
+  "geometry": {
+    "action": {
+      "bottom": 855.5,
+      "height": 36,
+      "left": 133,
+      "right": 300,
+      "top": 819.5,
+      "width": 167,
+      "x": 133,
+      "y": 819.5
+    },
+    "canvas": {
+      "bottom": 900,
+      "height": 811,
+      "left": 0,
+      "right": 1440,
+      "top": 89,
+      "width": 1440,
+      "x": 0,
+      "y": 89
+    },
+    "h": 900,
+    "pageH": 900,
+    "pageW": 1440,
+    "palette": "Wada 152",
+    "reader": null,
+    "roles": {
+      "--deck": "#5b261d",
+      "--deck-accent": "#d88a82",
+      "--deck-text": "#a8bdc5",
+      "--ink": "#793327",
+      "--muted": "#664843",
+      "--paper": "#a5c8d1",
+      "--stage": "#7e443a",
+      "--stage-accent": "#e9beb9",
+      "--stage-text": "#aeced6"
+    },
+    "w": 1440
+  },
+  "allocation": "Physique\n0\nIQ\n1\nEQ\n2\nCreativity\n2\nDrive\n5",
+  "questions": "Questions · 3",
+  "pickerCount": 0,
+  "scripts": [
+    "boot.js?v=a0ab04903f0f",
+    "fonts.js?v=a0ab04903f0f"
+  ],
+  "logs": []
+}

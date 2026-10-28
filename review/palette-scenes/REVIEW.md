@@ -39,3 +39,14 @@ an approval of every inherited layout, artwork, physical touch or hardware FPS.
 Six unrelated review/stage capture modifications appeared during this work;
 they are preserved outside this release, not overwritten or blindly committed.
 Publication/public-preserved-save receipts follow.
+
+Published colour behavior e222427/buildd4a1a9a7b8d9/Pages81aac087. Both public
+hosts passed ordinary entry/no-store and20 exact asset URLs; shipped licence
+matched the local output byte-for-byte. Actual public desktop/phone preserved
+age10/0,1,2,2,5/3questions, no picker or warning/error logs. Playback restored.
+Final seeded trace:46 transitions,21 unique palettes across a complete simulated
+life; this is not a timed20-minute user playtest.
+
+Post-capture8cac42e corrects only the Chinese spelling of Wada's name in the
+credits link. Palette behavior, geometry and captured colours are unchanged.
+Final builda0ab04903f0f; public delivery receipt will reflect this final build.

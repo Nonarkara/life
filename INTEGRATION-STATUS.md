@@ -7,20 +7,25 @@ what is confirmed, corrected or rejected.
 
 ## Current shipped state
 
-Source5a96c98, build17b2050366c0, Pages deploymentea155b80.
-Both public domains pass ordinary entry/no-store and20 exact asset URLs.
-233 tests pass. Phone scene now owns60% of main working area, with overlaid
-caption; actual canvas taller than reader even in Thai extra-large. Selected
-label/intrinsic stepper/forecast/one action stay together; full roster follows.
-Reference/Profile/Questions/save-error states retain reachable action fallback.
-14 exactviewport/stage captures, old4-fault rejection and actual QA life0→15
-navigation cleared by independent review. Actual public Thai extra-large phone
-capture confirms save10/0,1,2,2,5/3questions retained; no warning/error logs.
-Viewing preferences restored to original English/standard and playback resumed.
-Evidence: [phone composition](review/phone-composition/REVIEW.md).
-Desktop on-demand reader and compact life-map corrections remain preserved.
-All reported Gemini/MiniMax commits remain integrated; no historical reapply.
-Hardware FPS, touch and external player tests remain unverified.
+Source8cac42e (colour behavior e222427), builda0ab04903f0f, Pages8dafd6ff.
+Thirty documented Palette combinations are now system-directed by88 scenarios
+and17 event types, two chords per scenario/type. Manual colour picker removed;
+legacy pins ignored. Pending incidents/questions, recorded outcomes, conditions,
+chapter mood and historical viewing determine the current chord. CSS, Canvas
+and3D share it; authored raster art and character identities remain preserved.
+Eight text/surface pairs per chord pass4.5:1, including stage and transport.
+240tests pass; independent source/pixel review cleared15 exact scene/viewports,
+Thai enlarged settings/task and real QA question transitions. Full seeded life
+trace has46 transitions and21 unique palettes; no timed playtest claim.
+Both public domains pass entry/no-store and20 exact asset URLs. Actual public
+save remains10/0,1,2,2,5/3questions, no picker or warning/error logs. Source8cac42e
+only corrects Chinese attribution after the captured colour behavior release.
+Evidence: [palette review](review/palette-scenes/REVIEW.md),
+[scenario assignments](research/palette-scenes/SCENARIOS.md).
+Phone geometry, on-demand readers and compact map behavior remain preserved.
+Six review/stage capture modifications with unverified provenance appeared during
+this task; preserved outside this release, not silently reverted or committed.
+Hardware FPS, physical touch and external player tests remain unverified.
 
 ## Reconciliation starting baseline
 
