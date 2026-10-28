@@ -39,10 +39,15 @@ for(const path of files(output))buildHash.update(path.slice(output.length+1)).up
 const buildId=buildHash.digest('hex').slice(0,12);
 for(const path of files(output).filter(p=>/\.(html|js)$/.test(p))){
  const source=readFileSync(path,'utf8');
- const versioned=versionReferences(source,buildId);
+ let versioned=versionReferences(source,buildId);
+ if(path.endsWith('.html'))versioned=versioned.replace(/<head>/i,`<head><meta name="life-build" content="${buildId}">`);
  writeFileSync(path,versioned);
 }
 writeFileSync(output+'/build.json',JSON.stringify({version:'2026.1',build:buildId})+'\n');
+// Entry documents must be fetched again on navigation; versioned assets keep
+// their normal cache policy. An already-open older document still needs reload.
+writeFileSync(output+'/_headers',['/','/*.html','/course/','/start/','/intake/','/build.json']
+ .map(path=>path+'\n  Cache-Control: no-store').join('\n\n')+'\n');
 console.log('Versioned module graph: '+buildId);
 
 // The painted stage names its art by path. Versioning those paths with the
