@@ -1942,4 +1942,4 @@ phrases.push(['Priorities change your skills, resources and wellbeing.','สิ�
 phrases.push(...HYBRID_PHRASES);
 
 phrases.push(['Colours follow the events and mood of this life. Painted illustrations retain their authored colours.','สีเปลี่ยนตามเหตุการณ์และอารมณ์ของชีวิตนี้ ภาพวาดคงสีตามที่ออกแบบไว้','色彩随人生事件和情绪变化，绘画保留原有配色。','色は人生の出来事や気分に応じて変わります。イラストは制作時の配色を保ちます。','색은 이 삶의 사건과 분위기에 따라 달라집니다. 삽화는 원래의 색을 유지합니다.']);
-phrases.push(['Sanzo Wada colour combinations · digital data credits','ชุดสีของซันโซ วาดะ · เครดิตข้อมูลดิจิทัล','三藏和田配色组合 · 数字数据署名','和田三造の配色・デジタルデータのクレジット','와다 산조 배색 조합 · 디지털 데이터 출처']);
+phrases.push(['Sanzo Wada colour combinations · digital data credits','ชุดสีของซันโซ วาดะ · เครดิตข้อมูลดิจิทัล','和田三造配色组合 · 数字数据署名','和田三造の配色・デジタルデータのクレジット','와다 산조 배색 조합 · 디지털 데이터 출처']);
