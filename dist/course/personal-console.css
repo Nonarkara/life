@@ -156,7 +156,7 @@
    The world above it is the largest thing on the page, so the panels are dense
    and their numbers sit next to their labels. */
 @media(min-width:1280px){
- .life-deck{grid-template-columns:repeat(6,minmax(0,1fr))}
+ .life-deck{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
  .life-deck .deck-panel{padding:6px 8px;gap:2px}
  .life-deck .deck-placard{font-size:calc(11px * var(--reading-scale))}
  .life-deck .deck-rows dt,.life-deck .deck-rows dd{font-size:calc(12px * var(--reading-scale))}
