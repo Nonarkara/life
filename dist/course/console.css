@@ -121,3 +121,5 @@ body.console-mode>header{flex:none}
 @media(max-width:1279px){
  html[data-text-size=extra] .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-rows:minmax(120px,28dvh) minmax(0,1fr) auto}
 }
+/* A flex child with auto side margins otherwise shrink-wraps an auto-fit deck. */
+.console-mode main{width:100%;margin:0}
