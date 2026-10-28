@@ -424,4 +424,10 @@ MiniMax handoff rejected an earlier player-b candidate; the batch regenerated
 that sheet, and the published frames carry none of the four recorded defects,
 checked at frame scale and kept in art/reviews. The rejected file itself was
 overwritten by the batch and can no longer be re-examined. The whole suite is
-220 tests, of which 215 live in tests/course.
+220 tests, of which 215 live in tests/course. The release went live as build
+4f50b23ea92c; the live origin and out/ report the same build, the live site
+measures the same as the local preview at 390, 1024 and 1440, the live beats
+paint 4434 samples with no console error or warning, and one ordinary review
+view costs 13 requests and 741 kB. The verifiers take LIFE_BASE so the same
+measurement runs against the deployment. Record:
+review/live-2026-10-28/RELEASE.md.

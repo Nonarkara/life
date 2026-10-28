@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path';
 import { newLife, configureLife, begin, live, validate } from '../dist/course/sim.js';
 import { resolveEncounter, encounterById } from '../dist/course/encounters.js';
 
-const reviewDir = resolve('review/stage');
+const reviewDir = resolve(process.env.LIFE_REVIEW||'review/stage');
 mkdirSync(reviewDir, { recursive: true });
 
 const settle = s => {
@@ -55,7 +55,9 @@ class CDP {
   }
 }
 
-const server = spawn('python3', ['scripts/serve.py'], { stdio: 'ignore' });
+const BASE=(process.env.LIFE_BASE||'http://127.0.0.1:4219').replace(/\/$/,'');
+const REMOTE=!BASE.includes('127.0.0.1');
+const server=REMOTE?null:spawn('python3', ['scripts/serve.py'], { stdio: 'ignore' });
 const tmpDir = mkdtempSync(join(tmpdir(), 'chrome-stage-'));
 const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
   '--headless=new', '--remote-debugging-port=9333', '--user-data-dir=' + tmpDir,
@@ -73,7 +75,7 @@ try {
   // injected into a page that never existed.
   let ready = false;
   for (let i = 0; i < 40; i++) {
-    try { const res = await fetch('http://127.0.0.1:4219/build.json'); if (res.ok) { ready = true; break; } } catch {}
+    try { const res = await fetch(BASE+'/build.json'); if (res.ok) { ready = true; break; } } catch {}
     await new Promise(r => setTimeout(r, 250));
   }
   if (!ready) throw new Error('preview server not available');
@@ -92,13 +94,13 @@ try {
     // cannot save over it between the injection and the reload. If the game
     // still shows its own life, the injection is repeated.
     for (let attempt = 0; attempt < 3; attempt++) {
-      await client.send('Page.navigate', { url: 'http://127.0.0.1:4219/build.json' });
+      await client.send('Page.navigate', { url: BASE+'/build.json' });
       await new Promise(r => setTimeout(r, 400));
       await client.evaluate(`(() => {
         localStorage.setItem('life-course-v2', ${JSON.stringify(JSON.stringify(life))});
         return true;
       })()`);
-      await client.send('Page.navigate', { url: 'http://127.0.0.1:4219/course/' });
+      await client.send('Page.navigate', { url: BASE+'/course/' });
       await new Promise(r => setTimeout(r, 2500));
       const shown = await client.evaluate(`document.getElementById('age')?.textContent?.trim() ?? ''`);
       if (shown.includes(String(EXPECTED_AGE))) break;
@@ -158,10 +160,10 @@ try {
 
   // The day moves on: the same life, later in the day, in other places.
   await client.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
-  await client.send('Page.navigate', { url: 'http://127.0.0.1:4219/build.json' });
+  await client.send('Page.navigate', { url: BASE+'/build.json' });
   await new Promise(r => setTimeout(r, 400));
   await client.evaluate(`localStorage.setItem('life-course-v2', ${JSON.stringify(JSON.stringify(life))}); true`);
-  await client.send('Page.navigate', { url: 'http://127.0.0.1:4219/course/' });
+  await client.send('Page.navigate', { url: BASE+'/course/' });
   const wanted = [/Daytime/i, /Evening/i];
   for (const pattern of wanted) {
     for (let i = 0; i < 70; i++) {
@@ -177,6 +179,6 @@ try {
   }
 } finally {
   chrome.kill();
-  server.kill();
+  server?.kill();
   try { rmSync(tmpDir, { recursive: true, force: true }); } catch {}
 }

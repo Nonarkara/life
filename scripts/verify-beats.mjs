@@ -8,7 +8,7 @@ import { join, resolve } from 'node:path';
 import { newLife, configureLife, begin, live, validate } from '../dist/course/sim.js';
 import { resolveEncounter, encounterById } from '../dist/course/encounters.js';
 
-const reviewDir = resolve('review/beats');
+const reviewDir = resolve(process.env.LIFE_REVIEW||'review/beats');
 mkdirSync(reviewDir, { recursive: true });
 
 // The life is played, not scripted: a moment has to be lived to be drawn.
@@ -81,7 +81,9 @@ class CDP {
   }
 }
 
-const server = spawn('python3', ['scripts/serve.py'], { stdio: 'ignore' });
+const BASE=(process.env.LIFE_BASE||'http://127.0.0.1:4219').replace(/\/$/,'');
+const REMOTE=!BASE.includes('127.0.0.1');
+const server=REMOTE?null:spawn('python3', ['scripts/serve.py'], { stdio: 'ignore' });
 const tmpDir = mkdtempSync(join(tmpdir(), 'chrome-beats-'));
 const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
   '--headless=new', '--remote-debugging-port=9335', '--user-data-dir=' + tmpDir,
@@ -114,7 +116,7 @@ try {
   }
   let ready = false;
   for (let i = 0; i < 40; i++) {
-    try { const res = await fetch('http://127.0.0.1:4219/build.json'); if (res.ok) { ready = true; break; } } catch {}
+    try { const res = await fetch(BASE+'/build.json'); if (res.ok) { ready = true; break; } } catch {}
     await new Promise(r => setTimeout(r, 250));
   }
   if (!ready) throw new Error('preview server not available');
@@ -128,10 +130,10 @@ try {
   await client.send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 900, deviceScaleFactor: 1, mobile: false });
 
   for (const plan of lives) {
-    await client.send('Page.navigate', { url: 'http://127.0.0.1:4219/build.json' });
+    await client.send('Page.navigate', { url: BASE+'/build.json' });
     await new Promise(r => setTimeout(r, 500));
     await client.evaluate(`localStorage.setItem('life-course-v2', ${JSON.stringify(JSON.stringify(plan.life))}); true`);
-    await client.send('Page.navigate', { url: 'http://127.0.0.1:4219/course/' });
+    await client.send('Page.navigate', { url: BASE+'/course/' });
     await new Promise(r => setTimeout(r, 2500));
     for (const [name, pattern] of plan.hours) {
       for (let i = 0; i < 90; i++) {
@@ -157,6 +159,6 @@ try {
   console.log('console warnings:', warnings.length ? warnings : 'none');
 } finally {
   chrome.kill();
-  server.kill();
+  server?.kill();
   try { rmSync(tmpDir, { recursive: true, force: true }); } catch {}
 }
