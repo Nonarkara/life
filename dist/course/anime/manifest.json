@@ -59,7 +59,10 @@
   "bedroom-night@tokyo": "plates/bedroom-night@tokyo.webp",
   "bedroom-night@newengland": "plates/bedroom-night@newengland.webp",
   "bedroom-day@brick": "plates/bedroom-day@brick.webp",
-  "bedroom-night@brick": "plates/bedroom-night@brick.webp"
+  "bedroom-night@brick": "plates/bedroom-night@brick.webp",
+  "bedroom-night@tower": "plates/bedroom-night@tower.webp",
+  "bedroom-day@newengland": "plates/bedroom-day@newengland.webp",
+  "bedroom-night@slum": "plates/bedroom-night@slum.webp"
  },
  "sprites": {
   "player-a": {
