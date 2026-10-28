@@ -419,4 +419,9 @@ The painted stage now draws the recorded moments: 4434 painted samples at the
 love and the bullying moments, with no console error or warning. All 28 plates
 were generated, reviewed and cut; three of them carry small signage the model
 put in a school or an office, which a negative prompt cannot remove on this
-model and which was left in rather than hidden.
+model and which was left in rather than hidden. The independent audit of the
+MiniMax handoff rejected an earlier player-b candidate; the batch regenerated
+that sheet, and the published frames carry none of the four recorded defects,
+checked at frame scale and kept in art/reviews. The rejected file itself was
+overwritten by the batch and can no longer be re-examined. The whole suite is
+220 tests, of which 215 live in tests/course.
