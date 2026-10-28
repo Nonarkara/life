@@ -41,3 +41,11 @@ touch usability, every long narrative or a new artwork/style overhaul.
 Independent reviewer cleared final17b2050366c0 captures, source and real lifecycle
 receipt; independently ran geometry gate and233tests. Its offscreen-action finding
 is closed. No remaining blocker in the stated scope.
+
+
+Published source5a96c98/build17b2050366c0/Pages ea155b80. Both public hosts pass
+ordinary entry/no-store and20 exact asset URLs (public-delivery.json). Actual
+public Thai extra-large phone capture live-th-phone.png and public-browser.json
+preserve age10, allocation0/1/2/2/5 and3pendingquestions. No warning/error logs.
+Original English/standard preferences restored and playback resumed; no public
+life advanced. Shared-memory verified lesson captured for this failure mechanism.

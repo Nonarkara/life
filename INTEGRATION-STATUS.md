@@ -7,17 +7,19 @@ what is confirmed, corrected or rejected.
 
 ## Current shipped state
 
-Source ef65794, build e0d3cc48eb10, Pages deployment 21e853d4.
-Both public domains pass ordinary entry/no-store and 20 exact asset URLs.
-233 tests pass. The world now owns the viewport; references open on demand.
-The compact bench prioritizes allocation, forecast and its single advance action.
-Independent review cleared ten stage/viewport cases, Thai extra-large, reader
-scroll/focus/resize ownership, and four compact route-map views. Existing public
-age10 allocation0/1/2/2/5 and three pending questions remain; no life advanced.
-Actual live desktop screenshot and browser/delivery receipts:
-[control bench review](review/control-bench/REVIEW.md).
-All reported Gemini/MiniMax commits remain integrated. Gemini's latest report
-again names historical5e5f239, already an ancestor; do not reapply old layouts.
+Source5a96c98, build17b2050366c0, Pages deploymentea155b80.
+Both public domains pass ordinary entry/no-store and20 exact asset URLs.
+233 tests pass. Phone scene now owns60% of main working area, with overlaid
+caption; actual canvas taller than reader even in Thai extra-large. Selected
+label/intrinsic stepper/forecast/one action stay together; full roster follows.
+Reference/Profile/Questions/save-error states retain reachable action fallback.
+14 exactviewport/stage captures, old4-fault rejection and actual QA life0→15
+navigation cleared by independent review. Actual public Thai extra-large phone
+capture confirms save10/0,1,2,2,5/3questions retained; no warning/error logs.
+Viewing preferences restored to original English/standard and playback resumed.
+Evidence: [phone composition](review/phone-composition/REVIEW.md).
+Desktop on-demand reader and compact life-map corrections remain preserved.
+All reported Gemini/MiniMax commits remain integrated; no historical reapply.
 Hardware FPS, touch and external player tests remain unverified.
 
 ## Reconciliation starting baseline

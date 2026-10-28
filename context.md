@@ -541,3 +541,16 @@ native and route captures. Both public hosts exact entry+20 asset URLs verified.
 Public save10/0,1,2,2,5/3questions preserved, no console warnings/errors. See
 review/control-bench. New verified geometry lesson captured in shared memory.
 Gemini5e5f239 already ancestor; no new merge from report. No source left pending.
+
+
+## Phone rejection correction ·28October2026
+Owner rejected real narrowThaiXL view after previousbenchapproval. Existing28dvh
+includedage/caption and left127pxcanvas versus435pxreader. Corrected actualcanvas
+budget, naturalstepper130pxnot334, captionoverlay, integratedselectedaction and
+rosteraftertask (matchingDOMorder). Narrowreferenceviews keepfallback viaactual
+plan-activeguard; independentreviewfoundandclosedoffscreen-actionregression.
+Code5a96c98/build17b2050366c0/Pages ea155b80.233tests;14actualviewport/stage
+captures; gate rejects original4faults. RealQA0→15navigation and livepublicThaiXL
+phoneverified,publicsave10/0,1,2,2,5/3questionspreserved. English/standard/playback
+restored. Bothhostsexactentries+20assets pass. Newverifiedlesson captured.
+See review/phone-composition. No pending source or merge work from this task.
