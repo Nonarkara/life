@@ -167,3 +167,13 @@ last help while world/navigation persist. Screenshots in review/console; dock
 replaces owner-rejected oversized half-screen panel. This is not full-game or
 public-domain approval. Inherited opportunity/network/admissions mechanics remain
 specified rather than implemented. Graphic change is a bounded Canvas refinement.
+
+
+28October console-height correction:code1c51ae0,buildd62ccb2bf959,deployment261afa50.
+228tests,independent review,six-case geometry/restored-failure proof and actual
+public UI pass. Canonical and custom domain match25assets in3consecutivepasses.
+Dense row22.3%shorter;world+146.55px at1440×900. One action integratedwide,
+fallbacknarrow/otherstates; full methods accessible, fonts/saves preserved.
+MSH captured+recalled. Evidence:review/console-height/REVIEW.md. This acceptance
+covers console height; broader art quality, hardwareFPS and player testing are
+not newly certified by this release.

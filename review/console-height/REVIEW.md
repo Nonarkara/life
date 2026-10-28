@@ -49,3 +49,22 @@ Independent review: manga_audit cleared final text-preserving captures for
 d62ccb2bf959: 22.3% shorter row,146.55px world gain, readable unchanged text,
 visible integrated/fallback actions and full help access. Independently reran
 the six-case geometry gate and restored-failure rejection. No scope blocker.
+
+## Published result
+
+Code1c51ae0, buildd62ccb2bf959, Pages deployment261afa50. Both canonical
+life-5wz.pages.dev and life.nonarkara.org matched all25checked local output
+assets in three consecutive passes (`public-assets.json`). Real canonical browser
+verification retained the owner's age10life, points0/1/2/2/5 and three pending
+questions. Sparse childhood has four tracks and a211pxbar at1440×900; it ends
+at900 with one action at894. Profile action falls back at897; phone at841/844.
+No page overflow or warning/error logs. Method opens complete text; chart redraw,
+Profile fallback and responsive reparenting retain the action. No life advanced.
+`public-desktop.png`, `public-phone.png` and `public-browser.json` are actual
+public receipts. The age55comparison above is the local retained dense life,
+not the public childhood save.
+
+MSH: captured one verified lesson at
+Scars/Debug-Logs/2026-10-28-life-console-height-remove-the-stretching-tail-and-preserve-one-advance-action.md
+and retrieved that exact source with limit1. Permanent contract added to
+DESIGN-RULES.md. Temporary viewport override reset and review tabs closed.

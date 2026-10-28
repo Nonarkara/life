@@ -478,3 +478,21 @@ childhood has4visible tracks; full adult has6. Auto-fit grids need definite
 mainwidth100%/margin0 inside the flex page; public-before receipt preserves the
 shrink-wrap failure. MSH lessons captured and recall-tested for both this width
 trap and attached-pane/static-sibling ownership. See review/minimax-final.
+
+
+## Console height release ·28October2026
+Code1c51ae0, buildd62ccb2bf959, deployment261afa50. Redundant selector and
+prose tail made Set points stretch all sibling instruments; a separate footer
+added another reading band. Keep direct channels/current value/result together,
+move complete methods to named header dialogs, put Ikigai label/bar/value in one
+row, integrate the one real action into the last wide Priorities instrument.
+Release the action before root replacement; preserve focus and phone/Profile/
+Questions/nonreview/save-error fallback. Original text sizes retained.
+Same local age55:row237.77→184.73px,world483.73→630.27px. Sixcases/focus and
+controlled restored failure pass check-console-height.mjs;228tests pass and
+independent final review cleared. Both public domains25exactassets×3passes.
+Real canonical age10save preserved; sparse4trackbar211px ends900,oneaction894;
+Profile897,phone841/844,no pageoverflow/warnings/errors. See review/console-height
+for distinction between dense local comparison and actual public receipts.
+MSH verified lesson captured and exact-source recalltested; DESIGN-RULES hardened.
+No simulation/save/art changes. HardwareFPS/player testing still unverified.
