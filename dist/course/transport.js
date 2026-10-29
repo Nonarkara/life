@@ -16,7 +16,7 @@ const svg = (tag, attrs) => {
 
 function icon(viewBox) { const s = svg('svg', { viewBox, 'aria-hidden': 'true', focusable: 'false' }); return s; }
 
-export function initTransport({ getPaused, setPaused, getSpeed, setSpeed }) {
+export function initTransport({ getPaused, setPaused, getSpeed, setSpeed, getTempo=()=>({held:false,review:false}) }) {
   const root = document.getElementById('transport');
   if (!root) return { render() {} };
 
@@ -51,11 +51,13 @@ export function initTransport({ getPaused, setPaused, getSpeed, setSpeed }) {
   root.append(play, pause, fast);
 
   function render() {
-    const paused = getPaused(), speed = getSpeed();
+    const paused = getPaused(), speed = getSpeed(), tempo=getTempo();
+    play.disabled=tempo.held;pause.disabled=tempo.held;fast.disabled=tempo.held||tempo.review;
+    root.dataset.mode=tempo.held?'decision':tempo.review?'review':'travel';
     const level = Math.max(0, SPEEDS.indexOf(speed));
     play.setAttribute('aria-pressed', String(!paused));
     pause.setAttribute('aria-pressed', String(paused));
-    const label = 'Fast forward · ' + speed + ' times faster';
+    const label = tempo.held?'Time stops until you choose.':tempo.review?'Review pace · commit your plan to advance time':'Fast forward · ' + speed + ' times faster';
     fast.setAttribute('aria-label', label);
     fast.title = label;
     const stroke = STROKES[level];

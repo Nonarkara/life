@@ -1,0 +1,48 @@
+{
+  "seed": 31,
+  "note": "Three authored strategies in one game scenario; illustration, not a population comparison or optimality test.",
+  "result": [
+    {
+      "name": "Study",
+      "age": 80,
+      "health": 1.4999999999999958,
+      "wellbeing": 100,
+      "netWorth": 5442965,
+      "skills": {
+        "physique": 18,
+        "iq": 115,
+        "eq": 37,
+        "craft": 36,
+        "drive": 44
+      }
+    },
+    {
+      "name": "Athletics",
+      "age": 80,
+      "health": 9.420000000000048,
+      "wellbeing": 29.47013333333336,
+      "netWorth": -2816691,
+      "skills": {
+        "physique": 6,
+        "iq": 72,
+        "eq": 33,
+        "craft": 31,
+        "drive": 25
+      }
+    },
+    {
+      "name": "Connection",
+      "age": 65,
+      "health": 25.72,
+      "wellbeing": 92.35489999999989,
+      "netWorth": 2473774,
+      "skills": {
+        "physique": 0,
+        "iq": 96,
+        "eq": 44,
+        "craft": 31,
+        "drive": 30
+      }
+    }
+  ]
+}

@@ -249,7 +249,7 @@ const GRADE_CHOICES={
 
 // The report card beat, read out of the questions that were answered.
 function gradeBeat(state,age){
-  for(const record of state.pivots??[]){
+  for(const record of [...(state.history??[]).flatMap(r=>r.pivots??[]),...(state.pivots??[])]){
     const map=GRADE_CHOICES[record.pivot];
     if(!map||age<record.station||age>=record.station+5)continue;
     if(map.studied.includes(record.choice))return 'grades';
@@ -292,7 +292,7 @@ function actorFrames(state,actor,age,activity,set){
  return (activity.moving?(table??[]):(table??[]).slice(0,1)).map(([sheet,frame])=>[castSheet(state,actor,sheet),frame]);
 }
 export const MOMENT_CAPTIONS={bikes:'Cycling to school with your friend.',love:'The evening your relationship began.',fight:'The confrontation after you pushed back.',bully:'The bullying you experienced at school.',grades:'The study path you chose.',
- 'grades-bad':'The work path you chose instead of continued study.',bed:'Making room for recovery at home.'};
+ 'grades-bad':'Your choices brought work and study into tension.',bed:'Making room for recovery at home.'};
 export function describePaintedScene(state,age,time){
  const life=routineContext(state,age),goal=state.profiles?.at(-1)?.profile.aim??'balance',player=routine('player',age,time,goal,life);
  let set=setFor(player.action,player.moving);if(age<2)set='hospital';

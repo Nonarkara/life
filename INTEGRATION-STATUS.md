@@ -89,3 +89,12 @@ in review/integration-oct28/REVIEW.md.
 
 Hardware performance, physical touch gestures and external player testing remain
 unverified; this reconciliation does not certify those or product superiority.
+
+## Decision rhythm ·29October2026
+Integrated on main9d22d09, preserving existing art/palette/saves and ../ship.
+One focused dilemma → recorded result → explicit next/planning; unresolved
+incidents/questions/outcomes stop actors; review slows; fast travel eases before
+arrival. Double-answer/eligibility guard paired with counterfactual restore fix.
+267tests pass. Independent decision review closed3findings. See
+review/decision-play/REVIEW.md and research/gameplay/FINDINGS.md. Fun/retention
+requires player testing; inherited layout/art limitations remain documented.

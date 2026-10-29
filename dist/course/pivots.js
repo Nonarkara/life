@@ -543,6 +543,7 @@ function resolveLuck(option,state){
 // Answering a question changes the life: money, body, mind, skills, the record,
 // and a commitment that holds for the coming five years.
 export function applyPivot(state,pivot,optionId){
+  if(state.stage!=='review'||state.age!==pivot.station||(state.pivots??[]).some(r=>r.station===state.age&&r.pivot===pivot.id)||!openOptions(pivot,state).some(o=>o.id===optionId))return state;
   const option=pivot.options.find(o=>o.id===optionId);
   if(!option)return state;
   const luck=resolveLuck(option,state);

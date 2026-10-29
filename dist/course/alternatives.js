@@ -14,6 +14,7 @@ export function undoAnswer(state,record){
   const before=record.before??{};
   return{
     ...state,
+    pivots:(state.pivots??[]).filter(r=>r.station!==record.station||r.pivot!==record.pivot),
     cash:before.cash??state.cash,
     health:before.health??state.health,
     wellbeing:before.wellbeing??state.wellbeing,
@@ -49,12 +50,13 @@ export function stationAlternatives(state){
   answered.forEach((record,index)=>{
     const pivot=pivotById(record.pivot);
     if(!pivot)return;
-    for(const option of openOptions(pivot,state)){
+    let variant=undoAnswer(clone(state),record);
+    // The answers given after this one at this station still stand.
+    for(const later of answered.slice(index+1))variant=reapplyAnswer(variant,later);
+    for(const option of openOptions(pivot,variant)){
       if(option.id===record.choice)continue;
-      let variant=undoAnswer(clone(state),record);
-      // The answers given after this one at this station still stand.
-      for(const later of answered.slice(index+1))variant=reapplyAnswer(variant,later);
       const chosen=applyPivot(variant,pivot,option.id);
+      if(chosen===variant)continue;
       const lived=live(chosen);
       const row=lived.history.at(-1);
       if(!row)continue;
