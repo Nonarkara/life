@@ -61,3 +61,6 @@ button{border:0;background:none;width:max-content;max-width:100%;padding:5px 7px
 .decision-dialog #choice-result .moved,.decision-dialog .decision-commitment,.decision-dialog .decision-luck{font-size:calc(12px * var(--reading-scale));color:var(--muted)}
 .decision-dialog #decision-continue{margin-top:6px;border:0;border-bottom:2px solid var(--amber);padding:6px 0;min-height:38px;font-size:calc(14px * var(--reading-scale));font-weight:600}
 .decision-dialog :focus-visible{outline:2px solid var(--accent-ink,#875d2a);outline-offset:3px}
+/* While a dilemma owns the frame, its inactive dashboard has no second prompt.
+   Return to life restores the same instruments and controls in place. */
+.decision-open .player-console,.decision-open .console-reader{visibility:hidden}

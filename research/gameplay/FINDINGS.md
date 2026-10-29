@@ -59,3 +59,11 @@ different path? Observe whether they voluntarily replay and why. Fun and retenti
 remain unverified until that test; neither screenshot approval nor test count
 answers it. This pass does not resolve inherited foreign-city label cropping,
 phone Plan scrolling or missing grandmother artwork.
+
+Follow-up observation before closing the reference tab: at17 the equivalency
+exam had succeeded and opened a university/job crossroads. Studying abroad was
+visible but unavailable for this household's means. This is useful option-set
+feedback: the prior choice creates possibilities and constraints rather than
+merely changing a score. Life's existing station/encounter and affordability
+systems provide that foundation; this pass makes their decisions and outcomes
+legible rather than copying the original's catalog.

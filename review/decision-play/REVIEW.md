@@ -99,3 +99,17 @@ unverified, not claimed working. Public production walkthrough succeeded. No loc
 save intentionally advanced or reset. Temporary reference/QA tabs closed; public
 and original local tabs kept. Pre-existing untracked review/painted-default and
 review/product-audit remain untouched. Shared-memory counterfactual lesson saved.
+
+## Final visual subtraction
+
+The screenshot exposed the inactive dashboard's blank Questions region and second
+Answer3 action behind the modal. Temporarily hide only player-console and
+console-reader while body.decision-open; dialog is body-owned, its moved real
+controls remain visible. Return/Escape restores the exact nodes/listeners. No
+instruments deleted or clipped. Independent source preservation review cleared.
+Last full267tests cover final JavaScript; this final CSS-only polish receives
+browser visibility/restoration verification, not a duplicated unit test.
+Browser closure on final visual polish: dialogopen/threechoices visible, both
+inactive consoles visibilityhidden; Return restores Plan visibilityvisible with
+exactly one commit/title/questions node. final-focus.png. No records answered.
+Final visual runtime ccca9f05c1a4 supersedes earlier runtime noted above.
