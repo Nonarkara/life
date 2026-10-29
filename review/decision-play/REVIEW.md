@@ -113,3 +113,11 @@ Browser closure on final visual polish: dialogopen/threechoices visible, both
 inactive consoles visibilityhidden; Return restores Plan visibilityvisible with
 exactly one commit/title/questions node. final-focus.png. No records answered.
 Final visual runtime ccca9f05c1a4 supersedes earlier runtime noted above.
+Final visual publication: codef28bcdd/buildccca9f05c1a4/Pages64634bbd. Both hosts'
+direct entries/20assets match (updated public-delivery.json). Production screenshot
+updated: full first dilemma, inactive consoles visibilityhidden, no warning/error
+logs; same savedage10/three unansweredquestions. Updated memory protocol received
+at release end; get_context(projectlife,days3) and log_decision used. Live connector
+has no capture_coding_session, so write_note saved explicit project handoff at
+Projects/Life/Handoffs/2026-10-29-decision-play-release.md. No legacy calls after
+replacement instruction. No additional game changes pending.

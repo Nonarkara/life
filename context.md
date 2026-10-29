@@ -682,3 +682,9 @@ Code11ef65f plus reader follow-up; final build8124aa6f0c8c. Public delivery rece
 and bounded evidence in review/decision-play; primary gameplay study in
 research/gameplay/FINDINGS.md. Fun/retention still needs human playtesting.
 Do not reset ../ship or unrelated untracked review/painted-default/product-audit.
+Final visual publication f28bcdd/ccca9f05c1a4/Pages64634bbd: open decision temporarily
+hides inactive console/reader, Return restores them. Production and both hosts'
+entries/20assets verified. Local embedded refresh remains unverified as recorded.
+User memory protocol replaced at sessionend; current get_context/log_decision
+used, explicit project handoff written via write_note because live connector lacks
+capture_coding_session. Never call legacy recall/capture names from next session.

@@ -103,3 +103,6 @@ entries/20assets match; actual production Close/reopen + saved first dilemma pas
 no browser warnings/errors. Local HTTP serves final bytes, embedded refresh stalls
 at Opening (CDP timed out); local visual refresh remains unverified. Public URL is
 verified deliverable. Do not reset saved lives to diagnose this browser issue.
+Final visual polish supersedes that build: f28bcdd/ccca9f05c1a4/Pages64634bbd.
+Only an open dilemma hides inactive duplicate dashboard prompts; Return restores
+same controls. Actual production capture and exact-byte checks on both hosts pass.
