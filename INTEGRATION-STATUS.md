@@ -7,25 +7,31 @@ what is confirmed, corrected or rejected.
 
 ## Current shipped state
 
-Source8cac42e (colour behavior e222427), builda0ab04903f0f, Pages8dafd6ff.
-Thirty documented Palette combinations are now system-directed by88 scenarios
-and17 event types, two chords per scenario/type. Manual colour picker removed;
-legacy pins ignored. Pending incidents/questions, recorded outcomes, conditions,
-chapter mood and historical viewing determine the current chord. CSS, Canvas
-and3D share it; authored raster art and character identities remain preserved.
-Eight text/surface pairs per chord pass4.5:1, including stage and transport.
-240tests pass; independent source/pixel review cleared15 exact scene/viewports,
-Thai enlarged settings/task and real QA question transitions. Full seeded life
-trace has46 transitions and21 unique palettes; no timed playtest claim.
-Both public domains pass entry/no-store and20 exact asset URLs. Actual public
-save remains10/0,1,2,2,5/3questions, no picker or warning/error logs. Source8cac42e
-only corrects Chinese attribution after the captured colour behavior release.
-Evidence: [palette review](review/palette-scenes/REVIEW.md),
-[scenario assignments](research/palette-scenes/SCENARIOS.md).
-Phone geometry, on-demand readers and compact map behavior remain preserved.
-Six review/stage capture modifications with unverified provenance appeared during
-this task; preserved outside this release, not silently reverted or committed.
-Hardware FPS, physical touch and external player tests remain unverified.
+Source baab524, build4042ddced853, Pages c03fcdf5 (29 October2026).
+Resumed the unfinished childhood notes/pacing pass on newer main d5d2de5,
+preserving its painted default, art, save recovery and stable console design.
+Eight short developmental notes have a primary-source register and translations
+in all five languages. Unsupported brain-weight/wiring, deterministic nurture and
+unverified book-read claims were removed. Childhood pacing is3.5seconds/year
+before transport; pause and previous-year/return reading remain available.
+New notes honour text-size settings, including19.6px Thai extra-large; existing
+grandparent/reunion chapters retain a note. No simulation/save schema change.
+261tests pass; independent source/fact/pixel review cleared the scoped change.
+Four exact viewports fit; note/income visible and world remains primary. Actual
+Thai rewind/return changes the appropriate note. No warning/error logs.
+Both public hosts pass entry/no-store and20 exact asset URLs. Public save remains
+age10, allocation0/1/2/2/5, three pending questions; no public life advanced.
+Local4219 preview server restored and existing local age55 life preserved.
+Evidence: [childhood review](review/childhood-resume/REVIEW.md),
+[developmental source register](research/biology.md).
+
+Current newer design spec in context.md keeps the instrument in house colours;
+life chords tint the world. Earlier palette release records below are history,
+not instructions to undo newer art/console changes. No palette reversion here.
+Pre-existing review/painted-default and review/product-audit artifacts are retained
+outside this commit; the audit's known contrast false positives are not verdicts.
+Known inherited issues include lengthy phone Plan scrolling and some3Dplace-label
+clipping; this scoped release does not claim full layout/art/FPS/touch clearance.
 
 ## Reconciliation starting baseline
 

@@ -30,3 +30,11 @@ checks used isolated HTTPS preview childhood-resume. No public life advanced.
 Existing review/painted-default and review/product-audit artifacts were present
 at resume and remain untouched; the latter's known contrast false positives are
 not treated as current defects. Full visual/FPS/touch certification is not claimed.
+
+
+Published baab524/build4042ddced853/Pagesc03fcdf5. Both public hosts pass ordinary
+entry/no-store and20 exact asset URLs (public-delivery.json). Actual public game
+opens with savedage10/allocation0,1,2,2,5/3pendingquestions and no warning/error
+logs (public-browser.json). A fresh local browser tab now opens4219 successfully
+with its existingage55 life; server retained for the user's preview. Independent
+final review closed the text scaling finding and cleared four actual captures.

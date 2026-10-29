@@ -647,3 +647,22 @@ faster to look at but slower to start than the old 3D default (about 2.4s agains
 1440 in headless Chromium). The grandmother's crouch has no painting (three FLUX sheets failed
 review). Do not trust `scripts/audit-product.mjs` contrast findings: it walks to the page
 background instead of the painted dock; it reports 1.04:1 on tabs that read at 7:1.
+
+
+## Interrupted childhood pass completed ·29October2026
+Resumed main d5d2de5 with dirty childhood biology/pacing edits. Verified sources,
+removed unsupported brain-weight/wiring and deterministic nurture statements;
+rewrote eight short notes and four native translations. research/biology.md now
+links primary sources and marks book content unverified/not yet read rather than
+claiming unseen books were read. Fixed nonexistent childhoodChapters test import,
+grandparent/reunion note fallback and duplicate CSS grid placement. Independent
+review found fixed14px note ignoring enlarged text; corrected to reading-scale,
+actual ThaiXL19.6px.261tests pass; four exact paused-childhood screenshots,
+pagefit/note+income visible/primary world, actual Thai age2 rewind→age3 return,
+no warning/error logs. Codebaab524/build4042ddced853/Pagesc03fcdf5. Both hosts
+entry+20assets verified, public age10/0,1,2,2,5/3questions preserved. Local server
+4219 restored (exec session87413), local age55 life retained. No publiclifeadvanced.
+No edits to newer art/palette/console decisions or detached ../ship worktree.
+Pre-existing review/painted-default + review/product-audit retained uncommitted;
+requested source work committed/pushed/deployed. See review/childhood-resume.
+Shared-memory verified lesson captured; inherited phone-scroll/3Dlabels remain.
