@@ -98,3 +98,8 @@ arrival. Double-answer/eligibility guard paired with counterfactual restore fix.
 267tests pass. Independent decision review closed3findings. See
 review/decision-play/REVIEW.md and research/gameplay/FINDINGS.md. Fun/retention
 requires player testing; inherited layout/art limitations remain documented.
+Final code3021989/build8124aa6f0c8c/Pages91528fe0. Both public hosts' direct
+entries/20assets match; actual production Close/reopen + saved first dilemma pass,
+no browser warnings/errors. Local HTTP serves final bytes, embedded refresh stalls
+at Opening (CDP timed out); local visual refresh remains unverified. Public URL is
+verified deliverable. Do not reset saved lives to diagnose this browser issue.

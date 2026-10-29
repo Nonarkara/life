@@ -81,3 +81,21 @@ Plan/Close/Escape hidden=true/displaynone; World reopens; Escape restores focus
 toWorld trigger. At390×844 reader stays flex/visible and World navigation works;
 resizing World→1280 keeps it open, Close hides it. Screenshot reader-closed-1280.
 267tests pass again after this correction. Final runtime build8124aa6f0c8c.
+
+## Final publication
+
+Code3021989/build8124aa6f0c8c/Pages91528fe0 published. Re-ran exact-byte freshness:
+both life-5wz.pages.dev and life.nonarkara.org direct course entries/headers and
+20asset URLs match final output. Receipt public-delivery.json. Production browser:
+existing age10/0,1,2,2,5/three questions retained; Return to life→World→Close gives
+hidden=true/displaynone at1280×720; Answer3 reopens first dilemma; no warning/error
+logs. Updated public-decision.png. Independent review closed decision and small
+reader source changes; detailed browser checks above remain primary-agent evidence.
+
+Local server4219 responds with final build and2MB bundle, but two embedded tabs
+stayed at Opening after refresh; subsequent CDP frame-tree operation timed out.
+No browser error was reported; cause not established. Local visual refresh is
+unverified, not claimed working. Public production walkthrough succeeded. No local
+save intentionally advanced or reset. Temporary reference/QA tabs closed; public
+and original local tabs kept. Pre-existing untracked review/painted-default and
+review/product-audit remain untouched. Shared-memory counterfactual lesson saved.
