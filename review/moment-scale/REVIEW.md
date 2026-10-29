@@ -35,3 +35,15 @@ All bounded findings closed; no broader performance/retention certification.
 Remaining: real-device gestures/FPS, exhaustive poses/countries, native editorial
 proofing, clinical/infant/maternal scenarios and comparative player retention.
 These are not hidden behind a green test count. No large local model required.
+
+## Public delivery
+Code04b1ac5/runtime2f6126a95ea6/Pages7b8dd91e. Both public hosts pass direct
+course/index/build entries, no-store headers and20asset URLs each, including
+unversioned paths. Actual public browser loaded the retained age15life with
+three unanswered questions,94health/62mood and2/2/2/2/2 unchanged. Return→Bucket
+search coffee shows Catch up with a friend for120; no purchase made on user's
+life. Returned toPlan and captured production.png. Browser warnings/errors empty.
+Public geometry uses the user's default preview size; temporary overrides reset.
+The isolated browser run did not encounter a new yearly health alert in its first
+chapter; yearly shock/recurrence/clock effects have executable tests but that
+specific native alert interaction remains a browser coverage gap.
