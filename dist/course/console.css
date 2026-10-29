@@ -164,3 +164,65 @@ body.console-mode>header{flex:none}
 .console-nav button:hover{background:none;text-decoration:underline;text-underline-offset:4px}
 .life-deck button:hover{background:var(--deck);color:var(--deck-text)}
 .life-deck #commit:hover{background:var(--deck-accent);color:var(--deck)}
+/* One RPG console. Long records scroll inside their tab; the world never scrolls away. */
+.rpg-dock{display:contents}
+@media(max-width:1279px){
+ .console-mode{--rpg-height:calc(100dvh / 3)}
+ .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-rows:minmax(0,1fr) var(--rpg-height)}
+ .console-mode .rpg-dock{grid-column:1;grid-row:2;display:flex;flex-direction:column;height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper);border-top:1px solid var(--line)}
+ .console-mode .rpg-dock .console-reader{flex:1;min-height:0;border:0}
+ .console-mode .rpg-dock .player-console{flex:none;min-height:0;max-height:none;border:0}
+ .console-mode .rpg-dock .console-actions{min-height:30px;padding:2px 12px}
+ .console-mode .rpg-dock .console-actions #commit{font-size:calc(13px * var(--reading-scale));padding:2px 0;min-height:28px}
+ .console-mode .rpg-dock .console-actions #save-status{font-size:calc(10px * var(--reading-scale))}
+ .console-mode .rpg-dock .console-nav{padding:0 8px;gap:10px}
+ .console-mode .rpg-dock .console-nav button{padding:2px 4px;min-height:28px;font-size:calc(13px * var(--reading-scale))}
+ .console-mode .rpg-dock .console-panel{padding:6px 10px}
+ .console-mode.decision-open .rpg-dock{visibility:hidden}
+ .console-mode.birth-stage .rpg-dock{display:none}
+ .decision-dialog{position:fixed;inset:auto 0 0;margin:0;width:100%;max-width:none;height:var(--rpg-height);max-height:var(--rpg-height);padding:6px 12px 10px}
+ .decision-dialog::backdrop{background:transparent}
+ .decision-dialog .decision-set-aside{float:right;margin:0 0 4px 8px;min-height:24px;font-size:calc(12px * var(--reading-scale))}
+ .decision-dialog .decision-progress{padding-top:3px;margin-bottom:4px}
+ .personal-console.is-review .decision-dialog #title,.decision-dialog h2{clear:both;font-size:calc(18px * var(--reading-scale));margin-bottom:6px}
+ .decision-dialog .choice-symbol{width:26px;height:26px}
+ .decision-dialog .pivot-option,.personal-console .decision-dialog .encounter-choice{padding:7px 0}
+}
+@media(max-width:1279px) and (orientation:landscape){.console-mode{--rpg-height:20dvh}}
+.bucket-tools{display:flex;gap:6px;align-items:center}.bucket-tools input{flex:1;min-width:0;font:inherit;font-size:14px;padding:4px 6px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:0}.bucket-tools select{font-size:13px;max-width:110px;padding:4px}
+.bucket-tabs{display:flex;gap:10px;margin:3px 0}.bucket-tabs button{font-size:12px;min-height:26px;padding:2px 0;border:0;border-bottom:2px solid transparent}.bucket-tabs button[aria-pressed=true]{border-bottom-color:var(--accent-ink)}
+.bucket-budget,.bucket-notice{font-size:12px;line-height:1.4;margin:4px 0}.bucket-action{display:grid;grid-template-columns:30px 1fr;gap:2px 8px;text-align:left;border:0;border-top:1px solid var(--line);padding:7px 0;width:100%;min-height:44px}.bucket-action svg{grid-row:1/3;width:26px;height:26px;align-self:center}.bucket-action span{font-size:14px;font-weight:600}.bucket-action small{grid-column:2;font-size:12px;line-height:1.4;color:var(--muted)}.bucket-action:disabled{opacity:.65}
+.bucket-custom{display:grid;grid-template-columns:1fr 1fr;gap:7px}.bucket-custom label{font-size:12px}.bucket-custom input,.bucket-custom select{display:block;max-width:100%;width:100%;font:inherit;padding:4px;background:var(--paper);color:var(--ink);border:1px solid var(--line)}.bucket-custom p{grid-column:1/-1}.bucket-custom button{font-size:13px;min-height:30px}.bucket-record{margin:6px 0;font-size:13px}.bucket-record small{display:block;font-size:12px;color:var(--muted)}
+/* The first five carriages teach from the same fixed console as the later game. */
+.console-mode.birth-stage{--rpg-height:calc(100dvh / 3)}
+.console-mode.birth-stage main{display:grid;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) var(--rpg-height)}
+.console-mode.birth-stage .rpg-dock{display:flex;flex-direction:column;grid-row:2;height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper)}
+.console-mode.birth-stage .rpg-dock #childhood-memory{flex:1;min-height:0;max-height:none;overflow:auto;display:block;color:var(--ink);padding:6px 12px;border-top:1px solid var(--line)}
+.console-mode.birth-stage .rpg-dock #childhood-memory[hidden]{display:none}
+.console-mode.birth-stage #childhood-memory strong{font-size:calc(18px * var(--reading-scale));line-height:1.25;display:block}
+.console-mode.birth-stage #childhood-memory p{font-size:calc(13px * var(--reading-scale));line-height:1.4;margin:4px 0;color:var(--ink);text-align:left}
+.console-mode.birth-stage #childhood-memory #childhood-biology{font-size:calc(12px * var(--reading-scale));color:var(--muted);padding-left:7px}
+.console-mode.birth-stage #childhood-memory #family-income{font-size:calc(12px * var(--reading-scale));color:var(--muted);text-align:left}
+.childhood-guide-controls{display:flex;gap:12px;align-items:center;margin-top:3px}.childhood-guide-controls button{font-size:12px;padding:2px 0;border:0;border-bottom:1px solid var(--line);min-height:26px}
+.console-mode.birth-stage[data-console-view="you"] .console-reader,.console-mode.birth-stage[data-console-view="world"] .console-reader{display:flex;flex:1;position:static;width:100%;max-height:none;min-height:0}
+.console-mode.birth-stage[data-console-view="you"] #childhood-memory,.console-mode.birth-stage[data-console-view="world"] #childhood-memory{display:none!important}
+.console-mode.decision-open .rpg-dock{visibility:hidden}
+.child-choice[hidden]{display:none}
+@media(min-width:1280px){.console-mode.birth-stage{--rpg-height:180px}}
+@media(max-width:1279px) and (orientation:landscape){.console-mode.birth-stage{--rpg-height:20dvh}}
+.console-mode.birth-stage:not([data-console-view="plan"]) .console-reader{display:flex;flex:1;position:static;width:100%;max-height:none;min-height:0}
+.console-mode.birth-stage:not([data-console-view="plan"]) #childhood-memory{display:none!important}
+.bucket-rule{font-size:12px;margin:3px 0}.bucket-rule p{font-size:12px;margin:4px 0;line-height:1.4}
+#age-track span.current{background:var(--amber);opacity:.5}
+/* Text-size rules must not restore the superseded three-row phone layout. */
+@media(max-width:1279px){
+ html[data-text-size] .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-rows:minmax(0,1fr) var(--rpg-height)}
+}
+@media(max-width:1279px) and (orientation:landscape){
+ .console-mode .rpg-dock{flex-direction:row}
+ .console-mode .rpg-dock .console-reader{min-width:0}
+ .console-mode .rpg-dock .player-console{width:clamp(130px,22vw,220px);height:100%;justify-content:center;border-left:1px solid var(--line)}
+ .console-mode .rpg-dock .console-actions{display:flex;flex-direction:column;align-items:flex-end;gap:2px;padding:2px 8px}
+ .console-mode .rpg-dock .console-actions #commit{max-width:100%;white-space:normal}
+ .console-mode.birth-stage .rpg-dock #childhood-memory{height:100%}
+}

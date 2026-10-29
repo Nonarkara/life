@@ -36,10 +36,10 @@ test('the biological register names its sources and its limits', () => {
 test('the childhood watch is short enough to be watched', async () => {
   const { readFileSync: read } = await import('node:fs');
   const game = read(new URL('../../dist/course/game.js', import.meta.url), 'utf8');
-  const match = game.match(/state\.stage==='birth'\?([\d.]+):/);
-  assert.ok(match, 'the birth pacing is not in the game');
-  const secondsPerYear = Number(match[1]);
-  assert.ok(secondsPerYear <= 5, 'a year of childhood takes too long to watch: ' + secondsPerYear);
+  const { childYearSeconds } = await import('../../dist/course/childhood-choices.js');
+  assert.ok(game.includes('childYearSeconds(age)'), 'the tested pacing must drive the actual clock');
+  assert.equal([0,1,2,3,4].reduce((total, age) => total + childYearSeconds(age), 0), 50);
+  assert.ok(childYearSeconds(5) <= 5, 'later childhood remains short enough to watch');
 });
 
 test('grandparent and reunion chapters retain the developmental note',()=>{

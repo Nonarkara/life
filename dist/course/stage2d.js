@@ -277,9 +277,9 @@ export function beatFor(state,age,player={}){
   if(flags.foughtBack!==undefined&&age>=flags.foughtBack&&age<=flags.foughtBack+1&&(moving||/outside|home/i.test(action)))return 'fight';
   if(spoken('bully')&&inClass)return 'bully';
   if(inClass){const report=gradeBeat(state,age);if(report)return report;}
-  if(spoken('love')&&(phase==='Evening'||phase==='Coming home'))return 'love';
+  if(flags.separated===undefined&&spoken('love')&&(phase==='Evening'||phase==='Coming home'))return 'love';
   // Bikes belong to the teenage years and to the way to school.
-  if(flags.friend!==undefined&&age>=flags.friend&&age<=Math.min(flags.friend+6,20)&&moving&&phase==='On the way')return 'bikes';
+  if(flags.friendDied===undefined&&(flags.friendLost===undefined||(flags.friendRepaired??-1)>flags.friendLost)&&flags.friend!==undefined&&age>=flags.friend&&age<=Math.min(flags.friend+6,20)&&moving&&phase==='On the way')return 'bikes';
   // A body that is being repaired lies down in the evening.
   const latest=state.history?.filter(r=>r.age!==undefined&&r.age<=age).at(-1);
   if(latest&&age<latest.age+5&&/health setback/i.test(latest.event??'')&&(phase==='Evening'||phase==='Coming home'))return 'bed';
@@ -303,6 +303,11 @@ export function describePaintedScene(state,age,time){
  const basePlate=moment?.plate??(night&&stage.night?stage.night:stage.plate);
  const domestic=beat==='bed'||!beat&&['home','bedroom'].includes(set),place=domestic&&life.residence.id!=='family'?life.residence.id:style;
  const plate=plateVariant(basePlate,place);
+ // The original wooden room: front floor lies below the table's feet (.88).
+ // A standing adult is calibrated against the door, not against a dock.
+ const room=plate==='home-day'||plate==='home-night'?{ground:.97,scale:.60}
+  :plate==='bedroom-day'?{ground:.96,scale:.56,marks:{1:[.76],2:[.72,.86]}}
+  :plate==='bedroom-night'?{ground:.97,scale:.56,marks:{1:[.43],2:[.38,.51]}}:null;
  let actors;
  if(moment)actors=moment.actors.map(a=>({...a,activity:{pose:a.pose,x:a.x,moving:/ride|push/.test(a.pose)}}));
  else if(set==='travel')actors=[{id:'player',activity:player}];
@@ -310,10 +315,10 @@ export function describePaintedScene(state,age,time){
   actors=set==='home'?homeCast(state,age,time,goal,life,player):[{id:'player',activity:player}];
   const flags=Object.fromEntries(Object.entries(flagsOf(state)).filter(([,value])=>typeof value!=='number'||value<=age));
   if((flags.married!==undefined||flags.committed!==undefined)&&flags.separated===undefined&&['home','bedroom'].includes(set))actors.push({id:'partner',activity:{pose:'stand',x:7,moving:false}});
-  if(flags.friend!==undefined&&['street','court'].includes(set))actors.push({id:'friend',activity:{pose:'stand',x:13,moving:false}});
+  if(flags.friend!==undefined&&flags.friendDied===undefined&&(flags.friendLost===undefined||(flags.friendRepaired??-1)>flags.friendLost)&&['street','court'].includes(set))actors.push({id:'friend',activity:{pose:'stand',x:13,moving:false}});
   actors.sort((a,b)=>(a.activity.x??0)-(b.activity.x??0));const slots=slotsFor(set,actors.length);actors=actors.map((a,i)=>({...a,slot:slots[i]}));
  }
- return {life,goal,player,set,beat,moment,stage,basePlate,plate,actors,caption:beat?MOMENT_CAPTIONS[beat]:routineCaption(age,time,goal,life)};
+ return {life,goal,player,set,beat,moment,stage:room?{...stage,...room}:stage,room,basePlate,plate,actors,caption:beat?MOMENT_CAPTIONS[beat]:routineCaption(age,time,goal,life)};
 }
 
 // Exported for the tests: the drawn world must follow the routine, not taste.
@@ -362,13 +367,16 @@ const stages=new WeakMap();
 // than 95% of the way down the visible part, and scaled by the same ratio (further back, smaller).
 export function liftGround(y,reach){const limit=reach*.95;return y<=limit||!(limit>0)?{y,k:1}:{y:limit,k:limit/y};}
 
+// One 2x correction shared by every pose; authored room scales already contain it.
+export function figureHeightPx(plateHeight,scale,sourceHeight,actor,age,calibrated=false){return plateHeight*scale*(calibrated?1:2)*(sourceHeight/400)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);}
+
 function createStage(canvas){
   const buffer=document.createElement('canvas');
   const frame=document.createElement('canvas');
   // The docked panel covers the right of the stage on wide screens. The painting still
   // fills the frame, but its focus and its people sit in the part that can be seen.
   const visibleWidth=(pw,dpr)=>{const panel=document.querySelector('.decision'),box=(canvas.hidden?canvas.parentElement:canvas).getBoundingClientRect(),dock=panel?.getBoundingClientRect();
-   if(!dock||matchMedia('(max-width:720px)').matches||dock.left>=box.right||dock.top>=box.bottom||dock.width>=box.width*.6)return pw;
+   if(!dock||getComputedStyle(panel).visibility==='hidden'||matchMedia('(max-width:720px)').matches||dock.left>=box.right||dock.top>=box.bottom||dock.width>=box.width*.6)return pw;
    return Math.max(pw*.5,Math.round((dock.left-box.left)*dpr));};
   // The bottom dock covers the lowest part of the stage on a wide screen. This is how many
   // device pixels of the stage can actually be seen above it.
@@ -376,7 +384,7 @@ function createStage(canvas){
    const box=(canvas.hidden?canvas.parentElement:canvas).getBoundingClientRect();
    if(matchMedia('(max-width:720px)').matches)return ph;
    let top=Infinity;
-   for(const selector of ['.console-nav','.decision']){const r=document.querySelector(selector)?.getBoundingClientRect();if(r&&r.width>=box.width*.6&&r.top>box.top&&r.top<box.bottom)top=Math.min(top,r.top);}
+   for(const selector of ['.console-nav','.decision']){const element=document.querySelector(selector);if(!element||getComputedStyle(element).visibility==='hidden'||getComputedStyle(element).display==='none')continue;const r=element.getBoundingClientRect();if(r&&r.width>=box.width*.6&&r.top>box.top&&r.top<box.bottom)top=Math.min(top,r.top);}
    return top===Infinity?ph:Math.max(ph*.4,Math.round((top-box.top)*dpr));};
   let seen=0,reach=0,width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
   const reduced=()=>preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -417,7 +425,7 @@ function createStage(canvas){
     if(!image||!image.complete||!image.naturalWidth)return null;
     const scale=options.scale??SETS[set]?.scale??.25;
     // Frames keep their true height on the sheet (the tallest is 400px), so a seated body is drawn seated, not stretched.
-    const figureHeight=plateHeight*scale*(image.naturalHeight/400)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);
+    const figureHeight=figureHeightPx(plateHeight,scale,image.naturalHeight,actor,age,options.calibrated);
     const figureWidth=figureHeight*(image.naturalWidth/image.naturalHeight);
     const span=SETS[set]?.span??[0,1];
     const norm=span[1]>span[0]?Math.max(-.1,Math.min(1.1,(activity.x??span[0])-span[0])/(span[1]-span[0])):.5;
@@ -625,7 +633,9 @@ function createStage(canvas){
       drawn=drawPlate(paint,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*stage.ground:height*.84;
     }
-    const lifted=drawn&&!moment&&set!=='travel'?fit(groundY):{y:groundY,k:1};
+    // The calibrated room keeps its painted floor; a HUD may occlude feet,
+    // but must never relocate them onto a table or resize people alone.
+    const lifted=drawn&&!moment&&set!=='travel'&&!scene.room?fit(groundY):{y:groundY,k:1};
     if(set!=='travel'&&!moment)groundY=lifted.y;
     if(!drawn){
       // The art is still on its way. The frame says so instead of showing a hole.
@@ -647,8 +657,10 @@ function createStage(canvas){
     // people stand on the same spot, in the order the routine puts them.
     if(set!=='travel'&&!moment){
       const present=scene.actors;
-      for(const actor of present){
-        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,seen*.08+actor.slot*(seen*.84));
+      for(const [index,actor]of present.entries()){
+        const marks=scene.room?.marks?.[present.length]??{1:[.5],2:[.42,.64],3:[.34,.51,.70],4:[.24,.41,.60,.79]}[present.length]??spread(present.length);
+        const x=scene.room?drawn.x+marks[index]*drawn.drawWidth:seen*.08+actor.slot*(seen*.84);
+        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,x,{scale:stage.scale,calibrated:!!scene.room});
       }
     }
 

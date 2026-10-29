@@ -26,6 +26,10 @@ export function paletteCue(state={},age=state.age??0,mood,context={}){
  const condition=state.age===age?state:row;
  if(condition?.health<25)return {plate:139,reason:'critical-health'};
  if(condition?.wellbeing<25)return {plate:232,reason:'critical-wellbeing'};
+ // Year-dated events may live in the destination row while travelling.
+ // Reveal their colour only when that year has actually been reached.
+ const dated=(state.history??[]).flatMap(r=>r.events??[]).filter(e=>e.origin==='life'&&e.age<=age&&age-e.age<1&&EVENT_PALETTES[e.type]).at(-1);
+ if(dated){const gain=(dated.wellbeing??0)>0;return {plate:EVENT_PALETTES[dated.type][gain?1:0],reason:dated.type};}
  const pending=state.story?.pending;
  if(pending&&pending.age<=age&&SCENARIO_PALETTES[pending.id]){const rule=SCENARIO_PALETTES[pending.id];return {plate:rule.plates[rule.opening],reason:pending.id};}
  const question=typeof context==='object'&&SCENARIO_PALETTES[context?.scenario];

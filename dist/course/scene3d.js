@@ -210,7 +210,7 @@ function createScene(original){
   // in: the picture is filled with the town, not with the land around it.
   const base=cameraSpan(age,phone)*(age>=10&&!focus.moving&&['eat','rest','draw','recover','work','craft','study','garden'].includes(focus.pose)?.82:1);
   const span=base*Math.min(1,TOWN_WIDTH/(base*w/h));
-  const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),document.querySelector('.console-reader')?.getBoundingClientRect()):0;
+  const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),(()=>{const reader=document.querySelector('.console-reader');return reader&&!reader.hidden&&getComputedStyle(reader).visibility!=='hidden'?reader.getBoundingClientRect():null;})()):0;
   // Shift the projection, not the actor: their activity stays in the uncovered play area.
   const shift=span*dock/(2*h);
   camera.left=-span*w/h/2+shift;camera.right=span*w/h/2+shift;camera.top=span/2;camera.bottom=-span/2;camera.updateProjectionMatrix();

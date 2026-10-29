@@ -11,7 +11,7 @@ import {newStory} from './encounters.js';
 // The unchosen life, carried as far as the player's life has been carried.
 export function unchosenLife(state,{upTo=state.age}={}){
   let life=state.intake?configureLife(newLife(state.seed),state.intake):newLife(state.seed);
-  life={...life,economy:createEconomy(state.economy?.seed??state.seed),story:newStory(state.seed)};
+  life={...life,...(state.lifeEventPolicy?{lifeEventPolicy:{...state.lifeEventPolicy}}:{}),economy:createEconomy(state.economy?.seed??state.seed),story:newStory(state.seed)};
   life=begin(life);
   let guard=0;
   while(life.stage==='review'&&life.age<upTo&&guard++<20){

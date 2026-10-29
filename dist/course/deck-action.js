@@ -8,7 +8,7 @@ export function placeDeckAction(){
  const action=document.getElementById('commit'),fallback=document.querySelector('.console-actions');
  if(!action||!fallback)return;
  const deck=document.getElementById('life-deck'),slot=document.getElementById('deck-action-slot'),priorities=document.getElementById('priorities'),status=document.getElementById('save-status');
- const integrated=(matchMedia('(min-width:1280px)').matches||document.body.classList.contains('plan-active'))&&document.body.classList.contains('is-review')&&deck&&!deck.hidden&&priorities&&!priorities.hidden&&!action.hidden&&status?.hidden;
+ const integrated=matchMedia('(min-width:1280px)').matches&&document.body.classList.contains('is-review')&&deck&&!deck.hidden&&priorities&&!priorities.hidden&&!action.hidden&&status?.hidden;
  const target=integrated&&slot?slot:fallback;
  const focused=restoreActionFocus||document.activeElement===action;
  if(action.parentElement!==target)target.append(action);

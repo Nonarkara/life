@@ -112,3 +112,14 @@ Two documented combinations per scenario. Opening uses the authored tone; record
 | fired | 155 / 216 |
 | married | 147 / 166 |
 | pregnant | 171 / 173 |
+
+##30October additions
+| Scenario/event | Palette plates |
+|---|---|
+| after_hospital (general recovery wording) |139 /145|
+| accident |139 /211|
+| bucket |202 /166|
+| friendship |221 /147|
+| heartbreak |221 /232|
+Year-dated life events use their recorded year, including when archived in the
+next five-year row. No future event colours are shown before its year.

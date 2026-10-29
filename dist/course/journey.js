@@ -1,0 +1,3 @@
+// Progress through a committed chapter is a cursor, not a second copy of the life.
+export function journeySnapshot(state,travel,age){return travel?{from:state.age,progress:age,handled:[...(travel.handled??[])]}:undefined;}
+export function validJourney(state){const j=state.journey;if(j===undefined)return true;return state.stage==='review'&&j&&j.from===state.age&&Number.isFinite(j.progress)&&j.progress>=j.from&&j.progress<=Math.min(80,j.from+5)&&Array.isArray(j.handled)&&j.handled.length<=10&&new Set(j.handled).size===j.handled.length&&j.handled.every(id=>typeof id==='string'&&/^\d+:[a-z]+$/.test(id)&&Number(id.split(':')[0])>j.from&&Number(id.split(':')[0])<=j.progress);}

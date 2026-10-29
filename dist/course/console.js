@@ -1,3 +1,4 @@
+import {initBucketView} from './bucket-view.js';
 import {placeDeckAction} from './deck-action.js';
 import {renderInvestments} from './investment-view.js';
 import {roomRecord,recordedCommute} from './biography.js';
@@ -10,8 +11,9 @@ import {eventsFor} from './events.js';
 import {baselineComparison} from './baseline.js';
 import {alternativeDeltas} from './alternatives.js';
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
-const ORDER=[['plan','Plan'],['you','You'],['money','Money'],['cv','CV'],['world','World'],['history','History']];
-export function initConsole({getState,change,isMoving=()=>false}){
+const ORDER=[['plan','Plan'],['you','You'],['bucket','Bucket list'],['money','Money'],['cv','CV'],['world','World'],['history','History']];
+export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getState().age}){
+ const bucketUI=initBucketView({getState,getAge,change});
  const main=document.querySelector('main'),stage=main.querySelector('.stage'),decision=main.querySelector('.decision'),resources=main.querySelector('.resources'),method=main.querySelector('.method');
  document.body.classList.add('console-mode');
  // A wide screen is a dashboard: your life on the left, the year around you on
@@ -43,7 +45,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
  cards.append(...Object.values(panes).filter(p=>p.id!=='console-plan'));
  reader.append(worldNow,nav,cards);
  player.append(plan,actions);
- main.append(player,reader);
+ const dock=element('section',undefined,'rpg-dock');dock.setAttribute('aria-label','Life console');dock.append(reader,player);const childhood=document.getElementById('childhood-memory');if(childhood)dock.prepend(childhood);main.append(dock);
  const closeReader=element('button','Close','reader-close');closeReader.type='button';
  closeReader.onclick=()=>{const previous=buttons[active];select('plan');previous?.focus({preventScroll:true});};
  reader.prepend(closeReader);
@@ -65,7 +67,8 @@ export function initConsole({getState,change,isMoving=()=>false}){
  place();wide.addEventListener('change',place);
 
  function select(key,{align=true,reset=true}={}){
-  active=key;document.body.classList.toggle('plan-active',key==='plan');
+  const opened=active!==key;active=key;document.body.dataset.consoleView=key;document.body.classList.toggle('plan-active',key==='plan');
+  if(key==='bucket'){bucketUI.render(panes.bucket);if(opened)window.dispatchEvent(new Event('life-bucket-open'));}
   if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}
   if(key==='cv')cvPane(getState());
   if(key==='world')worldPane(getState());
@@ -113,7 +116,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
   const shop=element('div',undefined,'small-purchases');shop.append(element('h2','A little money, a little time'));
   for(const[key,item]of Object.entries(PURCHASES)){const b=element('button');b.type='button';b.append(element('span',item.label),element('small',money(item.cost)+' · '+item.hours+' h'));b.disabled=s.stage!=='review'||!!s.story?.pending||f.available<item.cost||f.purchases.some(q=>q.age===s.age&&q.key===key)||f.purchases.filter(q=>q.age===s.age).reduce((n,q)=>n+PURCHASES[q.key].hours,0)+item.hours>8;b.onclick=()=>change(buy(getState(),key));shop.append(b);}p.append(shop);
   p.append(element('p',s.story?.pending?'Resolve the current moment in Plan before spending.':'Each activity is available once at this review. Eight hours are available for these choices.','console-note'));
-  const ledger=element('details');ledger.append(element('summary','Personal money ledger'));const list=element('ol');for(const r of f.receipts.slice(-8).reverse())list.append(element('li','Age '+r.age+' · '+{opening:'Family allowance',period:'Income and spending',purchase:'Purchase',encounter:'Life event',trade:'Trading fee',market:'Market change'}[r.kind]+' · '+(r.change>=0?'+':'')+money(r.change)));ledger.append(list);p.append(ledger);
+  const ledger=element('details');ledger.append(element('summary','Personal money ledger'));const list=element('ol');for(const r of f.receipts.slice(-8).reverse())list.append(element('li','Age '+r.age+' · '+{opening:'Family allowance',period:'Income and spending',purchase:'Purchase',bucket:'Bucket list',encounter:'Life event',trade:'Trading fee',market:'Market change'}[r.kind]+' · '+(r.change>=0?'+':'')+money(r.change)));ledger.append(list);p.append(ledger);
   const lesson=element('details');lesson.append(element('summary','Saving and investing'),element('p','A cash reserve can meet a near-term expense. Investments can lose value, and fees reduce what you keep. Use Invest to hold a bond or equity fund; its value can fall.'));p.append(lesson);
  }
  function cvPane(s){
@@ -179,7 +182,7 @@ export function initConsole({getState,change,isMoving=()=>false}){
  }
  function render(){const scroll=wide.matches?reader.scrollTop:panes[active].scrollTop,s=getState();
   // One review surface first: a tab appears only once it has something of this life to show.
-  const end=s.stage==='recap',opens={money:15,cv:20,world:10,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&s.age<age;if(buttons[active]?.hidden)active='plan';
+  const end=s.stage==='recap',opens={bucket:6,money:15,cv:20,world:0,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&(k==='bucket'?getAge():s.age)<age;if(buttons[active]?.hidden)active='plan';
   baselinePane(s);renderWorldNow(worldNow,s);select(active);if(wide.matches)reader.scrollTop=scroll;else panes[active].scrollTop=scroll;}
  return {render,select};
 }

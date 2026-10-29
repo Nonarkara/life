@@ -1,3 +1,4 @@
+import {TRAIN_PHRASES} from './train-copy.js';
 import {HYBRID_PHRASES} from './hybrid-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
@@ -2047,3 +2048,5 @@ phrases.push(...[
 
 phrases.push(['Your choices brought work and study into tension.','การตัดสินใจทำให้คุณต้องแบ่งแรงระหว่างงานกับการเรียน','你的选择让工作与学习之间出现了取舍。','あなたの選択によって、仕事と勉強の両立が課題になりました。','당신의 선택으로 일과 공부 사이에 갈등이 생겼습니다.']);
 phrases.push(['held at {n} by your answer','คำตอบของคุณผูกไว้ที่ {n}','你的选择将其锁定为 {n}','回答により {n} に固定','선택에 따라 {n}에 고정됨']);
+
+phrases.push(...TRAIN_PHRASES);

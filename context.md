@@ -688,3 +688,26 @@ entries/20assets verified. Local embedded refresh remains unverified as recorded
 User memory protocol replaced at sessionend; current get_context/log_decision
 used, explicit project handoff written via write_note because live connector lacks
 capture_coding_session. Never call legacy recall/capture names from next session.
+
+## RPG life train and figure correction ·30October2026
+Latest owner scope supersedes earlier no-choice-before10 rule. Painted figures
+receive exactly2x once; original home/bedroom floor coordinates are calibrated,
+no independent HUD lift into furniture. Stable semantic choice symbols retain
+complete text and costs. One fixed RPG dock on narrow screens is1/3portrait or
+1/5landscape; text-size CSS cannot restore the old three-row layout. Landscape
+uses internal tab reading; no claim every record is visible at once.
+First5years take50seconds by default (womb countdown extra), skippable to6.
+Four simple age6–9 choices stop time. Result acknowledgement survives reload.
+One-year carriage progress remains distinct from five-year numeric snapshots.
+Bucket list has30activities plus custom fixed-purpose activities,30free days
+peryear, real upfront money reservation and bounded chapter benefits. It is not
+an arbitrary free-points engine. Schedule current/upcoming chapter, not unlimited
+future guarantees. Saved plans/custom catalogue and travel cursor persist.
+Year-dated external events pause travel and change actual income/costs/health/
+mood. New illness recurrence requires earlier recorded illness; no clinical odds
+or genetic prediction. General recovery question never invents hospital care.
+Existing saves activate events only for future chapters. Current engine starts
+these episodes after10; infant/maternal health simulation remains unimplemented.
+288tests pass; independent source/pixel review closed findings. Evidence and
+known limits:review/moment-scale/REVIEW.md; exact public delivery receipt follows.
+Preexisting review/painted-default and review/product-audit remain untouched.
