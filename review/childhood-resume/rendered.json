@@ -1,0 +1,211 @@
+{
+  "build": "4042ddced853",
+  "oldExtraFont": "14px",
+  "cases": [
+    {
+      "case": "desktop",
+      "age": "Age 3",
+      "canvas": {
+        "bottom": 738.5078125,
+        "height": 643.5078125,
+        "left": 0,
+        "right": 1440,
+        "top": 95,
+        "width": 1440,
+        "x": 0,
+        "y": 95
+      },
+      "h": 900,
+      "income": {
+        "bottom": 844.453125,
+        "height": 17.3984375,
+        "left": 872.796875,
+        "right": 1340.796875,
+        "top": 827.0546875,
+        "width": 468,
+        "x": 872.796875,
+        "y": 827.0546875
+      },
+      "lang": "en",
+      "memory": {
+        "bottom": 900,
+        "height": 161.4921875,
+        "left": 0,
+        "right": 1440,
+        "top": 738.5078125,
+        "width": 1440,
+        "x": 0,
+        "y": 738.5078125
+      },
+      "note": {
+        "bottom": 880,
+        "height": 20.296875,
+        "left": 20,
+        "right": 566,
+        "top": 859.703125,
+        "width": 546,
+        "x": 20,
+        "y": 859.703125
+      },
+      "pageH": 900,
+      "pageW": 1440,
+      "text": "Responsive conversations and play help build skills for learning and relationships.",
+      "w": 1440,
+      "font": "14px"
+    },
+    {
+      "case": "tablet",
+      "age": "Age 3",
+      "canvas": {
+        "bottom": 583.3125,
+        "height": 488.3125,
+        "left": 0,
+        "right": 1024,
+        "top": 95,
+        "width": 1024,
+        "x": 0,
+        "y": 95
+      },
+      "h": 768,
+      "income": {
+        "bottom": 700.8515625,
+        "height": 17.3984375,
+        "left": 623.1953125,
+        "right": 1003.9921875,
+        "top": 683.453125,
+        "width": 380.796875,
+        "x": 623.1953125,
+        "y": 683.453125
+      },
+      "lang": "en",
+      "memory": {
+        "bottom": 768,
+        "height": 184.6875,
+        "left": 0,
+        "right": 1024,
+        "top": 583.3125,
+        "width": 1024,
+        "x": 0,
+        "y": 583.3125
+      },
+      "note": {
+        "bottom": 748,
+        "height": 20.296875,
+        "left": 20,
+        "right": 566,
+        "top": 727.703125,
+        "width": 546,
+        "x": 20,
+        "y": 727.703125
+      },
+      "pageH": 768,
+      "pageW": 1024,
+      "text": "Responsive conversations and play help build skills for learning and relationships.",
+      "w": 1024,
+      "font": "14px"
+    },
+    {
+      "case": "phone",
+      "age": "Age 3",
+      "canvas": {
+        "bottom": 619.6171875,
+        "height": 531.1171875,
+        "left": 0,
+        "right": 390,
+        "top": 88.5,
+        "width": 390,
+        "x": 0,
+        "y": 88.5
+      },
+      "h": 844,
+      "income": {
+        "bottom": 826,
+        "height": 17.3984375,
+        "left": 12,
+        "right": 378,
+        "top": 808.6015625,
+        "width": 366,
+        "x": 12,
+        "y": 808.6015625
+      },
+      "lang": "en",
+      "memory": {
+        "bottom": 844,
+        "height": 224.3828125,
+        "left": 0,
+        "right": 390,
+        "top": 619.6171875,
+        "width": 390,
+        "x": 0,
+        "y": 619.6171875
+      },
+      "note": {
+        "bottom": 796.6015625,
+        "height": 40.59375,
+        "left": 12,
+        "right": 378,
+        "top": 756.0078125,
+        "width": 366,
+        "x": 12,
+        "y": 756.0078125
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "text": "Responsive conversations and play help build skills for learning and relationships.",
+      "w": 390,
+      "font": "14px"
+    },
+    {
+      "case": "thai-extra-phone",
+      "age": "อายุ 3",
+      "canvas": {
+        "bottom": 587.3671875,
+        "height": 471.6953125,
+        "left": 0,
+        "right": 390,
+        "top": 115.671875,
+        "width": 390,
+        "x": 0,
+        "y": 115.671875
+      },
+      "h": 844,
+      "income": {
+        "bottom": 826,
+        "height": 20.3984375,
+        "left": 12,
+        "right": 378,
+        "top": 805.6015625,
+        "width": 366,
+        "x": 12,
+        "y": 805.6015625
+      },
+      "lang": "th",
+      "memory": {
+        "bottom": 844,
+        "height": 256.6328125,
+        "left": 0,
+        "right": 390,
+        "top": 587.3671875,
+        "width": 390,
+        "x": 0,
+        "y": 587.3671875
+      },
+      "note": {
+        "bottom": 793.6015625,
+        "height": 56.84375,
+        "left": 12,
+        "right": 378,
+        "top": 736.7578125,
+        "width": 366,
+        "x": 12,
+        "y": 736.7578125
+      },
+      "pageH": 844,
+      "pageW": 390,
+      "text": "การพูดคุยและเล่นอย่างใส่ใจตอบสนองกันช่วยสร้างทักษะการเรียนรู้และความสัมพันธ์",
+      "w": 390,
+      "font": "19.6px"
+    }
+  ],
+  "logs": []
+}
