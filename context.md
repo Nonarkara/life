@@ -666,3 +666,19 @@ No edits to newer art/palette/console decisions or detached ../ship worktree.
 Pre-existing review/painted-default + review/product-audit retained uncommitted;
 requested source work committed/pushed/deployed. See review/childhood-resume.
 Shared-memory verified lesson captured; inherited phone-scroll/3Dlabels remain.
+
+## Decision play completed ·29October2026
+Thirty existing dilemmas now appear singly, with full costs/context, actual
+consequences and commitments, explicit Next/Plan continuation. Questions,
+incidents and outcomes stop actors too; review scene slows and fast travel eases
+before arrival. No model coefficient/save schema/art/palette changes. Duplicate
+and eligibility guard pairs with restored-state counterfactual availability.
+Work after school no longer claims the child left school.267tests pass, independent
+review closed counterfactual/reduced-motion/long-dialog scroll findings; actual
+birth→10→choices→planning→15incident, reload/Escape/nativeThaiXL exercised.
+Live audit caught old reader Close doing nothing: wide Plan now hides optional
+reader, World reopens; phone reader remains. Corrected specificity as well.
+Code11ef65f plus reader follow-up; final build8124aa6f0c8c. Public delivery receipt
+and bounded evidence in review/decision-play; primary gameplay study in
+research/gameplay/FINDINGS.md. Fun/retention still needs human playtesting.
+Do not reset ../ship or unrelated untracked review/painted-default/product-audit.

@@ -65,7 +65,7 @@ body.console-mode{height:100dvh;overflow:hidden}
  .console-mode:not(.birth-stage):not(.recap-stage) .player-console{position:absolute;left:12px;bottom:12px;width:min(862px,calc(100% - 24px));max-height:46dvh;z-index:2;border:1px solid var(--line)}
  .console-mode:not(.birth-stage):not(.recap-stage) .player-console:has(.deck-money){width:min(1240px,calc(100% - 24px))}
  .console-mode:not(.birth-stage):not(.recap-stage) .console-reader{position:absolute;right:12px;top:86px;width:380px;max-height:calc(100% - var(--bench-height,260px) - 98px);height:auto;display:block;overflow:auto;z-index:3;border:1px solid var(--line)}
- .console-reader[hidden]{display:none}
+ .console-mode:not(.birth-stage):not(.recap-stage) .console-reader[hidden]{display:none}
  .console-reader .console-cards{display:block;overflow:visible}
  .console-reader .console-panel{overflow:visible}
  .console-mode:not(.birth-stage):not(.recap-stage) #console-plan{flex:1;min-height:0;overflow:auto}

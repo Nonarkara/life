@@ -68,3 +68,16 @@ Inherited limits remain: phone Plan inner scroll, some foreign-city3D labels,
 missing grandmother crouch art, audit-script contrast false positives. No claim
 that every original-game branch was exhausted. Findings and primary references:
 research/gameplay/FINDINGS.md. Public release receipt follows in this folder.
+
+## Final live audit follow-up
+
+First public build574fea2d7504/code11ef65f served both hosts' direct entries and
+20exact assets; browser reopened saved age10/three unanswered questions correctly.
+Live Close test exposed inherited reader bug: selecting Plan never hid reader,
+and the weak hidden CSS selector lost against positioned display:block.
+Corrected: wide Plan hides reader, World/other records reopen, narrow reader
+stays attached. Independent source review cleared. Actual preview at1280×720:
+Plan/Close/Escape hidden=true/displaynone; World reopens; Escape restores focus
+toWorld trigger. At390×844 reader stays flex/visible and World navigation works;
+resizing World→1280 keeps it open, Close hides it. Screenshot reader-closed-1280.
+267tests pass again after this correction. Final runtime build8124aa6f0c8c.
