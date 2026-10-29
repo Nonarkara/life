@@ -18,6 +18,7 @@ In this game, about 1 in {n} lives begin like this.|ในเกมนี้ ร
 I was born in {place}, into {home}. About 1 in {n} lives begin like this.|ผมเกิดที่{place} ใน{home} ราว 1 ใน {n} ชีวิตเริ่มต้นแบบนี้|我出生在{place}，{home}。大约每 {n} 个人生中有 1 个这样开始。|{place}の{home}に生まれた。およそ {n} 人に 1 人がこう始まる。|{place}의 {home}에서 태어났다. 약 {n}명 중 1명의 삶이 이렇게 시작된다.
 Copied. Paste it anywhere.|คัดลอกแล้ว วางที่ไหนก็ได้|已复制，可粘贴到任何地方。|コピーしました。どこにでも貼り付けられます。|복사했습니다. 어디든 붙여 넣으세요.
 Your last life is waiting: age {n}, {place} →|ชีวิตล่าสุดของคุณรออยู่: อายุ {n} ปี, {place} →|你上一次的人生还在等你：{n}岁，{place} →|前回の人生が待っている：{n}歳、{place} →|지난 삶이 기다립니다: {n}세, {place} →
+Fictional life · your earlier life could not be opened; a copy is kept in this browser|ชีวิตสมมุติ · เปิดชีวิตก่อนหน้าไม่ได้ เก็บสำเนาไว้ในเบราว์เซอร์นี้แล้ว|虚构人生 · 无法打开你之前的人生；副本已保存在此浏览器中|架空の人生 · 以前の人生を開けませんでした。コピーはこのブラウザに残してあります|가상의 삶 · 이전 삶을 열 수 없었습니다. 사본은 이 브라우저에 남아 있습니다
 of free money|ของเงินที่เหลือ|可支配资金|自由に使えるお金のうち|여유 자금 중
 of 10 points|จาก 10 แต้ม|共 10 点|10ポイントのうち|10점 중
 How these numbers work|ตัวเลขเหล่านี้คิดอย่างไร|这些数字如何计算|この数字のしくみ|이 숫자들의 계산 방법
@@ -1411,6 +1412,30 @@ SPORT|สนามกีฬา|运动|運動場|운동장
 THE COURSE OF A LIFE|เส้นทางของชีวิตหนึ่ง|一段人生的轨迹|ひとつの人生の道のり|한 삶의 궤적
 Amber: lived path     Dashed: age stations still ahead|สีอำพัน: ทางที่ผ่านมา   เส้นประ: วัยที่ยังมาไม่ถึง|琥珀色：走过的路   虚线：尚未到达的年龄|琥珀色：歩んだ道　破線：これからの節目|호박색: 살아온 길   점선: 아직 오지 않은 나이
 Detours record changed priorities and disruptive events.|ทางอ้อมบันทึกการเปลี่ยนใจและเหตุการณ์พลิกผัน|弯路记录了重点的变化与突发事件。|寄り道は、優先することの変化や出来事を記録します。|우회로에는 우선순위의 변화와 뜻밖의 사건이 남습니다.
+Work that pays in another currency|งานที่จ่ายเงินในสกุลอื่น|以另一种货币支付的工作|別の通貨で支払われる仕事|다른 통화로 받는 일
+A client abroad will pay in their own currency. The work is the work you already know. The city you do it in does not have to be the city you live in.|ลูกค้าต่างประเทศจะจ่ายเงินในสกุลของเขา งานก็คืองานที่คุณทำมาอยู่แล้ว เมืองที่คุณทำงานไม่จำเป็นต้องเป็นเมืองที่คุณอาศัย|一位海外客户会用他们本国的货币付款。这份工作就是你已经熟悉的那份。你工作的地方不必是你生活的地方。|海外のクライアントが自国の通貨で支払ってくれる。仕事は手慣れた仕事そのものだ。働く場所は、住む場所と同じである必要はない。|해외 거래처가 자기 통화로 결제한다. 일은 익숙한 그 일 그대로다. 일하는 곳이 사는 곳과 같을 필요는 없다.
+Move where the money is and the rent is not|ย้ายไปอยู่ที่ที่เงินอยู่ และค่าเช่าไม่อยู่|搬到钱在的地方，房租不在的地方|お金がいる場所へ、家賃がいない場所へ|돈이 있는 곳으로, 임대료가 없는 곳으로
+You moved. The money arrived in a currency that did not care about your rent, and for a while the arithmetic worked. Most people who work this way have been doing it for three years or less.|คุณย้ายไปแล้ว เงินมาถึงในสกุลที่ไม่สนใจค่าเช่าของคุณ และช่วงหนึ่งตัวเลขก็ออกมาลงตัว คนส่วนใหญ่ที่ทำงานแบบนี้ทำมาไม่เกินสามปี|你搬过去了。钱以一种不在乎你房租的货币到来，有一阵子这笔账算得过来。大多数这样工作的人，做了不超过三年。|あなたは引っ越した。お金はあなたの家賃など気にしない通貨で届き、しばらく帳尻は合っていた。このやり方で働く人の多くは、まだ三年以内だ。|이사했다. 돈은 당신의 임대료를 신경 쓰지 않는 통화로 도착했고, 한동안 계산은 맞았다. 이런 식으로 일하는 사람 대부분은 삼 년 이내에 있다.
+Stay and take the work from where you are|อยู่ที่เดิมและรับงานนั้นจากที่นี่|留在原地，从这里接下这份工作|そのままいて、ここでその仕事を受ける|그냥 머물러 여기서 그 일을 받는다
+You took the work without moving. The money was smaller than the one you were offered elsewhere, and the evenings stayed with your household.|คุณรับงานโดยไม่ย้าย เงินน้อยกว่าที่เสนอให้ที่อื่น และค่ำยังเป็นของครอบครัวคุณ|你接下了工作，却没有搬家。钱比别处给你的少，晚上仍然是属于这个家的。|あなたは引っ越さずにその仕事を受けた。お金は他で示された額より少なく、夜は家族の時間のままだった。|이사하지 않고 그 일을 받았다. 돈은 다른 곳에서 제시한 것보다 적었고, 밤은 여전히 가족의 시간이었다.
+Turn it down and keep your days local|ปฏิเสธ และเก็บวันของคุณไว้ใกล้บ้าน|拒绝它，把自己的日子留在本地|断って、自分の日を地元で過ごす|거절하고, 내 하루는 지역에서 보낸다
+You kept your days local. Nothing about your life was rearranged, and nothing about it was tried.|คุณเก็บวันของคุณไว้ใกล้บ้าน ชีวิตไม่ได้ถูกจัดเรียงใหม่ และก็ไม่ได้ถูกลองอะไรใหม่|你把自己的日子留在本地。生活没有被重新安排，也没有被尝试过。|あなたは自分の日を地元で過ごした。暮らしは並べ替えられず、何も試されなかった。|내 하루를 지역에서 보냈다. 삶은 다시 짜여지지 않았고, 시도된 것도 없었다.
+A year with nothing on paper|ปีที่ไม่มีอะไรบนกระดาษ|纸面上空无一物的一年|書類上は何もない一年|종이 위에는 아무것도 없는 한 해
+You could stop for a year. No salary, no pension, no proof of anything, and a free year to find out what you would do with it. People have done this in their forties and come back different.|คุณอาจหยุดไปหนึ่งปี ไม่มีเงินเดือน ไม่มีบำเหน็จ ไม่มีหลักฐานของอะไรเลย และมีเวลาว่างหนึ่งปีเพื่อรู้ว่าคุณจะทำอะไรกับมัน มีคนทำแบบนี้ในวัยสี่สิบแล้วกลับมาเป็นคนอื่น|你可以停一年。没有薪水，没有养老金，没有任何证明，还有一整年的空闲时间弄清楚自己会拿它做什么。已经有人在四十多岁这样做过，并且回来时成了另一个人。|一年だけ止まることができる。給与も年金も何も証明もなく、そして一年の自由な時間がある。その時間をどう使うのかを探るのだ。四十代でそうして、変わった自分で戻ってきた人もいる。|일 년을 멈출 수 있다. 월급도 연금도 아무 증명도 없고, 그 시간으로 무엇을 할지 알아볼 자유로운 한 해가 있다. 사십 대에 그렇게 했다가 달라져서 돌아온 사람들이 있다.
+Take the year and spend it finding the next thing|หยุดปีนั้น แล้วใช้มันหาสิ่งถัดไป|停下这一年，用它来找接下来的事|その一年を受け、次のことを探すために使う|한 해를 쉬며 다음 걸음을 찾는다
+You stopped. The first month you slept. By the third you were trying one new thing a week. A year later you had less money and a direction.|คุณหยุด ปีแรกคุณนอน พอถึงเดือนที่สามคุณลองทำสิ่งใหม่สัปดาห์ละอย่าง ปีหนึ่งผ่านไป คุณมีเงินน้อยลงและมีทิศทาง|你停下来了。第一个月你在睡觉。到第三个月，你每周尝试一件新事情。一年以后，你的钱少了，方向有了。|あなたは止まった。最初の月は眠るだけだった。三ヶ月目には週に一つ何か新しいことを試すようになった。一年後、金は減り、方向はできた。|멈췄다. 첫 달에는 잠으로 지냈다. 세 번째 달에는 매주 새로운 것을 하나씩 시도했다. 1년 뒤, 돈은 줄고 방향은 생겼다.
+Take it in pieces, unpaid time inside the year|แบ่งเป็นช่วง ๆ ในปีนั้น เวลาที่ไม่ได้เงิน|在一年里切成几段，拿没有薪水的时间|その年のあいだに少しずつ。無給の時間を|그 해 안에 조금씩 나누어, 무급의 시간을
+You took the time in pieces. Nobody at work noticed, and on most weeks neither did you.|คุณหยุดเป็นช่วง ๆ ที่ที่ทำงานไม่สังเกต และในสัปดาห์ส่วนใหญ่คุณก็ไม่สังเกตเช่นกัน|你把时间切成几段。工作上没有人注意到，大多数周里你自己也没有注意到。|時間を小分けにした。職場では誰も気づかなかった。ほとんどの週では、あなた自身にも気づかなかった。|시간을 조금씩 잘라냈다. 직장에서는 아무도 몰랐고, 대개의 주는 나도 몰랐다.
+Keep the salary and the certainty|เก็บเงินเดือนและความแน่นอน|保住薪水与确定|給与と確かさを残す|월급과 확실함을 지킨다
+You kept the salary and the certainty. The certainty was worth having. That is not a criticism.|คุณเก็บทั้งเงินเดือนและความแน่นอนไว้ ความแน่นอนนั้นคุ้มค่า นั่นไม่ใช่การตำหนิ|你保住了薪水与确定。那份确定是值得的，这不是批评。|あなたは給与も確かさも残した。その確かさは取りになる。これは非難ではない。|월급과 확실함을 모두 지켰다. 그 확실함은 값어치를 했고, 이는 비판이 아니다.
+The clock on the arrangement|เข็มนาฬิกาของข้อตกลงนี้|这个安排的时限|この取り決めのカウントダウン|이 합의의 시한
+Arrangements like this are often short. The client changes its mind, the tax question changes, or the cheap room becomes your life and stops being cheap.|ข้อตกลงแบบนี้มักอยู่ได้ไม่นาน ลูกค้าเปลี่ยนใจ หรือคำถามภาษีเปลี่ยนไป หรือห้องที่เช่าถูกกลายเป็นชีวิตของคุณและเลิกถูกไป|这样的安排往往不长久。客户改了主意，税务的问题变了，或者那间便宜的房租慢慢成了你的生活，不再便宜。|このような取り決めは長続きしないことが多い。クライアントの気が変わる。税務の扱いが変わる。あるいは、安かった部屋がいつのまにか暮らしになり、安くなくなる。|이런 약정은 오래가지 않는 경우가 많다. 거래처가 마음을 바꾸거나, 세금 문제가 달라지거나, 싸게 빌린 방이 어느새 삶의 일부가 되어 더 이상 싸지 않게 된다.
+Turn it into a permanent address|เปลี่ยนมันให้เป็นที่อยู่ถาวร|把它变成一个永久的地址|永久の住所に変える|영구적인 주소로 바꾼다
+You traded the movement for a permanent address. The arithmetic got worse and the ground got steadier.|คุณแลกความไม่ประหยัดมากับที่อยู่ถาวร ตัวเลขแย่ลง แต่พื้นหลังมั่นขึ้น|你用漂泊换了一个永久的地址。账算起来更差了，脚下的地却更稳了。|あなたは移動と引き換えに永久の住所を得た。計算は悪くなり、足元は丈夫になった。|떠돌림을 영구적인 주소와 맞바꿨다. 계산은 나빠졌지만, 발밑은 단단해졌다.
+Move again and see whether the next place holds|ย้ายอีกครั้ง แล้วดูว่าที่ถัดไปจะอยู่ได้ไหม|再搬一次，看看下一个地方撑不撑得住|もう一度引っ越して、次の場所が保つか試す|다시 옮겨 보고, 다음 곳이 버틸지 지켜본다
+You moved again. It held for a while, the way the last one did.|คุณย้ายอีกครั้ง มันอยู่ได้สักพัก อย่างที่ครั้งก่อนก็อยู่ได้|你又搬了一次。它也撑了一阵子，像上一次一样。|あなたはまた引っ越した。それも前回と同じように、しばらくは保った。|다시 옮겼다. 그것도 저번처럼 한동안은 버텼다.
+Come home and take a local wage|กลับบ้าน แล้วรับค่าแรงในบ้าน|回家，挣一份本地工资|家に帰る。地元の給料を受け取る|집으로 돌아와, 지역의 급여를 받는다
+You came home. A local wage paid for the life you had been borrowing against.|คุณกลับบ้าน ค่าแรงในบ้านจ่ายค่าชีวิตที่คุณยืมมาใช้ตลอด|你回了家。一份本地的工资，付清了那段时间借来的生活。|あなたは家に帰った。地元の給料が、借りきりの暮らしを返済しはじめた。|집으로 돌아왔다. 지역의 급여가 빌려 쓰던 삶을 갚기 시작했다.
 `.trim().split('\n').map(line=>line.split('|'));
 phrases.push(...`
 How to play|วิธีเล่น|玩法说明|遊び方|플레이 방법
@@ -1946,5 +1971,5 @@ phrases.push(['Priorities change your skills, resources and wellbeing.','สิ�
 
 phrases.push(...HYBRID_PHRASES);
 
-phrases.push(['Colours follow the events and mood of this life. Painted illustrations retain their authored colours.','สีเปลี่ยนตามเหตุการณ์และอารมณ์ของชีวิตนี้ ภาพวาดคงสีตามที่ออกแบบไว้','色彩随人生事件和情绪变化，绘画保留原有配色。','色は人生の出来事や気分に応じて変わります。イラストは制作時の配色を保ちます。','색은 이 삶의 사건과 분위기에 따라 달라집니다. 삽화는 원래의 색을 유지합니다.']);
+phrases.push(["The world's colours follow the events and mood of this life; the controls keep one set of colours. Painted illustrations retain their authored colours.",'สีของโลกเปลี่ยนตามเหตุการณ์และอารมณ์ของชีวิตนี้ ส่วนปุ่มควบคุมใช้ชุดสีเดียวเสมอ ภาพวาดคงสีตามที่ออกแบบไว้','世界的色彩随人生事件和情绪变化，操作界面始终保持同一套颜色。绘画保留原有配色。','世界の色は人生の出来事や気分に応じて変わります。操作部分の色は変わりません。イラストは制作時の配色を保ちます。','세계의 색은 이 삶의 사건과 분위기에 따라 달라지고, 조작 화면은 늘 같은 색을 씁니다. 삽화는 원래의 색을 유지합니다.']);
 phrases.push(['Sanzo Wada colour combinations · digital data credits','ชุดสีของซันโซ วาดะ · เครดิตข้อมูลดิจิทัล','和田三造配色组合 · 数字数据署名','和田三造の配色・デジタルデータのクレジット','와다 산조 배색 조합 · 디지털 데이터 출처']);

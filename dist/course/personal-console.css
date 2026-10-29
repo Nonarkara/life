@@ -343,3 +343,22 @@
  .console-mode:not(.birth-stage):not(.recap-stage) .world-head{padding:4px 12px;align-items:center}
  .world-head span{max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* Below the wide layout the panels share rows: they stretch to the row's height and the seams
+   are borders, so no block of the seam colour shows where a panel is shorter or a row is short. */
+@media(max-width:1279px){
+ .life-deck{background:var(--deck);gap:0;align-items:stretch}
+ .life-deck .deck-panel{border-right:1px solid var(--deck-line);border-bottom:1px solid var(--deck-line)}
+}
+
+/* A disclosure is a control: it gets a control's minimum height, not its text's. */
+.comparison-note summary{display:inline-flex;align-items:center;min-height:32px;cursor:pointer}
+
+/* Small controls (29 Oct 2026 audit): a disclosure and the header and time keys are controls,
+   so they get a control's height and at least 4px between neighbours. */
+.latest-event summary{display:flex;align-items:center;min-height:32px;cursor:pointer}
+.personal-console header>div,header>div{gap:6px}
+.transport{gap:4px}
+.console-panel{scrollbar-width:thin;scrollbar-color:var(--muted) transparent}
+.console-panel::-webkit-scrollbar{width:6px}
+.console-panel::-webkit-scrollbar-thumb{background:var(--muted)}

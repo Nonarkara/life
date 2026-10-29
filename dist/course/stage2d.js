@@ -319,15 +319,30 @@ export function describePaintedScene(state,age,time){
 // Exported for the tests: the drawn world must follow the routine, not taste.
 export {SETS,ROLES,setFor,roleFor,sheetFor,BEATS};
 
-let loadingArt=null;
+let loadingArt=null,artFailed=false;
+export const stageArtFailed=()=>artFailed;
+// Whether the painted world can show every moment of this age's 60-second day. It is decided
+// once for the day, not per frame: a life the art covers only in part keeps the 3D world for
+// the whole age, instead of swapping worlds as the hours pass. Never decided before the art
+// manifest has loaded, so a late manifest is never mistaken for missing art.
+const dayCache=new Map();
+export function paintedDay(state,age){
+ if(!animeManifest())return false;
+ const key=[state.seed,age,state.history?.length,state.story?.seen?.length,state.pathway,state.major,state.stage,state.finance?.region,state.finance?.housing].join('|');
+ if(dayCache.has(key))return dayCache.get(key);
+ let ok=true;
+ for(let t=0;t<60&&ok;t+=3){ok=paintedCovers(state,age,t,describePaintedScene(state,age,t));}
+ if(dayCache.size>96)dayCache.clear();
+ dayCache.set(key,ok);return ok;
+}
 export function drawStage2D(canvas,state,age,time,mode,view={}){
  if(mode!=='world')return false;
  if(!animeManifest()){
-  if(!loadingArt)loadingArt=prepareStageArt().catch(()=>{});
+  if(!loadingArt)loadingArt=prepareStageArt().catch(()=>{artFailed=true;});
   return false;
  }
  const description=describePaintedScene(state,age,time);
- if(preferences.stage==='hybrid'&&!description.beat||!paintedCovers(state,age,time,description))return false;
+ if(preferences.stage==='hybrid'&&!description.beat||preferences.stage==='painted'&&!paintedDay(state,age)||!paintedCovers(state,age,time,description))return false;
  // Keep the supported3D world until the full scene is decoded. Paused views
  // repaint on load; failed pictures never replace a living scene with black.
  const paths=[platePath(description.plate),...description.actors.flatMap(a=>actorFrames(state,a.id,age,a.activity,description.beat??description.set).map(([sheet,frame])=>spritePath(sheet,frame)))];
@@ -343,6 +358,10 @@ export const stageCaption=canvas=>stages.get(canvas)?.caption??null;
 
 const stages=new WeakMap();
 
+// Where a person stands when the dock hides the lowest `1-reach/height` of the stage: no lower
+// than 95% of the way down the visible part, and scaled by the same ratio (further back, smaller).
+export function liftGround(y,reach){const limit=reach*.95;return y<=limit||!(limit>0)?{y,k:1}:{y:limit,k:limit/y};}
+
 function createStage(canvas){
   const buffer=document.createElement('canvas');
   const frame=document.createElement('canvas');
@@ -351,8 +370,19 @@ function createStage(canvas){
   const visibleWidth=(pw,dpr)=>{const panel=document.querySelector('.decision'),box=(canvas.hidden?canvas.parentElement:canvas).getBoundingClientRect(),dock=panel?.getBoundingClientRect();
    if(!dock||matchMedia('(max-width:720px)').matches||dock.left>=box.right||dock.top>=box.bottom||dock.width>=box.width*.6)return pw;
    return Math.max(pw*.5,Math.round((dock.left-box.left)*dpr));};
-  let seen=0,width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
+  // The bottom dock covers the lowest part of the stage on a wide screen. This is how many
+  // device pixels of the stage can actually be seen above it.
+  const visibleHeight=(ph,dpr)=>{
+   const box=(canvas.hidden?canvas.parentElement:canvas).getBoundingClientRect();
+   if(matchMedia('(max-width:720px)').matches)return ph;
+   let top=Infinity;
+   for(const selector of ['.console-nav','.decision']){const r=document.querySelector(selector)?.getBoundingClientRect();if(r&&r.width>=box.width*.6&&r.top>box.top&&r.top<box.bottom)top=Math.min(top,r.top);}
+   return top===Infinity?ph:Math.max(ph*.4,Math.round((top-box.top)*dpr));};
+  let seen=0,reach=0,width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
   const reduced=()=>preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // People stand where they can be seen: a ground line that falls behind the dock is lifted
+  // above it, and they shrink with it, as they would standing further back on the same floor.
+  const fit=y=>liftGround(y,reach);
 
   function resize(){
     const surface=canvas.hidden?(canvas.parentElement?.querySelector('canvas:not([hidden])')??canvas.parentElement):canvas;
@@ -360,7 +390,7 @@ function createStage(canvas){
     if(w<2||h<2)return false;
     const dpr=Math.min(devicePixelRatio||1,2);
     const pw=Math.round(w*dpr),ph=Math.round(h*dpr);
-    seen=visibleWidth(pw,dpr);if(pw!==width||ph!==height){width=pw;height=ph;canvas.width=pw;canvas.height=ph;buffer.width=pw;buffer.height=ph;frame.width=pw;frame.height=ph;hasFrame=false;}
+    seen=visibleWidth(pw,dpr);reach=visibleHeight(ph,dpr);if(pw!==width||ph!==height){width=pw;height=ph;canvas.width=pw;canvas.height=ph;buffer.width=pw;buffer.height=ph;frame.width=pw;frame.height=ph;hasFrame=false;}
     return true;
   }
 
@@ -578,10 +608,11 @@ function createStage(canvas){
       drawn=drawPlate(paint,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*moment.ground:height*.84;
       if(drawn){
+        const lifted=fit(groundY);groundY=lifted.y;
         for(const actor of scene.actors){
           const activity=actor.activity;
-          const anchor=actor.anchor?{x:drawn.x+actor.anchor.x*drawn.drawWidth,y:drawn.y+actor.anchor.y*drawn.drawHeight}:null;
-          drawFigure(paint,actor.id,age,activity,beat,anchor?anchor.y:groundY,drawn.drawHeight,clock,
+          const anchor=actor.anchor?{x:drawn.x+actor.anchor.x*drawn.drawWidth,y:fit(drawn.y+actor.anchor.y*drawn.drawHeight).y}:null;
+          drawFigure(paint,actor.id,age,activity,beat,anchor?anchor.y:groundY,drawn.drawHeight*lifted.k,clock,
             anchor?anchor.x:seen*.08+actor.x*(seen*.84),{scale:moment.scale,flat:activity.pose==='lie',flipX:actor.flipX});
         }
         drawEffect(paint,clock,moment.effect,groundY);
@@ -589,11 +620,13 @@ function createStage(canvas){
     }else if(set==='travel'){
       drawn=drawTravel(paint,clock,player,age,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*SETS.travel.ground:height*.86;
-      if(drawn)drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight,clock,seen*.44);
+      if(drawn){const lifted=fit(groundY);groundY=lifted.y;drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight*lifted.k,clock,seen*.44);}
     }else{
       drawn=drawPlate(paint,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*stage.ground:height*.84;
     }
+    const lifted=drawn&&!moment&&set!=='travel'?fit(groundY):{y:groundY,k:1};
+    if(set!=='travel'&&!moment)groundY=lifted.y;
     if(!drawn){
       // The art is still on its way. The frame says so instead of showing a hole.
       if(!waiting){waiting=true;console.warn('The stage is waiting for its art.',plateKey??'plate');}
@@ -615,7 +648,7 @@ function createStage(canvas){
     if(set!=='travel'&&!moment){
       const present=scene.actors;
       for(const actor of present){
-        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight,clock,seen*.08+actor.slot*(seen*.84));
+        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,seen*.08+actor.slot*(seen*.84));
       }
     }
 

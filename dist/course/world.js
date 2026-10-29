@@ -1,6 +1,7 @@
 import {drawRouteMap} from './routemap.js';
 import {drawScene3D,showPaintedCanvas} from './scene3d.js';
-import {drawStage2D,stageCaption} from './stage2d.js';
+import {drawStage2D,stageCaption,paintedCovers,paintedDay,stageArtFailed} from './stage2d.js';
+import {animeManifest} from './anime-assets.js';
 import {t,preferences} from './i18n.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
 import {canvasWorld} from './palettes.js';
@@ -11,10 +12,28 @@ import {RESIDENCES,roomFurniture} from './locations.js';
 import {revealedPlaces,floorAt,CITY_BLOCKS} from './district3d.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
+// The first time the world is on screen, by any route (painted, 3D or the flat canvas),
+// the loading placeholder may go. Holding a surface while art decodes does not count.
+let firstPaint=false;
 export function drawWorld(canvas,state,age,time,mode='world',view={}){
+ const result=paintWorld(canvas,state,age,time,mode,view);
+ if(!firstPaint&&!result?.held){firstPaint=true;window.dispatchEvent(new Event('life-first-frame'));}
+ return result;
+}
+function paintWorld(canvas,state,age,time,mode='world',view={}){
  // Hybrid keeps ordinary routines in3D and paints supported recorded moments.
  // Explicit world preferences remain available; drawing never changes the life.
- if(preferences.stage!=='isometric'&&drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
+ if(preferences.stage!=='isometric'){
+  if(drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
+  // The painting may cover this scene but has not finished decoding. Holding
+  // the surface is better than showing a different world for a moment.
+  if(mode==='world'){
+   // Until the art manifest is in, nothing says whether this life is painted: hold the surface
+   // rather than flash the 3D world and then change it. If the art cannot be fetched, go on in 3D.
+   if(!animeManifest()&&!stageArtFailed()){canvas.hidden=false;return {held:true};}
+   if(preferences.stage==='painted'?paintedDay(state,age):paintedCovers(state,age,time)){canvas.hidden=false;return {held:true};}
+  }
+}
  if(drawScene3D(canvas,state,age,time,mode,view))return;
 const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];

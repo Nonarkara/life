@@ -601,5 +601,49 @@ world: a museum diorama under daylight.
 - Top chrome on a phone stays near 140px or less: header, age bar, console tabs, sub-tabs.
 - Line weights by role: 1px hairlines separate cells; panel edges are 1px seams on the
   dark surface; the header rule is 2px ink. Nothing else.
-- No rounded corners, gradients or drop shadows in the interface (§11.6). An inset 2px
-  amber underline is the only selection indicator.
+- No rounded corners, gradients or drop shadows in the interface (§11.6). A 2px amber
+  bottom border (not a shadow) is the only selection indicator.
+
+
+## Merge, audit and ship · 29 October 2026
+MiniMax's last work was left unsaved in the shared folder when its tokens ran out. It was
+merged with the shipped console and palette work, audited, repaired and shipped from a
+separate worktree (`../ship`), so the shared folder's unsaved edits were never overwritten.
+
+**Merged from the unsaved tree.** Painted world as the default (Hybrid and Isometric stay
+selectable and are now actually saved: preferences carry `v:2`, and an older stored
+`hybrid` is the old default, not a choice, so it moves to painted once). A loading screen that
+no longer hides the whole page: only the stage waits for its first picture. Three new
+encounters from documented lives (`geo_arbitrage`, `gap_year`, `geo_expiry`). Console tab
+targets and panel background. `scripts/audit-product.mjs`.
+
+**Corrected before shipping.**
+- `research/lives.md` carried attributions that did not hold up when read against the
+  sources: wrong authors for the journal paper (Jiwasiddi et al., not "Maimunah & Mutch"),
+  a fictional HBR case study presented as a real person, an NPR story credited to KUNC,
+  and a 1977 article that could not be found. Rewritten from what was read; what could not
+  be verified is marked. `tests/course/lives.test.mjs` fails if a retracted attribution
+  comes back. The game no longer says arrangements "last about three years".
+- Korean errors in the new encounter translations ("30s" for "forties", a wrong word for
+  "arrangement", "통화지").
+- A save the game cannot open is copied aside (`life-course-v2-unreadable`) before a new
+  life starts, and the player is told. `dist/course/save.js`, tested including a mutation.
+- The painted stage switched between the painted and 3D worlds during one day for any life
+  the art covered only in part (Boston, London, Tokyo, Singapore). Coverage is now decided
+  once per age by sampling the whole day (`paintedDay`), and the stage is held until the art
+  manifest has loaded so the 3D world never flashes first.
+- The protagonist stood behind the bottom dock at desktop width (only the head showed).
+  People are lifted above the dock and shrink with the lift (`liftGround`).
+- The interface took its colours from each life event. It keeps the house colours; life
+  events tint the world only.
+- Panels shorter than their row showed a block of the seam colour (below 1280px); they stretch.
+- The right-hand "year around you" column was clipped mid-line; its chart is compacted.
+- The "Latest event" disclosure was 16px tall; header and time keys touched.
+
+**Known, not fixed.** On a phone the Plan panel is an inner scroll (about 275px over 1100px of
+content); it now has a visible thin scrollbar, but a swipe-card layout would be better.
+3D place labels are clipped at the screen edge in some foreign cities. The painted world is
+faster to look at but slower to start than the old 3D default (about 2.4s against 0.9s at
+1440 in headless Chromium). The grandmother's crouch has no painting (three FLUX sheets failed
+review). Do not trust `scripts/audit-product.mjs` contrast findings: it walks to the page
+background instead of the painted dock; it reports 1.04:1 on tabs that read at 7:1.

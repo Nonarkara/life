@@ -8,9 +8,14 @@ import {MONEY_LESSONS} from '../../dist/course/money-lessons.js';
 import {consequencesDue} from '../../dist/course/lessons.js';
 const base=(age=17)=>({age,seed:7,intake:{sex:'female'},birth:{region:'samut-prakan',household:'parents'},profiles:[],history:[{age:15,from:10,pathway:'school'}],story:{seen:[],flags:{friend:15}}});
 before(async()=>{globalThis.fetch=async()=>({ok:true,json:async()=>JSON.parse(readFileSync(new URL('../../dist/course/anime/manifest.json',import.meta.url)))});await prepareStageArt();});
-test('hybrid defaults to continuous3D for ordinary life and retains a single truthful moment descriptor',()=>{
- assert.equal(preferences.stage,'hybrid');assert.equal(drawStage2D({},base(),17,1,'world'),false);
+test('the painted world is the default, and it retains a single truthful moment descriptor',()=>{
+ assert.equal(preferences.stage,'painted');
  const scene=describePaintedScene(base(),17,12);assert.equal(scene.beat,'bikes');assert.equal(scene.caption,MOMENT_CAPTIONS.bikes);assert.ok(scene.actors.every(a=>a.activity.pose==='ride'));assert.equal(scene.actors[1].flipX,true);
+});
+test('the hybrid world keeps continuous3D for ordinary life when it is chosen',()=>{
+ const was=preferences.stage;preferences.stage='hybrid';
+ try{assert.equal(drawStage2D({},base(),17,1,'world'),false,'an ordinary scene stays in the 3D world');}
+ finally{preferences.stage=was;}
 });
 test('only the current scene needs coverage: missing elderly art does not erase a teenage scene, missing cycling does',()=>{
  const manifest=animeManifest(),elder=manifest.sprites.elder,ride=manifest.sprites['friend-b']['ride-b'];

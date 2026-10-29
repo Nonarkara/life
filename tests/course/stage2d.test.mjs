@@ -155,3 +155,41 @@ test('the painted stage only draws lives its art covers',async()=>{
   assert.equal(paintedCovers(life('female','parents','sukhumvit')),!!manifest.plates['home-day@villa'],'a walled villa is not drawn as a wooden house');
   assert.equal(paintedCovers(life('female','parents','tokyo')),!!manifest.plates['street-day@tokyo']);
 });
+
+// On a wide screen the bottom dock covers the lowest third of the stage. The protagonist
+// used to stand behind it with only a head showing.
+test('people are lifted above the dock and shrink with the lift',async()=>{
+  const {liftGround}=await import('../../dist/course/stage2d.js');
+  assert.deepEqual(liftGround(400,600),{y:400,k:1},'a person already above the dock does not move');
+  const lifted=liftGround(700,550);
+  assert.ok(lifted.y<=550*.95+1e-9,'feet end above the dock edge');
+  assert.ok(Math.abs(lifted.k-lifted.y/700)<1e-9,'scale follows the lift');
+  assert.ok(lifted.k<1&&lifted.k>.5,'smaller, but still a person: '+lifted.k);
+  assert.deepEqual(liftGround(700,0),{y:700,k:1},'no measurement, no change');
+  assert.deepEqual(liftGround(700,NaN),{y:700,k:1},'a failed measurement never hides anyone');
+});
+
+// A life the art covers only in part used to swap between the painted and the 3D world as the
+// hours of one day passed. Coverage is now decided once for the whole day.
+test('the painted world is chosen once per day, never moment by moment',async()=>{
+  const S=await import('../../dist/course/stage2d.js');
+  const {prepareStageArt}=await import('../../dist/course/anime-assets.js');
+  const {readFileSync}=await import('node:fs');
+  const {newLife,configureLife,begin,live}=await import('../../dist/course/sim.js');
+  const {resolveEncounter,encounterById}=await import('../../dist/course/encounters.js');
+  const manifest=JSON.parse(readFileSync(new URL('../../dist/course/anime/manifest.json',import.meta.url)));
+  globalThis.fetch=async()=>({ok:true,json:async()=>manifest});await prepareStageArt();
+  const make=(seed,options,age)=>{let s=begin(configureLife(newLife(seed),options));const settle=x=>x.story?.pending?resolveEncounter(x,encounterById(x.story.pending.id).options[0].id,.5):x;while(s.age<age&&s.stage==='review')s=settle(live(settle(s)));return settle(s);};
+  let partial=0,whole=0;
+  for(const [seed,options,age] of [[77,{upbringing:'middle',region:'samut-prakan',sex:'female'},25],[11,{upbringing:'middle',region:'bang-na'},30],[5,{country:'us',sex:'male'},25],[6,{country:'gb'},25],[8,{country:'jp'},40],[9,{country:'sg'},15]]){
+    const state=make(seed,options,age);
+    const moments=[];for(let t=0;t<60;t+=3)moments.push(S.paintedCovers(state,age,t,S.describePaintedScene(state,age,t)));
+    const day=S.paintedDay(state,age);
+    assert.equal(day,moments.every(Boolean),'the day is covered only if every moment is');
+    assert.equal(S.paintedDay(state,age),day,'the same answer every time');
+    if(moments.some(Boolean)&&!moments.every(Boolean)){partial++;assert.equal(day,false,'a partly covered day stays in the 3D world');}
+    if(moments.every(Boolean))whole++;
+  }
+  assert.ok(whole>=1,'at least one of these lives is fully painted');
+  assert.ok(partial>=1,'the fixture still includes a life the art covers only in part, which is what swapped worlds');
+});

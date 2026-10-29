@@ -27,8 +27,8 @@ const svg=(tag,attrs,text)=>{const node=document.createElementNS(NS,tag);for(con
 // The chart of the years: one line, one zero, contraction years marked.
 function growthChart(rows){
  const figure=el('figure'),caption=el('figcaption','Sampled GDP growth · % per year'),chart=document.createElementNS(NS,'svg');
- chart.classList.add('economy-chart');chart.setAttribute('viewBox','0 0 300 142');chart.setAttribute('role','img');chart.setAttribute('aria-label','Sampled GDP growth · % per year');
- const first=rows[0].age,last=rows.at(-1).age,min=Math.min(0,...rows.map(r=>r.growth)),max=Math.max(0,...rows.map(r=>r.growth)),span=max-min||1,x=a=>34+(a-first)/(last-first)*250,y=v=>107-(v-min)/span*78;
+ chart.classList.add('economy-chart');chart.setAttribute('viewBox','0 0 300 112');chart.setAttribute('role','img');chart.setAttribute('aria-label','Sampled GDP growth · % per year');
+ const first=rows[0].age,last=rows.at(-1).age,min=Math.min(0,...rows.map(r=>r.growth)),max=Math.max(0,...rows.map(r=>r.growth)),span=max-min||1,x=a=>34+(a-first)/(last-first)*250,y=v=>86-(v-min)/span*58;
  chart.append(svg('line',{x1:34,x2:284,y1:y(0),y2:y(0),stroke:'#b4b9a9'}));
  // The zero line is the reference the metres are measured from, so it is always
  // labelled. A bound that would print on top of another number is left out.
@@ -36,8 +36,8 @@ function growthChart(rows){
  for(const n of new Set(marks))chart.append(svg('text',{x:29,y:y(n)+4,'text-anchor':'end'},n.toFixed(1)));
  chart.append(svg('polyline',{points:rows.map(r=>x(r.age)+','+y(r.growth)).join(' '),fill:'none',stroke:'#526b60','stroke-width':2}));
  for(const row of rows)chart.append(svg('circle',{cx:x(row.age),cy:y(row.growth),r:row.growth<0?3.2:1.7,fill:row.growth<0?'#a32750':'#526b60'}));
- for(const n of [...new Set([first,Math.round((first+last)/2),last])])chart.append(svg('text',{x:x(n),y:125,'text-anchor':'middle'},n));
- chart.append(svg('text',{x:34,y:140},'Age'));figure.append(caption,chart);return figure;
+ for(const n of [...new Set([first,Math.round((first+last)/2),last])])chart.append(svg('text',{x:x(n),y:104,'text-anchor':'middle'},n));
+ chart.append(svg('text',{x:29,y:104,'text-anchor':'end'},'Age'));figure.append(caption,chart);return figure;
 }
 // The band that always shows the year around you: the chart, three full-width
 // meters measured from a centre line, and what the year did to this life.

@@ -75,6 +75,26 @@ ENCOUNTERS.push(
   option('not','Not now',{},'You let someone else give the dog a home.'),
   option('adopt','Bring the dog home',{cash:-3000,wellbeing:3,flag:'dog'},'You brought the dog home. Mornings now began with a walk.') ]}
 );
+// Circumstances taken from documented lives, not invented ones. The register of
+// sources, limits and mechanics is in research/lives.md. These are composites:
+// the pattern is observed, the person facing it in the game is not a real one.
+ENCOUNTERS.push(
+ {id:'geo_arbitrage',category:'work',min:22,max:45,title:'Work that pays in another currency',
+  prompt:'A client abroad will pay in their own currency. The work is the work you already know. The city you do it in does not have to be the city you live in.',options:[
+  option('move','Move where the money is and the rent is not',{cash:9000,wellbeing:2,skills:{iq:1},flag:'geo'},'You moved. The money arrived in a currency that did not care about your rent, and for a while the arithmetic worked. Most people who work this way have been doing it for three years or less.'),
+  option('stay','Stay and take the work from where you are',{cash:3500,wellbeing:1},'You took the work without moving. The money was smaller than the one you were offered elsewhere, and the evenings stayed with your household.'),
+  option('decline','Turn it down and keep your days local',{wellbeing:2,skills:{craft:1}},'You kept your days local. Nothing about your life was rearranged, and nothing about it was tried.') ]},
+ {id:'gap_year',category:'work',min:28,max:55,title:'A year with nothing on paper',
+  prompt:'You could stop for a year. No salary, no pension, no proof of anything, and a free year to find out what you would do with it. People have done this in their forties and come back different.',options:[
+  option('stop','Take the year and spend it finding the next thing',{cash:-14000,wellbeing:5,skills:{craft:2,iq:1},flag:'gap'},'You stopped. The first month you slept. By the third you were trying one new thing a week. A year later you had less money and a direction.'),
+  option('pieces','Take it in pieces, unpaid time inside the year',{cash:1500,wellbeing:2},'You took the time in pieces. Nobody at work noticed, and on most weeks neither did you.'),
+  option('steady','Keep the salary and the certainty',{cash:6000,wellbeing:-1},'You kept the salary and the certainty. The certainty was worth having. That is not a criticism.') ]},
+ {id:'geo_expiry',category:'work',min:25,max:60,title:'The clock on the arrangement',
+  prompt:'Arrangements like this are often short. The client changes its mind, the tax question changes, or the cheap room becomes your life and stops being cheap.',
+  eligible:s=>s.story.flags.geo!==undefined&&s.age-s.story.flags.geo>=3,options:[
+  option('settle','Turn it into a permanent address',{cash:-3000,wellbeing:3,flag:'settled'},'You traded the movement for a permanent address. The arithmetic got worse and the ground got steadier.'),
+  option('again','Move again and see whether the next place holds',{cash:-6000,wellbeing:-1,flag:'geo_again'},'You moved again. It held for a while, the way the last one did.'),
+  option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
 ENCOUNTERS.push(...LESSONS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
