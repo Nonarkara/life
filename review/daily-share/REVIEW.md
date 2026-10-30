@@ -48,3 +48,15 @@ or recipient delivery verified. Cancellation/fallback branches have executable
 API tests; physical native share sheets require device testing. Other3native
 languages have payload tests, not native editorial certification. The earlier
 reported character-eye artwork defect is outside this sharing pass and remains.
+
+## Public delivery verified
+Code0f30944/runtimea1367512e453/Pages1a143938. Both hosts match directcourse
+entries/headers/20assetURLs; verify-result-sharing.py additionally matches intake,
+birthcode, share-result module and readonlyfixture bytes on bothhosts. Receipts:
+public-delivery.json and share-delivery.json. Public renderer shows daily65/26
+and ordinary70/68. The production share request returned Sharing cancelled;
+no recipient selected. No console warnings/errors observed. The actualdefault
+1280pxpublicviewport fits horizontally. production-preview.png records the
+released UI; production-cancelled.png records observed state. Sourcegeometry
+candidate and production differ only by readonlywarningdata-native annotation,
+not game styles/logic. Existing saves were not replaced; no Begin was clicked.

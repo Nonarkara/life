@@ -1,0 +1,65 @@
+{
+  "build": "a1367512e453",
+  "checks": [
+    {
+      "url": "https://life.nonarkara.org/intake/",
+      "match": true,
+      "sha256": "7854371c8589618280ccff0eb186b50dfc3881703aede92a6a643c4a544a7fc5",
+      "expected": "7854371c8589618280ccff0eb186b50dfc3881703aede92a6a643c4a544a7fc5"
+    },
+    {
+      "url": "https://life.nonarkara.org/intake/intake.js",
+      "match": true,
+      "sha256": "8b76a00f36e7a03648c1fdfc87f4d5421d8d9d04562ce4a927f50334b0486706",
+      "expected": "8b76a00f36e7a03648c1fdfc87f4d5421d8d9d04562ce4a927f50334b0486706"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/birthcode.js",
+      "match": true,
+      "sha256": "23b6f024c6a5045c532e58d5221f11d70252264c0dfa0d61b0a9511a68314963",
+      "expected": "23b6f024c6a5045c532e58d5221f11d70252264c0dfa0d61b0a9511a68314963"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/share-result.js",
+      "match": true,
+      "sha256": "1553131474766c12a2ba92601f00bac75e718b3e40d7e871553139444810e488",
+      "expected": "1553131474766c12a2ba92601f00bac75e718b3e40d7e871553139444810e488"
+    },
+    {
+      "url": "https://life.nonarkara.org/study/share-result.html",
+      "match": true,
+      "sha256": "56dfc40130ec93b03a676f38f8525dd636ddca7e95ed8da2727d89df2623e393",
+      "expected": "56dfc40130ec93b03a676f38f8525dd636ddca7e95ed8da2727d89df2623e393"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/intake/",
+      "match": true,
+      "sha256": "7854371c8589618280ccff0eb186b50dfc3881703aede92a6a643c4a544a7fc5",
+      "expected": "7854371c8589618280ccff0eb186b50dfc3881703aede92a6a643c4a544a7fc5"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/intake/intake.js",
+      "match": true,
+      "sha256": "8b76a00f36e7a03648c1fdfc87f4d5421d8d9d04562ce4a927f50334b0486706",
+      "expected": "8b76a00f36e7a03648c1fdfc87f4d5421d8d9d04562ce4a927f50334b0486706"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/birthcode.js",
+      "match": true,
+      "sha256": "23b6f024c6a5045c532e58d5221f11d70252264c0dfa0d61b0a9511a68314963",
+      "expected": "23b6f024c6a5045c532e58d5221f11d70252264c0dfa0d61b0a9511a68314963"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/share-result.js",
+      "match": true,
+      "sha256": "1553131474766c12a2ba92601f00bac75e718b3e40d7e871553139444810e488",
+      "expected": "1553131474766c12a2ba92601f00bac75e718b3e40d7e871553139444810e488"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/study/share-result.html",
+      "match": true,
+      "sha256": "56dfc40130ec93b03a676f38f8525dd636ddca7e95ed8da2727d89df2623e393",
+      "expected": "56dfc40130ec93b03a676f38f8525dd636ddca7e95ed8da2727d89df2623e393"
+    }
+  ]
+}
