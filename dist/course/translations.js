@@ -1390,6 +1390,9 @@ Work slows. Your time becomes your own again.|งานเริ่มเบา�
 Floodwater damages the family home. Repairs take money and time.|น้ำท่วมบ้าน การซ่อมแซมใช้ทั้งเงินและเวลา|洪水损坏了家，修复需要金钱和时间。|家が浸水し、修理にお金と時間がかかります。|홍수로 집이 망가졌습니다. 수리에 돈과 시간이 듭니다.
 Your father dies. The family has to find a different rhythm.|พ่อจากไป ครอบครัวต้องปรับชีวิตใหม่|父亲离世，家人需要重新适应生活。|父を亡くし、家族は新しい暮らし方を探します。|아버지가 세상을 떠났습니다. 가족은 새로운 일상을 찾아야 합니다.
 Your mother dies. Familiar places carry different memories.|แม่จากไป สถานที่คุ้นเคยมีความทรงจำเปลี่ยนไป|母亲离世，熟悉的地方承载了不同的回忆。|母を亡くし、見慣れた場所にも違う記憶が重なります。|어머니가 세상을 떠났습니다. 익숙한 장소의 기억도 달라집니다.
+There is little to inherit.|มรดกที่ตกทอดมีเพียงเล็กน้อย|可继承的东西很少。|受け継ぐものはほとんどありません。|물려받을 것이 거의 없습니다.
+A modest inheritance reaches you.|มรดกจำนวนไม่มากตกมาถึงคุณ|你得到一笔不多的遗产。|ささやかな遺産があなたに届きます。|소박한 유산이 당신에게 닿습니다.
+A substantial inheritance reaches you.|มรดกก้อนใหญ่ตกมาถึงคุณ|你得到一笔可观的遗产。|相当な遺産があなたに届きます。|상당한 유산이 당신에게 닿습니다.
 A work interruption reduces your personal funds.|งานสะดุด เงินส่วนตัวของคุณลดลง|工作中断，你的个人资金减少。|仕事が途切れ、個人のお金が減ります。|일이 중단되어 개인 자금이 줄었습니다.
 An unexpected commission or extra work brings a little breathing room.|งานพิเศษที่ไม่ได้คาดไว้ช่วยให้พอมีเงินเหลือ|意外的委托或额外工作带来一些余裕。|思いがけない依頼や仕事で、少し余裕が生まれます。|뜻밖의 의뢰나 추가 일이 작은 여유를 줍니다.
 A health setback interrupts your plans.|ปัญหาสุขภาพทำให้แผนสะดุด|健康问题打乱了计划。|体調を崩し、予定が中断します。|건강 문제로 계획이 중단됩니다.

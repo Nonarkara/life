@@ -11,7 +11,7 @@ export function pathwayPeriod(state,roll){
  const routes=availablePathways(state.age);const route=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');
  if(state.age<15||state.age>=60)return {route,cash:0,learning:0,incomeFactor:1,description:''};
  const family=state.intake?.upbringing??'middle';
- const support=state.age<25?{constrained:2000,middle:6000,comfortable:12000}[family]:0;
+ const support=state.age<25?{constrained:1000,middle:6000,comfortable:24000}[family]:0;
  const merit=state.pivotFlags?.meritScholar?12000:0;
  const craftBonus=Math.min(16000,(state.skills?.craft??0)*450+(state.skills?.drive??0)*350);
  const choices={
