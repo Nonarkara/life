@@ -26,6 +26,7 @@ import {rememberedMoments} from './recap.js';
 import {newStory,encounterById,storyText,resolveEncounter} from './encounters.js';
 import {availablePathways,PATHWAYS} from './pathways.js';
 import {pendingPivots,applyPivot,locksFor,openOptions,ERAS} from './pivots.js';
+import {inWorldOrder} from './option-order.js';
 import {stationAlternatives} from './alternatives.js';
 import {childhoodChapter,wombMarkup} from './childhood.js';
 import {TRAITS,personality,capacities,capacityHistory,comparison} from './personality.js';
@@ -97,7 +98,7 @@ function questions(){
  const question=document.createElement('h2');question.id='pivot-title';question.textContent=pivot.prompt;
  const context=document.createElement('p');context.className='decision-context';context.textContent=pivot.context;
  const list=document.createElement('div');list.className='pivot-options';
- for(const option of openOptions(pivot,state)){
+ for(const option of inWorldOrder(openOptions(pivot,state),state.seed,pivot.id+state.age)){
   const button=document.createElement('button');button.type='button';button.className='pivot-option';
   const number=choiceSymbol(choiceSymbolKey(option,{pivot}));
   const label=document.createElement('span');label.className='pivot-label';label.textContent=option.label;
@@ -153,7 +154,7 @@ function renderEncounter(){
  $('chapter').textContent='A TURN IN THE PATH';$('stage-count').textContent='';$('title').textContent=storyText(scene.title,state.story);
  $('narrative').hidden=false;$('narrative').textContent=storyText(scene.prompt,state.story);
  {const stop=document.createElement('p');stop.className='encounter-stop';stop.textContent='Time stops until you choose.';root.append(stop);}
- for(const choice of scene.options){const button=document.createElement('button');button.type='button';button.className='encounter-choice';button.disabled=!choiceAvailable(state,choice);const label=document.createElement('span');label.textContent=choice.label;button.append(choiceSymbol(choiceSymbolKey(choice)),label);
+ for(const choice of inWorldOrder(scene.options,state.seed,scene.id+state.age)){const button=document.createElement('button');button.type='button';button.className='encounter-choice';button.disabled=!choiceAvailable(state,choice);const label=document.createElement('span');label.textContent=choice.label;button.append(choiceSymbol(choiceSymbolKey(choice)),label);
  const terms=[];if(choice.cash<0)terms.push('Cost: '+money(-choice.cash));if(choice.cash>0)terms.push('Income: '+money(choice.cash));if(choice.uncertain)terms.push('Sales uncertain');
  if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}
  button.onclick=()=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before)showResult(before,state,{label:choice.label});render();};root.append(button);}

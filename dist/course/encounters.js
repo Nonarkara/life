@@ -90,9 +90,9 @@ ENCOUNTERS.push(
   option('decline','Turn it down and keep your days local',{wellbeing:2,skills:{craft:1}},'You kept your days local. Nothing about your life was rearranged, and nothing about it was tried.') ]},
  {id:'gap_year',category:'work',min:28,max:55,title:'A year with nothing on paper',
   prompt:'You could stop for a year. No salary, no pension, no proof of anything, and a free year to find out what you would do with it. People have done this in their forties and come back different.',options:[
-  option('stop','Take the year and spend it finding the next thing',{cash:-14000,wellbeing:5,skills:{craft:2,iq:1},flag:'gap'},'You stopped. The first month you slept. By the third you were trying one new thing a week. A year later you had less money and a direction.'),
+  {...option('stop','Take the year and spend it finding the next thing',{cash:-14000,wellbeing:5,skills:{craft:2,iq:1},flag:'gap'},'You stopped. The first month you slept. By the third you were trying one new thing a week. A year later you had less money and a direction.'),later:[{after:5,cash:-40000,text:'The gap on your record made the next job slower to find.'}]},
   option('pieces','Take it in pieces, unpaid time inside the year',{cash:1500,wellbeing:2},'You took the time in pieces. Nobody at work noticed, and on most weeks neither did you.'),
-  option('steady','Keep the salary and the certainty',{cash:6000,wellbeing:-1},'You kept the salary and the certainty. The certainty was worth having. That is not a criticism.') ]},
+  {...option('steady','Keep the salary and the certainty',{cash:6000,wellbeing:-1},'You kept the salary and the certainty. The certainty was worth having. That is not a criticism.'),later:[{after:5,wellbeing:-1,text:'You sometimes wondered what the year would have been.'}]} ]},
  {id:'geo_expiry',category:'work',min:25,max:60,title:'The clock on the arrangement',
   prompt:'Arrangements like this are often short. The client changes its mind, the tax question changes, or the cheap room becomes your life and stops being cheap.',
   eligible:s=>s.story.flags.geo!==undefined&&s.age-s.story.flags.geo>=3,options:[

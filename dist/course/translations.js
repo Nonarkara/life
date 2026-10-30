@@ -1390,6 +1390,8 @@ Work slows. Your time becomes your own again.|งานเริ่มเบา�
 Floodwater damages the family home. Repairs take money and time.|น้ำท่วมบ้าน การซ่อมแซมใช้ทั้งเงินและเวลา|洪水损坏了家，修复需要金钱和时间。|家が浸水し、修理にお金と時間がかかります。|홍수로 집이 망가졌습니다. 수리에 돈과 시간이 듭니다.
 Your father dies. The family has to find a different rhythm.|พ่อจากไป ครอบครัวต้องปรับชีวิตใหม่|父亲离世，家人需要重新适应生活。|父を亡くし、家族は新しい暮らし方を探します。|아버지가 세상을 떠났습니다. 가족은 새로운 일상을 찾아야 합니다.
 Your mother dies. Familiar places carry different memories.|แม่จากไป สถานที่คุ้นเคยมีความทรงจำเปลี่ยนไป|母亲离世，熟悉的地方承载了不同的回忆。|母を亡くし、見慣れた場所にも違う記憶が重なります。|어머니가 세상을 떠났습니다. 익숙한 장소의 기억도 달라집니다.
+The gap on your record made the next job slower to find.|ช่วงว่างในประวัติทำให้หางานต่อไปช้าลง|履历上的空白让下一份工作更难找。|経歴の空白のせいで、次の仕事は見つかりにくくなった。|이력서의 공백 때문에 다음 일자리를 구하는 데 더 오래 걸렸다.
+You sometimes wondered what the year would have been.|บางครั้งคุณก็สงสัยว่าปีนั้นจะเป็นอย่างไร|你有时会想，那一年本来会是什么样子。|あの一年がどんなものだったか、ときどき考えた。|그 한 해가 어땠을지 가끔 궁금했다.
 The balance keeps growing|ยอดหนี้ยังโตขึ้นเรื่อยๆ|欠款还在不断增长|残高は増え続けている|잔액이 계속 불어난다
 What you owe has grown past what a year of your income can cover, and interest is added every month. The bank has stopped sending reminders and started sending letters.|หนี้ที่ค้างอยู่โตเกินกว่ารายได้หนึ่งปีจะครอบคลุม และดอกเบี้ยถูกเพิ่มทุกเดือน ธนาคารเลิกส่งข้อความเตือนและเริ่มส่งจดหมาย|你欠的钱已经超过一年收入能覆盖的数额，利息每个月都在累加。银行不再发提醒，开始寄信了。|借金は一年分の収入では返せないほど膨らみ、利息は毎月加算されている。銀行は督促の連絡をやめ、手紙を送り始めた。|빚이 일 년 치 소득으로는 감당할 수 없을 만큼 불었고 이자는 매달 붙는다. 은행은 안내 문자를 멈추고 우편물을 보내기 시작했다.
 Debt grows while you decide. Facing it early costs less than facing it late.|หนี้โตขึ้นระหว่างที่คุณตัดสินใจ เผชิญหน้าเร็วเสียน้อยกว่าเผชิญหน้าช้า|你犹豫的时候债务在增长。早面对比晚面对代价更小。|迷っている間にも借金は増える。早く向き合うほうが、遅く向き合うより安くつく。|고민하는 사이에도 빚은 늘어난다. 일찍 마주하는 쪽이 늦게 마주하는 쪽보다 덜 든다.
