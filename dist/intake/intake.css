@@ -53,3 +53,4 @@
 .intake-page .lives li{display:grid;grid-template-columns:1fr auto;gap:0 12px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule)}
 .intake-page .lives li span{grid-column:1;color:var(--muted);font-size:var(--body)}
 .intake-page .lives li a{grid-column:2;grid-row:1/3;align-self:center;color:var(--ink);text-underline-offset:3px;font-size:var(--body)}
+#birth-card textarea{box-sizing:border-box;width:100%;font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:4px}#birth-card textarea:focus-visible{outline:2px solid var(--ink);outline-offset:2px}

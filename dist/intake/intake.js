@@ -3,7 +3,8 @@ import {initSettings,t} from '../course/i18n.js';
 import {BAND_REGIONS,REGIONS,COUNTRIES,household} from '../course/regions.js';
 import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../course/birthcode.js';
 import {readLives} from '../course/lives.js';
-let points=balanced(),selected='physique';const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
+import {deliverShare,copyShare} from '../course/share-result.js';
+let points=balanced(),selected='physique',shareRevision=0;const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 function node(tag,attrs,text){const el=document.createElementNS(NS,tag);for(const[key,value]of Object.entries(attrs))el.setAttribute(key,value);if(text!==undefined)el.textContent=text;return el;}
 function draw(){const root=$('intake-radar');root.replaceChildren();const point=(i,value)=>{const a=-Math.PI/2+i*Math.PI*2/5;return[180+Math.cos(a)*64*value/10,135+Math.sin(a)*64*value/10]};const polygon=value=>AXES.map((a,i)=>point(i,typeof value==='number'?value:value[a.key]).join(',')).join(' ');for(const ring of [2,5,10])root.append(node('polygon',{points:polygon(ring),fill:'none',stroke:'#b4b9a9','stroke-width':1}));root.append(node('polygon',{points:polygon(points),fill:'#f59e0b','fill-opacity':.2,stroke:'#a35d00','stroke-width':2}));AXES.forEach((axis,i)=>{const edge=point(i,10),label=point(i,16);root.append(node('line',{x1:180,y1:135,x2:edge[0],y2:edge[1],stroke:'#b4b9a9'}));const group=node('g',{tabindex:0,role:'button','aria-pressed':String(selected===axis.key),'aria-label':t(axis.label)+' '+points[axis.key]+'/10'});group.append(node('rect',{x:label[0]-42,y:label[1]-18,width:84,height:42,fill:'transparent'}));group.append(node('text',{x:label[0],y:label[1],'text-anchor':'middle'},t(axis.key==='iq'?'IQ':axis.key==='eq'?'EQ':axis.label)));group.append(node('text',{x:label[0],y:label[1]+19,'text-anchor':'middle'},String(points[axis.key])));const choose=()=>{selected=axis.key;draw();root.querySelector(`[aria-pressed="true"]`)?.focus();};group.onclick=choose;group.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose();}};root.append(group);});$('selected-points').textContent=points[selected]+' / 10';$('selected-axis').textContent=AXES.find(a=>a.key===selected).label;$('point-minus').disabled=points[selected]===0;$('point-plus').disabled=points[selected]===10;}
 // The birth lottery: show the draw and its odds before the life begins.
@@ -23,7 +24,7 @@ function card(life){
  const facts=[['Place',t(b.place)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],['Upbringing',t(band)]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
- $('birth-shared').textContent='';
+ shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }
 function enter(options){try{lastOptions=options;drawn=draw_life(options);card(drawn);$('birth-card').showModal();}catch{$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}}
 $('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/';}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
@@ -31,7 +32,18 @@ $('birth-again').onclick=()=>{drawn=draw_life(lastOptions);card(drawn);};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
 // family and place with the same luck, and chooses for themselves.
 export const birthLink=life=>birthURL(life);
-$('birth-share').onclick=async()=>{const link=birthLink(drawn),text=t('I was born in {place}, into {home}. About 1 in {n} lives begin like this.').replace('{place}',t(drawn.birth.place)).replace('{home}',t(drawn.birth.home)).replace('{n}',birthOdds(drawn,lastOptions).toLocaleString('en'))+' '+t('Same birth, your choices:');try{if(navigator.share){await navigator.share({title:'Life2.0',text,url:link});}else{await navigator.clipboard.writeText(text+' '+link);$('birth-shared').textContent=t('Copied. Paste it anywhere.');}}catch{}};
+const birthCopy=document.createElement('button');birthCopy.type='button';birthCopy.className='quiet';birthCopy.textContent=t('Copy birth link');$('birth-share').after(birthCopy);
+const birthManual=document.createElement('textarea');birthManual.readOnly=true;birthManual.hidden=true;birthManual.rows=3;birthManual.setAttribute('aria-label',t('Birth text and link'));$('birth-shared').after(birthManual);
+const shareBirth=async copyOnly=>{
+ const action=copyOnly?birthCopy:$('birth-share'),revision=shareRevision,life=drawn;
+ const payload={title:'Life2.0',url:birthLink(life),text:copyOnly?'':t('In Life2.0, I was born in {place}, into {home}. About 1 in {n} game births begin like this.').replace('{place}',t(life.birth.place)).replace('{home}',t(life.birth.home)).replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'))+' '+t('Same birth, your choices:')};
+ if(!payload.url)return;action.disabled=true;birthManual.hidden=true;const status=$('birth-shared');status.hidden=false;status.textContent=t('Preparing share…');
+ const showManual=()=>{if(revision!==shareRevision)return;birthManual.value=(payload.text+' '+payload.url).trim();birthManual.hidden=false;};
+ try{const outcome=await(copyOnly?copyShare:deliverShare)(payload,navigator,{onWaiting:()=>{if(revision===shareRevision){status.textContent=t('Still waiting for sharing. You can copy the text below.');showManual();}}});
+  if(revision!==shareRevision)return;status.textContent=t({copied:'Copied. Paste it anywhere.',shared:'Passed to your device’s sharing system.',cancelled:'Sharing cancelled.',manual:'Sharing was unavailable. Select and copy the text below.',unavailable:'This birth cannot be shared.'}[outcome]);if(outcome==='manual'){showManual();birthManual.focus();birthManual.select();}
+ }finally{if(revision===shareRevision)action.disabled=false;}
+};
+$('birth-share').onclick=()=>shareBirth(false);birthCopy.onclick=()=>shareBirth(true);
 $('random-life').onclick=()=>enter({});$('intake-form').onsubmit=e=>{e.preventDefault();enter({sex:$('body-profile').value,upbringing:$('upbringing').value,country:$('country').value,attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
 try{const saved=JSON.parse(localStorage.getItem('life-course-v2'));if(validate(saved)&&saved.stage!=='recap'){$('continue-life').hidden=false;$('continue-life').textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));}}catch{}
 // Name the real birthplaces behind each upbringing, so the choice means something.

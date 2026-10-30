@@ -230,3 +230,6 @@ body.console-mode>header{flex:none}
 /* Keep each overlap label/value together while allowing the reading to wrap. */
 .ending-ikigai dd.ikigai-overlaps{flex-wrap:wrap;row-gap:4px}.ikigai-overlaps>span{max-width:100%;overflow-wrap:anywhere}
 .ending-share textarea{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:4px}.ending-share :is(input,textarea):focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
+/* Optional image work stays behind one disclosure; the result actions lead. */
+.life-card-tools{flex-basis:100%;min-width:0}.life-card-tools>summary{cursor:pointer;font-weight:600;width:fit-content;padding:3px 0}.life-card-tools label{margin:8px 0;max-width:40ch}.life-card-tools img{display:block;width:100%;height:auto;max-width:600px;margin:8px 0}.life-card-actions{display:flex;gap:16px;flex-wrap:wrap}.life-card-tools .fine{margin:4px 0}
+.life-card-tools [hidden]{display:none}

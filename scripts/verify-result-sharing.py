@@ -1,9 +1,12 @@
 """Verify direct intake/new sharing modules against the released local bytes."""
-import concurrent.futures, hashlib, json, subprocess
+import argparse, concurrent.futures, hashlib, json, subprocess
 from pathlib import Path
 root=Path(__file__).resolve().parent.parent
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--receipt',default='review/daily-share/share-delivery.json')
+receipt_path=parser.parse_args().receipt
 build=json.loads((root/'out/build.json').read_text())['build']
-paths=['/intake/','/intake/intake.js','/course/birthcode.js','/course/share-result.js','/study/share-result.html']
+paths=['/intake/','/intake/intake.js','/course/birthcode.js','/course/share-result.js','/course/card-preparation.js','/course/card-view.js','/course/life-card.js','/course/ending.js','/study/share-result.html','/study/share-result.js']
 def check(item):
  host,path=item;local=root/'out'/path.lstrip('/');local=local/'index.html' if path.endswith('/') else local
  expected=local.read_bytes();url=host+path
@@ -11,6 +14,6 @@ def check(item):
  return {'url':url,'match':response.returncode==0 and response.stdout==expected,'sha256':hashlib.sha256(response.stdout).hexdigest(),'expected':hashlib.sha256(expected).hexdigest()}
 with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
  rows=list(pool.map(check,[(host,path)for host in ['https://life.nonarkara.org','https://life-5wz.pages.dev']for path in paths]))
-receipt={'build':build,'checks':rows};dest=root/'review/daily-share/share-delivery.json';dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(json.dumps(receipt,indent=2)+'\n')
+receipt={'build':build,'checks':rows};dest=root/receipt_path;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(json.dumps(receipt,indent=2)+'\n')
 assert all(row['match']for row in rows),json.dumps(receipt,indent=2)
-print('Both public hosts match intake, birth code, sharing module and readonly result fixture.')
+print('Both public hosts match intake, birth code, all sharing modules and readonly result fixture.')

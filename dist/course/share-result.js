@@ -16,5 +16,18 @@ export async function deliverShare(payload,api,{timeoutMs=10000,onWaiting}={}){
   const timer=setTimeout(()=>onWaiting?.(),timeoutMs);
   try{await api.share(payload);return 'shared';}catch(error){if(error?.name==='AbortError')return 'cancelled';if(error?.name==='InvalidStateError')return 'manual';}finally{clearTimeout(timer);}
  }
- try{if(typeof api?.clipboard?.writeText!=='function')return 'manual';await deadline(api.clipboard.writeText(payload.text+' '+payload.url),timeoutMs);return 'copied';}catch{return 'manual';}
+ return copyShare(payload,api,{timeoutMs});
+}
+
+// Explicit copying never opens a native share sheet.
+export async function copyShare(payload,api,{timeoutMs=10000}={}){
+ if(!payload)return 'unavailable';
+ try{if(typeof api?.clipboard?.writeText!=='function')return 'manual';await deadline(api.clipboard.writeText((payload.text?payload.text+' ':'')+payload.url),timeoutMs);return 'copied';}catch{return 'manual';}
+}
+export function canShareCard(file,api){try{return !!file&&typeof api?.share==='function'&&typeof api?.canShare==='function'&&api.canShare({files:[file]})===true;}catch{return false;}}
+// This runs synchronously from the click up to api.share: the image is already ready.
+export async function deliverCard(payload,api,{timeoutMs=10000,onWaiting}={}){
+ if(!canShareCard(payload?.files?.[0],api))return 'unavailable';
+ const timer=setTimeout(()=>onWaiting?.(),timeoutMs);
+ try{await api.share(payload);return 'shared';}catch(error){return error?.name==='AbortError'?'cancelled':error?.name==='InvalidStateError'?'busy':'failed';}finally{clearTimeout(timer);}
 }

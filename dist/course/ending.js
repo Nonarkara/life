@@ -6,10 +6,11 @@ import {netWorth} from './finance.js';
 import {preferences} from './i18n.js';
 import {rememberedMoments} from './recap.js';
 import {baselineComparison} from './baseline.js';
-import {recordLife,rememberWords} from './lives.js';
+import {recordLife} from './lives.js';
 import {birthURL} from './birthcode.js';
-import {resultShare,deliverShare} from './share-result.js';
-const NS='http://www.w3.org/2000/svg';let resizeObserver;
+import {resultShare,deliverShare,copyShare} from './share-result.js';
+import {lifeCardView} from './card-view.js';
+const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
 export function growthWindows(history){
@@ -19,7 +20,7 @@ export function growthWindows(history){
 }
 export function renderEnding(root,state,{storage}={}){
  if(storage===undefined){try{storage=localStorage;}catch{storage=null;}}
- resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
+ releaseCard?.();resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
  // Where the life went leads the ending; the resource tracks follow it.
  const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);root.append(route);new ResizeObserver(()=>drawRouteMap(map,state)).observe(map);
  // Ikigai: four readings and the overlap between them. Money alone cannot fill it.
@@ -39,14 +40,12 @@ export function renderEnding(root,state,{storage}={}){
  try{recordLife(storage,state,{ikigai:reading?.score});}catch{}
  // The way to hand this life on: the same birth, for someone else to live their own way.
  const link=birthURL(state);
- const share=document.createElement('section');share.className='ending-share';const lineLabel=document.createElement('label');lineLabel.textContent=t('One line for your life card');const words=document.createElement('input');words.type='text';words.maxLength=90;words.placeholder='In your own words';lineLabel.append(words);const save=document.createElement('button');save.type='button';save.className='quiet';save.textContent='Save your life card';const status=document.createElement('p');status.className='fine';status.setAttribute('role','status');status.hidden=true;const send=document.createElement('button');send.type='button';send.textContent='Send this birth to someone';send.className='primary';
+ const share=document.createElement('section');share.className='ending-share';const status=document.createElement('p');status.className='fine';status.setAttribute('role','status');status.hidden=true;const send=document.createElement('button');send.type='button';send.className='primary';const copy=document.createElement('button');copy.type='button';copy.textContent=t('Copy result');copy.className='quiet';
  const manual=document.createElement('textarea');manual.readOnly=true;manual.hidden=true;manual.rows=3;manual.setAttribute('aria-label',t('Result text and birth link'));manual.style.width='100%';manual.style.font='inherit';
  send.textContent=t('Share this result');
- send.onclick=async()=>{send.disabled=true;manual.hidden=true;preview.hidden=false;status.hidden=false;status.textContent=t('Preparing share…');try{const payload=resultShare(state,{score:reading?.score,translate:t});const outcome=await deliverShare(payload,navigator,{onWaiting:()=>{status.textContent=t('Still waiting for sharing. You can copy the text below.');manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;}});status.textContent=t({copied:'Copied. Paste it anywhere.',shared:'Share sheet completed.',cancelled:'Sharing cancelled.',unavailable:'This birth cannot be shared.',manual:'Sharing was unavailable. Select and copy the text below.'}[outcome]);if(outcome==='manual'){manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;manual.focus();manual.select();}}finally{send.disabled=false;}};
+ const sendResult=async copying=>{const action=copying?copy:send;action.disabled=true;manual.hidden=true;preview.hidden=false;status.hidden=false;status.textContent=t('Preparing share…');try{const payload=resultShare(state,{score:reading?.score,translate:t});const outcome=await (copying?copyShare:deliverShare)(payload,navigator,{onWaiting:()=>{status.textContent=t('Still waiting for sharing. You can copy the text below.');manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;}});status.textContent=t({copied:'Copied. Paste it anywhere.',shared:'Passed to your device’s sharing system.',cancelled:'Sharing cancelled.',unavailable:'This birth cannot be shared.',manual:'Sharing was unavailable. Select and copy the text below.'}[outcome]);if(outcome==='manual'){manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;manual.focus();manual.select();}}finally{action.disabled=false;}};send.onclick=()=>sendResult(false);copy.onclick=()=>sendResult(true);
  const preview=document.createElement('p');preview.className='fine';preview.textContent=resultShare(state,{score:reading?.score,translate:t})?.text??'';share.append(preview);
- share.append(lineLabel,save,...(link?[send]:[]),status,manual);root.insertBefore(share,route.nextSibling);
- save.onclick=async()=>{status.hidden=false;try{rememberWords(storage,state,words.value.trim());}catch{}const blob=await lifeCard(state,words.value.trim());const file=new File([blob],'life2-card.png',{type:'image/png'});// Phones get the share sheet; computers save the file directly.
- if(matchMedia('(pointer:coarse)').matches&&navigator.canShare?.({files:[file]})){try{await navigator.share({files:[file],title:'Life2.0',text:link?t('Same birth, your choices:')+' '+link:'life.nonarkara.org'});return;}catch{}}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life2-card.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);status.textContent='Saved as life2-card.png.';};
+ const cardTools=lifeCardView(state,storage);releaseCard=cardTools.destroy;share.append(...(link?[send,copy]:[]),cardTools.root,status,manual);root.insertBefore(share,route.nextSibling);
  const frame=document.createElement('div');frame.className='ending-visual';
  const chart=document.createElementNS(NS,'svg');chart.classList.add('ending-chart');chart.setAttribute('role','group');chart.setAttribute('aria-label','Health, wellbeing and cash across age');
  const detail=document.createElement('section');detail.className='ending-reading';
@@ -108,15 +107,4 @@ export function renderEnding(root,state,{storage}={}){
  }
 }
 
-// The life card is drawn from the record alone: no invented praise, no score for a good life.
-export async function lifeCard(state,words){
- const W=1200,H=630,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
- g.fillStyle='#f4efe3';g.fillRect(0,0,W,H);g.fillStyle='#111614';g.fillRect(0,H-44,W,44);
- const map=document.createElement('canvas');map.width=W-96;map.height=300;drawRouteMap(map,state,{width:W-96,height:300});g.drawImage(map,48,170);
- g.fillStyle='#273d35';g.font='600 46px Jost, sans-serif';g.fillText('Life2.0',48,78);
- g.font='26px Jost, sans-serif';g.fillText(t('Born in')+' '+t(state.birth.place)+' · '+t('Age {n}').replace('{n}',state.age),48,124);
- const k=ikigai(state);g.font='600 22px Jost, sans-serif';const pillars=[[t('Physical health'),Math.round(state.health)],[t('Wellbeing'),Math.round(state.wellbeing)],['Ikigai',k?.score??'—']];pillars.forEach(([label,v],i)=>{g.fillText(label+' '+v,48+i*300,510);});
- if(words){g.font='italic 26px Jost, sans-serif';g.fillText('“'+words+'”',48,560);}
- g.fillStyle='#d9dcd2';g.font='16px JetBrains Mono, monospace';g.fillText('LIFE.NONARKARA.ORG',48,H-16);
- return new Promise(r=>c.toBlob(r,'image/png'));
-}
+export {lifeCard} from './life-card.js';
