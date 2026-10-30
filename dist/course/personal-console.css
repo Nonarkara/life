@@ -366,3 +366,13 @@
 /* The life card: front and back, side by side, whole. */
 .card-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
 .card-pair img{display:block;width:100%;height:auto;aspect-ratio:1080/1512;background:#e4e0d4;border:1px solid var(--rule,#b4b9a9)}
+
+/* This life beside the last one. */
+.ending-compare dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:8px 0}
+.ending-compare dt{color:var(--muted,#55645c)}.ending-compare dd{margin:0;font-variant-numeric:tabular-nums}
+
+/* On a phone the ending is a page that scrolls, not a one-third-height window. */
+@media(max-width:1279px){
+ .console-mode.recap-stage .rpg-dock{height:auto;overflow:visible;flex:none}
+ .console-mode.recap-stage .rpg-dock .console-reader,.console-mode.recap-stage .rpg-dock .console-cards,.console-mode.recap-stage .rpg-dock .console-panel{overflow:visible;flex:none;height:auto}
+}

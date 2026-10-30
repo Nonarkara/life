@@ -76,7 +76,9 @@ function back(state){
  const shown=rows.slice(-8);shown.forEach((r,i)=>{const ry=262+i*50;g.fillStyle=INK;g.font='600 30px '+SANS;g.fillText(String(r.age),cols[0],ry);g.font='30px '+SANS;g.fillText(String(Math.round(r.health)),cols[1],ry);g.fillText(String(Math.round(r.wellbeing)),cols[2],ry);g.fillText(r.finance?money(netWorth(r.finance)):'—',cols[3],ry);g.fillStyle=MUTED;g.font='24px '+SANS;g.fillText(r.pathway&&PATHWAYS[r.pathway]?t(PATHWAYS[r.pathway].label):'',cols[4],ry);hair(g,ry+14,M,W-M,RULE,1);});
  // 2 · the moments that moved the numbers most
  const my=262+shown.length*50+30;hair(g,my,M,W-M,INK,3);micro(g,t('What moved it'),M,my+44);
- const moved=e=>Math.abs(e.effects?.wellbeing??0)*3+Math.abs(e.effects?.health??0)*3+Math.abs(e.effects?.cash??0)/20000;
+ // rarer turns are the ones worth keeping on a card
+ const RARE=new Set(['geo_arbitrage','gap_year','l_luck','m_debt','l_phd','l_bottom','l_early_family','geo_expiry']);
+ const moved=e=>Math.abs(e.effects?.wellbeing??0)*3+Math.abs(e.effects?.health??0)*3+Math.abs(e.effects?.cash??0)/20000+(RARE.has(e.id)?4:0);
  const top=[...(state.story?.seen??[])].filter(e=>e.outcome).sort((a,b)=>moved(b)-moved(a)).slice(0,7).sort((a,b)=>a.age-b.age);
  // the starting shape owns the last band; moments fill the space above it, as many as fit whole
  const sy=H-72-250;let ry=my+92;let drawn=0;

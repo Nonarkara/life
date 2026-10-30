@@ -10,6 +10,7 @@ import {recordLife} from './lives.js';
 import {birthURL} from './birthcode.js';
 import {resultShare,deliverShare,copyShare} from './share-result.js';
 import {lifeCardView} from './card-view.js';
+import {replayComparison} from './replay-compare.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
@@ -36,6 +37,11 @@ export function renderEnding(root,state,{storage}={}){
   if(returned.length){const h=document.createElement('h2');h.textContent='What your choices cost later';const ol=document.createElement('ol');for(const c of returned){const li=document.createElement('li'),age=document.createElement('b'),text=document.createElement('span'),from=document.createElement('small');age.textContent='Age '+c.age;from.textContent=LESSONS.find(l=>l.id===c.lesson)?.title??'';text.append(from);text.append(document.createTextNode(c.text+(c.cash?' '+(c.cash>0?'+':'−')+money(Math.abs(c.cash)):'')));li.append(age,text);ol.append(li);}box.append(h,ol);}
   if(taken.length){const h=document.createElement('h2');h.textContent='Lessons this life taught';const ol=document.createElement('ol');ol.className='taught';for(const e of taken){const l=LESSONS.find(x=>x.id===e.id),li=document.createElement('li'),title=document.createElement('b'),chose=document.createElement('span'),lesson=document.createElement('p'),link=document.createElement('a');title.textContent=l.title;chose.textContent='You chose: '+l.options.find(o=>o.id===e.choice).label;lesson.textContent=l.lesson;link.href=l.source;link.target='_blank';link.rel='noopener';link.textContent='Read the essay';li.append(title,chose,lesson);if(l.source)li.append(link);ol.append(li);}box.append(h,ol);}
   root.append(box);}
+ // This life beside the last one, when there was one.
+ {const cmp=replayComparison(state);if(cmp){const box=document.createElement('section');box.className='ending-compare';box.setAttribute('aria-label',t('Compared with your last life'));const h=document.createElement('h2');h.textContent=t('Compared with your last life');box.append(h);
+  const fmt=(v,k)=>k==='baht'?'฿'+Math.round(v).toLocaleString('en'):String(v);const table=document.createElement('dl');for(const [label,before,now,kind] of cmp.rows){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(label);dd.textContent=fmt(before,kind)+' → '+fmt(now,kind);table.append(dt,dd);}box.append(table);
+  if(cmp.split){const p=document.createElement('p');p.textContent=t('The two lives first parted at age {n}. Then: {a}. Now: {b}.').replace('{n}',cmp.split.age).replace('{a}',t(cmp.split.before)).replace('{b}',t(cmp.split.now));box.append(p);}
+  const note=document.createElement('p');note.className='fine';note.textContent=t('Two lives are two stories, not an experiment. The gap is not proof that one choice caused it.');box.append(note);root.append(box);}}
  // A card to keep or send: where you went, what you were, one line in your own words.
  try{recordLife(storage,state,{ikigai:reading?.score});}catch{}
  // The way to hand this life on: the same birth, for someone else to live their own way.
