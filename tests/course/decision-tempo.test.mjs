@@ -41,7 +41,7 @@ import {choiceAvailable} from '../../dist/course/finance.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {undoAnswer} from '../../dist/course/alternatives.js';
 test('an unaffordable house is not published as a road not taken after renting adds cash',()=>{
- let s=begin(newLife(12));
+ let s=begin(newLife(4));
  while(s.stage==='review'){
   if(s.story?.pending)s=resolveEncounter(s,encounterById(s.story.pending.id).options.find(o=>choiceAvailable(s,o)).id,.2);
   for(const p of pendingPivots(s)){const options=openOptions(p,s);s=applyPivot(s,p,options[12%options.length].id);}

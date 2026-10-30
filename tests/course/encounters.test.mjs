@@ -27,7 +27,7 @@ test('marriage is an adult mutual commitment and its marker is recorded only on 
  const married=settle(s,'marry'),together=settle(s,'together');assert.ok(eventsFor(married.history.at(-1)).some(e=>e.type==='married'));assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));assert.ok(validate(married));
 });
 test('choice outcomes preserve unrelated markers and report actual clamped effects',()=>{
- const s=live({...begin(newLife(1)),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');
+ const s=live({...begin(newLife(4)),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');
  assert.ok(eventsFor(next.history.at(-1)).some(e=>e.type==='flood'));assert.ok(eventsFor(next.history.at(-1)).some(e=>e.type==='connection'));assert.equal(next.story.seen.at(-1).effects.wellbeing,1);
 });
 test('complete lives resolve contextual turns, conserve ledger changes and remain serializable',()=>{
@@ -36,7 +36,7 @@ test('complete lives resolve contextual turns, conserve ledger changes and remai
   while(s.stage==='review'){
    const before=s;s=live(s);assert.ok(++turns<=14);if(s.story.pending){const pending=s.story.pending;assert.ok(pending.candidates.includes(pending.id));const options=encounterById(pending.id).options;s=settle(s,options[seed%options.length].id,rand(seed,s.age,'test-outcome'));}
    assert.ok(validate(JSON.parse(JSON.stringify(s))),`seed ${seed} age ${s.age}`);const row=s.history.at(-1),choice=s.story.seen.find(e=>e.age===s.age);
-   assert.equal(row.cash,before.cash-(s.age===30?18000:0));assert.equal(s.finance.receipts.reduce((sum,r)=>sum+r.change,0),netWorth(s.finance));
+   assert.equal(row.cash,before.cash-(s.age===30&&/Floodwater/.test(row.event)?18000:0));assert.equal(s.finance.receipts.reduce((sum,r)=>sum+r.change,0),netWorth(s.finance));
   }
   assert.equal(s.story.pending,null);assert.equal(new Set(s.story.seen.map(e=>e.id)).size,s.story.seen.length);assert.deepEqual(capacityHistory(s).at(-1).reasoning,capacities(s).reasoning);
   const again=replay(s);assert.equal(again.story.seen.length,0);assert.deepEqual(again.intake,s.intake);assert.equal(again.seed,seed);

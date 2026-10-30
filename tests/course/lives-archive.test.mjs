@@ -1,3 +1,4 @@
+import {choiceAvailable} from '../../dist/course/finance.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readLives,recordLife,rememberWords,lifeId,LIVES_KEY,LIVES_MAX} from '../../dist/course/lives.js';
@@ -6,7 +7,7 @@ import {newLife,configureLife,begin,live} from '../../dist/course/sim.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 
 const store=(initial)=>{const data=initial===undefined?{}:{[LIVES_KEY]:initial};return {data,getItem:k=>k in data?data[k]:null,setItem:(k,v)=>{data[k]=String(v);}};};
-const lifeTo=(seed,pick)=>{let s=begin(configureLife(newLife(seed),{}));while(s.stage==='review'){s=live(s);if(s.story?.pending){const e=encounterById(s.story.pending.id);s=resolveEncounter(s,e.options[Math.min(pick,e.options.length-1)].id,.5);}}return s;};
+const lifeTo=(seed,pick)=>{let s=begin(configureLife(newLife(seed),{}));while(s.stage==='review'){s=live(s);if(s.story?.pending){const e=encounterById(s.story.pending.id),o=e.options.filter(o=>choiceAvailable(s,o));s=resolveEncounter(s,o[Math.min(pick,o.length-1)].id,.5);}}return s;};
 
 test('a finished life is kept once, with a code that replays the same birth',()=>{
   const ended=lifeTo(31,0),s=store();

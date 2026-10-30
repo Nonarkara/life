@@ -510,6 +510,9 @@ export const PIVOTS=[
 
 export const pivotById=id=>PIVOTS.find(p=>p.id===id);
 export const pivotsForStation=age=>PIVOTS.filter(p=>p.station===age);
+// A question tied to a plot point is asked only in the worlds where that happened.
+const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools':/father dies/,'stall-takeover':/father dies/,'empty-house':/mother dies/,'take-in':/mother dies/};
+export const occurred=(pivot,state)=>!WHEN[pivot.id]||(state.history??[]).some(r=>r.age===pivot.station&&WHEN[pivot.id].test(r.event??''));
 export const pivotCount=PIVOTS.length;
 
 // Some options are only open to a person in that situation.
@@ -543,7 +546,7 @@ function resolveLuck(option,state){
 // Answering a question changes the life: money, body, mind, skills, the record,
 // and a commitment that holds for the coming five years.
 export function applyPivot(state,pivot,optionId){
-  if(state.stage!=='review'||state.age!==pivot.station||(state.pivots??[]).some(r=>r.station===state.age&&r.pivot===pivot.id)||!openOptions(pivot,state).some(o=>o.id===optionId))return state;
+  if(state.stage!=='review'||state.age!==pivot.station||!occurred(pivot,state)||(state.pivots??[]).some(r=>r.station===state.age&&r.pivot===pivot.id)||!openOptions(pivot,state).some(o=>o.id===optionId))return state;
   const option=pivot.options.find(o=>o.id===optionId);
   if(!option)return state;
   const luck=resolveLuck(option,state);
@@ -586,7 +589,7 @@ export function applyPivot(state,pivot,optionId){
 
 // The questions a station still asks, and the ones already answered.
 export function pendingPivots(state){
-  return pivotsForStation(state.age).filter(pivot=>!(state.pivots??[]).some(record=>record.pivot===pivot.id));
+  return pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&!(state.pivots??[]).some(record=>record.pivot===pivot.id));
 }
 
 // The commitment a question made: an axis cannot go below this for five years.

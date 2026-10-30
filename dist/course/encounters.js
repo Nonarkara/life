@@ -111,7 +111,9 @@ export function eligibleEncounters(state){
 }
 export function offerEncounter(state,roll,keep=()=>true){
  const eligible=eligibleEncounters(state).filter(keep);if(!eligible.length)return state;
- const priority=Math.min(...eligible.map(e=>e.priority??2));let pool=eligible.filter(e=>(e.priority??2)===priority);
+ let priority=Math.min(...eligible.map(e=>e.priority??2));let pool=eligible.filter(e=>(e.priority??2)===priority);
+ // A first-in-line encounter with time left is sometimes held back a station, so lives do not all open the same way.
+ if(priority===1&&pool.every(e=>e.max>state.age)&&(roll*997)%1<.35){const rest=eligible.filter(e=>(e.priority??2)>1);if(rest.length){priority=Math.min(...rest.map(e=>e.priority??2));pool=rest.filter(e=>(e.priority??2)===priority);}}
  const last=state.story.seen.at(-1),fresh=pool.filter(e=>e.category!==byId.get(last?.id)?.category);if(fresh.length)pool=fresh;
  const selected=pool[Math.min(pool.length-1,Math.floor(roll*pool.length))];
  return {...state,story:{...state.story,pending:{id:selected.id,age:state.age,candidates:eligible.map(e=>e.id)}}};
