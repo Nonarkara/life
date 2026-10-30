@@ -1,0 +1,70 @@
+[
+  {
+    "label": "Final standard phone",
+    "build": "4d386ba6da75",
+    "height": 844,
+    "pageWidth": 390,
+    "share": {
+      "bottom": 472.6875,
+      "height": 160.796875,
+      "left": 12,
+      "right": 378,
+      "top": 311.890625,
+      "width": 366,
+      "x": 12,
+      "y": 311.890625
+    },
+    "width": 390
+  },
+  {
+    "label": "Final desktop without overlay",
+    "build": "4d386ba6da75",
+    "height": 900,
+    "pageWidth": 1440,
+    "share": {
+      "bottom": 397.4921875,
+      "height": 104.796875,
+      "left": 442.796875,
+      "right": 997.1953125,
+      "top": 292.6953125,
+      "width": 554.3984375,
+      "x": 442.796875,
+      "y": 292.6953125
+    },
+    "width": 1440
+  },
+  {
+    "label": "Final Thai XL tablet",
+    "build": "4d386ba6da75",
+    "height": 768,
+    "pageWidth": 1024,
+    "share": {
+      "bottom": 486.890625,
+      "height": 166.25,
+      "left": 119.1171875,
+      "right": 879.1171875,
+      "top": 320.640625,
+      "width": 760,
+      "x": 119.1171875,
+      "y": 320.640625
+    },
+    "width": 1024
+  },
+  {
+    "label": "Final Thai XL phone",
+    "build": "4d386ba6da75",
+    "height": 844,
+    "pageWidth": 390,
+    "share": {
+      "bottom": 586.03125,
+      "height": 231.3203125,
+      "left": 12,
+      "right": 378,
+      "top": 354.7109375,
+      "width": 366,
+      "x": 12,
+      "y": 354.7109375
+    },
+    "width": 390
+  }
+]

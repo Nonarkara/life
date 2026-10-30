@@ -226,3 +226,7 @@ body.console-mode>header{flex:none}
  .console-mode .rpg-dock .console-actions #commit{max-width:100%;white-space:normal}
  .console-mode.birth-stage .rpg-dock #childhood-memory{height:100%}
 }
+
+/* Keep each overlap label/value together while allowing the reading to wrap. */
+.ending-ikigai dd.ikigai-overlaps{flex-wrap:wrap;row-gap:4px}.ikigai-overlaps>span{max-width:100%;overflow-wrap:anywhere}
+.ending-share textarea{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:4px}.ending-share :is(input,textarea):focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}

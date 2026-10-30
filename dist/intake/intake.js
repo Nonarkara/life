@@ -1,7 +1,7 @@
 import {AXES,balanced,transfer,newLife,configureLife,validate} from '../course/sim.js';
 import {initSettings,t} from '../course/i18n.js';
 import {BAND_REGIONS,REGIONS,COUNTRIES,household} from '../course/regions.js';
-import {encodeBirth,decodeBirth,dailyLife,dayOf} from '../course/birthcode.js';
+import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../course/birthcode.js';
 import {readLives} from '../course/lives.js';
 let points=balanced(),selected='physique';const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 function node(tag,attrs,text){const el=document.createElementNS(NS,tag);for(const[key,value]of Object.entries(attrs))el.setAttribute(key,value);if(text!==undefined)el.textContent=text;return el;}
@@ -30,7 +30,7 @@ $('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.str
 $('birth-again').onclick=()=>{drawn=draw_life(lastOptions);card(drawn);};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
 // family and place with the same luck, and chooses for themselves.
-export const birthLink=life=>location.origin+'/intake/?birth='+encodeBirth(life);
+export const birthLink=life=>birthURL(life);
 $('birth-share').onclick=async()=>{const link=birthLink(drawn),text=t('I was born in {place}, into {home}. About 1 in {n} lives begin like this.').replace('{place}',t(drawn.birth.place)).replace('{home}',t(drawn.birth.home)).replace('{n}',birthOdds(drawn,lastOptions).toLocaleString('en'))+' '+t('Same birth, your choices:');try{if(navigator.share){await navigator.share({title:'Life2.0',text,url:link});}else{await navigator.clipboard.writeText(text+' '+link);$('birth-shared').textContent=t('Copied. Paste it anywhere.');}}catch{}};
 $('random-life').onclick=()=>enter({});$('intake-form').onsubmit=e=>{e.preventDefault();enter({sex:$('body-profile').value,upbringing:$('upbringing').value,country:$('country').value,attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
 try{const saved=JSON.parse(localStorage.getItem('life-course-v2'));if(validate(saved)&&saved.stage!=='recap'){$('continue-life').hidden=false;$('continue-life').textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));}}catch{}
@@ -45,12 +45,13 @@ function archive(){
  list.replaceChildren(...lives.slice(0,6).map(e=>{
   const li=document.createElement('li'),place=document.createElement('b'),meta=document.createElement('span'),again=document.createElement('a');
   place.textContent=t(e.place);meta.textContent=t('Age {n}').replace('{n}',e.age)+(e.words?' · “'+e.words+'”':'');
-  again.href='?birth='+e.code;again.textContent=t('Live this birth again');li.append(place,meta,again);return li;}));
+  const replayBirth=decodeBirth(e.code);again.href=replayBirth?birthURL({...replayBirth,...(e.dailyDay?{dailyDay:e.dailyDay}:{})}):'?birth='+encodeURIComponent(e.code);again.textContent=t('Live this birth again');li.append(place,meta,again);return li;}));
 }
 // A link someone sent, or today's shared birth, opens straight onto its card.
 function invited(){
  const asked=new URLSearchParams(location.search).get('birth');if(!asked)return;
- const daily=asked==='daily',life=daily?dailyLife(dayOf()):decodeBirth(asked);
+ const daily=asked==='daily',day=dayOf(),life=daily?{...dailyLife(day),dailyDay:day}:decodeBirth(asked);
+ if(life&&!daily){const claimed=new URLSearchParams(location.search).get('day');if(claimed&&dailyDateFor({...life,dailyDay:claimed}))life.dailyDay=claimed;}
  if(!life){$('intake-error').textContent=t('That birth link could not be read. Start a new life below.');return;}
  lastOptions={};drawn=life;card(life);
  $('birth-title').textContent=t(daily?'Today’s life':'A life was sent to you');

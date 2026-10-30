@@ -1,3 +1,4 @@
+import {dailyDateFor} from './birthcode.js';
 import {journeySnapshot} from './journey.js';
 import {initLifeEventView} from './life-event-view.js';
 import {enableLifeEvents} from './life-events.js';
@@ -43,7 +44,7 @@ import {routine,routineContext,routineCaption} from './routines.js';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let state=newLife(),age=0,speed=2,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,mode='world',tab='priorities',travel=null,elapsed=0,lastTime=0,lastPaint=0,dirty=true,saveOK=true,lastCheckpoint=0,arrival=0,childView=null,lastVisibleYear=-1;
 let store=null;try{store=localStorage;}catch{}const saved=readSave(store,validate);saveOK=saved.storage;const unreadable=saved.unreadable;if(saved.life){state=saved.life;age=state.stage==='birth'?(state.progressAge??state.age):state.age;}
 if(state.stage==='birth'){speed=1;if(age>=6&&!state.childhood)state={...state,childhood:{origin:{cash:state.cash,health:state.health,wellbeing:state.wellbeing},choices:[],startsAt:Math.min(10,Math.ceil(age))}};}
-state=enableLifeEvents(state);state=refreshMarketPrompt({...state,story:state.story??newStory(state.seed)});state=openFinance(state);if(state.journey){const next=live(state);if(next!==state){travel={from:state.age,to:next,handled:[...state.journey.handled]};age=state.journey.progress;}}let consoleUI,personalUI;const music=initMusic({getMood:()=>lifeMood(state)});
+const recordedDay=dailyDateFor(state);if(recordedDay&&state.dailyDay===undefined)state={...state,dailyDay:recordedDay};state=enableLifeEvents(state);state=refreshMarketPrompt({...state,story:state.story??newStory(state.seed)});state=openFinance(state);if(state.journey){const next=live(state);if(next!==state){travel={from:state.age,to:next,handled:[...state.journey.handled]};age=state.journey.progress;}}let consoleUI,personalUI;const music=initMusic({getMood:()=>lifeMood(state)});
 mode=state.stage==='recap'?'course':'world';arrival=state.stage==='birth'&&age<.1?3:0;$('womb').innerHTML=wombMarkup;
 const money=v=>'฿'+v.toLocaleString('en');function svgEl(tag,attrs={},text){const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}
 function save(){try{localStorage.setItem('life-course-v2',JSON.stringify({...state,journey:journeySnapshot(state,travel,age),progressAge:state.stage==='birth'?age:state.age}));}catch{saveOK=false;}$('save-status').hidden=saveOK&&!unreadable;$('save-status').textContent='Fictional life · '+(!saveOK?'browser save unavailable':unreadable?'your earlier life could not be opened; a copy is kept in this browser':'saved in this browser');}

@@ -714,3 +714,16 @@ Preexisting review/painted-default and review/product-audit remain untouched.
 
 ## Share and return loops · 30 Oct 2026
 Shipped (build e65edcef74f2, commit 92d6d4e). Birth link `/intake/?birth=CODE` (dist/course/birthcode.js: seed + intake, accepted only if the decoded life re-encodes to the same code), `?birth=daily` (same birth for everyone per UTC day), lives archive `life-lives-v1` (dist/course/lives.js, recap only, max 40, idempotent), ending button "Send this birth to someone" (share sheet, else copies text + link), og/twitter tags, favicon, apple-touch icon, manifest (made by scripts/make-share-art.py). Verified live: finished life → button copies link → link opens "A life was sent to you" card → archive lists the life. Not done: analytics (owner call), daily-result sharing, achievements.
+
+## Result sharing audit ·30October2026
+Based on released Claude2a46280 in an isolated daily-share-review worktree;
+prototype's dirty console/style/stage captures and ship checkout untouched.
+Daily labels now require exact fullbirthcode match, preserve verifiedUTCday in
+save/replay/archive/links, and use date-neutral historical wording. Both daily
+and ordinary payloads include age, Ikigai and authored-game qualification in5
+languages. Outgoing preview + primaryresult action immediately followroute;
+PNGcaption/save remains secondary. Native cancellation/InvalidState nevercopy;
+pendingnative shows manualtext but remainsguardeduntilsettlement. Onlyclipboard
+has a terminatingtimeout. ExistingIkigai overlapwrap repairedphone535→390px.
+304tests pass; source/pixelindependentclosure and evidence inreview/daily-share.
+No game outcomes, health odds, money rules or portrait artwork were changed.

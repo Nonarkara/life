@@ -1,7 +1,7 @@
 // The lives a player has lived, kept in this browser: the reason to come back is the next
 // one. Each entry holds the birth code, so any past life can be lived again with different
 // choices. Nothing here leaves the device.
-import {encodeBirth} from './birthcode.js';
+import {encodeBirth,dailyDateFor} from './birthcode.js';
 export const LIVES_KEY='life-lives-v1',LIVES_MAX=40;
 const valid=e=>!!e&&typeof e.id==='string'&&typeof e.code==='string'&&typeof e.place==='string'&&Number.isInteger(e.age)&&Number.isFinite(e.at)&&(e.ikigai===null||Number.isFinite(e.ikigai))&&typeof e.words==='string';
 export function readLives(storage){
@@ -16,8 +16,8 @@ export function lifeId(state){
 export function recordLife(storage,state,{ikigai=null,now=Date.now()}={}){
  const code=state?.stage==='recap'?encodeBirth(state):null,lives=readLives(storage);
  if(!code)return lives;
- const id=lifeId(state);if(lives.some(e=>e.id===id))return lives;
- const next=[{id,seed:state.seed,code,place:state.birth?.place??'',age:state.age,ended:!!state.death,ikigai:Number.isFinite(ikigai)?ikigai:null,at:now,words:''},...lives].slice(0,LIVES_MAX);
+ const id=lifeId(state),existing=lives.find(e=>e.id===id),day=dailyDateFor(state);if(existing){if(day&&existing.code===code&&!existing.dailyDay){existing.dailyDay=day;try{storage.setItem(LIVES_KEY,JSON.stringify(lives));}catch{}}return lives;}
+ const next=[{id,seed:state.seed,code,...(day?{dailyDay:day}:{}),place:state.birth?.place??'',age:state.age,ended:!!state.death,ikigai:Number.isFinite(ikigai)?ikigai:null,at:now,words:''},...lives].slice(0,LIVES_MAX);
  try{storage.setItem(LIVES_KEY,JSON.stringify(next));}catch{}
  return next;
 }

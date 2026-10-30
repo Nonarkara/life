@@ -2060,3 +2060,22 @@ phrases.push(['Your choices brought work and study into tension.','การต�
 phrases.push(['held at {n} by your answer','คำตอบของคุณผูกไว้ที่ {n}','你的选择将其锁定为 {n}','回答により {n} に固定','선택에 따라 {n}에 고정됨']);
 
 phrases.push(...TRAIN_PHRASES);
+
+phrases.push(...`
+Daily life {day} (UTC): reached age {age}. Ikigai {score}/100 (game). Same birth, your choices:|ชีวิตประจำวัน {day} (UTC): ไปถึงอายุ {age} ปี อิคิไก {score}/100 (ค่าในเกม) เกิดเหมือนกัน คุณเลือกเอง:|每日人生 {day} (UTC)：走到 {age} 岁，生之意义 {score}/100（游戏数值）。同样的出生，由你选择：|デイリー人生 {day} (UTC)：{age}歳まで到達。生きがい {score}/100（ゲーム内の値）。同じ生まれ、選ぶのはあなた：|일일 인생 {day} (UTC): {age}세까지 도달. 이키가이 {score}/100 (게임 수치). 같은 출생, 선택은 당신 몫:
+Reached age {age}. Ikigai {score}/100 (game). Same birth, your choices:|ชีวิตนี้ไปถึงอายุ {age} ปี อิคิไก {score}/100 (ค่าในเกม) เกิดเหมือนกัน คุณเลือกเอง:|这段人生走到 {age} 岁，生之意义 {score}/100（游戏数值）。同样的出生，由你选择：|{age}歳まで到達。生きがい {score}/100（ゲーム内の値）。同じ生まれ、選ぶのはあなた：|{age}세까지 도달. 이키가이 {score}/100 (게임 수치). 같은 출생, 선택은 당신 몫:
+Share this result|แชร์ผลชีวิตนี้|分享这次结果|この結果を共有|이 결과 공유하기
+Result text and birth link|ข้อความผลชีวิตและลิงก์การเกิด|结果文字和出生链接|結果の文章と出生リンク|결과 문구와 출생 링크
+Sharing cancelled.|ยกเลิกการแชร์แล้ว|已取消分享。|共有をキャンセルしました。|공유를 취소했습니다.
+Share sheet completed.|ปิดขั้นตอนการแชร์แล้ว|分享面板操作已完成。|共有画面の操作が完了しました。|공유 화면의 작업이 완료되었습니다.
+This birth cannot be shared.|ไม่สามารถแชร์การเกิดนี้ได้|无法分享这次出生。|この出生は共有できません。|이 출생은 공유할 수 없습니다.
+Sharing was unavailable. Select and copy the text below.|แชร์ไม่ได้ กรุณาเลือกและคัดลอกข้อความด้านล่าง|无法分享，请选中并复制下方文字。|共有できませんでした。下の文章を選択してコピーしてください。|공유할 수 없습니다. 아래 문구를 선택해 복사하세요.
+`.trim().split('\n').map(line=>line.split('|')));
+
+phrases.push(['Daily life','ชีวิตประจำวัน','每日人生','デイリー人生','일일 인생']);
+
+phrases.push(['Preparing share…','กำลังเตรียมแชร์…','正在准备分享…','共有を準備しています…','공유 준비 중…']);
+
+phrases.push(['Still waiting for sharing. You can copy the text below.','ยังรอการแชร์อยู่ คุณสามารถคัดลอกข้อความด้านล่างได้','仍在等待分享，你可以复制下方文字。','共有の完了を待っています。下の文章をコピーすることもできます。','공유가 끝나기를 기다리고 있습니다. 아래 문구를 복사할 수도 있습니다.']);
+
+phrases.push(['One line for your life card','หนึ่งประโยคสำหรับการ์ดชีวิตของคุณ','给人生卡片写一句话','人生カードに添えるひとこと','인생 카드에 남길 한마디']);

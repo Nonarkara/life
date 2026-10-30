@@ -120,3 +120,11 @@ entries/assets pass; production retains user'sage15save and3unansweredquestions.
 Newkeywordsearch verified without buying/advancing. Source tracked clean; two
 original untrackedreviewdirectories intentionally retained. No local inference
 service required for this release.
+
+## Result sharing improvement ·30October2026
+Clean branch codex/daily-share-review started from origin/main2a46280; all4Claude
+share/archivecommits retained. Stale prototype main + uncommittedconsole/style/
+stagecaptures preserved. This pass scopes exactdailyidentity/date, preview/action
+placement and honestnative/clipboardfallbacks.304tests pass; independent bounded
+source/pixels passed. review/daily-share holds receipts and explicit device gaps.
+Do not overwrite prototype's unfinished edits when syncing to the released main.

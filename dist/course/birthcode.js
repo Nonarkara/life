@@ -32,3 +32,20 @@ export function dailyLabel(seed,now=new Date()){
  for(let back=0;back<400;back++){const day=dayOf(new Date(now.getTime()-back*86400000));if(dailySeed(day)===seed)return day;}
  return null;
 }
+
+export function validDay(day){
+ if(typeof day!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(day))return false;
+ const date=new Date(day+'T00:00:00Z');return Number.isFinite(date.getTime())&&dayOf(date)===day;
+}
+// A seed alone is insufficient: body, background and starting points must match too.
+export function dailyDateFor(life,now=new Date()){
+ const code=encodeBirth(life);if(!code)return null;
+ const day=life.dailyDay!==undefined?life.dailyDay:dailyLabel(life.seed,now);
+ return validDay(day)&&encodeBirth(dailyLife(day))===code?day:null;
+}
+export function birthURL(life,origin='https://life.nonarkara.org',now=new Date()){
+ const code=encodeBirth(life);if(!code)return null;
+ const url=new URL('/intake/',origin);url.searchParams.set('birth',code);
+ const day=dailyDateFor(life,now);if(day)url.searchParams.set('day',day);
+ return url.href;
+}
