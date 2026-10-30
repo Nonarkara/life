@@ -28,6 +28,7 @@ Lives you have lived|ชีวิตที่คุณเคยใช้|你活�
 Live this birth again|ใช้ชีวิตจากการเกิดนี้อีกครั้ง|再活一次这个出生|この誕生をもう一度生きる|이 탄생으로 다시 살기
 Send this birth to someone|ส่งการเกิดนี้ให้ใครสักคน|把这个出生发给某人|この誕生を誰かに送る|이 탄생을 누군가에게 보내기
 I lived this life. Same birth, your choices:|ผมใช้ชีวิตนี้มาแล้ว เกิดเหมือนกัน เลือกเองได้:|我活过这段人生。同样的出生，由你来选择：|この人生を生きた。同じ誕生、選ぶのはあなた：|이 삶을 살아 봤다. 같은 탄생, 선택은 당신 몫:
+Today’s life {day}: I reached {age}, ikigai {score}. Same birth, your choices:|ชีวิตวันนี้ {day}: ผมอยู่ถึง {age} ปี ikigai {score} เกิดเหมือนกัน เลือกเองได้:|今日人生 {day}：我活到 {age} 岁，ikigai {score}。同样的出生，由你来选择：|今日の人生 {day}：{age}歳まで生きた、ikigai {score}。同じ誕生、選ぶのはあなた：|오늘의 삶 {day}: {age}세까지 살았다, ikigai {score}. 같은 탄생, 선택은 당신 몫:
 Fictional life · your earlier life could not be opened; a copy is kept in this browser|ชีวิตสมมุติ · เปิดชีวิตก่อนหน้าไม่ได้ เก็บสำเนาไว้ในเบราว์เซอร์นี้แล้ว|虚构人生 · 无法打开你之前的人生；副本已保存在此浏览器中|架空の人生 · 以前の人生を開けませんでした。コピーはこのブラウザに残してあります|가상의 삶 · 이전 삶을 열 수 없었습니다. 사본은 이 브라우저에 남아 있습니다
 of free money|ของเงินที่เหลือ|可支配资金|自由に使えるお金のうち|여유 자금 중
 of 10 points|จาก 10 แต้ม|共 10 点|10ポイントのうち|10점 중
