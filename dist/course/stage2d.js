@@ -10,6 +10,7 @@ import {homeCast} from './presentation-state.js';
 import {travelFrame} from './painted-camera.js';
 import {regionAt,REGIONS,household} from './regions.js';
 import {preferences,t} from './i18n.js';
+import {agedImage} from './aging.js';
 import {prepareStageArt,stageImage,platePath,spritePath,animeManifest} from './anime-assets.js';
 
 // A set is one painted plate and the places people stand on it. `ground` is the
@@ -421,8 +422,9 @@ function createStage(canvas){
     const step=activity.moving?Math.floor(clock*3):0;
     const [sheet,frame]=table[step%table.length];
     const path=spritePath(sheet,frame);
-    const image=path?stageImage(path):null;
-    if(!image||!image.complete||!image.naturalWidth)return null;
+    const raw=path?stageImage(path):null;
+    if(!raw||!raw.complete||!raw.naturalWidth)return null;
+    const image=actor==='player'&&/^player/.test(sheet)?agedImage(raw,age):raw;
     const scale=options.scale??SETS[set]?.scale??.25;
     // Frames keep their true height on the sheet (the tallest is 400px), so a seated body is drawn seated, not stretched.
     const figureHeight=figureHeightPx(plateHeight,scale,image.naturalHeight,actor,age,options.calibrated);
