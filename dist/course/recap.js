@@ -1,6 +1,6 @@
 // A reading view of the saved record. Never edits outcomes or infers missing events.
 const routine=new Set([
- 'An ordinary five years.', 'Small habits accumulate.',
+ 'An ordinary five years.', 'Small habits accumulate.', 'You kept your body in use.', 'You kept learning, and it showed in your work.', 'Friends and family took most of your attention.', 'You kept making things.', 'You pushed hard at work.',
  'You continued school.', 'Family support helped with books and travel.',
  'College brought study costs and more time to learn.', 'A degree does not guarantee a job.',
  'An apprenticeship paid a little while you learned through work.',
