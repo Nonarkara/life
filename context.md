@@ -711,3 +711,6 @@ these episodes after10; infant/maternal health simulation remains unimplemented.
 288tests pass; independent source/pixel review closed findings. Evidence and
 known limits:review/moment-scale/REVIEW.md; exact public delivery receipt follows.
 Preexisting review/painted-default and review/product-audit remain untouched.
+
+## Share and return loops · 30 Oct 2026
+Shipped (build e65edcef74f2, commit 92d6d4e). Birth link `/intake/?birth=CODE` (dist/course/birthcode.js: seed + intake, accepted only if the decoded life re-encodes to the same code), `?birth=daily` (same birth for everyone per UTC day), lives archive `life-lives-v1` (dist/course/lives.js, recap only, max 40, idempotent), ending button "Send this birth to someone" (share sheet, else copies text + link), og/twitter tags, favicon, apple-touch icon, manifest (made by scripts/make-share-art.py). Verified live: finished life → button copies link → link opens "A life was sent to you" card → archive lists the life. Not done: analytics (owner call), daily-result sharing, achievements.
