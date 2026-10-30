@@ -1390,6 +1390,21 @@ Work slows. Your time becomes your own again.|งานเริ่มเบา�
 Floodwater damages the family home. Repairs take money and time.|น้ำท่วมบ้าน การซ่อมแซมใช้ทั้งเงินและเวลา|洪水损坏了家，修复需要金钱和时间。|家が浸水し、修理にお金と時間がかかります。|홍수로 집이 망가졌습니다. 수리에 돈과 시간이 듭니다.
 Your father dies. The family has to find a different rhythm.|พ่อจากไป ครอบครัวต้องปรับชีวิตใหม่|父亲离世，家人需要重新适应生活。|父を亡くし、家族は新しい暮らし方を探します。|아버지가 세상을 떠났습니다. 가족은 새로운 일상을 찾아야 합니다.
 Your mother dies. Familiar places carry different memories.|แม่จากไป สถานที่คุ้นเคยมีความทรงจำเปลี่ยนไป|母亲离世，熟悉的地方承载了不同的回忆。|母を亡くし、見慣れた場所にも違う記憶が重なります。|어머니가 세상을 떠났습니다. 익숙한 장소의 기억도 달라집니다.
+The balance keeps growing|ยอดหนี้ยังโตขึ้นเรื่อยๆ|欠款还在不断增长|残高は増え続けている|잔액이 계속 불어난다
+What you owe has grown past what a year of your income can cover, and interest is added every month. The bank has stopped sending reminders and started sending letters.|หนี้ที่ค้างอยู่โตเกินกว่ารายได้หนึ่งปีจะครอบคลุม และดอกเบี้ยถูกเพิ่มทุกเดือน ธนาคารเลิกส่งข้อความเตือนและเริ่มส่งจดหมาย|你欠的钱已经超过一年收入能覆盖的数额，利息每个月都在累加。银行不再发提醒，开始寄信了。|借金は一年分の収入では返せないほど膨らみ、利息は毎月加算されている。銀行は督促の連絡をやめ、手紙を送り始めた。|빚이 일 년 치 소득으로는 감당할 수 없을 만큼 불었고 이자는 매달 붙는다. 은행은 안내 문자를 멈추고 우편물을 보내기 시작했다.
+Debt grows while you decide. Facing it early costs less than facing it late.|หนี้โตขึ้นระหว่างที่คุณตัดสินใจ เผชิญหน้าเร็วเสียน้อยกว่าเผชิญหน้าช้า|你犹豫的时候债务在增长。早面对比晚面对代价更小。|迷っている間にも借金は増える。早く向き合うほうが、遅く向き合うより安くつく。|고민하는 사이에도 빚은 늘어난다. 일찍 마주하는 쪽이 늦게 마주하는 쪽보다 덜 든다.
+Sit down with the bank and agree a repayment plan|นั่งคุยกับธนาคารและตกลงแผนผ่อนชำระ|与银行坐下来商定还款计划|銀行と話し合って返済計画を決める|은행과 마주 앉아 상환 계획을 정한다
+You wrote down every payment and met the bank each month. It was dull and it was steady.|คุณจดทุกการชำระและพบธนาคารทุกเดือน น่าเบื่อ แต่มั่นคง|你把每一笔还款都记下来，每月去见银行。枯燥，但稳当。|返済をすべて書き留め、毎月銀行に通った。退屈だったが、着実だった。|모든 상환을 적어 두고 매달 은행을 찾았다. 지루했지만 꾸준했다.
+You kept to the plan. The bank reduced the interest and the balance stopped growing.|คุณทำตามแผน ธนาคารลดดอกเบี้ยและยอดหนี้หยุดโต|你守住了计划。银行降低了利息，欠款不再增长。|計画を守り通した。銀行は利息を下げ、残高は増えなくなった。|계획을 지켰다. 은행은 이자를 낮췄고 잔액은 더 늘지 않았다.
+Ask the family for help|ขอความช่วยเหลือจากครอบครัว|向家人求助|家族に助けを求める|가족에게 도움을 청한다
+Your family covered part of it. Nobody said the number out loud, and nobody forgot it.|ครอบครัวช่วยจ่ายส่วนหนึ่ง ไม่มีใครพูดตัวเลขออกมา และไม่มีใครลืม|家人替你还了一部分。没有人把数字说出口，也没有人忘记。|家族が一部を肩代わりしてくれた。誰も金額を口にしなかったが、誰も忘れなかった。|가족이 일부를 갚아 주었다. 아무도 액수를 입에 올리지 않았고, 아무도 잊지 않았다.
+The family loan was never mentioned and never quite settled.|เงินที่ครอบครัวช่วยไม่เคยถูกพูดถึงและไม่เคยหมดไปจริงๆ|家里借的那笔钱从没人提起，也始终没有真正了结。|家族からの借りは口にされることもなく、きれいに片づくこともなかった。|가족에게 받은 돈은 한 번도 입에 오르지 않았고 끝내 정리되지도 않았다.
+Take every extra shift you can find|รับกะพิเศษทุกกะที่หาได้|接下所有能找到的加班|見つかる限りの追加シフトを引き受ける|구할 수 있는 추가 근무를 모두 맡는다
+You worked evenings and weekends. The balance fell, and so did your sleep.|คุณทำงานทั้งกลางคืนและวันหยุด ยอดหนี้ลดลง และชั่วโมงนอนก็ลดลงด้วย|你晚上和周末都在干活。欠款降了，睡眠也少了。|夜も週末も働いた。残高は減り、睡眠も減った。|저녁과 주말에도 일했다. 잔액은 줄었고 잠도 줄었다.
+The extra work caught up with your body.|งานที่เพิ่มมาตามทันร่างกายของคุณ|额外的工作终于拖垮了你的身体。|余分な仕事のつけが体に回ってきた。|무리한 일의 대가가 몸으로 돌아왔다.
+Stop opening the letters|เลิกเปิดจดหมาย|不再拆信|手紙を開けるのをやめる|우편물을 더는 열어 보지 않는다
+You put the letters in a drawer. The drawer filled.|คุณเก็บจดหมายไว้ในลิ้นชัก ลิ้นชักก็เต็ม|你把信塞进抽屉。抽屉满了。|手紙を引き出しにしまい込んだ。引き出しはいっぱいになった。|우편물을 서랍에 넣어 두었다. 서랍이 가득 찼다.
+The interest kept running while you looked away. The bank added fees and a collector called.|ดอกเบี้ยเดินต่อขณะที่คุณมองไปทางอื่น ธนาคารเพิ่มค่าธรรมเนียมและมีเจ้าหน้าที่ทวงหนี้โทรมา|你不去看的时候，利息照样在走。银行加收了费用，催收的人打来了电话。|目を逸らしている間も利息は進んだ。銀行は手数料を上乗せし、取り立ての電話がかかってきた。|외면하는 동안에도 이자는 흘러갔다. 은행은 수수료를 더했고 추심 전화가 걸려 왔다.
 There is little to inherit.|มรดกที่ตกทอดมีเพียงเล็กน้อย|可继承的东西很少。|受け継ぐものはほとんどありません。|물려받을 것이 거의 없습니다.
 A modest inheritance reaches you.|มรดกจำนวนไม่มากตกมาถึงคุณ|你得到一笔不多的遗产。|ささやかな遺産があなたに届きます。|소박한 유산이 당신에게 닿습니다.
 A substantial inheritance reaches you.|มรดกก้อนใหญ่ตกมาถึงคุณ|你得到一笔可观的遗产。|相当な遺産があなたに届きます。|상당한 유산이 당신에게 닿습니다.

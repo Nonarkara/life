@@ -52,7 +52,7 @@ export function advanceFinance(before,next){
  const economic=before.economy?periodEconomy(before.economy,before.age,next.age):{rows:[],contractions:[],meanWageFactor:1};
  const incomeAdjustment=flow.source==='Work income'?Math.round(flow.income*remainingMonths*(economic.meanWageFactor-1)):0;
  const lostIncome=flow.source==='Work income'?flow.income*Math.min(remainingMonths,row.unemployedMonths??0):0;
- const income=flow.income*remainingMonths+incomeAdjustment-lostIncome+Math.max(0,adjustment)+Math.max(0,-shock),essential=flow.essential*remainingMonths+Math.max(0,-adjustment)+Math.max(0,shock)+habits;
+ const income=flow.income*remainingMonths+incomeAdjustment-lostIncome+Math.max(0,adjustment)+Math.max(0,-shock),essential=flow.essential*remainingMonths+Math.max(0,-adjustment)+Math.max(0,shock)+habits+Math.round(f.debt*.35);
  let available=f.available,reserve=f.reserve,debt=f.debt,free=income-essential;
  if(free<0){let need=-free;const wallet=Math.min(available,need);available-=wallet;need-=wallet;const buffer=Math.min(reserve,need);reserve-=buffer;need-=buffer;debt+=need;free=0;}
  else{const repaid=Math.min(debt,free);debt-=repaid;free-=repaid;}
