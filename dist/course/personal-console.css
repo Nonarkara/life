@@ -376,3 +376,10 @@
  .console-mode.recap-stage .rpg-dock{height:auto;overflow:visible;flex:none}
  .console-mode.recap-stage .rpg-dock .console-reader,.console-mode.recap-stage .rpg-dock .console-cards,.console-mode.recap-stage .rpg-dock .console-panel{overflow:visible;flex:none;height:auto}
 }
+
+/* Time stops while a decision is open, so on a phone the decision gets the room, not the world behind it. */
+@media(max-width:1279px){
+ .console-mode.decision-open:not(.birth-stage):not(.recap-stage){--rpg-height:70dvh}
+ /* Planning the next five years is the move made most often; its controls get half the screen while the world waits. */
+ .console-mode.is-review:not(.decision-open):not(.birth-stage):not(.recap-stage){--rpg-height:54dvh}
+}

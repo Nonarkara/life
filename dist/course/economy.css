@@ -6,5 +6,11 @@
 @container(max-width:300px){.investment-table{font-size:calc(11px * var(--reading-scale))}.investment-table th:first-child{width:36%}}
 .investment-table td:nth-child(2){font-weight:600}.investment-table td:nth-child(3){color:var(--muted)}
 /* Whole account amounts need paired rows, not three squeezed headline columns. */
-.personal-console .money-summary{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:none;grid-auto-flow:row;gap:2px 12px;align-items:baseline}.personal-console .money-summary dd{white-space:nowrap;font-size:calc(18px * var(--reading-scale));text-align:right}.reserve-transfer{margin:6px 0}.reserve-transfer>div{display:grid;grid-template-columns:7ch auto;gap:4px 10px;align-items:center;padding:5px 0}.reserve-transfer label{grid-column:1/-1;font-size:calc(12px * var(--reading-scale))}.reserve-transfer input{width:100%;min-width:0;border:0;border-bottom:1px solid var(--line);background:none;color:inherit;font:inherit}.reserve-transfer button{font-size:calc(13px * var(--reading-scale));padding:3px 0}
+.personal-console .money-summary{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:none;grid-auto-flow:row;gap:2px 12px;align-items:baseline}.personal-console .money-summary dd{white-space:nowrap;font-size:calc(18px * var(--reading-scale));text-align:right}.reserve-transfer{margin:6px 0}.reserve-transfer>div{display:grid;grid-template-columns:7ch auto;gap:4px 10px;align-items:center;padding:5px 0}.reserve-transfer label{grid-column:1/-1;font-size:calc(12px * var(--reading-scale))}.reserve-transfer input{width:100%;min-width:0;border:0;border-bottom:1px solid var(--line);background:none;color:inherit;font:inherit}.reserve-transfer button{font-size:calc(13px * var(--reading-scale));padding:3px 0}
 .liquidity-readout{margin:7px 0}.liquidity-readout>div:first-child{display:flex;justify-content:space-between;gap:12px;font-size:calc(12px * var(--reading-scale))}.liquidity-bar{height:5px;background:#c6cbbf;margin-top:4px}.liquidity-bar i{height:100%;display:block;background:#526b60}
+
+/* The three budget shares: a label, a number and a percent sign on one row, aligned. */
+.budget-policy{border:0;border-top:1px solid var(--line,#b4b9a9);padding:8px 0 0;margin:8px 0 0}
+.budget-policy legend{padding:0 8px 0 0;color:var(--muted,#52635b)}
+.budget-row{display:grid;grid-template-columns:minmax(0,1fr) 64px 16px;gap:8px;align-items:center;padding:2px 0}
+.budget-row input{width:64px;min-height:32px;text-align:right;font:inherit}
