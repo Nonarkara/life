@@ -22,7 +22,7 @@ test('follow-ups require the actual earlier commitment and enough elapsed years'
 });
 test('marriage is an adult mutual commitment and its marker is recorded only on that choice',()=>{
  assert.ok(!eligibleEncounters({...begin(newLife(1)),age:15}).some(e=>['love','commitment','parenthood'].includes(e.id)));
- let s=settle(live(begin(newLife(1))),'join');s=settle(live(s),'start');s=settle(live(s),'date');s=settle(live(s),'help');
+ let s=settle(live(begin(newLife(5))),'join');s=settle(live(s),'start');s=settle(live(s),'date');s=settle(live(s),'help');
  assert.equal(s.story.flags.dating,25);s=live(s);assert.equal(s.story.pending.id,'commitment');
  const married=settle(s,'marry'),together=settle(s,'together');assert.ok(eventsFor(married.history.at(-1)).some(e=>e.type==='married'));assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));assert.ok(validate(married));
 });

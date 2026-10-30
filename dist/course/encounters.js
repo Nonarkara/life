@@ -146,8 +146,8 @@ export function validStory(story,age,state){
   for(const seen of story.seen){
    if(seen.age<=previousAge)return false;previousAge=seen.age;
    const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
-   const prior={...state,age:seen.age,effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null}};
-   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(entry.eligible&&!entry.eligible(prior))return false;
+   const prior={...state,age:seen.age,health:row.health-(seen.effects.health||0),wellbeing:row.wellbeing-(seen.effects.wellbeing||0),cash:(row.cash??state.cash)-(seen.effects.cash||0),effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null}};
+   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash}))return false;
    const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
   }
  }

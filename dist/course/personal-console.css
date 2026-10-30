@@ -362,3 +362,7 @@
 .console-panel{scrollbar-width:thin;scrollbar-color:var(--muted) transparent}
 .console-panel::-webkit-scrollbar{width:6px}
 .console-panel::-webkit-scrollbar-thumb{background:var(--muted)}
+
+/* The life card: front and back, side by side, whole. */
+.card-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
+.card-pair img{display:block;width:100%;height:auto;aspect-ratio:1080/1512;background:#e4e0d4;border:1px solid var(--rule,#b4b9a9)}
