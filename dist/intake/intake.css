@@ -43,3 +43,13 @@
 #birth-card h2{font:600 var(--display)/1.1 var(--head);margin:0 0 14px}
 #birth-card .odds{font-weight:600;margin:14px 0 18px}
 #birth-card .actions{flex-wrap:wrap;gap:14px 22px}
+
+/* A second way in, and the lives already lived. Quiet beside the one amber action. */
+.intake-page .quiet-link{display:inline-flex;align-items:center;min-height:32px;padding:4px 0;color:var(--ink);font-size:var(--body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.intake-page .actions{flex-wrap:wrap;align-items:center;gap:4px 20px}
+.intake-page .lives{margin-top:14px;border-top:1px solid var(--rule);padding-top:8px}
+.intake-page .lives summary{cursor:pointer;min-height:32px;display:flex;align-items:center;font-weight:600}
+.intake-page .lives ol{margin:4px 0 0;padding:0;list-style:none;display:grid;gap:2px}
+.intake-page .lives li{display:grid;grid-template-columns:1fr auto;gap:0 12px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule)}
+.intake-page .lives li span{grid-column:1;color:var(--muted);font-size:var(--body)}
+.intake-page .lives li a{grid-column:2;grid-row:1/3;align-self:center;color:var(--ink);text-underline-offset:3px;font-size:var(--body)}

@@ -6,6 +6,8 @@ import {netWorth} from './finance.js';
 import {preferences} from './i18n.js';
 import {rememberedMoments} from './recap.js';
 import {baselineComparison} from './baseline.js';
+import {recordLife,rememberWords} from './lives.js';
+import {encodeBirth,dailyLabel} from './birthcode.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
@@ -32,9 +34,15 @@ export function renderEnding(root,state){
   if(taken.length){const h=document.createElement('h2');h.textContent='Lessons this life taught';const ol=document.createElement('ol');ol.className='taught';for(const e of taken){const l=LESSONS.find(x=>x.id===e.id),li=document.createElement('li'),title=document.createElement('b'),chose=document.createElement('span'),lesson=document.createElement('p'),link=document.createElement('a');title.textContent=l.title;chose.textContent='You chose: '+l.options.find(o=>o.id===e.choice).label;lesson.textContent=l.lesson;link.href=l.source;link.target='_blank';link.rel='noopener';link.textContent='Read the essay';li.append(title,chose,lesson);if(l.source)li.append(link);ol.append(li);}box.append(h,ol);}
   root.append(box);}
  // A card to keep or send: where you went, what you were, one line in your own words.
- const share=document.createElement('section');share.className='ending-share';const lineLabel=document.createElement('label');lineLabel.textContent='One line about this life';const words=document.createElement('input');words.type='text';words.maxLength=90;words.placeholder='In your own words';lineLabel.append(words);const save=document.createElement('button');save.type='button';save.className='primary';save.textContent='Save your life card';const status=document.createElement('p');status.className='fine';status.setAttribute('role','status');share.append(lineLabel,save,status);root.append(share);
- save.onclick=async()=>{const blob=await lifeCard(state,words.value.trim());const file=new File([blob],'life2-card.png',{type:'image/png'});// Phones get the share sheet; computers save the file directly.
- if(matchMedia('(pointer:coarse)').matches&&navigator.canShare?.({files:[file]})){try{await navigator.share({files:[file],title:'Life2.0',text:'life.nonarkara.org'});return;}catch{}}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life2-card.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);status.textContent='Saved as life2-card.png.';};
+ try{recordLife(localStorage,state,{ikigai:reading?.score});}catch{}
+ // The way to hand this life on: the same birth, for someone else to live their own way.
+ const link=encodeBirth(state)?location.origin+'/intake/?birth='+encodeBirth(state):null,dailyDay=dailyLabel(state.seed);
+ const share=document.createElement('section');share.className='ending-share';const lineLabel=document.createElement('label');lineLabel.textContent='One line about this life';const words=document.createElement('input');words.type='text';words.maxLength=90;words.placeholder='In your own words';lineLabel.append(words);const save=document.createElement('button');save.type='button';save.className='primary';save.textContent='Save your life card';const status=document.createElement('p');status.className='fine';status.setAttribute('role','status');const send=document.createElement('button');send.type='button';send.textContent='Send this birth to someone';send.className='quiet';
+ send.onclick=async()=>{const text=t('I lived this life. Same birth, your choices:');try{if(navigator.share){await navigator.share({title:'Life2.0',text,url:link});}else{await navigator.clipboard.writeText(text+' '+link);status.textContent=t('Copied. Paste it anywhere.');}}catch{}};
+ if(dailyDay){const note=document.createElement('p');note.className='fine';note.textContent=t('Today’s life')+' · '+dailyDay;share.append(note);}
+ share.append(lineLabel,save,...(link?[send]:[]),status);root.append(share);
+ save.onclick=async()=>{try{rememberWords(localStorage,state,words.value.trim());}catch{}const blob=await lifeCard(state,words.value.trim());const file=new File([blob],'life2-card.png',{type:'image/png'});// Phones get the share sheet; computers save the file directly.
+ if(matchMedia('(pointer:coarse)').matches&&navigator.canShare?.({files:[file]})){try{await navigator.share({files:[file],title:'Life2.0',text:link?t('Same birth, your choices:')+' '+link:'life.nonarkara.org'});return;}catch{}}const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life2-card.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),4000);status.textContent='Saved as life2-card.png.';};
  const frame=document.createElement('div');frame.className='ending-visual';
  const chart=document.createElementNS(NS,'svg');chart.classList.add('ending-chart');chart.setAttribute('role','group');chart.setAttribute('aria-label','Health, wellbeing and cash across age');
  const detail=document.createElement('section');detail.className='ending-reading';

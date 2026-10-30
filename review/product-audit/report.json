@@ -1,0 +1,19 @@
+{
+ "summary": {
+  "base": "https://candidate.life-5wz.pages.dev",
+  "when": "2026-10-29T09:19:23.023Z",
+  "counts": {
+   "high": 1,
+   "medium": 0,
+   "low": 0
+  }
+ },
+ "findings": [
+  {
+   "area": "audit",
+   "severity": "high",
+   "what": "the audit itself failed",
+   "evidence": "Page.navigate did not answer in 20s"
+  }
+ ]
+}
