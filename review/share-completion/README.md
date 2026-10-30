@@ -30,3 +30,10 @@ Real browser checks on the candidate:
 A native share promise resolving does not prove arrival in LINE/WhatsApp. Actual recipient delivery and hardware clipboard readback remain unverified; browser clipboard success feedback and API paths were checked, but session clipboard readback was empty. No recipients were contacted. This pass does not claim to fix the separate portrait-eye defect or all gameplay/art issues.
 
 Public delivery and live-browser evidence are recorded after deployment below.
+
+## Production verification
+
+Source commit `b20fde4`, Pages deployment `da79d66f`, build `31f6480ff74f`.
+Both `life.nonarkara.org` and `life-5wz.pages.dev` passed direct-entry/header checks and all 20 asset URL checks (`public-delivery.json`). Ten sharing/intake/study paths match the released local bytes on each host (`share-delivery.json`).
+
+Production readonly result: Copy result success feedback, PNG preparation and actual Download card completed; exported PNG SHA-256 `1b5933937e27950473d94b54352c09c5555aa7990531ca72010bcaff680ec735` exactly matches the reviewed candidate export. Incoming full-code daily birth showed the same family/place/upbringing and Copy birth link success. No warnings/errors observed. No Begin, reset or recipient-send action taken. `production-sharing.png` records the exported preview and download feedback.
