@@ -44,3 +44,99 @@ export function choiceSymbol(key){
  svg.setAttribute('viewBox','0 0 32 32');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');svg.classList.add('choice-symbol');svg.dataset.symbol=key;
  path.setAttribute('d',SYMBOL_PATHS[key]??SYMBOL_PATHS.split);svg.append(path);return svg;
 }
+
+// Question type: what is at stake. Shown once at the head of a question so the
+// reader knows what kind of moment this is before reading the words.
+export const QUESTION_TYPES={
+ 'life-death':{label:'Life or death',symbol:'hourglass'},
+ 'hard-choice':{label:'Hard choice',symbol:'fork'},
+ 'general-decision':{label:'Decision',symbol:'signpost'},
+ 'everyday-option':{label:'Everyday option',symbol:'mark'},
+};
+// Question category: which part of life the question touches.
+export const QUESTION_CATEGORIES={
+ money:{label:'Money',symbol:'money'},
+ work:{label:'Work',symbol:'work'},
+ relationships:{label:'Relationships',symbol:'people'},
+ spiritual:{label:'Spiritual',symbol:'heart'},
+ health:{label:'Health',symbol:'care'},
+};
+// Interaction type: how the reader answers.
+export const QUESTION_INTERACTIONS={
+ 'multiple-choice':{label:'Choose one',symbol:'split'},
+ 'yes-no':{label:'Yes or no',symbol:'agreement'},
+ chance:{label:'Leave it to chance',symbol:'clock'},
+};
+
+// Classify a pivot by what is at stake. A question about health or death with
+// a large wellbeing or cash swing is life-death; a question with locks or a
+// luck roll is a hard choice; everything else is a general decision or
+// everyday option depending on how many options and how small the effects are.
+export function questionType(pivot){
+ const maxWellbeing=Math.max(0,...pivot.options.map(o=>Math.abs(o.effects?.wellbeing??0)));
+ const maxHealth=Math.max(0,...pivot.options.map(o=>Math.abs(o.effects?.health??0)));
+ const hasLocks=pivot.options.some(o=>o.locks&&Object.keys(o.locks).length);
+ const hasLuck=pivot.options.some(o=>o.luck);
+ const hasRequires=pivot.options.some(o=>o.requires&&Object.keys(o.requires).length);
+ if(maxHealth>=6||maxWellbeing>=6||hasRequires)return 'life-death';
+ if(hasLocks||hasLuck||pivot.options.length>=3)return 'hard-choice';
+ if(pivot.options.length===2)return 'everyday-option';
+ return 'general-decision';
+}
+// Classify a pivot by which part of life it touches, from its effects and flags.
+export function questionCategory(pivot){
+ const allEffects=pivot.options.flatMap(o=>[o.effects?.skills??{},o.effects?.cash!==undefined?{cash:1}:{},o.effects?.health!==undefined?{health:1}:{},o.effects?.wellbeing!==undefined?{wellbeing:1}:{}]);
+ const flags=pivot.options.flatMap(o=>o.flags??{});
+ const hasMoney=allEffects.some(e=>e.cash!==undefined)||Object.values(flags).some(v=>/stall|house|cash|debt|loan|share|founder/.test(String(v)));
+ const hasWork=allEffects.some(e=>e.craft!==undefined||e.drive!==undefined||e.iq!==undefined)||Object.values(flags).some(v=>/work|trade|job|employ|venture|stall|college|apprentice/.test(String(v)));
+ const hasRelations=allEffects.some(e=>e.eq!==undefined)||Object.values(flags).some(v=>/married|partner|friend|parent|child|family|mother|father|nephew|relative/.test(String(v)));
+ const hasHealth=allEffects.some(e=>e.health!==undefined||e.wellbeing!==undefined)||Object.values(flags).some(v=>/health|ill|treatment|recover|died/.test(String(v)));
+ const hasSpiritual=Object.values(flags).some(v=>/legacy|remembered|religion|spiritual|meaning/.test(String(v)))||pivot.id==='remembered'||pivot.id==='legacy';
+ if(hasHealth)return 'health';
+ if(hasRelations)return 'relationships';
+ if(hasMoney)return 'money';
+ if(hasWork)return 'work';
+ if(hasSpiritual)return 'spiritual';
+ return 'money';
+}
+// Classify how the reader answers: multiple choice, yes/no, or leave it to chance.
+export function questionInteraction(pivot){
+ if(pivot.options.some(o=>o.luck))return 'chance';
+ if(pivot.options.length===2)return 'yes-no';
+ return 'multiple-choice';
+}
+
+const TYPE_SYMBOLS={hourglass:'M16 4 L12 10 L8 14 L12 18 L16 24 L20 18 L24 14 L20 10 Z M16 8 V14 M16 18 V20',fork:'M8 8 L16 16 L24 8 M16 16 V28',signpost:'M16 4 L20 12 L24 12 L20 4 Z M16 12 V28 M12 14 L16 14 M20 14 L16 14',mark:'M16 10 L16 22 M14 12 L16 10 L18 12'};
+const CAT_SYMBOLS={money:SYMBOL_PATHS.money,work:SYMBOL_PATHS.work,people:SYMBOL_PATHS.people,heart:SYMBOL_PATHS.heart,care:SYMBOL_PATHS.care};
+const INT_SYMBOLS={split:SYMBOL_PATHS.split,agreement:SYMBOL_PATHS.agreement,clock:SYMBOL_PATHS.clock};
+
+// Render a question-type badge: a small symbol with a label.
+export function questionTypeBadge(type){
+ const info=QUESTION_TYPES[type]??QUESTION_TYPES['general-decision'];
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+ svg.setAttribute('viewBox','0 0 32 32');svg.setAttribute('aria-label',info.label);svg.classList.add('question-type-badge','question-type-'+type);svg.dataset.type=type;
+ path.setAttribute('d',TYPE_SYMBOLS[info.symbol]??TYPE_SYMBOLS.signpost);svg.append(path);
+ const span=document.createElement('span');span.className='question-type-label';span.textContent=info.label;span.dataset.type=type;
+ const wrap=document.createElement('span');wrap.className='question-type';wrap.append(svg,span);return wrap;
+}
+// Render a question-category badge.
+export function questionCategoryBadge(category){
+ const info=QUESTION_CATEGORIES[category]??QUESTION_CATEGORIES.money;
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+ svg.setAttribute('viewBox','0 0 32 32');svg.setAttribute('aria-label',info.label);svg.classList.add('question-category-badge','question-category-'+category);svg.dataset.category=category;
+ path.setAttribute('d',CAT_SYMBOLS[info.symbol]??SYMBOL_PATHS.money);svg.append(path);
+ const span=document.createElement('span');span.className='question-category-label';span.textContent=info.label;span.dataset.category=category;
+ const wrap=document.createElement('span');wrap.className='question-category';wrap.append(svg,span);return wrap;
+}
+// Render a question-interaction badge.
+export function questionInteractionBadge(interaction){
+ const info=QUESTION_INTERACTIONS[interaction]??QUESTION_INTERACTIONS['multiple-choice'];
+ const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+ const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+ svg.setAttribute('viewBox','0 0 32 32');svg.setAttribute('aria-label',info.label);svg.classList.add('question-interaction-badge','question-interaction-'+interaction);svg.dataset.interaction=interaction;
+ path.setAttribute('d',INT_SYMBOLS[info.symbol]??SYMBOL_PATHS.split);svg.append(path);
+ const span=document.createElement('span');span.className='question-interaction-label';span.textContent=info.label;span.dataset.interaction=interaction;
+ const wrap=document.createElement('span');wrap.className='question-interaction';wrap.append(svg,span);return wrap;
+}

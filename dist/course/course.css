@@ -73,3 +73,37 @@ button{border:0;background:none;width:max-content;max-width:100%;padding:5px 7px
 .personal-console .decision-dialog .encounter-choice{display:grid;grid-template-columns:32px minmax(0,1fr);gap:2px 8px;align-items:center}
 .decision-dialog .encounter-choice>span,.decision-dialog .encounter-choice>small{grid-column:2}
 #year-event[hidden]{display:none}#year-event-title .choice-symbol{width:28px;height:28px;vertical-align:middle;margin-right:8px}#year-event-continue,#child-continue{font-size:14px;min-height:32px;margin-top:6px;padding:4px 0;border:0;border-bottom:2px solid var(--accent-ink)}
+
+/* Question badges: type, category, interaction — shown once at the head of
+   every question so the reader knows what kind of moment this is before
+   reading the words. */
+.question-badges{display:flex;gap:8px;margin:6px 0 10px;flex-wrap:wrap}
+.question-type,.question-category,.question-interaction{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border:1px solid var(--line);font-size:calc(11px * var(--reading-scale));font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.question-type svg,.question-category svg,.question-interaction svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.question-type-life-death{border-color:#a32750;color:#a32750}
+.question-type-hard-choice{border-color:var(--amber);color:var(--ink)}
+.question-type-general-decision{border-color:var(--line);color:var(--muted)}
+.question-type-everyday-option{border-color:var(--line);color:var(--muted);opacity:.8}
+.question-category-money{color:var(--ink)}
+.question-category-work{color:var(--ink)}
+.question-category-relationships{color:var(--muted)}
+.question-category-spiritual{color:var(--muted)}
+.question-category-health{color:var(--ink)}
+.question-interaction-multiple-choice{color:var(--muted)}
+.question-interaction-yes-no{color:var(--muted)}
+.question-interaction-chance{border-color:var(--amber);color:var(--ink)}
+
+/* MSH: tighter decision dialog — the dilemma owns the frame but should not
+   swallow the screen. */
+.decision-dialog{width:min(95vw,460px);max-height:78dvh;padding:10px 14px 14px}
+.decision-dialog .pivot-option{padding:7px 0;min-height:40px}
+.decision-dialog .pivot-label{font-size:calc(13px * var(--reading-scale))}
+.decision-dialog .decision-context,.decision-dialog #narrative{font-size:calc(13px * var(--reading-scale));margin:0 0 8px}
+
+/* MSH: more compact question option cards on the main decision surface. */
+.pivot-option{max-width:48ch;padding:6px 10px}
+.pivot-label{font-size:calc(13px * var(--reading-scale))}
+
+/* MSH: tighter header so the world gets more screen real estate. */
+header{padding:8px 20px;border-bottom-width:2px}
+header>a{font-size:22px}
