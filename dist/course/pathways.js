@@ -1,3 +1,4 @@
+import {backgroundBand} from './backgrounds.js';
 // Choices and cash amounts are authored gameplay, not career forecasts.
 export const PATHWAYS={
  school:{label:'Continue school',from:15,to:20},
@@ -10,7 +11,7 @@ export function availablePathways(age){return Object.entries(PATHWAYS).filter(([
 export function pathwayPeriod(state,roll){
  const routes=availablePathways(state.age);const route=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');
  if(state.age<15||state.age>=60)return {route,cash:0,learning:0,incomeFactor:1,description:''};
- const family=state.intake?.upbringing??'middle';
+ const family=backgroundBand(state);
  const support=state.age<25?{constrained:1000,middle:6000,comfortable:24000}[family]:0;
  const merit=state.pivotFlags?.meritScholar?12000:0;
  const craftBonus=Math.min(16000,(state.skills?.craft??0)*450+(state.skills?.drive??0)*350);

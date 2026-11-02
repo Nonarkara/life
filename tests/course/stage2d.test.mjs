@@ -156,17 +156,11 @@ test('the painted stage only draws lives its art covers',async()=>{
   assert.equal(paintedCovers(life('female','parents','tokyo')),!!manifest.plates['street-day@tokyo']);
 });
 
-// On a wide screen the bottom dock covers the lowest third of the stage. The protagonist
-// used to stand behind it with only a head showing.
-test('people are lifted above the dock and shrink with the lift',async()=>{
-  const {liftGround}=await import('../../dist/course/stage2d.js');
-  assert.deepEqual(liftGround(400,600),{y:400,k:1},'a person already above the dock does not move');
-  const lifted=liftGround(700,550);
-  assert.ok(lifted.y<=550*.95+1e-9,'feet end above the dock edge');
-  assert.ok(Math.abs(lifted.k-lifted.y/700)<1e-9,'scale follows the lift');
-  assert.ok(lifted.k<1&&lifted.k>.5,'smaller, but still a person: '+lifted.k);
-  assert.deepEqual(liftGround(700,0),{y:700,k:1},'no measurement, no change');
-  assert.deepEqual(liftGround(700,NaN),{y:700,k:1},'a failed measurement never hides anyone');
+// The dock reserves real space. It cannot move a body independently of the floor.
+test('dock geometry never moves actors independently of the painted floor',async()=>{
+ const {liftGround}=await import('../../dist/course/stage2d.js');
+ for(const reach of [600,550,0,NaN])assert.deepEqual(liftGround(700,reach),{y:700,k:1});
+ assert.deepEqual(liftGround(400,600),{y:400,k:1});
 });
 
 // A life the art covers only in part used to swap between the painted and the 3D world as the
@@ -181,7 +175,7 @@ test('the painted world is chosen once per day, never moment by moment',async()=
   globalThis.fetch=async()=>({ok:true,json:async()=>manifest});await prepareStageArt();
   const make=(seed,options,age)=>{let s=begin(configureLife(newLife(seed),options));const settle=x=>x.story?.pending?resolveEncounter(x,encounterById(x.story.pending.id).options[0].id,.5):x;while(s.age<age&&s.stage==='review')s=settle(live(settle(s)));return settle(s);};
   let partial=0,whole=0;
-  for(const [seed,options,age] of [[77,{class:'middle_class',region:'samut-prakan',sex:'female'},25],[11,{class:'middle_class',region:'bang-na'},30],[5,{class:'low_class',sex:'male'},25],[6,{class:'bureaucratic_class'},25],[8,{class:'high_class'},40],[9,{class:'working_class'},15]]){
+  for(const [seed,options,age] of [[77,{class:'middle_class',region:'samut-prakan',sex:'female'},25],[11,{class:'middle_class',region:'bang-na'},30],[5,{class:'low_class',sex:'male'},25],[6,{country:'gb',upbringing:'middle'},25],[8,{class:'high_class'},40],[9,{class:'working_class'},15]]){
     const state=make(seed,options,age);
     const moments=[];for(let t=0;t<60;t+=3)moments.push(S.paintedCovers(state,age,t,S.describePaintedScene(state,age,t)));
     const day=S.paintedDay(state,age);
@@ -192,4 +186,12 @@ test('the painted world is chosen once per day, never moment by moment',async()=
   }
   assert.ok(whole>=1,'at least one of these lives is fully painted');
   assert.ok(partial>=1,'the fixture still includes a life the art covers only in part, which is what swapped worlds');
+});
+
+test('office cast uses the standing aisle and fits the painted doorway',async()=>{
+ const {SETS,figureHeightPx}=await import('../../dist/course/stage2d.js');
+ assert.equal(SETS.work.marks[1][0],.68);assert.equal(SETS.work.ground,.93);
+ // Authored work.webp is1760x747; the doorway isabout460px high.
+ assert.ok(figureHeightPx(747,SETS.work.scale,400,'player',35)<460);
+ assert.ok(figureHeightPx(747,.4,400,'player',35)>460,'the former blanket2x scale fails the same door reference');
 });

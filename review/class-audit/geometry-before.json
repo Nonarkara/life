@@ -1,0 +1,42 @@
+{
+  "action": {
+    "bottom": 676.5,
+    "height": 36,
+    "right": 300,
+    "width": 167,
+    "x": 133,
+    "y": 640.5
+  },
+  "console": {
+    "bottom": 708,
+    "height": 230,
+    "right": 874,
+    "width": 862,
+    "x": 12,
+    "y": 478
+  },
+  "header": {
+    "bottom": 50,
+    "height": 50,
+    "right": 1280,
+    "width": 1280,
+    "x": 0,
+    "y": 0
+  },
+  "page": {
+    "height": 720,
+    "width": 1280
+  },
+  "viewport": {
+    "height": 720,
+    "width": 1280
+  },
+  "world": {
+    "bottom": 720,
+    "height": 629.5,
+    "right": 1280,
+    "width": 1280,
+    "x": 0,
+    "y": 90.5
+  }
+}

@@ -383,3 +383,66 @@
  /* Planning the next five years is the move made most often; its controls get half the screen while the world waits. */
  .console-mode.is-review:not(.decision-open):not(.birth-stage):not(.recap-stage){--rpg-height:54dvh}
 }
+
+/* Sparse records do not inherit the last grid column's leftover width.
+   Give the active editor the measure it needs; keep history at reading width. */
+@media(min-width:1280px){
+ .life-deck:not(:has(.deck-money)){grid-template-columns:minmax(360px,2fr) minmax(200px,1fr) minmax(150px,.8fr) minmax(180px,1fr)}
+ .life-deck:not(:has(.deck-money)) .deck-strip{display:flex;flex-wrap:wrap;gap:4px}
+ .life-deck:not(:has(.deck-money)) .deck-chip{width:auto;min-width:0;flex:0 0 auto}
+ .life-deck:not(:has(.deck-money)) .deck-points{max-width:360px}
+ .life-deck:not(:has(.deck-money)) .deck-axis{max-width:136px}
+}
+/* The phone's RPG strip stays one third of portrait, one fifth of landscape.
+   Read the selected section inside that strip; the scene keeps its own floor. */
+@media(max-width:1279px){
+ body.console-mode.is-review:not(.decision-open):not(.birth-stage):not(.recap-stage),
+ .console-mode.decision-open:not(.birth-stage):not(.recap-stage){--rpg-height:calc(100dvh / 3)}
+}
+@media(max-width:1279px) and (orientation:landscape){
+ body.console-mode.is-review:not(.decision-open):not(.birth-stage):not(.recap-stage),
+ .console-mode.decision-open:not(.birth-stage):not(.recap-stage){--rpg-height:20dvh}
+}
+@media(min-width:1280px){
+ .life-deck .deck-set{display:flex;flex-direction:column}
+ .life-deck .deck-set .deck-placard{order:0}
+ .life-deck .deck-set .deck-points{order:1}
+ .life-deck .deck-set .deck-strip{order:2;margin-top:5px}
+ .life-deck .deck-set .deck-note{order:3}
+}
+/* The selected channel's number lives in its stepper, not twice beside it. */
+.life-deck .deck-chip.active .deck-chip-val{display:none}
+
+.life-deck #commit{width:fit-content;max-width:100%;justify-self:start}
+
+.deck-measure{display:flex;flex-direction:column;align-items:center;line-height:1.15}
+.deck-measure .deck-label{min-width:0;white-space:normal;text-align:center;font-size:calc(11px * var(--reading-scale))}
+@media(min-width:1280px){
+ .life-deck:not(:has(.deck-money)){grid-template-columns:360px 240px 170px minmax(180px,220px);gap:16px;justify-content:start}
+ .life-deck:not(:has(.deck-money)) .deck-panel{background:transparent;border:0}
+ .life-deck:not(:has(.deck-money)) .deck-set{max-width:360px}
+ .life-deck .deck-stepper{grid-template-columns:28px minmax(44px,max-content) 28px}
+ .life-deck .deck-value-label{justify-content:flex-start}
+ .life-deck .deck-points{grid-template-columns:max-content minmax(0,1fr)}
+}
+@media(max-width:1279px) and (orientation:landscape){
+ .life-deck .deck-points{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:4px 12px}
+ .life-deck .deck-value-label,.life-deck .deck-stepper,.life-deck .deck-result{flex:0 0 auto}
+ .life-deck .deck-result{margin:0}
+}
+/* Channel names earn their own width in every script. A text-size multiplier
+   must not turn a five-item roster into five full-width slabs. */
+.life-deck .deck-strip{display:flex;flex-wrap:wrap;gap:4px}
+.life-deck .deck-chip{width:auto;max-width:100%;min-width:0;flex:0 0 auto;justify-content:flex-start;background:none;border:0;border-bottom:2px solid transparent;padding:4px 6px}
+@media(max-width:1279px) and (orientation:landscape){
+ .rpg-dock .console-reader{position:relative}
+ .rpg-dock .console-nav{padding:2px 230px 2px 8px;min-height:29px}
+ .rpg-dock .console-nav button{min-height:24px;padding:2px 4px}
+ .rpg-dock .tabs{position:absolute;right:8px;top:0;z-index:2;margin:0;padding:0;background:var(--paper);gap:10px;border:0}
+ .rpg-dock .tabs button{min-height:26px;padding:2px 0}
+ .rpg-dock .deck-set{padding-top:1px;padding-bottom:1px}
+ .rpg-dock .deck-set .deck-placard{display:none}
+}
+@media(max-width:1279px) and (orientation:landscape){
+ .rpg-dock .deck-measure{flex-direction:row;align-items:baseline;gap:4px}
+}

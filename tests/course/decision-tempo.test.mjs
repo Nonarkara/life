@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {decisionTempo} from '../../dist/course/decision-tempo.js';
-import {newLife,begin} from '../../dist/course/sim.js';
+import {newLife,newLegacyLife,begin} from '../../dist/course/sim.js';
 import {applyPivot,pendingPivots,openOptions} from '../../dist/course/pivots.js';
 
 test('incidents, unanswered questions and outcomes own the clock even at20x',()=>{
@@ -41,7 +41,7 @@ import {choiceAvailable} from '../../dist/course/finance.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {undoAnswer} from '../../dist/course/alternatives.js';
 test('an unaffordable house is not published as a road not taken after renting adds cash',()=>{
- let s=begin(newLife(4));
+ let s=begin(newLegacyLife(4));
  while(s.stage==='review'){
   if(s.story?.pending)s=resolveEncounter(s,encounterById(s.story.pending.id).options.find(o=>choiceAvailable(s,o)).id,.2);
   for(const p of pendingPivots(s)){const options=openOptions(p,s);s=applyPivot(s,p,options[12%options.length].id);}

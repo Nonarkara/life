@@ -109,3 +109,17 @@ changes; an idle screen must not fabricate moods to satisfy a palette count.
 Use darkest ink against a suitably light reading surface, invert for dark bars,
 and prove contrast for each actual surface. Historical colour follows evidence
 available then, including archived question records, without future leakage.
+
+## 3 November: one camera and intrinsic multilingual controls
+A dock cannot make people float: reserve actual scene/control regions. Never lift
+or resize only the actors to keep them above UI while the painted floor stays
+still. Calibrate unusual plates against visible doors, furniture and floor aisles;
+a single global2× multiplier is not proof of proportion. The office aisle/door
+and old-overlap regression gates live in review/class-audit.
+
+Changing text size or script must not inflate a short channel into a full-width
+row. Keep the selected number, its unit, forecast and advance action together.
+Phone dilemmas reserve the same one-third portrait/one-fifth landscape strip as
+planning. Prove actual requested viewports; a hidden tab or stale measurement
+handle must not silently substitute another size. Page overflow is only one
+check. Supporting records may require reading, but current edits must be visible.

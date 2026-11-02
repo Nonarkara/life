@@ -2,17 +2,21 @@
 // code and back, so a birth can be sent to someone else: same family, same place, same luck,
 // different choices. Decoding rebuilds the life and accepts it only if it re-encodes to the
 // same code, so a hand-edited or mistyped code cannot start a different life than the link says.
-import {newLife,configureLife,validate,AXES} from './sim.js';
+import {newLife,configureLife,validate,AXES,newLegacyLife} from './sim.js';
 const SEX={female:'f',male:'m',intersex:'i'},CLASS={high_class:'h',low_class:'l',middle_class:'m',working_class:'w',bureaucratic_class:'b',royal_associated:'r'};
+const BAND={constrained:'c',middle:'m',comfortable:'x'},COUNTRY={th:'t',jp:'j',sg:'s',gb:'g',us:'u'};
 const invert=o=>Object.fromEntries(Object.entries(o).map(([k,v])=>[v,k]));
 const SEX_BY=invert(SEX),CLASS_BY=invert(CLASS),DIGITS='0123456789a';
 export function encodeBirth(life){
  const i=life?.intake;
+ if(i?.class===undefined&&BAND[i?.upbringing]&&COUNTRY[i?.country]&&SEX[i?.sex])return life.seed.toString(36)+'-'+SEX[i.sex]+BAND[i.upbringing]+COUNTRY[i.country]+'-'+AXES.map(a=>DIGITS[i.attributes?.[a.key]]).join('');
  if(!i||!Number.isInteger(life.seed)||!SEX[i.sex]||!CLASS[i.class])return null;
  const points=AXES.map(a=>DIGITS[i.attributes?.[a.key]]).join('');
  return life.seed.toString(36)+'-'+SEX[i.sex]+CLASS[i.class]+'-'+points;
 }
 export function decodeBirth(code){
+ const legacy=/^([0-9a-z]{1,7})-([fmi])([cmx])([tjsgu])-([0-9a]{5})$/.exec(String(code??'').trim().toLowerCase());
+ if(legacy){const seed=parseInt(legacy[1],36);if(seed<1||seed>2147483646)return null;const attributes=Object.fromEntries(AXES.map((a,k)=>[a.key,DIGITS.indexOf(legacy[5][k])]));const life=configureLife(newLegacyLife(seed),{sex:SEX_BY[legacy[2]],upbringing:invert(BAND)[legacy[3]],country:invert(COUNTRY)[legacy[4]],attributes});return validate(life)&&encodeBirth(life)===legacy[0]?life:null;}
  const m=/^([0-9a-z]{1,7})-([fmi])([hlmwbr])-([0-9a]{5})$/.exec(String(code??'').trim().toLowerCase());
  if(!m)return null;
  const seed=parseInt(m[1],36);if(!Number.isInteger(seed)||seed<1||seed>2147483646)return null;
@@ -41,7 +45,7 @@ export function validDay(day){
 export function dailyDateFor(life,now=new Date()){
  const code=encodeBirth(life);if(!code)return null;
  const day=life.dailyDay!==undefined?life.dailyDay:dailyLabel(life.seed,now);
- return validDay(day)&&encodeBirth(dailyLife(day))===code?day:null;
+ return validDay(day)&&encodeBirth(life.intake?.class===undefined?configureLife(newLegacyLife(dailySeed(day)),{legacy:true}):dailyLife(day))===code?day:null;
 }
 export function birthURL(life,origin='https://life.nonarkara.org',now=new Date()){
  const code=encodeBirth(life);if(!code)return null;

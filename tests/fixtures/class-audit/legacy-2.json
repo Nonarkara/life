@@ -1,0 +1,213 @@
+{
+  "source": "21bc4cf^",
+  "code": "20-mxj-11242",
+  "birth": {
+    "version": 2,
+    "seed": 72,
+    "economy": {
+      "version": 2,
+      "seed": 72,
+      "startYear": 2030,
+      "activeFrom": 0
+    },
+    "story": {
+      "people": {
+        "friend": "Niran",
+        "partner": "Dao"
+      },
+      "flags": {},
+      "seen": [],
+      "pending": null
+    },
+    "stage": "birth",
+    "age": 0,
+    "attributes": {
+      "physique": 1,
+      "iq": 1,
+      "eq": 2,
+      "craft": 4,
+      "drive": 2
+    },
+    "effort": {
+      "physique": 1,
+      "iq": 1,
+      "eq": 2,
+      "craft": 4,
+      "drive": 2
+    },
+    "profile": {
+      "drink": "no",
+      "smoke": "no",
+      "religion": "explore",
+      "intimacy": "unsure",
+      "aim": "balance"
+    },
+    "birth": {
+      "place": "Nerima, Tokyo",
+      "home": "a household in a small Tokyo apartment",
+      "region": "tokyo",
+      "household": "parents",
+      "cash": 90000,
+      "sensitivity": "Steady under pressure",
+      "body": "Strong physical starting condition",
+      "sex": "male",
+      "upbringing": "comfortable"
+    },
+    "cash": 90000,
+    "health": 94,
+    "wellbeing": 68,
+    "skills": {
+      "physique": 0,
+      "iq": 0,
+      "eq": 0,
+      "craft": 0,
+      "drive": 0
+    },
+    "history": [],
+    "profiles": [],
+    "original": null,
+    "death": null,
+    "previous": null,
+    "intake": {
+      "sex": "male",
+      "upbringing": "comfortable",
+      "country": "jp",
+      "attributes": {
+        "physique": 1,
+        "iq": 1,
+        "eq": 2,
+        "craft": 4,
+        "drive": 2
+      }
+    }
+  },
+  "state": {
+    "version": 2,
+    "seed": 72,
+    "economy": {
+      "version": 2,
+      "seed": 72,
+      "startYear": 2030,
+      "activeFrom": 0
+    },
+    "story": {
+      "people": {
+        "friend": "Niran",
+        "partner": "Dao"
+      },
+      "flags": {},
+      "seen": [],
+      "pending": null
+    },
+    "stage": "review",
+    "age": 10,
+    "attributes": {
+      "physique": 1,
+      "iq": 1,
+      "eq": 2,
+      "craft": 4,
+      "drive": 2
+    },
+    "effort": {
+      "physique": 1,
+      "iq": 1,
+      "eq": 2,
+      "craft": 4,
+      "drive": 2
+    },
+    "profile": {
+      "drink": "no",
+      "smoke": "no",
+      "religion": "explore",
+      "intimacy": "unsure",
+      "aim": "balance"
+    },
+    "birth": {
+      "place": "Nerima, Tokyo",
+      "home": "a household in a small Tokyo apartment",
+      "region": "tokyo",
+      "household": "parents",
+      "cash": 90000,
+      "sensitivity": "Steady under pressure",
+      "body": "Strong physical starting condition",
+      "sex": "male",
+      "upbringing": "comfortable"
+    },
+    "cash": 90000,
+    "health": 94,
+    "wellbeing": 68,
+    "skills": {
+      "physique": 0,
+      "iq": 0,
+      "eq": 0,
+      "craft": 0,
+      "drive": 0
+    },
+    "history": [
+      {
+        "age": 0,
+        "health": 94,
+        "wellbeing": 68,
+        "cash": 90000,
+        "event": "Born into a household in a small Tokyo apartment",
+        "effort": {
+          "physique": 1,
+          "iq": 1,
+          "eq": 2,
+          "craft": 4,
+          "drive": 2
+        },
+        "profile": {
+          "drink": "no",
+          "smoke": "no",
+          "religion": "explore",
+          "intimacy": "unsure",
+          "aim": "balance"
+        }
+      },
+      {
+        "age": 10,
+        "health": 94,
+        "wellbeing": 68,
+        "cash": 90000,
+        "event": "Childhood: family, school and the world you inherited.",
+        "effort": {
+          "physique": 1,
+          "iq": 1,
+          "eq": 2,
+          "craft": 4,
+          "drive": 2
+        },
+        "profile": {
+          "drink": "no",
+          "smoke": "no",
+          "religion": "explore",
+          "intimacy": "unsure",
+          "aim": "balance"
+        }
+      }
+    ],
+    "profiles": [],
+    "original": {
+      "physique": 1,
+      "iq": 1,
+      "eq": 2,
+      "craft": 4,
+      "drive": 2
+    },
+    "death": null,
+    "previous": null,
+    "intake": {
+      "sex": "male",
+      "upbringing": "comfortable",
+      "country": "jp",
+      "attributes": {
+        "physique": 1,
+        "iq": 1,
+        "eq": 2,
+        "craft": 4,
+        "drive": 2
+      }
+    }
+  }
+}

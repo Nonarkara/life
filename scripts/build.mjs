@@ -10,12 +10,10 @@ const compare=(from,to)=>{
   cpSync(source,target);assert.deepEqual(readFileSync(target),readFileSync(source));
  }
 };
-compare('dist/course',output);
-console.log('Course output matches authored source.');
 
 // Keep gameplay and the manual at stable sibling routes.
 mkdirSync(output+'/course',{recursive:true});mkdirSync(output+'/start',{recursive:true});
-cpSync('dist/course',output+'/course',{recursive:true});cpSync('dist/start',output+'/start',{recursive:true});
+compare('dist/course',output+'/course');console.log('Course output matches authored source.');cpSync('dist/start',output+'/start',{recursive:true});
 for(const file of readdirSync('dist/start'))cpSync('dist/start/'+file,output+'/'+file);
 
 mkdirSync(output+'/legacy',{recursive:true});

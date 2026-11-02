@@ -4,7 +4,7 @@ import {initLifeEventView} from './life-event-view.js';
 import {enableLifeEvents} from './life-events.js';
 import {pendingChildChoice,nextChildAge,chooseChild,skipChildIntro,childYearSeconds,CHILD_TUTORIAL,childReceipt,acknowledgeChild} from './childhood-choices.js';
 import {initChildhoodView} from './childhood-view.js';
-import {choiceSymbol,choiceSymbolKey,questionType,questionCategory,questionInteraction,questionTypeBadge,questionCategoryBadge,questionInteractionBadge} from './choice-symbols.js';
+import {choiceSymbol,choiceSymbolKey,questionCategory,questionCategoryBadge} from './choice-symbols.js';
 import {decisionTempo} from './decision-tempo.js';
 import {initDecisionStage} from './decision-stage.js';
 import {readSave} from './save.js';
@@ -95,7 +95,7 @@ function questions(){
  }
  const pivot=waiting[0],card=document.createElement('section');card.className='pivot';
  const progress=document.createElement('p');progress.className='decision-progress';progress.textContent=t('Decision {n} of {total}').replace('{n}',answered.length+1).replace('{total}',answered.length+waiting.length);
- const badges=document.createElement('div');badges.className='question-badges';badges.append(questionTypeBadge(questionType(pivot)),questionCategoryBadge(questionCategory(pivot)),questionInteractionBadge(questionInteraction(pivot)));
+ const badges=document.createElement('div');badges.className='question-badges';badges.append(questionCategoryBadge(questionCategory(pivot)));
  const question=document.createElement('h2');question.id='pivot-title';question.textContent=pivot.prompt;
  const context=document.createElement('p');context.className='decision-context';context.textContent=pivot.context;
  const list=document.createElement('div');list.className='pivot-options';
@@ -155,7 +155,7 @@ function renderEncounter(){
  $('chapter').textContent='A TURN IN THE PATH';$('stage-count').textContent='';$('title').textContent=storyText(scene.title,state.story);
  $('narrative').hidden=false;$('narrative').textContent=storyText(scene.prompt,state.story);
  {const stop=document.createElement('p');stop.className='encounter-stop';stop.textContent='Time stops until you choose.';root.append(stop);}
- const badges=document.createElement('div');badges.className='question-badges';badges.append(questionCategoryBadge(scene.category),questionTypeBadge('hard-choice'),questionInteractionBadge(scene.options.length===2?'yes-no':'multiple-choice'));root.append(badges);
+ const badges=document.createElement('div');badges.className='question-badges';badges.append(questionCategoryBadge(scene.category==='family'?'relationships':scene.category));root.append(badges);
  for(const choice of inWorldOrder(scene.options,state.seed,scene.id+state.age)){const button=document.createElement('button');button.type='button';button.className='encounter-choice';button.disabled=!choiceAvailable(state,choice);const label=document.createElement('span');label.textContent=choice.label;button.append(choiceSymbol(choiceSymbolKey(choice)),label);
  const terms=[];if(choice.cash<0)terms.push('Cost: '+money(-choice.cash));if(choice.cash>0)terms.push('Income: '+money(choice.cash));if(choice.uncertain)terms.push('Sales uncertain');
  if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}

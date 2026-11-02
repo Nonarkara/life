@@ -2142,3 +2142,69 @@ Birth text and link|ข้อความและลิงก์การเก
 phrases.push(['Try again','ลองอีกครั้ง','重试','もう一度試す','다시 시도']);
 phrases.push(['No recorded history','ยังไม่มีประวัติที่บันทึกไว้','尚无历史记录','記録された履歴はありません','기록된 이력이 없습니다']);
 phrases.push(['In Life2.0, I was born in {place}, into {home}. About 1 in {n} game births begin like this.','ใน Life2.0 ชีวิตนี้เกิดที่ {place} ใน {home} การเกิดในเกมประมาณ 1 ใน {n} ครั้งเริ่มต้นแบบนี้','在 Life2.0 中，我出生于{place}，来自{home}。游戏中约每 {n} 次出生有一次这样开始。','Life2.0で、{place}の{home}に生まれました。ゲームでは約{n}回に1回の始まりです。','Life2.0에서 {place}의 {home}에 태어났습니다. 게임에서 약 {n}번 중 한 번은 이렇게 시작합니다.']);
+
+// Reviewed scope: authored background choices and intake qualifications.
+phrases.push(...String.raw`
+The family wants a rescue|ครอบครัวขอความช่วยเหลือ|家里需要援助|家族からの援助の頼み|가족이 도움을 청한다
+Your family asks you to put your own money into its business. Helping would leave less for your own plans.|ครอบครัวขอให้คุณนำเงินส่วนตัวไปช่วยธุรกิจ ถ้าช่วย เงินสำหรับแผนของคุณจะลดลง|家里请你拿自己的钱支持生意，帮助他们会减少你自己计划的资金。|家族の事業に自分のお金を出してほしいと頼まれた。助ければ、自分の計画に使えるお金は減る。|가족이 사업에 개인 돈을 보태 달라고 한다. 도우면 내 계획에 쓸 돈은 줄어든다.
+Contribute ฿6,000|ช่วยสมทบ ฿6,000|出资 ฿6,000|฿6,000を出す|฿6,000 보태기
+You contributed part of your own funds. Your other plans now have less room.|คุณนำเงินส่วนตัวไปช่วย แผนอื่นจึงมีเงินให้ใช้น้อยลง|你拿出了一部分自己的资金，其他计划的余地变小了。|自分の資金を一部出した。他の計画に使える余裕は減った。|내 돈 일부를 보탰다. 다른 계획에 쓸 여유는 줄었다.
+Ask to see the accounts first|ขอดูบัญชีก่อน|先要求查看账目|まず帳簿を見せてもらう|먼저 장부를 보여 달라고 하기
+You asked for accounts before committing. The conversation was uncomfortable; your money stayed available.|คุณขอดูบัญชีก่อนตัดสินใจ คุยกันไม่ง่าย แต่เงินของคุณยังอยู่|你先要求查账。谈话有些尴尬，但你的钱还在。|約束の前に帳簿を求めた。気まずい会話になったが、資金は手元に残った。|약속하기 전에 장부를 요청했다. 대화는 불편했지만 돈은 지켰다.
+Debt is narrowing your choices|หนี้กำลังจำกัดทางเลือก|债务正在压缩你的选择|借金で選択肢が狭まる|빚 때문에 선택지가 줄어든다
+You have personal debt. A small unexpected cost could leave even less for food, travel and study.|คุณมีหนี้ส่วนตัว ค่าใช้จ่ายไม่คาดคิดเพียงเล็กน้อยอาจทำให้เงินสำหรับอาหาร เดินทาง และเรียนเหลือน้อยลง|你有个人债务。一笔小小的意外支出，就可能挤占吃饭、交通和学习的钱。|個人の借金がある。小さな予定外の出費でも、食費や交通費、学費の余裕が減りかねない。|개인 빚이 있다. 작은 돌발 지출도 식비와 교통비, 공부에 쓸 돈을 줄일 수 있다.
+Ask for help making a repayment plan|ขอความช่วยเหลือวางแผนชำระหนี้|找人帮助制定还款计划|返済計画を立てる助けを求める|상환 계획을 세울 도움 청하기
+You made a plan and asked for help. The existing debt still has to be paid.|คุณวางแผนและขอความช่วยเหลือ หนี้เดิมยังต้องชำระ|你制定了计划并寻求帮助，但原有债务仍需偿还。|計画を立て、助けを求めた。すでにある借金の返済は残っている。|계획을 세우고 도움을 청했다. 기존 빚은 여전히 갚아야 한다.
+Protect time to rest|กันเวลาไว้พักผ่อน|留出休息时间|休む時間を守る|쉴 시간 지키기
+You protected some rest. Your debt remained, but exhaustion did not get all your time.|คุณกันเวลาไว้พัก หนี้ยังอยู่ แต่ความเหนื่อยล้าไม่ได้กินเวลาทั้งหมด|你保留了休息。债务还在，但疲惫没有占满全部时间。|休む時間を確保した。借金は残るが、疲労にすべての時間を奪われずにすんだ。|쉬는 시간을 지켰다. 빚은 남았지만 지침에 모든 시간을 빼앗기지는 않았다.
+A plan bigger than your buffer|แผนที่ใหญ่กว่าเงินสำรอง|计划超出了你的余裕|蓄えを超える計画|여유 자금보다 큰 계획
+A course could help with a change of direction. You can pay now, or practice with what you already have.|คอร์สเรียนอาจช่วยให้เปลี่ยนเส้นทางได้ คุณจะจ่ายตอนนี้ หรือฝึกด้วยสิ่งที่มีอยู่|一门课程可能帮助你转向新方向。你可以现在付费，也可以用现有条件练习。|講座が進路変更の助けになるかもしれない。今お金を払うか、手元のもので練習するか。|강좌가 진로 전환에 도움이 될 수도 있다. 지금 돈을 내거나 가진 것으로 연습할 수 있다.
+Pay ฿3,000 for the course|จ่าย ฿3,000 เรียนคอร์ส|花 ฿3,000 报课|講座に฿3,000を払う|강좌에 ฿3,000 내기
+You paid for structured practice. It improved your skills, without promising a better job.|คุณจ่ายเพื่อฝึกอย่างเป็นระบบ ทักษะดีขึ้น แต่ไม่ได้รับประกันงานที่ดีกว่า|你付费接受系统练习，技能有所提高，但不保证能找到更好的工作。|体系的な練習にお金を払った。技能は伸びたが、より良い仕事の保証はない。|체계적인 연습에 돈을 냈다. 실력은 늘었지만 더 좋은 일자리를 보장하지는 않는다.
+Practice with what you have|ฝึกด้วยสิ่งที่มี|用现有条件练习|手元にあるもので練習する|가진 것으로 연습하기
+You practiced without a new expense. Progress was smaller, and the buffer stayed intact.|คุณฝึกโดยไม่มีค่าใช้จ่ายเพิ่ม พัฒนาได้น้อยกว่า แต่เงินสำรองยังอยู่|你练习时没有增加开支。进步小一些，储备金保住了。|新たな出費なしに練習した。進歩は小さめだったが、蓄えは残った。|추가 지출 없이 연습했다. 발전은 작았지만 비상금은 지켰다.
+Another shift, or an evening of your own?|ทำงานเพิ่ม หรือเก็บค่ำคืนนี้ไว้ให้ตัวเอง|再上一班，还是留一个自己的夜晚？|追加の勤務か、自分の夜か|추가 근무인가, 나만의 저녁인가
+Extra work would bring money now. Rest and time with other people are also becoming scarce.|งานเพิ่มทำให้ได้เงินตอนนี้ แต่เวลาพักและเวลาอยู่กับคนอื่นก็เหลือน้อยลง|加班能马上带来收入，但休息和陪伴他人的时间也越来越少。|追加の仕事は今の収入になる。ただ、休息や人と過ごす時間も足りなくなっている。|추가 근무는 당장 돈이 된다. 하지만 쉬거나 사람들과 보낼 시간도 부족해지고 있다.
+Take the extra shift|รับงานกะเพิ่ม|接下加班|追加の勤務を引き受ける|추가 근무 맡기
+The extra shift paid. It also used the time and energy you could have spent recovering.|กะเพิ่มทำให้ได้เงิน แต่ใช้เวลาและแรงที่คุณอาจเก็บไว้ฟื้นตัว|加班带来了收入，也消耗了本可用来恢复的时间和精力。|追加の勤務は収入になった。その分、回復に使えた時間と体力を使った。|추가 근무로 돈을 벌었다. 대신 회복에 쓸 시간과 기운을 썼다.
+Keep the evening free|เก็บช่วงเย็นไว้พัก|把晚上留给自己|夜の時間を空けておく|저녁 시간 비워 두기
+You kept the evening free. You recovered some energy and received no extra pay.|คุณเก็บช่วงเย็นไว้พัก ฟื้นแรงได้บ้าง แต่ไม่มีรายได้เพิ่ม|你留出了晚上，恢复了一些精力，但没有额外收入。|夜を空けておいた。少し元気は戻ったが、追加の収入はなかった。|저녁을 비워 뒀다. 기운은 조금 회복했지만 추가 수입은 없었다.
+A relative offers an introduction|ญาติเสนอแนะนำคนรู้จัก|亲戚愿意牵线|親戚から紹介の申し出|친척이 소개를 제안한다
+A family connection offers to introduce you to someone in your field. An introduction is a chance, not a job.|คนรู้จักของครอบครัวเสนอแนะนำคุณให้คนในสายงาน การแนะนำเป็นโอกาส ไม่ใช่การรับเข้าทำงาน|家里的熟人愿意介绍你认识同行。介绍是一次机会，并不等于得到工作。|家族の知人が同じ分野の人を紹介してくれるという。紹介は機会であり、採用の約束ではない。|가족의 지인이 같은 분야의 사람을 소개해 준다고 한다. 소개는 기회이지 일자리 약속은 아니다.
+Go to the meeting|ไปพบตามนัด|去见面|面会に行く|만나러 가기
+You paid for the trip and practiced making your case. No position was guaranteed.|คุณจ่ายค่าเดินทางและฝึกนำเสนอตัวเอง ไม่มีตำแหน่งงานใดรับประกัน|你支付路费，练习了如何表达自己，但没有获得职位保证。|交通費を払い、自分を伝える練習をした。職は保証されなかった。|교통비를 내고 나를 알리는 연습을 했다. 자리는 보장되지 않았다.
+Prepare an application yourself|เตรียมใบสมัครด้วยตัวเอง|自己准备申请材料|自分で応募書類を準備する|직접 지원서 준비하기
+You prepared your own application. The result still depended on the opening and the people choosing.|คุณเตรียมใบสมัครเอง ผลยังขึ้นอยู่กับตำแหน่งว่างและคนคัดเลือก|你自己准备了申请材料。结果仍取决于空缺和筛选者。|自分で応募の準備をした。結果は求人と選ぶ側にも左右される。|직접 지원서를 준비했다. 결과는 빈자리와 뽑는 사람에게도 달려 있었다.
+The family name comes with expectations|ชื่อของครอบครัวมาพร้อมความคาดหวัง|家族名望伴随着期待|家の名前に伴う期待|가문의 이름에 따르는 기대
+A family gathering matters to your relatives. Attending takes money and time you had planned to use elsewhere.|งานรวมญาติสำคัญกับครอบครัว การไปร่วมต้องใช้เงินและเวลาที่คุณตั้งใจจะใช้ทำอย่างอื่น|一次家庭聚会对亲戚们很重要。出席需要花掉你原本另有安排的时间和金钱。|親戚にとって大切な集まりがある。出席には、他に使う予定だったお金と時間が要る。|친척들에게 중요한 가족 모임이 있다. 참석하면 다른 데 쓰려던 돈과 시간이 든다.
+Attend and contribute ฿2,000|ไปร่วมและสมทบ ฿2,000|出席并出资 ฿2,000|出席して฿2,000を出す|참석하고 ฿2,000 보태기
+You attended and contributed. The family had your company, and your own plans had less money.|คุณไปร่วมและช่วยสมทบ ครอบครัวได้อยู่กับคุณ ส่วนแผนของคุณมีเงินน้อยลง|你出席并出了钱，陪伴了家人，自己的计划则少了一部分资金。|出席してお金を出した。家族と過ごせた分、自分の計画の資金は減った。|참석하고 돈을 보탰다. 가족과 함께했지만 내 계획에 쓸 돈은 줄었다.
+Decline and keep your commitments|ปฏิเสธและทำตามที่ตัวเองวางไว้|谢绝并守住自己的安排|断って自分の予定を守る|거절하고 내 약속 지키기
+You kept your commitments and declined. The conversation was difficult, but the choice was yours.|คุณปฏิเสธเพื่อทำตามที่วางไว้ คุยกันไม่ง่าย แต่คุณเป็นคนเลือก|你谢绝了邀请，守住自己的安排。谈话不容易，但这是你的选择。|断って自分の約束を守った。難しい会話だったが、自分で選んだ。|거절하고 내 약속을 지켰다. 대화는 어려웠지만 내 선택이었다.
+The condition you are born into sets family resources and pressures, not your intelligence or destiny.|พื้นฐานครอบครัวกำหนดทรัพยากรและแรงกดดัน ไม่ใช่สติปัญญาหรือชะตาชีวิต|出生背景影响家庭资源和压力，不决定你的智力或命运。|生まれた環境は家族の資源や負担に関わるが、知能や運命を決めるものではない。|태어난 환경은 가족의 자원과 부담에 영향을 주지만 지능이나 운명을 정하지는 않는다.
+A larger family buffer brings opportunities and requests for help.|เงินสำรองครอบครัวที่มากขึ้นนำมาทั้งโอกาสและคำขอความช่วยเหลือ|较多的家庭储备带来机会，也带来求助。|家族の蓄えが多いと、機会も援助の頼みも増える。|넉넉한 가족 자금은 기회와 도움 요청을 함께 가져온다.
+A small family buffer makes costs and access matter more.|เงินสำรองครอบครัวที่น้อยทำให้ค่าใช้จ่ายและการเข้าถึงโอกาสสำคัญขึ้น|家庭储备有限时，成本和机会的可及性更重要。|家族の蓄えが少ないほど、費用や機会へのアクセスが重要になる。|가족 자금이 적으면 비용과 기회에 대한 접근이 더 중요해진다.
+Some family support, with limits on what it can cover.|ครอบครัวช่วยได้บางส่วน แต่มีขอบเขต|家庭能提供一些支持，但能力有限。|家族の支えはあるが、まかなえる範囲には限りがある。|가족의 지원이 어느 정도 있지만 한계가 있다.
+Wage income supports the household; time and rest still matter.|รายได้จากค่าจ้างเลี้ยงครอบครัว เวลาและการพักก็ยังสำคัญ|工资支撑家庭，时间和休息也同样重要。|賃金で暮らしを支える家族。時間と休息も大切だ。|임금이 가계를 지탱한다. 시간과 휴식도 중요하다.
+A family with public-service connections and regular support.|ครอบครัวมีเครือข่ายงานราชการและช่วยเหลือได้สม่ำเสมอ|有公共部门人脉、能提供稳定支持的家庭。|公務のつながりがあり、継続的な支えのある家族。|공공 부문 인맥과 꾸준한 지원이 있는 가족.
+Family connections bring support and social expectations.|สายสัมพันธ์ครอบครัวนำมาทั้งการสนับสนุนและความคาดหวังทางสังคม|家族关系带来支持，也带来社会期待。|家族のつながりは支えと周囲の期待をもたらす。|가족 인맥은 지원과 사회적 기대를 함께 가져온다.
+Low class · limited resources|ครอบครัวรายได้น้อย · ทรัพยากรจำกัด|低收入阶层 · 资源有限|低所得層 · 限られた資源|저소득층 · 제한된 자원
+Birth class|พื้นฐานครอบครัว|家庭出身|家庭の背景|가정 배경
+High class|ครอบครัวมั่งคั่ง|富裕家庭|裕福な家庭|부유한 가정
+Low class|ครอบครัวรายได้น้อย|低收入家庭|低所得の家庭|저소득 가정
+Middle class|ครอบครัวชนชั้นกลาง|中产家庭|中流の家庭|중산층 가정
+Working class|ครอบครัวแรงงาน|劳动者家庭|労働者の家庭|노동자 가정
+Bureaucratic class|ครอบครัวข้าราชการ|公务员家庭|公務員の家庭|공무원 가정
+Royal associated|ครอบครัวที่มีสายสัมพันธ์ราชสกุล|有王室关联的家庭|王室につながりのある家庭|왕실과 연관된 가정
+`.trim().split("\n").map(row=>row.split("|")));
+
+phrases.push(['There is nothing to inherit.','ไม่มีมรดกเหลือให้รับ','没有遗产可继承。','相続する財産は残らなかった。','물려받을 재산은 없었다.']);
+
+phrases.push(...String.raw`
+High class · inherited wealth|ครอบครัวมั่งคั่ง · มรดกและทรัพย์สิน|富裕家庭 · 继承财富|裕福な家庭 · 受け継いだ資産|부유한 가정 · 물려받은 재산
+Middle class · striving|ครอบครัวชนชั้นกลาง · สร้างฐานะ|中产家庭 · 努力向上|中流の家庭 · 上を目指す|중산층 가정 · 더 나은 삶을 향해
+Working class · wages|ครอบครัวแรงงาน · ค่าจ้าง|劳动者家庭 · 工资收入|労働者の家庭 · 賃金収入|노동자 가정 · 임금 수입
+Bureaucratic class · public-service family|ครอบครัวข้าราชการ · งานบริการสาธารณะ|公务员家庭 · 公共服务|公務員の家庭 · 公共の仕事|공무원 가정 · 공공 서비스
+Royal associated · family connections|สายสัมพันธ์ราชสกุล · เครือข่ายครอบครัว|王室关联 · 家族人脉|王室との関わり · 家族のつながり|왕실과의 연관 · 가족 인맥
+Any Thai region.|พื้นที่ต่าง ๆ ในประเทศไทย|泰国各地|タイ国内の地域|태국의 여러 지역
+`.trim().split('\n').map(row=>row.split('|')));

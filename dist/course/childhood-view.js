@@ -5,12 +5,11 @@ export function initChildhoodView({onChoose,onContinue,getState}){
  const root=document.createElement('section');root.id='child-choice';root.className='child-choice';root.hidden=true;document.body.append(root);
  const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
  const changes=effects=>[['health','Health'],['wellbeing','Mood'],['cash','Household buffer']].filter(([k])=>effects[k]).map(([k,label])=>t(label)+' '+(effects[k]>0?'+':'')+effects[k]).concat(Object.entries(effects.skills??{}).map(([k,v])=>t({iq:'IQ',eq:'EQ',craft:'Creativity',drive:'Drive',physique:'Physique'}[k])+' +'+v)).join(' · ');
- // A compact life snapshot that fills the empty right side of the choice bar:
- // current stats, skills, and choices already made. No fixed height — the box
- // hugs its content.
+ // Supporting records are available on demand. They do not enlarge the
+ // current choice merely because a wider screen has spare space.
  function snapshot(state){
-  const panel=el('div',undefined,'child-snapshot');
-  panel.append(el('h3',t('Your life so far'),'snapshot-head'));
+  const panel=el('details',undefined,'child-snapshot');
+  panel.append(el('summary',t('Your life so far'),'snapshot-head'));
   const stats=el('div',undefined,'snapshot-stats');
   stats.append(el('div',Math.round(state.health)+'/100','snapshot-stat'),el('small',t('Health')));
   stats.append(el('div',Math.round(state.wellbeing)+'/100','snapshot-stat'),el('small',t('Mood')));

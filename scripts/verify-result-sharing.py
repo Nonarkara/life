@@ -4,9 +4,10 @@ from pathlib import Path
 root=Path(__file__).resolve().parent.parent
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--receipt',default='review/daily-share/share-delivery.json')
-receipt_path=parser.parse_args().receipt
+parser.add_argument('--extra-path',action='append',default=[])
+args=parser.parse_args();receipt_path=args.receipt
 build=json.loads((root/'out/build.json').read_text())['build']
-paths=['/intake/','/intake/intake.js','/course/birthcode.js','/course/share-result.js','/course/card-preparation.js','/course/card-view.js','/course/life-card.js','/course/ending.js','/study/share-result.html','/study/share-result.js']
+paths=['/intake/','/intake/intake.js','/course/birthcode.js','/course/share-result.js','/course/card-preparation.js','/course/card-view.js','/course/life-card.js','/course/ending.js','/study/share-result.html','/study/share-result.js']+args.extra_path
 def check(item):
  host,path=item;local=root/'out'/path.lstrip('/');local=local/'index.html' if path.endswith('/') else local
  expected=local.read_bytes();url=host+path

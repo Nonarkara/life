@@ -1,3 +1,4 @@
+import {backgroundBand} from './backgrounds.js';
 // Personal accounts use whole game baht; prices/effects are authored, not estimates.
 import {WORKPLACES} from './locations.js';
 import {REGIONS,MOVE_TARGETS,regionIdFor} from './regions.js';
@@ -14,7 +15,7 @@ const integer=n=>Number.isSafeInteger(n)&&n>=0;
 const cap=n=>Math.max(0,Math.min(100,n));
 export const netWorth=f=>f?f.available+f.reserve+holdingsValue(f)-f.debt:0;
 export const validBudget=p=>p&&Object.keys(p).length===3&&['save','fun','learn'].every(k=>integer(p[k])&&p[k]<=100)&&p.save+p.fun+p.learn<=100;
-export function allowance(state){return {constrained:400,middle:1500,comfortable:5000}[state.intake?.upbringing??'middle'];}
+export function allowance(state){return {constrained:400,middle:1500,comfortable:5000}[backgroundBand(state)];}
 export function openFinance(state){
  if(state.finance||state.age<15||state.stage==='recap')return state;
  const studying=state.age<20&&(!state.pathway||state.pathway==='school')||state.pathway==='college'&&state.age<25;
@@ -91,7 +92,7 @@ export function validFinance(f,age,world){
  return !!f&&f.version===1&&integer(f.openedAt)&&f.openedAt>=15&&f.openedAt<=age&&['available','reserve','debt'].every(k=>integer(f[k]))&&validBudget(f.budget)&&Object.hasOwn(HOUSING,f.housing)&&Array.isArray(f.receipts)&&f.receipts.length<=1000&&f.receipts.every(r=>r&&typeof r.id==='string'&&integer(r.age)&&r.age>=f.openedAt&&r.age<=age&&['opening','period','purchase','encounter','bucket','trade','market'].includes(r.kind)&&integer(r.income)&&integer(r.expense)&&Number.isSafeInteger(r.change)&&r.change===r.income-r.expense)&&new Set(f.receipts.map(r=>r.id)).size===f.receipts.length&&Array.isArray(f.purchases)&&f.purchases.length<=100&&f.purchases.every(p=>p&&Object.hasOwn(PURCHASES,p.key)&&integer(p.age)&&p.age>=f.openedAt&&p.age<=age&&p.cost===PURCHASES[p.key].cost&&p.hours===PURCHASES[p.key].hours)&&new Set(f.purchases.map(p=>p.age+':'+p.key)).size===f.purchases.length&&f.receipts.reduce((sum,r)=>sum+r.change,0)===netWorth(f)&&f.receipts.filter(r=>r.kind==='purchase').length===f.purchases.length&&f.purchases.every(p=>f.receipts.some(r=>r.id==='purchase:'+p.age+':'+p.key&&r.age===p.age&&r.kind==='purchase'&&r.income===0&&r.expense===p.cost&&r.change===-p.cost))&&[...new Set(f.purchases.map(p=>p.age))].every(age=>f.purchases.filter(p=>p.age===age).reduce((sum,p)=>sum+p.hours,0)<=8);
 }
 // Where a life starts tilts early pay (family contacts, references, a first job found for you); the edge fades but never fully closes.
-export const startTilt=s=>{const t={constrained:-.15,middle:0,comfortable:.2}[s.intake?.upbringing]??0;return 1+t*(1-.6*Math.min(1,Math.max(0,(s.age-20)/40)));};
+export const startTilt=s=>{const t={constrained:-.15,middle:0,comfortable:.2}[backgroundBand(s)]??0;return 1+t*(1-.6*Math.min(1,Math.max(0,(s.age-20)/40)));};
 export function grossMonthlyPay(s){const e=s.effort;return s.age<20?0:s.age>=60?Math.max(3000,Math.round(grossMonthlyPay({...s,age:59})*.4)):startTilt(s)*careerFactor(s)*(12000+e.drive*2000+e.iq*1100+s.attributes.iq*500+e.craft*1000+e.physique*900+Math.min(6000,(s.skills.iq*70+s.skills.craft*60+s.skills.eq*45+s.skills.physique*50)));}
 export function choiceAvailable(state,choice){return !state.finance||Math.max(0,-(choice.cash??0))<=state.finance.available+state.finance.reserve;}
 export function personalFlow(state,id,income,expense){

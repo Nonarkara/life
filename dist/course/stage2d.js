@@ -25,7 +25,8 @@ const SETS={
   court:{plate:'beat-court',ground:.86,scale:.24,span:[8,13]},
   school:{plate:'school',ground:.86,scale:.22,span:[8,13]},
   // The office plate has its own desk in the foreground: people stand at it, close to the camera.
-  work:{plate:'work',ground:.93,scale:.40,span:[9,14]},
+  // The office plate has a desk at centre and a standing aisle by the door.
+  work:{plate:'work',ground:.93,scale:.26,span:[9,14],marks:{1:[.68]}},
   shop:{plate:'shop',ground:.86,scale:.23,span:[9,14]},
   site:{plate:'site',ground:.86,scale:.23,span:[9,14]},
   abroad:{plate:'abroad',ground:.84,scale:.22,span:[9,14]},
@@ -364,9 +365,9 @@ export const stageCaption=canvas=>stages.get(canvas)?.caption??null;
 
 const stages=new WeakMap();
 
-// Where a person stands when the dock hides the lowest `1-reach/height` of the stage: no lower
-// than 95% of the way down the visible part, and scaled by the same ratio (further back, smaller).
-export function liftGround(y,reach){const limit=reach*.95;return y<=limit||!(limit>0)?{y,k:1}:{y:limit,k:limit/y};}
+// A body and the painted floor share one camera. An overlay must not move
+// feet or resize actors independently of the room. Layout reserves the dock.
+export function liftGround(y,_reach){return {y,k:1};}
 
 // One 2x correction shared by every pose; authored room scales already contain it.
 export function figureHeightPx(plateHeight,scale,sourceHeight,actor,age,calibrated=false){return plateHeight*scale*(calibrated?1:2)*(sourceHeight/400)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);}
@@ -374,24 +375,10 @@ export function figureHeightPx(plateHeight,scale,sourceHeight,actor,age,calibrat
 function createStage(canvas){
   const buffer=document.createElement('canvas');
   const frame=document.createElement('canvas');
-  // The docked panel covers the right of the stage on wide screens. The painting still
-  // fills the frame, but its focus and its people sit in the part that can be seen.
-  const visibleWidth=(pw,dpr)=>{const panel=document.querySelector('.decision'),box=(canvas.hidden?canvas.parentElement:canvas).getBoundingClientRect(),dock=panel?.getBoundingClientRect();
-   if(!dock||getComputedStyle(panel).visibility==='hidden'||matchMedia('(max-width:720px)').matches||dock.left>=box.right||dock.top>=box.bottom||dock.width>=box.width*.6)return pw;
-   return Math.max(pw*.5,Math.round((dock.left-box.left)*dpr));};
-  // The bottom dock covers the lowest part of the stage on a wide screen. This is how many
-  // device pixels of the stage can actually be seen above it.
-  const visibleHeight=(ph,dpr)=>{
-   const box=(canvas.hidden?canvas.parentElement:canvas).getBoundingClientRect();
-   if(matchMedia('(max-width:720px)').matches)return ph;
-   let top=Infinity;
-   for(const selector of ['.console-nav','.decision']){const element=document.querySelector(selector);if(!element||getComputedStyle(element).visibility==='hidden'||getComputedStyle(element).display==='none')continue;const r=element.getBoundingClientRect();if(r&&r.width>=box.width*.6&&r.top>box.top&&r.top<box.bottom)top=Math.min(top,r.top);}
-   return top===Infinity?ph:Math.max(ph*.4,Math.round((top-box.top)*dpr));};
-  let seen=0,reach=0,width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
+  let seen=0,width=0,height=0,set='',setChangedAt=0,lastPeriod=-1,impact=0,caption='',hasFrame=false,waiting=false;
   const reduced=()=>preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // People stand where they can be seen: a ground line that falls behind the dock is lifted
-  // above it, and they shrink with it, as they would standing further back on the same floor.
-  const fit=y=>liftGround(y,reach);
+  // Scene coordinates remain authored, even when reference reading is open.
+  const fit=y=>liftGround(y);
 
   function resize(){
     const surface=canvas.hidden?(canvas.parentElement?.querySelector('canvas:not([hidden])')??canvas.parentElement):canvas;
@@ -399,7 +386,7 @@ function createStage(canvas){
     if(w<2||h<2)return false;
     const dpr=Math.min(devicePixelRatio||1,2);
     const pw=Math.round(w*dpr),ph=Math.round(h*dpr);
-    seen=visibleWidth(pw,dpr);reach=visibleHeight(ph,dpr);if(pw!==width||ph!==height){width=pw;height=ph;canvas.width=pw;canvas.height=ph;buffer.width=pw;buffer.height=ph;frame.width=pw;frame.height=ph;hasFrame=false;}
+    seen=pw;if(pw!==width||ph!==height){width=pw;height=ph;canvas.width=pw;canvas.height=ph;buffer.width=pw;buffer.height=ph;frame.width=pw;frame.height=ph;hasFrame=false;}
     return true;
   }
 
@@ -660,8 +647,8 @@ function createStage(canvas){
     if(set!=='travel'&&!moment){
       const present=scene.actors;
       for(const [index,actor]of present.entries()){
-        const marks=scene.room?.marks?.[present.length]??{1:[.5],2:[.42,.64],3:[.34,.51,.70],4:[.24,.41,.60,.79]}[present.length]??spread(present.length);
-        const x=scene.room?drawn.x+marks[index]*drawn.drawWidth:seen*.08+actor.slot*(seen*.84);
+        const marks=stage.marks?.[present.length]??scene.room?.marks?.[present.length]??{1:[.5],2:[.42,.64],3:[.34,.51,.70],4:[.24,.41,.60,.79]}[present.length]??spread(present.length);
+        const x=scene.room||stage.marks?drawn.x+marks[index]*drawn.drawWidth:seen*.08+actor.slot*(seen*.84);
         drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,x,{scale:stage.scale,calibrated:!!scene.room});
       }
     }

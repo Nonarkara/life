@@ -80,9 +80,9 @@ export function drawDeck(root,state,args){
   strip.append(chip);
  });
  const value=el('div','deck-points');const out=el('output','deck-value',ch.value);out.setAttribute('aria-live','polite');
- const stepper=el('div','deck-stepper');
- stepper.append(key('−','Lower '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(-1),{disabled:!ch.can(-1)}),out,key('+','Raise '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(1),{disabled:!ch.can(1)}));
- const valueLabel=el('div','deck-value-label');valueLabel.append(el('b','deck-channel',ch.label),el('span','deck-label',String(ch.value).includes('%')?'of free money':'of 10 points'));
+ const stepper=el('div','deck-stepper'),measure=el('div','deck-measure');measure.append(out,el('span','deck-label',String(ch.value).includes('%')?'of free money':'of 10 points'));
+ stepper.append(key('−','Lower '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(-1),{disabled:!ch.can(-1)}),measure,key('+','Raise '+ch.label+' by '+(ch.stepAmount??1),()=>ch.step(1),{disabled:!ch.can(1)}));
+ const valueLabel=el('div','deck-value-label');valueLabel.append(el('b','deck-channel',ch.label));
  value.append(valueLabel,stepper,el('span','deck-result',ch.detail+' '+t(ch.detailLabel)));
  const method=['Authored scenario estimate, not a real-life prediction. Includes study budget and scheduled consequences; new choices can change it.',String(ch.value).includes('%')?'Allocations must fit within 100%.':'± transfers a point to or from your largest other priority.'];
  if(projection)method.push(t('Age multipliers')+': '+Object.entries(projection.eraWeights).map(([k,v])=>t(eraLabels[k]??k)+' ×'+v).join(' · '));

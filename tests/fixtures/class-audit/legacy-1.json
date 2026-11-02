@@ -1,0 +1,213 @@
+{
+  "source": "21bc4cf^",
+  "code": "ll-fmg-31312",
+  "birth": {
+    "version": 2,
+    "seed": 777,
+    "economy": {
+      "version": 2,
+      "seed": 777,
+      "startYear": 2030,
+      "activeFrom": 0
+    },
+    "story": {
+      "people": {
+        "friend": "Mali",
+        "partner": "Arun"
+      },
+      "flags": {},
+      "seen": [],
+      "pending": null
+    },
+    "stage": "birth",
+    "age": 0,
+    "attributes": {
+      "physique": 3,
+      "iq": 1,
+      "eq": 3,
+      "craft": 1,
+      "drive": 2
+    },
+    "effort": {
+      "physique": 3,
+      "iq": 1,
+      "eq": 3,
+      "craft": 1,
+      "drive": 2
+    },
+    "profile": {
+      "drink": "no",
+      "smoke": "no",
+      "religion": "explore",
+      "intimacy": "unsure",
+      "aim": "balance"
+    },
+    "birth": {
+      "place": "Walthamstow, London",
+      "home": "a household in a terraced house",
+      "region": "london",
+      "household": "parents",
+      "cash": 30000,
+      "sensitivity": "Steady under pressure",
+      "body": "Strong physical starting condition",
+      "sex": "female",
+      "upbringing": "middle"
+    },
+    "cash": 30000,
+    "health": 94,
+    "wellbeing": 68,
+    "skills": {
+      "physique": 0,
+      "iq": 0,
+      "eq": 0,
+      "craft": 0,
+      "drive": 0
+    },
+    "history": [],
+    "profiles": [],
+    "original": null,
+    "death": null,
+    "previous": null,
+    "intake": {
+      "sex": "female",
+      "upbringing": "middle",
+      "country": "gb",
+      "attributes": {
+        "physique": 3,
+        "iq": 1,
+        "eq": 3,
+        "craft": 1,
+        "drive": 2
+      }
+    }
+  },
+  "state": {
+    "version": 2,
+    "seed": 777,
+    "economy": {
+      "version": 2,
+      "seed": 777,
+      "startYear": 2030,
+      "activeFrom": 0
+    },
+    "story": {
+      "people": {
+        "friend": "Mali",
+        "partner": "Arun"
+      },
+      "flags": {},
+      "seen": [],
+      "pending": null
+    },
+    "stage": "review",
+    "age": 10,
+    "attributes": {
+      "physique": 3,
+      "iq": 1,
+      "eq": 3,
+      "craft": 1,
+      "drive": 2
+    },
+    "effort": {
+      "physique": 3,
+      "iq": 1,
+      "eq": 3,
+      "craft": 1,
+      "drive": 2
+    },
+    "profile": {
+      "drink": "no",
+      "smoke": "no",
+      "religion": "explore",
+      "intimacy": "unsure",
+      "aim": "balance"
+    },
+    "birth": {
+      "place": "Walthamstow, London",
+      "home": "a household in a terraced house",
+      "region": "london",
+      "household": "parents",
+      "cash": 30000,
+      "sensitivity": "Steady under pressure",
+      "body": "Strong physical starting condition",
+      "sex": "female",
+      "upbringing": "middle"
+    },
+    "cash": 30000,
+    "health": 94,
+    "wellbeing": 68,
+    "skills": {
+      "physique": 0,
+      "iq": 0,
+      "eq": 0,
+      "craft": 0,
+      "drive": 0
+    },
+    "history": [
+      {
+        "age": 0,
+        "health": 94,
+        "wellbeing": 68,
+        "cash": 30000,
+        "event": "Born into a household in a terraced house",
+        "effort": {
+          "physique": 3,
+          "iq": 1,
+          "eq": 3,
+          "craft": 1,
+          "drive": 2
+        },
+        "profile": {
+          "drink": "no",
+          "smoke": "no",
+          "religion": "explore",
+          "intimacy": "unsure",
+          "aim": "balance"
+        }
+      },
+      {
+        "age": 10,
+        "health": 94,
+        "wellbeing": 68,
+        "cash": 30000,
+        "event": "Childhood: family, school and the world you inherited.",
+        "effort": {
+          "physique": 3,
+          "iq": 1,
+          "eq": 3,
+          "craft": 1,
+          "drive": 2
+        },
+        "profile": {
+          "drink": "no",
+          "smoke": "no",
+          "religion": "explore",
+          "intimacy": "unsure",
+          "aim": "balance"
+        }
+      }
+    ],
+    "profiles": [],
+    "original": {
+      "physique": 3,
+      "iq": 1,
+      "eq": 3,
+      "craft": 1,
+      "drive": 2
+    },
+    "death": null,
+    "previous": null,
+    "intake": {
+      "sex": "female",
+      "upbringing": "middle",
+      "country": "gb",
+      "attributes": {
+        "physique": 3,
+        "iq": 1,
+        "eq": 3,
+        "craft": 1,
+        "drive": 2
+      }
+    }
+  }
+}

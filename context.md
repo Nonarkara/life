@@ -727,3 +727,22 @@ pendingnative shows manualtext but remainsguardeduntilsettlement. Onlyclipboard
 has a terminatingtimeout. ExistingIkigai overlapwrap repairedphone535→390px.
 304tests pass; source/pixelindependentclosure and evidence inreview/daily-share.
 No game outcomes, health odds, money rules or portrait artwork were changed.
+
+## 3 November 2026: audited backgrounds and stage geometry
+The six Thai starting backgrounds are authored game presets. Starting resources,
+family support and later obligations differ; intrinsic ability points are drawn
+independently of class. Contextual pressure uses existing recorded encounters,
+not forced unvalidated tragedy/death flags. Debt/work prerequisites, affordability,
+ledger conservation, pause/result/replay and strict validation remain in force.
+Historical3-band/foreign birth links, saves and inheritance amounts remain valid;
+new intake is Thai. Never delete historical geography to limit new choices.
+
+Desktop controls now reserve a row below the world, and phone dilemmas reserve
+the same RPG strip as planning. Scenery and cast share one camera; actor-only
+lifting caused floating desks and is prohibited. Sparse instruments retain
+natural widths. Multilingual channel controls wrap around their labels; units
+belong to their selected value. Read review/class-audit/REVIEW.md for measured
+scope and remaining art limitations. The build removes only a redundant copy of
+runtime assets; /course/, root manual and curated art remain. FLUX is an offline
+authoring tool, never a required player-side model/server. Its latest candidate
+was rejected for invented lettering/figures; no art was silently promoted.

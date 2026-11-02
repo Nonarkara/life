@@ -1,6 +1,6 @@
 import {choiceAvailable,netWorth} from '../../dist/course/finance.js';
 import test from 'node:test';import assert from 'node:assert/strict';
-import {newLife,configureLife,begin,live as liveAll,replay,validate,rand} from '../../dist/course/sim.js';
+import {newLife,newLegacyLife,configureLife,begin,live as liveAll,replay,validate,rand} from '../../dist/course/sim.js';
 import {ENCOUNTERS,encounterById,eligibleEncounters,offerEncounter,resolveEncounter} from '../../dist/course/encounters.js';
 import {eventsFor} from '../../dist/course/events.js';
 // These tests walk the authored story; lessons are excluded with the same seeded roll so the sequence is unchanged.
@@ -14,7 +14,7 @@ test('a pending encounter cannot be skipped, replayed or charged twice',()=>{
  assert.equal(resolveEncounter(resolved,'join',.1),resolved);assert.equal(resolveEncounter(pending,'bogus',.1),pending);assert.equal(offerEncounter(resolved,.1),resolved);
 });
 test('follow-ups require the actual earlier commitment and enough elapsed years',()=>{
- let s=begin(configureLife(newLife(1),{class:'working_class'}));s=settle(live(s),'home');assert.ok(!('friend' in s.story.flags));
+ let s=begin(newLegacyLife(1));s=settle(live(s),'home');assert.ok(!('friend' in s.story.flags));
  const at=a=>({...s,age:a});assert.ok(!eligibleEncounters(at(65)).some(e=>e.id==='friend_late'));assert.ok(!eligibleEncounters(at(35)).some(e=>e.id==='commitment'));
  let project=settle(live({...s,age:15}), 'start');assert.equal(project.story.flags.project,20);
  assert.ok(!eligibleEncounters({...project,age:25}).some(e=>e.id==='project_return'));
@@ -22,13 +22,9 @@ test('follow-ups require the actual earlier commitment and enough elapsed years'
 });
 test('marriage is an adult mutual commitment and its marker is recorded only on that choice',()=>{
   assert.ok(!eligibleEncounters({...begin(configureLife(newLife(1),{class:'low_class'})),age:15}).some(e=>['love','commitment','parenthood'].includes(e.id)));
-  let s=begin(configureLife(newLife(5),{class:'low_class'}));
-  s={...s,age:25,story:{...s.story,flags:{...s.story.flags,dating:20}}};
-  s=live(s);s=settle(s,'marry');
-  assert.ok(eventsFor(s.history.at(-1)).some(e=>e.type==='married'));
-  const together=settle({...s,story:{...s.story,flags:{...s.story.flags,married:undefined,committed:25}}},'together');
-  assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));
-  assert.ok(validate(s));
+ let s=settle(live(begin(newLegacyLife(5))),'join');s=settle(live(s),'start');s=settle(live(s),'date');s=settle(live(s),'help');
+ assert.equal(s.story.flags.dating,25);s=live(s);assert.equal(s.story.pending.id,'commitment');
+ const married=settle(s,'marry'),together=settle(s,'together');assert.ok(eventsFor(married.history.at(-1)).some(e=>e.type==='married'));assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));assert.ok(validate(married));
 });
 test('choice outcomes preserve unrelated markers and report actual clamped effects',()=>{
  const s=live({...begin(configureLife(newLife(4),{class:'low_class'})),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');

@@ -239,7 +239,7 @@ body.console-mode>header{flex:none}
    content — no fixed height, no void. */
 .child-body{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
 .child-left{flex:1;min-width:0}
-.child-snapshot{flex:0 0 auto;min-width:170px}
+.child-snapshot{flex:0 1 auto;min-width:0;max-width:40ch}.child-snapshot summary{cursor:pointer;padding:3px 0}
 .snapshot-head{font-size:calc(13px * var(--reading-scale));font-weight:600;margin:0 0 4px}
 .snapshot-stats{display:flex;gap:10px;flex-wrap:wrap;margin:2px 0}
 .snapshot-stat{font-size:calc(13px * var(--reading-scale));font-weight:600}
@@ -250,3 +250,18 @@ body.console-mode>header{flex:none}
 .snapshot-choices{display:flex;flex-direction:column;gap:2px}
 .snapshot-choice{font-size:calc(12px * var(--reading-scale));padding:2px 0;overflow-wrap:anywhere}
 .child-result .child-snapshot{display:none}
+
+/* The dock owns a row, never a patch over the floor. This keeps one camera
+   for scenery and cast; long reference reading remains an explicit overlay. */
+@media(min-width:1280px){
+ .console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open) main{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+ .console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open) .stage{grid-row:1;min-height:0}
+ .console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open) .player-console{grid-row:2;position:relative;inset:auto;width:100%;max-height:36dvh;border-width:1px 0 0}
+ .console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open) .player-console:has(.deck-money){width:100%}
+}
+/* A paused phone dilemma occupies the same reserved RPG row as planning.
+   Expanding the canvas behind that row would hide the person's body again. */
+@media(max-width:1279px){
+ .console-mode.decision-open:not(.birth-stage):not(.recap-stage) main{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) var(--rpg-height)}
+ .console-mode.decision-open:not(.birth-stage):not(.recap-stage) .stage{grid-row:1;height:100%;min-height:0}
+}
