@@ -233,3 +233,20 @@ body.console-mode>header{flex:none}
 /* Optional image work stays behind one disclosure; the result actions lead. */
 .life-card-tools{flex-basis:100%;min-width:0}.life-card-tools>summary{cursor:pointer;font-weight:600;width:fit-content;padding:3px 0}.life-card-tools label{margin:8px 0;max-width:40ch}.life-card-tools img{display:block;width:100%;height:auto;max-width:600px;margin:8px 0}.life-card-actions{display:flex;gap:16px;flex-wrap:wrap}.life-card-tools .fine{margin:4px 0}
 .life-card-tools [hidden]{display:none}
+
+/* Child-choice bar: fill the empty right side with a compact life snapshot.
+   Stacks on narrow screens, side-by-side when there is room. Boxes hug
+   content — no fixed height, no void. */
+.child-body{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
+.child-left{flex:1;min-width:0}
+.child-snapshot{flex:0 0 auto;min-width:170px}
+.snapshot-head{font-size:calc(13px * var(--reading-scale));font-weight:600;margin:0 0 4px}
+.snapshot-stats{display:flex;gap:10px;flex-wrap:wrap;margin:2px 0}
+.snapshot-stat{font-size:calc(13px * var(--reading-scale));font-weight:600}
+.snapshot-stat+small{font-size:calc(10px * var(--reading-scale));color:var(--muted);display:block}
+.snapshot-sub{font-size:calc(12px * var(--reading-scale));font-weight:600;margin:5px 0 2px}
+.snapshot-skills{display:flex;flex-direction:column;gap:2px}
+.snapshot-skill-row{display:flex;justify-content:space-between;font-size:calc(12px * var(--reading-scale))}
+.snapshot-choices{display:flex;flex-direction:column;gap:2px}
+.snapshot-choice{font-size:calc(12px * var(--reading-scale));padding:2px 0;overflow-wrap:anywhere}
+.child-result .child-snapshot{display:none}
