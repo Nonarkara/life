@@ -196,8 +196,8 @@ body.console-mode>header{flex:none}
 /* The first five carriages teach from the same fixed console as the later game. */
 .console-mode.birth-stage{--rpg-height:calc(100dvh / 3)}
 .console-mode.birth-stage main{display:grid;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) var(--rpg-height)}
-.console-mode.birth-stage .rpg-dock{display:flex;flex-direction:column;grid-row:2;height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper)}
-.console-mode.birth-stage .rpg-dock #childhood-memory{flex:1;min-height:0;max-height:none;overflow:auto;display:block;color:var(--ink);padding:6px 12px;border-top:1px solid var(--line)}
+.console-mode.birth-stage .rpg-dock.shown{display:flex;flex-direction:column;grid-row:2;max-height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper)}
+.console-mode.birth-stage .rpg-dock #childhood-memory{flex:1;min-height:0;max-height:none;overflow:auto;display:block;color:var(--ink);padding:4px 10px;border-top:1px solid var(--line)}
 .console-mode.birth-stage .rpg-dock #childhood-memory[hidden]{display:none}
 .console-mode.birth-stage #childhood-memory strong{font-size:calc(18px * var(--reading-scale));line-height:1.25;display:block}
 .console-mode.birth-stage #childhood-memory p{font-size:calc(13px * var(--reading-scale));line-height:1.4;margin:4px 0;color:var(--ink);text-align:left}

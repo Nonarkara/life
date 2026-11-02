@@ -84,20 +84,27 @@ export function questionType(pivot){
  return 'general-decision';
 }
 // Classify a pivot by which part of life it touches, from its effects and flags.
+// Priority order: spiritual → relationships → money → work → health (catch-all).
+// Health is checked last because nearly every authored option has some
+// wellbeing or health effect; it should not dominate every question.
 export function questionCategory(pivot){
  const allEffects=pivot.options.flatMap(o=>[o.effects?.skills??{},o.effects?.cash!==undefined?{cash:1}:{},o.effects?.health!==undefined?{health:1}:{},o.effects?.wellbeing!==undefined?{wellbeing:1}:{}]);
  const flags=pivot.options.flatMap(o=>o.flags??{});
- const hasMoney=allEffects.some(e=>e.cash!==undefined)||Object.values(flags).some(v=>/stall|house|cash|debt|loan|share|founder/.test(String(v)));
- const hasWork=allEffects.some(e=>e.craft!==undefined||e.drive!==undefined||e.iq!==undefined)||Object.values(flags).some(v=>/work|trade|job|employ|venture|stall|college|apprentice/.test(String(v)));
- const hasRelations=allEffects.some(e=>e.eq!==undefined)||Object.values(flags).some(v=>/married|partner|friend|parent|child|family|mother|father|nephew|relative/.test(String(v)));
- const hasHealth=allEffects.some(e=>e.health!==undefined||e.wellbeing!==undefined)||Object.values(flags).some(v=>/health|ill|treatment|recover|died/.test(String(v)));
- const hasSpiritual=Object.values(flags).some(v=>/legacy|remembered|religion|spiritual|meaning/.test(String(v)))||pivot.id==='remembered'||pivot.id==='legacy';
- if(hasHealth)return 'health';
- if(hasRelations)return 'relationships';
- if(hasMoney)return 'money';
- if(hasWork)return 'work';
- if(hasSpiritual)return 'spiritual';
- return 'money';
+ const flagStr=JSON.stringify(flags);
+ const hasEq=allEffects.some(e=>e.eq!==undefined);
+ const hasCash=allEffects.some(e=>e.cash!==undefined);
+ const hasWorkSkill=allEffects.some(e=>e.craft!==undefined||e.iq!==undefined);
+ const hasHealthEffect=allEffects.some(e=>e.health!==undefined||e.wellbeing!==undefined||e.physique!==undefined);
+ // Spiritual: legacy, remembered, religion, meaning
+ if(/legacy|remembered|religion|spiritual|meaning/.test(flagStr)||pivot.id==='remembered'||pivot.id==='legacy')return 'spiritual';
+ // Relationships: emotional-skill effects or family/partner/friend/care flags
+ if(hasEq||/married|partner|friend|parent|child|family|mother|father|nephew|relative|caredFor|familyPaid|tookIn|defiedFamily/.test(flagStr))return 'relationships';
+ // Money: cash effects or money/asset flags
+ if(hasCash||/stall|house|cash|debt|loan|share|founder|bought|sell|rent|buy|salary|wage|income/.test(flagStr))return 'money';
+ // Work: craft/iq skill effects or work/trade/vocation flags
+ if(hasWorkSkill||/work|trade|job|employ|venture|college|apprentice|tools|trade|shift|boss|employer/.test(flagStr))return 'work';
+ // Health: catch-all for health/wellbeing/physique and anything uncategorised
+ return 'health';
 }
 // Classify how the reader answers: multiple choice, yes/no, or leave it to chance.
 export function questionInteraction(pivot){
