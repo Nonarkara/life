@@ -2,24 +2,19 @@
 // tuning, not wage or price statistics. Every region reuses the shared world
 // coordinates; institutions are metaphorical neighbours, not a real map.
 const THAI=['#7c5036','#9b6a48','#b5855f','#c99a70','#d8ad84','#e4c09a','#a87754'];
-const WIDE=['#5a3a26','#7c5036','#9b6a48','#b5855f','#d2a47c','#e6c3a0','#f0d5bd'];
 export const REGIONS={
- 'samut-prakan':{country:'TH',place:'Samut Prakan',home:'a market-stall household',bands:['middle'],style:'market',sign:'th',pay:1,cost:1,skin:THAI,hair:['#1f2622','#2a2620'],look:{ground:'#849573',water:'#5b7f80',wall:'#e5d9b9',floor:'#a58d69',roof:'#99634f'}},
- 'nakhon-sawan':{country:'TH',place:'Nakhon Sawan',home:'a farming household',bands:[],style:'market',sign:'th',pay:.9,cost:.85,skin:THAI,hair:['#1f2622'],look:{ground:'#8a9a6c',water:'#5b7f80',wall:'#e1d3ad',floor:'#a08560',roof:'#9a6a48'}},
- 'khlong-toei':{country:'TH',place:'Khlong Toei, Bangkok',home:'a household in a riverside community',bands:['constrained'],style:'slum',sign:'th',pay:1.05,cost:.8,skin:THAI,hair:['#1f2622','#2a2620'],look:{ground:'#8b8676',water:'#4f6d68',wall:'#8e9ca0',floor:'#8a7457',roof:'#7d8a8c'}},
- 'isan-village':{country:'TH',place:'Ban Non Sawang, Khon Kaen',home:'a rice-farming household',bands:['constrained'],style:'village',sign:'th',pay:.75,cost:.7,skin:THAI,hair:['#1f2622'],look:{ground:'#9aa86a',water:'#6a8a7f',wall:'#a5825a',floor:'#8f6e48',roof:'#7a6a55'}},
- 'bang-na':{country:'TH',place:'Bang Na, Bangkok',home:'a household in an apartment block',bands:['middle'],style:'condo',sign:'th',pay:1.15,cost:1.2,skin:THAI,hair:['#1f2622','#2a2620','#3a2c22'],look:{ground:'#9a9a8c',water:'#5b7a80',wall:'#d9d6cc',floor:'#b9ab92',roof:'#8f948f'}},
- 'pak-phanang':{country:'TH',place:'Pak Phanang, Nakhon Si Thammarat',home:'a fishing household',bands:['middle'],style:'coast',sign:'th',pay:.85,cost:.8,skin:THAI,hair:['#1f2622'],look:{ground:'#c2b48a',water:'#3f7f8a',wall:'#9fb7b5',floor:'#9c8262',roof:'#a45b45'}},
- 'sukhumvit':{country:'TH',place:'Sukhumvit, Bangkok',home:'a household in a large walled house',bands:['comfortable'],style:'villa',sign:'th',pay:1.3,cost:1.6,skin:THAI,hair:['#1f2622','#2a2620','#3a2c22'],look:{ground:'#7f9a68',water:'#5b7f86',wall:'#f1ece0',floor:'#c9b28c',roof:'#5f6a6a'}},
- singapore:{country:'SG',place:'Toa Payoh, Singapore',home:'a household in a public housing flat',bands:[],adult:true,style:'tower',sign:'en',pay:2.2,cost:2.6,skin:WIDE,hair:['#1f2622','#3a2c22','#5a4030'],look:{ground:'#7d9a72',water:'#4f7f8c',wall:'#e8e2d4',floor:'#bcae96',roof:'#8a9a98'}},
- tokyo:{country:'JP',place:'Nerima, Tokyo',home:'a household in a small Tokyo apartment',bands:[],adult:true,style:'tokyo',sign:'ja',climate:'cool',pay:2.4,cost:2.8,skin:['#d9b48f','#e6c3a0','#c9a07a','#f0d5bd'],hair:['#1f2622','#2a2620','#4a3a2c'],look:{ground:'#9a9a88',water:'#4f6f80',wall:'#ddd8cc',floor:'#b8a88c',roof:'#4f5a5e'}},
- boston:{country:'US',place:'Somerville, Massachusetts',home:'a household in a three-family house',bands:[],adult:true,style:'newengland',sign:'en',climate:'cold',pay:2.6,cost:3,skin:WIDE,hair:['#1f2622','#5a4030','#8a6a48','#c8a46a','#a04a2a'],look:{ground:'#e9edef',water:'#5f7a88',wall:'#d7dde0',floor:'#b59a78',roof:'#f4f6f7'}},
- london:{country:'GB',place:'Walthamstow, London',home:'a household in a terraced house',bands:[],adult:true,style:'brick',sign:'en',climate:'cool',pay:2.5,cost:3,skin:WIDE,hair:['#1f2622','#5a4030','#8a6a48','#c8a46a','#a04a2a'],look:{ground:'#7a8f6a',water:'#5a6f78',wall:'#9a5a46',floor:'#a88f70',roof:'#4d5254'}}
+ 'samut-prakan':{country:'TH',place:'Samut Prakan',home:'a market-stall household',class:['working_class','middle_class'],style:'market',sign:'th',pay:1,cost:1,skin:THAI,hair:['#1f2622','#2a2620'],look:{ground:'#849573',water:'#5b7f80',wall:'#e5d9b9',floor:'#a58d69',roof:'#99634f'}},
+ 'nakhon-sawan':{country:'TH',place:'Nakhon Sawan',home:'a rice-farming household',class:['low_class','working_class'],style:'village',sign:'th',pay:.9,cost:.85,skin:THAI,hair:['#1f2622'],look:{ground:'#8a9a6c',water:'#5b7f80',wall:'#e1d3ad',floor:'#a08560',roof:'#9a6a48'}},
+ 'khlong-toei':{country:'TH',place:'Khlong Toei, Bangkok',home:'a household in a riverside community',class:['low_class'],style:'slum',sign:'th',pay:1.05,cost:.8,skin:THAI,hair:['#1f2622','#2a2620'],look:{ground:'#8b8676',water:'#4f6d68',wall:'#8e9ca0',floor:'#8a7457',roof:'#7d8a8c'}},
+ 'isan-village':{country:'TH',place:'Ban Non Sawang, Khon Kaen',home:'a rice-farming household',class:['low_class','working_class'],style:'village',sign:'th',pay:.75,cost:.7,skin:THAI,hair:['#1f2622'],look:{ground:'#9aa86a',water:'#6a8a7f',wall:'#a5825a',floor:'#8f6e48',roof:'#7a6a55'}},
+ 'bang-na':{country:'TH',place:'Bang Na, Bangkok',home:'a household in an apartment block',class:['middle_class','bureaucratic_class'],style:'condo',sign:'th',pay:1.15,cost:1.2,skin:THAI,hair:['#1f2622','#2a2620','#3a2c22'],look:{ground:'#9a9a8c',water:'#5b7a80',wall:'#d9d6cc',floor:'#b9ab92',roof:'#8f948f'}},
+ 'pak-phanang':{country:'TH',place:'Pak Phanang, Nakhon Si Thammarat',home:'a fishing household',class:['working_class','middle_class'],style:'coast',sign:'th',pay:.85,cost:.8,skin:THAI,hair:['#1f2622'],look:{ground:'#c2b48a',water:'#3f7f8a',wall:'#9fb7b5',floor:'#9c8262',roof:'#a45b45'}},
+ 'sukhumvit':{country:'TH',place:'Sukhumvit, Bangkok',home:'a household in a large walled house',class:['high_class','royal_associated','middle_class'],style:'villa',sign:'th',pay:1.3,cost:1.6,skin:THAI,hair:['#1f2622','#2a2620','#3a2c22'],look:{ground:'#7f9a68',water:'#5b7f86',wall:'#f1ece0',floor:'#c9b28c',roof:'#5f6a6a'}}
 };
-export const BAND_REGIONS={constrained:['khlong-toei','isan-village'],middle:['bang-na','pak-phanang','samut-prakan'],comfortable:['sukhumvit']};
-// Not every life is Thai: a share of births happen abroad, in any upbringing band.
-export const COUNTRIES={th:null,jp:'tokyo',sg:'singapore',gb:'london',us:'boston'};
-export const ABROAD_BIRTHS=['tokyo','singapore','london','boston'];
+// Thailand only: no abroad births. Every region is Thai.
+export const CLASS_REGIONS={high_class:['sukhumvit'],low_class:['khlong-toei','nakhon-sawan','isan-village'],middle_class:['samut-prakan','bang-na','pak-phanang'],working_class:['khlong-toei','samut-prakan','pak-phanang','nakhon-sawan'],bureaucratic_class:['bang-na','samut-prakan'],royal_associated:['sukhumvit']};
+export const COUNTRIES={th:null};
+export const ABROAD_BIRTHS=[];
 export const MOVE_TARGETS=Object.keys(REGIONS).filter(id=>id!=='nakhon-sawan');
 export const regionIdFor=birth=>Object.hasOwn(REGIONS,birth?.region)?birth.region:birth?.place==='Nakhon Sawan'?'nakhon-sawan':'samut-prakan';
 // The one answer to "where is this life at this age": the birth region until the

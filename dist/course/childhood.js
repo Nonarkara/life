@@ -1,7 +1,7 @@
 // Authored family circumstances, never a demographic forecast.
 export function childhoodChapter(state, age) {
- const band=state.intake?.upbringing??'middle';
- const income={constrained:96000,middle:240000,comfortable:600000}[band];
+ const cls=state.intake?.class??'middle_class';
+ const income={low_class:30000,working_class:60000,middle_class:120000,bureaucratic_class:180000,high_class:300000,royal_associated:240000}[cls];
  const chapters=[
   [0,'Your mother\u2019s world becomes yours.','Your family makes room for a newborn. Care comes before any ambition.',
    "Brain development begins before birth. Genes and early experiences both help shape it."],
@@ -13,7 +13,7 @@ export function childhoodChapter(state, age) {
    "Responsive conversations and play help build skills for learning and relationships."],
   [5,'Learning to swim in the water.','Older children and neighbours teach you to float, kick and keep your head above the water.',
    "Temperament reflects both genes and environment. It does not fix the person you must become."],
-  [6,'Your family chooses a school.',band==='constrained'?'The nearby public school keeps travel and school costs within reach.':band==='comfortable'?'Your family can afford a school farther away and activities after class.':'Your family chooses a public school and sets aside money for books and transport.',
+  [6,'Your family chooses a school.',cls==='low_class'?'The nearby public school keeps travel and school costs within reach.':cls==='high_class'||cls==='royal_associated'?'Your family can afford a school farther away and activities after class.':'Your family chooses a public school and sets aside money for books and transport.',
    "School access and household resources shape this game scenario. They do not predict a child's future."],
   [8,'Learning to balance a bicycle.','A borrowed bicycle in the lane teaches balance, scraped shins and the speed of your own two legs.',
    "Experience helps shape brain connections. Learning remains possible throughout life."],

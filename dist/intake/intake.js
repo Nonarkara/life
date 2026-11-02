@@ -1,6 +1,6 @@
-import {AXES,balanced,transfer,newLife,configureLife,validate} from '../course/sim.js';
+import {AXES,balanced,transfer,newLife,configureLife,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
 import {initSettings,t} from '../course/i18n.js';
-import {BAND_REGIONS,REGIONS,COUNTRIES,household} from '../course/regions.js';
+import {REGIONS,COUNTRIES,household} from '../course/regions.js';
 import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../course/birthcode.js';
 import {readLives} from '../course/lives.js';
 import {deliverShare,copyShare} from '../course/share-result.js';
@@ -10,18 +10,17 @@ function draw(){const root=$('intake-radar');root.replaceChildren();const point=
 // The birth lottery: show the draw and its odds before the life begins.
 const HOUSEHOLD_ODDS={parents:.7,grandmother:.14,grandfather:.08,mothers:.04,fathers:.04};
 export function birthOdds(life,options){
- let p=1;const i=life.intake,band=BAND_REGIONS[i.upbringing];
+ let p=1;const i=life.intake,cls=i.class;
  if(!['female','male','intersex'].includes(options.sex))p*=1/3;
- if(!BAND_REGIONS[options.upbringing])p*=1/3;
- if(!Object.hasOwn(COUNTRIES,options.country))p*=i.country==='th'?.75*(1/band.length):.25/4;else if(options.country==='th')p*=1/band.length;
+ if(!CLASS_KEYS.includes(options.class))p*=1/6;
  p*=HOUSEHOLD_ODDS[life.birth.household]??1;
  return Math.max(1,Math.round(1/p));
 }
 let drawn=null,lastOptions={};
 function draw_life(options){const seed=Math.floor(Math.random()*2147483646)+1;const life=configureLife(newLife(seed),options);if(!validate(life))throw Error('Invalid starting conditions');return life;}
 function card(life){
- const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],band={constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing];
- const facts=[['Place',t(b.place)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],['Upbringing',t(band)]];
+ const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class];
+ const facts=[['Place',t(b.place)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],['Birth class',t(cls.label)]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
@@ -44,11 +43,10 @@ const shareBirth=async copyOnly=>{
  }finally{if(revision===shareRevision)action.disabled=false;}
 };
 $('birth-share').onclick=()=>shareBirth(false);birthCopy.onclick=()=>shareBirth(true);
-$('random-life').onclick=()=>enter({});$('intake-form').onsubmit=e=>{e.preventDefault();enter({sex:$('body-profile').value,upbringing:$('upbringing').value,country:$('country').value,attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
+$('random-life').onclick=()=>enter({});$('intake-form').onsubmit=e=>{e.preventDefault();enter({sex:$('body-profile').value,class:$('birth-class').value,attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
 try{const saved=JSON.parse(localStorage.getItem('life-course-v2'));if(validate(saved)&&saved.stage!=='recap'){$('continue-life').hidden=false;$('continue-life').textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));}}catch{}
-// Name the real birthplaces behind each upbringing, so the choice means something.
-function band(){const v=$('upbringing').value,ids=BAND_REGIONS[v];$('band-note').textContent=ids?t('Born in')+': '+ids.map(id=>t(REGIONS[id].place)).join(' · '):t('Sets family support, school and where you are born.');}
-$('upbringing').addEventListener('change',band);
+function classNote(){const v=$('birth-class').value,cls=CLASS_TIERS[v];$('class-note').textContent=cls?t(cls.note):t('The condition you are born into sets your cash, attributes and the drama that stalks your life.');$('class-regions').textContent=(CLASS_TIERS[v]?.class??[]).map(id=>REGIONS[id]?.place).join(' · ')||t('Any Thai region.');}
+$('birth-class').addEventListener('change',classNote);
 // The lives already lived, each with a way to live the same birth again.
 function archive(){
  const lives=readLives(localStorage),box=$('lives'),list=$('lives-list');
@@ -69,4 +67,4 @@ function invited(){
  $('birth-title').textContent=t(daily?'Today’s life':'A life was sent to you');
  $('birth-again').hidden=true;$('birth-card').showModal();
 }
-window.addEventListener('life-preferences',()=>{draw();band();archive();});initSettings();draw();band();archive();invited();
+window.addEventListener('life-preferences',()=>{draw();classNote();archive();});initSettings();draw();classNote();archive();invited();

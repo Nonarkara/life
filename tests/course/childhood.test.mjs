@@ -3,18 +3,18 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {childhoodChapter} from '../../dist/course/childhood.js';
 import {newLife,configureLife,live} from '../../dist/course/sim.js';
 test('childhood memories explain means without granting agency or changing saved resources',()=>{
- const state=configureLife(newLife(5),{upbringing:'constrained'}),before=structuredClone(state);
+ const state=configureLife(newLife(5),{class:'low_class'}),before=structuredClone(state);
  assert.match(childhoodChapter(state,0).title,/mother/);
  assert.match(childhoodChapter(state,2).title,/fall/);
  assert.match(childhoodChapter(state,5).title,/swim/);
- assert.match(childhoodChapter(state,6).decision,/nearby public school/);
+ assert.match(childhoodChapter(state,6).decision,/public school/);
  assert.match(childhoodChapter(state,8).title,/bicycle/);
  assert.match(childhoodChapter(state,9).title,/imagine/);
  assert.equal(live(state),state);assert.deepEqual(state,before);
 });
 test('family means change available schooling but never promise intelligence or success',()=>{
- const low=childhoodChapter(configureLife(newLife(1),{upbringing:'constrained'}),6);
- const high=childhoodChapter(configureLife(newLife(1),{upbringing:'comfortable'}),6);
+ const low=childhoodChapter(configureLife(newLife(1),{class:'low_class'}),6);
+ const high=childhoodChapter(configureLife(newLife(1),{class:'high_class'}),6);
  assert.ok(low.income<high.income);assert.notEqual(low.decision,high.decision);
 });
 import {availablePathways,pathwayPeriod} from '../../dist/course/pathways.js';

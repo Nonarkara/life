@@ -60,7 +60,7 @@ test('the game does not state, as fact, a duration its sources do not support', 
 });
 
 test('a full life can meet the documented circumstances and still finish', () => {
-  let state = begin(configureLife(newLife(11), { upbringing: 'middle', region: 'bang-na' }));
+  let state = begin(configureLife(newLife(11), { class: 'middle_class', region: 'bang-na' }));
   const settle = s => {
     if (!s.story?.pending) return s;
     const encounter = encounterById(s.story.pending.id);

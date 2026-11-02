@@ -63,7 +63,7 @@ test('a chosen life is not the same as the unchosen one',()=>{
 });
 
 test('the comparison survives an intake life',()=>{
-  const started=configureLife(newLife(2024),{sex:'female',upbringing:'constrained'});
+  const started=configureLife(newLife(2024),{sex:'female',class:'low_class'});
   const begun=begin(started);
   const comparison=baselineComparison(begun);
   assert.equal(comparison.rows.length>0,true);

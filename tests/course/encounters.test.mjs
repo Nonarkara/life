@@ -14,20 +14,20 @@ test('a pending encounter cannot be skipped, replayed or charged twice',()=>{
  assert.equal(resolveEncounter(resolved,'join',.1),resolved);assert.equal(resolveEncounter(pending,'bogus',.1),pending);assert.equal(offerEncounter(resolved,.1),resolved);
 });
 test('follow-ups require the actual earlier commitment and enough elapsed years',()=>{
- let s=begin(newLife(1));s=settle(live(s),'home');assert.ok(!('friend' in s.story.flags));
+ let s=begin(configureLife(newLife(1),{class:'working_class'}));s=settle(live(s),'home');assert.ok(!('friend' in s.story.flags));
  const at=a=>({...s,age:a});assert.ok(!eligibleEncounters(at(65)).some(e=>e.id==='friend_late'));assert.ok(!eligibleEncounters(at(35)).some(e=>e.id==='commitment'));
  let project=settle(live({...s,age:15}), 'start');assert.equal(project.story.flags.project,20);
  assert.ok(!eligibleEncounters({...project,age:25}).some(e=>e.id==='project_return'));
  assert.ok(eligibleEncounters({...project,age:35}).some(e=>e.id==='project_return'));
 });
 test('marriage is an adult mutual commitment and its marker is recorded only on that choice',()=>{
- assert.ok(!eligibleEncounters({...begin(newLife(1)),age:15}).some(e=>['love','commitment','parenthood'].includes(e.id)));
- let s=settle(live(begin(newLife(5))),'join');s=settle(live(s),'start');s=settle(live(s),'date');s=settle(live(s),'help');
+ assert.ok(!eligibleEncounters({...begin(configureLife(newLife(1),{class:'low_class'})),age:15}).some(e=>['love','commitment','parenthood'].includes(e.id)));
+ let s=settle(live(begin(configureLife(newLife(5),{class:'low_class'}))),'join');s=settle(live(s),'start');s=settle(live(s),'date');s=settle(live(s),'help');
  assert.equal(s.story.flags.dating,25);s=live(s);assert.equal(s.story.pending.id,'commitment');
  const married=settle(s,'marry'),together=settle(s,'together');assert.ok(eventsFor(married.history.at(-1)).some(e=>e.type==='married'));assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));assert.ok(validate(married));
 });
 test('choice outcomes preserve unrelated markers and report actual clamped effects',()=>{
- const s=live({...begin(newLife(4)),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');
+ const s=live({...begin(configureLife(newLife(4),{class:'low_class'})),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');
  assert.ok(eventsFor(next.history.at(-1)).some(e=>e.type==='flood'));assert.ok(eventsFor(next.history.at(-1)).some(e=>e.type==='connection'));assert.equal(next.story.seen.at(-1).effects.wellbeing,1);
 });
 test('complete lives resolve contextual turns, conserve ledger changes and remain serializable',()=>{

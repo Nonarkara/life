@@ -181,7 +181,7 @@ test('the painted world is chosen once per day, never moment by moment',async()=
   globalThis.fetch=async()=>({ok:true,json:async()=>manifest});await prepareStageArt();
   const make=(seed,options,age)=>{let s=begin(configureLife(newLife(seed),options));const settle=x=>x.story?.pending?resolveEncounter(x,encounterById(x.story.pending.id).options[0].id,.5):x;while(s.age<age&&s.stage==='review')s=settle(live(settle(s)));return settle(s);};
   let partial=0,whole=0;
-  for(const [seed,options,age] of [[77,{upbringing:'middle',region:'samut-prakan',sex:'female'},25],[11,{upbringing:'middle',region:'bang-na'},30],[5,{country:'us',sex:'male'},25],[6,{country:'gb'},25],[8,{country:'jp'},40],[9,{country:'sg'},15]]){
+  for(const [seed,options,age] of [[77,{class:'middle_class',region:'samut-prakan',sex:'female'},25],[11,{class:'middle_class',region:'bang-na'},30],[5,{class:'low_class',sex:'male'},25],[6,{class:'bureaucratic_class'},25],[8,{class:'high_class'},40],[9,{class:'working_class'},15]]){
     const state=make(seed,options,age);
     const moments=[];for(let t=0;t<60;t+=3)moments.push(S.paintedCovers(state,age,t,S.describePaintedScene(state,age,t)));
     const day=S.paintedDay(state,age);
