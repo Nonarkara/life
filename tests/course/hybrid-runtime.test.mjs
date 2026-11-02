@@ -34,3 +34,10 @@ test('a finite painted journey never reveals a gap or needs an unmatched repeate
  }
  const a=travelFrame(390,400,1760,982,1),b=travelFrame(390,400,1760,982,0,true);assert.deepEqual(a,b);
 });
+
+test('portrait office camera pans its floor and cast together instead of cropping the aisle',async()=>{
+ const {anchoredPlateFrame}=await import('../../dist/course/painted-camera.js');
+ for(const [width,height]of [[390,478],[844,219],[1440,567]]){const p=anchoredPlateFrame(width,height,1760,747,.68),actorX=p.x+.68*p.drawWidth;assert.ok(actorX>0&&actorX<width);assert.ok(p.x<=0&&p.x+p.drawWidth>=width);assert.equal(p.y+p.drawHeight,height);}
+ const narrow=anchoredPlateFrame(390,478,1760,747,.68);assert.ok(Math.abs(narrow.x+.68*narrow.drawWidth-195)<1e-6);
+ const oldCentre=(390-narrow.drawWidth)/2+.68*narrow.drawWidth;assert.ok(oldCentre>=390,'the former centred crop loses this actual aisle');
+});

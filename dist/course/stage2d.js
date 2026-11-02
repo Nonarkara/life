@@ -7,7 +7,7 @@
 import {routine,routineContext,routineCaption} from './routines.js';
 import {flagsOf,rand} from './sim.js';
 import {homeCast} from './presentation-state.js';
-import {travelFrame} from './painted-camera.js';
+import {travelFrame,anchoredPlateFrame} from './painted-camera.js';
 import {regionAt,REGIONS,household} from './regions.js';
 import {preferences,t} from './i18n.js';
 import {agedImage} from './aging.js';
@@ -26,7 +26,7 @@ const SETS={
   school:{plate:'school',ground:.86,scale:.22,span:[8,13]},
   // The office plate has its own desk in the foreground: people stand at it, close to the camera.
   // The office plate has a desk at centre and a standing aisle by the door.
-  work:{plate:'work',ground:.93,scale:.26,span:[9,14],marks:{1:[.68]}},
+  work:{plate:'work',ground:.93,scale:.26,span:[9,14],marks:{1:[.68]},focus:.68},
   shop:{plate:'shop',ground:.86,scale:.23,span:[9,14]},
   site:{plate:'site',ground:.86,scale:.23,span:[9,14]},
   abroad:{plate:'abroad',ground:.84,scale:.22,span:[9,14]},
@@ -392,14 +392,13 @@ function createStage(canvas){
 
   // A plate fills the frame from the floor up: the ground line stays part of
   // the painting, and the ceiling may be cut away.
-  function drawPlate(target,key,offset=0){
+  function drawPlate(target,key,offset=0,focus=.5){
     const path=platePath(key);
     if(!path)return null;
     const image=stageImage(path);
     if(!image||!image.complete||!image.naturalWidth)return null;
-    const scale=Math.max((2*width-seen)/image.naturalWidth,height/image.naturalHeight);
-    const drawWidth=image.naturalWidth*scale,drawHeight=image.naturalHeight*scale;
-    const x=(seen-drawWidth)/2+offset,y=height-drawHeight;
+    const placement=anchoredPlateFrame(width,height,image.naturalWidth,image.naturalHeight,focus);
+    const {drawWidth,drawHeight,y}=placement,x=placement.x+offset;
     target.drawImage(image,x,y,drawWidth,drawHeight);
     return {x,y,drawWidth,drawHeight};
   }
@@ -619,7 +618,7 @@ function createStage(canvas){
       groundY=drawn?drawn.y+drawn.drawHeight*SETS.travel.ground:height*.86;
       if(drawn){const lifted=fit(groundY);groundY=lifted.y;drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight*lifted.k,clock,seen*.44);}
     }else{
-      drawn=drawPlate(paint,plateKey);
+      drawn=drawPlate(paint,plateKey,0,stage.focus??.5);
       groundY=drawn?drawn.y+drawn.drawHeight*stage.ground:height*.84;
     }
     // The calibrated room keeps its painted floor; a HUD may occlude feet,

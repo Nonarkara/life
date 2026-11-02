@@ -42,7 +42,7 @@ The existing local FLUX.1-schnell + explicit illustration LoRA pipeline generate
 
 ## Verification
 
--332 automated tests pass. Eight new tests cover exact historical birth/save/replay identity, support versus intrinsic ability, projection purity, class decisions/ledger/idempotency, legacy inheritance and office scale. Strict validators remain active. Independent reviewer reran seven class tests and found no remaining scoped source blocker.
+-333 automated tests pass. Nine new tests cover exact historical birth/save/replay identity, support versus intrinsic ability, projection purity, class decisions/ledger/idempotency, legacy inheritance and office scale. Strict validators remain active. Independent reviewer reran seven class tests and found no remaining scoped source blocker.
 - Independent pixel reviewer closed the orphan unit, stretched action/editor, Thai roster and office grounding findings. Seven geometry cases passed independently. The played phone view shows the central child above a separate question pane.
 - Actual isolated candidate play: began a low-resource birth, passed through four child choices with explicit outcomes, reached age10 and its first planning questions, reloaded the same saved pending question, reached the lower scholarship option through dialog scrolling, received the actual +฿7,000 and IQ+1 outcome, and opened decision2of3. No page overflow at390×844; no warnings/errors observed. Production player saves were not advanced/reset.
 - Historical daily invitation `yaga83-fct-20323&day=2026-10-30` opens with its original father/grandmother, birthplace, sex and upbringing. No Begin action was taken for that invitation.
@@ -52,3 +52,21 @@ The existing local FLUX.1-schnell + explicit illustration LoRA pipeline generate
 This is a bounded repair, not certification of the whole game. The outdoor school desk, generic3D fallbacks, missing/uneven art frames and sparse miniature history presentation still need art direction. The1024/844 action aside retains inherited spare space. Lower phone records require internal reading. Gameplay appeal/retention and physical touch/performance need player/device testing. No recipient messaging or native share delivery was tested here. No claim of superiority over1in8b is supported by this audit.
 
 Final production deployment/byte verification is recorded after publication.
+
+## Production-discovered camera follow-up
+
+The initial live check (`production-scene.png`) exposed a portrait crop issue:
+the office floor anchor was correct at x=.68, but a centred narrow crop cut the
+person off at the right edge. `anchoredPlateFrame` now pans the painting and cast
+together toward that authored anchor, clamped to the finite image. Default.5
+framing and wide coverage remain unchanged. `office-phone-pan.png` is the actual
+390×844 candidate check: complete figure and floor contact visible in the aisle.
+The new camera regression tests390/844/1440 and rejects the former centred crop.
+Independent reviewer inspected the before/after and reran five hybrid tests; no
+blocking issue found. The full suite is333passing tests. This does not certify
+all scenes or overall art quality.
+
+The shared-memory bridge disconnected during closeout (`Transport closed` on
+write/read). No successful vault write is claimed. Verified decisions and open
+limits remain recorded here and in context.md/DESIGN-RULES.md; retry the bridge
+handoff when that external service is available. No human-owned canon was edited.
