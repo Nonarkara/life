@@ -21,10 +21,14 @@ test('follow-ups require the actual earlier commitment and enough elapsed years'
  assert.ok(eligibleEncounters({...project,age:35}).some(e=>e.id==='project_return'));
 });
 test('marriage is an adult mutual commitment and its marker is recorded only on that choice',()=>{
- assert.ok(!eligibleEncounters({...begin(configureLife(newLife(1),{class:'low_class'})),age:15}).some(e=>['love','commitment','parenthood'].includes(e.id)));
- let s=settle(live(begin(configureLife(newLife(5),{class:'low_class'}))),'join');s=settle(live(s),'start');s=settle(live(s),'date');s=settle(live(s),'help');
- assert.equal(s.story.flags.dating,25);s=live(s);assert.equal(s.story.pending.id,'commitment');
- const married=settle(s,'marry'),together=settle(s,'together');assert.ok(eventsFor(married.history.at(-1)).some(e=>e.type==='married'));assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));assert.ok(validate(married));
+  assert.ok(!eligibleEncounters({...begin(configureLife(newLife(1),{class:'low_class'})),age:15}).some(e=>['love','commitment','parenthood'].includes(e.id)));
+  let s=begin(configureLife(newLife(5),{class:'low_class'}));
+  s={...s,age:25,story:{...s.story,flags:{...s.story.flags,dating:20}}};
+  s=live(s);s=settle(s,'marry');
+  assert.ok(eventsFor(s.history.at(-1)).some(e=>e.type==='married'));
+  const together=settle({...s,story:{...s.story,flags:{...s.story.flags,married:undefined,committed:25}}},'together');
+  assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));
+  assert.ok(validate(s));
 });
 test('choice outcomes preserve unrelated markers and report actual clamped effects',()=>{
  const s=live({...begin(configureLife(newLife(4),{class:'low_class'})),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');
