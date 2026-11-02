@@ -134,3 +134,21 @@ productiondaily/ordinarypreviews and cancelledshare observed;0browserwarnings/
 errors. review/daily-share records all receipts, four valid geometrycases and
 remainingphysical-devicecoveragegaps. Worktree daily-share-review remains the
 clean release checkout; prototype's previouslydirtyedits remain untouched.
+
+
+## Class and stage repair · 3 November 2026
+Release checkout daily-share-review shipped code8d33af9+4f11344 to main;
+runtimeff22247a7d46/Pages591881c2. Six Thai backgrounds retained; unrecorded
+forced tragedy replaced by six contextual choices through the existing engine.
+Historical births, daily links, foreign saved places and inheritance preserved.
+333 tests pass; seven real viewport geometry cases and independent bounded
+source/pixel reviews pass. Actual candidate childhood/save recovery/scholarship
+choice played; final public portrait office crop verified. Both hosts passed
+freshness/assets and42 direct-byte checks. review/class-audit/REVIEW.md and
+receipts carry evidence and limits. Output31MB→19MB without deleting runtimeart;
+local Flux trial rejected, no inference backend required.
+Prototype's original dirty edits and detached ship checkout remain untouched.
+Art consistency, generic fallbacks, outdoor schooldesk, player fun and physical
+device performance/share delivery remain unverified/open. Memory bridge returned
+Transport closed during closeout; no successful vault write claimed. This file,
+context.md and DESIGN-RULES.md retain the handoff until bridge recovery.

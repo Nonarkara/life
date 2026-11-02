@@ -1,3 +1,9 @@
+---
+updated: 2026-11-03
+drafted_by: codex/gpt-6
+reviewed: false
+---
+
 # Life2.0 audit and repair · 3 November 2026
 
 Baseline origin/main a733ec6, 315 passing and nine failing tests. Preserve all earned art, saves, charts, controls and supported languages; unrelated prototype edits untouched.

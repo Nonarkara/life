@@ -1,3 +1,9 @@
+---
+updated: 2026-11-03
+drafted_by: codex/gpt-6
+reviewed: false
+---
+
 # Class, scene and console audit · 3 November 2026
 
 Baseline `a733ec6` (implementation `21bc4cf`), already on origin/main. No competing trees were merged over later repairs. The existing dirty prototype and detached ship checkout were preserved. The release checkout began clean and fast-forwarded to current main.
@@ -51,7 +57,7 @@ The existing local FLUX.1-schnell + explicit illustration LoRA pipeline generate
 
 This is a bounded repair, not certification of the whole game. The outdoor school desk, generic3D fallbacks, missing/uneven art frames and sparse miniature history presentation still need art direction. The1024/844 action aside retains inherited spare space. Lower phone records require internal reading. Gameplay appeal/retention and physical touch/performance need player/device testing. No recipient messaging or native share delivery was tested here. No claim of superiority over1in8b is supported by this audit.
 
-Final production deployment/byte verification is recorded after publication.
+Runtime code `8d33af9` + `4f11344` is published as build `ff22247a7d46`, Pages deployment `591881c2`. Both public hosts passed entry/freshness and twenty asset probes; all 42 additional direct-byte checks matched. Receipts: `public-delivery.json` and `entry-delivery.json`. The final public 390×844 office check (`production-office-phone.png`) shows the complete figure grounded in the doorway, with no observed browser warnings/errors. This uses a read-only fixture; no production player life was advanced or reset.
 
 ## Production-discovered camera follow-up
 

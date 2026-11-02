@@ -1,0 +1,257 @@
+{
+  "build": "ff22247a7d46",
+  "checks": [
+    {
+      "url": "https://life.nonarkara.org/intake/",
+      "match": true,
+      "sha256": "f5daf578d2211ee85a339bd58cdc03b1ed5ca1f82216fa6d86b5ec4de8308a0c",
+      "expected": "f5daf578d2211ee85a339bd58cdc03b1ed5ca1f82216fa6d86b5ec4de8308a0c"
+    },
+    {
+      "url": "https://life.nonarkara.org/intake/intake.js",
+      "match": true,
+      "sha256": "fc2ee43f70bee04f47416d06cc68cf2e2976dffdc567028686a0794eaddc7923",
+      "expected": "fc2ee43f70bee04f47416d06cc68cf2e2976dffdc567028686a0794eaddc7923"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/birthcode.js",
+      "match": true,
+      "sha256": "d12d8f8e0427ba53360236a2bb28bd5b341ee2381f1f11f5afd2efca99bbafd3",
+      "expected": "d12d8f8e0427ba53360236a2bb28bd5b341ee2381f1f11f5afd2efca99bbafd3"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/share-result.js",
+      "match": true,
+      "sha256": "f091d294080a81289623ce03a820d429b8c0842d34651a5b5a6824eb803090f1",
+      "expected": "f091d294080a81289623ce03a820d429b8c0842d34651a5b5a6824eb803090f1"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/card-preparation.js",
+      "match": true,
+      "sha256": "9b32d074ab449709687be98d82ca81fd83e5dfca95166332cfc54a8e2c4f40ae",
+      "expected": "9b32d074ab449709687be98d82ca81fd83e5dfca95166332cfc54a8e2c4f40ae"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/card-view.js",
+      "match": true,
+      "sha256": "954573951a2e52af6e9cfc15b4a1e76e61ea6162d2708581e4ae80f566fd8cad",
+      "expected": "954573951a2e52af6e9cfc15b4a1e76e61ea6162d2708581e4ae80f566fd8cad"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/life-card.js",
+      "match": true,
+      "sha256": "ce2864de7bb7e23e872982f3c60e50f9ea51edbe387d6111aade1ac77201b330",
+      "expected": "ce2864de7bb7e23e872982f3c60e50f9ea51edbe387d6111aade1ac77201b330"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/ending.js",
+      "match": true,
+      "sha256": "ca0412823183b219b3f476b7984f114663dbc9245565cd838ea0bca69884ff05",
+      "expected": "ca0412823183b219b3f476b7984f114663dbc9245565cd838ea0bca69884ff05"
+    },
+    {
+      "url": "https://life.nonarkara.org/study/share-result.html",
+      "match": true,
+      "sha256": "6b1ec44719f41d5bb602fb41a13f90eea7a9d561670ab571e5703779502502b6",
+      "expected": "6b1ec44719f41d5bb602fb41a13f90eea7a9d561670ab571e5703779502502b6"
+    },
+    {
+      "url": "https://life.nonarkara.org/study/share-result.js",
+      "match": true,
+      "sha256": "85219a0df2e50f5ef0b7f732f5080afc493ff7ce01e46459dca1b2b98f99a398",
+      "expected": "85219a0df2e50f5ef0b7f732f5080afc493ff7ce01e46459dca1b2b98f99a398"
+    },
+    {
+      "url": "https://life.nonarkara.org/",
+      "match": true,
+      "sha256": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e",
+      "expected": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e"
+    },
+    {
+      "url": "https://life.nonarkara.org/start/",
+      "match": true,
+      "sha256": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e",
+      "expected": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/sim.js",
+      "match": true,
+      "sha256": "d4c521d33fe167b6ef9f6f00e72171717ae7e791e875adfab06c6c8d46933182",
+      "expected": "d4c521d33fe167b6ef9f6f00e72171717ae7e791e875adfab06c6c8d46933182"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/backgrounds.js",
+      "match": true,
+      "sha256": "a0672434ac7107506ad8da70c5919c6af81c264abbfe08a97f08acd133f3031b",
+      "expected": "a0672434ac7107506ad8da70c5919c6af81c264abbfe08a97f08acd133f3031b"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/class-encounters.js",
+      "match": true,
+      "sha256": "3a49b8e9d05ce21cb9e3064b2f8b1d6419e75b7d3db9c8822363e97c75eced0d",
+      "expected": "3a49b8e9d05ce21cb9e3064b2f8b1d6419e75b7d3db9c8822363e97c75eced0d"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/life-deck.js",
+      "match": true,
+      "sha256": "0cf6dfdaab27936c7d11b298f4de45a6c1315ebe5d70a86947811f43b1748d30",
+      "expected": "0cf6dfdaab27936c7d11b298f4de45a6c1315ebe5d70a86947811f43b1748d30"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/stage2d.js",
+      "match": true,
+      "sha256": "db6f2c31bbf33e60e20a97d82da29fd4da6072179fba7367fcd6d1b3447827a7",
+      "expected": "db6f2c31bbf33e60e20a97d82da29fd4da6072179fba7367fcd6d1b3447827a7"
+    },
+    {
+      "url": "https://life.nonarkara.org/course/painted-camera.js",
+      "match": true,
+      "sha256": "0a4b04e0c735812282b8c4e01534956a3ae6a23bb78984a9670206fbed1b9195",
+      "expected": "0a4b04e0c735812282b8c4e01534956a3ae6a23bb78984a9670206fbed1b9195"
+    },
+    {
+      "url": "https://life.nonarkara.org/manifest.webmanifest",
+      "match": true,
+      "sha256": "90e3f3341d83ecee780e2bfb07833323d46f576b476bdc4237f5fda8e7b4b2e2",
+      "expected": "90e3f3341d83ecee780e2bfb07833323d46f576b476bdc4237f5fda8e7b4b2e2"
+    },
+    {
+      "url": "https://life.nonarkara.org/favicon.svg",
+      "match": true,
+      "sha256": "09d59af662aa7223d8ba31d4db77fe2e1e284ad65b2c4168a16073485cd60651",
+      "expected": "09d59af662aa7223d8ba31d4db77fe2e1e284ad65b2c4168a16073485cd60651"
+    },
+    {
+      "url": "https://life.nonarkara.org/og.png",
+      "match": true,
+      "sha256": "8676c482b0bb4a6accdb61e0405bcc26bf0d87ceab6149ecbf51743c6bb03e93",
+      "expected": "8676c482b0bb4a6accdb61e0405bcc26bf0d87ceab6149ecbf51743c6bb03e93"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/intake/",
+      "match": true,
+      "sha256": "f5daf578d2211ee85a339bd58cdc03b1ed5ca1f82216fa6d86b5ec4de8308a0c",
+      "expected": "f5daf578d2211ee85a339bd58cdc03b1ed5ca1f82216fa6d86b5ec4de8308a0c"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/intake/intake.js",
+      "match": true,
+      "sha256": "fc2ee43f70bee04f47416d06cc68cf2e2976dffdc567028686a0794eaddc7923",
+      "expected": "fc2ee43f70bee04f47416d06cc68cf2e2976dffdc567028686a0794eaddc7923"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/birthcode.js",
+      "match": true,
+      "sha256": "d12d8f8e0427ba53360236a2bb28bd5b341ee2381f1f11f5afd2efca99bbafd3",
+      "expected": "d12d8f8e0427ba53360236a2bb28bd5b341ee2381f1f11f5afd2efca99bbafd3"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/share-result.js",
+      "match": true,
+      "sha256": "f091d294080a81289623ce03a820d429b8c0842d34651a5b5a6824eb803090f1",
+      "expected": "f091d294080a81289623ce03a820d429b8c0842d34651a5b5a6824eb803090f1"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/card-preparation.js",
+      "match": true,
+      "sha256": "9b32d074ab449709687be98d82ca81fd83e5dfca95166332cfc54a8e2c4f40ae",
+      "expected": "9b32d074ab449709687be98d82ca81fd83e5dfca95166332cfc54a8e2c4f40ae"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/card-view.js",
+      "match": true,
+      "sha256": "954573951a2e52af6e9cfc15b4a1e76e61ea6162d2708581e4ae80f566fd8cad",
+      "expected": "954573951a2e52af6e9cfc15b4a1e76e61ea6162d2708581e4ae80f566fd8cad"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/life-card.js",
+      "match": true,
+      "sha256": "ce2864de7bb7e23e872982f3c60e50f9ea51edbe387d6111aade1ac77201b330",
+      "expected": "ce2864de7bb7e23e872982f3c60e50f9ea51edbe387d6111aade1ac77201b330"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/ending.js",
+      "match": true,
+      "sha256": "ca0412823183b219b3f476b7984f114663dbc9245565cd838ea0bca69884ff05",
+      "expected": "ca0412823183b219b3f476b7984f114663dbc9245565cd838ea0bca69884ff05"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/study/share-result.html",
+      "match": true,
+      "sha256": "6b1ec44719f41d5bb602fb41a13f90eea7a9d561670ab571e5703779502502b6",
+      "expected": "6b1ec44719f41d5bb602fb41a13f90eea7a9d561670ab571e5703779502502b6"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/study/share-result.js",
+      "match": true,
+      "sha256": "85219a0df2e50f5ef0b7f732f5080afc493ff7ce01e46459dca1b2b98f99a398",
+      "expected": "85219a0df2e50f5ef0b7f732f5080afc493ff7ce01e46459dca1b2b98f99a398"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/",
+      "match": true,
+      "sha256": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e",
+      "expected": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/start/",
+      "match": true,
+      "sha256": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e",
+      "expected": "40fc62cf87934cd46e7ec00a65404c6af7e2f64e0488b83b1a706c5cef34d28e"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/sim.js",
+      "match": true,
+      "sha256": "d4c521d33fe167b6ef9f6f00e72171717ae7e791e875adfab06c6c8d46933182",
+      "expected": "d4c521d33fe167b6ef9f6f00e72171717ae7e791e875adfab06c6c8d46933182"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/backgrounds.js",
+      "match": true,
+      "sha256": "a0672434ac7107506ad8da70c5919c6af81c264abbfe08a97f08acd133f3031b",
+      "expected": "a0672434ac7107506ad8da70c5919c6af81c264abbfe08a97f08acd133f3031b"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/class-encounters.js",
+      "match": true,
+      "sha256": "3a49b8e9d05ce21cb9e3064b2f8b1d6419e75b7d3db9c8822363e97c75eced0d",
+      "expected": "3a49b8e9d05ce21cb9e3064b2f8b1d6419e75b7d3db9c8822363e97c75eced0d"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/life-deck.js",
+      "match": true,
+      "sha256": "0cf6dfdaab27936c7d11b298f4de45a6c1315ebe5d70a86947811f43b1748d30",
+      "expected": "0cf6dfdaab27936c7d11b298f4de45a6c1315ebe5d70a86947811f43b1748d30"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/stage2d.js",
+      "match": true,
+      "sha256": "db6f2c31bbf33e60e20a97d82da29fd4da6072179fba7367fcd6d1b3447827a7",
+      "expected": "db6f2c31bbf33e60e20a97d82da29fd4da6072179fba7367fcd6d1b3447827a7"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/course/painted-camera.js",
+      "match": true,
+      "sha256": "0a4b04e0c735812282b8c4e01534956a3ae6a23bb78984a9670206fbed1b9195",
+      "expected": "0a4b04e0c735812282b8c4e01534956a3ae6a23bb78984a9670206fbed1b9195"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/manifest.webmanifest",
+      "match": true,
+      "sha256": "90e3f3341d83ecee780e2bfb07833323d46f576b476bdc4237f5fda8e7b4b2e2",
+      "expected": "90e3f3341d83ecee780e2bfb07833323d46f576b476bdc4237f5fda8e7b4b2e2"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/favicon.svg",
+      "match": true,
+      "sha256": "09d59af662aa7223d8ba31d4db77fe2e1e284ad65b2c4168a16073485cd60651",
+      "expected": "09d59af662aa7223d8ba31d4db77fe2e1e284ad65b2c4168a16073485cd60651"
+    },
+    {
+      "url": "https://life-5wz.pages.dev/og.png",
+      "match": true,
+      "sha256": "8676c482b0bb4a6accdb61e0405bcc26bf0d87ceab6149ecbf51743c6bb03e93",
+      "expected": "8676c482b0bb4a6accdb61e0405bcc26bf0d87ceab6149ecbf51743c6bb03e93"
+    }
+  ]
+}
