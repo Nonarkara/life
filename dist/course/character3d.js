@@ -107,7 +107,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   body.rotation.y=target;
   // A step is an arc: up on the passing pose, a small squash on contact.
   const contact=Math.abs(Math.cos(cycle));
-  body.position.y=walking?Math.abs(Math.sin(cycle))*.04:0;body.rotation.z=walking?step*.025:0;body.rotation.x=walking?.04:0;
+  body.position.y=walking?(.015+Math.abs(Math.sin(cycle))*.025):0;body.rotation.z=walking?step*.025:0;body.rotation.x=walking?.04:0;
   body.scale.set(walking?1+contact*.018:1,walking?1-contact*.03:1+Math.sin(time*2.1)*.008,walking?1+contact*.018:1);
   head.rotation.set(0,0,0);torso.rotation.set(0,0,0);
   for(const limb of [...legs,...arms]){limb.pivot.rotation.set(0,0,0);limb.bend.rotation.set(0,0,0);}

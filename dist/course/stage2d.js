@@ -427,16 +427,17 @@ function createStage(canvas){
     const span=SETS[set]?.span??[0,1];
     const norm=span[1]>span[0]?Math.max(-.1,Math.min(1.1,(activity.x??span[0])-span[0])/(span[1]-span[0])):.5;
     const x=xOverride??seen*.08+norm*(seen*.84);
-    const bob=activity.moving?-Math.abs(Math.sin(clock*10))*(figureHeight*.02):0;
+    const bob=activity.moving?-(figureHeight*.008+Math.abs(Math.sin(clock*10))*(figureHeight*.012)):0;
     const breathe=activity.moving?1:1+Math.sin(clock*2.2)*.006;
     target.save();
     target.globalAlpha=.26;
     target.fillStyle='#241d16';
     target.beginPath();
-    if(!options.flat)target.ellipse(x,groundY,figureWidth*.2,figureHeight*.035,0,0,Math.PI*2);
+    const sil=(!options.flat)?silhouette(image):null;
+    if(!options.flat&&!sil)target.ellipse(x,groundY,figureWidth*.2,figureHeight*.035,0,0,Math.PI*2);
     target.fill();
     // The figure's own shadow lies on the floor away from the light, so the cut-out stands in the room.
-    if(!options.flat){const sil=silhouette(image);if(sil){target.save();target.globalAlpha=.24;const sx=(options.flipX?-1:1)*figureWidth/image.naturalWidth,sy=figureHeight/image.naturalHeight;target.transform(sx,0,-.34*sy,sy*.3,x,groundY);target.drawImage(sil,-image.naturalWidth/2,-image.naturalHeight,image.naturalWidth,image.naturalHeight);target.restore();}}
+    if(sil){target.save();target.globalAlpha=.24;const sx=(options.flipX?-1:1)*figureWidth/image.naturalWidth,sy=figureHeight/image.naturalHeight;target.transform(sx,0,-.34*sy,sy*.3,x,groundY);target.drawImage(sil,-image.naturalWidth/2,-image.naturalHeight,image.naturalWidth,image.naturalHeight);target.restore();}
     target.globalAlpha=1;
     target.translate(x,groundY+bob);
     if(activity.moving)target.rotate(Math.sin(clock*10)*.02);
