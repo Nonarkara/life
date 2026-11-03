@@ -728,7 +728,7 @@ has a terminatingtimeout. ExistingIkigai overlapwrap repairedphone535→390px.
 304tests pass; source/pixelindependentclosure and evidence inreview/daily-share.
 No game outcomes, health odds, money rules or portrait artwork were changed.
 
-## 3 November 2026: audited backgrounds and stage geometry
+## 3 November 2026: Thai props, anime cast, cel lighting
 The six Thai starting backgrounds are authored game presets. Starting resources,
 family support and later obligations differ; intrinsic ability points are drawn
 independently of class. Contextual pressure uses existing recorded encounters,
@@ -746,3 +746,46 @@ scope and remaining art limitations. The build removes only a redundant copy of
 runtime assets; /course/, root manual and curated art remain. FLUX is an offline
 authoring tool, never a required player-side model/server. Its latest candidate
 was rejected for invented lettering/figures; no art was silently promoted.
+
+**3D world (committed 3 November):** Each region now carries Thai street props in
+frame — slum (spirit house, noodle cart, wires, tuk-tuk, flag, banana, chedi),
+village (spirit house, banana x2, flag, wires, paddy, buffalo, palm x2, wat),
+condo (spirit house, noodle cart, wires, tuk-tuk, flag, chedi, tower x2, car x2, rail),
+coast (corner inlet, longtail, jetty, spirit house, grilled-fish cart, banana,
+flag, corner sea, boat x2, palm x2), villa (spirit house, flag, banana, wires,
+chedi, wall, pool, car, hedge, palm), tower (tower x2, canopy, rail). Props are
+drawn per-style via `dist/course/region3d.js` `PROPS`/`createRegionScenery`,
+placed on each institution footprint so nothing sits on a figure's daily path.
+A floor shadow (flat dark silhouette) now falls under painted figures in the home
+scene, faint against the dark wood floor.
+
+**3D world figures (committed 3 November):** Three rigged VRoid sample models
+(visitor-a/b-c.glb from Thailand Digital Valley) follow the figure rig via
+`dist/course/character-anime.js` — they copy procedural joint angles onto the
+model's bones, so the figure still decides where it stands and which pose it
+holds. A retro cel pass (pixel grid, dithered palette, ink edges via `BackSide`
+mesh) replaces AO/tilt-shift. Real cast shadows (`castShadow`) on the stage
+floor. Regional material chords (`SOI_CHORD`) keep the world quieter than the
+drawn people. Not photorealism, not full Sims AI — stylized miniatures.
+
+**Thai native (committed 3 November):** `Prompt` face for `lang=th`; remaining UI
+strings routed through `t()`. Thai typography uses non-looped faces only
+(Prompt / Noto Sans Thai). Prompt is already loaded by `dist/course/fonts.js`.
+**Never** Sarabun, TH Sarabun New, or any looped face.
+
+**Unverified / remaining work:** Village, condo and villa 3D props have not been
+re-viewed in the painted home scene after the final change — confirm props sit
+in frame at each region (village: palm at x=14.6/wat at x=13.9 beyond work footprint [11,3,3,2];
+condo: tower at x=13.5 beyond work footprint [11,3,3,2]; villa: car at x=13.5/hedge at x=13.4
+beyond work footprint [11,3,3,2]). The coast sea was extended from width 2.6 to 6
+(`['sea',-7,-4,6,22]`) for a fuller shoreline; still not a complete shoreline but
+no longer just a corner inlet. The evening lamp glow already existed in home plates;
+nothing was built for it. The painted shadow is faint against the dark wood floor —
+judged sufficient, not re-raised.
+
+**Entertainment value added:** `joss` (incense offering at spirit houses) and `cat`
+(stray cat) props added to village, condo, villa and coast regions for nostalgic
+detail and spiritual texture. These are small decorative props — no gameplay
+effect, purely atmospheric. Broader gameplay entertainment (details, artisticness,
+real/surrealism, symbolism, nostalgia, easter eggs beyond these props) remains
+unaddressed.
