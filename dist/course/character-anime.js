@@ -38,7 +38,7 @@ export function attachAnime(actor){
   const source=cast[id],visual=clone(source.gltf.scene),align=new T.Group();align.rotation.y=source.row.turn;align.add(visual);
   const box=new T.Box3().setFromObject(align),scale=HEIGHT/(box.max.y-box.min.y);align.scale.setScalar(scale);align.position.y=-box.min.y*scale;
   const material=makeVisitorMaterial(source.map,wardrobe);
-  visual.traverse(o=>{if(o.isSkinnedMesh){o.material=material;o.frustumCulled=false;}});
+  visual.traverse(o=>{if(o.isSkinnedMesh){o.material=material;o.frustumCulled=false;o.castShadow=true;o.receiveShadow=true;}});
   const bones={};for(const key in source.names){const b=visual.getObjectByName(source.names[key]);if(b)bones[key]=b;}
   const qa=Q().setFromEuler(align.rotation),qaInv=qa.clone().invert(),rest=new Map(),worldRest=new Map();
   const wr=b=>{if(worldRest.has(b))return worldRest.get(b);const p=b.parent&&b.parent!==align&&b.parent!==visual?wr(b.parent):Q();const w=p.clone().multiply(b.quaternion);worldRest.set(b,w);return w;};

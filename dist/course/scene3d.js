@@ -51,7 +51,7 @@ function createScene(original){
  const scene=new T.Scene();try{scene.background=new T.Color('#6f8783');
  const camera=new T.OrthographicCamera(-8,8,8,-8,.1,100);
  const hemi=new T.HemisphereLight('#f4e9c6','#6a8c91',1.4);scene.add(hemi);
- const sun=new T.DirectionalLight('#fff2d1',2.5);sun.position.set(-7,17,9);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun.target);sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;sun.shadow.bias=-.0005;sun.shadow.intensity=.6;sun.shadow.normalBias=.035;scene.add(sun);
+ const sun=new T.DirectionalLight('#fff2d1',2.5);sun.position.set(-7,17,9);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun.target);sun.shadow.camera.left=-20;sun.shadow.camera.right=20;sun.shadow.camera.top=20;sun.shadow.camera.bottom=-20;sun.shadow.bias=-.0005;sun.shadow.intensity=.82;sun.shadow.normalBias=.035;scene.add(sun);
  const materials=new Map(),geometries=new Map(),labels=[],growth=[],buildings=[];
  let appliedWorld=null;
  // Repaint the surfaces the palette owns when the mood or the chapter moves.
@@ -243,7 +243,7 @@ function createScene(original){
   // The sun crosses the sky through the day: low and warm in the morning, high and white at noon, gold by evening.
   const evening=time%60>=48,phase=time%60/60,sunUp=Math.max(.15,Math.sin(Math.min(1,phase/.8)*Math.PI));
   sun.position.copy(target).add(new T.Vector3(-14*Math.cos(phase*Math.PI),4+13*sunUp,6*Math.sin(phase*Math.PI)-2));
-  sun.intensity=evening?1.1:1.4+sunUp*1.3;hemi.intensity=evening?.75:1.05+sunUp*.4;sun.color.set(evening?'#ffcf9a':'#ffe8cf').lerp(evening?sun.color:new T.Color('#fff4df'),evening?0:sunUp);const hard=palette?.mood==='difficult';if(hard){sun.intensity*=.72;hemi.intensity*=.82;sun.color.lerp(new T.Color(palette.world.sky),.18);}post.setNight(evening);{const shade=evening?.62:hard?.8:1;for(const a of [...Object.values(actors),...neighbors.map(n=>n.a)])a.anime?.shade(shade);}
+  sun.intensity=evening?1.2:1.6+sunUp*1.4;hemi.intensity=evening?.6:.82+sunUp*.3;sun.color.set(evening?'#ffcf9a':'#ffe8cf').lerp(evening?sun.color:new T.Color('#fff4df'),evening?0:sunUp);const hard=palette?.mood==='difficult';if(hard){sun.intensity*=.72;hemi.intensity*=.82;sun.color.lerp(new T.Color(palette.world.sky),.18);}post.setNight(evening);
   // Weather is the place's, drawn around wherever the life is.
   snow.visible=place.climate==='cold';rain.visible=flood.visible&&!snow.visible;
   if(snow.visible){snow.position.set(target.x,0,target.z);const p=snowGeo.attributes.position.array;for(let i=0;i<900;i++){p[i*3+1]=(9+((i*0.37)%9)-(time*.55+i*.013)%9)%9;p[i*3]=((i*7.31)%24)-12+Math.sin(time*.6+i)*.15;}snowGeo.attributes.position.needsUpdate=true;}

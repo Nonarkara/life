@@ -27,9 +27,9 @@ const Retro={
   float l=luma(c),e=0.;
   if(outline>.5){e=max(max(abs(l-luma(at(g+vec2(1.,0.)))),abs(l-luma(at(g+vec2(0.,1.))))),max(abs(l-luma(at(g-vec2(1.,0.)))),abs(l-luma(at(g-vec2(0.,1.))))));}
   // Shadows lean to the ink-teal of the painted plates, lights to warm lemon.
-  c=pow(c,vec3(.86));c=mix(vec3(luma(c)),c,1.22);c=mix(c,c*vec3(1.06,.99,.9),.5);
-  c=mix(c+(vec3(.2,.3,.32)-c)*.12,c,smoothstep(0.,.5,l));
-  float d=b4(g)-.5;c=floor(c*(levels-1.)+.5+d*.38)/(levels-1.);
+  c=pow(c,vec3(.9));c=mix(vec3(luma(c)),c,1.25);c=mix(c,c*vec3(1.06,.99,.9),.5);
+  c=mix(c+(vec3(.16,.26,.34)-c)*.2,c,smoothstep(.1,.6,l));
+  float d=b4(g)-.5;c=floor(c*(levels-1.)+.5+d*.3)/(levels-1.);
   float edge=step(.3,e)*(1.-step(.75,l));
   c=mix(c,vec3(.1,.14,.15),edge*.7);
   c+=(hash(g+floor(time*10.))-.5)*.035;

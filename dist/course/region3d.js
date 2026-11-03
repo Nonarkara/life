@@ -7,12 +7,12 @@ export const FOOTPRINTS={market:[-.5,-.5,2.5,2],school:[9,-1,3,2],work:[11,3,3,2
 const LABELS={market:'MARKET',school:'SCHOOL',work:'WORK',clinic:'CLINIC',city:'CITY'};
 // [kind, x, z, w, d] in world units; kinds are drawn by the style's prop builder.
 export const PROPS={
- market:[],
- slum:[['canal',-4.5,-3,1.6,20],['shack',-2.6,3.2,1.2,1.6],['shack',-2.6,5.2,1.2,1.4],['shack',13.4,-2.4,1.4,1.2],['laundry',.4,5,1.8,.2],['shack',14.2,12.6,1.2,1.4]],
- village:[['paddy',-1.2,.9,2.7,3.3],['paddy',13.6,-2.6,1.6,2],['buffalo',-2.6,5.2,.9,.45],['palm',-2.4,7],['palm',14.6,13],['wat',13.9,12.3,1.4,1.6]],
- condo:[['tower',-2.8,2.4,1.6,2.2],['tower',13.5,-2.6,1.6,1.8],['car',.3,5.1,.9,.45],['car',.3,6,.9,.45],['rail',-4,-1.6,22,.5]],
- coast:[['sea',-6,-4,2.6,22],['boat',-5.4,2,1.6,.45],['boat',-5.2,6,1.4,.4],['palm',-2.4,4.6],['palm',-2.3,7.2],['palm',14.4,13.2],['jetty',-3.6,3.6,1.4,.4]],
- villa:[['wall',-3,9.2,.12,6.6],['pool',.2,4.7,2,1.5],['car',13.5,-2.4,.95,.48],['hedge',13.4,12.2,1.6,.4],['palm',-2.4,4.8]],
+ market:[['spirit',3.3,6.7],['cart',-1.4,8.3,1,.7,'ก๋วยเตี๋ยว'],['wires',-2.4,3.6,.1,8],['tuktuk',4.6,9.4,1,.55],['flag',11.6,8.6],['banana',-.8,6],['chedi',15.2,6]],
+ slum:[['spirit',-2.3,7.4],['cart',14.3,-2.6,1,.7,'ข้าวแกง'],['wires',-3.4,-1,.1,13],['longtail',-4.4,2,1.5,.4],['banana',14.6,7.3],['flag',14.5,12.9],['canal',-4.5,-3,1.6,20],['shack',-2.6,3.2,1.2,1.6],['shack',-2.6,5.2,1.2,1.4],['shack',13.4,-2.4,1.4,1.2],['laundry',.4,5,1.8,.2],['shack',14.2,12.6,1.2,1.4]],
+ village:[['spirit',-2.3,3.4],['banana',-2.3,9.2],['banana',14.7,4.4],['flag',14.5,-2.5],['wires',-3.4,-1,.1,13],['paddy',-1.2,.9,2.7,3.3],['paddy',13.6,-2.6,1.6,2],['buffalo',-2.6,5.2,.9,.45],['palm',-2.4,7],['palm',14.6,13],['wat',13.9,12.3,1.4,1.6]],
+ condo:[['spirit',-2.5,8.4],['cart',-2.9,5.4,1,.7,'ผลไม้'],['wires',-3.4,-1,.1,13],['tuktuk',13.2,12.5,1,.55],['flag',14.6,-2.6],['chedi',15.3,6],['tower',-2.8,2.4,1.6,2.2],['tower',13.5,-2.6,1.6,1.8],['car',.3,5.1,.9,.45],['car',.3,6,.9,.45],['rail',-4,-1.6,22,.5]],
+ coast:[['spirit',-2.2,9.4],['longtail',-5.6,9,1.5,.4],['cart',14.4,-2.6,1,.7,'ปลาย่าง'],['banana',14.5,4.2],['flag',14.4,12.4],['sea',-6,-4,2.6,22],['boat',-5.4,2,1.6,.45],['boat',-5.2,6,1.4,.4],['palm',-2.4,4.6],['palm',-2.3,7.2],['palm',14.4,13.2],['jetty',-3.6,3.6,1.4,.4]],
+ villa:[['spirit',-2.2,2.6],['flag',-2.4,12.6],['wires',-3.8,-1,.1,13],['chedi',15.3,6],['wall',-3,9.2,.12,6.6],['pool',.2,4.7,2,1.5],['car',13.5,-2.4,.95,.48],['hedge',13.4,12.2,1.6,.4],['palm',-2.4,4.8]],
  tower:[['tower',-2.8,2.3,1.7,2.4],['tower',13.4,-2.7,1.8,1.9],['canopy',.2,4.8,2,1.6],['rail',-4,-1.6,22,.5]],
  tokyo:[['vending',.5,5.2,.35,.3],['vending',.95,5.2,.35,.3],['pole',2.2,5.1],['pole',-1.8,6.8],['pole',13.8,12.6],['rail',-4,-1.6,22,.5]],
  newengland:[['bare',-2.5,4.6],['bare',-2.4,7],['bare',14.4,13],['snowbank',.2,5.2,2,.5],['car',13.5,-2.4,.95,.48]],
@@ -36,7 +36,15 @@ export function createRegionScenery({scene,box,round,tree,label,registerBuilding
   newengland(name,[x,z,w,d],g){const h=name==='school'?2.3:name==='market'?1.3:1.8;box(x,z,0,w,d,h,['#d7dde0','#9fb2bf','#c9b8a0','#e8e4da'][Math.abs(Math.round(x+z*2))%4],g);for(let y=.3;y<h;y+=.22)box(x-.005,z+d,y,w+.01,.015,.015,'#b8bfc2',g);gable(x,z,w,d,h,'#f4f6f7',g,.85);for(let a=x+.25;a<x+w-.3;a+=.55){box(a,z+d+.01,.55,.28,.02,.42,'#f7f5ef',g);box(a+.04,z+d+.02,.59,.2,.02,.34,'#4f6470',g);}box(x+w*.45,z+d+.01,0,.38,.03,.95,'#7a2f2a',g);},
   brick(name,[x,z,w,d],g){const h=name==='school'?2.3:1.9;box(x,z,0,w,d,h,'#9a5a46',g);gable(x,z,w,d,h,'#4d5254',g,.6);box(x+w*.75,z+d*.4,h+.2,.18,.18,.6,'#7a4434',g);for(let a=x+.25;a<x+w-.3;a+=.55){box(a,z+d+.01,.55,.3,.02,.45,'#f2efe6',g);box(a+.04,z+d+.02,.6,.22,.02,.35,'#5a6a72',g);box(a,z+d+.01,1.25,.3,.02,.45,'#f2efe6',g);box(a+.04,z+d+.02,1.3,.22,.02,.35,'#5a6a72',g);}}
  };
- function prop([kind,x,z,w,d],g){
+ function prop([kind,x,z,w,d,text],g){
+  if(kind==='spirit'){box(x,z,0,.1,.1,1.05,'#e6dcc2',g);box(x-.14,z-.14,1.05,.38,.38,.05,'#d9b24a',g);box(x-.08,z-.08,1.1,.26,.26,.2,'#e9c46a',g);gable(x-.16,z-.16,.42,.42,1.3,'#b0472f',g,.2);box(x-.22,z+.2,0,.09,.09,.07,'#f2a33a',g);box(x+.12,z+.22,0,.09,.09,.07,'#c8372d',g);box(x-.02,z+.26,0,.07,.07,.12,'#f2a33a',g);return;}
+  if(kind==='cart'){box(x,z,.1,w,d,.5,'#d9d2c0',g);box(x,z,.6,w,d,.05,'#8a7050',g);box(x+w/2-.02,z+d/2-.02,.1,.04,.04,1.5,'#6b5236',g);const cone=new T.Mesh(new T.ConeGeometry(.62,.26,12),new T.MeshLambertMaterial({color:'#c8372d'}));cone.position.set(x+w/2,1.68,z+d/2);cone.castShadow=true;g.add(cone);for(const[a,b]of [[x-.1,z+d+.25],[x+.3,z+d+.38],[x+.7,z+d+.22]])box(a,b,0,.2,.2,.22,'#3f7ab5',g);for(const a of [x+.05,x+w-.2])box(a,z+d,0,.15,.04,.15,'#2d3a3e',g);if(text)label(x+w/2,z+d+.1,2.1,text,g);return;}
+  if(kind==='wires'){const L=d;for(const a of [z,z+L])box(x,a,0,.08,.08,2.9,'#7a7a72',g);box(x-.3,z,2.65,.7,.05,.05,'#5a5a52',g);box(x-.3,z+L,2.65,.7,.05,.05,'#5a5a52',g);box(x-.06,z+L*.45,2.1,.2,.2,.34,'#8a8f88',g);for(let i=0;i<5;i++){const c=box(x-.3+i*.14,z,2.58-(i%2)*.1,.012,L,.012,'#2b2b2b',g);c.rotation.y=(i-2)*.012;c.position.y-=Math.sin(i*1.7)*.05;}return;}
+  if(kind==='tuktuk'){box(x,z,.14,w,d,.3,'#2f8f5b',g);box(x+w*.62,z+.02,.44,w*.38,d-.04,.26,'#2f8f5b',g);box(x+.02,z,.78,w*.7,d,.05,'#e8c24a',g);for(const a of [x+.04,x+w*.62])for(const b of [z+.03,z+d-.07])box(a,b,.44,.04,.04,.36,'#5f6f72',g);for(const[a,b]of [[x+w-.14,z+d/2-.04],[x+.08,z-.02],[x+.08,z+d-.1]])box(a,b,0,.14,.1,.14,'#1f2622',g);return;}
+  if(kind==='flag'){box(x,z,0,.05,.05,2.6,'#e6e1d2',g);const bands=['#b8352f','#f2efe6','#2b4a8a','#f2efe6','#b8352f'],hs=[.07,.07,.14,.07,.07];let y=2.55;bands.forEach((c,i)=>{y-=hs[i];box(x+.05,z,y,.6,.015,hs[i],c,g);});return;}
+  if(kind==='banana'){box(x,z,0,.08,.08,1.1,'#7a8a52',g);for(let i=0;i<5;i++){const f=box(-.05,0,0,.85,.16,.025,'#5f9a4a',g);f.position.set(x+.04+Math.cos(i*1.3)*.4,1.1,z+.04+Math.sin(i*1.3)*.4);f.rotation.set(0,-i*1.3,-.5);}return;}
+  if(kind==='chedi'){box(x,z,0,1.1,1.1,.22,'#efe7d2',g);box(x+.12,z+.12,.22,.86,.86,.2,'#e6dcc2',g);box(x+.25,z+.25,.42,.6,.6,.45,'#efe7d2',g);const spire=new T.Mesh(new T.ConeGeometry(.3,1.6,14),new T.MeshLambertMaterial({color:'#d6a93a'}));spire.position.set(x+.55,1.7,z+.55);spire.castShadow=true;g.add(spire);box(x+.5,z+.5,2.5,.1,.1,.3,'#d6a93a',g);return;}
+  if(kind==='longtail'){box(x,z,-.02,w,d,.2,'#3f6f8a',g);box(x+.05,z+.04,.18,w-.1,d-.08,.03,'#d8c8a0',g);box(x+.3,z,.2,.6,d,.04,'#c8372d',g);box(x+w-.05,z+d/2-.02,.2,.5,.04,.04,'#3b3b3b',g);box(x+w+.4,z+d/2-.03,.1,.06,.06,.1,'#9a9a90',g);return;}
   if(kind==='canal'||kind==='sea'){box(x,z,-.2,w,d,.2,kind==='sea'?'#3f7f8a':'#4f6d68',g);return;}
   if(kind==='shack'){box(x,z,0,w,d,1,'#8a9690',g);const r=box(x-.08,z-.08,1,w+.16,d+.16,.04,'#77837f',g);r.rotation.z=.06;box(x+w*.4,z+d+.01,0,.35,.02,.8,'#5f4f3f',g);return;}
   if(kind==='laundry'){for(const a of [x,x+w])box(a,z,0,.04,.04,1.3,'#6b5a45',g);box(x,z,1.25,w,.01,.01,'#3c3c3c',g);[['#c0563f',.1],['#e6d9b8',.5],['#4f7a9a',.9],['#d8b25a',1.3]].forEach(([c,o])=>box(x+o,z,.85,.3,.02,.38,c,g));return;}
@@ -62,10 +70,10 @@ export function createRegionScenery({scene,box,round,tree,label,registerBuilding
  }
  function build(style){
   const root=new T.Group();scene.add(root);
-  for(const [name,f]of Object.entries(FOOTPRINTS))wrap(name,root,g=>STYLES[style](name,f,g));
+  if(STYLES[style])for(const [name,f]of Object.entries(FOOTPRINTS))wrap(name,root,g=>STYLES[style](name,f,g));
   const props=new T.Group();root.add(props);for(const p of PROPS[style])prop(p,props);
   return root;
  }
  // Lazily build a style the first time a life reaches it.
- return {update(style){for(const g of groups.values())g.visible=false;if(style==='market')return;if(!groups.has(style))groups.set(style,build(style));groups.get(style).visible=true;}};
+ return {update(style){for(const g of groups.values())g.visible=false;if(!groups.has(style))groups.set(style,build(style));groups.get(style).visible=true;}};
 }

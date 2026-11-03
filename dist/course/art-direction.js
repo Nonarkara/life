@@ -12,7 +12,7 @@ const roles=new Map([
 let ramp;
 export function lightRamp(){
  // Two hard bands, like a painted cel: light and one shadow, nothing in between.
- if(!ramp){ramp=new T.DataTexture(new Uint8Array([156,156,156,255,255,255,255,255]),2,1,T.RGBAFormat);ramp.minFilter=T.NearestFilter;ramp.magFilter=T.NearestFilter;ramp.generateMipmaps=false;ramp.needsUpdate=true;}
+ if(!ramp){ramp=new T.DataTexture(new Uint8Array([122,128,138,255,255,255,255,255]),2,1,T.RGBAFormat);ramp.minFilter=T.NearestFilter;ramp.magFilter=T.NearestFilter;ramp.generateMipmaps=false;ramp.needsUpdate=true;}
  return ramp;
 }
 // People are drawn; the world is a quieter painted set behind them. World colours

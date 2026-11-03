@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {lightRamp} from './art-direction.js';
 // Garment-only masks keep the licensed source faces, skin, hair and footwear.
 // Rest-position patterns share one shader program across every model and atlas.
 const tops=['#bd8334','#3c6353','#a25946','#48697a','#ddd7c6','#6c5277','#455165','#7b7151','#b8c4bb','#7b4549','#334756','#d2ad77','#567573','#a4a27a','#b99c99','#514b43'];
@@ -11,7 +12,7 @@ export function visitorWardrobe(index,registered=true){
  return {id:`${top}/${bottom}/${patterns[pattern]}/${trim}/${bottomPattern}`,top,bottom,pattern,trim,bottomPattern,seed};
 }
 export function makeVisitorMaterial(map,wardrobe){
- const material=new THREE.MeshBasicMaterial({map,alphaTest:.35,side:THREE.DoubleSide,toneMapped:true});
+ const material=new THREE.MeshToonMaterial({map,gradientMap:lightRamp(),alphaTest:.35,side:THREE.DoubleSide});
  const uniforms={visitorTop:{value:new THREE.Color(wardrobe.top)},visitorBottom:{value:new THREE.Color(wardrobe.bottom)},visitorTrim:{value:new THREE.Color(wardrobe.trim)},visitorPattern:{value:wardrobe.pattern},visitorBottomPattern:{value:wardrobe.bottomPattern}};
  material.userData.visitorGarments=uniforms;
  material.onBeforeCompile=shader=>{
@@ -42,7 +43,7 @@ export function makeVisitorMaterial(map,wardrobe){
     diffuseColor.rgb=mix(diffuseColor.rgb,cloth*(.32+shade*.96)*diffuse,.9);
    }`);
  };
- material.customProgramCacheKey=()=> 'tdv-garment-mask-v2';
+ material.customProgramCacheKey=()=> 'life-garment-mask-toon-v1';
  return material;
 }
 export function setVisitorTopColour(material,colour){
