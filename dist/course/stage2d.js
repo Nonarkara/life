@@ -293,6 +293,15 @@ function actorFrames(state,actor,age,activity,set){
  const role=roleFor(kind,age,activity.pose,activity.moving,set),table=ROLES[sheetFor(kind,age)]?.[role];
  return (activity.moving?(table??[]):(table??[]).slice(0,1)).map(([sheet,frame])=>[castSheet(state,actor,sheet),frame]);
 }
+// A flat dark copy of a drawn figure, made once, used to throw its shadow.
+const silhouettes=new WeakMap();
+function silhouette(image){
+  if(!image?.naturalWidth||typeof document==='undefined')return null;
+  if(silhouettes.has(image))return silhouettes.get(image);
+  const c=document.createElement('canvas');c.width=image.naturalWidth;c.height=image.naturalHeight;const g=c.getContext('2d');
+  g.drawImage(image,0,0);g.globalCompositeOperation='source-in';g.fillStyle='#1c1812';g.fillRect(0,0,c.width,c.height);
+  silhouettes.set(image,c);return c;
+}
 export const MOMENT_CAPTIONS={bikes:'Cycling to school with your friend.',love:'The evening your relationship began.',fight:'The confrontation after you pushed back.',bully:'The bullying you experienced at school.',grades:'The study path you chose.',
  'grades-bad':'Your choices brought work and study into tension.',bed:'Making room for recovery at home.'};
 export function describePaintedScene(state,age,time){
@@ -426,6 +435,8 @@ function createStage(canvas){
     target.beginPath();
     if(!options.flat)target.ellipse(x,groundY,figureWidth*.2,figureHeight*.035,0,0,Math.PI*2);
     target.fill();
+    // The figure's own shadow lies on the floor away from the light, so the cut-out stands in the room.
+    if(!options.flat){const sil=silhouette(image);if(sil){target.save();target.globalAlpha=.24;const sx=(options.flipX?-1:1)*figureWidth/image.naturalWidth,sy=figureHeight/image.naturalHeight;target.transform(sx,0,-.34*sy,sy*.3,x,groundY);target.drawImage(sil,-image.naturalWidth/2,-image.naturalHeight,image.naturalWidth,image.naturalHeight);target.restore();}}
     target.globalAlpha=1;
     target.translate(x,groundY+bob);
     if(activity.moving)target.rotate(Math.sin(clock*10)*.02);
