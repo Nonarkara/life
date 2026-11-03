@@ -2,6 +2,7 @@ import * as T from 'three';
 import {illustratedMaterial,tint} from './art-direction.js';
 import {shopfront,createInhabitedRooms} from './inhabited3d.js';
 import {createCharacter} from './character3d.js';
+import {loadAnimeCast,attachAnime} from './character-anime.js';
 import {routine,routineContext,samplePath,HOME,HOME_FACING} from './routines.js';
 import {furniture,townGrowth,taskDesks} from './layout.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
@@ -163,6 +164,7 @@ function createScene(original){
  const flood=box(1,6.8,.065,9,1.6,.025,'#809e98');flood.material=new T.MeshStandardMaterial({color:'#809e98',transparent:true,opacity:.55,roughness:.4});
  const actors={mother:createCharacter({shirt:'#718979',sex:'female'}),father:createCharacter({shirt:'#87735c'}),player:createCharacter({shirt:'#bd914d'})};for(const actor of Object.values(actors))scene.add(actor.root);
  const neighbors=[[8.4,6.4,'#93957b'],[9.2,6.4,'#788c98'],[12.9,6.3,'#9a8e72'],[8.4,0,'#8f7a69']].map(([x,z,shirt])=>{const a=createCharacter({shirt});scene.add(a.root);return {a,x,z};});
+ let gone=false;loadAnimeCast().then(c=>{if(c&&!gone)for(const a of [...Object.values(actors),...neighbors.map(n=>n.a)])try{attachAnime(a);}catch(error){console.warn('Anime figure skipped.',error);a.anime?.detach();}});
  // Clothing follows region, sex, age and role; colours are authored, never data.
  const WARDROBE={market:['#718979','#87735c','#a0674e','#5f7a8a','#b08a4a'],slum:['#5f7a8a','#a0674e','#7a7468','#b85a45','#c9a14a'],village:['#6f5a8a','#8a5a3c','#4f6a5a','#b07a3a','#3f5a7a'],condo:['#4f6a7a','#e3ddd0','#8a8f86','#a05a4a','#2f4a5a'],coast:['#3f7f9a','#d8c8a0','#c0563f','#5f8a6a','#e6d9b8'],villa:['#f2efe6','#2f3f5a','#8a9aa0','#b89a6a','#5a3a3a'],tower:['#e8e2d4','#5f7a8a','#c77d5a','#2f4a5a','#9aa08a'],tokyo:['#2f3a40','#e8e6df','#5f6f72','#8a7a6a','#3f5a7a'],brick:['#2f3a40','#8a2f2a','#c8b89a','#3f5f7a','#5f6a4a']};
  const WINTER=['#2f3a40','#5a3a3a','#3f5a7a','#6a5a4a','#4f5f4a','#8a2f2a'];
@@ -241,7 +243,7 @@ function createScene(original){
   // The sun crosses the sky through the day: low and warm in the morning, high and white at noon, gold by evening.
   const evening=time%60>=48,phase=time%60/60,sunUp=Math.max(.15,Math.sin(Math.min(1,phase/.8)*Math.PI));
   sun.position.copy(target).add(new T.Vector3(-14*Math.cos(phase*Math.PI),4+13*sunUp,6*Math.sin(phase*Math.PI)-2));
-  sun.intensity=evening?1.1:1.4+sunUp*1.3;hemi.intensity=evening?.75:1.05+sunUp*.4;sun.color.set(evening?'#ffcf9a':'#ffe8cf').lerp(evening?sun.color:new T.Color('#fff4df'),evening?0:sunUp);const hard=palette?.mood==='difficult';if(hard){sun.intensity*=.72;hemi.intensity*=.82;sun.color.lerp(new T.Color(palette.world.sky),.18);}post.setNight(evening);
+  sun.intensity=evening?1.1:1.4+sunUp*1.3;hemi.intensity=evening?.75:1.05+sunUp*.4;sun.color.set(evening?'#ffcf9a':'#ffe8cf').lerp(evening?sun.color:new T.Color('#fff4df'),evening?0:sunUp);const hard=palette?.mood==='difficult';if(hard){sun.intensity*=.72;hemi.intensity*=.82;sun.color.lerp(new T.Color(palette.world.sky),.18);}post.setNight(evening);{const shade=evening?.62:hard?.8:1;for(const a of [...Object.values(actors),...neighbors.map(n=>n.a)])a.anime?.shade(shade);}
   // Weather is the place's, drawn around wherever the life is.
   snow.visible=place.climate==='cold';rain.visible=flood.visible&&!snow.visible;
   if(snow.visible){snow.position.set(target.x,0,target.z);const p=snowGeo.attributes.position.array;for(let i=0;i<900;i++){p[i*3+1]=(9+((i*0.37)%9)-(time*.55+i*.013)%9)%9;p[i*3]=((i*7.31)%24)-12+Math.sin(time*.6+i)*.15;}snowGeo.attributes.position.needsUpdate=true;}
@@ -255,7 +257,7 @@ function createScene(original){
   post.render();
  }
  const refreshFonts=()=>{for(const entry of labels)entry.last='';};window.addEventListener('life-fonts-loaded',refreshFonts);
- return {canvas,update,dispose(){window.removeEventListener('life-fonts-loaded',refreshFonts);post.dispose();disposeScene(scene,renderer,canvas);}};
+ return {canvas,update,dispose(){gone=true;window.removeEventListener('life-fonts-loaded',refreshFonts);post.dispose();disposeScene(scene,renderer,canvas);}};
  }catch(error){disposeScene(scene,renderer,canvas);throw error;}
 }
 function disposeScene(scene,renderer,canvas){

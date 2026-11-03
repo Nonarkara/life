@@ -53,6 +53,8 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
  mesh(new T.BoxGeometry(.055,.046,.02),paper,body,0,.92,.122);
  const arms=[limb(-.24,1.29,.28,.26,cloth),limb(.24,1.29,.28,.26,cloth)];
  for(const arm of arms){mesh(new T.CylinderGeometry(.052,.054,.038,12),paper,arm.pivot,0,-.26,0);arm.bend.children[0].material=flesh;sphere(.049,flesh,arm.bend,0,-.27,0);}
+ // The drawn body, before any prop: an anime figure may stand in for exactly these meshes.
+ const bodyParts=[];body.traverse(o=>{if(o.isMesh)bodyParts.push(o);});
  const book=new T.Group();body.add(book);book.position.set(0,1.02,.34);
  mesh(new T.BoxGeometry(.3,.025,.2),material('#8e4e43'),book);mesh(new T.BoxGeometry(.28,.012,.185),paper,book,0,.02,0);
  const cup=mesh(new T.CylinderGeometry(.045,.035,.09,16),paper,body,.22,1.06,.28);
@@ -146,5 +148,5 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   if(want!==expression){expression=want;const tex=faceTexture(want,{lashes:look.sex==='female',elder});if(tex){headMat.map=tex;headMat.needsUpdate=true;}}
   if(elder){body.rotation.x+=.06;if(!look.greyed){look.greyed=true;hairMat.color.set('#b4b6ae');}}else if(look.greyed){look.greyed=false;hairMat.color.set(look.hair);}
  }
- return {root,update,setLook,anchors:{head,torso}};
+ return {root,update,setLook,anchors:{head,torso},rig:{body,head,legs,arms,bodyParts,look}};
 }

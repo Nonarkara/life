@@ -1,0 +1,6 @@
+Character models: AvatarSample_A, _B, _C. © pixiv Inc. / VRoid Project.
+Sample conditions: https://vroid.pixiv.help/hc/en-us/articles/4402394424089-VRoidPreset-A-Z
+(commercial use and modification permitted; not CC0; no pixiv endorsement implied).
+Model B also carries the VRM Public License 1.0: https://vrm.dev/licenses/1.0/
+Textures are the original atlases; garment colours are recoloured at run time.
+Rigged and optimised for Thailand Digital Valley's digital twin, reused here.

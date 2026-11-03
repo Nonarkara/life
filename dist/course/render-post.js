@@ -14,7 +14,7 @@ import {OutputPass} from 'three/examples/jsm/postprocessing/OutputPass.js';
 
 // ponytail: palette is per-channel levels, not a fixed 16-colour table; swap for a LUT if exact palettes matter.
 const Retro={
- uniforms:{tDiffuse:{value:null},resolution:{value:new T.Vector2(1,1)},cell:{value:3},time:{value:0},outline:{value:1},levels:{value:9}},
+ uniforms:{tDiffuse:{value:null},resolution:{value:new T.Vector2(1,1)},cell:{value:3},time:{value:0},outline:{value:1},levels:{value:10}},
  vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
  fragmentShader:`uniform sampler2D tDiffuse;uniform vec2 resolution;uniform float cell,time,outline,levels;varying vec2 vUv;
  float b2(vec2 a){return fract(a.x*.5+a.y*a.y*.75);}
@@ -29,7 +29,7 @@ const Retro={
   // Shadows lean to the ink-teal of the painted plates, lights to warm lemon.
   c=pow(c,vec3(.86));c=mix(vec3(luma(c)),c,1.22);c=mix(c,c*vec3(1.06,.99,.9),.5);
   c=mix(c+(vec3(.2,.3,.32)-c)*.12,c,smoothstep(0.,.5,l));
-  float d=b4(g)-.5;c=floor(c*(levels-1.)+.5+d*.5)/(levels-1.);
+  float d=b4(g)-.5;c=floor(c*(levels-1.)+.5+d*.38)/(levels-1.);
   float edge=step(.3,e)*(1.-step(.75,l));
   c=mix(c,vec3(.1,.14,.15),edge*.7);
   c+=(hash(g+floor(time*10.))-.5)*.035;
@@ -47,8 +47,8 @@ export function createPost(renderer,scene,camera){
  let tier=1,frames=0,spent=0,last=0,windows=0,calm=0;
  const apply=()=>{bloom.enabled=tier>=1;retro.uniforms.outline.value=tier>=1?1:0;};
  return {
-  // One art pixel is about three CSS pixels, whatever the screen density.
-  setSize(w,h,ratio){composer.setPixelRatio(ratio);composer.setSize(w,h);retro.uniforms.resolution.value.set(w*ratio,h*ratio);retro.uniforms.cell.value=Math.max(2,Math.round((w<560?2.4:3)*ratio));},
+  // One art pixel is about two CSS pixels, whatever the screen density.
+  setSize(w,h,ratio){composer.setPixelRatio(ratio);composer.setSize(w,h);retro.uniforms.resolution.value.set(w*ratio,h*ratio);retro.uniforms.cell.value=Math.max(2,Math.round((w<560?1.6:2)*ratio));},
   setNight(night){bloom.strength=night?.5:0;bloom.threshold=night?.72:.99;},
   // Frame-to-frame time includes the GPU, which is what a slow phone runs out of. The first
   // window (shader compiles) is ignored; a struggling device steps down, a recovered one steps back up.
