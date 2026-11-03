@@ -66,8 +66,8 @@ export function renderEnding(root,state,{storage}={}){
  detail.append(label,age,values,event,analysis,note);const figure=document.createElement('figure');figure.className='ending-plot';figure.append(chart);if(fastest){const caption=document.createElement('figcaption');caption.textContent='Shaded interval: fastest cash growth.';figure.append(caption);}frame.append(figure,detail);root.append(frame);
  const svg=(tag,attrs={},text)=>{const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;};
  const show=()=>{
-  const row=rows.find(r=>r.age===Number(age.value))??rows.at(-1);values.replaceChildren();for(const[key,name]of metric){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=key==='cash'?money(row[key]):Math.round(row[key])+' / 100';values.append(dt,dd);}
-  event.textContent=rememberedMoments(state).find(m=>m.age===row.age)?.text??(row.age<=10?'Before you choose.':'An ordinary five years. Small habits accumulate.');draw(row.age);
+  const row=rows.find(r=>r.age===Number(age.value))??rows.at(-1);values.replaceChildren();for(const[key,name]of metric){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=key==='cash'?money(row[key]):Math.round(row[key])+t(' / 100');values.append(dt,dd);}
+  event.textContent=rememberedMoments(state).find(m=>m.age===row.age)?.text??(row.age<=10?t('Before you choose.'):t('An ordinary five years. Small habits accumulate.'));draw(row.age);
  };
  function draw(selected){
   chart.replaceChildren();const width=Math.max(300,Math.round(chart.getBoundingClientRect().width)),left=52,right=18,plot=width-left-right,end=Math.max(10,state.age),x=n=>left+n/end*plot;chart.setAttribute('viewBox',`0 0 ${width} 354`);

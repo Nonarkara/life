@@ -1,6 +1,7 @@
 import {TRAITS,personality,capacities} from './personality.js';
 import {purpose} from './purpose.js';
 import {FOCUSES} from './motivations.js';
+import {t} from './i18n.js';
 export function initPersonalConsole({getState,isMoving=()=>false}){
  const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
  document.body.classList.add('personal-console');
@@ -25,18 +26,18 @@ export function initPersonalConsole({getState,isMoving=()=>false}){
   if(youButton)youButton.hidden=board.hidden;
   const p=personality(s);traits.replaceChildren();
   TRAITS.forEach(([key,label],i)=>{const row=el('div',undefined,'ocean-row'),line=el('div',undefined,'ocean-row-line'),name=el('span'),letter=el('b','OCEAN'[i]);name.append(letter,document.createTextNode(label));const track=el('div',undefined,'ocean-track');track.setAttribute('role','img');track.setAttribute('aria-label',`${label}: ${p.current[key]} / 100; starting ${p.initial[key]}.`);const fill=el('span'),start=el('i');fill.style.width=p.current[key]+'%';start.style.left=p.initial[key]+'%';track.append(fill,start);line.append(name,el('output',String(p.current[key])));row.append(line,track);traits.append(row);});
-  recordedAt.textContent='Recorded at age '+s.age;const c=capacities(s),meaning=purpose(s);capacitiesEl.replaceChildren();
-  for(const [label,value]of [['Reasoning · IQ',c.reasoning],['Emotional skills · EQ',c.emotionalSkills]]){const row=el('div',undefined,'capacity-instrument');row.append(el('span',label),el('strong',value+' / 100'));const bar=el('span',undefined,'condition-track'),fill=el('i');fill.style.width=value+'%';bar.append(fill);row.append(bar);capacitiesEl.append(row);}
+  recordedAt.textContent=t('Recorded at age '+s.age);const c=capacities(s),meaning=purpose(s);capacitiesEl.replaceChildren();
+  for(const [label,value]of [['Reasoning · IQ',c.reasoning],['Emotional skills · EQ',c.emotionalSkills]]){const row=el('div',undefined,'capacity-instrument');row.append(el('span',label),el('strong',value+t(' / 100')));const bar=el('span',undefined,'condition-track'),fill=el('i');fill.style.width=value+'%';bar.append(fill);row.append(bar);capacitiesEl.append(row);}
   let facts=purposeDetails.querySelector('.purpose-facts');if(!facts){facts=el('div',undefined,'purpose-facts');purposeDetails.append(facts);}facts.replaceChildren();
-  for(const r of meaning.records.slice(-3)){const line=el('p',`${r.from}–${r.to} · ${FOCUSES[r.focus]} · ${r.met?'Recorded':'No matching action recorded'}`);facts.append(line);}
+  for(const r of meaning.records.slice(-3)){const line=el('p',`${r.from}–${r.to} · ${t(FOCUSES[r.focus])} · ${t(r.met?'Recorded':'No matching action recorded')}`);facts.append(line);}
   const feedback=document.getElementById('focus-feedback');if(feedback&&!feedback.hidden)purposeDetails.append(feedback);
-  period.textContent=s.stage==='review'?'Ages '+s.age+'–'+Math.min(80,s.age+5):'Current chapter';
+  period.textContent=s.stage==='review'?t('Ages '+s.age+'–'+Math.min(80,s.age+5)):t('Current chapter');
   const profile=document.getElementById('profile'),source=profile?.querySelector('.focus-source'),hint=source?.previousElementSibling;
   const goalFields=['profile-aim','profile-focus'].map(id=>document.getElementById(id)?.closest('.profile-field')).filter(Boolean);
   if(goalFields.length){fields.replaceChildren(...goalFields);goalNotes.replaceChildren(el('summary','Goal notes'));if(hint?.tagName==='P')goalNotes.append(hint);if(source)goalNotes.append(source);}
   for(const input of fields.querySelectorAll('select'))input.disabled=!review;
-  if(!fields.children.length)fields.append(el('p','Goals open at your next review.','instrument-key'));
-  const title=document.getElementById('title');if(review)title.textContent=document.getElementById('tab-priorities')?.getAttribute('aria-pressed')==='true'?'Practice':'Life choices';
+  if(!fields.children.length)fields.append(el('p',t('Goals open at your next review.'),'instrument-key'));
+  const title=document.getElementById('title');if(review)title.textContent=document.getElementById('tab-priorities')?.getAttribute('aria-pressed')==='true'?t('Practice'):t('Life choices');
   const focus=document.getElementById('focus-feedback');if(focus?.parentElement===document.querySelector('#editor')?.parentElement)focus.hidden=true;
   document.getElementById('stage-count').hidden=review;
  }

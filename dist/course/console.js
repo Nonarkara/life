@@ -1,6 +1,7 @@
 import {initBucketView} from './bucket-view.js';
 import {placeDeckAction} from './deck-action.js';
 import {renderInvestments} from './investment-view.js';
+import {t} from './i18n.js';
 import {roomRecord,recordedCommute} from './biography.js';
 import {renderEconomy,renderWorldNow} from './economy-view.js';
 import {REGIONS,MOVE_TARGETS} from './regions.js';
@@ -156,9 +157,9 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
    const list=element('ul','road-list');
    for(const road of roads){
     const item=element('li');
-    const head=element('p','road-head');head.textContent='Age '+road.station+': '+road.label;
+    const head=element('p','road-head');head.textContent=t('Age '+road.station+': '+road.label);
     const detail=element('p','fine');const sign=n=>(n>=0?'+':'')+n;
-    detail.textContent='instead of '+road.taken+' — money '+sign(money(road.cashDelta).replace('฿',''))+' ฿, health '+sign(Math.round(road.healthDelta))+', wellbeing '+sign(Math.round(road.wellbeingDelta))+' by age '+(road.station+5)+'.';
+    detail.textContent=t('instead of '+road.taken+' — money '+sign(money(road.cashDelta).replace('฿',''))+' ฿, health '+sign(Math.round(road.healthDelta))+', wellbeing '+sign(Math.round(road.wellbeingDelta))+' by age '+(road.station+5)+'.');
     item.append(head,detail);list.append(item);
    }
    p.append(list);
