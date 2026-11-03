@@ -24,6 +24,7 @@ function card(life){
  const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class];
  const facts=[['Place',t(b.place)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
+ if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }

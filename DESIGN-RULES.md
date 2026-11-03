@@ -123,3 +123,44 @@ Phone dilemmas reserve the same one-third portrait/one-fifth landscape strip as
 planning. Prove actual requested viewports; a hidden tab or stale measurement
 handle must not silently substitute another size. Page overflow is only one
 check. Supporting records may require reading, but current edits must be visible.
+
+## 4 November: glance path — the eye enters on visual weight, not DOM order
+The heaviest thing on the first screen is the entry. Headline, key number and
+primary action sit on its natural exit (below or beside it), never in a dead
+zone above it. No leapfrog of related copy across a heavy visual. If the
+heaviest visual is a full-bleed image that dwarfs the title, move the title to
+the exit — do not leave it above the image. The map (on map products) is the
+entry. On Life2.0, the painted/3D world canvas is the entry; the console's
+selected value, forecast and advance action sit on its exit. A headline may
+lead only when it is itself the dominant visual (unapologetically large).
+Verify Tab order matches the glance path. Canonical: Non-Slop
+`GLANCE-PATH-FOR-AI.md`.
+
+## 4 November: kinetic grids — name a grid, snap to it, leave voids on purpose
+Dynamic layouts come from rigidly obeying a named geometric grid (radial,
+axial, column, or modular), then letting scale, voids and colour do the
+excitement. Title vs body is a real scale step (≥1.5–2×; posters use 5–10×).
+≤2 saturated accents per view; each has a job. Intentional voids — empty
+modules, corners, columns — are structural, not unfinished. Do not fill voids
+with badges, chips, or a boxed logo. Motion: steep ease / snap / hard cut;
+no floaty morphs or slow crossfades. For Life2.0's console: column or modular
+grid. Radial/axial are for marketing, chapter openers or locked art direction
+only — not for burying gameplay gauges. Canonical: Non-Slop
+`KINETIC-GRIDS-FOR-AI.md`.
+
+## 4 November: MSH hard laws (recap — full law in Non-Slop MSH.md)
+1. Boxes fit content; padding ≈ 0.5–1.5× line-height; control ≤ 2× content width.
+2. No void over ~⅓ of first screen.
+3. Compact first; scroll only for interesting detail.
+4. Symbols over prose when meaning is unambiguous; never emoji-as-icon.
+5. Logos never boxed.
+6. Something must win — one focal point, real contrast (≥1.5–2× type step).
+7. Subtract before add — ≤15 cards, ≤3 shadows, one radius (or none), ≤5 pills,
+   ≤8 font sizes, no decorative gradient/glass, no first-load modal.
+8. Map/data products: map ≥60% of first screen; panels docked at edges.
+9. MoMA alignment — edges align, no loose corners.
+10. Builder ≠ auditor.
+
+Banned fonts as primary: Inter, Poppins, Montserrat, Roboto, Open Sans, Lato,
+DM Sans, Space Grotesk, Geist, Plus Jakarta Sans, Manrope, Nunito, naked
+`system-ui`. Prefer Jost (EN), Prompt (TH), ≤2 families.

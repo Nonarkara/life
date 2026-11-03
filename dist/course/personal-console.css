@@ -136,7 +136,7 @@
 .deck-panel{gap:2px}
 .deck-set{border-left:2px solid var(--amber)}
 .deck-strip{display:flex;flex-wrap:wrap;gap:3px;margin:1px 0 3px}
-.deck-chip{display:inline-flex;align-items:baseline;gap:3px;padding:2px 5px;border:1px solid var(--deck-line);background:var(--deck);color:var(--deck-muted);font-size:calc(11px * var(--reading-scale));cursor:pointer;line-height:1.2;border-radius:2px;font-family:inherit}
+.deck-chip{display:inline-flex;align-items:baseline;gap:3px;padding:2px 5px;border:1px solid var(--deck-line);background:var(--deck);color:var(--deck-muted);font-size:calc(11px * var(--reading-scale));cursor:pointer;line-height:1.2;border-radius:0;font-family:inherit}
 .deck-chip:hover{color:var(--deck-text);border-color:var(--deck-muted)}
 .deck-chip.active{color:var(--deck-text);border-color:var(--amber);background:color-mix(in srgb,var(--deck) 92%,var(--deck-accent))}
 .deck-chip-name{font-size:calc(10px * var(--reading-scale))}
