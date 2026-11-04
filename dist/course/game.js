@@ -1,3 +1,4 @@
+import {renderEncounterChoices} from './encounter-view.js';
 import {dailyDateFor} from './birthcode.js';
 import {journeySnapshot} from './journey.js';
 import {initLifeEventView} from './life-event-view.js';
@@ -107,7 +108,7 @@ function questions(){
   button.append(number,label,cost);
   button.onclick=()=>{const before=state,next=applyPivot(state,pivot,option.id);if(next===before)return;state=next;showResult(before,state,{label:option.label,text:state.pivots.at(-1).note,record:state.pivots.at(-1)});render();};list.append(button);
  }
- card.append(progress,badges,question,context,list);root.append(card);
+ const reading=document.createElement('div');reading.className='pivot-reading';reading.append(progress,badges,question,context);card.append(reading,list);root.append(card);
 }
 
 function profiles(){const editor=$('profile'),habitsOpen=editor.querySelector('.profile-habits')?.open??false,root=resetProfileFields(editor);const routes=availablePathways(state.age);if(routes.length){const wrap=document.createElement('div');wrap.className='profile-field';const label=document.createElement('label');label.htmlFor='pathway';label.textContent='Education and work';const select=document.createElement('select');select.id='pathway';for(const[key,route]of routes){const o=document.createElement('option');o.value=key;o.textContent=route.label;select.append(o);}select.value=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');select.onchange=()=>{state={...state,pathway:select.value};save();render();document.querySelector('#pathway')?.focus({preventScroll:true});};wrap.append(label,select);
@@ -139,13 +140,13 @@ const tempo=()=>decisionTempo({stage:state.stage,moving:!!travel,incident:!!stat
 const decisionStage=initDecisionStage({onDismiss:key=>{dismissedDecision=key;if(travelEvent){acknowledgeTravel();paused=true;}if(state.stage==='birth'){state=acknowledgeChild(state);childResult=null;paused=true;}if(decisionOutcome)$('choice-result')?.remove();decisionOutcome=null;tab='priorities';render();const target=$('commit').hidden?document.querySelector('.console-nav button'):$('commit');target?.focus({preventScroll:true});}});
 function syncDecisionStage(){
  childUI.hide();yearUI.hide();
- if(travelEvent){decisionStage.show([yearUI.show(travelEvent)],{key:'year:'+travelEvent.age+':'+travelEvent.id,label:'year-event-title'});return;}
- if(state.stage==='birth'){const q=pendingChildChoice(state,age),key='child:'+q?.age;if(childResult){decisionStage.show([childUI.show(null,childResult)],{key:'child-result:'+state.childhood.choices.length,label:'child-title'});return;}if(q&&dismissedDecision!==key){decisionStage.show([childUI.show(q,null)],{key,label:'child-title'});return;}decisionStage.hide();return;}
+ if(travelEvent){decisionStage.show([yearUI.show(travelEvent)],{key:'year:'+travelEvent.age+':'+travelEvent.id,label:'year-event-title',event:travelEvent});return;}
+ if(state.stage==='birth'){const q=pendingChildChoice(state,age),key='child:'+q?.age;if(childResult){decisionStage.show([childUI.show(null,childResult)],{key:'child-result:'+state.childhood.choices.length,label:'child-title',result:true});return;}if(q&&dismissedDecision!==key){decisionStage.show([childUI.show(q,null)],{key,label:'child-title'});return;}decisionStage.hide();return;}
  if(state.stage!=='review'||travel){decisionStage.hide();return;}
  const pending=state.story?.pending;
- if(decisionOutcome){$('title').textContent=decisionOutcome.label;decisionStage.show([$ ('title'),$('choice-result')],{key:decisionOutcome.key,label:'title'});return;}
- if(pending){const key='incident:'+state.age+':'+pending.id;if(dismissedDecision!==key){decisionStage.show([$('title'),$('narrative'),$('encounter')],{key,label:'title'});return;}}
- if(tab==='questions'&&pendingPivots(state).length){decisionStage.show([$('questions')],{key:'question:'+state.age+':'+pendingPivots(state)[0].id,label:'pivot-title'});return;}
+ if(decisionOutcome){$('title').textContent=decisionOutcome.label;decisionStage.show([$ ('title'),$('choice-result')],{key:decisionOutcome.key,label:'title',scenario:encounterById(decisionOutcome.scenario)??{id:decisionOutcome.scenario},result:true});return;}
+ if(pending){const key='incident:'+state.age+':'+pending.id;if(dismissedDecision!==key){decisionStage.show([$('title'),$('narrative'),$('encounter')],{key,label:'title',scenario:encounterById(pending.id)});return;}}
+ if(tab==='questions'&&pendingPivots(state).length){decisionStage.show([$('questions')],{key:'question:'+state.age+':'+pendingPivots(state)[0].id,label:'pivot-title',scenario:pendingPivots(state)[0]});return;}
  decisionStage.hide();
 }
 function renderEncounter(){
@@ -154,12 +155,7 @@ function renderEncounter(){
  const scene=encounterById(pending.id);$('editor').hidden=true;$('commit').hidden=true;$('last-event').hidden=true;
  $('chapter').textContent='A TURN IN THE PATH';$('stage-count').textContent='';$('title').textContent=storyText(scene.title,state.story);
  $('narrative').hidden=false;$('narrative').textContent=storyText(scene.prompt,state.story);
- {const stop=document.createElement('p');stop.className='encounter-stop';stop.textContent='Time stops until you choose.';root.append(stop);}
- const badges=document.createElement('div');badges.className='question-badges';badges.append(questionCategoryBadge(scene.category==='family'?'relationships':scene.category));root.append(badges);
- for(const choice of inWorldOrder(scene.options,state.seed,scene.id+state.age)){const button=document.createElement('button');button.type='button';button.className='encounter-choice';button.disabled=!choiceAvailable(state,choice);const label=document.createElement('span');label.textContent=choice.label;button.append(choiceSymbol(choiceSymbolKey(choice)),label);
- const terms=[];if(choice.cash<0)terms.push('Cost: '+money(-choice.cash));if(choice.cash>0)terms.push('Income: '+money(choice.cash));if(choice.uncertain)terms.push('Sales uncertain');
- if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}
- button.onclick=()=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before)showResult(before,state,{label:choice.label});render();};root.append(button);}
+ renderEncounterChoices(root,state,scene,{formatMoney:money,onChoose:choice=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before)showResult(before,state,{label:choice.label});render();}});
 }
 // After every choice: one sentence of what happened, then which numbers moved and by how much.
 function showResult(before,after,details={}){
@@ -174,7 +170,7 @@ function showResult(before,after,details={}){
  const locks=Object.entries(record?.locks??{});
  if(locks.length){const commitment=document.createElement('p');commitment.className='decision-commitment';commitment.textContent=t('Committed effort until age {age}: {values}').replace('{age}',after.age+5).replace('{values}',locks.map(([axis,n])=>t(AXES.find(a=>a.key===axis)?.label??axis)+' '+n+'/10').join(' · '));box.append(commitment);}
  const next=document.createElement('button');next.type='button';next.id='decision-continue';next.textContent=pendingPivots(after).length?'Next decision →':'Plan the next five years →';next.onclick=()=>{decisionOutcome=null;dismissedDecision=null;box.remove();tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';render();if(!pendingPivots(state).length)$('commit').focus({preventScroll:true});};box.append(next);
- decisionOutcome={label:details.label??'Your choice, recorded',key:'outcome:'+after.age+':'+(record?.pivot??seen?.id)};
+ decisionOutcome={label:details.label??'Your choice, recorded',scenario:record?.pivot??seen?.id,key:'outcome:'+after.age+':'+(record?.pivot??seen?.id)};
  box.hidden=false;localise(box);
 }
 function render(){setPalette(paletteFor(state,state.age,lifeMoodAt(state,state.age),{scenario:tab==='questions'?pendingPivots(state)[0]?.id:undefined}));const birth=state.stage==='birth';document.body.classList.toggle('birth-stage',birth);const end=state.stage==='recap',moving=!!travel,review=state.stage==='review'&&!moving;document.body.classList.toggle('recap-stage',end);if(!end)document.body.classList.remove('show-ending-world','show-ending-details');const first=state.profiles.length===0&&!state.intake;$('editor').hidden=!review;$('recap').hidden=!end;$('birth-info').hidden=!birth;$('commit').hidden=birth||moving;$('overview').hidden=birth;$('overview').textContent=mode==='world'?'Life course':'Growing world';$('childhood-memory').hidden=!(birth&&age>=6);const dock=document.querySelector('.rpg-dock');const main=document.querySelector('main');if(dock){dock.classList.toggle('shown',birth&&age>=6);main.style.gridTemplateRows=(birth&&age>=6)?'minmax(0,1fr) var(--rpg-height)':'1fr';}$('title').textContent=birth?'Before you choose.':moving?'Life keeps moving.':end?(state.death?'Your life ends at '+state.age+'.':'The life you made.'):first?'Your starting attributes':'Your next five years';$('chapter').textContent=birth?'THE BEGINNING':end?'YOUR LIFE, REPLAYED':moving?'BETWEEN THE STATIONS':'FIVE-YEAR REVIEW';$('stage-count').textContent=birth?'0 → 10':end?'0 → '+state.age:state.age+' → '+Math.min(80,state.age+5);$('narrative').hidden=review;$('narrative').textContent=birth?`Born into ${state.birth.home} in ${state.birth.place}. Raised by ${household(state.birth).text}. Live one life: from ten, spend ten points every five years and face its decisions; at the end, see where you went, what it cost and what it taught, then live again in the same world.`:moving?'Time carries your choices forward. The world keeps going around you.':end?(state.death?.cause??'Your choices made a shape. Some plans held; others changed. Follow the amber course to see where you went.'):first?'Ten points. Choose a starting shape; revise your priorities every five years.':`Set your effort for ages ${state.age}–${Math.min(80,state.age+5)}.`;
