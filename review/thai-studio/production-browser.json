@@ -1,0 +1,122 @@
+{
+  "build": "c55323e91ced",
+  "choices": [
+    {
+      "box": {
+        "bottom": 564.203125,
+        "height": 51,
+        "right": 1249,
+        "width": 427,
+        "x": 822,
+        "y": 513.203125
+      },
+      "disabled": false,
+      "text": "Arrange a shared trip home"
+    },
+    {
+      "box": {
+        "bottom": 615.203125,
+        "height": 51,
+        "right": 1249,
+        "width": 427,
+        "x": 822,
+        "y": 564.203125
+      },
+      "disabled": false,
+      "text": "Ask to change your hours"
+    },
+    {
+      "box": {
+        "bottom": 666.203125,
+        "height": 51,
+        "right": 1249,
+        "width": 427,
+        "x": 822,
+        "y": 615.203125
+      },
+      "disabled": false,
+      "text": "Pay ฿300 to leave earlier"
+    }
+  ],
+  "dialog": {
+    "bottom": 704,
+    "height": 375.484375,
+    "right": 1264,
+    "width": 460,
+    "x": 804,
+    "y": 328.515625
+  },
+  "groups": [
+    {
+      "box": {
+        "bottom": 471.203125,
+        "height": 101.6875,
+        "right": 1249,
+        "width": 427,
+        "x": 822,
+        "y": 369.515625
+      },
+      "clientHeight": 102,
+      "scrollHeight": 102
+    },
+    {
+      "box": {
+        "bottom": 689,
+        "height": 209.796875,
+        "right": 1249,
+        "width": 427,
+        "x": 822,
+        "y": 479.203125
+      },
+      "clientHeight": 210,
+      "scrollHeight": 210
+    }
+  ],
+  "heading": {
+    "bottom": 398.3125,
+    "height": 28.796875,
+    "right": 1249,
+    "width": 427,
+    "x": 822,
+    "y": 369.515625
+  },
+  "headingSize": "24px",
+  "ink": "rgb(182, 191, 193)",
+  "page": {
+    "height": 720,
+    "width": 1280
+  },
+  "paper": "rgb(5, 18, 48)",
+  "primary": {
+    "box": {
+      "bottom": 564.203125,
+      "height": 51,
+      "right": 1249,
+      "width": 427,
+      "x": 822,
+      "y": 513.203125
+    },
+    "text": "Arrange a shared trip home"
+  },
+  "readingStage": "context",
+  "scroll": {
+    "client": 373,
+    "height": 373,
+    "top": 0
+  },
+  "staleReceipts": 0,
+  "tone": "urgent",
+  "viewport": {
+    "height": 720,
+    "width": 1280
+  },
+  "world": {
+    "bottom": 720,
+    "height": 629.5,
+    "right": 1280,
+    "width": 1280,
+    "x": 0,
+    "y": 90.5
+  },
+  "logs": []
+}
