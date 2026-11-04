@@ -56,6 +56,9 @@ export function createInhabitedRooms({scene,box,round}){
  const work=new T.Group();scene.add(work);box(0,0,0,.4,.27,.025,'#586d68',work);box(0,.25,.02,.4,.025,.25,'#586d68',work);
  const memory=new T.Group();scene.add(memory);box(0,0,0,.28,.06,.32,'#8f7856',memory);box(.035,.065,.035,.21,.005,.25,'#d3c6a5',memory);
  const recovery=new T.Group();scene.add(recovery);box(0,0,0,.25,.25,.3,'#b0a084',recovery);round(.12,.12,.36,.045,'#ddd5c2',1,1.5,1,recovery);
+ const buyerNotes=new T.Group();scene.add(buyerNotes);
+ for(let i=0;i<3;i++)box(i*.015,i*.01,i*.004,.22,.16,.009,'#d8c9a6',buyerNotes);
+ box(.02,.13,.015,.17,.014,.004,'#667b76',buyerNotes);
  // Height marks stay at the childhood wall. No future marks are pre-displayed.
  for(let i=0;i<7;i++)marks.push(box(3.11,5.45,.55+i*.12,.025,.12,.012,'#9d8366'));
  return {schoolCase,books,roots,update(state,age){
@@ -67,6 +70,7 @@ export function createInhabitedRooms({scene,box,round}){
   work.visible=r.workspace;work.position.set(x+3.12,.88,z+.95);
   memory.visible=r.remembered;memory.position.set(x+.2,.75,z+.15);
   recovery.visible=r.recovering;recovery.position.set(x+1.45,.16,z+.5);
+  buyerNotes.visible=r.buyerNotes;buyerNotes.position.set(x+.2,.79,z+.32);
   marks.forEach((m,i)=>m.visible=age>=6+i*2);
  }};
 }

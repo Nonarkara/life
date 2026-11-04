@@ -164,3 +164,17 @@ only — not for burying gameplay gauges. Canonical: Non-Slop
 Banned fonts as primary: Inter, Poppins, Montserrat, Roboto, Open Sans, Lato,
 DM Sans, Space Grotesk, Geist, Plus Jakarta Sans, Manrope, Nunito, naked
 `system-ui`. Prefer Jost (EN), Prompt (TH), ≤2 families.
+
+## 4 November: tone and compact reading are part of the decision
+Question tone comes from explicit scenario/event metadata, not the size of an IQ,
+wealth or health number. Use local, contrast-checked chord tokens and a plain cue;
+keep navigation stable. Urgency stops the clock; it never introduces a deadline.
+State the charged account and show a price once. Disabled options must remain
+readable and explain the resource constraint.
+
+Desktop dialogue sits at the world's exit without covering the central actor.
+Keep the fixed RPG strip on phones; enlarged portrait text may use explicit
+situation/choices pages with a visible next/back action. Restore surviving live
+nodes to their original homes; never resurrect a removed outcome receipt.
+Validate the action against its actual clipping parent, not only the viewport.
+Read review/thai-studio for rendered budgets, the old-defect falsifier and limits.

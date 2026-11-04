@@ -789,3 +789,20 @@ detail and spiritual texture. These are small decorative props — no gameplay
 effect, purely atmospheric. Broader gameplay entertainment (details, artisticness,
 real/surrealism, symbolism, nostalgia, easter eggs beyond these props) remains
 unaddressed.
+
+## Thai questions and animation reconciliation ·4November2026
+Reviewed main1c5d16b plus all local refs/PRs/stashes/unreachable work. No missing
+feature required recovery; stale prototype reader WIP would restore the rejected
+permanent column and remains untouched. Current anime/Thai props retained. Fixed
+study cast asset paths, partial failures and per-frame pose allocation; held
+redraws freeze exactly. Ordinary walking no longer uses a long-legged lunge or
+squash. Eight final viewport cases plus independent source/pixel review cover
+local question chords, portrait/landscape budgets and ThaiXL RPG paging.355tests
+pass; review/thai-studio records bounds and remaining identity/art/device gaps.
+Five primary-source-backed Thai fictional choices use real ledger/eligibility/
+recorded callbacks, not class destiny, debt forgiveness or future-coup odds.
+Treatment costs explicitly use household funds, with no guaranteed years or
+unearned decline reward. Childhood annual text follows the actual recorded choice.
+Manual credits/routes/backgrounds repaired; cover preview is finite/user-started.
+No new runtime AI service or always-on local engine. Do not treat this as full
+studio/art/retention certification; source pages support circumstances, not prices.

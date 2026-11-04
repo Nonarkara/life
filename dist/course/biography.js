@@ -7,6 +7,7 @@ export function roomRecord(state,age=state.age){
  const activity=(state.history??[]).filter(r=>(r.from??r.age)<=age).at(-1);
  return {home,stage:age<6?'infancy':age<20?'school':'adult',
   possessions:age>=6?[{id:'school-case',acquiredAt:6,home:home.id}]:[],
+  buyerNotes:seen.some(e=>e.id==='th_buyer_bill'||e.id==='th_harvest_transport'),
   books:purchases.filter(p=>p.key==='book').length,comics:purchases.filter(p=>p.key==='comics').length,
   workspace:age>=20&&activity?.pathway==='independent',
   remembered:seen.some(e=>e.id==='remember'||e.id==='remember_mother'),

@@ -16,7 +16,11 @@ test('a pending encounter cannot be skipped, replayed or charged twice',()=>{
 test('follow-ups require the actual earlier commitment and enough elapsed years',()=>{
  let s=begin(newLegacyLife(1));s=settle(live(s),'home');assert.ok(!('friend' in s.story.flags));
  const at=a=>({...s,age:a});assert.ok(!eligibleEncounters(at(65)).some(e=>e.id==='friend_late'));assert.ok(!eligibleEncounters(at(35)).some(e=>e.id==='commitment'));
- let project=settle(live({...s,age:15}), 'start');assert.equal(project.story.flags.project,20);
+ const station=live({...s,age:15});
+ // Ask for this follow-up explicitly: new unrelated scenarios may share the station.
+ const offered=offerEncounter({...station,story:{...station.story,pending:null}},.2,e=>e.id==='project');
+ assert.equal(offered.story.pending.id,'project');
+ let project=settle(offered, 'start');assert.equal(project.story.flags.project,20);
  assert.ok(!eligibleEncounters({...project,age:25}).some(e=>e.id==='project_return'));
  assert.ok(eligibleEncounters({...project,age:35}).some(e=>e.id==='project_return'));
 });

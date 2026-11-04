@@ -1,3 +1,5 @@
+import {THAI_PHRASES} from './thai-copy.js';
+import {DECISION_PHRASES} from './decision-copy.js';
 import {TRAIN_PHRASES} from './train-copy.js';
 import {HYBRID_PHRASES} from './hybrid-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
@@ -2210,3 +2212,7 @@ Any Thai region.|พื้นที่ต่าง ๆ ในประเทศ�
  / 100| / 100| / 100| / 100| / 100
 Ages {n}–{m}|อายุ {n}–{m} ปี|{n}–{m}岁|{n}–{m}歳|{n}–{m}세
 `.trim().split('\n').map(row=>row.split('|')));
+
+phrases.push(...DECISION_PHRASES);
+
+phrases.push(...THAI_PHRASES);

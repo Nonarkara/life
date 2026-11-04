@@ -174,6 +174,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
   renderEconomy(p,s);
   const room=roomRecord(s),record=element('details');record.append(element('summary','What the room remembers'));
   if(room.possessions.length)record.append(element('p','The red school case stays with you when you move.'));
+  if(room.buyerNotes)record.append(element('p','The household bill and buyer notes stay on your shelf after that conversation.'));
   record.append(element('p',room.home.label));
   const commute=recordedCommute(s,s.age,s.history?.at(-1)?.pathway);if(commute!==null)record.append(element('p','Commute: {value} min / day. Longer journeys leave less time at home.'.replace('{value}',commute)));
   if(room.remembered)record.append(element('p','A small remembrance follows a recorded loss.'));

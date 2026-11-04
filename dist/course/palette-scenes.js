@@ -8,6 +8,8 @@ export const SCENARIO_PALETTES={};
 function assign(ids,{joy=false,sad=false}={}){
  ids.split(' ').forEach((id,i)=>{SCENARIO_PALETTES[id]={plates:[sad?dark[i%10]:dark[(i+3)%10],sad?dark[(i+1)%10]:bright[(i+2)%10]],opening:joy?1:0};});
 }
+assign('th_curfew th_buyer_bill th_dry_season',{sad:true});
+assign('th_harvest_transport th_unpaid_placement');
 assign('class_family_business class_debt class_ambition class_overtime class_connections class_expectations',{sad:true});
 assign('friend love commitment parenthood project_return child_school mentor friend_late dog l_friends l_kind m_pet',{joy:true});
 assign('after_hospital bully flood_help remember remember_mother hard_marriage l_funeral l_injury l_bottom m_crash m_vanished m_grandparent',{sad:true});

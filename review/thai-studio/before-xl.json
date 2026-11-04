@@ -1,0 +1,88 @@
+{
+  "name": "xl-before",
+  "buttons": [
+    "Return to life",
+    "Compare weights and written offers first",
+    "Contribute ฿500 to shared transport",
+    "Keep the usual arrangement this season"
+  ],
+  "choices": [
+    {
+      "box": {
+        "bottom": 883.921875,
+        "height": 69.921875,
+        "right": 377,
+        "width": 364,
+        "x": 13,
+        "y": 814
+      },
+      "disabled": false,
+      "text": "Compare weights and written offers first"
+    },
+    {
+      "box": {
+        "bottom": 927.921875,
+        "height": 44,
+        "right": 377,
+        "width": 364,
+        "x": 13,
+        "y": 883.921875
+      },
+      "disabled": false,
+      "text": "Contribute ฿500 to shared transport"
+    },
+    {
+      "box": {
+        "bottom": 997.84375,
+        "height": 69.921875,
+        "right": 377,
+        "width": 364,
+        "x": 13,
+        "y": 927.921875
+      },
+      "disabled": false,
+      "text": "Keep the usual arrangement this season"
+    }
+  ],
+  "dialog": {
+    "bottom": 844,
+    "height": 281.328125,
+    "right": 390,
+    "width": 390,
+    "x": 0,
+    "y": 562.671875
+  },
+  "heading": {
+    "bottom": 643.8125,
+    "height": 38.640625,
+    "right": 377,
+    "width": 364,
+    "x": 13,
+    "y": 605.171875
+  },
+  "headingSize": "33.6px",
+  "ink": "rgb(125, 19, 58)",
+  "page": {
+    "height": 844,
+    "width": 390
+  },
+  "paper": "rgb(214, 180, 62)",
+  "scroll": {
+    "client": 279,
+    "height": 474,
+    "top": 0
+  },
+  "tone": "reflective",
+  "viewport": {
+    "height": 844,
+    "width": 390
+  },
+  "world": {
+    "bottom": 562.671875,
+    "height": 463.671875,
+    "right": 390,
+    "width": 390,
+    "x": 0,
+    "y": 99
+  }
+}

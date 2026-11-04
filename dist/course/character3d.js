@@ -3,6 +3,7 @@ import {illustratedMaterial,inkOutline,faceTexture} from './art-direction.js';
 // All poses are presentation only. One simulation clock supplies time.
 // Bodies differ by sex, build, height, skin, hair and clothing; every option is
 // built once and shown or recoloured by setLook, so a look change costs nothing.
+const ACTIVITY_KEYS=['x','y','dx','dy','pose','moving','facing','distance'];
 export const HAIR_STYLES=['short','crop','side','long','bob','bun','ponytail'];
 export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',height=1,sex='male',hairStyle,build=1,bottom='#364744',skirt}={}){
  const root=new T.Group(),body=new T.Group();body.rotation.order='YXZ';root.add(body);
@@ -51,7 +52,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
  for(const x of [-.055,.055]){const lapel=mesh(new T.BoxGeometry(.045,.09,.02),paper,body,x,1.295,.125);lapel.rotation.z=x<0?-.32:.32;}
  mesh(new T.CylinderGeometry(.192,.198,.042,16),shoe,body,0,.92,0);
  mesh(new T.BoxGeometry(.055,.046,.02),paper,body,0,.92,.122);
- const arms=[limb(-.24,1.29,.28,.26,cloth),limb(.24,1.29,.28,.26,cloth)];
+ const arms=[limb(-.24,1.29,.28,.26,cloth),limb(.24,1.29,.28,.26,cloth)],limbs=[...legs,...arms];
  for(const arm of arms){mesh(new T.CylinderGeometry(.052,.054,.038,12),paper,arm.pivot,0,-.26,0);arm.bend.children[0].material=flesh;sphere(.049,flesh,arm.bend,0,-.27,0);}
  // The drawn body, before any prop: an anime figure may stand in for exactly these meshes.
  const bodyParts=[];body.traverse(o=>{if(o.isMesh)bodyParts.push(o);});
@@ -79,7 +80,9 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
  const bars=mesh(new T.CylinderGeometry(.016,.016,.38,8),paper,bike,0,.68,.26);bars.rotation.z=Math.PI/2;
  const look={sex,hair,hairStyle:hairStyle??(sex==='female'?'long':'short'),build,height,skirt:skirt??false};
  // Shoulders, hips and stature carry sex and build; intersex sits between.
+ let lookVersion=0;
  function setLook(next={}){
+  lookVersion++;
   Object.assign(look,Object.fromEntries(Object.entries(next).filter(([,v])=>v!==undefined)));
   if(next.shirt)cloth.color.set(next.shirt);if(next.skin){flesh.color.set(next.skin);headMat.color.set(next.skin);}if(next.bottom){trousers.color.set(next.bottom);skirtMat.color.set(next.bottom);}
   if(next.hair&&!look.greyed)hairMat.color.set(next.hair);
@@ -96,25 +99,36 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
  inkOutline(body);inkOutline(ball);
  // Overlapping action: the ponytail and long hair trail behind the head.
  const trailing=[styles.ponytail,styles.long];
- let previousTime=null;
+ let previousTime=null,previousAge,previousElder,previousScale,previousLook;
+ const previousActivity={},oldJoints=new Float64Array(limbs.length*2);
  function update(activity,age,time,{elder=false,scale=1}={}){
+  // A redraw at the same simulation instant must not finish a half-settled pose.
+  // A changed chapter/activity/look still updates, even while the clock is held.
+  let unchanged=true;for(const key of ACTIVITY_KEYS)if(activity[key]!==previousActivity[key]){unchanged=false;break;}
+  if(time===previousTime&&age===previousAge&&elder===previousElder&&scale===previousScale&&lookVersion===previousLook&&unchanged)return;
+  for(const key of ACTIVITY_KEYS)previousActivity[key]=activity[key];
+  previousAge=age;previousElder=elder;previousScale=scale;previousLook=lookVersion;
   const dt=previousTime===null?0:time-previousTime,blend=dt>0&&dt<1?1-Math.exp(-dt*8):1;previousTime=time;
-  const oldFacing=body.rotation.y,oldHeight=body.position.y,oldJoints=[...legs,...arms].map(l=>[l.pivot.rotation.x,l.bend.rotation.x]);
-  const a=activity,walking=a.moving,cycle=(a.distance??time*.7)*Math.PI*2/(.65*scale),step=Math.sin(cycle),pose=a.pose;
+  const oldFacing=body.rotation.y,oldHeight=body.position.y;
+  for(let i=0;i<limbs.length;i++){oldJoints[i*2]=limbs[i].pivot.rotation.x;oldJoints[i*2+1]=limbs[i].bend.rotation.x;}
+  const a=activity,walking=a.moving,pose=a.pose,ordinaryWalk=walking&&pose==='walk';
+  // One complete adult walk cycle advances 1.05 world units. Ride/crawl retain
+  // their own authored cadence; the longer-legged anime cast needs a quiet walk.
+  const cycle=(a.distance??time*.7)*Math.PI*2/((ordinaryWalk?1.05:.65)*scale),step=Math.sin(cycle);
   root.position.set(a.x,0,a.y);root.scale.setScalar(look.height*scale);
   // The swimmer stays aligned with the basin while entering from its narrow pier.
   const target=pose==='swim'?Math.PI/2:walking?Math.atan2(a.dx,a.dy):pose==='care'?-2.3:a.facing??0;
   body.rotation.y=target;
-  // A step is an arc: up on the passing pose, a small squash on contact.
+  // Quiet weight transfer for walking; other activities retain their own motion.
   const contact=Math.abs(Math.cos(cycle));
-  body.position.y=walking?(.015+Math.abs(Math.sin(cycle))*.025):0;body.rotation.z=walking?step*.025:0;body.rotation.x=walking?.04:0;
-  body.scale.set(walking?1+contact*.018:1,walking?1-contact*.03:1+Math.sin(time*2.1)*.008,walking?1+contact*.018:1);
+  body.position.y=ordinaryWalk?Math.abs(step)*.004:walking?(.015+Math.abs(step)*.025):0;body.rotation.z=walking?step*(ordinaryWalk?.012:.025):0;body.rotation.x=walking?(ordinaryWalk?.015:.04):0;
+  body.scale.set(ordinaryWalk?1:walking?1+contact*.018:1,ordinaryWalk?1:walking?1-contact*.03:1+Math.sin(time*2.1)*.008,ordinaryWalk?1:walking?1+contact*.018:1);
   head.rotation.set(0,0,0);torso.rotation.set(0,0,0);
-  for(const limb of [...legs,...arms]){limb.pivot.rotation.set(0,0,0);limb.bend.rotation.set(0,0,0);}
-  for(let i=0;i<2;i++){const sign=i===0?1:-1;legs[i].pivot.rotation.x=walking?step*.55*sign:0;legs[i].bend.rotation.x=walking?Math.max(0,-Math.cos(cycle)*sign)*.75:0;
+  for(const limb of limbs){limb.pivot.rotation.set(0,0,0);limb.bend.rotation.set(0,0,0);}
+  for(let i=0;i<2;i++){const sign=i===0?1:-1;legs[i].pivot.rotation.x=walking?step*(ordinaryWalk?.30:.55)*sign:0;legs[i].bend.rotation.x=walking?Math.max(0,-Math.cos(cycle)*sign)*(ordinaryWalk?.48:.75):0;
    // Arms swing opposite the legs, the elbow lagging behind the shoulder; never mirrored at rest.
-   arms[i].pivot.rotation.x=walking?-step*.5*sign:(i===0?.06:-.04)+Math.sin(time*1.3+i)*.02;arms[i].bend.rotation.x=walking?-.25-Math.max(0,Math.sin(cycle*sign+.6))*.3:-.12;arms[i].pivot.rotation.z=sign*(i===0?.08:.12);}
-  head.rotation.y=walking?-step*.06:Math.sin(time*.5)*.05;
+   arms[i].pivot.rotation.x=walking?-step*(ordinaryWalk?.22:.5)*sign:(i===0?.06:-.04)+Math.sin(time*1.3+i)*.02;arms[i].bend.rotation.x=walking?(ordinaryWalk?-.15:-.25)-Math.max(0,Math.sin(cycle*sign+.6))*(ordinaryWalk?.12:.3):-.12;arms[i].pivot.rotation.z=sign*(i===0?.08:.12);}
+  head.rotation.y=walking?-step*(ordinaryWalk?.03:.06):Math.sin(time*.5)*.05;
   book.visible=['study','draw','rest'].includes(pose);cup.visible=pose==='eat';cup.position.set(.22,1.06,.28);tool.visible=['draw','craft'].includes(pose);hammerHead.visible=pose==='craft';can.visible=pose==='garden';ball.visible=['play','exercise'].includes(pose);bike.visible=pose==='ride';
   if(['rest','eat','study','work','recover'].includes(pose)&&!walking){
    body.position.y=-.32+(scale<.9?.52*(1/scale-1):0);for(const leg of legs){leg.pivot.rotation.x=-1.45;leg.bend.rotation.x=1.45;}
@@ -140,7 +154,7 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   // Held activity poses settle into place; turning takes the shortest arc.
   body.rotation.y=oldFacing+Math.atan2(Math.sin(body.rotation.y-oldFacing),Math.cos(body.rotation.y-oldFacing))*blend;
   body.position.y=oldHeight+(body.position.y-oldHeight)*blend;
-  [...legs,...arms].forEach((l,i)=>{l.pivot.rotation.x=oldJoints[i][0]+(l.pivot.rotation.x-oldJoints[i][0])*blend;l.bend.rotation.x=oldJoints[i][1]+(l.bend.rotation.x-oldJoints[i][1])*blend;});
+  for(let i=0;i<limbs.length;i++){const l=limbs[i];l.pivot.rotation.x=oldJoints[i*2]+(l.pivot.rotation.x-oldJoints[i*2])*blend;l.bend.rotation.x=oldJoints[i*2+1]+(l.bend.rotation.x-oldJoints[i*2+1])*blend;}
   coatGroup.rotation.x=legs[0].pivot.rotation.x<-1?-1.1:0;skirtGroup.rotation.x=legs[0].pivot.rotation.x<-1?-1.25:0;skirtGroup.scale.y=legs[0].pivot.rotation.x<-1?.62:1;
   for(const g of trailing)if(g?.visible){g.rotation.x=walking?.18+Math.sin(cycle-1.1)*.12:Math.sin(time*1.4)*.03;}
   // Expression follows the activity: rest closes the eyes, shared moments smile, tasks focus.

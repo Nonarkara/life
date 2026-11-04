@@ -1,3 +1,4 @@
+import {THAI_ENCOUNTERS} from './thai-encounters.js';
 import {CLASS_ENCOUNTERS} from './class-encounters.js';
 import {recordedFundLoss,legacyMarketPrompt} from './market-evidence.js';
 import {sellAll} from './investments.js';
@@ -100,7 +101,7 @@ ENCOUNTERS.push(
   option('settle','Turn it into a permanent address',{cash:-3000,wellbeing:3,flag:'settled'},'You traded the movement for a permanent address. The arithmetic got worse and the ground got steadier.'),
   option('again','Move again and see whether the next place holds',{cash:-6000,wellbeing:-1,flag:'geo_again'},'You moved again. It held for a while, the way the last one did.'),
   option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
-ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS);
+ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS,...THAI_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));

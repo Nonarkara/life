@@ -152,3 +152,16 @@ Art consistency, generic fallbacks, outdoor schooldesk, player fun and physical
 device performance/share delivery remain unverified/open. Memory bridge returned
 Transport closed during closeout; no successful vault write claimed. This file,
 context.md and DESIGN-RULES.md retain the handoff until bridge recovery.
+
+## Thai studio reconciliation ·4November2026
+Release checkout daily-share-review fast-forwarded to1c5d16b and reviewed allten
+newcommits. No PR/stash/branch-onlyfeature remained. Unreachableart/fixcommits
+were checked against landed equivalents; no objectsremoved. Prototype's rejected
+reader expansion and oldtabcolour/sixcaptures/tworeviewdirs preserved. Detached
+ship remains untouched. Detailed disposition: review/thai-studio/REVIEW.md.
+This release retains newer3Dmodels/Thaiobjects and adds authoredwalk refinement,
+pose caching/failure isolation, explicitchordtone, compact nativeRPGreading,
+fiveresearchedThaichoices/actualcallbacks, childhoodrecordedtext and manual
+lifecycle/credit repairs.355tests, eightactualviewportcases and old-defectfalsifier
+pass; independent source/pixelreview closed. Candidate runtimec55323e91ced. Final
+public deploy/byte/browser receipts follow. No production player's life changed.

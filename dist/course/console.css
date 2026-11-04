@@ -265,3 +265,46 @@ body.console-mode>header{flex:none}
  .console-mode.decision-open:not(.birth-stage):not(.recap-stage) main{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) var(--rpg-height)}
  .console-mode.decision-open:not(.birth-stage):not(.recap-stage) .stage{grid-row:1;height:100%;min-height:0}
 }
+/* A question needs an actual hierarchy over its options, including native type. */
+.decision-dialog[data-tone] h2,.decision-dialog[data-tone] #title{font-size:calc(24px * var(--reading-scale));line-height:1.2;margin-top:0}
+.decision-dialog .decision-source{margin:6px 0 0;font-size:calc(12px * var(--reading-scale));line-height:1.4}
+.decision-dialog .decision-source p{margin:5px 0}
+@media(max-width:1279px){.decision-dialog[data-tone] h2,.decision-dialog[data-tone] #title{font-size:calc(21px * var(--reading-scale))}}
+/* The world leads; the desktop question sits at its lower-right exit, clear of
+   the central actor. Landscape phones keep one fifth: two reading columns use
+   that shallow strip, rather than burying every answer beneath the prompt. */
+@media(min-width:1280px){.decision-dialog{position:fixed;inset:auto 16px 16px auto;margin:0}}
+@media(max-width:1279px) and (orientation:landscape){
+ .decision-dialog[open]{display:flex;flex-direction:column;overflow:hidden;padding:3px 12px}
+ .decision-dialog .decision-head{flex:none;margin-bottom:1px}
+ .decision-dialog .decision-content{min-height:0;flex:1;overflow:auto}
+ .decision-dialog .decision-content.has-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:12px;overflow:hidden}
+ .decision-dialog .decision-reading,.decision-dialog .decision-actions{min-height:0;overflow:auto}
+ .decision-dialog .decision-actions .question-badges{display:none}
+ .decision-dialog .decision-content #questions{height:100%}
+ .decision-dialog .pivot{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:12px;height:100%;min-height:0;overflow:hidden}
+ .decision-dialog .pivot-reading,.decision-dialog .pivot-options{min-height:0;overflow:auto}
+ .decision-dialog .pivot-reading .question-badges,.decision-dialog .pivot-reading .decision-progress{display:none}
+ .decision-dialog .pivot-options{display:block}
+ .decision-dialog .pivot-option:first-child,.decision-dialog .encounter-choice:first-of-type{border-top:0}
+}
+.decision-dialog .decision-pager{display:none}
+/* Extra-large portrait reading uses two explicit RPG pages in the same strip.
+   Context may scroll for detail; its next action never scrolls away with it. */
+@media(max-width:1279px) and (orientation:portrait){
+ html[data-text-size=extra] .decision-dialog[open][data-has-choices=true]{display:flex;flex-direction:column;overflow:hidden}
+ html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-head{flex:none}
+ html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-content{flex:1;min-height:0;overflow:auto}
+ html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-pager{display:block;flex:none;align-self:flex-start;font:inherit;font-size:calc(13px * var(--reading-scale));min-height:30px;margin-top:3px;padding:2px 0;border:0;border-bottom:1px solid var(--ink);color:var(--ink);background:none}
+ html[data-text-size=extra] .decision-dialog[data-reading-stage=context][data-has-choices=true] .decision-actions,
+ html[data-text-size=extra] .decision-dialog[data-reading-stage=context][data-has-choices=true] .pivot-options{display:none}
+ html[data-text-size=extra] .decision-dialog[data-reading-stage=choices][data-has-choices=true] #narrative,
+ html[data-text-size=extra] .decision-dialog[data-reading-stage=choices][data-has-choices=true] .decision-context,
+ html[data-text-size=extra] .decision-dialog[data-reading-stage=choices][data-has-choices=true] .pivot-reading .question-badges,
+ html[data-text-size=extra] .decision-dialog[data-reading-stage=choices][data-has-choices=true] .decision-progress{display:none}
+}
+@media(max-width:1279px) and (orientation:portrait){
+ .decision-dialog .child-body{display:block}
+ .decision-dialog .child-snapshot{margin-top:8px;max-width:none}
+ html[data-text-size=extra] .decision-dialog[data-reading-stage=context][data-has-choices=true] .child-snapshot{display:none}
+}

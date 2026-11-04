@@ -413,17 +413,17 @@ export const PIVOTS=[
  // ---- station 65: later -----------------------------------------------------
  {
   id:'treatment',station:65,
-  prompt:'A treatment would give you ten good years. It costs most of what you have saved.',
-  context:'The doctors are clear. The arithmetic is also clear. They are different kinds of clear.',
+  prompt:'A treatment is offered. How will your household handle the cost?',
+  context:'The health changes here are game values. No option promises extra years of life.',
   options:[
-   {id:'pay',label:'Pay for the treatment',cost:'Most of the savings, for time you would have had anyway.',
-    requires:{health:70},effects:{cash:-35000,health:12,wellbeing:3},
+   {id:'pay',label:'Pay for the treatment',cost:'Household cost: ฿35,000. Less remains for other needs.',
+    requires:{cash:35000},effects:{cash:-35000,health:12,wellbeing:3},
     note:'You paid for the treatment.'},
    {id:'keep',label:'Keep the savings',cost:'You keep the money and take the years as they come.',
-    effects:{cash:8000,health:-6,wellbeing:-2},
+    effects:{health:-6,wellbeing:-2},
     note:'You kept the savings and declined the treatment.'},
-   {id:'family',label:'Ask the family to help carry it',cost:'Your children carry part of it, and you both know it.',
-    effects:{cash:-15000,health:8,wellbeing:2,flags:{familyPaid:true}},
+   {id:'family',label:'Ask relatives to share the cost',cost:'Household cost: ฿15,000. Relatives carry the rest in this scenario.',
+    requires:{cash:15000},effects:{cash:-15000,health:8,wellbeing:2,flags:{familyPaid:true}},
     note:'Your family helped carry the cost of the treatment.'}
   ]
  },

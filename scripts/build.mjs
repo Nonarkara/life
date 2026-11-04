@@ -27,10 +27,12 @@ await build({entryPoints:['dist/study/deck-edge.js'],bundle:true,minify:true,for
 await build({entryPoints:['dist/course/scene-study.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/scene-study.bundle.js'});
 await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',outfile:output+'/course/game.bundle.js'});
 await build({entryPoints:['dist/study/control-bench.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/control-bench.bundle.js'});
+await build({entryPoints:['dist/study/thai-life.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/thai-life.bundle.js'});
 writeBenchFixture();
 function writeBenchFixture(){
  const html=readFileSync('dist/course/index.html','utf8').replace(/(href|src)="(course|settings|console|personal-console|economy)\.css"/g,'$1="../course/$2.css"').replace('src="boot.js"','src="control-bench.bundle.js"').replace('src="fonts.js"','src="../course/fonts.js"');
  writeFileSync(output+'/study/control-bench.html',html);
+ writeFileSync(output+'/study/thai-life.html',html.replace('src="control-bench.bundle.js"','src="thai-life.bundle.js"'));
 }
 
 // A build owns one module graph. Old preview caches must not mix its files.

@@ -1,3 +1,4 @@
+import {CHILD_CHOICES} from './childhood-choices.js';
 import {backgroundBand} from './backgrounds.js';
 // Authored family circumstances, never a demographic forecast.
 export function childhoodChapter(state, age) {
@@ -24,6 +25,8 @@ export function childhoodChapter(state, age) {
  const away=state.birth?.childhood;
  if(away){chapters.push([away.from,'Your grandparents’ home.','Your parents keep working in the city. You grow up with your grandparents, among their neighbours, fields and routines.'],[away.to,'Back with your parents.','You return to the city. The house is busier than the one you remember, and your grandparents feel far away.']);chapters.sort((a,b)=>a[0]-b[0]);}
  const chapter=chapters.filter(([start])=>age>=start).at(-1)??chapters[0];
- return {income,title:chapter[1],decision:chapter[2],biology:chapter[3]??chapters[0][3]};
+ const record=state.childhood?.choices?.find(r=>r.age===Math.floor(age));
+ const choice=record&&CHILD_CHOICES.find(q=>q.age===record.age)?.options.find(o=>o.id===record.choice);
+ return {income,title:choice?.label??chapter[1],decision:choice?.note??chapter[2],biology:chapter[3]??chapters[0][3]};
 }
 export const wombMarkup=`<svg viewBox="0 0 320 320" role="img" aria-label="A baby held within the womb"><path d="M160 25C84 25 39 82 47 161C54 241 104 289 160 295C216 289 266 241 273 161C281 82 236 25 160 25Z" fill="#44232b" stroke="#93616a" stroke-width="2"/><path d="M207 212C235 181 237 120 197 91C167 68 126 83 116 108" fill="none" stroke="#bc8a84" stroke-width="3"/><circle cx="140" cy="133" r="34" fill="#d5a68b"/><path d="M154 163C194 150 216 180 202 209C193 228 170 238 145 225L119 206L136 191L157 203L172 196L151 184Z" fill="#d5a68b"/><path d="M162 165L132 176L121 161M177 208L151 231L126 226" fill="none" stroke="#d5a68b" stroke-width="13" stroke-linecap="round"/><path d="M195 183C231 219 110 268 98 196C89 149 70 139 66 155" fill="none" stroke="#93616a" stroke-width="3"/></svg>`;

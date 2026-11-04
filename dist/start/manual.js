@@ -1,3 +1,4 @@
+import {createSceneReel} from './scene-reel.js';
 import {initSettings,applyPreferences,preferences,t} from '../course/i18n.js';
 import {symbolMarkup} from '../course/event-graphics.js';
 for(const el of document.querySelectorAll('[data-symbol]'))el.insertAdjacentHTML('afterbegin',symbolMarkup(el.dataset.symbol));
@@ -22,13 +23,17 @@ for(const b of langs)b.addEventListener('click',()=>{applyPreferences({language:
 addEventListener('life-preferences',mark);mark();
 // Return hook: a life left mid-way is waiting where it stopped.
 try{const saved=JSON.parse(localStorage.getItem('life-course-v2')),el=document.getElementById('last-life');if(saved&&saved.stage!=='recap'&&saved.birth?.place&&Number.isInteger(saved.age)&&el){const paint=()=>{el.textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));};paint();el.hidden=false;addEventListener('life-preferences',paint);}}catch{}
-// The cover reel: a whole life in hard cuts, one painted plate per stretch of years.
-// Reduced motion keeps the first frame and the span, 0 to 80, still.
-{const img=document.getElementById('reel-img'),age=document.getElementById('reel-age'),tick=document.getElementById('reel-tick');
+// A finite, user-started cover preview. Other input and task changes stop it.
+{const img=document.getElementById('reel-img'),age=document.getElementById('reel-age'),tick=document.getElementById('reel-tick'),button=document.getElementById('reel-play');
  const frames=[[0,'home-day'],[6,'garden'],[12,'school'],[20,'street-day'],[30,'work'],[42,'stall'],[58,'abroad'],[80,'hospital']];
- if(img&&age&&tick){
-  const url=n=>new URL('../course/anime/plates/'+n+'.webp',location.href).href;
-  const cut=i=>{const [years,name]=frames[i];img.src=url(name);age.textContent=years;tick.style.setProperty('--p',years/80*100+'%');};
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches){age.textContent='0→80';}
-  else{frames.forEach(([,n])=>{new Image().src=url(n);});let i=0;const step=()=>{i=(i+1)%frames.length;cut(i);setTimeout(step,i===frames.length-1?2600:1500);};setTimeout(step,1500);}
+ if(img&&age&&tick&&button){
+  const media=matchMedia('(prefers-reduced-motion:reduce)'),reduced=()=>media.matches||preferences.motion;
+  const paint=()=>{button.textContent=t(reduced()?'Next scene':reel.status().running?'Pause preview':'Play preview');button.setAttribute('aria-pressed',String(reel.status().running));};
+  const reel=createSceneReel({count:frames.length,draw:i=>{const [years,name]=frames[i];img.src=new URL('../course/anime/plates/'+name+'.webp',location.href).href;age.textContent=years;tick.style.setProperty('--p',years/80*100+'%');},changed:paint});
+  button.onclick=()=>{if(reduced())reel.step();else if(reel.status().running)reel.stop();else reel.play();};
+  const stop=()=>reel.stop();
+  document.addEventListener('pointerdown',event=>{if(!button.contains(event.target))stop();},true);
+  document.addEventListener('keydown',event=>{if(!button.contains(event.target))stop();},true);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+  addEventListener('hashchange',stop);addEventListener('pagehide',stop);addEventListener('life-preferences',stop);media.addEventListener('change',stop);paint();
  }}

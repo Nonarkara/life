@@ -1,5 +1,6 @@
 // Original line drawings: the action, not a predicted reward or moral ranking.
 export const SYMBOL_PATHS={
+ unavailable:'M6 6 L26 26 M26 6 L6 26',
  book:'M4 7 Q10 4 16 8 Q22 4 28 7 V26 Q22 23 16 27 Q10 23 4 26 Z M16 8 V27 M8 11 L12 12 M20 12 L24 11',
  tools:'M5 4 L13 12 M4 7 L7 4 M20 4 A7 7 0 0 0 18 15 L7 26 L4 23 L15 12 A7 7 0 0 0 26 5 L22 9 L18 6 Z M19 20 L26 27 M22 17 L29 24',
  agreement:'M8 3 H21 L26 8 V28 H8 Z M21 3 V9 H26 M12 14 H21 M12 18 H19 M12 23 L15 25 L22 21',
@@ -31,6 +32,7 @@ export const STATION_SYMBOLS={
  'take-in':['home','care','shield'],'legacy':['money','home','tools'],'remembered':['money','book','home']
 };
 export function choiceSymbolKey(option,{pivot}={}){
+ if(Object.hasOwn(SYMBOL_PATHS,option.symbol))return option.symbol;
  if(pivot){const index=pivot.options.findIndex(o=>o.id===option.id);if(STATION_SYMBOLS[pivot.id]?.[index])return STATION_SYMBOLS[pivot.id][index];}
  const skills=option.skills??option.effects?.skills??{};
  if(skills.iq>0)return 'book';if(skills.craft>0)return 'art';if(skills.eq>0)return 'people';

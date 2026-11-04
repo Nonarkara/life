@@ -113,3 +113,24 @@ button{border:0;background:none;width:max-content;max-width:100%;padding:5px 7px
 /* MSH: tighter header so the world gets more screen real estate. */
 header{padding:8px 20px;border-bottom-width:2px}
 header>a{font-size:22px}
+
+/* The question inherits its own recorded chord. Navigation stays in house ink.
+   Column reading: tone + return, then large question, context, costed choices. */
+.decision-dialog .decision-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 6px}
+.decision-dialog .decision-cue{margin:0;font-size:calc(11px * var(--reading-scale));line-height:1.35;color:var(--ink)}
+.decision-dialog .decision-head .decision-set-aside{float:none;flex:none;margin:0;min-height:24px;padding:2px 0;font-size:calc(11px * var(--reading-scale));color:var(--ink)}
+.decision-dialog[data-tone=urgent]{border-left:4px solid var(--amber)}
+.decision-dialog[data-tone=pressured]{border-left:3px solid var(--ink)}
+.decision-dialog .encounter-stop{display:none}
+.decision-dialog .decision-context,.decision-dialog #narrative{font-size:calc(14px * var(--reading-scale));line-height:1.45}
+.decision-dialog .pivot-label,.decision-dialog .encounter-choice>span{font-size:calc(14px * var(--reading-scale));line-height:1.35}
+.decision-dialog .question-badges{margin:4px 0 6px}
+.decision-dialog .decision-wallet{font-size:calc(12px * var(--reading-scale));color:var(--ink);letter-spacing:0;text-transform:none;font-weight:400}
+/* Disabled prices still teach the constraint. The cross and native disabled
+   state distinguish availability without making the words illegible. */
+.personal-console .decision-dialog .encounter-choice:disabled{opacity:1;color:var(--ink);cursor:not-allowed}
+.decision-dialog .encounter-choice:disabled .choice-symbol{width:22px;height:22px}
+.decision-dialog button:hover{background:transparent;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.decision-dialog button:disabled:hover{text-decoration:none}
+/* Headings receive programmatic reading focus, not an interactive box. */
+.decision-dialog h2:focus,.decision-dialog #title:focus{outline:none}
