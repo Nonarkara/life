@@ -1,19 +1,25 @@
 {
  "summary": {
-  "base": "https://candidate.life-5wz.pages.dev",
-  "when": "2026-10-29T09:19:23.023Z",
+  "base": "http://127.0.0.1:4219",
+  "when": "2026-11-04T15:37:21.166Z",
   "counts": {
-   "high": 1,
-   "medium": 0,
-   "low": 0
+   "high": 0,
+   "medium": 1,
+   "low": 1
   }
  },
  "findings": [
   {
-   "area": "audit",
-   "severity": "high",
-   "what": "the audit itself failed",
-   "evidence": "Page.navigate did not answer in 20s"
+   "area": "performance",
+   "severity": "medium",
+   "what": "one view costs 15 requests and 2606 kB",
+   "evidence": "{\"nodes\":993,\"buttons\":64}"
+  },
+  {
+   "area": "performance",
+   "severity": "low",
+   "what": "frame pacing could not be measured in this browser",
+   "evidence": "{\"frames\":0,\"ms\":3002}"
   }
  ]
 }

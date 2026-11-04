@@ -171,3 +171,12 @@ hosts: directentries/headers/20assets and58directbytechecks match. Actual public
 readonlyfixture opens cleanly with expectedbuild/action; no production life
 advanced/reset. Shared-memory Scar and projectdecision log written successfully.
 Release checkout clean afterreceiptcommit; sourceprototype/ship preserved.
+
+## 4 November 2026 · audit pass
+`scripts/audit-product.mjs` drives the real game and measures it; `scripts/measure-contrast.mjs`
+checks the contrast of every text against the surface a reader actually sees. The contrast
+engine was repaired (it composited every painted ancestor, not the first opaque box) and the
+year-panel check now answers a pending decision before it looks for the panel. Two real
+defects were found and fixed: the console tabs took the bench's near-white text on the pale
+plan card, and the year around you was hidden behind the reader on a wide screen. The audit
+now reports no high findings. 355 tests pass.

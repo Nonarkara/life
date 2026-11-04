@@ -806,3 +806,19 @@ unearned decline reward. Childhood annual text follows the actual recorded choic
 Manual credits/routes/backgrounds repaired; cover preview is finite/user-started.
 No new runtime AI service or always-on local engine. Do not treat this as full
 studio/art/retention certification; source pages support circumstances, not prices.
+
+
+## The audit earns its keep · 4 November 2026
+The product audit drove the real game in a real browser and measured it: the
+boot, the accessible names, the contrast of every text against the surface a
+reader actually sees, the keyboard order and focus, the weight of a view, and
+what happens when the save or the art is broken. Two of its first findings were
+its own false alarms — it read the surface behind a text as the page rather
+than the painted box under it, and it looked for the year panel while a
+decision held the screen. The engine now composites every painted ancestor
+and answers the decision before it measures. With that repaired, two real
+defects stood: the console tabs took the bench's near-white text on the pale
+plan card, and the year around you was hidden behind the reader on a wide
+screen. Both are fixed. The audit now reports no high findings, and the
+measure-contrast tool exists on its own so the numbers can be checked without
+running the whole journey.

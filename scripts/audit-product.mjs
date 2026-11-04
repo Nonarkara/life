@@ -164,26 +164,25 @@ try {
   // ------------------------------------------------------------ contrast
   phase('contrast');
   const contrast = await client.evaluate(`(()=>{
-    const lum=c=>{const [r,g,b]=c.map(v=>{v/=255;return v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4;});return .2126*r+.7152*g+.0722*b;};
-    const parse=s=>{const m=s.match(/[\\d.]+/g);return m?m.slice(0,3).map(Number):null;};
-    // The background is what is painted directly behind the text: the first opaque layer below it
-    // in paint order at that spot, not the nearest ancestor (a control can sit over a dark bar
-    // that is not its parent). Falls back to the ancestor chain if the stack is unavailable.
-    const opaque=c=>{const p=parse(c);if(!p||/rgba\(0, 0, 0, 0\)/.test(c))return null;const a=c.match(/[\d.]+/g);return !a||a.length<4||Number(a[3])>0.5?p:null;};
-    const bgOf=el=>{const r=el.getBoundingClientRect();let stack=[];try{stack=document.elementsFromPoint(Math.min(innerWidth-1,Math.max(0,r.left+2)),Math.min(innerHeight-1,Math.max(0,r.top+2)));}catch(e){}const own=stack.indexOf(el),from=own>=0?own+1:stack.findIndex(n=>n.contains(el));for(const n of from>=0?stack.slice(from):[]){const p=opaque(getComputedStyle(n).backgroundColor);if(p)return p;}let n=el;while(n&&n!==document.documentElement){const p=opaque(getComputedStyle(n).backgroundColor);if(p)return p;n=n.parentElement;}return parse(getComputedStyle(document.documentElement).backgroundColor)||[255,255,255];};
+    const lum=c=>{const m=c.match(/[\\d.]+/g);if(!m)return null;const[r,g,b]=m.slice(0,3).map(v=>{v/=255;return v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4;});return .2126*r+.7152*g+.0722*b;};
+    const parse=c=>{const m=c.match(/[\\d.]+/g);return m?m.slice(0,3).map(Number):null;};
+    const alpha=c=>{const m=c.match(/[\\d.]+/g);return m&&m.length>3?Number(m[3]):1;};
+    const surface=el=>{const stack=[];let n=el;while(n&&n!==document.documentElement){const st=getComputedStyle(n);const bg=st.backgroundColor;
+      if(bg&&bg!=='rgba(0, 0, 0, 0)'&&alpha(bg)>0.02)stack.push({bg,alpha:alpha(bg)});n=n.parentElement;}
+      let base=[255,255,255];for(const s of stack.reverse()){const c=parse(s.bg);const a=s.alpha;base=base.map((v,i)=>v*(1-a)+c[i]*a);}
+      return 'rgb('+base.map(Math.round).join(', ')+')';};
+    const ratio=(a,b)=>{const A=lum(a),B=lum(b);if(A===null||B===null)return null;return +(((Math.max(A,B)+.05)/(Math.min(A,B)+.05)).toFixed(2));};
     const out=[];
     for(const el of document.querySelectorAll('body *')){
-      if(!el.firstChild)continue;
       const text=[...el.childNodes].filter(n=>n.nodeType===3&&n.textContent.trim()).map(n=>n.textContent.trim()).join(' ');
       if(!text)continue;
       const st=getComputedStyle(el);if(st.visibility==='hidden'||st.display==='none'||+st.opacity===0)continue;
-      const fg=parse(st.color);if(!fg)continue;
-      const bg=bgOf(el);
-      const L1=lum(fg),L2=lum(bg);const ratio=(Math.max(L1,L2)+.05)/(Math.min(L1,L2)+.05);
+      const r=el.getBoundingClientRect();if(r.width<2||r.height<2)continue;
+      if(!parse(st.color))continue;
+      const value=ratio(st.color,surface(el));if(value===null)continue;
       const size=parseFloat(st.fontSize),bold=+st.fontWeight>=700;
-      const large=size>=24||(size>=18.66&&bold);
-      const need=large?3:4.5;
-      if(ratio<need)out.push({sel:(el.id||el.className||el.tagName).toString().slice(0,40),ratio:+ratio.toFixed(2),need,size:Math.round(size),text:text.slice(0,28)});
+      const need=(size>=24||(size>=18.66&&bold))?3:4.5;
+      if(value<need)out.push({sel:(el.id||el.className||el.tagName).toString().slice(0,40),ratio:value,need,size:Math.round(size),text:text.slice(0,28)});
     }
     return out;})()`);
   const byRatio = [...contrast].sort((a, b) => a.ratio - b.ratio);
@@ -241,6 +240,10 @@ try {
 
   // ------------------------------------------------------- the year band
   phase('year');
+  // A pending decision owns the screen by design. Answer it, then look at the
+  // console the player returns to.
+  await client.evaluate(`(()=>{const option=document.querySelector('.pivot-option');if(option)option.click();return true;})()`);
+  await new Promise(r => setTimeout(r, 1200));
   const year = await client.evaluate(`(()=>{const n=document.querySelector('.world-now');
     if(!n)return null;const r=n.getBoundingClientRect();
     return {w:Math.round(r.width),h:Math.round(r.height),visible:r.width>0&&r.height>0,chart:!!n.querySelector('svg'),meters:n.querySelectorAll('.world-meter').length};})()`);

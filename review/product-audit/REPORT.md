@@ -1,8 +1,10 @@
 # Product audit
 
-Base: https://candidate.life-5wz.pages.dev · 2026-10-29T09:19:23.023Z
+Base: http://127.0.0.1:4219 · 2026-11-04T15:37:21.166Z
 
-**1 high, 0 medium, 0 low.**
+**0 high, 1 medium, 1 low.**
 
-- **high** · audit · the audit itself failed  
-  Page.navigate did not answer in 20s
+- **medium** · performance · one view costs 15 requests and 2606 kB  
+  {"nodes":993,"buttons":64}
+- **low** · performance · frame pacing could not be measured in this browser  
+  {"frames":0,"ms":3002}
