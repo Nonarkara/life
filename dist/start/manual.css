@@ -189,5 +189,6 @@ html[lang=th] .pamphlet{--micro:12.5px}
  .pamphlet .steps-sheet{display:block;overflow-y:auto;max-height:none}
  .pamphlet .steps-sheet .steps,.pamphlet .steps-sheet .measures{display:flex;height:auto}
  .pamphlet .steps-sheet .panel+.panel{border-left:0;border-top:1px solid var(--rule)}
+ .pamphlet .steps-sheet .step-list{grid-template-rows:none;gap:18px}
 }
 @media (prefers-reduced-motion:reduce){.pamphlet .reel .rule em{transition:none}}
