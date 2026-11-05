@@ -183,3 +183,5 @@ now reports no high findings. 355 tests pass.
 
 ## 5 November2026 · renderer reconciliation
 Reviewed34d13d7 and prototype's four uncommitted loader paths. Preserved audit tools; corrected its permanent reader regression and actual wide dark-tab contrast. Finished demand-loaded renderer with pending hold, failure fallback, paused invalidation, compatible shared visibility API and lightweight district facts. No painted/3D art or saves removed.358tests; exact390/1024/1440 plus ThaiXL390 capture; independent bounded review. Runtime1cdf2e0bc14f. See review/nov5-reconciliation/REVIEW.md. Prototype originals and detachedship untouched.
+
+Public code20ae028/runtime1cdf2e0bc14f/Pages93993156 verified on bothhosts: entries/headers/20assets plus six exact entry/chunk byte comparisons. Actual public readonly World→Close flow passes with no errors and no production save/pref mutation. Detailed receipt in review/nov5-reconciliation.

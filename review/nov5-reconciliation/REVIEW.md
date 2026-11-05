@@ -14,4 +14,7 @@ Runtime1cdf2e0bc14f. Actual local read-only fixture at1440×900,1024×768,390×8
 
 Independent reviewer nov5_cold_review bounded PASS on source and four standard captures. Existing school roof occlusion/cropped cast remains visible and unchanged: this is not artwork approval. No renderer FPS or sustained physical-device performance claim. Audit wording now labels requestAnimationFrame scheduling honestly; it was not a renderer benchmark. Audit script adjusted but its full legacy CDP journey was not rerun here; actual browser checks used CUA.
 
-Production delivery follows in receipt.
+## Published
+Code20ae028, runtime1cdf2e0bc14f, Pages93993156. Both public hosts pass actual entry/header/20-asset checks. Allsix exact game/chunk byte comparisons match (three URLs perhost). Actual public readonly fixture1440×900: Plan hides reader, World reveals year, Close releases it; zero console warning/error logs and no page bleed. production-plan.png and production-browser.json are the public receipts. Existing production player save and preferences unchanged.
+
+Prototype still has its original three modified files plus untracked scene-registry; these are preserved historical WIP, not instructions to reapply over the shipped repairs. Temporary QA tabs/server removed; user tabs retained.

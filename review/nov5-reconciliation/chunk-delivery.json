@@ -1,0 +1,47 @@
+{
+  "build": "1cdf2e0bc14f",
+  "checks": [
+    {
+      "host": "life.nonarkara.org",
+      "path": "/course/game.bundle.js",
+      "matches": true,
+      "bytes": 210630,
+      "sha256": "7cdb69440951d84996d2f7332c0760c78e16dcda406eb6d424555f2311d69d0d"
+    },
+    {
+      "host": "life.nonarkara.org",
+      "path": "/course/chunk-SEODQULM.js",
+      "matches": true,
+      "bytes": 1497034,
+      "sha256": "50ab358e103ab8c17a32b7886d388e088bffbe808d60c7ef88f0920697dec10d"
+    },
+    {
+      "host": "life.nonarkara.org",
+      "path": "/course/chunk-WOGV6L2N.js",
+      "matches": true,
+      "bytes": 722741,
+      "sha256": "0c31cb51007a8501a2631b82132a1d56b3b88ba1c7ed945b571b37bb4d1fbb23"
+    },
+    {
+      "host": "life-5wz.pages.dev",
+      "path": "/course/game.bundle.js",
+      "matches": true,
+      "bytes": 210630,
+      "sha256": "7cdb69440951d84996d2f7332c0760c78e16dcda406eb6d424555f2311d69d0d"
+    },
+    {
+      "host": "life-5wz.pages.dev",
+      "path": "/course/chunk-SEODQULM.js",
+      "matches": true,
+      "bytes": 1497034,
+      "sha256": "50ab358e103ab8c17a32b7886d388e088bffbe808d60c7ef88f0920697dec10d"
+    },
+    {
+      "host": "life-5wz.pages.dev",
+      "path": "/course/chunk-WOGV6L2N.js",
+      "matches": true,
+      "bytes": 722741,
+      "sha256": "0c31cb51007a8501a2631b82132a1d56b3b88ba1c7ed945b571b37bb4d1fbb23"
+    }
+  ]
+}
