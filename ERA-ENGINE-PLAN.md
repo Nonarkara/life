@@ -76,7 +76,7 @@ Seven kinds of plate × era grade gives dozens of scenes with zero new paintings
 - Cameos are **ambient and sourced**: a voice on the radio, a poster, a motorcade passing, a name in a headline. **No invented dialogue for any real person.**
 - **No royal family members, ever.** Thai lèse-majesté law (Section 112) makes any depiction a legal risk to the owner. This is a hard exclusion, not a judgment call.
 - Living politicians and celebrities: needs the owner's decision (section 7).
-- The note names one person by sound ("Mit Chai Ban Chao"); I do not know who is meant and will not guess. Needs a spelling.
+- The note's example is **Mitr Chaibancha (มิตร ชัยบัญชา)**, the 1960s film star. He is a deceased public figure, not royalty, so he fits the "deceased public figures" line. He belongs to the 1949-to-1970 packs: a poster outside a cinema, a name in the village talk, a film shown from a truck in the provincial dry season. Dates and details of his career and death are cited from sources before they ship, never from memory. No invented lines for him.
 
 ### 4.5 "The other door" as the heart of the MVP
 
@@ -114,7 +114,7 @@ Review depth per the production ladder: this is T0/T1 (a game, no money or perso
 
 1. **Your mother's life as a preset.** The note is personal. The pack should be generic ("born 1949 in the countryside") with nothing that identifies her or family members; a private, personal version stays on your machine if you want one. Confirm the public pack stays generic.
 2. **Real named people as cameos.** Allowed for deceased public figures only, or none at all? Royals are excluded either way.
-3. **Whose spelling**: who is "Mit Chai Ban Chao"?
+3. ~~Who is "Mit Chai Ban Chao"?~~ Answered 5 Nov: Mitr Chaibancha.
 
 Everything else (tables, grade, props, order) is my call and is set out above.
 
