@@ -1,3 +1,5 @@
+import {scenes} from './scene-registry.js';
+export {showPaintedCanvas} from './scene-registry.js';
 import * as T from 'three';
 import {illustratedMaterial,tint} from './art-direction.js';
 import {shopfront,createInhabitedRooms} from './inhabited3d.js';
@@ -18,12 +20,8 @@ import {currentPalette} from './palettes.js';
 // foliage. The buildings keep their own painted colours.
 const TOWN_WIDTH=22;
 const SCENE_ROLES={sky:['#6f8783'],ground:['#5b7f80'],sand:['#b5a789'],land:['#849573','#7d9764'],road:['#bcb7a5','#c8bba1'],waterLight:['#7dabad','#a0bdba'],grass:['#9caf73','#718559','#76896a'],leaf:['#526c50','#476b48'],water:['#4e7d82']};
-const scenes=new WeakMap();
+
 // A renderer change must hide the old surface without allocating a new GPU scene.
-export function showPaintedCanvas(original){
- const entry=scenes.get(original);if(entry&&entry!==false)entry.canvas.hidden=true;
- original.hidden=false;
-}
 export function cameraSpan(age,phone=false){return age<1?3.5+age*2:phone?Math.min(9,5+age*.12):age<10?5.5+age*.3:age<20?8.5+(age-10)*.13:9.8+Math.min(40,age-20)*.03;}
 export function applyCutaway(base,faded){
  const material=base.material,transparent=faded||base.transparent,depthWrite=faded?false:base.depthWrite;

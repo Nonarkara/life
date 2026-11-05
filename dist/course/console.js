@@ -78,9 +78,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
   for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(wide.matches?k!==key:false);buttons[k].setAttribute('aria-pressed',String(k===key));}
   // On wide screens the reader opens only for the selected record.
   // Returning to Plan releases its space to the world.
-  // The year around you keeps the right column on a wide screen. Only the
-  // deeper records replace it, and only when one of them is chosen.
-  reader.hidden=false;worldNow.hidden=wide.matches&&key!=='plan'&&key!=='world';
+  reader.hidden=wide.matches&&key==='plan';worldNow.hidden=wide.matches&&key!=='plan'&&key!=='world';
   document.body.classList.toggle('reader-open',wide.matches&&key!=='plan');
   reader.setAttribute('aria-label',ORDER.find(([k])=>k===key)?.[1]??'Life console');
   if(!wide.matches&&align){const target=panes[key];cards.scrollTo({left:cards.scrollLeft+target.getBoundingClientRect().left-cards.getBoundingClientRect().left,behavior:'instant'});}

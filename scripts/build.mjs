@@ -25,7 +25,7 @@ mkdirSync(output+'/study',{recursive:true});cpSync('dist/study',output+'/study',
 const {build}=await import('esbuild');
 await build({entryPoints:['dist/study/deck-edge.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/deck-edge.bundle.js'});
 await build({entryPoints:['dist/course/scene-study.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/scene-study.bundle.js'});
-await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',outfile:output+'/course/game.bundle.js'});
+await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',splitting:true,entryNames:'game.bundle',chunkNames:'chunk-[hash]',outdir:output+'/course'});
 await build({entryPoints:['dist/study/control-bench.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/control-bench.bundle.js'});
 await build({entryPoints:['dist/study/thai-life.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/thai-life.bundle.js'});
 writeBenchFixture();

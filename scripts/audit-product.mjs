@@ -235,20 +235,24 @@ try {
     const tick=()=>{n++;if(performance.now()-t0<2000)requestAnimationFrame(tick);else{clearTimeout(timer);finish();}};
     requestAnimationFrame(tick);}))()`);
   const fps = Math.round(frames.frames / (frames.ms / 1000));
-  if (frames.frames > 0) record('performance', fps < 30 ? 'high' : 'low', `the animated view runs at about ${fps} frames per second`, JSON.stringify(frames));
+  if (frames.frames > 0) record('performance', fps < 30 ? 'high' : 'low', `browser schedules about ${fps} animation callbacks per second (not renderer FPS)`, JSON.stringify(frames));
   else record('performance', 'low', 'frame pacing could not be measured in this browser', JSON.stringify(frames));
 
   // ------------------------------------------------------- the year band
   phase('year');
-  // A pending decision owns the screen by design. Answer it, then look at the
-  // console the player returns to.
-  await client.evaluate(`(()=>{const option=document.querySelector('.pivot-option');if(option)option.click();return true;})()`);
+  // The year is an explicit World record. Plan intentionally gives its space
+  // back to the stage; measuring an unselected record is not a product failure.
+  await client.evaluate(`(()=>{document.querySelector('.console-nav button[aria-controls="console-world"]')?.click();return true;})()`);
   await new Promise(r => setTimeout(r, 1200));
   const year = await client.evaluate(`(()=>{const n=document.querySelector('.world-now');
     if(!n)return null;const r=n.getBoundingClientRect();
     return {w:Math.round(r.width),h:Math.round(r.height),visible:r.width>0&&r.height>0,chart:!!n.querySelector('svg'),meters:n.querySelectorAll('.world-meter').length};})()`);
-  if (!year || !year.visible) record('console', 'high', 'the year around you is not on the wide screen', JSON.stringify(year));
+  if (!year || !year.visible) record('console', 'high', 'the selected World record is not visible', JSON.stringify(year));
   else if (!year.chart || year.meters < 3) record('console', 'medium', 'the year band is missing its chart or meters', JSON.stringify(year));
+
+  await client.evaluate(`(()=>{document.querySelector('.reader-close')?.click();return true;})()`);
+  const released = await client.evaluate(`({plan:document.body.dataset.consoleView==='plan',hidden:document.querySelector('.console-reader')?.hidden})`);
+  if (!released.plan || !released.hidden) record('console','high','Close does not release the reader back to the world',JSON.stringify(released));
 
   // ------------------------------------------------------- resilience
   phase('fresh-visit');

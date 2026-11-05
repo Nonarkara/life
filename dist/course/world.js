@@ -1,5 +1,7 @@
 import {drawRouteMap} from './routemap.js';
-import {drawScene3D,showPaintedCanvas} from './scene3d.js';
+import {showPaintedCanvas} from './scene-registry.js';
+import {createRendererLoader} from './renderer-loader.js';
+const renderer=createRendererLoader(()=>import('./scene3d.js'),()=>window.dispatchEvent(new Event('life-stage-art')));
 import {drawStage2D,stageCaption,paintedCovers,paintedDay,stageArtFailed} from './stage2d.js';
 import {animeManifest} from './anime-assets.js';
 import {t,preferences} from './i18n.js';
@@ -9,7 +11,7 @@ import {AXES} from './sim.js';
 import {furniture,townGrowth} from './layout.js';
 import {routine,routineContext} from './routines.js';
 import {RESIDENCES,roomFurniture} from './locations.js';
-import {revealedPlaces,floorAt,CITY_BLOCKS} from './district3d.js';
+import {revealedPlaces,floorAt,CITY_BLOCKS} from './district-layout.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 // The first time the world is on screen, by any route (painted, 3D or the flat canvas),
@@ -34,7 +36,11 @@ function paintWorld(canvas,state,age,time,mode='world',view={}){
    if(preferences.stage==='painted'?paintedDay(state,age):paintedCovers(state,age,time)){canvas.hidden=false;return {held:true};}
   }
 }
- if(drawScene3D(canvas,state,age,time,mode,view))return;
+ if(mode==='course'){showPaintedCanvas(canvas);drawRouteMap(canvas,state);return;}
+ const scene3d=renderer.request();
+ if(renderer.pending)return {held:true};
+ if(scene3d&&scene3d.drawScene3D(canvas,state,age,time,mode,view))return;
+ showPaintedCanvas(canvas);
 const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];
 Object.assign(C,canvasWorld()??MOOD_CHORDS[lifeMoodAt(state,age)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);

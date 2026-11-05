@@ -1,0 +1,86 @@
+[
+  {
+    "action": {
+      "bottom": 824.8203125,
+      "height": 36,
+      "width": 108.1015625,
+      "x": 137.2890625,
+      "y": 788.8203125
+    },
+    "bleed": false,
+    "build": "1cdf2e0bc14f",
+    "dock": {
+      "bottom": 0,
+      "height": 0,
+      "width": 0,
+      "x": 0,
+      "y": 0
+    },
+    "height": 900,
+    "readerHidden": true,
+    "stage": {
+      "bottom": 692,
+      "height": 642,
+      "width": 1440,
+      "x": 0,
+      "y": 50
+    },
+    "width": 1440
+  },
+  {
+    "action": {
+      "bottom": 706.703125,
+      "height": 28,
+      "width": 87.3828125,
+      "x": 928.6171875,
+      "y": 678.703125
+    },
+    "bleed": false,
+    "build": "1cdf2e0bc14f",
+    "dock": {
+      "bottom": 768,
+      "height": 153.59375,
+      "width": 1024,
+      "x": 0,
+      "y": 614.40625
+    },
+    "height": 768,
+    "readerHidden": false,
+    "stage": {
+      "bottom": 614.40625,
+      "height": 564.40625,
+      "width": 1024,
+      "x": 0,
+      "y": 50
+    },
+    "width": 1024
+  },
+  {
+    "action": {
+      "bottom": 842,
+      "height": 28,
+      "width": 87.3828125,
+      "x": 290.6171875,
+      "y": 814
+    },
+    "bleed": false,
+    "build": "1cdf2e0bc14f",
+    "dock": {
+      "bottom": 844,
+      "height": 281.328125,
+      "width": 390,
+      "x": 0,
+      "y": 562.671875
+    },
+    "height": 844,
+    "readerHidden": false,
+    "stage": {
+      "bottom": 562.671875,
+      "height": 484.171875,
+      "width": 390,
+      "x": 0,
+      "y": 78.5
+    },
+    "width": 390
+  }
+]

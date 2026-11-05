@@ -267,7 +267,9 @@
  .personal-console .player-console .tabs{position:absolute;top:0;right:12px;padding:0;margin:0;border:0;gap:12px}
 
 
- .personal-console .player-console .tabs button{color:var(--ink)}
+ /* Wide profile tabs sit on the dark navigation strip, not the pale plan. */
+ .personal-console .player-console .tabs{background:var(--deck)}
+ .personal-console .player-console .tabs button{color:var(--deck-text)}
  .personal-console .player-console .tabs button[aria-pressed=true]{border-color:var(--deck-accent)}
  .personal-console #narrative:empty,.personal-console #effect-preview:empty{display:none}
  .life-deck:has(.deck-money){grid-template-columns:300px 170px 180px 180px 210px minmax(180px,1fr)}

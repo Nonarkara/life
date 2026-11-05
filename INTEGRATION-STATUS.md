@@ -180,3 +180,6 @@ year-panel check now answers a pending decision before it looks for the panel. T
 defects were found and fixed: the console tabs took the bench's near-white text on the pale
 plan card, and the year around you was hidden behind the reader on a wide screen. The audit
 now reports no high findings. 355 tests pass.
+
+## 5 November2026 · renderer reconciliation
+Reviewed34d13d7 and prototype's four uncommitted loader paths. Preserved audit tools; corrected its permanent reader regression and actual wide dark-tab contrast. Finished demand-loaded renderer with pending hold, failure fallback, paused invalidation, compatible shared visibility API and lightweight district facts. No painted/3D art or saves removed.358tests; exact390/1024/1440 plus ThaiXL390 capture; independent bounded review. Runtime1cdf2e0bc14f. See review/nov5-reconciliation/REVIEW.md. Prototype originals and detachedship untouched.
