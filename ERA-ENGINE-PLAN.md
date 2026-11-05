@@ -124,3 +124,30 @@ Everything else (tables, grade, props, order) is my call and is set out above.
 - **Era grade on painted plates may flatten the art.** Mitigation: runtime layer only, side-by-side review, one period at a time.
 - **Palette swap does not reach painted sprites** (no masks). Persona variety lives in the 3D cast first; painted scenes get era grade, props and the three recoloured models.
 - **Scope.** The MVP is two periods and two packs; the other eras follow only if these two feel right.
+
+## 9. Scope update (owner, 5 Nov): every era, and real people
+
+**Every period, from the caveman era to today.** A random birth can land in the Stone Age, and the player survives by daily decisions. The point is to feel that life was hard or easy depending on how you look at it, and that older times carry inequalities we cannot romanticise away.
+
+**Design consequences**
+
+- **An era is a pack, not a patch.** One format: `era-table` rows, a grade, a prop list, a wardrobe set, events, and a time grain. Adding an era then means adding data. The MVP stays two packs (1949, 1981) because they prove the format; every other era uses the same format later.
+- **The time grain changes by era.** Today: one chapter per five years. Prehistory: seasons and days (find food, keep fire, shelter, group, illness, a hard winter). The skeleton stays the same (seeded draws, a few meters, decisions that shift odds); only the clock and the verbs change.
+- **Thai-first, then wider.** The player is still born where the game places them. For deep time that means mainland Southeast Asia and Thailand's own record (cave and hill sites, then rice and bronze villages such as Ban Chiang, then early kingdoms, then Ayutthaya and Bangkok). A world mode comes after, with the same format.
+- **Old data is reconstructed, and the screen says so.** No GDP before the modern record. Prehistoric rows use published anthropology and archaeology (forager mortality and fertility studies, site reports), tagged `reconstructed`, with the uncertainty shown beside the number. We never present an estimate as a record.
+- **Structural inequality is a mechanic, not a footnote.** Each era carries its own unfairness as real constraints on the choices: sex and birth order, group membership, bonded or corvée labour in the pre-modern states, debt, landlessness, who may study. Nostalgia is allowed on the surface (objects, food, songs); the choices underneath show the cost. Sourced like everything else.
+- **Prehistory needs a cast and a look.** Different bodies, tools, shelter and fire props on the existing parts system, a "firelight" grade, and no writing in the scene. Needs its own art review before it ships.
+
+**Real people, "Forrest Gump" style.** Decision for now, and the owner can overrule it:
+
+- **Deceased public figures only. No royals, ever** (Section 112 is a legal risk to the owner personally, so this is fixed, not a preference).
+- **No living people.** A game that puts a living politician or celebrity into invented scenes invites defamation and political trouble, and the owner carries that. Revisit only with the person's own consent.
+- **Witnessed moments, not scripted conversations.** You see, hear or pass them: the poster, the radio voice, the crowd, the motorcade, the funeral. Words attributed to a real person only if they are a documented quotation with a source. The Forrest Gump effect comes from placing you beside real events, and that works without inventing what anyone said.
+- **Each cameo is a data row:** person, year, place, the sourced fact the scene rests on, and the source. No source, no cameo.
+- **Recognition is the hook.** The first set is chosen by what a Thai player will recognise within a second (film, music, sport, science, politics of the past), starting with Mitr Chaibancha (1960s cinema).
+
+**Order of work (replaces section 6 where they differ).**
+1. Era-pack format and the year axis, proven on 1949 and 1981.
+2. A cameo data format with the "no source, no cameo" test.
+3. One deep-time pack as a spike (seasonal grain), to test that the same skeleton holds a very different clock before we commit to the rest.
+4. The remaining eras, one pack at a time, each with its sourced table and a review of its history.
