@@ -822,3 +822,18 @@ plan card, and the year around you was hidden behind the reader on a wide
 screen. Both are fixed. The audit now reports no high findings, and the
 measure-contrast tool exists on its own so the numbers can be checked without
 running the whole journey.
+
+
+## Location Scout, and where the game happens · 5 November 2026
+The owner pointed at Rokehan (どこでもロケハン), a browser tool that builds a
+real city block in 3D from OpenStreetMap data and elevation and draws it in
+manga line-and-tone, exporting PNG and GLB. Its address bar holds the whole
+view, so a scouting session is a link. The game names real places and has no
+coordinates, so research/locations.md now carries the coordinates of every
+place the game uses and the scouting link for each, with the parameters spelled
+out: the frame size, the time of day and the camera distance. Three ways it
+earns its keep: the plate prompt can name the real block instead of a mood; the
+frame can be chosen before the image is generated rather than after; and the
+massing of the real block can be checked against the hand-built districts.
+Their output is not committed — their terms forbid copying and redistribution —
+so what we keep is the link and what we learn from it.
