@@ -97,7 +97,7 @@ test('every visible question-category label has a complete native translation',a
 test('Thai easter eggs are non-urgent, seed-conditioned at adult ages, and free of script-mixing or fabricated sources',async()=>{
  const {CLASS_ENCOUNTERS}=await import('../../dist/course/class-encounters.js');
  const base=thaiStudyLife('th_buyer_bill');
- for(const id of ['th_spirit_offering','th_stray_cat','th_midnight_cart']){
+ for(const id of ['th_spirit_offering','th_stray_cat','th_midnight_cart','th_mitr_cameo','th_first_love_regret','th_vhs_modem','th_midlife_frugality','th_bangkok_accounting','th_bank_merger']){
   const e=THAI_ENCOUNTERS.find(x=>x.id===id);
   assert.equal(e.urgent,false,id+' must not crowd out urgent class pressures');
   assert.doesNotMatch(e.source,/day-(44-spirit-house|60-stray-cat|90-midnight-cart)/,id+' must use a verified source');
@@ -105,11 +105,13 @@ test('Thai easter eggs are non-urgent, seed-conditioned at adult ages, and free 
   for(let seed=1;seed<=40;seed++)if(e.eligible({...base,seed,age:40,pathway:'work'}))hits++;
   assert.ok(hits>0&&hits<40,`${id} should be seed-conditioned (got ${hits}/40)`);
  }
+ for(const id of ['th_bangkok_accounting','th_bank_merger'])assert.equal(decisionTone({scenario:THAI_ENCOUNTERS.find(x=>x.id===id)}),'pressured',id);
  for(const c of CLASS_ENCOUNTERS)assert.equal(decisionTone({scenario:c}),'pressured',c.id);
  assert.match(translate('The spirit house waiting','th'),/ศาลพระภูมิ/);
  for(const e of [...THAI_ENCOUNTERS,...CLASS_ENCOUNTERS]){
   for(const text of [e.title,e.prompt,e.lesson,e.sourceTitle,...e.options.flatMap(o=>[o.label,o.outcome])].filter(Boolean)){
    assert.doesNotMatch(translate(text,'ko'),/[\u3040-\u30ff]/,'Korean translation contains Japanese kana: '+text);
+   assert.doesNotMatch(translate(text,'ja'),/[\uac00-\ud7af]/,'Japanese translation contains Korean Hangul: '+text);
    assert.doesNotMatch(translate(text,'th'),/ศาลผี/,'Thai translation uses unnatural phrase for spirit house: '+text);
   }
  }

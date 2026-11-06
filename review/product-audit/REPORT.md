@@ -1,8 +1,8 @@
 # Product audit · the Book's ship gate
 
-Base: http://127.0.0.1:4219 · 2026-11-06T14:22:41.829Z
+Base: http://127.0.0.1:4219 · 2026-11-06T15:48:53.083Z
 
-Verdict: **REVISE** (0 high, 1 medium)
+Verdict: **PASS** (0 high, 0 medium)
 
 Auditor: the automated product audit (`scripts/audit-product.mjs`), run against the built page.
 Builder ≠ auditor: the page was built by other agents; this gate walks it, and a human walk is still required.
@@ -17,7 +17,7 @@ Builder ≠ auditor: the page was built by other agents; this gate walks it, and
 
 ## Findings
 
-- **medium** · performance · one view costs 19 requests and 2101 kB  
+- **low** · performance · one view costs 19 requests and 2165 kB  
   {"nodes":995,"buttons":64}
 - **low** · performance · frame pacing could not be measured in this browser  
   {"frames":0,"ms":3002}

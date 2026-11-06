@@ -14,8 +14,7 @@
 .intake-page #intake-radar [role=button]{cursor:pointer}
 .intake-page #intake-radar [aria-pressed=true] text{font-weight:600}
 .intake-page .point-editor{display:flex;align-items:center;gap:14px;margin:4px 0 10px}
-.intake-page .point-editor button{width:36px;height:36px;font:600 18px/1 var(--sans);background:none;border:1px solid var(--ink);color:var(--ink);cursor:pointer}
-.intake-page .point-editor button:first-child{border-radius:50%}
+.intake-page .point-editor button{width:44px;height:44px;font:600 18px/1 var(--sans);background:none;border:1px solid var(--ink);color:var(--ink);cursor:pointer}
 .intake-page .point-editor button:disabled{opacity:.35;cursor:default}
 .intake-page .point-editor output{font:600 var(--body)/1 var(--mono);min-width:6ch;text-align:center}
 .intake-page #selected-axis{color:var(--muted)}

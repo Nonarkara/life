@@ -52,6 +52,24 @@ export const THAI_ENCOUNTERS=[
    option('placement','Pay ฿2,000 for the placement','work',{cash:-2000,skills:{craft:1}},'You paid for travel and completed the placement. You gained practice, without a promise of a job.',[{after:5,skills:{craft:1},text:'Five years later, you still use a skill first practised during that placement.'}]),
    option('paid','Take the local task for ฿1,200','money',{cash:1200,skills:{drive:1}},'You completed the local task and earned ฿1,200. You protected your buffer and missed this placement.'),
    option('ask','Ask about support or different hours','agreement',{skills:{eq:1},wellbeing:-1},'You asked about travel support and flexible hours. Negotiating took energy; neither funding nor a place was promised.') ]},
+ {...base,id:'th_bangkok_accounting',category:'study',tone:'pressured',min:35,max:55,priority:2,urgent:false,
+  eligible:s=>easter(s,'th_bangkok_accounting')&&['school','college','vocational','work'].includes(s.pathway??s.history?.at(-1)?.pathway),
+  title:'Night classes across from the hospital',
+  prompt:'You work daytime accounts at a hospital to pay your own way through evening degree classes in Bangkok. If you falter, your younger siblings in the provinces will not be allowed to follow.',
+  lesson:'When you are the first in the family to study in the city, your persistence opens or closes the road for those behind you.',
+  source:'https://nonharvard.wordpress.com/2025/04/17/day-121-how-i-never-paid-a-penny-for-my-education/',sourceTitle:'Non Harvard · Day 121: Never Paid a Penny',options:[
+   option('night_degree','Keep the hospital job and finish the five-year evening degree','book',{skills:{iq:2,drive:1},health:-1},'You balanced ledgers by day and studied by night for five years. Your younger siblings soon followed you to Bangkok schools.',[{after:10,wellbeing:3,skills:{eq:1},text:'Ten years later, the siblings who followed you to Bangkok had built careers of their own.'}]),
+   option('certificate','Stop at the technical certificate and send ฿1,200 home now','money',{cash:1200,skills:{craft:1},wellbeing:1},'You took a full-time accounting post with your certificate and helped the household immediately.'),
+   option('pace','Drop one course a term so your health holds','clock',{health:1,skills:{iq:1}},'You slowed your degree pace so your body could recover between shifts.') ]},
+ {...base,id:'th_bank_merger',category:'work',tone:'pressured',min:40,max:60,priority:2,urgent:false,
+  eligible:s=>easter(s,'th_bank_merger')&&['work','vocational','independent'].includes(s.pathway),
+  title:'The merger list at the bank',
+  prompt:'An economic crisis forces your bank to merge. After years of spotless manual ledger work, your post is marked redundant while a less qualified colleague with quiet connections stays.',
+  lesson:'Credentials and diligence do not always outrank networks when institutions shrink; keep your self-worth separate from a title.',
+  source:'https://nonharvard.wordpress.com/2018/08/14/day-86-the-anti-fragile-manifesto/',sourceTitle:'Non Harvard · Day 86: The Anti-Fragile Manifesto',options:[
+   option('severance','Take the ฿2,500 severance package and leave with your head high','money',{cash:2500,wellbeing:1,skills:{eq:1}},'You took the severance and walked out cleanly. The title was gone, not your competence.'),
+   option('audit_independent','Advise family businesses independently for ฿1,200','work',{cash:1200,wellbeing:2,skills:{iq:1,craft:1}},'Owners who trusted your books hired you directly. You answered to your own standards again.'),
+   option('contest','Appeal the redundancy through the formal review board','agreement',{wellbeing:-1,skills:{drive:1}},'You placed the record on file. The merger decision stood, but nobody could rewrite your track record.') ]},
   // Easter eggs: rare, seed-conditioned moments that reward replay and attention.
   // They sit in the background band so they never displace authored story beats.
   {...base,id:'th_spirit_offering',category:'family',tone:'reflective',min:35,max:75,priority:2,urgent:false,
@@ -68,5 +86,38 @@ export const THAI_ENCOUNTERS=[
    eligible:s=>easter(s,'th_midnight_cart')&&s.pathway==='work',
    title:'The noodle cart after midnight',prompt:'The cart is still open when everything else has closed. The cook asks why you are still awake.',lesson:'Late hours reveal thoughts the day keeps quiet.',source:'https://nonharvard.wordpress.com/2018/10/06/day-98-what-i-know-for-sure/',sourceTitle:'Non Harvard · Day 98: What I Know for Sure',options:[
    option('sit','Sit and eat with the cook','people',{wellbeing:2,skills:{eq:1}},'You sat with the cook. Stories passed between bowls of noodles, and the night felt smaller.'),
-   option('go','Buy a bowl and go home','clock',{wellbeing:1},'You took your food and left. The cook nodded, as if they expected nothing else.')]}
+   option('go','Buy a bowl and go home','clock',{wellbeing:1},'You took your food and left. The cook nodded, as if they expected nothing else.')]},
+  {...base,id:'th_mitr_cameo',category:'connection',tone:'reflective',min:35,max:65,priority:2,urgent:false,
+   eligible:s=>easter(s,'th_mitr_cameo'),
+   title:'A film crew by the cinema marquee',
+   prompt:'A crowd gathers outside a Bangkok theatre where a crew is filming. Leading man Mitr Chaibancha steps into the afternoon light and nods toward the street before the cameras roll.',
+   lesson:'A fleeting glimpse of a shared cultural icon anchors the memory of an entire decade.',
+   source:'https://nonharvard.wordpress.com/2015/10/29/day-32-what-makes-life-worth-living/',sourceTitle:'Non Harvard · Day 32: What Makes Life Worth Living',options:[
+   option('watch','Stay at the edge of the crowd and watch the take','art',{wellbeing:2,skills:{craft:1}},'You stood with the crowd and watched the scene unfold. Decades later, old film posters still bring back that afternoon.'),
+   option('walk','Smile at the marquee and keep walking to your appointment','clock',{wellbeing:1,skills:{drive:1}},'You caught the moment in passing and kept your appointment on time.')]},
+  {...base,id:'th_first_love_regret',category:'connection',tone:'reflective',min:35,max:65,priority:2,urgent:false,
+   eligible:s=>easter(s,'th_first_love_regret'),
+   title:'News of someone from your hometown',
+   prompt:'You hear news of your first love from back home—the person you once let go because a provincial match seemed too small for your ambitions. They have quietly built a thriving life.',
+   lesson:'Looking down on a humble beginning can blind you to who a person is becoming.',
+   source:'https://nonharvard.wordpress.com/2015/11/08/day-35-worst-mistakes-people-make-in-their-20s/',sourceTitle:'Non Harvard · Day 35: Worst Mistakes in Your 20s',options:[
+   option('wish_well','Send warm congratulations and let the past rest','people',{wellbeing:2,skills:{eq:1}},'You wished them well without reopening old wounds. Gratitude softened the regret.'),
+   option('reflect','Sit with the regret and examine what you valued then','book',{wellbeing:-1,skills:{iq:1,eq:1}},'You faced how status calculations once narrowed your heart, and resolved not to repeat the mistake.')]},
+  {...base,id:'th_vhs_modem',category:'study',tone:'reflective',min:35,max:60,priority:2,urgent:false,
+   eligible:s=>easter(s,'th_vhs_modem'),
+   title:'One phone line and a dial-up modem',
+   prompt:'Mosquitoes rise at seven in the lane after an afternoon of homework and black-market VHS tapes. At home, plugging the US Robotics modem into the single family landline ties up the whole house.',
+   lesson:'Every generation meets the wider world through imperfect tools that reward curiosity.',
+   source:'https://nonharvard.wordpress.com/2015/10/19/day-28-who-ive-become-an-outli/',sourceTitle:'Non Harvard · Day 28: Who I Have Become',options:[
+   option('dial_in','Wait until late night and dial into the world outside','book',{skills:{iq:2,craft:1},wellbeing:1},'Through static and a slow handshake tone, you read pages from universities across the ocean without waiting for anyone’s permission.'),
+   option('lane_friends','Leave the phone line free and stay with friends in the lane','people',{wellbeing:2,skills:{eq:1}},'You traded the screen for one more evening of neighbourhood games and shared homework before the traffic cleared.')]},
+  {...base,id:'th_midlife_frugality',category:'money',tone:'reflective',min:40,max:65,priority:2,urgent:false,
+   eligible:s=>easter(s,'th_midlife_frugality'),
+   title:'What you were saving the money for',
+   prompt:'You grew up warned never to wish beyond your station and to save every baht. At midlife, with half your years behind you and your mother tending the small routines of home, you have enough.',
+   lesson:'Frugality builds the runway, but hoarding past midlife trades away the years you worked hard to earn.',
+   source:'https://nonharvard.wordpress.com/2018/10/06/day-98-what-i-know-for-sure/',sourceTitle:'Non Harvard · Day 98: What I Know for Sure',options:[
+   option('guard_time','Guard your time for curiosity and the people at home','clock',{wellbeing:3,skills:{eq:1,craft:1}},'You stopped taking work just for the fee and spent the saved hours on what made you and your household genuinely happy.'),
+   option('spend_joy','Spend ฿1,800 on something you denied yourself for years','heart',{cash:-1800,wellbeing:2},'You bought what you had postponed since youth and shared the comfort with the people waiting for you at home.'),
+   option('keep_frugal','Keep the old frugal habits and save ฿900 more','shield',{cash:900,wellbeing:-1},'You kept the old discipline intact. The balance grew, though the days felt much the same.')]}
 ];

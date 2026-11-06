@@ -225,7 +225,7 @@ try {
     const bytes=n.reduce((a,r)=>a+(r.transferSize||r.encodedBodySize||0),0);
     return {requests:n.length,bytes};})()`);
   const dom = await client.evaluate(`({nodes:document.querySelectorAll('*').length,buttons:document.querySelectorAll('button').length})`);
-  record('performance', 'medium', `one view costs ${weight.requests} requests and ${Math.round(weight.bytes / 1024)} kB`, JSON.stringify(dom));
+  record('performance', weight.bytes > 3500 * 1024 ? 'medium' : 'low', `one view costs ${weight.requests} requests and ${Math.round(weight.bytes / 1024)} kB`, JSON.stringify(dom));
 
   // ---------------------------------------------------------- frame pace
   phase('frames');
