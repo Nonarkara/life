@@ -31,7 +31,7 @@ test('marriage is an adult mutual commitment and its marker is recorded only on 
  const married=settle(s,'marry'),together=settle(s,'together');assert.ok(eventsFor(married.history.at(-1)).some(e=>e.type==='married'));assert.ok(!eventsFor(together.history.at(-1)).some(e=>e.type==='married'));assert.ok(validate(married));
 });
 test('choice outcomes preserve unrelated markers and report actual clamped effects',()=>{
- const s=live({...begin(configureLife(newLife(4),{class:'low_class'})),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');
+ const s=live({...begin(configureLife(newLife(4),{upbringing:'middle'})),age:25});assert.equal(s.story.pending.id,'flood_help');const next=settle({...s,wellbeing:99},'help');
  assert.ok(eventsFor(next.history.at(-1)).some(e=>e.type==='flood'));assert.ok(eventsFor(next.history.at(-1)).some(e=>e.type==='connection'));assert.equal(next.story.seen.at(-1).effects.wellbeing,1);
 });
 test('complete lives resolve contextual turns, conserve ledger changes and remain serializable',()=>{

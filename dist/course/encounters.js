@@ -113,7 +113,12 @@ export function eligibleEncounters(state){
 }
 export function offerEncounter(state,roll,keep=()=>true){
  const eligible=eligibleEncounters(state).filter(keep);if(!eligible.length)return state;
+ // Urgency rule, one job: a birth-class pressure must get a hearing inside its
+ // window even though thirty background encounters share its priority. It does
+ // not displace authored story beats — it only wins a station that no story
+ // beat claims (priority 2 gaps), and only while it has never been seen.
  let priority=Math.min(...eligible.map(e=>e.priority??2));let pool=eligible.filter(e=>(e.priority??2)===priority);
+ if(priority===2&&pool.some(e=>e.urgent&&!state.story.seen.some(s=>s.id===e.id)))pool=pool.filter(e=>e.urgent&&!state.story.seen.some(s=>s.id===e.id));
  // A first-in-line encounter with time left is sometimes held back a station, so lives do not all open the same way.
  if(priority===1&&pool.every(e=>e.max>state.age)&&(roll*997)%1<.35){const rest=eligible.filter(e=>(e.priority??2)>1);if(rest.length){priority=Math.min(...rest.map(e=>e.priority??2));pool=rest.filter(e=>(e.priority??2)===priority);}}
  const last=state.story.seen.at(-1),fresh=pool.filter(e=>e.category!==byId.get(last?.id)?.category);if(fresh.length)pool=fresh;

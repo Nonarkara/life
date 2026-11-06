@@ -1,15 +1,18 @@
 // Authored background pressures. No demographic odds, inherited ability bonuses,
 // forced tragedies or hidden mortality modifiers. Existing encounter machinery
 // owns the pause, affordability, actual account flow, recorded choice and replay.
+// Priority 2: authored story beats (recovery, teachers, loss) go first; the
+// offerEncounter urgency rule raises these as their window closes, so a class
+// pressure cannot quietly starve through years 25–55.
 const choice=(id,label,effects,outcome)=>({id,label,...effects,outcome});
-const context=(key,id,title,prompt,options,eligible=()=>true)=>({id,category:'family',min:25,max:55,priority:2,title,prompt,eligible:s=>(s.intake?.class??s.birth?.class)===key&&eligible(s),options});
+const context=(key,id,title,prompt,options,eligible=()=>true)=>({id,category:'family',min:25,max:55,priority:2,urgent:true,title,prompt,eligible:s=>(s.intake?.class??s.birth?.class)===key&&eligible(s),options});
 export const CLASS_ENCOUNTERS=[
  context('high_class','class_family_business','The family wants a rescue','Your family asks you to put your own money into its business. Helping would leave less for your own plans.',[
   choice('help','Contribute ฿6,000',{cash:-6000,wellbeing:2,skills:{eq:1}},'You contributed part of your own funds. Your other plans now have less room.'),
   choice('review','Ask to see the accounts first',{skills:{iq:1},wellbeing:-1},'You asked for accounts before committing. The conversation was uncomfortable; your money stayed available.')]),
- context('low_class','class_debt','Debt is narrowing your choices','You have personal debt. A small unexpected cost could leave even less for food, travel and study.',[
-  choice('plan','Ask for help making a repayment plan',{skills:{iq:1,eq:1},wellbeing:1},'You made a plan and asked for help. The existing debt still has to be paid.'),
-  choice('rest','Protect time to rest',{health:2,wellbeing:1},'You protected some rest. Your debt remained, but exhaustion did not get all your time.')],s=>(s.finance?.debt??0)>0),
+ context('low_class','class_debt','Money is narrowing your choices','Every baht has to stretch further than it should. A small unexpected cost could leave even less for food, travel and study.',[
+  choice('plan','Ask for help making a plan',{skills:{iq:1,eq:1},wellbeing:1},'You made a plan and asked for help. The pressure did not lift, but you could see the next few months more clearly.'),
+  choice('rest','Protect time to rest',{health:2,wellbeing:1},'You protected some rest. The money did not change, but exhaustion did not get all your time.')]),
  context('middle_class','class_ambition','A plan bigger than your buffer','A course could help with a change of direction. You can pay now, or practice with what you already have.',[
   choice('course','Pay ฿3,000 for the course',{cash:-3000,skills:{craft:2,iq:1}},'You paid for structured practice. It improved your skills, without promising a better job.'),
   choice('practice','Practice with what you have',{skills:{craft:1},wellbeing:1},'You practiced without a new expense. Progress was smaller, and the buffer stayed intact.')]),

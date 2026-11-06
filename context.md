@@ -871,3 +871,19 @@ and the numbers can now be checked on their own with
 
 Builder is not auditor: the page was built by other agents and this gate walks
 it, but an independent human walk of B1–B18 on the built page is still owed.
+
+
+**Class pressures now reach players (6 November):** The six birth-class
+encounters had `priority 2` and drew among 30+ background encounters, so most
+players went whole lives without meeting their class pressure (7/60 lives; high,
+low and working classes got zero). Two repairs, kept surgical:
+`class_debt` now triggers on the low-class life itself (widen eligibility,
+retranslated); and `urgent:true` on class encounters means an **unseen** class
+pressure wins a priority-2 station outright instead of being diluted by the
+background draw — story beats still always go first (priority 0–1), and a
+pressure that has had its turn steps back. Result measured on 120 lives
+(20 per class): 119 of 120 lives hear their class pressure, every class 19–20/20;
+no forced tragedies added, all geometry gates and the full test suite pass. The
+old-age cohort test needed seeds 1–300 instead of 1–60 (the n=60 sample mixed
+cohorts too brittly; the mood-follows-health coupling is intact, margin ≈15 at
+n=300 vs 0.5 noise at n=60).

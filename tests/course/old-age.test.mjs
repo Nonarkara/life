@@ -2,7 +2,7 @@ import {test} from 'node:test';import assert from 'node:assert/strict';
 import {choiceAvailable} from '../../dist/course/finance.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {newLife,configureLife,begin,live,validate} from '../../dist/course/sim.js';
-const lives=lean=>{const out=[];for(let seed=1;seed<=60;seed++){let s=begin(configureLife(newLife(seed),{})),at=null;
+const lives=lean=>{const out=[];for(let seed=1;seed<=300;seed++){let s=begin(configureLife(newLife(seed),{})),at=null;
  while(s.age<80&&s.stage==='review'){if(lean)s={...s,effort:{physique:6,iq:0,eq:2,craft:0,drive:2}};s=live(s);if(s.story?.pending){const e=encounterById(s.story.pending.id);s=resolveEncounter(s,e.options.filter(o=>choiceAvailable(s,o))[0].id,.2);}if(s.age===70&&!s.death)at=s;}
  assert.ok(validate(s));if(at)out.push(at);}return out;};
 const mean=a=>a.reduce((n,x)=>n+x,0)/a.length;

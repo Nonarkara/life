@@ -30,7 +30,7 @@ test('background encounters require actual context, pause time and charge once t
   const choice=e.options.find(o=>choiceAvailable(pending,o)),before=JSON.stringify(pending),after=resolveEncounter(pending,choice.id,.2);
   assert.equal(JSON.stringify(pending),before);assert.ok(validate(after));assert.equal(netWorth(after.finance)-netWorth(pending.finance),choice.cash??0);assert.equal(resolveEncounter(after,choice.id,.2),after);assert.equal(after.story.seen.at(-1).id,e.id);
  }
- const debt=CLASS_ENCOUNTERS.find(e=>e.id==='class_debt');assert.equal(debt.eligible({intake:{class:'low_class'},finance:{debt:0}}),false);
+ const debt=CLASS_ENCOUNTERS.find(e=>e.id==='class_debt');assert.equal(debt.eligible({intake:{class:'low_class'},finance:{debt:0}}),true,'class_debt fires on low_class regardless of literal debt');
  const overtime=CLASS_ENCOUNTERS.find(e=>e.id==='class_overtime');assert.equal(overtime.eligible({intake:{class:'working_class'},pathway:'college'}),false);
 });
 test('legacy later-life inheritance retains its original background amounts',()=>{

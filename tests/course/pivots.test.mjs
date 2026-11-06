@@ -4,9 +4,10 @@ import {PIVOTS,pivotsForStation,pendingPivots,applyPivot,locksFor,openOptions} f
 import {stationAlternatives,alternativeDeltas,undoAnswer,reapplyAnswer} from '../../dist/course/alternatives.js';
 import {newLife,configureLife,begin,live,validate,lockedEffort,eraWeight,clamp,projectedSkillGains,AXES} from '../../dist/course/sim.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
+import {choiceAvailable} from '../../dist/course/finance.js';
 
 const valueOf=(points,axis)=>points[axis]??0;
-const settle=s=>{if(!s.story?.pending)return s;const e=encounterById(s.story.pending.id);const o=e.options.find(o=>o.id!=='skip')??e.options[0];return resolveEncounter(s,o.id,0.5);};
+const settle=s=>{if(!s.story?.pending)return s;const e=encounterById(s.story.pending.id);const o=e.options.find(o=>o.id!=='skip'&&choiceAvailable(s,o))??e.options.find(o=>o.id!=='skip')??e.options[0];return resolveEncounter(s,o.id,0.5);};
 
 // The spine: thirty questions across the fourteen stations (three formative
 // questions at 10 and 15, two at every station from 20 to 75).
