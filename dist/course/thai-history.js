@@ -5,7 +5,8 @@
 // marquees, through 1980s lane floodlights, shared family landlines and VHS tapes,
 // the 1997 Tom Yum Goong crisis and 1999 Skytrain opening, to the 2011 flood, 2014
 // curfew and cashless 2020s streets.
-export const COHORT_YEARS=Object.freeze([1949,1970,1981,1990,2026]);
+export const COHORT_YEARS=Object.freeze([1949,1970,1981,1990,2000,2026]);
+export const DEFAULT_COHORT_YEARS=Object.freeze([1949,1981,2000]);
 export const HISTORICAL_COHORTS=Object.freeze({
  1949:{
   year:1949,
@@ -35,6 +36,7 @@ export const HISTORICAL_COHORTS=Object.freeze({
   shortLabel:'Born 1990',
   note:'Childhood during the 1997 crisis and the 1999 BTS Skytrain opening; enter adulthood alongside smartphones, the 2011 flood and modern urban transit.'
  },
+ 2000:{year:2000,code:'00',label:'2000 · A new century',shortLabel:'Born 2000',note:'Reach age 20 in 2020.'},
  2026:{
   year:2026,
   code:'26',

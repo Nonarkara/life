@@ -4,6 +4,10 @@ import {TRAIN_PHRASES} from './train-copy.js';
 import {HYBRID_PHRASES} from './hybrid-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+2000 · A new century|2000 · ศตวรรษใหม่|2000 · 新世纪|2000 · 新しい世紀|2000 · 새로운 세기
+Born 2000|เกิดปี 2000|生于2000年|2000年生まれ|2000년생
+Reach age 20 in 2020.|อายุครบ 20 ปีในปี 2020|于2020年满20岁。|2020年に20歳になる。|2020년에 20세가 됩니다。
+
 Country of birth|ประเทศที่เกิด|出生国家|出生国|출생 국가
 Random · most lives begin in Thailand|สุ่ม · ชีวิตส่วนใหญ่เริ่มที่ประเทศไทย|随机 · 大多数人生始于泰国|ランダム・多くの人生はタイで始まる|무작위 · 대부분의 삶은 태국에서 시작됩니다
 Thailand|ไทย|泰国|タイ|태국
