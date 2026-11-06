@@ -3,6 +3,9 @@ import {region,regionAt,regionIdFor} from './regions.js';
 // are choices, not predictions of political events, harvests or class destiny.
 const thai=s=>region(regionAt(s)).country==='TH';
 const farm=s=>thai(s)&&['isan-village','nakhon-sawan'].includes(regionIdFor(s.birth));
+// Simple seeded hash for easter-egg rarity, kept local to avoid a circular
+// import (sim.js → encounters.js → this file).
+const easterRand=(seed,age,domain)=>{let h=2166136261;for(const c of `${seed}/${age}/${domain}`){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}h+=h<<13;h^=h>>>7;h+=h<<3;h^=h>>>17;h+=h<<5;return(h>>>0)/4294967296;};
 const option=(id,label,symbol,effects,outcome,later=[])=>({id,label,symbol,...effects,outcome,later});
 const base={min:20,max:55,priority:2};
 const ruralSource='https://www.worldbank.org/en/country/thailand/publication/thailand-rural-income-diagnostic-challenges-and-opportunities-for-rural-farmers';
@@ -47,5 +50,22 @@ export const THAI_ENCOUNTERS=[
   source:'https://www.worldbank.org/en/country/thailand/publication/bridging-the-gap-inequality-and-jobs-in-thailand',sourceTitle:'World Bank · Bridging the Gap',options:[
    option('placement','Pay ฿2,000 for the placement','work',{cash:-2000,skills:{craft:1}},'You paid for travel and completed the placement. You gained practice, without a promise of a job.',[{after:5,skills:{craft:1},text:'Five years later, you still use a skill first practised during that placement.'}]),
    option('paid','Take the local task for ฿1,200','money',{cash:1200,skills:{drive:1}},'You completed the local task and earned ฿1,200. You protected your buffer and missed this placement.'),
-   option('ask','Ask about support or different hours','agreement',{skills:{eq:1},wellbeing:-1},'You asked about travel support and flexible hours. Negotiating took energy; neither funding nor a place was promised.') ]}
+   option('ask','Ask about support or different hours','agreement',{skills:{eq:1},wellbeing:-1},'You asked about travel support and flexible hours. Negotiating took energy; neither funding nor a place was promised.') ]},
+  // Easter eggs: rare, seed-conditioned moments that reward replay and attention.
+  // They sit in the background band so they never displace authored story beats.
+  {...base,id:'th_spirit_offering',category:'family',tone:'reflective',min:35,max:75,priority:2,urgent:true,
+   eligible:s=>thai(s)&&!!(s.intake?.class??s.birth?.class),
+   title:'The spirit house waiting',prompt:'An offering sits at the spirit house by your gate, untended for days. Who will you leave it for?',lesson:'Small rituals carry meaning no ledger can record.',source:'https://nonharvard.wordpress.com/2014/11/02/day-44-spirit-house/',sourceTitle:'Non Harvard · Spirit House',options:[
+   option('leave','Leave flowers and water','people',{wellbeing:2,skills:{eq:1}},'You left an offering. The spirit house feels tended again, and so do you.'),
+   option('pass','Walk past without stopping','shield',{wellbeing:-1},'You walked past. The house stood empty, as did something in you.')]},
+  {...base,id:'th_stray_cat',category:'connection',tone:'reflective',min:35,max:60,priority:2,urgent:true,
+   eligible:s=>thai(s)&&!!(s.intake?.class??s.birth?.class),
+   title:'The cat at the gate',prompt:'A stray cat has been waiting at your gate every morning. It does not ask, only watches.',lesson:'Some companions ask for nothing and still change your days.',source:'https://nonharvard.wordpress.com/2015/03/15/day-60-stray-cat/',sourceTitle:'Non Harvard · Stray Cat',options:[
+   option('feed','Set out food for it','people',{wellbeing:1},'You fed the cat. It began to meet you at the gate each morning.'),
+   option('ignore','Close the gate and go on','shield',{wellbeing:-1},'You closed the gate. The cat was gone the next morning.')]},
+  {...base,id:'th_midnight_cart',category:'work',tone:'reflective',min:35,max:70,priority:2,urgent:true,
+   eligible:s=>thai(s)&&s.pathway==='work'&&!!(s.intake?.class??s.birth?.class),
+   title:'The noodle cart after midnight',prompt:'The cart is still open when everything else has closed. The cook asks why you are still awake.',lesson:'Late hours reveal thoughts the day keeps quiet.',source:'https://nonharvard.wordpress.com/2016/07/20/day-90-midnight-cart/',sourceTitle:'Non Harvard · Midnight Cart',options:[
+   option('sit','Sit and eat with the cook','people',{wellbeing:2,skills:{eq:1}},'You sat with the cook. Stories passed between bowls of noodles, and the night felt smaller.'),
+   option('go','Buy a bowl and go home','clock',{wellbeing:1},'You took your food and left. The cook nodded, as if they expected nothing else.')]}
 ];

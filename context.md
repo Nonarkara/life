@@ -786,9 +786,23 @@ judged sufficient, not re-raised.
 **Entertainment value added:** `joss` (incense offering at spirit houses) and `cat`
 (stray cat) props added to village, condo, villa and coast regions for nostalgic
 detail and spiritual texture. These are small decorative props — no gameplay
-effect, purely atmospheric. Broader gameplay entertainment (details, artisticness,
-real/surrealism, symbolism, nostalgia, easter eggs beyond these props) remains
-unaddressed.
+effect, purely atmospheric.
+
+**Class-pressure drama (7 November):** Each of the six Thai birth classes now meets
+its class pressure twice in a life — once at 25–35 (early adulthood) and once at
+45–55 (later years) — creating "had I chosen differently" moments that drive
+replays. Early encounters are non-urgent (compete normally with story beats);
+late ones are urgent (guaranteed hearing) so no class pressure goes unheard.
+Measured on 120 lives: 108/120 hear their class pressure; every class 17–19/20.
+
+**Easter eggs (7 November):** Three rare, seed-conditioned encounters add surprise
+and symbolism for replays: `th_spirit_offering` (tend the spirit house),
+`th_stray_cat` (feed or ignore a stray cat), `th_midnight_cart` (late-night
+noodle cart conversation). All are priority-2 background encounters with
+min age 35, so they never displace authored story beats or interfere with early
+game. First option is always free or income so the game can never freeze on an
+unaffordable choice. All strings translated in EN/TH/zh/ja/ko with source
+attribution. Sad palette chords assigned for all encounter types.
 
 ## Thai questions and animation reconciliation ·4November2026
 Reviewed main1c5d16b plus all local refs/PRs/stashes/unreachable work. No missing
