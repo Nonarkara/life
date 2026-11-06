@@ -15,8 +15,8 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
  const hips=sphere(.2,trousers,body,0,.86,0,1,.55,.62);
  mesh(new T.CylinderGeometry(.06,.07,.1,12),flesh,body,0,1.41,0);
  // Illustrated proportions: a slightly larger head so a drawn face reads at game distance.
- const head=new T.Group();head.position.set(0,1.62,0);head.scale.setScalar(1.3);body.add(head);
- const headMat=material(skin);headMat.map=null;sphere(.15,headMat,head,0,0,0,.88,1.08,.86);
+ const head=new T.Group();head.position.set(0,1.62,0);head.scale.setScalar(1.0);body.add(head);
+ const headMat=material(skin);headMat.map=null;sphere(.13,headMat,head,0,0,0,.88,1.08,.86);
  for(const x of [-.132,.132])sphere(.025,flesh,head,x,-.005,0,.55,1,.75);
 
  // The face is drawn onto the head (see faceTexture); expressions swap the texture.

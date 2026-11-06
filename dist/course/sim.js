@@ -18,6 +18,7 @@ import {CLASS_TIERS,CLASS_KEYS} from './backgrounds.js';
 export {CLASS_TIERS,CLASS_KEYS} from './backgrounds.js';
 import {COHORT_YEARS,validCohortYear} from './thai-history.js';
 export {COHORT_YEARS,validCohortYear} from './thai-history.js';
+import {eraAnnualEvents} from './era-events.js';
 const hasMarket=f=>Array.isArray(f?.receipts)&&f.receipts.some(r=>r?.kind==='market');
 export const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
 export function rand(seed,age,domain){let h=2166136261;for(const c of `${seed}/${age}/${domain}`){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}h+=h<<13;h^=h>>>7;h+=h<<3;h^=h>>>17;h+=h<<5;return(h>>>0)/4294967296;}
@@ -77,10 +78,11 @@ if(flood){setback=0;event='Floodwater damages the family home. Repairs take mone
 // Background pressures use recorded encounters, never untracked story flags.
 if(age>=40&&rand(s.seed,age,'illness')<.12){healthShock+=12;event+=' A health setback interrupts your plans.';}
 const moments=periodLifeEvents(s,from,age,flagsOf(s),(year,key)=>rand(s.seed,year,key));setback-=moments.cash;healthShock-=moments.health;if(moments.records.length)event+=' '+moments.records.map(r=>r.text).join(' ');
+const era=eraAnnualEvents(s,from,age,(year,key)=>rand(s.seed,year,'era'));setback-=era.cash;healthShock-=era.health;if(era.records.length)event+=' '+era.records.map(r=>r.text).join(' ');
 const earnings=grossMonthlyPay(s);
 // Three pillars: body, mind and contentment. Contentment (Ikigai) acts on the other two:
 // low contentment wears the body and slows the mind; purpose slows decline. Authored tuning.
-const bucket=bucketDue(s,age);let bodyAdj=(content<35?-(35-content)*.12:content>70?(content-70)*.06:0)+bucket.health,moodAdj=(content-50)*.04+bucket.wellbeing+moments.wellbeing;
+const bucket=bucketDue(s,age);let bodyAdj=(content<35?-(35-content)*.12:content>70?(content-70)*.06:0)+bucket.health,moodAdj=(content-50)*.04+bucket.wellbeing+moments.wellbeing+era.wellbeing;
 // The big forks keep acting after they are chosen.
 const field=majorOf(s),fieldFit=field?majorFit(s,field):1;
 const nature=together(s)?partnerNature(s):null,apart=flagsOf(s).apart!==undefined;
@@ -99,7 +101,7 @@ const hazard=(age<25?.003:age<45?.009:age<60?.025:age<75?.07:.15)*(1.25-content/
 const deathCause=health<30?'A serious health event ended this life.':'An unexpected illness or accident ended this life.';
 const deathRoll=rand(s.seed,age,'mortality'+Math.floor(health/10));
 const death=deathRoll<hazard+Math.max(0,60-health)*.004?{age,cause:deathCause}:null;
-const skills=Object.fromEntries(AXES.map(a=>[a.key,s.skills[a.key]+practice[a.key]]));const row={age,from,health,wellbeing,cash,event,effort:{...e},eraWeights,...(s.pivots??[]).filter(record=>record.station===from).length?{pivots:(s.pivots??[]).filter(record=>record.station===from)}:{},...(s.pendingAlternatives??[]).length?{alternatives:s.pendingAlternatives}:{},...(growth<1?{growth}:{}),...(due.length?{consequences:due.map(({lesson,choice,age,text,cash,health,wellbeing})=>({lesson,choice,age,text,cash,health,wellbeing})),events:due.map(c=>({type:'consequence',lesson:c.lesson})),consequenceSkills:Object.fromEntries(AXES.map(a=>[a.key,due.reduce((n,c)=>n+(c.skills[a.key]??0),0)]))}:{}),profile:{...p},earnings:Math.round(earnings*pathway.incomeFactor),spending:spending+habits,habits,setback,pathway:pathway.route,pathwayCash:pathway.cash,pathwayLearning:pathway.learning};if(bucket.events.length||moments.records.length)row.events=[...(row.events??[]),...bucket.events,...moments.records];if(moments.incomeMonths)row.unemployedMonths=moments.incomeMonths;const next={...s,...(s.journey?{journey:undefined}:{}),...(bucket.bucket?{bucket:bucket.bucket}:{}),age,cash,health,wellbeing,skills,profile:p,pivots:(s.pivots??[]).filter(record=>record.station<from),pendingAlternatives:undefined,profiles:[...s.profiles,{age:from,effort:{...e},profile:{...p}}],history:[...s.history,row],death,stage:death||age===80?'recap':'review'};return advanceFinance(s,next);}
+const skills=Object.fromEntries(AXES.map(a=>[a.key,s.skills[a.key]+practice[a.key]]));const row={age,from,health,wellbeing,cash,event,effort:{...e},eraWeights,...(s.pivots??[]).filter(record=>record.station===from).length?{pivots:(s.pivots??[]).filter(record=>record.station===from)}:{},...(s.pendingAlternatives??[]).length?{alternatives:s.pendingAlternatives}:{},...(growth<1?{growth}:{}),...(due.length?{consequences:due.map(({lesson,choice,age,text,cash,health,wellbeing})=>({lesson,choice,age,text,cash,health,wellbeing})),events:due.map(c=>({type:'consequence',lesson:c.lesson})),consequenceSkills:Object.fromEntries(AXES.map(a=>[a.key,due.reduce((n,c)=>n+(c.skills[a.key]??0),0)]))}:{}),profile:{...p},earnings:Math.round(earnings*pathway.incomeFactor),spending:spending+habits,habits,setback,pathway:pathway.route,pathwayCash:pathway.cash,pathwayLearning:pathway.learning};if(bucket.events.length||moments.records.length||era.records.length)row.events=[...(row.events??[]),...bucket.events,...moments.records,...era.records];if(moments.incomeMonths)row.unemployedMonths=moments.incomeMonths;const next={...s,story:{...s.story,eraFired:era.fired},...(s.journey?{journey:undefined}:{}),...(bucket.bucket?{bucket:bucket.bucket}:{}),age,cash,health,wellbeing,skills,profile:p,pivots:(s.pivots??[]).filter(record=>record.station<from),pendingAlternatives:undefined,profiles:[...s.profiles,{age:from,effort:{...e},profile:{...p}}],history:[...s.history,row],death,stage:death||age===80?'recap':'review'};return advanceFinance(s,next);}
 export function projectedSkillGains(s){
  const {growth,eraWeights,pathway,due,practice}=stepSkills(s);
  if(s.stage!=='review'||!validPoints(s.effort)||s.age>=80||s.finance?.receipts.length>993)return {gains:practice,practice,financeLearning:0,growth,eraWeights,pathway,due};
