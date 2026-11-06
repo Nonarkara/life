@@ -847,3 +847,27 @@ tuned against the old generic home plate. The twenty-eight new house plates put
 their floors lower in the frame, so the figures were placed high, with their
 shoes in the middle of the room. The line is now .86, the same as every other
 set, and the feet meet the tiles.
+
+
+## The Book enters the repository · 6 November 2026
+Non's design scripture is now `THE-BOOK.md` in the repository and `AGENTS.md`
+opens with it: MSH, anti-slop, the glance path, hierarchy, kinetic grids,
+spatial honesty and the ship gate. Every agent that designs, builds, reviews or
+ships this game loads it before touching a layout, a map, a deck or a visual.
+
+The scripture is now also a tool. `scripts/audit-product.mjs` walks the gate on
+the built page: B1 first-screen task, B2 chrome cost, B3 box fit, B4 void, B7
+hierarchy, B10 unboxed logos, B13 ship basics, the caps of §6.2, and it writes
+the verdict block of §5.7 with what stays unverified. The first run of the gate
+found a hard fail the eye had missed: thirty-four phone controls under
+44×44 — the header keys, the transport, the console navigation, the profile
+selects. The controls now carry a 44px touch target on a phone while their
+visuals stay the size they were; links inside running prose keep their size, as
+§21 exempts them. The gate's own first contrast engine was reading the page
+behind a text rather than the painted box under it, and it looked for the year
+panel while a decision was deliberately holding the screen. Both are repaired,
+and the numbers can now be checked on their own with
+`scripts/measure-contrast.mjs`.
+
+Builder is not auditor: the page was built by other agents and this gate walks
+it, but an independent human walk of B1–B18 on the built page is still owed.

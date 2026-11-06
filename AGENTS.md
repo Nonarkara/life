@@ -1,5 +1,11 @@
 # Life — permanent design constraints
 
+**Read `THE-BOOK.md` first. It is canon.** Non's design scripture — MSH, anti-slop, glance path,
+hierarchy, kinetic grids, spatial honesty and the ship gate. Load it before designing,
+building, reviewing or shipping any interface, map, deck or visual; walk B1–B18 before you
+merge and name an auditor who is not the builder. `STYLE.md` protects deliberate style and
+never waives the ship basics.
+
 Read `context.md` and `DESIGN-RULES.md` before changing any interface.
 For work from another agent or checkout, read `INTEGRATION-STATUS.md` first.
 Verify ancestry and actual diffs; historical handoff reports must not overwrite later repairs.

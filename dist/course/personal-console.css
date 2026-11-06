@@ -448,3 +448,12 @@
 @media(max-width:1279px) and (orientation:landscape){
  .rpg-dock .deck-measure{flex-direction:row;align-items:baseline;gap:4px}
 }
+
+/* The Book, §21: phone taps are at least 44×44. The visuals stay as they are;
+   the touch target grows, which is what a thumb actually aims at. Links inside
+   running prose stay as they are: §21 exempts inline sentence links. */
+@media(max-width:720px){
+ button,select,header a,.console-panel a[href]{min-height:44px!important}
+ .tabs button,.console-nav button,.transport-key,header button{min-width:44px!important}
+ .method a,.fine a,.hint a{min-height:0!important}
+}

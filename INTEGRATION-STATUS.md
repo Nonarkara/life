@@ -185,3 +185,12 @@ now reports no high findings. 355 tests pass.
 Reviewed34d13d7 and prototype's four uncommitted loader paths. Preserved audit tools; corrected its permanent reader regression and actual wide dark-tab contrast. Finished demand-loaded renderer with pending hold, failure fallback, paused invalidation, compatible shared visibility API and lightweight district facts. No painted/3D art or saves removed.358tests; exact390/1024/1440 plus ThaiXL390 capture; independent bounded review. Runtime1cdf2e0bc14f. See review/nov5-reconciliation/REVIEW.md. Prototype originals and detachedship untouched.
 
 Public code20ae028/runtime1cdf2e0bc14f/Pages93993156 verified on bothhosts: entries/headers/20assets plus six exact entry/chunk byte comparisons. Actual public readonly World→Close flow passes with no errors and no production save/pref mutation. Detailed receipt in review/nov5-reconciliation.
+
+## 6 November 2026 · the Book and its gate
+`THE-BOOK.md` is Non's design scripture and is now in the repository; `AGENTS.md`
+opens with it. `scripts/audit-product.mjs` walks its ship gate on the built page
+(B1–B13, the §6.2 caps) and writes the §5.7 verdict block; `scripts/measure-contrast.mjs`
+checks the contrast alone. The gate's first hard find: 34 phone controls under
+44×44 (§21). Fixed with 44px touch targets on a phone, the visuals unchanged.
+The contrast engine was reading the wrong surface and the year check ran while a
+decision held the screen; both repaired. 358 tests pass.

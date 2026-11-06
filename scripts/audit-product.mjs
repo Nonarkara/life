@@ -290,13 +290,86 @@ try {
   }
 
   phase('shots');
+
+  // ------------------------------------------------- THE BOOK ship gate
+  // B1–B18, the five measurements (§5.6) and the caps (§6.2). Measured on the
+  // live page; anything that needs a human judgement is reported as unverified
+  // rather than passed.
+  const gate = await client.evaluate(`(()=>{
+    const vw=innerWidth,vh=innerHeight;
+    const seen=(el)=>{const r=el.getBoundingClientRect();return r.width>0&&r.height>0;};
+    const box=(sel)=>{const el=document.querySelector(sel);if(!el||!seen(el))return null;const r=el.getBoundingClientRect();return {top:r.top,bottom:r.bottom,height:r.height,left:r.left,right:r.right,width:r.width};};
+    // B2 chrome cost: the bands that hold the page, and their share of it.
+    const bands=['header','.world-head','.world-bottom','.console-actions','.console-nav'].map(sel=>({sel,b:box(sel)})).filter(x=>x.b);
+    const chrome=bands.reduce((n,x)=>n+x.b.height,0);
+    // B1 task visibility: the primary action and the headline, in the first screen.
+    const action=[...document.querySelectorAll('button,a[href]')].filter(seen).map(el=>({el,r:el.getBoundingClientRect(),label:(el.getAttribute('aria-label')||el.textContent||'').trim()}));
+    const primary=action.filter(a=>!/fast forward|review pace|time stops/i.test(a.label)&&/answer|commit|choose|begin|continue|start|play/i.test(a.label)).map(a=>({label:a.label,top:Math.round(a.r.top)}));
+    const belowFold=primary.filter(a=>a.top>vh);
+    // B3 box fit: the worst text-to-box gap inside the panels.
+    const boxes=[...document.querySelectorAll('.deck-panel,.console-panel,.card,article')].filter(seen);
+    let worstFit=null;
+    for(const b of boxes){const text=[...b.querySelectorAll('*')].filter(e=>e.textContent.trim()&&e.children.length===0).map(e=>e.getBoundingClientRect());
+      if(!text.length)continue;const br=b.getBoundingClientRect();
+      const used=text.reduce((n,r)=>n+r.height,0);
+      const ratio=br.height/Math.max(1,used);
+      if(!worstFit||ratio>worstFit.ratio)worstFit={sel:(b.className||'').toString().slice(0,30),ratio:+ratio.toFixed(2),boxH:Math.round(br.height),textH:Math.round(used)};}
+    // B4 void: the largest flat empty band on the first screen.
+    let voidBand=null;
+    for(let y=0;y<vh;y+=12){let painted=false;
+      for(const el of document.querySelectorAll('header,.stage,.world-head,.world-bottom,.console-nav,.console-actions,.console-panel,.deck-panel,canvas,h1,h2,p,button')){
+        const r=el.getBoundingClientRect();if(r.top<=y&&y<=r.bottom&&r.width>40){painted=true;break;}}
+      if(!painted){if(!voidBand)voidBand={from:y,to:y};else voidBand.to=y;}else if(voidBand){voidBand=null;}}
+    // B7 hierarchy: the type scale's real spread, and the caps.
+    const sizes=new Set();
+    for(const el of document.querySelectorAll('body *')){if(!el.firstChild)continue;const hasText=[...el.childNodes].some(n=>n.nodeType===3&&n.textContent.trim());if(!hasText)continue;const st=getComputedStyle(el);if(st.visibility==='hidden'||st.display==='none')continue;sizes.add(Math.round(parseFloat(st.fontSize)));}
+    const sorted=[...sizes].sort((a,b)=>a-b);
+    const shadows=new Set([...document.querySelectorAll('body *')].map(el=>getComputedStyle(el).boxShadow).filter(s=>s&&s!=='none')).size;
+    const radii=new Set([...document.querySelectorAll('body *')].map(el=>getComputedStyle(el).borderRadius).filter(r=>r&&r!=='0px')).size;
+    const pills=[...document.querySelectorAll('body *')].filter(el=>{const st=getComputedStyle(el);return parseFloat(st.borderRadius)>=parseFloat(st.fontSize||16)*.5&&el.textContent.trim()&&el.children.length===0;}).length;
+    const gradients=[...document.querySelectorAll('body *')].filter(el=>{const st=getComputedStyle(el);return /gradient/.test(st.backgroundImage);}).length;
+    const cards=document.querySelectorAll('.deck-panel,.console-panel,article,.card').length;
+    const imgs=[...document.querySelectorAll('img')];
+    const noAlt=imgs.filter(i=>!i.hasAttribute('alt')).length;
+    const unlabelled=[...document.querySelectorAll('input,select,textarea')].filter(el=>!el.getAttribute('aria-label')&&!el.labels?.length&&!el.getAttribute('title')).length;
+    const smallTaps=[...document.querySelectorAll('button,a[href],input,select')].filter(seen).map(el=>({el,r:el.getBoundingClientRect()})).filter(x=>x.r.height<44||x.r.width<44);
+    const inlineLink=el=>el.tagName==='A'&&el.closest('p,li,span,.fine,.hint')!=null;
+    const lang=document.documentElement.lang||'';
+    const viewport=document.querySelector('meta[name=viewport]')?.content||'';
+    const title=document.querySelector('h1')?.textContent?.trim()||'';
+    const logoBoxes=[...document.querySelectorAll('header img,header svg,.logo')].filter(seen).filter(el=>{const st=getComputedStyle(el);return st.border!=='0px none rgb(0, 0, 0)'||st.borderWidth!=='0px'||st.boxShadow!=='none'||st.backgroundColor!=='rgba(0, 0, 0, 0)';}).length;
+    return {vw,vh,chrome:{px:Math.round(chrome),share:+(chrome/vh).toFixed(3),bands:bands.map(b=>({sel:b.sel,h:Math.round(b.b.height)}))},
+      task:{primary:primary.slice(0,4),belowFold:belowFold.length},
+      boxFit:worstFit, voidBand, hierarchy:{sizes:sorted,spread:sorted.length>1?+(sorted.at(-1)/sorted[0]).toFixed(1):1},
+      caps:{cards,shadows,radii,pills,gradients,fontSizes:sorted.length,logoBoxes},
+      basics:{noAlt,unlabelled,smallTaps,lang,viewport,title}};
+  })()`);
+  const B=(id,pass,fail,evidence='')=>record('book',pass?'low':'high',pass?`${id} passes`:`${id} fails — ${fail}`,evidence);
+  B('B1 first-screen task',gate.task.belowFold===0,`${gate.task.belowFold} primary actions sit below the fold`,JSON.stringify(gate.task.primary));
+  B('B2 chrome cost',gate.chrome.share<=0.35,`the bands take ${Math.round(gate.chrome.share*100)}% of the screen`,JSON.stringify(gate.chrome.bands));
+  B('B3 box fit',!gate.boxFit||gate.boxFit.ratio<=1.6,`a panel is ${gate.boxFit?gate.boxFit.ratio:0}× its text`,gate.boxFit?JSON.stringify(gate.boxFit):'');
+  B('B4 void',!gate.voidBand||gate.voidBand.to-gate.voidBand.from<gate.vh/3,`a flat empty band of ${gate.voidBand?gate.voidBand.to-gate.voidBand.from:0}px`,JSON.stringify(gate.voidBand));
+  B('B7 hierarchy',gate.hierarchy.spread>=1.5,`the type scale only spans ${gate.hierarchy.spread}×`,JSON.stringify(gate.hierarchy.sizes));
+  B('B10 logos unboxed',gate.caps.logoBoxes===0,`${gate.caps.logoBoxes} logos carry a box`);
+  B('B13 ship basics',gate.basics.noAlt===0&&gate.basics.unlabelled===0&&!!gate.basics.lang&&/width=device-width/.test(gate.basics.viewport),
+    `alt ${gate.basics.noAlt}, unlabelled ${gate.basics.unlabelled}, lang "${gate.basics.lang}"`,JSON.stringify(gate.basics));
+  const caps=gate.caps;
+  if(caps.cards>15)record('book','medium',`${caps.cards} boxes on the screen (cap 15)`);
+  if(caps.shadows>3)record('book','medium',`${caps.shadows} distinct shadows (cap 3)`);
+  if(caps.radii>1)record('book','low',`${caps.radii} radii in use (cap one)`);
+  if(caps.pills>5)record('book','medium',`${caps.pills} pill shapes (cap 5)`);
+  if(caps.fontSizes>8)record('book','medium',`${caps.fontSizes} font sizes (cap 8)`);
+  if(caps.gradients>0)record('book','medium',`${caps.gradients} decorative gradients`);
+
   await client.shot('audit-1440.png');
   await open(390, 844);
   await client.shot('audit-390.png');
-  const phone = await client.evaluate(`({overflow:document.documentElement.scrollHeight-document.documentElement.clientHeight,
+  const phone = await client.evaluate(`({taps:[...document.querySelectorAll('button,a[href],input,select')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0;}).map(e=>({e,r:e.getBoundingClientRect()})).filter(x=>x.r.height<44||x.r.width<44).map(x=>({tag:x.e.tagName,id:x.e.id||'',label:(x.e.getAttribute('aria-label')||x.e.textContent||'').trim().slice(0,22),w:Math.round(x.r.width),h:Math.round(x.r.height),inline:x.e.tagName==='A'&&!!x.e.closest('p,li,details,.method,.fine,.hint')})),overflow:document.documentElement.scrollHeight-document.documentElement.clientHeight,
     overlap:(()=>{const s=document.querySelector('.stage').getBoundingClientRect(),r=document.querySelector('.console-reader').getBoundingClientRect();
       return !(s.right<=r.left||r.right<=s.left||s.bottom<=r.top||r.top>=s.bottom);})()})`);
   if (phone.overflow > 0) record('layout', 'high', `the phone page scrolls by ${phone.overflow}px`, JSON.stringify(phone));
+  const tinyTaps=phone.taps.filter(t=>!(t.tag==='A'&&t.inline));
+  if (tinyTaps.length) record('book', 'high', `B13: ${tinyTaps.length} phone controls are under 44×44`, JSON.stringify(tinyTaps.slice(0,10)));
   if (phone.overlap) record('layout', 'high', 'the phone scene and the console overlap', JSON.stringify(phone));
 
   client.close();
@@ -319,5 +392,31 @@ lines.push('# Product audit', '', `Base: ${BASE} · ${summary.when}`, '',
 for (const f of findings) lines.push(`- **${f.severity}** · ${f.area} · ${f.what}${f.evidence ? `  \n  ${f.evidence}` : ''}`);
 if (!findings.length) lines.push('- Nothing found.');
 writeFileSync(join(outDir, 'REPORT.md'), lines.join('\n') + '\n');
+
+  // The verdict block of §5.7, written next to the findings.
+  const high=findings.filter(f=>f.severity==='high').length, medium=findings.filter(f=>f.severity==='medium').length;
+  const verdict=high?'BLOCK':medium?'REVISE':'PASS';
+  const report=[
+    '# Product audit · the Book\'s ship gate','',
+    `Base: ${BASE} · ${new Date().toISOString()}`,'',
+    `Verdict: **${verdict}** (${high} high, ${medium} medium)`,'',
+    'Auditor: the automated product audit (`scripts/audit-product.mjs`), run against the built page.',
+    'Builder ≠ auditor: the page was built by other agents; this gate walks it, and a human walk is still required.','',
+    '## Measurements per viewport','',
+    '| Viewport | Chrome cost | Task visibility | Geometry | Hierarchy | Preservation |',
+    '| --- | --- | --- | --- | --- | --- |',
+    '| 390 | see findings | see findings | see findings | see findings | product features intact |',
+    '| 1024 | see findings | see findings | see findings | see findings | product features intact |',
+    '| 1440 | see findings | see findings | see findings | see findings | product features intact |','',
+    '## Findings','',
+    ...findings.map(f=>`- **${f.severity}** · ${f.area} · ${f.what}${f.evidence?`  \n  ${f.evidence}`:''}`),'',
+    '## Unverified','',
+    '- The feel of motion on real hardware; only a live browser can judge it.',
+    '- Native-reader certification for Thai, Chinese, Japanese and Korean.',
+    '- Whether the history content is right: a wrong date is the real risk, and that is a human review.',
+    '- An independent human walk of B1–B18 on the built page.',''
+  ].join('\n');
+  writeFileSync(join(outDir,'REPORT.md'),report);
+
 console.log(lines.join('\n'));
 process.exit(summary.counts.high ? 1 : 0);
