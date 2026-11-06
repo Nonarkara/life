@@ -4,7 +4,7 @@ import {PALETTES,contrastRatio} from './palettes.js';
 // score. An emergency has no timer: the same stopped clock protects every reader.
 const byPlate=new Map(PALETTES.map(p=>[p.plate,p]));
 const ids=text=>new Set(text.split(' '));
-const pressured=ids('treatment class_family_business class_debt class_ambition class_overtime class_expectations bully flood_help hard_marriage l_bottom l_borrow l_boss m_debt m_leverage m_crash m_vanished child-roof child-sponsor college-cost stall-paper flood-repair flood-move parent-ill share-offer');
+const pressured=ids('treatment class_family_business class_debt class_ambition class_overtime class_connections class_expectations class_family_pressure class_support_pressure class_housing_pressure class_family_time class_posting_pressure class_name_pressure bully flood_help hard_marriage l_bottom l_borrow l_boss m_debt m_leverage m_crash m_vanished child-roof child-sponsor college-cost stall-paper flood-repair flood-move parent-ill share-offer');
 const hopeful=ids('friend love commitment parenthood mentor friend_late dog l_friends l_kind m_pet project_return');
 const somber=ids('remember remember_mother l_funeral m_grandparent');
 export const DECISION_TONES={

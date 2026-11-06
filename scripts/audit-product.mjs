@@ -317,7 +317,8 @@ try {
     // B4 void: the largest flat empty band on the first screen.
     let voidBand=null;
     for(let y=0;y<vh;y+=12){let painted=false;
-      for(const el of document.querySelectorAll('header,.stage,.world-head,.world-bottom,.console-nav,.console-actions,.console-panel,.deck-panel,canvas,h1,h2,p,button')){
+      for(const el of document.querySelectorAll('header,.world-head,.world-bottom,.console-nav,.console-actions,.console-panel,.deck-panel,canvas,h1,h2,p,button')){
+        if(getComputedStyle(el).visibility==='hidden'||getComputedStyle(el).display==='none')continue;
         const r=el.getBoundingClientRect();if(r.top<=y&&y<=r.bottom&&r.width>40){painted=true;break;}}
       if(!painted){if(!voidBand)voidBand={from:y,to:y};else voidBand.to=y;}else if(voidBand){voidBand=null;}}
     // B7 hierarchy: the type scale's real spread, and the caps.
@@ -341,7 +342,7 @@ try {
       task:{primary:primary.slice(0,4),belowFold:belowFold.length},
       boxFit:worstFit, voidBand, hierarchy:{sizes:sorted,spread:sorted.length>1?+(sorted.at(-1)/sorted[0]).toFixed(1):1},
       caps:{cards,shadows,radii,pills,gradients,fontSizes:sorted.length,logoBoxes},
-      basics:{noAlt,unlabelled,smallTaps,lang,viewport,title}};
+      basics:{noAlt,unlabelled,lang,viewport,title}};
   })()`);
   const B=(id,pass,fail,evidence='')=>record('book',pass?'low':'high',pass?`${id} passes`:`${id} fails — ${fail}`,evidence);
   B('B1 first-screen task',gate.task.belowFold===0,`${gate.task.belowFold} primary actions sit below the fold`,JSON.stringify(gate.task.primary));

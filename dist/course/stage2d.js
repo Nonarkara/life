@@ -658,7 +658,7 @@ function createStage(canvas){
     if(set!=='travel'&&!moment){
       const present=scene.actors;
       for(const [index,actor]of present.entries()){
-        const marks=stage.marks?.[present.length]??scene.room?.marks?.[present.length]??{1:[.5],2:[.42,.64],3:[.34,.51,.70],4:[.24,.41,.60,.79]}[present.length]??spread(present.length);
+        const marks=stage.marks?.[present.length]??scene.room?.marks?.[present.length]??{1:[.5],2:[.38,.58],3:[.26,.44,.62],4:[.18,.32,.47,.62]}[present.length]??spread(present.length);
         const x=scene.room||stage.marks?drawn.x+marks[index]*drawn.drawWidth:seen*.08+actor.slot*(seen*.84);
         drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,x,{scale:stage.scale,calibrated:!!scene.room});
       }

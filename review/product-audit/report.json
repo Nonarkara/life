@@ -1,7 +1,7 @@
 {
  "summary": {
   "base": "http://127.0.0.1:4219",
-  "when": "2026-11-06T08:10:28.523Z",
+  "when": "2026-11-06T14:22:41.827Z",
   "counts": {
    "high": 0,
    "medium": 1,
@@ -12,7 +12,7 @@
   {
    "area": "performance",
    "severity": "medium",
-   "what": "one view costs 19 requests and 2070 kB",
+   "what": "one view costs 19 requests and 2101 kB",
    "evidence": "{\"nodes\":995,\"buttons\":64}"
   },
   {
@@ -31,7 +31,7 @@
    "area": "book",
    "severity": "low",
    "what": "B2 chrome cost passes",
-   "evidence": "[{\"sel\":\"header\",\"h\":50},{\"sel\":\".world-head\",\"h\":41},{\"sel\":\".world-bottom\",\"h\":43},{\"sel\":\".console-actions\",\"h\":44},{\"sel\":\".console-nav\",\"h\":35}]"
+   "evidence": "[{\"sel\":\"header\",\"h\":50},{\"sel\":\".world-head\",\"h\":41},{\"sel\":\".world-bottom\",\"h\":40},{\"sel\":\".console-actions\",\"h\":44},{\"sel\":\".console-nav\",\"h\":35}]"
   },
   {
    "area": "book",
@@ -61,7 +61,7 @@
    "area": "book",
    "severity": "low",
    "what": "B13 ship basics passes",
-   "evidence": "{\"noAlt\":0,\"unlabelled\":0,\"smallTaps\":[{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}},{\"el\":{},\"r\":{}}],\"lang\":\"en\",\"viewport\":\"width=device-width,initial-scale=1\",\"title\":\"Life choices\"}"
+   "evidence": "{\"noAlt\":0,\"unlabelled\":0,\"lang\":\"en\",\"viewport\":\"width=device-width,initial-scale=1\",\"title\":\"Life choices\"}"
   }
  ]
 }
