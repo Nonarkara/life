@@ -332,7 +332,6 @@ try {
     const imgs=[...document.querySelectorAll('img')];
     const noAlt=imgs.filter(i=>!i.hasAttribute('alt')).length;
     const unlabelled=[...document.querySelectorAll('input,select,textarea')].filter(el=>!el.getAttribute('aria-label')&&!el.labels?.length&&!el.getAttribute('title')).length;
-    const smallTaps=[...document.querySelectorAll('button,a[href],input,select')].filter(seen).map(el=>({el,r:el.getBoundingClientRect()})).filter(x=>x.r.height<44||x.r.width<44);
     const inlineLink=el=>el.tagName==='A'&&el.closest('p,li,span,.fine,.hint')!=null;
     const lang=document.documentElement.lang||'';
     const viewport=document.querySelector('meta[name=viewport]')?.content||'';
