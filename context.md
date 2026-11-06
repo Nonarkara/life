@@ -837,3 +837,13 @@ frame can be chosen before the image is generated rather than after; and the
 massing of the real block can be checked against the hand-built districts.
 Their output is not committed — their terms forbid copying and redistribution —
 so what we keep is the link and what we learn from it.
+
+
+## The people were standing in the air · 6 November 2026
+The owner sent a screenshot: the family floated above the floor of the painted
+apartment. The cause was a single number. The home set's ground line was .78,
+an outlier among the sets — every other one stands at .86 — because it had been
+tuned against the old generic home plate. The twenty-eight new house plates put
+their floors lower in the frame, so the figures were placed high, with their
+shoes in the middle of the room. The line is now .86, the same as every other
+set, and the feet meet the tiles.

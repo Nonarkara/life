@@ -18,7 +18,7 @@ import {prepareStageArt,stageImage,platePath,spritePath,animeManifest} from './a
 // figure's height as a fraction of the plate, so people sit inside the paint
 // rather than on top of it.
 const SETS={
-  home:{plate:'home-day',night:'home-night',ground:.78,scale:.30,span:[3,7]},
+  home:{plate:'home-day',night:'home-night',ground:.86,scale:.30,span:[3,7]},
   hospital:{plate:'hospital',ground:.82,scale:.26,span:[3,7]},
   bedroom:{plate:'bedroom-day',night:'bedroom-night',ground:.86,scale:.28,span:[3,7]},
   street:{plate:'town',night:'street-night',ground:.86,scale:.24,span:[6.5,13]},
