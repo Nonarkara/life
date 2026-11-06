@@ -1,7 +1,7 @@
 [
   {
     "name": "urgent-844",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -37,7 +37,7 @@
           "y": 429
         },
         "disabled": false,
-        "text": "Pay ฿300 to leave earlier"
+        "text": "Pay \u0e3f300 to leave earlier"
       }
     ],
     "dialog": {
@@ -123,7 +123,7 @@
   },
   {
     "name": "urgent-1024",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -159,7 +159,7 @@
           "y": 731.40625
         },
         "disabled": false,
-        "text": "Pay ฿300 to leave earlier"
+        "text": "Pay \u0e3f300 to leave earlier"
       }
     ],
     "dialog": {
@@ -245,7 +245,7 @@
   },
   {
     "name": "urgent-1440",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -281,7 +281,7 @@
           "y": 795.203125
         },
         "disabled": false,
-        "text": "Pay ฿300 to leave earlier"
+        "text": "Pay \u0e3f300 to leave earlier"
       }
     ],
     "dialog": {
@@ -367,7 +367,7 @@
   },
   {
     "name": "pressure-1440",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -379,7 +379,7 @@
           "y": 707.203125
         },
         "disabled": true,
-        "text": "Contribute ฿1,200 to the bill"
+        "text": "Contribute \u0e3f1,200 to the bill"
       },
       {
         "box": {
@@ -403,7 +403,7 @@
           "y": 802.203125
         },
         "disabled": true,
-        "text": "Spend ฿300 comparing cooperative terms"
+        "text": "Spend \u0e3f300 comparing cooperative terms"
       }
     ],
     "dialog": {
@@ -489,7 +489,7 @@
   },
   {
     "name": "pressure-390",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -501,7 +501,7 @@
           "y": 735.7578125
         },
         "disabled": true,
-        "text": "Contribute ฿1,200 to the bill"
+        "text": "Contribute \u0e3f1,200 to the bill"
       },
       {
         "box": {
@@ -525,7 +525,7 @@
           "y": 823.7578125
         },
         "disabled": true,
-        "text": "Spend ฿300 comparing cooperative terms"
+        "text": "Spend \u0e3f300 comparing cooperative terms"
       }
     ],
     "dialog": {
@@ -611,7 +611,7 @@
   },
   {
     "name": "quiet-390",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -635,7 +635,7 @@
           "y": 779.7578125
         },
         "disabled": false,
-        "text": "Contribute ฿500 to shared transport"
+        "text": "Contribute \u0e3f500 to shared transport"
       },
       {
         "box": {
@@ -733,7 +733,7 @@
   },
   {
     "name": "thai-xl-context-390",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -745,7 +745,7 @@
           "y": 0
         },
         "disabled": false,
-        "text": "เทียบน้ำหนักและข้อเสนอเป็นลายลักษณ์อักษรก่อน"
+        "text": "\u0e40\u0e17\u0e35\u0e22\u0e1a\u0e19\u0e49\u0e33\u0e2b\u0e19\u0e31\u0e01\u0e41\u0e25\u0e30\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e19\u0e2d\u0e40\u0e1b\u0e47\u0e19\u0e25\u0e32\u0e22\u0e25\u0e31\u0e01\u0e29\u0e13\u0e4c\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e01\u0e48\u0e2d\u0e19"
       },
       {
         "box": {
@@ -757,7 +757,7 @@
           "y": 0
         },
         "disabled": false,
-        "text": "ช่วยค่าขนส่งร่วมกัน ฿500"
+        "text": "\u0e0a\u0e48\u0e27\u0e22\u0e04\u0e48\u0e32\u0e02\u0e19\u0e2a\u0e48\u0e07\u0e23\u0e48\u0e27\u0e21\u0e01\u0e31\u0e19 \u0e3f500"
       },
       {
         "box": {
@@ -769,7 +769,7 @@
           "y": 0
         },
         "disabled": false,
-        "text": "ใช้ข้อตกลงเดิมในฤดูกาลนี้"
+        "text": "\u0e43\u0e0a\u0e49\u0e02\u0e49\u0e2d\u0e15\u0e01\u0e25\u0e07\u0e40\u0e14\u0e34\u0e21\u0e43\u0e19\u0e24\u0e14\u0e39\u0e01\u0e32\u0e25\u0e19\u0e35\u0e49"
       }
     ],
     "dialog": {
@@ -830,7 +830,7 @@
         "x": 13,
         "y": 797.0546875
       },
-      "text": "ดูทางเลือก →"
+      "text": "\u0e14\u0e39\u0e17\u0e32\u0e07\u0e40\u0e25\u0e37\u0e2d\u0e01 \u2192"
     },
     "readingStage": "context",
     "scroll": {
@@ -855,7 +855,7 @@
   },
   {
     "name": "thai-xl-choices-390",
-    "build": "ce49b3a2c4b6",
+    "build": "88a5068e40e4",
     "choices": [
       {
         "box": {
@@ -867,7 +867,7 @@
           "y": 694.2890625
         },
         "disabled": false,
-        "text": "เทียบน้ำหนักและข้อเสนอเป็นลายลักษณ์อักษรก่อน"
+        "text": "\u0e40\u0e17\u0e35\u0e22\u0e1a\u0e19\u0e49\u0e33\u0e2b\u0e19\u0e31\u0e01\u0e41\u0e25\u0e30\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e19\u0e2d\u0e40\u0e1b\u0e47\u0e19\u0e25\u0e32\u0e22\u0e25\u0e31\u0e01\u0e29\u0e13\u0e4c\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e01\u0e48\u0e2d\u0e19"
       },
       {
         "box": {
@@ -879,7 +879,7 @@
           "y": 764.2109375
         },
         "disabled": false,
-        "text": "ช่วยค่าขนส่งร่วมกัน ฿500"
+        "text": "\u0e0a\u0e48\u0e27\u0e22\u0e04\u0e48\u0e32\u0e02\u0e19\u0e2a\u0e48\u0e07\u0e23\u0e48\u0e27\u0e21\u0e01\u0e31\u0e19 \u0e3f500"
       },
       {
         "box": {
@@ -891,7 +891,7 @@
           "y": 808.2109375
         },
         "disabled": false,
-        "text": "ใช้ข้อตกลงเดิมในฤดูกาลนี้"
+        "text": "\u0e43\u0e0a\u0e49\u0e02\u0e49\u0e2d\u0e15\u0e01\u0e25\u0e07\u0e40\u0e14\u0e34\u0e21\u0e43\u0e19\u0e24\u0e14\u0e39\u0e01\u0e32\u0e25\u0e19\u0e35\u0e49"
       }
     ],
     "dialog": {
@@ -952,7 +952,7 @@
         "x": 13,
         "y": 694.2890625
       },
-      "text": "เทียบน้ำหนักและข้อเสนอเป็นลายลักษณ์อักษรก่อน"
+      "text": "\u0e40\u0e17\u0e35\u0e22\u0e1a\u0e19\u0e49\u0e33\u0e2b\u0e19\u0e31\u0e01\u0e41\u0e25\u0e30\u0e02\u0e49\u0e2d\u0e40\u0e2a\u0e19\u0e2d\u0e40\u0e1b\u0e47\u0e19\u0e25\u0e32\u0e22\u0e25\u0e31\u0e01\u0e29\u0e13\u0e4c\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e01\u0e48\u0e2d\u0e19"
     },
     "readingStage": "choices",
     "scroll": {

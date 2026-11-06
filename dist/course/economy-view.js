@@ -1,5 +1,6 @@
 import {GDP_OBSERVATIONS} from './economy-data.js';
 import {economyFor,economyYears,periodEconomy} from './economy.js';
+import {thaiEraForState,THAI_ERAS,renderEraArtworkSVG} from './thai-history.js';
 export const ECONOMY_COPY=[
  'Shared economy','Sampled GDP growth · % per year','Scenario years {from}–{to}',
  'The economy unfolds as you live. Future years are hidden.',
@@ -43,11 +44,12 @@ function growthChart(rows){
 // meters measured from a centre line, and what the year did to this life.
 export function renderWorldNow(root,s){
  root.replaceChildren();
- const world=economyFor(s),rows=economyYears(world,s.age),last=rows.at(-1);
+ const world=economyFor(s),rows=economyYears(world,s.age),last=rows.at(-1),eraInfo=thaiEraForState(s,s.age);
  const head=el('div',undefined,'world-now-head');
  head.append(el('h2','The year around you'));
- head.append(el('p',last?`Scenario year ${last.year} · age ${last.age}`:'The economy unfolds as you live. Future years are hidden.','world-now-note'));
+ head.append(el('p',eraInfo?`Year ${eraInfo.year} · age ${s.age} · ${eraInfo.era.badge}`:last?`Scenario year ${last.year} · age ${last.age}`:'The economy unfolds as you live. Future years are hidden.','world-now-note'));
  root.append(head);
+ if(eraInfo)root.append(el('p',eraInfo.era.summary,'world-now-note'));
  if(!last)return;
  if(rows.length>1)root.append(growthChart(rows));
  const metrics=[['GDP growth',last.growth],['Bond fund return',last.bond*100],['Equity fund return',last.equity*100]];
@@ -67,7 +69,24 @@ export function renderWorldNow(root,s){
  if(chapter){const group=el('section',undefined,'economy-exposure');group.append(el('h3','Latest completed chapter'),el('p','Totals for ages '+chapter.from+'–'+chapter.to,'world-now-note'),el('p','Work income effect: '+money(chapter.incomeAdjustment)),el('p','Your holdings changed: '+money(chapter.marketChange)),el('p','Contraction years in that chapter: '+chapter.contractions.length));root.append(group);}
 }
 export function renderEconomy(root,s){
- const world=economyFor(s),rows=economyYears(world,s.age),section=el('section',undefined,'economy-view');section.setAttribute('aria-label','Shared economy');
+ const world=economyFor(s),rows=economyYears(world,s.age),eraInfo=thaiEraForState(s,s.age),currentEra=eraInfo?.era??THAI_ERAS.at(-1),currentYear=eraInfo?.year??(2030+s.age);
+ const chronicle=el('section',undefined,'thai-chronicle');chronicle.setAttribute('aria-label','Thailand over time · 1949–2026');
+ chronicle.append(el('h2','Thailand over time · 1949–2026'));
+ chronicle.append(el('p',eraInfo?`${eraInfo.cohort.label}`:'Historical streetscape, transport and media across seven decades of modern Thailand.','console-note'));
+ const fig=el('figure',undefined,'era-figure');fig.append(renderEraArtworkSVG(currentEra,currentYear),el('figcaption',`${currentEra.eraSpan} · ${currentEra.title}`));
+ chronicle.append(fig,el('p',currentEra.summary,'console-note'));
+ const facts=el('dl',undefined,'era-facts');
+ for(const[dt,dd]of [['Streets & transport',currentEra.transport],['Media & communication',currentEra.media],['Neighbourhood & work',currentEra.urban],['Historical milestone',currentEra.milestone]]){facts.append(el('dt',dt),el('dd',dd));}
+ chronicle.append(facts);
+ const allEras=el('details');allEras.append(el('summary','Seven eras of Thailand (1949–2026)'));
+ const eraList=el('ol',undefined,'economy-years');
+ for(const e of THAI_ERAS){
+  const li=el('li'),h=el('strong',`${e.eraSpan} · ${e.title}`);
+  li.append(h,el('p',e.summary,'console-note'));
+  eraList.append(li);
+ }
+ allEras.append(eraList);chronicle.append(allEras);root.append(chronicle);
+ const section=el('section',undefined,'economy-view');section.setAttribute('aria-label','Shared economy');
  section.append(el('h2','Shared economy'));
  if(!s.economy||world.activeFrom>0)section.append(el('p','Economic record begins at age '+world.activeFrom+'.','console-note'));
  if(rows.length<2)section.append(el('p','The economy unfolds as you live. Future years are hidden.','console-note'));

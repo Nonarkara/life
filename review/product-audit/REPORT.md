@@ -1,6 +1,6 @@
 # Product audit · the Book's ship gate
 
-Base: http://127.0.0.1:4219 · 2026-11-06T15:48:53.083Z
+Base: http://127.0.0.1:4221 · 2026-11-06T16:27:12.931Z
 
 Verdict: **PASS** (0 high, 0 medium)
 
@@ -17,7 +17,7 @@ Builder ≠ auditor: the page was built by other agents; this gate walks it, and
 
 ## Findings
 
-- **low** · performance · one view costs 19 requests and 2165 kB  
+- **low** · performance · one view costs 19 requests and 2223 kB  
   {"nodes":995,"buttons":64}
 - **low** · performance · frame pacing could not be measured in this browser  
   {"frames":0,"ms":3002}

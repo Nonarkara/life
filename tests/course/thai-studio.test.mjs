@@ -116,3 +116,50 @@ test('Thai easter eggs are non-urgent, seed-conditioned at adult ages, and free 
   }
  }
 });
+
+test('1949–2026 historical cohorts and seven Thai eras survive birthcode roundtrip, validation and five-language translation',async()=>{
+ const {COHORT_YEARS,HISTORICAL_COHORTS,THAI_ERAS,thaiEraForYear,thaiEraForState}=await import('../../dist/course/thai-history.js');
+ const {newLife,configureLife,replay}=await import('../../dist/course/sim.js');
+ const {encodeBirth,decodeBirth}=await import('../../dist/course/birthcode.js');
+ for(const year of COHORT_YEARS){
+  const life=configureLife(newLife(77),{sex:'female',class:'middle_class',birthYear:year});
+  assert.equal(life.intake.birthYear,year);
+  assert.equal(life.birth.birthYear,year);
+  assert.ok(validate(life),'valid cohort life for '+year);
+  const code=encodeBirth(life);
+  assert.ok(code,'encodes cohort birthcode for '+year);
+  assert.deepEqual(decodeBirth(code),life,'roundtrips cohort birthcode for '+year);
+  assert.equal(replay(life).birth.birthYear,year,'replay preserves birthYear');
+ }
+ const mother1949=configureLife(newLife(77),{birthYear:1949});
+ assert.equal(thaiEraForState(mother1949,0).era.id,'canal-cinema');
+ assert.equal(thaiEraForState(mother1949,20).era.id,'development-roads');
+ assert.equal(thaiEraForState(mother1949,48).era.id,'tom-yum-goong');
+ assert.equal(thaiEraForState(mother1949,62).era.id,'flood-smartphones');
+ assert.equal(thaiEraForState(mother1949,77).year,2026);
+ assert.equal(thaiEraForState(mother1949,77).era.id,'modern-aging');
+ const genY1981=configureLife(newLife(81),{birthYear:1981});
+ assert.equal(thaiEraForState(genY1981,5).era.id,'pre-skytrain-soi');
+ assert.equal(thaiEraForState(genY1981,14).era.id,'boom-modem');
+ assert.equal(thaiEraForState(genY1981,16).era.id,'tom-yum-goong');
+ assert.equal(thaiEraForState(genY1981,45).year,2026);
+ for(const c of Object.values(HISTORICAL_COHORTS)){
+  for(const text of [c.label,c.shortLabel,c.note]){
+   for(const lang of ['th','zh-CN','ja','ko']){
+    assert.notEqual(translate(text,lang),text,lang+': '+text);
+    assert.doesNotMatch(translate(text,'ko'),/[\u3040-\u30ff]/);
+    assert.doesNotMatch(translate(text,'ja'),/[\uac00-\ud7af]/);
+   }
+  }
+ }
+ for(const era of THAI_ERAS){
+  assert.equal(thaiEraForYear(era.from).id,era.id);
+  for(const text of [era.title,era.badge,era.transport,era.media,era.urban,era.summary,era.milestone]){
+   for(const lang of ['th','zh-CN','ja','ko']){
+    assert.notEqual(translate(text,lang),text,lang+': '+text);
+    assert.doesNotMatch(translate(text,'ko'),/[\u3040-\u30ff]/);
+    assert.doesNotMatch(translate(text,'ja'),/[\uac00-\ud7af]/);
+   }
+  }
+ }
+});

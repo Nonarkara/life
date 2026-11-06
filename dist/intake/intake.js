@@ -1,4 +1,5 @@
 import {AXES,balanced,transfer,newLife,configureLife,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
+import {HISTORICAL_COHORTS} from '../course/thai-history.js';
 import {initSettings,t} from '../course/i18n.js';
 import {REGIONS,BAND_REGIONS,CLASS_REGIONS,COUNTRIES,household} from '../course/regions.js';
 import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../course/birthcode.js';
@@ -21,10 +22,11 @@ export function birthOdds(life,options){
 let drawn=null,lastOptions={};
 function draw_life(options){const seed=Math.floor(Math.random()*2147483646)+1;const life=configureLife(newLife(seed),options);if(!validate(life))throw Error('Invalid starting conditions');return life;}
 function card(life){
- const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class];
- const facts=[['Place',t(b.place)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
+ const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class],cohort=HISTORICAL_COHORTS[life.intake.birthYear];
+ const facts=[['Place',t(b.place)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
+ if(cohort?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cohort.note);$('birth-facts').append(note);}
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }
@@ -46,10 +48,11 @@ const shareBirth=async copyOnly=>{
  }finally{if(revision===shareRevision)action.disabled=false;}
 };
 $('birth-share').onclick=()=>shareBirth(false);birthCopy.onclick=()=>shareBirth(true);
-$('random-life').onclick=()=>enter({});$('intake-form').onsubmit=e=>{e.preventDefault();enter({sex:$('body-profile').value,class:$('birth-class').value,attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
+$('random-life').onclick=()=>enter({});$('intake-form').onsubmit=e=>{e.preventDefault();const era=$('birth-era')?.value;enter({sex:$('body-profile').value,class:$('birth-class').value,...(era&&era!=='random'?{birthYear:Number(era)}:{}),attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
 try{const saved=JSON.parse(localStorage.getItem('life-course-v2'));if(validate(saved)&&saved.stage!=='recap'){$('continue-life').hidden=false;$('continue-life').textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));}}catch{}
-function classNote(){const v=$('birth-class').value,cls=CLASS_TIERS[v];$('class-note').textContent=cls?t(cls.note):t('The condition you are born into sets family resources and pressures, not your intelligence or destiny.');$('class-regions').textContent=(CLASS_REGIONS[v]??[]).map(id=>REGIONS[id]?.place).join(' · ')||t('Any Thai region.');}
-$('birth-class').addEventListener('change',classNote);
+function eraNote(){const era=$('birth-era')?.value,cohort=HISTORICAL_COHORTS[Number(era)];if($('era-note'))$('era-note').textContent=cohort?t(cohort.note):t('Watch Thailand transform from 1949 canals and 16mm cinema to the 1997 crisis, Skytrain and cashless 2020s streets.');}
+function classNote(){const v=$('birth-class').value,cls=CLASS_TIERS[v];$('class-note').textContent=cls?t(cls.note):t('The condition you are born into sets family resources and pressures, not your intelligence or destiny.');$('class-regions').textContent=(CLASS_REGIONS[v]??[]).map(id=>REGIONS[id]?.place).join(' · ')||t('Any Thai region.');eraNote();}
+$('birth-class').addEventListener('change',classNote);$('birth-era')?.addEventListener('change',eraNote);
 // The lives already lived, each with a way to live the same birth again.
 function archive(){
  const lives=readLives(localStorage),box=$('lives'),list=$('lives-list');
@@ -70,4 +73,4 @@ function invited(){
  $('birth-title').textContent=t(daily?'Today’s life':'A life was sent to you');
  $('birth-again').hidden=true;$('birth-card').showModal();
 }
-window.addEventListener('life-preferences',()=>{draw();classNote();archive();});initSettings();draw();classNote();archive();invited();
+window.addEventListener('life-preferences',()=>{draw();classNote();eraNote();archive();});initSettings();draw();classNote();eraNote();archive();invited();

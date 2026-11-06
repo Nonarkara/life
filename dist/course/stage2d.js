@@ -12,6 +12,7 @@ import {regionAt,REGIONS,household} from './regions.js';
 import {preferences,t} from './i18n.js';
 import {agedImage} from './aging.js';
 import {prepareStageArt,stageImage,platePath,spritePath,animeManifest} from './anime-assets.js';
+import {applyEraCanvasGrade} from './thai-history.js';
 
 // A set is one painted plate and the places people stand on it. `ground` is the
 // fraction of the plate's height where feet meet the floor; `scale` is the
@@ -712,6 +713,7 @@ function createStage(canvas){
       out.drawImage(buffer,0,0);
     }
     ctx.drawImage(frame,0,0);
+    applyEraCanvasGrade(ctx,width,height,state,age);
     hasFrame=true;
 
     const line=scene.caption;

@@ -11,6 +11,7 @@
   <dl class="spec">
    <dt>Body profile</dt><dd>Drawn at random</dd>
    <dt>Birth class</dt><dd>Drawn at random</dd>
+   <dt>Historical era</dt><dd>1949 to 2026 cohorts</dd>
    <dt>Birthplace</dt><dd>Chosen within your class</dd>
    <dt>Household</dt><dd>Stated at birth</dd>
    <dt>Ten points</dt><dd>Spread at random</dd>
@@ -28,10 +29,13 @@
   <select id="birth-class"><option value="random">Random · the birth lottery decides</option><option value="high_class">High class · inherited wealth</option><option value="low_class">Low class · limited resources</option><option value="middle_class">Middle class · striving</option><option value="working_class">Working class · wages</option><option value="bureaucratic_class">Bureaucratic class · public-service family</option><option value="royal_associated">Royal associated · family connections</option></select>
   <p class="fine" id="class-note">The condition you are born into sets family resources and pressures, not your intelligence or destiny.</p>
   <p class="fine" id="class-regions">Any Thai region.</p>
+  <label for="birth-era"><span class="n">03</span> Historical cohort · Thailand 1949–2026</label>
+  <select id="birth-era"><option value="random">Scenario calendar · timeless</option><option value="1949">1949 · Post-war &amp; Canal Era (Mother’s generation)</option><option value="1970">1970 · Development Roads &amp; Boom Era</option><option value="1981">1981 · Pre-Skytrain Bangkok (Gen Y)</option><option value="1990">1990 · Analog-to-Digital Transition</option><option value="2026">2026 · Present-Day Scenario</option></select>
+  <p class="fine" id="era-note">Watch Thailand transform from 1949 canals and 16mm cinema to the 1997 crisis, Skytrain and cashless 2020s streets.</p>
   <p class="disclaimer">These are fictional starting conditions and authored game rules, not demographic data.</p>
  </article>
  <article class="panel starting-shape">
-  <h2><span class="n">03</span> Starting shape <span class="count">10 / 10 points</span></h2>
+  <h2><span class="n">04</span> Starting shape <span class="count">10 / 10 points</span></h2>
   <svg id="intake-radar" viewBox="0 0 360 280" role="group" aria-label="Choose an attribute, then adjust its points"></svg>
   <div class="point-editor"><button id="point-minus" type="button" aria-label="Remove one point" aria-describedby="selected-axis">−</button><output id="selected-points" aria-live="polite"></output><button id="point-plus" type="button" aria-label="Add one point" aria-describedby="selected-axis">+</button><span id="selected-axis"></span></div>
   <p class="fine">Select an attribute on the diagram. ± moves a point to or from your largest other attribute. Ten points are a game constraint, not a biological law.</p>

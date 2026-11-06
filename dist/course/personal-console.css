@@ -409,8 +409,11 @@
  .life-deck .deck-set{display:flex;flex-direction:column}
  .life-deck .deck-set .deck-placard{order:0}
  .life-deck .deck-set .deck-points{order:1}
- .life-deck .deck-set .deck-strip{order:2;margin-top:5px}
- .life-deck .deck-set .deck-note{order:3}
+ .life-deck .deck-set .deck-strip{order:2;margin-top:2px}
+ .life-deck .deck-set .deck-note{order:3;margin:1px 0 0;line-height:1.2}
+ .life-deck:has(.deck-money){grid-template-columns:340px 165px 175px 175px 205px minmax(180px,1fr)}
+ .deck-action-integrated .latest-event summary{min-height:24px}
+ .deck-action-integrated .life-deck .deck-chip{min-height:26px;padding:2px 5px}
 }
 /* The selected channel's number lives in its stepper, not twice beside it. */
 .life-deck .deck-chip.active .deck-chip-val{display:none}

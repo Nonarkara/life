@@ -12,6 +12,7 @@ import {furniture,townGrowth} from './layout.js';
 import {routine,routineContext} from './routines.js';
 import {RESIDENCES,roomFurniture} from './locations.js';
 import {revealedPlaces,floorAt,CITY_BLOCKS} from './district-layout.js';
+import {applyEraCanvasGrade} from './thai-history.js';
 const C={land:'#7d9764',grass:'#9caf73',sand:'#c7b582',water:'#507e82',waterLight:'#7dabad',road:'#c8bba1',edge:'#a59375',wall:'#eed7aa',shade:'#c4aa80',roof:'#a15f49',roofLight:'#bb7b57',wood:'#6b5740',ink:'#273d35',leaf:'#476b48',lightleaf:'#668651',paper:'#eee2bc',amber:'#f59e0b'};
 const canvasBuffer=document.createElement('canvas');canvasBuffer.width=560;canvasBuffer.height=340;
 // The first time the world is on screen, by any route (painted, 3D or the flat canvas),
@@ -128,7 +129,7 @@ objects.sort((a,b)=>a.depth-b.depth);objects.forEach(o=>o.fn());
 // Passing traffic has its own lane and remains independent of the player.
 if(age>=5){const busX=-1+(time*.12%14);box(busX,7.25,.05,1.2,.55,.6,'#9caa93','#697d6d','#8f9b80');box(busX+.15,7.26,.65,.8,.5,.05,C.paper);}
 c.restore();finish();
-function finish(){const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;if(canvas.width!==bw*2||canvas.height!==bh*2){canvas.width=bw*2;canvas.height=bh*2;}out.imageSmoothingEnabled=false;out.clearRect(0,0,bw*2,bh*2);out.drawImage(canvasBuffer,0,0,bw*2,bh*2);if(!labels.length)return;const k=canvas.width/Math.max(1,canvas.clientWidth),size=11*k,pad=3*k;out.font='600 '+size+'px '+worldFont();out.textAlign='center';out.textBaseline='middle';for(const[x,y,text]of labels){const w=out.measureText(text).width,cx=Math.min(Math.max(x*2,w/2+pad),bw*2-w/2-pad);if(y*2<0||y*2>bh*2)continue;out.fillStyle=C.paper;out.fillRect(cx-w/2-pad,y*2-size/2-pad,w+pad*2,size+pad*2);out.fillStyle=C.ink;out.fillText(text,cx,y*2);}}
+function finish(){const out=canvas.getContext('2d');out.imageSmoothingEnabled=false;if(canvas.width!==bw*2||canvas.height!==bh*2){canvas.width=bw*2;canvas.height=bh*2;}out.imageSmoothingEnabled=false;out.clearRect(0,0,bw*2,bh*2);out.drawImage(canvasBuffer,0,0,bw*2,bh*2);applyEraCanvasGrade(out,bw*2,bh*2,state,age);if(!labels.length)return;const k=canvas.width/Math.max(1,canvas.clientWidth),size=11*k,pad=3*k;out.font='600 '+size+'px '+worldFont();out.textAlign='center';out.textBaseline='middle';for(const[x,y,text]of labels){const w=out.measureText(text).width,cx=Math.min(Math.max(x*2,w/2+pad),bw*2-w/2-pad);if(y*2<0||y*2>bh*2)continue;out.fillStyle=C.paper;out.fillRect(cx-w/2-pad,y*2-size/2-pad,w+pad*2,size+pad*2);out.fillStyle=C.ink;out.fillText(text,cx,y*2);}}
 }
 function drawCourse(c,s,compact=false){
  c.fillStyle=C.water;c.fillRect(0,0,560,340);for(let x=0;x<560;x+=19)for(let y=50;y<300;y+=13){c.fillStyle=C.waterLight;c.fillRect(x+(y%7),y,5,1);}
