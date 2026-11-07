@@ -60,7 +60,7 @@ Everything below is `needs-source` and becomes data only once cited:
 
 ## 4. Handling the monarchy and sensitive events (owner's call)
 
-The 112 risk is the owner's, so the default is fixed: royals are never depicted, never given words, never made a decision or a cameo. A reign change or a death appears only as the country's own weather (black clothing, a long quiet, the radio), with the dated fact cited. Please confirm or tighten.
+**Confirmed by the owner, 7 Nov ("Sounds good").** The 112 risk is the owner's, so the rule is fixed: royals are never depicted, never given words, never made a decision or a cameo. A reign change or a death appears only as the country's own weather (black clothing, a long quiet, the radio), with the dated fact cited. Please confirm or tighten.
 
 ## 5. What this adds to the plan
 
