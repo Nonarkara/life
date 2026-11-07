@@ -1,0 +1,945 @@
+{
+ "series": {
+  "population_total": [
+   {
+    "year": 1960,
+    "value": 26851747,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 35954408,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 46575855,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 54738329,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 63007815,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 68579447,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 71641484,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 71702435,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 71668011,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.POP.TOTL?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "life_expectancy_at_birth": [
+   {
+    "year": 1960,
+    "value": 50.61,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 56.47,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 62.86,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 68.92,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 71.2,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 75.01,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 77.33,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 76.41,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 76.56,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.LE00.IN?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "infant_mortality_per_1000": [
+   {
+    "year": 1960,
+    "value": 113.3,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 78.7,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 47.5,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 30.9,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 18.3,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 11.9,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 8.7,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 7.9,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 7.7,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.IMRT.IN?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "under5_mortality_per_1000": [
+   {
+    "year": 1960,
+    "value": 147.5,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 99.8,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 58,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 36.9,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 21.7,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 14.1,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 10.1,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 9.2,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 9,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SH.DYN.MORT?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "fertility_rate_births_per_woman": [
+   {
+    "year": 1960,
+    "value": 6.33,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 5.45,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 3.13,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 2.06,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 1.73,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 1.56,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 1.26,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 1.21,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 1.2,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.TFRT.IN?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "crude_birth_rate_per_1000": [
+   {
+    "year": 1960,
+    "value": 43.8,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 36.73,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 25.53,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 19.62,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 15.03,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 12.01,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 8.79,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 8.24,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 8.12,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "urban_share_pct": [
+   {
+    "year": 1960,
+    "value": 11.83,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 13.29,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 17.28,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 18.81,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 31.46,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 44.0,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 57.24,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 60.93,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 61.87,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.URB.TOTL.IN.ZS?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "gdp_per_capita_constant_usd": [
+   {
+    "year": 1960,
+    "value": 592.47,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 969.51,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 1538.43,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 2631.52,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1997,
+    "value": 3614.61,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1998,
+    "value": 3295.36,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 3514.72,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2008,
+    "value": 4805.76,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2009,
+    "value": 4737.46,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 5059.36,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 6032.42,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 6423.99,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 6616.59,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "gdp_per_capita_growth_pct": [
+   {
+    "year": 1960,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1970,
+    "value": 8.37,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 3.8,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 9.36,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1997,
+    "value": -4.04,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1998,
+    "value": -8.83,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 3.28,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2008,
+    "value": 0.95,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2009,
+    "value": -1.42,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 6.79,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": -6.25,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 2.3,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 3.0,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/NY.GDP.PCAP.KD.ZG?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "primary_gross_enrolment_pct": [
+   {
+    "year": 1960,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1970,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1981,
+    "value": 103.1,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 104.28,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 96.55,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 89.25,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 103.86,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 102.57,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 101.0,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.PRM.ENRR?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "secondary_gross_enrolment_pct": [
+   {
+    "year": 1960,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1970,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1981,
+    "value": 28.56,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 30.02,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 2010,
+    "value": 78.39,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 82.37,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 93.34,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 92.51,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.SEC.ENRR?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "tertiary_gross_enrolment_pct": [
+   {
+    "year": 1960,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1970,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1981,
+    "value": 7.62,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 15.93,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 35.3,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 46.38,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 42.59,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 45.44,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 44.98,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SE.TER.ENRR?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "employment_agriculture_pct": [
+   {
+    "year": 1960,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1970,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1981,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1990,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 2000,
+    "value": 44.42,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 38.24,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 31.39,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 30.22,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 28.99,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.AGR.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "employment_industry_pct": [
+   {
+    "year": 1960,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1970,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1981,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1990,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 2000,
+    "value": 18.48,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 20.64,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 22.6,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 21.92,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 22.25,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.IND.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "employment_services_pct": [
+   {
+    "year": 1960,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1970,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1981,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 1990,
+    "value": null,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025",
+    "note": "not in series"
+   },
+   {
+    "year": 2000,
+    "value": 37.1,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 41.11,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 46.01,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 47.86,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 48.76,
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SL.SRV.EMPL.ZS?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "births_per_year_derived": [
+   {
+    "year": 1960,
+    "value": 1176107,
+    "derived": true,
+    "inputs": {
+     "population": 26851747,
+     "crude_birth_rate": 43.8,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1970,
+    "value": 1320605,
+    "derived": true,
+    "inputs": {
+     "population": 35954408,
+     "crude_birth_rate": 36.73,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1981,
+    "value": 1189082,
+    "derived": true,
+    "inputs": {
+     "population": 46575855,
+     "crude_birth_rate": 25.53,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 1990,
+    "value": 1073966,
+    "derived": true,
+    "inputs": {
+     "population": 54738329,
+     "crude_birth_rate": 19.62,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2000,
+    "value": 947007,
+    "derived": true,
+    "inputs": {
+     "population": 63007815,
+     "crude_birth_rate": 15.03,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2010,
+    "value": 823639,
+    "derived": true,
+    "inputs": {
+     "population": 68579447,
+     "crude_birth_rate": 12.01,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2020,
+    "value": 629729,
+    "derived": true,
+    "inputs": {
+     "population": 71641484,
+     "crude_birth_rate": 8.79,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2023,
+    "value": 590828,
+    "derived": true,
+    "inputs": {
+     "population": 71702435,
+     "crude_birth_rate": 8.24,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   },
+   {
+    "year": 2024,
+    "value": 581944,
+    "derived": true,
+    "inputs": {
+     "population": 71668011,
+     "crude_birth_rate": 8.12,
+     "formula": "pop*CBR/1000"
+    },
+    "source_url": "https://api.worldbank.org/v2/country/THA/indicator/SP.DYN.CBRT.IN?format=json&per_page=100&date=1960:2025"
+   }
+  ],
+  "religion_buddhist_pct": [
+   {
+    "year": 2018,
+    "value": 94,
+    "source_url": "https://en.wikipedia.org/wiki/Religion_in_Thailand",
+    "note": "official census figure as stated on page"
+   },
+   {
+    "year": 2023,
+    "value": 90,
+    "source_url": "https://en.wikipedia.org/wiki/Religion_in_Thailand",
+    "note": "non-census figure"
+   }
+  ],
+  "religion_muslim_pct": [
+   {
+    "year": 2015,
+    "value": 4.29,
+    "source_url": "https://en.wikipedia.org/wiki/Religion_in_Thailand",
+    "note": "2015 census as cited; page also gives range 4-5%"
+   }
+  ],
+  "religion_christian_pct": [
+   {
+    "year": 2023,
+    "value": 4,
+    "source_url": "https://en.wikipedia.org/wiki/Religion_in_Thailand",
+    "note": "approx; Ipsos-type survey, not census"
+   }
+  ],
+  "muslim_share_of_southern_region_pct": [
+   {
+    "year": 2015,
+    "value": 24.33,
+    "source_url": "https://en.wikipedia.org/wiki/Religion_in_Thailand",
+    "note": "stated as up to 24.33% in southern region; 2,227,613 of 2,892,311 Muslims live in the south"
+   }
+  ],
+  "household_size_persons": [
+   {
+    "year": 1970,
+    "value": 5.7,
+    "source_url": "https://en.wikipedia.org/wiki/Demographics_of_Thailand"
+   },
+   {
+    "year": 2010,
+    "value": 3.2,
+    "source_url": "https://en.wikipedia.org/wiki/Demographics_of_Thailand"
+   }
+  ],
+  "urban_share_nesdb_pct": [
+   {
+    "year": 2010,
+    "value": 45.7,
+    "source_url": "https://en.wikipedia.org/wiki/Demographics_of_Thailand",
+    "note": "NESDB, differs from World Bank 44.0"
+   }
+  ]
+ },
+ "notes": [
+  "Fetched 2026-11-08 via api.worldbank.org JSON.",
+  "births_per_year_derived = population x crude birth rate / 1000; approximate, not registry counts.",
+  "Only World Bank values and two Wikipedia pages were used; Wikipedia is secondary and cites NSO/NESDB."
+ ],
+ "gaps": [
+  "Population, births, life expectancy, fertility, IMR before 1960: null. World Bank series start 1960; UN WPP not fetched. Cohorts 1940/1949/1950 therefore have no sourced value.",
+  "2026 cohort: no 2026 data exist in World Bank series (latest 2024/2025); use 2024 values labelled as such or fetch UN WPP projections.",
+  "Regional population shares (Bangkok/central, north, Isan, south): null. Wikipedia extract stripped tables and no NSO table was opened.",
+  "Religion by era: only 2015/2018/2023 snapshots; Christian and other shares are survey-based. Per-province Muslim shares (Pattani/Yala/Narathiwat) not retrieved; page only names provinces.",
+  "Schooling: only gross enrolment (can exceed 100, not attainment). Primary 1981, secondary gaps (2000 missing in WB series). No attainment or lower/upper secondary split.",
+  "Workforce by sector: World Bank (ILO modelled) begins 1991; nothing for 1940-1990.",
+  "Causes of death by era (infectious to NCD, road traffic): null. WHO/GBD not opened in this pass.",
+  "Household size: only 1970 and 2010 from Wikipedia citing census; 1980-2000 null.",
+  "1997 crisis: World Bank per-capita growth for 1997/1998 included where present; GDP level series is constant-2015 USD (check World Bank metadata).",
+  "Regional TFR table on Wikipedia (DHS) was not parseable from the text extract."
+ ]
+}
