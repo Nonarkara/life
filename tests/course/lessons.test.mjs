@@ -12,7 +12,7 @@ test('the gravest choices stop time',()=>{for(const id of ['l_pension','l_funera
 test('a past choice returns once, in the period it falls due, on the timeline and in the costs',()=>{
  let s=live(to(begin(configureLife(newLife(21),{class:'middle_class'})),20));assert.ok(!s.story.seen.some(e=>e.id==='l_less'));
  s={...s,story:{...s.story,pending:{id:'l_less',age:25,candidates:['l_less']}}};s=resolveEncounter(s,'upgrade',.2);assert.equal(s.story.seen.at(-1).id,'l_less');assert.ok(validate(s));
- assert.equal(consequencesDue(s,25,34).length,0);assert.equal(consequencesDue(s,30,35).length,1);assert.equal(consequencesDue(s,35,40).length,0);
+ assert.equal(consequencesDue(s,25,34).filter(c=>c.lesson==='l_less').length,0);assert.equal(consequencesDue(s,30,35).filter(c=>c.lesson==='l_less').length,1);assert.equal(consequencesDue(s,35,40).filter(c=>c.lesson==='l_less').length,0);
  const next=to(s,35);const row=next.history.find(r=>r.age===35);assert.ok(row.consequences?.some(c=>c.lesson==='l_less'));assert.match(row.event,/Fixed costs locked in/);assert.ok(eventsFor(row).some(e=>e.type==='consequence'));
  const receipt=next.finance.receipts.find(r=>r.kind==='period'&&r.age===35);assert.ok(receipt.essential>=70000,'the consequence shows on the balance sheet');assert.ok(validate(JSON.parse(JSON.stringify(next))));
 });

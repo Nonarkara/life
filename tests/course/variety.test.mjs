@@ -4,7 +4,7 @@ import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {choiceAvailable} from '../../dist/course/finance.js';
 import {pendingPivots,applyPivot,openOptions} from '../../dist/course/pivots.js';
 // Variety guard (REBUILD-STRATEGY.md step 0). Ceilings are a ratchet: lower them as the deck grows, never raise them.
-const N=120,MAX_SHARE=.9,MIN_DISTINCT=.95;
+const N=120,MAX_SHARE=.75,MIN_DISTINCT=.95;
 test('lives are asked different questions, and no scene is in nearly every life',()=>{
  const seqs=new Set(),count={};
  for(let seed=1;seed<=N;seed++){

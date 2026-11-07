@@ -14,7 +14,7 @@ export const ENCOUNTERS=[
   option('slow','Make the next weeks lighter',{cash:-600,health:2,wellbeing:1},'You used some money to make daily life easier while recovering. Other plans waited.'),
   option('help','Ask someone to share the daily tasks',{health:1,wellbeing:2,skills:{eq:1}},'You asked for help with ordinary tasks. Accepting support became part of recovery.'),
   option('plans','Keep your existing commitments',{health:-1,wellbeing:-1,skills:{drive:1}},'You kept the commitments. There was less room to recover. This did not erase the illness.') ]},
- {id:'friend',category:'connection',min:15,max:20,priority:1,title:'An invitation after school',prompt:'{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.',options:[
+ {id:'friend',category:'connection',min:15,max:20,title:'An invitation after school',prompt:'{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.',options:[
   option('join','Make time for a new friend',{cash:-300,wellbeing:3,flag:'friend'},'You and {friend} found time for each other. A friendship began.'),
   option('home','Go home and finish your project',{skills:{craft:1}},'You stayed home and finished something that had been waiting.'),
   option('together','Study together, then take a walk',{skills:{iq:1,eq:1},wellbeing:1,flag:'friend'},'You and {friend} worked through a difficult lesson, then talked on the walk home. Neither part of the afternoon lasted as long as you wanted.'),
