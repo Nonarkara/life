@@ -155,3 +155,7 @@ Everything else (tables, grade, props, order) is my call and is set out above.
 ## 10. Literary texture (owner, 7 Nov)
 
 The owner supplied Kukrit Pramoj's Four Reigns chapters, his radio talks, a short story and a funeral book as the feel he wants. What they add (household, rank, transport, dress, illness, rites) and the rules for using them are in `ERA-TEXTURE-FROM-LITERATURE.md`. Fiction is texture, not evidence; nothing is quoted; novel characters and the funeral-book subject are not cameos.
+
+## 11. Events spine and Buddhism (owner, 7 Nov)
+
+All key events and Buddhism as a system: `ERA-EVENTS-AND-BUDDHISM.md`. Sourced rows (BBC 2019 timeline, Rajadhon's outline) are separated from `needs-source` rows. Monarchy handling is fixed conservative pending the owner's confirmation.
