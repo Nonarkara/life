@@ -119,5 +119,30 @@ export const THAI_ENCOUNTERS=[
    source:'https://nonharvard.wordpress.com/2018/10/06/day-98-what-i-know-for-sure/',sourceTitle:'Non Harvard · Day 98: What I Know for Sure',options:[
    option('guard_time','Guard your time for curiosity and the people at home','clock',{wellbeing:3,skills:{eq:1,craft:1}},'You stopped taking work just for the fee and spent the saved hours on what made you and your household genuinely happy.'),
    option('spend_joy','Spend ฿1,800 on something you denied yourself for years','heart',{cash:-1800,wellbeing:2},'You bought what you had postponed since youth and shared the comfort with the people waiting for you at home.'),
-   option('keep_frugal','Keep the old frugal habits and save ฿900 more','shield',{cash:900,wellbeing:-1},'You kept the old discipline intact. The balance grew, though the days felt much the same.')]}
+   option('keep_frugal','Keep the old frugal habits and save ฿900 more','shield',{cash:900,wellbeing:-1},'You kept the old discipline intact. The balance grew, though the days felt much the same.')]},
+  // More rare, seed-conditioned moments that carry nostalgia and symbolism.
+  {...base,id:'th_alms_round',category:'family',tone:'reflective',min:35,max:70,priority:2,urgent:false,
+    eligible:s=>easter(s,'th_alms_round'),
+    title:'The morning alms round',
+    prompt:'Monks in saffron robes walk the lane before sunrise, carrying their bowls. You can prepare food and offer it, or let the morning pass.',
+    lesson:'Giving without expecting return changes the giver more than the receiver.',
+    source:'https://nonharvard.wordpress.com/2015/11/25/day-39-on-time/',sourceTitle:'Non Harvard · Day 39: On Time',options:[
+    option('offer','Prepare food and offer it','people',{wellbeing:2,skills:{eq:1}},'You offered food at dawn. The monks accepted in silence, and the day began differently.'),
+    option('sleep','Let the morning pass','shield',{wellbeing:-1},'You stayed in bed. The alms round went by, and you missed its quiet.')]},
+  {...base,id:'th_lantern_night',category:'connection',tone:'reflective',min:35,max:75,priority:2,urgent:false,
+    eligible:s=>easter(s,'th_lantern_night'),
+    title:'The lantern night',
+    prompt:'Paper lanterns rise above the river, each one carrying a wish someone could not speak aloud. You can write one, or watch the others go.',
+    lesson:'Some things can only be said when they are sent into the dark and out of reach.',
+    source:'https://nonharvard.wordpress.com/2018/07/25/day-75-12-rules-for-life/',sourceTitle:'Non Harvard · Day 75: 12 Rules for Life',options:[
+    option('write','Write your wish on a lantern','people',{wellbeing:2,skills:{eq:1}},'You wrote your wish and sent it upward. The lantern joined the others, and something inside you felt lighter.'),
+    option('watch','Watch the lanterns without writing one','shield',{wellbeing:1},'You watched them rise. The wishes belonged to other people, and the night stayed beautiful.')]},
+  {...base,id:'th_neighborhood_song',category:'connection',tone:'reflective',min:35,max:60,priority:2,urgent:false,
+    eligible:s=>easter(s,'th_neighborhood_song'),
+    title:'A song from the radio next door',
+    prompt:'A neighbour’s radio plays an old Thai song you have not heard since childhood. The melody brings back a whole street you had almost forgotten.',
+    lesson:'Music carries time better than memory does.',
+    source:'https://nonharvard.wordpress.com/2015/10/29/day-32-what-makes-life-worth-living/',sourceTitle:'Non Harvard · Day 32: What Makes Life Worth Living',options:[
+    option('listen','Stand and listen until the song ends','art',{wellbeing:2,skills:{craft:1}},'You listened. The song ended, but the street it remembered stayed with you for days.'),
+    option('go','Close the window and keep working','clock',{wellbeing:-1,skills:{drive:1}},'You closed the window. The song finished without you, and the street stayed forgotten.')]}
 ];
