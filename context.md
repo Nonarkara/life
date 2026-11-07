@@ -901,3 +901,22 @@ no forced tragedies added, all geometry gates and the full test suite pass. The
 old-age cohort test needed seeds 1–300 instead of 1–60 (the n=60 sample mixed
 cohorts too brittly; the mood-follows-health coupling is intact, margin ≈15 at
 n=300 vs 0.5 noise at n=60).
+
+
+**Ecosystem pass after MiniMax ran out of tokens (7 November):** MiniMax left
+uncommitted work in this worktree: a debug-only `globalThis.__stageReason` patch
+in `stage2d.js` and six one-off "figure scale" scripts with 6 MB of screenshots.
+Its own measurement says the drawn person is 57 % of the frame height
+(515 of 900 px at 1440×900), so the "scale is too small" complaint has no
+defect behind it; patch and scripts are parked in the Claude scratchpad, not
+the repo. Defects found by looking at the phone and fixed:
+(1) Nemotron's age-metrics rule targeted `.age-metrics` but the element is
+`#age-metrics`, so the 12ch ellipsis clipped money/health/mood; fixed, and the
+squeezed location is hidden under 720 px. (2) b390ed6 flattened the decision
+dialog's two-column option grid into centred flex chips with ragged right
+edges; grid restored, three options now fit the first phone screen.
+(3) The landing cover left ~170 px dead under the language row on a phone; the
+reel now flexes to fill it. (4) `build.mjs` hashed and shipped `.DS_Store`, so
+the build id differed between worktrees; it now skips them.
+Open: Nemotron's spectrum slider has no question data feeding it (dormant
+code); native-speaker review of the cover in TH/ZH/JA/KO still owed.
