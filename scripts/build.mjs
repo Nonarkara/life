@@ -37,6 +37,7 @@ function writeBenchFixture(){
 
 // A build owns one module graph. Old preview caches must not mix its files.
 const {createHash}=await import('node:crypto');
+for(const f of readdirSync(output,{recursive:true}))if(f.endsWith('.DS_Store'))rmSync(output+'/'+f);// OS junk must not change the build id or ship
 function files(root){return readdirSync(root,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(root+'/'+e.name):[root+'/'+e.name]).sort();}
 const buildHash=createHash('sha256');
 for(const path of ['scripts/build.mjs','scripts/asset-versions.mjs'])buildHash.update(path).update('\0').update(readFileSync(path)).update('\0');
