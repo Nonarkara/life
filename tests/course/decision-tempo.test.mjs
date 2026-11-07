@@ -30,7 +30,7 @@ test('counterfactuals replace the answered record instead of being rejected as d
 import {beatFor,MOMENT_CAPTIONS} from '../../dist/course/stage2d.js';
 import {live} from '../../dist/course/sim.js';
 test('a chosen work/study scene survives committing the period without claiming the child quit school',()=>{
- let s=begin(newLife(31));const p=pendingPivots(s)[0];s=applyPivot(s,p,'stall');const travelling=live(s);
+ let s=begin(newLife(31));const p=pivotById('child-roof');s=applyPivot(s,p,'stall');const travelling=live(s);
  const activity={phase:'Daytime',pose:'study',action:'At school',moving:false};
  assert.equal(beatFor(travelling,10.5,activity),'grades-bad');
  assert.ok(!MOMENT_CAPTIONS['grades-bad'].includes('instead of continued study'));
@@ -41,7 +41,7 @@ import {choiceAvailable} from '../../dist/course/finance.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {undoAnswer} from '../../dist/course/alternatives.js';
 test('an unaffordable house is not published as a road not taken after renting adds cash',()=>{
- let s=begin(newLegacyLife(4));
+ let s=begin(newLegacyLife(10));
  while(s.stage==='review'){
   if(s.story?.pending)s=resolveEncounter(s,encounterById(s.story.pending.id).options.find(o=>choiceAvailable(s,o)).id,.2);
   for(const p of pendingPivots(s)){const options=openOptions(p,s);s=applyPivot(s,p,options[12%options.length].id);}

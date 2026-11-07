@@ -589,7 +589,10 @@ export function applyPivot(state,pivot,optionId){
 
 // The questions a station still asks, and the ones already answered.
 export function pendingPivots(state){
-  return pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&!(state.pivots??[]).some(record=>record.pivot===pivot.id));
+  // A station asks the questions its plot points force (the flood, a parent's death) and ONE of its open questions, drawn by this life's seed, so no two lives are asked the same thing.
+  const open=pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)),free=open.filter(p=>!WHEN[p.id]);
+  const pick=free.map(p=>[rand(state.seed,state.age,'pivot:'+p.id),p]).sort((x,y)=>x[0]-y[0])[0]?.[1];
+  return open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!(state.pivots??[]).some(record=>record.pivot===pivot.id));
 }
 
 // The commitment a question made: an axis cannot go below this for five years.
