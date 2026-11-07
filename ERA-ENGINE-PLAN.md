@@ -151,3 +151,7 @@ Everything else (tables, grade, props, order) is my call and is set out above.
 2. A cameo data format with the "no source, no cameo" test.
 3. One deep-time pack as a spike (seasonal grain), to test that the same skeleton holds a very different clock before we commit to the rest.
 4. The remaining eras, one pack at a time, each with its sourced table and a review of its history.
+
+## 10. Literary texture (owner, 7 Nov)
+
+The owner supplied Kukrit Pramoj's Four Reigns chapters, his radio talks, a short story and a funeral book as the feel he wants. What they add (household, rank, transport, dress, illness, rites) and the rules for using them are in `ERA-TEXTURE-FROM-LITERATURE.md`. Fiction is texture, not evidence; nothing is quoted; novel characters and the funeral-book subject are not cameos.
