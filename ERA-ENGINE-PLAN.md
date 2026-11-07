@@ -159,3 +159,7 @@ The owner supplied Kukrit Pramoj's Four Reigns chapters, his radio talks, a shor
 ## 11. Events spine and Buddhism (owner, 7 Nov)
 
 All key events and Buddhism as a system: `ERA-EVENTS-AND-BUDDHISM.md`. Sourced rows (BBC 2019 timeline, Rajadhon's outline) are separated from `needs-source` rows. Monarchy handling is fixed conservative pending the owner's confirmation.
+
+## 12. Scenario bank (owner, 7 Nov)
+
+`ERA-SCENARIO-BANK.md`: 36 literature-grounded scenes plus the "grammar of the cry" (small object, the unsaid sentence, priced lives, echo across decades). Reading coverage is stated there; inferred rows are flagged.
