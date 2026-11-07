@@ -40,7 +40,7 @@ export const ENCOUNTERS=[
  {id:'project_return',category:'work',min:30,max:65,title:'The work finds a doorway',prompt:'Years after you started, someone offers a small public space for your work. There is no promise of sales.',eligible:s=>s.story.flags.project!==undefined&&s.age-s.story.flags.project>=10,options:[
   option('show','Share the work',{cash:-1000,wellbeing:3,flag:'exhibited',uncertain:true},'You put the work in front of other people. The response became part of its story.'),
   option('private','Keep making it privately',{skills:{craft:2},wellbeing:2},'You kept making the work for its own sake, away from an audience.') ]},
- {id:'flood_help',category:'family',min:30,max:30,priority:1,title:'After the floodwater',prompt:'The damage is already in your household account. Your neighbours are clearing the shared lane.',options:[
+ {id:'flood_help',category:'family',min:30,max:30,priority:1,title:'After the floodwater',prompt:'The damage is already in your household account. Your neighbours are clearing the shared lane.',eligible:s=>/Floodwater/.test(s.history?.at(-1)?.event??''),options:[
   option('help','Join the clean-up',{wellbeing:3,skills:{eq:1}},'You helped clear the lane. The repairs were still hard, but the neighbours knew one another better.'),
   option('home','Stay with your household',{wellbeing:2},'You stayed close to home and helped your household find its feet again.') ]},
  {id:'friend_care',category:'connection',min:40,max:60,title:'A familiar voice asks for help',prompt:'{friend} is going through a difficult time and asks if you can come over.',eligible:s=>s.story.flags.friend!==undefined,options:[
@@ -156,7 +156,7 @@ export function validStory(story,age,state){
    if(seen.age<=previousAge)return false;previousAge=seen.age;
    const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
    const prior={...state,age:seen.age,health:row.health-(seen.effects.health||0),wellbeing:row.wellbeing-(seen.effects.wellbeing||0),cash:(row.cash??state.cash)-(seen.effects.cash||0),effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null}};
-   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash}))return false;
+   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(entry.id!=='flood_help'&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash}))return false;
    const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
   }
  }
