@@ -1,3 +1,4 @@
+import {MOMENT_TEXTS} from '../../dist/course/moments.js';
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {choiceAvailable} from '../../dist/course/finance.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
@@ -11,7 +12,7 @@ test('periods vary in what they say and rare turns appear across worlds',()=>{
   const lean=['physique','iq','eq','craft','drive'][seed%5];
   while(s.age<80&&s.stage==='review'){s={...s,effort:effortFor(lean)};s=live(s);if(s.story?.pending){const o=encounterById(s.story.pending.id).options.filter(o=>choiceAvailable(s,o));s=resolveEncounter(s,o[0].id,.2);}
    const r=s.history.at(-1),t=r.event??'';
-   if(/An ordinary five years\./.test(t))counts.ordinary.add(t.match(/An ordinary five years\. ([^.]*\.)/)?.[1]);
+   {const m=MOMENT_TEXTS.find(x=>t.startsWith(x));if(m)counts.ordinary.add(m);}
    if(/An accident leaves/.test(t))counts.accident++;if(/takes your savings/.test(t))counts.fraud++;if(/windfall/.test(t))counts.windfall++;
    if(/work interruption/.test(t))counts.interruption.push([r.earnings??0,r.setback??0]);}
   assert.ok(validate(s),'seed '+seed);

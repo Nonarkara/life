@@ -12,6 +12,7 @@ import {validHoldings,autoInvest} from './investments.js';
 import {FOCUSES} from './motivations.js';
 import {advanceFinance,validFinance,validFinanceLocation,grossMonthlyPay} from './finance.js';
 import {newStory,offerEncounter,validStory} from './encounters.js';
+import {momentFor} from './moments.js';
 import {PATHWAYS,pathwayPeriod} from './pathways.js';
 export const AXES=[{key:'physique',label:'Physique'},{key:'iq',label:'IQ · reasoning'},{key:'eq',label:'EQ · connection'},{key:'craft',label:'Creativity'},{key:'drive',label:'Drive'}];
 import {CLASS_TIERS,CLASS_KEYS,drawClass} from './backgrounds.js';
@@ -70,7 +71,7 @@ function stepSkills(s){
  const practice=Object.fromEntries(AXES.map(a=>[a.key,(bucket.skills[a.key]??0)+due.reduce((n,c)=>n+(c.skills[a.key]??0),0)+Math.round(e[a.key]*growth*eraWeights[a.key])+(a.key==='iq'?pathway.learning:0)]));
  return {e,content,growth,due,pathway,eraWeights,practice};
 }
-function advancePeriod(s){s={...s,economy:economyFor(s),effort:lockedEffort(s)};const from=s.age,age=from+5,p=sanitiseProfile(s.profile,from),{e,content,growth,due,pathway,eraWeights,practice}=stepSkills(s);const adult=from>=20,retired=from>=60;const shock=rand(s.seed,age,'event'),rare=rand(s.seed,age,'rare'),pay=adult?Math.max(6000,grossMonthlyPay({...s,age:from})):0;const lead=Object.entries(e).sort((a,b)=>b[1]-a[1]),spread=lead[0][1]-lead.at(-1)[1],ORDINARY={physique:'You kept your body in use.',iq:'You kept learning, and it showed in your work.',eq:'Friends and family took most of your attention.',craft:'You kept making things.',drive:'You pushed hard at work.'};let event=age===60?'Work slows. Your time becomes your own again.':spread>=2?'An ordinary five years. '+ORDINARY[lead[0][0]]:'An ordinary five years. Small habits accumulate.';let setback=0,healthShock=0;
+function advancePeriod(s){s={...s,economy:economyFor(s),effort:lockedEffort(s)};const from=s.age,age=from+5,p=sanitiseProfile(s.profile,from),{e,content,growth,due,pathway,eraWeights,practice}=stepSkills(s);const adult=from>=20,retired=from>=60;const shock=rand(s.seed,age,'event'),rare=rand(s.seed,age,'rare'),pay=adult?Math.max(6000,grossMonthlyPay({...s,age:from})):0;const lead=Object.entries(e).sort((a,b)=>b[1]-a[1]),spread=lead[0][1]-lead.at(-1)[1],ORDINARY={physique:'You kept your body in use.',iq:'You kept learning, and it showed in your work.',eq:'Friends and family took most of your attention.',craft:'You kept making things.',drive:'You pushed hard at work.'};let event=age===60?'Work slows. Your time becomes your own again.':spread>=2?momentFor(s,age)+' '+ORDINARY[lead[0][0]]:momentFor(s,age)+' Small habits accumulate.';let setback=0,healthShock=0;
 // Not every world has the same plot: the flood and the parents' deaths happen in most lives, not all, decided once per world.
 // What a family leaves depends on what it had.
 const plot=(key,chance)=>rand(s.seed,0,'plot-'+key)<chance,estate=()=>{const cls=s.intake?.class??s.birth?.class,band=s.intake?.upbringing??'middle',sum=cls?CLASS_TIERS[cls]?.inheritance:({constrained:30000,middle:200000,comfortable:1200000}[band]);setback-=sum;return sum===0?' There is nothing to inherit.':sum>=800000?' A substantial inheritance reaches you.':sum>=200000?' A modest inheritance reaches you.':' There is little to inherit.';},flood=age===30&&plot('flood',.7);

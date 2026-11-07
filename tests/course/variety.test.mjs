@@ -20,3 +20,8 @@ test('lives are asked different questions, and no scene is in nearly every life'
  const worst=Object.entries(count).sort((a,b)=>b[1]-a[1])[0];
  assert.ok(worst[1]<=N*MAX_SHARE,worst[0]+' is in '+worst[1]+'/'+N+' lives');
 });
+import {ENCOUNTERS} from '../../dist/course/encounters.js';
+test('every encounter opens with an option that costs nothing',()=>{for(const e of ENCOUNTERS){const o=e.options[0];assert.ok(!(o.cash<0)&&!o.requires,e.id);}});
+import {MOMENT_TEXTS} from '../../dist/course/moments.js';
+import {phrases} from '../../dist/course/translations.js';
+test('every chapter moment has its own row in all four languages',()=>{const rows=new Map(phrases.map(r=>[r[0],r]));for(const m of MOMENT_TEXTS){const r=rows.get(m);assert.ok(r&&r.length===5&&r.slice(1).every(v=>v&&v!==m),m);}});

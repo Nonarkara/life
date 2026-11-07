@@ -29,8 +29,8 @@ test('Thai choices resolve once through the real ledger and survive strict save 
 });
 test('a real constrained placement keeps the unaffordable route closed while paid local work remains possible',()=>{
  const s=thaiStudyLife('th_unpaid_placement'),e=THAI_ENCOUNTERS.find(e=>e.id==='th_unpaid_placement');
- assert.equal(choiceAvailable(s,e.options[0]),false);assert.equal(resolveEncounter(s,'placement',.2),s);
- assert.ok(choiceAvailable(s,e.options[1]));assert.equal(netWorth(resolveEncounter(s,'paid',.2).finance)-netWorth(s.finance),1200);
+ assert.equal(choiceAvailable(s,e.options.find(o=>o.id==='placement')),false);assert.equal(resolveEncounter(s,'placement',.2),s);
+ assert.ok(choiceAvailable(s,e.options.find(o=>o.id==='paid')));assert.equal(netWorth(resolveEncounter(s,'paid',.2).finance)-netWorth(s.finance),1200);
 });
 test('Thai origin and current place guard contextual stories, not a class label or a universal farmer stereotype',()=>{
  const s=thaiStudyLife('th_buyer_bill');

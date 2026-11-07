@@ -5,6 +5,7 @@ import {sellAll} from './investments.js';
 import {choiceAvailable,personalFlow} from './finance.js';
 import {mismatched,partnerNature,together} from './life-choices.js';
 import {LESSONS} from './lessons.js';
+import {WAVE1_ENCOUNTERS} from './wave1-encounters.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -52,7 +53,7 @@ export const ENCOUNTERS=[
  {id:'health_rest',category:'health',min:40,max:75,priority:1,title:'Give recovery some room',prompt:'A health setback has already interrupted this period. The next step is making room for recovery.',eligible:s=>s.history.at(-1)?.event.includes('health setback'),options:[
   option('support','Pay for practical help while you recover',{cash:-3000,health:4,wellbeing:1},'Practical help gave you room to rest. Recovery became part of the plan.'),
   option('rest','Reduce commitments and accept help',{health:2,wellbeing:1},'You reduced your commitments and let other people help while you rested.') ]},
- {id:'remember',category:'family',min:55,max:70,priority:1,title:'What you want to keep',prompt:'A parent has died. There is no correct way to make this loss fit into your life.',eligible:s=>/father dies|mother dies/.test(s.history.at(-1)?.event??''),options:[
+ {id:'remember',category:'family',min:55,max:70,priority:1,title:'What you want to keep',prompt:'A parent has died. There is no correct way to make this loss fit into your life.',eligible:s=>/(?<!grand)(father|mother) dies/.test(s.history.at(-1)?.event??''),options:[
   option('stories','Gather and tell stories',{wellbeing:2,flag:'remembered'},'You gathered stories about your parent. Grief remained, alongside memories of ordinary days.'),
   option('quiet','Keep a quieter remembrance',{wellbeing:2,flag:'remembered'},'You kept a small remembrance in your own way. There was no need to perform your grief.') ]},
  {id:'mentor',category:'work',min:60,max:75,title:'Someone asks how you learned',prompt:'A younger neighbour wants to learn something you have spent years doing.',options:[
@@ -102,8 +103,11 @@ ENCOUNTERS.push(
   option('again','Move again and see whether the next place holds',{cash:-6000,wellbeing:-1,flag:'geo_again'},'You moved again. It held for a while, the way the last one did.'),
   option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
 ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS,...THAI_ENCOUNTERS);
+ENCOUNTERS.push(...WAVE1_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
+// House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.
+for(const e of ENCOUNTERS){const i=e.options.findIndex(x=>!(x.cash<0)&&!x.requires);if(i>0)e.options=[e.options[i],...e.options.filter((x,k)=>k!==i)];}
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
 export const encounterById=id=>byId.get(id);
 export function eligibleEncounters(state){
@@ -156,7 +160,7 @@ export function validStory(story,age,state){
    if(seen.age<=previousAge)return false;previousAge=seen.age;
    const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
    const prior={...state,age:seen.age,health:row.health-(seen.effects.health||0),wellbeing:row.wellbeing-(seen.effects.wellbeing||0),cash:(row.cash??state.cash)-(seen.effects.cash||0),effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null}};
-   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(entry.id!=='flood_help'&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash}))return false;
+   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(!['flood_help','remember','remember_mother'].includes(entry.id)&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash}))return false;
    const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
   }
  }

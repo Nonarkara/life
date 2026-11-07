@@ -511,7 +511,7 @@ export const PIVOTS=[
 export const pivotById=id=>PIVOTS.find(p=>p.id===id);
 export const pivotsForStation=age=>PIVOTS.filter(p=>p.station===age);
 // A question tied to a plot point is asked only in the worlds where that happened.
-const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools':/father dies/,'stall-takeover':/father dies/,'empty-house':/mother dies/,'take-in':/mother dies/};
+const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools':/(?<!grand)father dies/,'stall-takeover':/(?<!grand)father dies/,'empty-house':/(?<!grand)mother dies/,'take-in':/(?<!grand)mother dies/};
 // A question that assumes a stall, a workshop or a site is asked only of the households that have one; the rest of the table is open to all.
 const STALL=['low_class','working_class','middle_class'],NOT_RICH=['low_class','working_class','middle_class','bureaucratic_class'];
 const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'school-leave':STALL,'stall-paper':STALL,'stall-takeover':STALL,'father-tools':STALL,'nephew':STALL,'partner-business':STALL,'college-cost':NOT_RICH,'buy-house':NOT_RICH,'year-abroad':['working_class','middle_class','bureaucratic_class','high_class','royal_associated']};
