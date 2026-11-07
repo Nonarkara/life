@@ -1,4 +1,5 @@
 import {AXES,balanced,transfer,newLife,configureLife,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
+import {CLASS_WEIGHTS} from '../course/backgrounds.js';
 import {HISTORICAL_COHORTS} from '../course/thai-history.js';
 import {initSettings,t} from '../course/i18n.js';
 import {REGIONS,BAND_REGIONS,CLASS_REGIONS,COUNTRIES,household} from '../course/regions.js';
@@ -14,7 +15,7 @@ export function birthOdds(life,options){
  let p=1;const i=life.intake,cls=i.class;
  if(!cls){const band=BAND_REGIONS[i.upbringing];if(!['female','male','intersex'].includes(options.sex))p*=1/3;if(!BAND_REGIONS[options.upbringing])p*=1/3;if(!Object.hasOwn(COUNTRIES,options.country))p*=i.country==='th'?.75/band.length:.25/4;else if(options.country==='th')p*=1/band.length;return Math.max(1,Math.round(1/(p*(HOUSEHOLD_ODDS[life.birth.household]??1))));}
  if(!['female','male','intersex'].includes(options.sex))p*=1/3;
- if(!CLASS_KEYS.includes(options.class))p*=1/6;
+ if(!CLASS_KEYS.includes(options.class))p*=CLASS_WEIGHTS[cls];
  if(!options.region)p*=1/CLASS_REGIONS[cls].length;
  p*=HOUSEHOLD_ODDS[life.birth.household]??1;
  return Math.max(1,Math.round(1/p));

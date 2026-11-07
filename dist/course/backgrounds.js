@@ -10,6 +10,11 @@ export const CLASS_TIERS={
  royal_associated:{label:'Royal associated',cash:300000,inheritance:800000,privilege:'ml',drama:'scrutiny',note:'Family connections bring support and social expectations.'}
 };
 export const CLASS_KEYS=Object.keys(CLASS_TIERS);
+// How often each class is born. Authored game weights, not census: most Thai lives begin in farming,
+// wage-earning or small-business households, few in mansions. Uniform odds made a third of all lives
+// royal-associated or high class. Replace with a sourced table when research/thailand-cohort-data.md has one.
+export const CLASS_WEIGHTS=Object.freeze({low_class:.35,working_class:.30,middle_class:.22,bureaucratic_class:.08,high_class:.04,royal_associated:.01});
+export const drawClass=(roll,keys=CLASS_KEYS)=>{const total=keys.reduce((n,k)=>n+(CLASS_WEIGHTS[k]??0),0);let at=roll*total;return keys.find(k=>(at-=CLASS_WEIGHTS[k]??0)<0)??keys.at(-1);};
 
 // Compatibility for support/pay/school rules; never an intelligence score.
 export function backgroundBand(s){return s.intake?.upbringing??({high_class:'comfortable',royal_associated:'comfortable',low_class:'constrained',working_class:'constrained',middle_class:'middle',bureaucratic_class:'middle'}[s.intake?.class??s.birth?.class]??'middle');}

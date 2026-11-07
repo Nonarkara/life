@@ -1,3 +1,4 @@
+import {choiceAvailable} from '../../dist/course/finance.js';
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {createEconomy,economyFor,economyYears,periodEconomy,validEconomy} from '../../dist/course/economy.js';
 import {trade,tradeFee,holdingsValue,markHoldings} from '../../dist/course/investments.js';
@@ -38,7 +39,7 @@ test('dense lives can shop and trade repeatedly through retirement without exhau
  for(let seed=0;seed<12;seed++){
   let s=begin(newLife(seed));
   while(s.stage==='review'){
-   if(s.story?.pending)s=resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.2);
+   if(s.story?.pending)s=resolveEncounter(s,encounterById(s.story.pending.id).options.find(o=>choiceAvailable(s,o)).id,.2);
    if(s.finance){
     for(const item of ['snack','book','comics','class','sport'])s=buy(s,item);
     for(let n=0;n<12;n++){s=trade(s,'equity','buy',100);if(s.finance.holdings?.equity.value>=100)s=trade(s,'equity','sell',100);}

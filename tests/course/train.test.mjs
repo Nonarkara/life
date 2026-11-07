@@ -35,7 +35,7 @@ test('job loss removes two months of actual work income in the ledger',()=>{
 });
 test('year events hold a moving chapter and a saved cursor preserves paid plans without copying the whole future',()=>{
  const t=decisionTempo({stage:'review',moving:true,activity:true,speed:20});assert.equal(t.held,true);assert.equal(t.sceneSpeed,0);
- let s=settle(live(begin(newLife(31))));s=planBucket(s,'coffee',17);const saved={...s,journey:{from:15,progress:17,handled:['16:fever']}};assert.ok(validate(saved));assert.ok(validate(live(saved)));assert.equal(live(saved).bucket.done.length,1);assert.equal(live(saved).journey,undefined);
+ let s=settle(live(begin(newLife(32))));s=planBucket(s,'coffee',17);const saved={...s,journey:{from:15,progress:17,handled:['16:fever']}};assert.ok(validate(saved));assert.ok(validate(live(saved)));assert.equal(live(saved).bucket.done.length,1);assert.equal(live(saved).journey,undefined);
 });
 test('custom activity names cannot unlock hidden relationship flags or infinite learning',()=>{
  let s=newLife(31);for(let i=0;i<8;i++){s=addCustomBucket(s,{title:'A book '+i,cost:0,days:1,kind:'learn'});s=planBucket(s,'custom-'+(i+1),6);}
