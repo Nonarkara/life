@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Scale lab</title>
+<style>
+  body{margin:0;background:#0d0c0a;color:#f3ece0;font:13px/1.4 ui-monospace,monospace}
+  #stage{display:block}
+  #out{position:fixed;right:8px;top:8px;background:#000c;padding:8px;white-space:pre;max-height:90vh;overflow:auto}
+</style>
+</head>
+<body>
+<canvas id="stage"></canvas>
+<pre id="out">booting…</pre>
+<script type="module">
+// The scale lab: draw one painted scene at a given size and measure the drawn
+// person against the band. Nothing here is shipped; it exists to replace
+// argument with measurement.
+const meta=await (await fetch('./build.json',{cache:'no-store'})).json();
+const v='?v='+meta.build;
+const {prepareStageArt,stageImage,platePath,animeManifest}=await import('./course/anime-assets.js'+v);
+const {travelFrame,anchoredPlateFrame}=await import('./course/painted-camera.js'+v);
+const {drawStage2D,describePaintedScene,SETS,figureHeightPx,paintedDay,paintedCovers}=await import('./course/stage2d.js'+v);
+const {newLife,configureLife,begin,live}=await import('./course/sim.js'+v);
+const {resolveEncounter,encounterById}=await import('./course/encounters.js'+v);
+const {applyEraCanvasGrade}=await import('./course/thai-history.js'+v);
+
+const params=new URLSearchParams(location.search);
+const W=Number(params.get('w')||1342),H=Number(params.get('h')||744);
+let AGE=Number(params.get('age')||30);
+const SET=params.get('set')||'travel';
+const TIME=params.get('time')?Number(params.get('time')):null;
+const canvas=document.getElementById('stage');
+const out=document.getElementById('out');
+
+function settle(s){
+  if(!s.story?.pending)return s;
+  const enc=encounterById(s.story.pending.id);
+  return resolveEncounter(s,enc.options[0].id,0.5);
+}
+function buildLife(targetAge=AGE){
+  let life=begin(configureLife(newLife(11),{upbringing:'middle',region:'bang-na'}));
+  let guard=0;
+  while(life.age<targetAge&&guard++<600)life=settle(live(settle(life)));
+  return settle(life);
+}
+
+// The plate alone, drawn exactly as the stage draws it, so the difference
+// between the two images is the drawn people and nothing else.
+function plateOnly(setKey,scene,life){
+  const key=scene.plate??SETS[setKey].plate;
+  const image=stageImage(platePath(key));
+  const c=document.createElement('canvas');
+  c.width=canvas.width;c.height=canvas.height;
+  const g=c.getContext('2d');
+  const activity=scene.player??{};
+  const frame=setKey==='travel'
+    ?travelFrame(canvas.width,canvas.height,image.naturalWidth,image.naturalHeight,activity.progress??0,activity.phase==='Coming home')
+    :anchoredPlateFrame(canvas.width,canvas.height,image.naturalWidth,image.naturalHeight,scene.stage?.focus??.5);
+  g.drawImage(image,frame.x,frame.y,frame.drawWidth,frame.drawHeight);
+  // The era grade is laid over the whole frame at the end of the drawing, so
+  // the plate alone must carry it too, or every pixel differs.
+  applyEraCanvasGrade(g,c.width,c.height,life,AGE);
+  return {canvas:c,frame};
+}
+
+// The drawn person is a dense change against the plate; the odd stray pixel
+// (a scanline edge, a rain streak) is not. Take the rows and columns that
+// carry real weight, and the person's own extent falls out of them.
+function bboxDiff(a,b,region){
+  const ga=a.getContext('2d').getImageData(0,0,a.width,a.height).data;
+  const gb=b.getContext('2d').getImageData(0,0,b.width,b.height).data;
+  const rows=new Int32Array(a.height),cols=new Int32Array(a.width);
+  let count=0;
+  const x0=Math.floor(region.x0*a.width),x1=Math.ceil(region.x1*a.width);
+  for(let y=0;y<a.height;y++){
+    for(let x=x0;x<x1;x++){
+      const i=(y*a.width+x)*4;
+      const d=Math.abs(ga[i]-gb[i])+Math.abs(ga[i+1]-gb[i+1])+Math.abs(ga[i+2]-gb[i+2]);
+      if(d<60)continue;
+      count++;rows[y]++;cols[x]++;
+    }
+  }
+  if(!count)return null;
+  const run=counts=>{
+    const max=Math.max(...counts);
+    if(!max)return null;
+    const floor=Math.max(2,max*.12);
+    let best=null,start=-1;
+    for(let i=0;i<=counts.length;i++){
+      const on=i<counts.length&&counts[i]>=floor;
+      if(on&&start<0)start=i;
+      if(!on&&start>=0){if(!best||i-start>best[1]-best[0])best=[start,i-1];start=-1;}
+    }
+    return best;
+  };
+  const rr=run(rows),rc=run(cols);
+  if(!rr||!rc)return null;
+  return {x:rc[0],y:rr[0],w:rc[1]-rc[0]+1,h:rr[1]-rr[0]+1,count};
+}
+
+async function run(){
+  await prepareStageArt();
+  // Every picture the manifest names, decoded before the drawing: a stage that
+  // has not loaded its art yet draws nothing, and "nothing" is not a measurement.
+  const manifest=animeManifest();
+  const paths=[...Object.values(manifest.plates??{})];
+  for(const sheet of Object.values(manifest.sprites??{}))paths.push(...Object.values(sheet));
+  await Promise.all(paths.map(p=>new Promise(res=>{
+    const image=stageImage(p);
+    if(image.complete&&image.naturalWidth)return res();
+    image.addEventListener('load',res,{once:true});
+    image.addEventListener('error',res,{once:true});
+  })));
+  let life=buildLife();
+  // Find the moment in the sixty-second day that draws the set we want. If the
+  // age asked for does not hold that set, look along the life for one that does.
+  let time=TIME,scene=null,usedAge=AGE;
+  const wanted=SET;
+  for(let t=0;t<60&&!scene;t++){
+    const candidate=describePaintedScene(life,AGE,t);
+    if(wanted==='auto'||candidate.set===wanted){scene=candidate;time=t;}
+  }
+  if(!scene){
+    for(const age of [10,12,14,16,18,22,26,34,40,46,52,60]){
+      const other=buildLife(age);
+      if(!other)continue;
+      for(let t=0;t<60;t++){
+        const candidate=describePaintedScene(other,age,t);
+        if(candidate.set===wanted){scene=candidate;time=t;usedAge=age;life=other;break;}
+      }
+      if(scene)break;
+    }
+  }
+  if(!scene){window.__scale={error:'no scene for '+wanted};out.textContent='no scene';return;}
+  AGE=usedAge;
+
+  canvas.style.width=W+'px';canvas.style.height=H+'px';
+  // The first frames are a cut between two drawings; keep drawing as the clock
+  // moves, so what is measured is the drawing and not the transition.
+  let ok=false;
+  for(let i=0;i<30;i++){
+    ok=drawStage2D(canvas,life,AGE,time+i*0.06,'world',{})||ok;
+    await new Promise(r=>setTimeout(r,20));
+  }
+  const bw=canvas.width,bh=canvas.height;
+  const cssScale=bw/W;
+  const plate=plateOnly(scene.set,scene,life);
+  // The player stands at 44% of the width in transit; in a room, wherever the
+  // marks put them. Search around the player and report the dense change.
+  const person=bboxDiff(plate.canvas,canvas,{x0:.28,x1:.60});
+  const frame=plate.frame;
+  const computed=figureHeightPx(frame.drawHeight,scene.stage?.figure??.25,393,'player',AGE);
+
+  const result={
+    viewport:{cssW:W,cssH:H,backingW:bw,backingH:bh},
+    drawn:ok,lifeAge:life.age,age:AGE,time,
+    set:scene.set,plate:scene.plate,phase:scene.player?.phase,pose:scene.player?.pose,
+    action:scene.player?.action,
+    plateDrawHeightDevice:Math.round(frame.drawHeight),
+    figureFraction:scene.stage?.figure??null,
+    computedFigureHeightCss:Math.round(computed/cssScale),
+    computedFraction:+(computed/bh).toFixed(3),
+    measuredPerson:person,
+    measuredHeightCss:person?Math.round(person.h/cssScale):null,
+    measuredFraction:person?+(person.h/cssScale/H).toFixed(3):null,
+  };
+  out.textContent=JSON.stringify(result,null,1);
+  window.__scale=result;
+  document.title='scale:'+(result.measuredFraction??'none');
+}
+
+run().catch(e=>{out.textContent='ERROR '+e.stack;window.__scale={error:String(e.stack||e)};});
+</script>
+</body>
+</html>

@@ -65,7 +65,7 @@ test('every set has a painted place and a floor to stand on',()=>{
   for(const[name,set]of Object.entries(SETS)){
     assert.ok(set.plate,'set '+name+' has no plate');
     assert.ok(set.ground>0&&set.ground<1,'set '+name+' has no ground line');
-    assert.ok(set.scale>0&&set.scale<1,'set '+name+' has no figure scale');
+    assert.ok(set.figure>0&&set.figure<1,'set '+name+' has no figure scale');
     assert.ok(set.span[1]>set.span[0],'set '+name+' has no usable span');
   }
 });
@@ -192,6 +192,6 @@ test('office cast uses the standing aisle and fits the painted doorway',async()=
  const {SETS,figureHeightPx}=await import('../../dist/course/stage2d.js');
  assert.equal(SETS.work.marks[1][0],.68);assert.equal(SETS.work.ground,.93);
  // Authored work.webp is1760x747; the doorway isabout460px high.
- assert.ok(figureHeightPx(747,SETS.work.scale,400,'player',35)<460);
- assert.ok(figureHeightPx(747,.4,400,'player',35)>460,'the former blanket2x scale fails the same door reference');
+ assert.ok(figureHeightPx(747,SETS.work.figure,400,'player',35)<460,'a person must fit under the doorway in the painting');
+ assert.ok(figureHeightPx(747,SETS.work.figure*2,400,'player',35)>460,'the former blanket2x scale fails the same door reference');
 });

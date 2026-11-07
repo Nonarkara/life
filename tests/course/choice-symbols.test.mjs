@@ -17,9 +17,9 @@ test('wooden-home staging uses the clear front floor and a door-calibrated human
  const state=begin(newLife(31)),scene=describePaintedScene(state,15,0);
  assert.equal(scene.set,'home');assert.ok(scene.room);
  assert.ok(scene.stage.ground>.9,'feet must be below the painted tabletop and its legs');
- assert.ok(scene.stage.scale>.45&&scene.stage.scale<.7,'standing adult must relate to the room door, not toy scale');
+ assert.ok(scene.stage.figure>.45&&scene.stage.figure<.7,'standing adult must relate to the room door, not toy scale');
 });
 test('homework body and portable desk keep human scale in the clear bedroom floor',()=>{
  const state=begin(newLife(31)),scene=describePaintedScene(state,17,49);
- assert.equal(scene.set,'bedroom');assert.ok(scene.room);assert.ok(scene.stage.scale>.45);assert.ok(scene.stage.ground>.9);
+ assert.equal(scene.set,'bedroom');assert.ok(scene.room);assert.ok(scene.stage.figure>.45);assert.ok(scene.stage.ground>.9);
 });

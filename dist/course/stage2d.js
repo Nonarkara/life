@@ -15,25 +15,26 @@ import {prepareStageArt,stageImage,platePath,spritePath,animeManifest} from './a
 import {applyEraCanvasGrade} from './thai-history.js';
 
 // A set is one painted plate and the places people stand on it. `ground` is the
-// fraction of the plate's height where feet meet the floor; `scale` is the
-// figure's height as a fraction of the plate, so people sit inside the paint
-// rather than on top of it.
+// fraction of the plate's height where feet meet the floor; `figure` is the
+// height a standing adult occupies in that painting, as a fraction of the
+// plate, measured against the objects the painter put in it. A person is sized
+// by the picture they stand in, so nobody is pasted onto a landscape.
 const SETS={
-  home:{plate:'home-day',night:'home-night',ground:.86,scale:.30,span:[3,7]},
-  hospital:{plate:'hospital',ground:.82,scale:.26,span:[3,7]},
-  bedroom:{plate:'bedroom-day',night:'bedroom-night',ground:.86,scale:.28,span:[3,7]},
-  street:{plate:'town',night:'street-night',ground:.86,scale:.24,span:[6.5,13]},
-  court:{plate:'beat-court',ground:.86,scale:.24,span:[8,13]},
-  school:{plate:'school',ground:.86,scale:.22,span:[8,13]},
+  home:{plate:'home-day',night:'home-night',ground:.86,figure:.60,span:[3,7]},
+  hospital:{plate:'hospital',ground:.82,figure:.38,span:[3,7]},
+  bedroom:{plate:'bedroom-day',night:'bedroom-night',ground:.86,figure:.56,span:[3,7]},
+  street:{plate:'town',night:'street-night',ground:.86,figure:.44,span:[6.5,13]},
+  court:{plate:'beat-court',ground:.86,figure:.45,span:[8,13]},
+  school:{plate:'school',ground:.86,figure:.38,span:[8,13]},
   // The office plate has its own desk in the foreground: people stand at it, close to the camera.
   // The office plate has a desk at centre and a standing aisle by the door.
-  work:{plate:'work',ground:.93,scale:.26,span:[9,14],marks:{1:[.68]},focus:.68},
-  shop:{plate:'shop',ground:.86,scale:.23,span:[9,14]},
-  site:{plate:'site',ground:.86,scale:.23,span:[9,14]},
-  abroad:{plate:'abroad',ground:.84,scale:.22,span:[9,14]},
-  garden:{plate:'garden',ground:.86,scale:.23,span:[4,9]},
-  stall:{plate:'stall',ground:.88,scale:.23,span:[6,9]},
-  travel:{plate:'street-day',night:'street-day',ground:.88,scale:.26,span:[0,1]},
+  work:{plate:'work',ground:.93,figure:.44,span:[9,14],marks:{1:[.68]},focus:.68},
+  shop:{plate:'shop',ground:.86,figure:.38,span:[9,14]},
+  site:{plate:'site',ground:.86,figure:.44,span:[9,14]},
+  abroad:{plate:'abroad',ground:.84,figure:.36,span:[9,14]},
+  garden:{plate:'garden',ground:.86,figure:.42,span:[4,9]},
+  stall:{plate:'stall',ground:.88,figure:.42,span:[6,9]},
+  travel:{plate:'street-day',night:'street-day',ground:.88,figure:.42,span:[0,1]},
 };
 
 // Every cycle is two drawings played on twos: the way limited animation works.
@@ -219,25 +220,25 @@ const DRAMATIC=/dies|flood|setback|interrupt|crisis|illness/i;
 // that moment happened, so the stage never invents a life.
 const BEATS={
   // Two bicycles and one road: the years of the friendship.
-  bikes:{plate:'beat-lane',ground:.80,scale:.30,effect:'speed',
+  bikes:{plate:'beat-lane',ground:.80,figure:.40,effect:'speed',
     actors:[{id:'player',pose:'ride',x:.34},{id:'friend',pose:'ride',x:.64,flipX:true}]},
   // The first evening that belongs to somebody else.
-  love:{plate:'beat-bridge',ground:.80,scale:.26,effect:'heart',
+  love:{plate:'beat-bridge',ground:.80,figure:.38,effect:'heart',
     actors:[{id:'player',pose:'stand',x:.38,anchor:{x:.40,y:.80}},{id:'partner',pose:'wave',x:.58,anchor:{x:.57,y:.71}}]},
   // A fist fight behind the shophouses.
-  fight:{plate:'beat-alley',ground:.86,scale:.34,effect:'impact',
+  fight:{plate:'beat-alley',ground:.86,figure:.42,effect:'impact',
     actors:[{id:'player',pose:'punch',x:.38},{id:'rival',pose:'guard',x:.62}]},
   // The classroom, and the boy who does not let up.
-  bully:{plate:'beat-classroom',ground:.86,scale:.27,effect:'shadow',
+  bully:{plate:'beat-classroom',ground:.86,figure:.40,effect:'shadow',
     actors:[{id:'player',pose:'crouch',x:.40},{id:'rival',pose:'guard',x:.62}]},
   // The report card, good or bad.
-  grades:{plate:'beat-classroom',ground:.86,scale:.24,effect:'sun',
+  grades:{plate:'beat-classroom',ground:.86,figure:.36,effect:'sun',
     actors:[{id:'player',pose:'write',x:.46}]},
   // The report card that did not come back well.
-  'grades-bad':{plate:'beat-classroom',ground:.86,scale:.24,
+  'grades-bad':{plate:'beat-classroom',ground:.86,figure:.36,
     actors:[{id:'player',pose:'write',x:.46}]},
   // The bed, and the body that is being repaired.
-  bed:{plate:'beat-room',ground:.74,scale:.30,
+  bed:{plate:'beat-room',ground:.74,figure:.34,
     actors:[{id:'player',pose:'lie',x:.26,anchor:{x:.26,y:.55}}]},
 };
 
@@ -317,9 +318,9 @@ export function describePaintedScene(state,age,time){
  const plate=plateVariant(basePlate,place);
  // The original wooden room: front floor lies below the table's feet (.88).
  // A standing adult is calibrated against the door, not against a dock.
- const room=plate==='home-day'||plate==='home-night'?{ground:.97,scale:.60}
-  :plate==='bedroom-day'?{ground:.96,scale:.56,marks:{1:[.76],2:[.72,.86]}}
-  :plate==='bedroom-night'?{ground:.97,scale:.56,marks:{1:[.43],2:[.38,.51]}}:null;
+ const room=plate==='home-day'||plate==='home-night'?{ground:.97,figure:.60}
+  :plate==='bedroom-day'?{ground:.96,figure:.56,marks:{1:[.76],2:[.72,.86]}}
+  :plate==='bedroom-night'?{ground:.97,figure:.56,marks:{1:[.43],2:[.38,.51]}}:null;
  let actors;
  if(moment)actors=moment.actors.map(a=>({...a,activity:{pose:a.pose,x:a.x,moving:/ride|push/.test(a.pose)}}));
  else if(set==='travel')actors=[{id:'player',activity:player}];
@@ -379,8 +380,10 @@ const stages=new WeakMap();
 // feet or resize actors independently of the room. Layout reserves the dock.
 export function liftGround(y,_reach){return {y,k:1};}
 
-// One 2x correction shared by every pose; authored room scales already contain it.
-export function figureHeightPx(plateHeight,scale,sourceHeight,actor,age,calibrated=false){return plateHeight*scale*(calibrated?1:2)*(sourceHeight/400)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);}
+// The figure is sized by the plate it stands in: `figure` is the height a
+// standing adult occupies in that painting, measured against the objects the
+// painter put there. One number per set, so every pose obeys it.
+export function figureHeightPx(plateHeight,figure,sourceHeight,actor,age){return plateHeight*figure*(sourceHeight/400)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);}
 
 function createStage(canvas){
   const buffer=document.createElement('canvas');
@@ -421,9 +424,9 @@ function createStage(canvas){
     const raw=path?stageImage(path):null;
     if(!raw||!raw.complete||!raw.naturalWidth)return null;
     const image=actor==='player'&&/^player/.test(sheet)?agedImage(raw,age):raw;
-    const scale=options.scale??SETS[set]?.scale??.25;
+    const figure=options.figure??SETS[set]?.figure??.25;
     // Frames keep their true height on the sheet (the tallest is 400px), so a seated body is drawn seated, not stretched.
-    const figureHeight=figureHeightPx(plateHeight,scale,image.naturalHeight,actor,age,options.calibrated);
+    const figureHeight=figureHeightPx(plateHeight,figure,image.naturalHeight,actor,age);
     const figureWidth=figureHeight*(image.naturalWidth/image.naturalHeight);
     const span=SETS[set]?.span??[0,1];
     const norm=span[1]>span[0]?Math.max(-.1,Math.min(1.1,(activity.x??span[0])-span[0])/(span[1]-span[0])):.5;
@@ -622,7 +625,7 @@ function createStage(canvas){
           const activity=actor.activity;
           const anchor=actor.anchor?{x:drawn.x+actor.anchor.x*drawn.drawWidth,y:fit(drawn.y+actor.anchor.y*drawn.drawHeight).y}:null;
           drawFigure(paint,actor.id,age,activity,beat,anchor?anchor.y:groundY,drawn.drawHeight*lifted.k,clock,
-            anchor?anchor.x:seen*.08+actor.x*(seen*.84),{scale:moment.scale,flat:activity.pose==='lie',flipX:actor.flipX});
+            anchor?anchor.x:seen*.08+actor.x*(seen*.84),{figure:moment.figure,flat:activity.pose==='lie',flipX:actor.flipX});
         }
         drawEffect(paint,clock,moment.effect,groundY);
       }
@@ -661,7 +664,7 @@ function createStage(canvas){
       for(const [index,actor]of present.entries()){
         const marks=stage.marks?.[present.length]??scene.room?.marks?.[present.length]??{1:[.5],2:[.38,.58],3:[.26,.44,.62],4:[.18,.32,.47,.62]}[present.length]??spread(present.length);
         const x=scene.room||stage.marks?drawn.x+marks[index]*drawn.drawWidth:seen*.08+actor.slot*(seen*.84);
-        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,x,{scale:stage.scale,calibrated:!!scene.room});
+        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,x,{figure:stage.figure});
       }
     }
 
