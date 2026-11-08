@@ -96,7 +96,7 @@ function questions(){
   for(const record of answered){const line=document.createElement('p');line.className='pivot-answer';line.textContent=record.note;root.append(line);}return;
  }
  const pivot=waiting[0],card=document.createElement('section');card.className='pivot';
- const progress=document.createElement('p');progress.className='decision-progress';progress.textContent=t('Decision {n} of {total}').replace('{n}',answered.length+1).replace('{total}',answered.length+waiting.length);
+ const progress=document.createElement('p');progress.className='decision-progress';progress.textContent=t('Decision {n} of {total}').replace('{n}',answered.length+1).replace('{total}',answered.length+waiting.length);progress.hidden=answered.length+waiting.length<2;
  const badges=document.createElement('div');badges.className='question-badges';badges.append(questionCategoryBadge(questionCategory(pivot)));
  const question=document.createElement('h2');question.id='pivot-title';question.textContent=pivot.prompt;
  const context=document.createElement('p');context.className='decision-context';context.textContent=pivot.context;

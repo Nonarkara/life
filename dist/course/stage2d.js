@@ -383,7 +383,7 @@ export function liftGround(y,_reach){return {y,k:1};}
 // The figure is sized by the plate it stands in: `figure` is the height a
 // standing adult occupies in that painting, measured against the objects the
 // painter put there. One number per set, so every pose obeys it.
-export function figureHeightPx(plateHeight,figure,sourceHeight,actor,age){return plateHeight*figure*(sourceHeight/400)*(actor==='player'?(age<13?.78:age>=60?.95:1):.95);}
+export function figureHeightPx(plateHeight,figure,sourceHeight,actor,age){return plateHeight*figure*(sourceHeight/400)*(actor==='player'?(age<13?.78:age<18?.9:age>=60?.95:1):.95);}
 
 function createStage(canvas){
   const buffer=document.createElement('canvas');
@@ -661,10 +661,18 @@ function createStage(canvas){
     // people stand on the same spot, in the order the routine puts them.
     if(set!=='travel'&&!moment){
       const present=scene.actors;
-      for(const [index,actor]of present.entries()){
-        const marks=stage.marks?.[present.length]??scene.room?.marks?.[present.length]??{1:[.5],2:[.38,.58],3:[.26,.44,.62],4:[.18,.32,.47,.62]}[present.length]??spread(present.length);
-        const x=scene.room||stage.marks?drawn.x+marks[index]*drawn.drawWidth:seen*.08+actor.slot*(seen*.84);
-        drawFigure(paint,actor.id,age,actor.activity,set,groundY,drawn.drawHeight*lifted.k,clock,x,{figure:stage.figure});
+      const placed=present.map((actor,index)=>{
+        const own=stage.marks?.[present.length]??scene.room?.marks?.[present.length];
+        // Marks for a room are screen positions: everyone stays in frame however the plate is cropped,
+        // and on a wide screen they stand clear of the decision panel on the right.
+        const screen=(seen<height?{1:[.5],2:[.32,.7],3:[.2,.5,.8],4:[.14,.38,.62,.86]}:{1:[.5],2:[.3,.5],3:[.2,.36,.52],4:[.14,.27,.41,.55]})[present.length]??spread(present.length);
+        const x=own?drawn.x+own[index]*drawn.drawWidth:scene.room?screen[index]*seen:seen*.08+actor.slot*(seen*.84);
+        return {actor,x,back:actor.id!=='player'&&present.length>1};
+      });
+      // People a step further from the camera draw first, smaller and higher on the floor.
+      for(const {actor,x,back} of [...placed].sort((a,b)=>b.back-a.back)){
+        const figure=(stage.figure??SETS[set]?.figure??.25)*(back?.92:1);
+        drawFigure(paint,actor.id,age,actor.activity,set,back?groundY-drawn.drawHeight*.025:groundY,drawn.drawHeight*lifted.k,clock,x,{figure});
       }
     }
 
@@ -705,11 +713,6 @@ function createStage(canvas){
       out.save();
       wipeClip(out,since/.42);
       out.drawImage(buffer,0,0);
-      out.restore();
-      out.save();
-      out.globalAlpha=Math.max(0,1-(since/.42)*2.4);
-      out.fillStyle='#f6efe0';
-      out.fillRect(0,0,width,height);
       out.restore();
     }else{
       out.clearRect(0,0,width,height);

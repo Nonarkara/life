@@ -82,7 +82,7 @@
  .pamphlet .brand span{display:none}
  .pamphlet .bar-actions{margin-left:auto}
  .pamphlet .bar-actions .begin{display:none}
- .pamphlet .menu{order:3;flex-basis:100%;overflow-x:auto;scrollbar-width:none;gap:16px;padding-top:4px}
+ .pamphlet .menu{order:3;flex-basis:100%;overflow-x:auto;scrollbar-width:none;gap:12px;padding-top:4px;font-size:14px}
  .pamphlet .menu::-webkit-scrollbar{display:none}
  .pamphlet .menu button{min-height:36px}
  .pamphlet .overview,.pamphlet .detail{display:block;overflow-y:auto}
@@ -93,7 +93,7 @@
  .pamphlet .detail-head .speed-diagram,.pamphlet .detail-head .event-guide{display:none}
  .pamphlet .grid{display:block;padding:0 16px 16px}
  .pamphlet .grid dt{padding-top:10px}.pamphlet .grid dd{padding:4px 0 10px}
- .pamphlet .hub{gap:16px;padding:6px 16px}.pamphlet .hub span:nth-child(n+3){display:none}
+ .pamphlet .hub{display:none}
  .pamphlet .actions{margin-top:auto}
 }
 /* The pamphlet is paper laid on a table: each sheet is as large as its content and

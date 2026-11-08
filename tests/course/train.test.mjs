@@ -19,7 +19,7 @@ test('childhood answers apply once and keep the newborn record distinct from lat
 test('a figure is sized by the plate it stands in, and a seated pose keeps its own height',()=>{
  // The figure fraction is the adult's height in that painting. No blanket
  // correction: the same number means the same size in every set.
- assert.equal(figureHeightPx(1000,.3,400,'player',17),300);assert.equal(figureHeightPx(1000,.6,400,'player',17),600);assert.equal(figureHeightPx(1000,.3,200,'player',17),150);
+ assert.equal(figureHeightPx(1000,.3,400,'player',20),300);assert.equal(figureHeightPx(1000,.6,400,'player',20),600);assert.equal(figureHeightPx(1000,.3,200,'player',20),150);assert.ok(figureHeightPx(1000,.3,400,'player',15)<300,'a teenager is shorter than the adult');
 });
 test('external events are drawn before relationship eligibility and never invented before activation',()=>{
  const s={...begin(newLife(31)),age:20,pathway:'work'},random=(age,key)=>age===21?0:.99;

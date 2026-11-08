@@ -34,7 +34,7 @@
 }
 
 /* A form is as tall as its questions: the order slip fits its content on the table. */
-@media (min-width:721px){.intake-page .sheet{height:auto}}
+@media (min-width:721px){.intake-page .sheet{height:auto}.intake-page main.folio{align-items:safe center;overflow-y:auto}}
 
 /* The birth card: a record slip laid over the form. */
 #birth-card{border:1px solid var(--ink);padding:28px 32px;max-width:min(560px,calc(100% - 32px));background:var(--paper);color:var(--ink)}
