@@ -7,6 +7,9 @@
 import {newLife,configureLife,begin,live,balanced,defaultProfile} from './sim.js';
 import {createEconomy} from './economy.js';
 import {newStory} from './encounters.js';
+import {netWorth} from './finance.js';
+// After 15 the money lives in the personal accounts; row.cash stops moving.
+const worth=r=>r.finance?netWorth(r.finance):r.cash;
 
 // The unchosen life, carried as far as the player's life has been carried.
 export function unchosenLife(state,{upTo=state.age}={}){
@@ -30,7 +33,7 @@ export function baselineComparison(state){
   const rows=state.history.filter(row=>row.age>=10).map(row=>{
     const other=life.history.find(r=>r.age===row.age);
     if(!other)return null;
-    return {age:row.age,cash:row.cash,unchosenCash:other.cash,health:row.health,unchosenHealth:other.health,wellbeing:row.wellbeing,unchosenWellbeing:other.wellbeing};
+    return {age:row.age,cash:worth(row),unchosenCash:worth(other),health:row.health,unchosenHealth:other.health,wellbeing:row.wellbeing,unchosenWellbeing:other.wellbeing};
   }).filter(Boolean);
   const last=rows.at(-1);
   return {

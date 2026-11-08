@@ -11,6 +11,7 @@ import {birthURL} from './birthcode.js';
 import {resultShare,deliverShare,copyShare} from './share-result.js';
 import {lifeCardView} from './card-view.js';
 import {replayComparison} from './replay-compare.js';
+import {renderReading} from './life-reading.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
@@ -22,13 +23,16 @@ export function growthWindows(history){
 export function renderEnding(root,state,{storage}={}){
  if(storage===undefined){try{storage=localStorage;}catch{storage=null;}}
  releaseCard?.();resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
+ // What the life said comes first; the map and the instruments follow it.
+ renderReading(root,state);
+ const numbers=document.createElement('details');numbers.className='full-life-record ending-numbers';{const s=document.createElement('summary');s.textContent='The numbers';numbers.append(s);}
  // Where the life went leads the ending; the resource tracks follow it.
  const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);root.append(route);new ResizeObserver(()=>drawRouteMap(map,state)).observe(map);
  // Ikigai: four readings and the overlap between them. Money alone cannot fill it.
  const reading=ikigai(state);if(reading){const box=document.createElement('section');box.className='ending-ikigai';box.setAttribute('aria-label','Ikigai');const head=document.createElement('h2');head.textContent='Ikigai '+reading.score+' / 100';box.append(head);const list=document.createElement('dl');for(const[key,label,hint]of [['love','What you love','effort toward your chosen direction, kept up and made into something'],['good','What you became good at','practice, not what you were born with'],['world','What the world got from you','help, care, teaching, raising others'],['paid','What sustained you','chapters where income covered costs; enough, not wealth']]){const dt=document.createElement('dt'),dd=document.createElement('dd'),bar=document.createElement('span'),small=document.createElement('small');dt.textContent=label;small.textContent=hint;bar.className='ikigai-bar';bar.style.setProperty('--v',(reading.parts[key]??0)+'%');dd.append(bar,document.createTextNode(reading.parts[key]===null?'—':String(reading.parts[key])));dt.append(small);list.append(dt,dd);}
  // Where the four readings meet: the overlaps were computed all along and never shown.
  {const dt=document.createElement('dt'),dd=document.createElement('dd'),small=document.createElement('small');dd.className='ikigai-overlaps';dt.textContent='Where they meet';small.textContent='each overlap is the weaker of its two readings';dt.append(small);[['passion','Passion'],['mission','Mission'],['vocation','Vocation'],['profession','Profession']].forEach(([k,l],i)=>{const w=document.createElement('span');w.textContent=l+' '+(reading.overlaps[k]??'—');dd.append(w);});list.append(dt,dd);}
- const note=document.createElement('p');note.className='fine';note.textContent='Overall is the geometric mean of the four, so one strong reading cannot carry the others. A game proxy, not a psychological test.';box.append(list,note);root.append(box);}
+ const note=document.createElement('p');note.className='fine';note.textContent='Overall is the geometric mean of the four, so one strong reading cannot carry the others. A game proxy, not a psychological test.';box.append(list,note);numbers.append(box);}
  // Lessons: what past choices cost later, and what each one was teaching.
  const returned=state.history.flatMap(r=>r.consequences??[]),taken=(state.story?.seen??[]).filter(e=>LESSONS.some(l=>l.id===e.id));
  const at60=state.history.find(r=>r.age===60&&r.finance),period=at60&&state.finance?.receipts.find(r=>r.kind==='period'&&r.age===60),monthly=period?Math.max(1,Math.round(period.essential/Math.max(1,period.months))):0;
@@ -63,7 +67,7 @@ export function renderEnding(root,state,{storage}={}){
  if(fastest){line('Cash grew fastest at ages '+fastest.from+'–'+fastest.to+'.');line('Physical health changed by about '+Number(fastest.health.toFixed(1))+' points in that period.');if(slowed)line('Cash growth slowed at ages '+slowed.from+'–'+slowed.to+'.');}
  else line('No positive cash-growth period was recorded.');
  const note=document.createElement('p');note.className='fine';note.textContent='Five-year snapshots. These changes are not proof of cause or a fitted S-curve.';
- detail.append(label,age,values,event,analysis,note);const figure=document.createElement('figure');figure.className='ending-plot';figure.append(chart);if(fastest){const caption=document.createElement('figcaption');caption.textContent='Shaded interval: fastest cash growth.';figure.append(caption);}frame.append(figure,detail);root.append(frame);
+ detail.append(label,age,values,event,analysis,note);const figure=document.createElement('figure');figure.className='ending-plot';figure.append(chart);if(fastest){const caption=document.createElement('figcaption');caption.textContent='Shaded interval: fastest cash growth.';figure.append(caption);}frame.append(figure,detail);numbers.append(frame);
  const svg=(tag,attrs={},text)=>{const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;};
  const show=()=>{
   const row=rows.find(r=>r.age===Number(age.value))??rows.at(-1);values.replaceChildren();for(const[key,name]of metric){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=key==='cash'?money(row[key]):Math.round(row[key])+t(' / 100');values.append(dt,dd);}
@@ -109,8 +113,9 @@ export function renderEnding(root,state,{storage}={}){
   const delta=comparison.delta;
   if(delta){const sign=n=>(n>=0?'+':'')+n;const line=document.createElement('p');line.className='ending-baseline-line';line.textContent='By '+comparison.rows.at(-1).age+', your choices moved money by '+sign(money(delta.cash).replace('฿',''))+' ฿, health by '+sign(Math.round(delta.health))+' and wellbeing by '+sign(Math.round(delta.wellbeing))+' against that other life.';box.append(line);}
   if(comparison.endedEarly){const line=document.createElement('p');line.className='fine';line.textContent='That other life ended early, so its later stations are missing.';box.append(line);}
-  root.append(box);
+  numbers.append(box);
  }
+ root.append(numbers);
 }
 
 export {lifeCard} from './life-card.js';
