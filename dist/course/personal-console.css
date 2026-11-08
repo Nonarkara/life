@@ -483,6 +483,12 @@
 @media(min-width:721px) and (max-width:1279px){
  .decision-dialog{height:auto;max-height:60dvh}
 }
+/* On a landscape tablet the action rides in the deck's nav row; no column of its own. */
+@media(min-width:960px) and (max-width:1279px) and (orientation:landscape){
+ .console-mode.is-review .rpg-dock{position:relative}
+ .console-mode.is-review .rpg-dock .player-console{position:absolute;top:0;left:45%;width:max-content;height:auto;border:0;background:none;z-index:2}
+ .console-mode.is-review .rpg-dock .console-actions{min-height:0;padding:0}
+}
 /* A hidden dock owns no band under the scene. */
 @media(min-width:1280px){
  .console-mode.birth-stage.decision-open main{grid-template-rows:minmax(0,1fr)!important}
