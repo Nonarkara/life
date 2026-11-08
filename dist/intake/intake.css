@@ -39,6 +39,7 @@
 /* The birth card: a record slip laid over the form. */
 #birth-card{border:1px solid var(--ink);padding:28px 32px;max-width:min(560px,calc(100% - 32px));background:var(--paper);color:var(--ink)}
 #birth-card::backdrop{background:rgba(20,24,22,.55)}
+#birth-card .spec dd.fine{grid-column:1/-1;border-bottom:0;padding:6px 0 0;margin:0;font-size:var(--body);color:var(--muted)}
 #birth-card h2{font:600 var(--display)/1.1 var(--head);margin:0 0 14px}
 #birth-card .odds{font-weight:600;margin:14px 0 18px}
 #birth-card .actions{flex-wrap:wrap;gap:14px 22px}

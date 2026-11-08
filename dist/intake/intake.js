@@ -31,7 +31,7 @@ function card(life){
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }
-function enter(options){try{lastOptions=options;drawn=draw_life(options);card(drawn);$('birth-card').showModal();}catch{$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}}
+function enter(options){try{lastOptions=options;drawn=draw_life(options);card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;}catch{$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}}
 $('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/';}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
 $('birth-again').onclick=()=>{drawn=draw_life(lastOptions);card(drawn);};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
