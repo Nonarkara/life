@@ -84,6 +84,10 @@ Your first small choices|การตัดสินใจเล็กๆ คร
 School, play and helping at home all ask for your time.|การเรียน การเล่น และการช่วยงานบ้านต่างต้องใช้เวลา|上学、玩耍和帮家里做事都需要时间。|学校も遊びも家の手伝いも、時間が必要です。|학교, 놀이, 집안일 돕기에는 모두 시간이 필요합니다.
 Keep time for school and play|แบ่งเวลาให้การเรียนและการเล่น|留出上学和玩耍的时间|学校と遊びの時間を取る|학교와 놀이 시간 지키기
 You practised making room for lessons and play.|คุณฝึกแบ่งเวลาให้บทเรียนและการเล่น|你练习为学习和玩耍安排时间。|勉強と遊びのために時間をつくる練習をしました。|배움과 놀이를 위해 시간을 나누는 연습을 했습니다.
+Help sort the rice after school|ช่วยคัดข้าวหลังเลิกเรียน|放学后帮忙挑拣稻谷|放課後に米の選別を手伝う|방과 후 쌀 고르기를 돕기
+You helped sort the rice before dark. There was less time to play.|คุณช่วยคัดข้าวก่อนฟ้ามืด จึงมีเวลาเล่นน้อยลง|你在天黑前帮忙挑拣稻谷，玩的时间少了。|日が暮れる前に米の選別を手伝い、遊ぶ時間が少なくなった。|해가 지기 전에 쌀 고르기를 도왔습니다. 놀 시간이 줄었습니다.
+Take a turn with the chores|รับหน้าที่ทำงานบ้านบ้าง|轮到你做家务|家の用事を引き受ける|집안일을 맡기
+You got the chores done before play. Someone else had a little less to do.|คุณทำงานบ้านเสร็จก่อนเล่น คนอื่นจึงเบามือลงบ้าง|你先做完家务再去玩，别人就少做了一点。|遊ぶ前に家の用事を済ませた。誰かの負担が少し軽くなった。|놀기 전에 집안일을 마쳤습니다. 덕분에 다른 사람의 일이 조금 줄었습니다.
 Help at the family stall after school|ช่วยแผงของครอบครัวหลังเลิกเรียน|放学后帮家里看摊|放課後に家の店を手伝う|방과 후 가족 가게 돕기
 You helped at the stall. The household gained a little money, and you had less time to play.|คุณช่วยที่แผง บ้านมีเงินเพิ่มเล็กน้อย แต่คุณมีเวลาเล่นน้อยลง|你帮家里看摊，家中多了一点收入，你的玩耍时间也少了。|店を手伝って家に少しお金が入りましたが、遊ぶ時間は減りました。|가게를 도와 집에 돈이 조금 더 생겼지만, 놀 시간은 줄었습니다.
 Ask an adult for help with the difficult bits|ขอให้ผู้ใหญ่ช่วยเรื่องที่ยาก|请大人帮忙解决难题|難しいところを大人に手伝ってもらう|어려운 부분은 어른에게 도움 청하기

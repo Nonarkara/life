@@ -141,7 +141,7 @@ export function eraAnnualEvents(state, from, to, random) {
       if (e.cohort && e.cohort !== by) continue;
       if (!e.eligible(known, state)) continue;
       if (result.records.some(r => r.id === id)) continue;
-      const text = e.text
+      const text = e.prompt
         .replaceAll('{friend}', state.story?.people?.friend ?? 'your friend')
         .replaceAll('{partner}', state.story?.people?.partner ?? 'your partner');
       const r = {

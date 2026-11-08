@@ -4,6 +4,8 @@ export const CHILD_CHOICES=[
  {age:6,title:'Your first small choices',context:'School, play and helping at home all ask for your time.',options:[
   option('school','Keep time for school and play','You practised making room for lessons and play.',{skills:{iq:1},wellbeing:1},'book'),
   option('help','Help at the family stall after school','You helped at the stall. The household gained a little money, and you had less time to play.',{cash:200,wellbeing:-1,skills:{drive:1}},'tools'),
+  option('farm','Help sort the rice after school','You helped sort the rice before dark. There was less time to play.',{wellbeing:-1,skills:{drive:1}},'tools'),
+  option('chores','Take a turn with the chores','You got the chores done before play. Someone else had a little less to do.',{skills:{drive:1,eq:1}},'home'),
   option('ask','Ask an adult for help with the difficult bits','You asked for help instead of carrying the problem alone.',{skills:{eq:1},wellbeing:1},'people')]},
  {age:7,title:'Someone is left out of the game',context:'A child watches from the edge of the playground.',options:[
   option('invite','Invite them to join','You made room for another child.',{skills:{eq:1},wellbeing:1},'people'),
@@ -18,7 +20,14 @@ export const CHILD_CHOICES=[
   option('friend','Make time for your friend','You practised listening to someone else.',{skills:{eq:1},wellbeing:1},'people'),
   option('home','Finish the work at home','You learned to finish something others depended on.',{skills:{drive:1},cash:100},'home')]}
 ];
-export function pendingChildChoice(state,age){return state.stage==='birth'?CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&q.age<=age&&!(state.childhood?.choices??[]).some(r=>r.age===q.age)):undefined;}
+export function pendingChildChoice(state,age){
+ if(state.stage!=='birth')return;
+ const question=CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&q.age<=age&&!(state.childhood?.choices??[]).some(r=>r.age===q.age));
+ if(question?.age!==6)return question;
+ const home=state.birth.home;
+ const work=home==='a market-stall household'?'help':home==='a rice-farming household'?'farm':'chores';
+ return {...question,options:question.options.filter(option=>['school',work,'ask'].includes(option.id))};
+}
 export function nextChildAge(state){return CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&!(state.childhood?.choices??[]).some(r=>r.age===q.age))?.age??10;}
 export function chooseChild(state,age,id){
  const q=pendingChildChoice(state,age);if(!q||q.age!==age)return state;const o=q.options.find(o=>o.id===id);if(!o)return state;

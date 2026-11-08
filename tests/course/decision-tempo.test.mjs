@@ -44,11 +44,15 @@ test('an unaffordable house is not published as a road not taken after renting a
  let s=begin(newLegacyLife(10));
  while(s.stage==='review'){
   if(s.story?.pending)s=resolveEncounter(s,encounterById(s.story.pending.id).options.find(o=>choiceAvailable(s,o)).id,.2);
-  for(const p of pendingPivots(s)){const options=openOptions(p,s);s=applyPivot(s,p,options[12%options.length].id);}
-  if(s.age===45){const r=s.pivots.find(r=>r.pivot==='buy-house');assert.equal(r.choice,'rent');
-   const before=undoAnswer(s,r),p=pivotById(r.pivot);
+  if(s.age===45){
+   const p=pivotById('buy-house');
+   s=applyPivot({...s,cash:12000},p,'rent');
+   const r=s.pivots.find(r=>r.pivot==='buy-house');assert.equal(r.choice,'rent');
+   const before=undoAnswer(s,r);
    assert.ok(openOptions(p,s).some(o=>o.id==='buy'));assert.ok(!openOptions(p,before).some(o=>o.id==='buy'));
    assert.ok(!stationAlternatives(s).some(r=>r.pivot==='buy-house'&&r.option==='buy'));return;
-  }s=live(s);
+  }
+  for(const p of pendingPivots(s)){const options=openOptions(p,s);s=applyPivot(s,p,options[12%options.length].id);}
+  s=live(s);
  }assert.fail('seed must reach the house decision');
 });

@@ -515,7 +515,13 @@ const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools'
 // A question that assumes a stall, a workshop or a site is asked only of the households that have one; the rest of the table is open to all.
 const STALL=['low_class','working_class','middle_class'],NOT_RICH=['low_class','working_class','middle_class','bureaucratic_class'];
 const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'school-leave':STALL,'stall-paper':STALL,'stall-takeover':STALL,'father-tools':STALL,'nephew':STALL,'partner-business':STALL,'college-cost':NOT_RICH,'buy-house':NOT_RICH,'year-abroad':['working_class','middle_class','bureaucratic_class','high_class','royal_associated']};
-export const fits=(pivot,state)=>{const c=state.intake?.class??state.birth?.class;return !FOR[pivot.id]||c===undefined||FOR[pivot.id].includes(c);};// lives from before classes existed are asked everything
+const MARKET_STALL = new Set(['child-roof','child-sponsor','stall-paper','stall-takeover','flood-move']);
+export function fits(pivot,state){
+  if(MARKET_STALL.has(pivot.id)&&state.birth?.home!=='a market-stall household')return false;
+  if(pivot.id==='college-cost'&&state.cash>=18000)return false;
+  const birthClass=state.intake?.class??state.birth?.class;
+  return !FOR[pivot.id]||birthClass===undefined||FOR[pivot.id].includes(birthClass);
+}
 export const occurred=(pivot,state)=>!WHEN[pivot.id]||(state.history??[]).some(r=>r.age===pivot.station&&WHEN[pivot.id].test(r.event??''));
 export const pivotCount=PIVOTS.length;
 
@@ -594,9 +600,11 @@ export function applyPivot(state,pivot,optionId){
 // The questions a station still asks, and the ones already answered.
 export function pendingPivots(state){
   // A station asks the questions its plot points force (the flood, a parent's death) and ONE of its open questions, drawn by this life's seed, so no two lives are asked the same thing.
-  const open=pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&fits(pivot,state)),free=open.filter(p=>!WHEN[p.id]);
-  const pick=free.map(p=>[rand(state.seed,state.age,'pivot:'+p.id),p]).sort((x,y)=>x[0]-y[0])[0]?.[1];
-  return open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!(state.pivots??[]).some(record=>record.pivot===pivot.id));
+  const answered = new Set((state.pivots??[]).filter(record=>record.station===state.age).map(record=>record.pivot));
+  const open = pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&fits(pivot,state));
+  const free = [...answered].some(id=>!WHEN[id])?[]:open.filter(pivot=>!WHEN[pivot.id]);
+  const pick = free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
+  return open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id));
 }
 
 // The commitment a question made: an axis cannot go below this for five years.

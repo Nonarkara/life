@@ -23,6 +23,7 @@ mkdirSync(output+'/intake',{recursive:true});cpSync('dist/intake',output+'/intak
 
 mkdirSync(output+'/study',{recursive:true});cpSync('dist/study',output+'/study',{recursive:true});
 const {build}=await import('esbuild');
+await build({entryPoints:['dist/intake/intake.js'],bundle:true,minify:true,format:'esm',outfile:output+'/intake/intake.js'});
 await build({entryPoints:['dist/study/deck-edge.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/deck-edge.bundle.js'});
 await build({entryPoints:['dist/course/scene-study.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/scene-study.bundle.js'});
 await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',splitting:true,entryNames:'game.bundle',chunkNames:'chunk-[hash]',outdir:output+'/course'});
