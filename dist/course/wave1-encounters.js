@@ -19,6 +19,7 @@ const o=(id,label,effects,outcome)=>({id,label,...effects,outcome});
 // House rule the engine and tests rely on: the first option costs nothing, so no life is ever stuck.
 const scene=(id,category,min,max,eligible,title,prompt,options)=>({id,category,min,max,priority:2,eligible,title,prompt,options:[...options.filter(x=>!(x.cash<0)).slice(0,1),...options.filter((x,i,a)=>x!==a.find(y=>!(y.cash<0)))]});
 const RICH=of('high_class','royal_associated'),NOT_RICH=of('low_class','working_class','middle_class'),POOR=of('low_class','working_class');
+export {cls,of,at,sex,happened,motherGone,fatherGone,withMother,withFather,away,child,all,o,scene,RICH,NOT_RICH,POOR};
 
 export const WAVE1_ENCOUNTERS=[
  // Households with money and a name

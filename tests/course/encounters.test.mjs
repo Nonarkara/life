@@ -9,7 +9,7 @@ import {capacities,capacityHistory,comparison} from '../../dist/course/personali
 import {translate} from '../../dist/course/i18n.js';
 const settle=(s,id,roll=.2)=>{if(!s.story?.pending)return s;const options=encounterById(s.story.pending.id).options.filter(o=>choiceAvailable(s,o));return resolveEncounter(s,options.find(o=>o.id===id)?.id??options[0].id,roll);};
 test('a pending encounter cannot be skipped, replayed or charged twice',()=>{
- const before=begin(configureLife(newLife(1))),pending=live(before);assert.equal(pending.story.pending.id,'friend');assert.equal(live(pending),pending);
+ const before=begin(configureLife(newLife(1))),pending=pin(live(before));assert.equal(pending.story.pending.id,'friend');assert.equal(live(pending),pending);
  const resolved=settle(pending,'join');assert.equal(netWorth(resolved.finance),netWorth(pending.finance)-300);assert.equal(resolved.cash,pending.cash);assert.equal(resolved.history.length,pending.history.length);assert.deepEqual(resolved.attributes,before.attributes);assert.equal(resolved.story.flags.friend,15);assert.ok(validate(resolved));
  assert.equal(resolveEncounter(resolved,'join',.1),resolved);assert.equal(resolveEncounter(pending,'bogus',.1),pending);assert.equal(offerEncounter(resolved,.1),resolved);
 });
@@ -60,6 +60,7 @@ test('every encounter title, choice, prompt and outcome is translated',()=>{
  for(const language of ['th','zh-CN','ja','ko'])for(const e of ENCOUNTERS)for(const text of [e.title,e.prompt,...e.options.flatMap(o=>[o.label,o.outcome])])assert.notEqual(translate(text,language),text,`${language}: ${text}`);
 });
 import {storyText} from '../../dist/course/encounters.js';
+const pin=(s,id='friend')=>({...s,story:{...s.story,pending:{...s.story.pending,id}}});// the station draw is random; these tests are about 'friend'
 test('named story memories stay translated inside joined history paragraphs',()=>{
  const story=newLife(1).story;
  const text='An ordinary five years. Small habits accumulate. '+storyText(encounterById('friend').options[0].outcome,story);
@@ -70,7 +71,7 @@ test('malformed history is rejected without throwing after a story choice',()=>{
 });
 
 test('school-age choices trade specific practice without rewriting innate traits or imposing academic failure',()=>{
- const pending=live(begin(newLife(1)));
+ const pending=pin(live(begin(newLife(1))));
  const shared=resolveEncounter(pending,'together',.2),crush=resolveEncounter(pending,'crush',.2),alone=resolveEncounter(pending,'home',.2);
  assert.equal(shared.skills.iq,pending.skills.iq+1);assert.equal(shared.skills.eq,pending.skills.eq+1);
  assert.equal(crush.skills.eq,pending.skills.eq+2);assert.equal(crush.skills.iq,pending.skills.iq);

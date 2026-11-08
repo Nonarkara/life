@@ -5,9 +5,10 @@ import {offerEncounter,resolveEncounter} from '../../dist/course/encounters.js';
 const live=s=>{const n=liveAll(s);if(!/^[lm]_/.test(n.story?.pending?.id??''))return n;return offerEncounter({...n,story:{...n.story,pending:null}},rand(n.seed,n.age,'encounter'),e=>!/^[lm]_/.test(e.id));};
 
 import {purpose,purposeRecord} from '../../dist/course/purpose.js';
+const pin=(s,id='friend')=>({...s,story:{...s.story,pending:{...s.story.pending,id}}});// the station draw is random; these tests are about 'friend'
 test('purpose has no invented childhood or legacy score and planning changes cannot rewrite it',()=>{
  const initial=newLife(55);assert.equal(purpose(initial).index,null);
- const next=live({...begin(initial),profile:{...initial.profile,focus:'growth'}}),s=resolveEncounter(next,'together',.5),before=JSON.stringify(s);
+ const next=live({...begin(initial),profile:{...initial.profile,focus:'growth'}}),s=resolveEncounter(pin(next),'together',.5),before=JSON.stringify(s);
  const actual=purpose(s);assert.equal(actual.eligible,1);assert.equal(actual.met,1);
  assert.deepEqual(purpose({...s,profile:{...s.profile,focus:'recognition'},effort:{physique:10,iq:0,eq:0,craft:0,drive:0}}),actual);
  assert.equal(JSON.stringify(s),before);

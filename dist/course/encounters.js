@@ -6,6 +6,7 @@ import {choiceAvailable,personalFlow} from './finance.js';
 import {mismatched,partnerNature,together} from './life-choices.js';
 import {LESSONS} from './lessons.js';
 import {WAVE1_ENCOUNTERS} from './wave1-encounters.js';
+import {WAVE2_ENCOUNTERS} from './wave2-encounters.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -103,7 +104,7 @@ ENCOUNTERS.push(
   option('again','Move again and see whether the next place holds',{cash:-6000,wellbeing:-1,flag:'geo_again'},'You moved again. It held for a while, the way the last one did.'),
   option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
 ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS,...THAI_ENCOUNTERS);
-ENCOUNTERS.push(...WAVE1_ENCOUNTERS);
+ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.

@@ -14,6 +14,8 @@ assign('class_family_business class_debt class_ambition class_overtime class_con
 assign('class_family_pressure class_support_pressure class_housing_pressure class_family_time class_posting_pressure class_name_pressure class_heirloom class_photo class_water_offering class_lantern class_record class_name_plaque',{sad:true});
 assign('th_spirit_offering th_stray_cat th_midnight_cart th_mitr_cameo th_vhs_modem th_midlife_frugality th_alms_round th_lantern_night th_neighborhood_song',{joy:true});
 assign('w1_nanny w1_inheritance w1_envelope w1_driver w1_grandma_raised w1_boat_engine w1_gold w1_tickets w1_daughter w1_chanting w1_ward_chair w1_loan',{sad:true});
+assign('w2_uniform w2_one_place w2_bullied w2_night_shift w2_checkup w2_soi_sold w2_grandchild_left w2_fall w2_teeth w2_single_old',{sad:true});
+assign('w2_temple_boy w2_tutor w2_car_block w2_letter w2_cows w2_stall_shift w2_entrance w2_civil_exam w2_commute w2_sinsod w2_mother_in_law w2_alms w2_will w2_glasses w2_reunion');
 assign('w1_board w1_match w1_transfer w1_vest w1_scale w1_ordain w1_rice w1_fire w1_shoes w1_songkran w1_first_pay');
 assign('friend love commitment parenthood project_return child_school mentor friend_late dog l_friends l_kind m_pet',{joy:true});
 assign('after_hospital bully flood_help remember remember_mother hard_marriage l_funeral l_injury l_bottom m_crash m_vanished m_grandparent',{sad:true});

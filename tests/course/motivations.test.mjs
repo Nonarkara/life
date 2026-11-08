@@ -6,6 +6,7 @@ const live=s=>{const n=liveAll(s);if(!/^[lm]_/.test(n.story?.pending?.id??''))re
 
 import {FOCUSES,FOCUS_HINTS,focusEvidence} from '../../dist/course/motivations.js';
 import {translate} from '../../dist/course/i18n.js';
+const pin=(s,id='friend')=>({...s,story:{...s.story,pending:{...s.story.pending,id}}});// the station draw is random; these tests are about 'friend'
 test('legacy profiles remain valid and unknown focus cannot masquerade as a saved focus',()=>{
  const old=begin(newLife(1));assert.ok(validate(old));assert.equal(sanitiseProfile(old.profile,20).focus,undefined);
  assert.equal(validate({...old,profile:{...old.profile,focus:'genius'}}),false);
@@ -25,7 +26,7 @@ test('evidence uses the recorded chapter focus, not a subsequently edited intent
  assert.equal(focusEvidence(changed).focus,'growth');assert.match(focusEvidence(s).text,/2 game points/);
 });
 test('social evidence records actual shared choices, with no credit for an unanswered invitation',()=>{
- const pending=live({...begin(newLife(1)),profile:{...newLife(1).profile,focus:'connection'}});
+ const pending=pin(live({...begin(newLife(1)),profile:{...newLife(1).profile,focus:'connection'}}));
  assert.match(focusEvidence(pending).text,/: 0\./);
  const shared=resolveEncounter(pending,'together',.1);assert.match(focusEvidence(shared).text,/: 1\./);
  assert.match(focusEvidence(resolveEncounter(pending,'home',.1)).text,/: 0\./);
