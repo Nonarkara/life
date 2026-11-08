@@ -1,9 +1,9 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {newLife,newLegacyLife,begin,live} from '../../dist/course/sim.js';
+import {newLife,newLegacyLife,begin,live,configureLife} from '../../dist/course/sim.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {choiceAvailable} from '../../dist/course/finance.js';
 import {pendingPivots,applyPivot,openOptions} from '../../dist/course/pivots.js';
-import {lifeReading,decisionsOf,deathFacts,sameBirth,READING_KEYS} from '../../dist/course/life-reading.js';
+import {lifeReading,decisionsOf,deathFacts,sameBirth,otherRoads,relive,READING_KEYS} from '../../dist/course/life-reading.js';
 import {phrases} from '../../dist/course/translations.js';
 const play=seed=>{let s=begin(newLife(seed*7919));while(s.stage==='review'&&s.age<80){s=live(s);if(s.stage!=='review')break;for(const p of pendingPivots(s)){const os=openOptions(p,s),o=os[seed%os.length];if(o)s=applyPivot(s,p,o.id);}const ps=s.story?.pending;if(ps){const os=encounterById(ps.id).options.filter(o=>choiceAvailable(s,o));s=resolveEncounter(s,os[seed%os.length].id,.2);}}return s;};
 test('the reading only counts what the record holds',()=>{
@@ -36,4 +36,8 @@ test('other lives share the birth, including lives without a class',()=>{
 });
 test('nobody counted alive at your age died by then',()=>{
  for(const seed of [3,8,34]){const r=lifeReading(play(seed)).others;assert.equal(r.alive,r.reachedSame);}
+});
+test('the other road is the same birth with one answer changed',()=>{
+ for(const seed of [3,5,7,9]){const s=play(seed),r=otherRoads(s);if(!r)continue;assert.ok(r.roads.length>=1&&r.roads.length<=2);for(const x of r.roads){assert.ok(Number.isFinite(x.money));assert.ok(x.memories.every(m=>m.age>=r.age));assert.ok(x.age<=80);}}
+ const s=play(3),life=relive(s,'__none__','__none__');assert.deepEqual(life.birth,s.birth);assert.equal(life.seed,s.seed);
 });

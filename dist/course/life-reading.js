@@ -1,6 +1,6 @@
 // What a finished life says, read only from its own record and the game's own model.
 // It states odds, counts and what was recorded. It never says one choice caused an outcome.
-import {newLife,newLegacyLife,configureLife,begin,live,balanced,defaultProfile,rand} from './sim.js';
+import {newLife,newLegacyLife,configureLife,begin,live,balanced,defaultProfile,rand,replay} from './sim.js';
 import {createEconomy} from './economy.js';
 import {newStory,encounterById,resolveEncounter} from './encounters.js';
 import {pivotById,pendingPivots,openOptions,applyPivot} from './pivots.js';
@@ -60,6 +60,29 @@ function guarded(ds){
  for(const d of ds){if(best(d,'cash'))count.money++;if(best(d,'wellbeing'))count.peace++;if(best(d,'health'))count.body++;}
  return count;
 }
+// The same birth and the same luck, every recorded answer kept, one answer changed.
+export function relive(state,pivotId,optionId){
+ let s=begin({...replay(state),attributes:state.attributes,previous:null,childhood:state.childhood});
+ const byFrom=new Map(state.history.map(r=>[r.from??r.age,r])),seen=new Map((state.story?.seen??[]).map(e=>[e.id,e.choice])),said=new Map(state.history.flatMap(r=>r.pivots??[]).map(p=>[p.pivot,p.choice]));
+ for(let guard=0;s.stage==='review'&&guard<20;guard++){
+  for(const p of pendingPivots(s)){const open=openOptions(p,s),want=p.id===pivotId?optionId:said.get(p.id);const o=open.find(x=>x.id===want)??open[0];if(o)s=applyPivot(s,p,o.id);}
+  if(s.story?.pending){const scene=encounterById(s.story.pending.id),open=scene.options.filter(o=>choiceAvailable(s,o)),o=open.find(x=>x.id===seen.get(scene.id))??open[0];s=resolveEncounter(s,o.id,rand(s.seed,s.age,'encounter-result'));if(s.stage!=='review')break;}
+  const row=byFrom.get(s.age),n=live({...s,effort:row?.effort??s.effort,profile:row?.profile??s.profile});if(n===s)break;s=n;
+ }
+ return s;
+}
+const memoriesOf=(life,real,from=0)=>{const known=new Set([...(real.story?.seen??[]).map(e=>e.outcome),...real.history.flatMap(r=>r.pivots??[]).map(p=>p.note)]);
+ const all=[...(life.story?.seen??[]).map(e=>({age:e.age,text:e.outcome,size:Math.abs(e.effects.cash)/4000+Math.abs(e.effects.health)+Math.abs(e.effects.wellbeing)})),...life.history.flatMap(r=>r.pivots??[]).map(p=>({age:p.station,text:p.note,size:Math.abs(p.effects?.cash??0)/4000+Math.abs(p.effects?.health??0)+Math.abs(p.effects?.wellbeing??0)}))];
+ return all.filter(m=>m.age>=from&&m.text&&!known.has(m.text)).sort((a,b)=>b.size-a.size).slice(0,2).sort((a,b)=>a.age-b.age);};
+// The fork worth reliving: the road at twenty when there was one, else the answer that moved most.
+export function otherRoads(state){
+ const records=state.history.flatMap(r=>r.pivots??[]);if(!records.length)return null;
+ const size=p=>Math.abs(p.effects?.cash??0)/4000+Math.abs(p.effects?.health??0)+Math.abs(p.effects?.wellbeing??0);
+ const fork=records.find(p=>p.pivot==='three-roads')??[...records].sort((a,b)=>size(b)-size(a))[0],pivot=pivotById(fork.pivot);if(!pivot)return null;
+ const ECHO={marry:'The press became three factories. Your name was on none of them.',stay:'You knew everyone in the district, and you went to all their funerals.',go:'You sent money home every month, and went back for the funerals.'};
+ const chosen=pivot.options.find(o=>o.id===fork.choice),roads=pivot.options.filter(o=>o!==chosen&&!o.requires).slice(0,2).map(o=>{const life=relive(state,pivot.id,o.id),last=life.history.at(-1);return {label:o.label,age:life.death?.age??life.age,died:life.death?.cause??null,money:worth(last),wellbeing:Math.round(last.wellbeing),health:Math.round(last.health),memories:[...(fork.pivot==='three-roads'&&(life.death?.age??life.age)>=50&&ECHO[o.id]?[{age:50,text:ECHO[o.id]}]:[]),...memoriesOf(life,state,fork.station)].slice(0,3).sort((a,b)=>a.age-b.age)};});
+ return roads.length?{age:fork.station,chosen:chosen.label,roads}:null;
+}
 function people(state){
  const f={...state.pivotFlags,...state.story.flags},names=state.story.people,row=[];
  if(f.friend!==undefined)row.push([names.friend,f.friend,null]);
@@ -80,7 +103,7 @@ export function lifeReading(state){
  const ds=decisionsOf(state),big=[...ds].sort((a,b)=>b.size-a.size).slice(0,3).sort((a,b)=>a.age-b.age);
  return {rows,chapters:pairs.length,moneyRose:rose('money'),wellRose:rose('wellbeing'),first:rows[0],last:rows.at(-1),
   fall:fall&&fall[0].wellbeing-fall[1].wellbeing>=5?{from:fall[0].age,to:fall[1].age}:null,
-  decisions:ds.length,guarded:guarded(ds),turning:big,people:people(state),others:others(state)};
+  decisions:ds.length,guarded:guarded(ds),turning:big,people:people(state),others:others(state),roads:otherRoads(state)};
 }
 const money=n=>(n<0?'−':'')+'฿'+Math.abs(Math.round(n)).toLocaleString('en');
 const fill=(key,v={})=>Object.entries(v).reduce((text,[k,x])=>text.replaceAll('{'+k+'}',x),t(key));
@@ -104,8 +127,9 @@ export function renderReading(root,state){
  const o=r.others;
  box.append(el('p',null,(d?fill('A hundred other lives from this same birth, with ordinary effort and random decisions: {n} lived longer.',{n:o.reachedSame})+' ':'')+(o.alive?fill('Of those alive at {n}, {a}% had more money and {b}% were happier.',{n:state.age,a:o.richer,b:o.happier}):'')));
  if(o.classGap){const g=o.classGap;box.append(el('p',null,fill('Typical money at {n}, same effort and random decisions. {mine}: about {a}. {other}: about {b}.',{mine:t(CLASS_TIERS[g.cls].label),other:t(CLASS_TIERS[g.other].label),a:money(g.mine),b:money(g.theirs),n:g.at})));}
+if(r.roads){const wrap=el('div','reading-roads');wrap.append(el('p','reading-thesis',fill('At {n} you chose: {label}. Same birth, same luck, and the other roads:',{n:r.roads.age,label:t(r.roads.chosen)})));for(const x of r.roads.roads){const item=el('div');item.append(el('b',null,t(x.label)));item.append(el('p',null,fill('You live to {n}. {money}. Wellbeing {w}. Health {h}.',{n:x.age,money:money(x.money),w:x.wellbeing,h:x.health})));for(const m of x.memories)item.append(el('small',null,fill('Age {n}',{n:m.age})+' · '+t(m.text)));wrap.append(item);}box.append(wrap);}
  box.append(el('p','reading-question',r.fall?fill('Wellbeing fell furthest between {a} and {b}. Same birth, same world. What would you do with those years?',{a:r.fall.from,b:r.fall.to}):t('Same birth, same world. What would you do differently?')));
  box.append(el('p','fine',t('Game model, not a forecast. Odds and comparisons come from this game’s rules.')));
  root.append(box);return box;
 }
-export const READING_KEYS=['What this life said','1 in {n}','{n} of 100','of the other lives from your birth got this far.','The game’s odds of dying in those five years. In good health they would have been 1 in {a}. Your health had come down to {b}.','The game’s odds of dying in those five years, at your age and health. Most people live through odds like these. It came anyway.','Without the smoking: 1 in {n}.','Money rose in {a} of your {n} chapters. Wellbeing rose in {b}.','Age {a} → {b}','Of {n} decisions, you guarded your money {a} times, your peace of mind {b}, your body {c}.','Age {n}','Other road: {road}','Five years down it: health {a}, wellbeing {b}, against the road you took.','Named in this life: ','A child','({a}–{b})','(from {n})','The record names no friend and no partner.','A hundred other lives from this same birth, with ordinary effort and random decisions: {n} lived longer.','Of those alive at {n}, {a}% had more money and {b}% were happier.','Typical money at {n}, same effort and random decisions. {mine}: about {a}. {other}: about {b}.','Wellbeing fell furthest between {a} and {b}. Same birth, same world. What would you do with those years?','Same birth, same world. What would you do differently?','Game model, not a forecast. Odds and comparisons come from this game’s rules.','The numbers'];
+export const READING_KEYS=['What this life said','1 in {n}','{n} of 100','of the other lives from your birth got this far.','The game’s odds of dying in those five years. In good health they would have been 1 in {a}. Your health had come down to {b}.','The game’s odds of dying in those five years, at your age and health. Most people live through odds like these. It came anyway.','Without the smoking: 1 in {n}.','Money rose in {a} of your {n} chapters. Wellbeing rose in {b}.','Age {a} → {b}','Of {n} decisions, you guarded your money {a} times, your peace of mind {b}, your body {c}.','Age {n}','Other road: {road}','Five years down it: health {a}, wellbeing {b}, against the road you took.','Named in this life: ','A child','({a}–{b})','(from {n})','The record names no friend and no partner.','A hundred other lives from this same birth, with ordinary effort and random decisions: {n} lived longer.','Of those alive at {n}, {a}% had more money and {b}% were happier.','Typical money at {n}, same effort and random decisions. {mine}: about {a}. {other}: about {b}.','Wellbeing fell furthest between {a} and {b}. Same birth, same world. What would you do with those years?','Same birth, same world. What would you do differently?','Game model, not a forecast. Odds and comparisons come from this game’s rules.','The numbers','At {n} you chose: {label}. Same birth, same luck, and the other roads:','You live to {n}. {money}. Wellbeing {w}. Health {h}.','See your life →','The press became three factories. Your name was on none of them.','You knew everyone in the district, and you went to all their funerals.','You sent money home every month, and went back for the funerals.'];

@@ -7,6 +7,8 @@ import {mismatched,partnerNature,together} from './life-choices.js';
 import {LESSONS} from './lessons.js';
 import {WAVE1_ENCOUNTERS} from './wave1-encounters.js';
 import {WAVE2_ENCOUNTERS} from './wave2-encounters.js';
+import {HISTORY_ENCOUNTERS} from './history-encounters.js';
+import {sceneFits,birthYearOf} from './thai-history.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -104,7 +106,7 @@ ENCOUNTERS.push(
   option('again','Move again and see whether the next place holds',{cash:-6000,wellbeing:-1,flag:'geo_again'},'You moved again. It held for a while, the way the last one did.'),
   option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
 ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS,...THAI_ENCOUNTERS);
-ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS);
+ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.
@@ -114,7 +116,7 @@ export const encounterById=id=>byId.get(id);
 export function eligibleEncounters(state){
  if(state.stage!=='review'||state.age<15||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
  const seen=new Set(state.story.seen.map(e=>e.id));
- return ENCOUNTERS.filter(e=>state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&(!e.eligible||e.eligible(state)));
+ return ENCOUNTERS.filter(e=>state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
 }
 export function offerEncounter(state,roll,keep=()=>true){
  const eligible=eligibleEncounters(state).filter(keep);if(!eligible.length)return state;
@@ -145,6 +147,7 @@ export function resolveEncounter(state,choiceId,roll){
  for(const[key,value]of Object.entries(effects.skills))next.skills[key]+=value;
  const last=state.history.at(-1);
  next.history=[...state.history.slice(0,-1),{...last,...(next.finance?{finance:{...(last.finance??{}),available:next.finance.available,reserve:next.finance.reserve,debt:next.finance.debt}}:{}),cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];
+ if(choice.risk&&roll<choice.risk){const y=birthYearOf(state);const age=y!==null&&encounter.year?Math.max(state.age,Math.min(state.age+4,encounter.year-y)):state.age;return {...next,stage:'recap',death:{age,cause:choice.deathCause,odds:choice.risk,chance:choice.risk,smoker:false,history:true}};}
  return choice.sellAll?sellAll(next):next;
 }
 export function validStory(story,age,state){

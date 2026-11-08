@@ -93,6 +93,9 @@ const flags=flagsOf(s);if(flags.parent!==undefined&&flags.childLost===undefined&
 if(dogAt(s,from)){setback+=2000;moodAdj+=1;}
 if(adult&&mismatched(s)&&from<60)moodAdj-=2;
 setback-=ventureSwing(s,age);
+// The road taken at twenty keeps paying, and keeps costing.
+if(s.pivotFlags?.oilPress!==undefined){setback-=from<40?200000:from<65?2000000:800000;moodAdj-=1;}
+if(s.pivotFlags?.keptShop!==undefined&&from<60){setback-=40000;moodAdj+=1;}
 // Past choices return: on the timeline, in this period's costs, in body and mind.
 for(const c of due){setback-=c.cash;bodyAdj+=c.health;moodAdj+=c.wellbeing;event+=' '+c.text;}
 const spending=adult?(retired?11000:14000):0;const habits=adult?((p.smoke==='yes'?4000:0)+(p.drink==='social'?2500:0)):0;
@@ -126,10 +129,12 @@ export function validate(s){
 
 // Intake presets are authored game starting conditions, not demographic estimates.
 // New births use six Thai backgrounds. Legacy births keep their original identity.
+// Birth is not a three-way lottery: about one in a hundred.
+const drawSex=r=>r<.495?'female':r<.99?'male':'intersex';
 export function configureLife(s,options={}){
  if(options.legacy||options.upbringing!==undefined||options.country&&options.country!=='th')return configureLegacyLife(newLegacyLife(s.seed),options);
   const sexes=['female','male','intersex'],classes=CLASS_KEYS;
-  const sex=sexes.includes(options.sex)?options.sex:sexes[Math.floor(rand(s.seed,0,'intake-sex')*sexes.length)];
+  const sex=sexes.includes(options.sex)?options.sex:drawSex(rand(s.seed,0,'intake-sex'));
   const cls=classes.includes(options.class)?options.class:drawClass(rand(s.seed,0,'intake-class'),classes);
   const rawYear=options.birthYear!==undefined&&options.birthYear!==''&&options.birthYear!=='random'?Number(options.birthYear):undefined;
   const birthYear=COHORT_YEARS.includes(rawYear)?rawYear:undefined;
@@ -150,7 +155,7 @@ export function configureLife(s,options={}){
 // Exact historical intake algorithm: old saved/share identities remain stable.
 function configureLegacyLife(s,options={}){
  const sexes=['female','male','intersex'],bands=['constrained','middle','comfortable'];
- const sex=sexes.includes(options.sex)?options.sex:sexes[Math.floor(rand(s.seed,0,'intake-sex')*sexes.length)];
+ const sex=sexes.includes(options.sex)?options.sex:drawSex(rand(s.seed,0,'intake-sex'));
  const upbringing=bands.includes(options.upbringing)?options.upbringing:bands[Math.floor(rand(s.seed,0,'intake-band')*bands.length)];
  const attributes=validPoints(options.attributes)?{...options.attributes}:Object.fromEntries(AXES.map(a=>[a.key,0]));
  if(!validPoints(options.attributes))for(let i=0;i<10;i++)attributes[AXES[Math.floor(rand(s.seed,i,'intake-point')*AXES.length)].key]++;

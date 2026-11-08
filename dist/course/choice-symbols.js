@@ -22,7 +22,7 @@ export const SYMBOL_PATHS={
 export const STATION_SYMBOLS={
  'child-roof':['tools','book','agreement'],'child-sponsor':['agreement','shield','agreement'],'child-water-bike':['bicycle','water','tools'],
  'school-apprentice':['book','tools','clock'],'school-leave':['travel','book','money'],'school-fall-climb':['shield','art','work'],
- 'college-cost':['book','agreement','work','clock'],'stall-paper':['agreement','shield','home'],'city-pay':['travel','home','agreement'],
+ 'college-cost':['book','agreement','work','clock'],'three-roads':['home','heart','travel'],'stall-paper':['agreement','shield','home'],'city-pay':['travel','home','agreement'],
  'partner-choice':['people','heart','clock'],'flood-repair':['tools','money','split'],'flood-move':['travel','home'],
  'year-abroad':['travel','home','clock'],'partner-business':['work','money','shield'],'promotion-away':['travel','home','agreement'],
  'parent-ill':['care','people','money'],'share-offer':['work','money','split'],'buy-house':['home','money','people'],

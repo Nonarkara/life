@@ -46,6 +46,9 @@ export const HISTORICAL_COHORTS=Object.freeze({
  }
 });
 
+// A scene cannot happen before its world exists: no game consoles in 1964.
+const SCENE_ERAS=Object.freeze({m_kits:{from:1988},m_runway:{from:1992},m_funds:{from:2013},m_crash:{from:1992},m_house:{from:1992},m_leverage:{from:1988},l_compare:{from:2010},geo_arbitrage:{from:2012},geo_expiry:{from:2012},th_curfew:{from:2014},th_bank_merger:{from:1997},th_vhs_modem:{from:1998},th_mitr_cameo:{from:1957,until:1970},w1_grandma_raised:{from:1990},w1_vest:{from:1990},w2_tutor:{from:1970},w2_soi_sold:{from:1988}});
+export function sceneFits(id,state){const y=birthYearOf(state);const g=SCENE_ERAS[id];if(y===null||!g)return true;const c=y+state.age;return (g.from===undefined||c>=g.from)&&(g.until===undefined||c<=g.until);}
 export function validCohortYear(y){
  return y===undefined||COHORT_YEARS.includes(y);
 }

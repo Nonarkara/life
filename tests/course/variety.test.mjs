@@ -25,3 +25,21 @@ test('every encounter opens with an option that costs nothing',()=>{for(const e 
 import {MOMENT_TEXTS} from '../../dist/course/moments.js';
 import {phrases} from '../../dist/course/translations.js';
 test('every chapter moment has its own row in all four languages',()=>{const rows=new Map(phrases.map(r=>[r[0],r]));for(const m of MOMENT_TEXTS){const r=rows.get(m);assert.ok(r&&r.length===5&&r.slice(1).every(v=>v&&v!==m),m);}});
+
+import {configureLife} from '../../dist/course/sim.js';
+test('a 1949 life meets its history, and each life meets a different one',()=>{
+ const seqs=new Set(),count={};let history=0,total=0;
+ for(let seed=1;seed<=N;seed++){
+  let s=begin(configureLife(newLife(seed*104729),{birthYear:1949})),q=[];
+  while(s.stage==='review'&&s.age<80){
+   s=live(s);if(s.stage!=='review')break;
+   for(const p of pendingPivots(s)){q.push(p.id);const os=openOptions(p,s),o=os[seed%os.length];if(o)s=applyPivot(s,p,o.id);}
+   const ps=s.story?.pending;if(ps){q.push(ps.id);const os=encounterById(ps.id).options.filter(o=>choiceAvailable(s,o));s=resolveEncounter(s,os[seed%os.length].id,.2);}
+  }
+  seqs.add(q.join('>'));for(const id of new Set(q))count[id]=(count[id]??0)+1;total+=1;history+=q.filter(id=>id.startsWith('h_')).length;
+ }
+ assert.ok(seqs.size>=N*MIN_DISTINCT,'distinct '+seqs.size);
+ assert.ok(history/total>=5,'history scenes per life '+history/total);
+ for(const id of ['m_kits','m_funds'])assert.equal(count[id]??0,0,id+' before its time');
+ const worst=Object.entries(count).sort((a,b)=>b[1]-a[1])[0];assert.ok(worst[1]<=N*.9,worst[0]+' is in '+worst[1]+'/'+N);
+});

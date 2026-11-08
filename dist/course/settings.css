@@ -66,5 +66,6 @@ h1{font-size:calc(32px * var(--reading-scale))}h2,.world-head strong{font-size:c
 
 
 .life-reading{max-width:65ch;margin:0 0 24px}@media(min-width:1100px){.life-reading{max-width:none;columns:2;column-gap:48px}.life-reading>*{break-inside:avoid}}.life-reading p{margin:0 0 12px}.reading-figure{font-size:calc(32px * var(--reading-scale));line-height:1.1;font-variant-numeric:tabular-nums;margin:0 0 4px}.reading-thesis{font-weight:600}.reading-question{font-weight:600;margin-top:16px}
+.reading-roads{margin:16px 0;padding-top:12px;border-top:2px solid var(--ink)}.reading-roads>div{margin:12px 0}.reading-roads p{margin:2px 0 4px}.reading-roads small{display:block;color:var(--muted);margin-top:2px}
 .reading-track{display:grid;grid-template-columns:max-content 1fr;gap:2px 16px;margin:0 0 16px;font-variant-numeric:tabular-nums}.reading-track dt{color:var(--muted)}.reading-track dd{margin:0}
 #recap .reading-turns{list-style:none;margin:0 0 16px;padding:0}.reading-turns li{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:8px 0;border-top:1px solid var(--line)}.reading-turns small{display:block;color:var(--muted)}

@@ -8,6 +8,7 @@
 //
 // These are authored game decisions, not advice about a real life.
 import {rand} from './sim.js';
+import {sceneFits,birthYearOf} from './thai-history.js';
 
 // A station is one of the fourteen five-year reviews a life passes through.
 export const STATIONS=[10,15,20,25,30,35,40,45,50,55,60,65,70,75];
@@ -120,6 +121,23 @@ export const PIVOTS=[
   ]
  },
  // ---- station 20: building --------------------------------------------------
+ {
+  // The fork a provincial life of this age actually met. Nobody here is under twenty.
+  id:'three-roads',station:20,
+  prompt:'You are twenty and still working for your family. The people who own the oil press in town have sent an aunt to speak to them about you. Under the rice tin there is a letter from a college in Bangkok.',
+  context:'Nobody at home has said which they want. Someone has started wiping the same shelf.',
+  options:[
+   {id:'stay',label:'Stay and carry on the family’s work',cost:'The same road and the same people, for life.',
+    effects:{cash:6000,wellbeing:1,skills:{craft:1}},flags:{keptShop:true},pathway:'work',
+    note:'You stayed. You still keep a Bangkok bus timetable in the drawer.'},
+   {id:'marry',label:'Say yes to the oil press family',cost:'A big house, and their name on everything.',
+    effects:{cash:40000,wellbeing:2},flags:{married:20,oilPress:true},pathway:'work',
+    note:'You said yes. The wedding took three days and you learned the price of everything in that house.'},
+   {id:'go',label:'Take the letter and go to Bangkok',cost:'The fare, the fees, and the faces at the bus.',
+    effects:{cash:-12000,wellbeing:3,skills:{iq:2}},locks:{iq:3},flags:{wentBangkok:true},pathway:'college',
+    note:'You left on the morning bus. The aunt from the oil press was at the stop and looked the other way.'}
+  ]
+ },
  {
   id:'college-cost',station:20,
   prompt:'College costs more than the family can pay. A loan would follow you for a decade.',
@@ -263,7 +281,7 @@ export const PIVOTS=[
    {id:'stay',label:'Refuse and stay',cost:'The ceiling stays where it is.',
     effects:{cash:5000,wellbeing:4,skills:{eq:1}},locks:{eq:3},
     note:'You turned the promotion down and stayed.'},
-   {id:'negotiate',label:'Ask whether the work can be done from home',cost:'A question that may end the offer.',
+   {id:'negotiate',from:2012,label:'Ask whether the work can be done from home',cost:'A question that may end the offer.',
     luck:{chance:.5,success:{cash:22000,wellbeing:2},failure:{cash:4000,wellbeing:-5}},
     note:'You asked if the job could be done from home.'}
   ]
@@ -516,9 +534,14 @@ const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools'
 const STALL=['low_class','working_class','middle_class'],NOT_RICH=['low_class','working_class','middle_class','bureaucratic_class'];
 const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'school-leave':STALL,'stall-paper':STALL,'stall-takeover':STALL,'father-tools':STALL,'nephew':STALL,'partner-business':STALL,'college-cost':NOT_RICH,'buy-house':NOT_RICH,'year-abroad':['working_class','middle_class','bureaucratic_class','high_class','royal_associated']};
 const MARKET_STALL = new Set(['child-roof','child-sponsor','stall-paper','stall-takeover','flood-move']);
+const PROVINCES=['nakhon-sawan','isan-village','pak-phanang'];
+const forkDue=state=>{const y=birthYearOf(state);return y!==null&&y<=1990&&PROVINCES.includes(state.birth?.region)&&['low_class','working_class','middle_class'].includes(state.intake?.class??state.birth?.class);};
 export function fits(pivot,state){
   if(MARKET_STALL.has(pivot.id)&&state.birth?.home!=='a market-stall household')return false;
   if(pivot.id==='college-cost'&&state.cash>=18000)return false;
+  if(pivot.id==='three-roads')return forkDue(state);
+  if(pivot.id==='college-cost'&&forkDue(state))return false;
+  if(pivot.id==='partner-choice'&&state.pivotFlags?.married!==undefined)return false;
   const birthClass=state.intake?.class??state.birth?.class;
   return !FOR[pivot.id]||birthClass===undefined||FOR[pivot.id].includes(birthClass);
 }
@@ -539,7 +562,7 @@ function available(option,state){
   return true;
 }
 export const openOptions=(pivot,state)=>{
- const open=pivot.options.filter(option=>available(option,state));
+ const year=birthYearOf(state),open=pivot.options.filter(option=>available(option,state)&&(option.from===undefined||year===null||year+state.age>=option.from));
  // A question with no answer would be a dead end. If the circumstances close
  // every door, the question is asked plainly instead.
  return open.length?open:pivot.options;
@@ -601,9 +624,9 @@ export function applyPivot(state,pivot,optionId){
 export function pendingPivots(state){
   // A station asks the questions its plot points force (the flood, a parent's death) and ONE of its open questions, drawn by this life's seed, so no two lives are asked the same thing.
   const answered = new Set((state.pivots??[]).filter(record=>record.station===state.age).map(record=>record.pivot));
-  const open = pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&fits(pivot,state));
+  const open = pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&fits(pivot,state)&&sceneFits(pivot.id,state));
   const free = [...answered].some(id=>!WHEN[id])?[]:open.filter(pivot=>!WHEN[pivot.id]);
-  const pick = free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
+  const pick = free.find(pivot=>pivot.id==='three-roads')??free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
   return open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id));
 }
 

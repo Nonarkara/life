@@ -11,12 +11,12 @@ const settle=s=>{if(!s.story?.pending)return s;const e=encounterById(s.story.pen
 
 // The spine: thirty questions across the fourteen stations (three formative
 // questions at 10 and 15, two at every station from 20 to 75).
-test('there are thirty questions across the fourteen stations',()=>{
-  assert.equal(PIVOTS.length,30);
+test('there are thirty-one questions across the fourteen stations',()=>{
+  assert.equal(PIVOTS.length,31);
   const perStation={};
   for(const pivot of PIVOTS)perStation[pivot.station]=(perStation[pivot.station]??0)+1;
-  assert.deepEqual(perStation,{10:3,15:3,20:2,25:2,30:2,35:2,40:2,45:2,50:2,55:2,60:2,65:2,70:2,75:2});
-  assert.equal(new Set(PIVOTS.map(p=>p.id)).size,30);
+  assert.deepEqual(perStation,{10:3,15:3,20:3,25:2,30:2,35:2,40:2,45:2,50:2,55:2,60:2,65:2,70:2,75:2});
+  assert.equal(new Set(PIVOTS.map(p=>p.id)).size,31);
 });
 
 test('no question is a free win and no question is closed',()=>{
