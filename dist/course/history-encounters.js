@@ -9,7 +9,8 @@ const ageIn=(s,y)=>birthYearOf(s)===null?-1:y-birthYearOf(s);
 const inWindow=y=>s=>{const c=cal(s);return c!==null&&c<=y&&y<c+5;};
 const aged=(y,lo,hi)=>s=>{const a=ageIn(s,y);return a>=lo&&a<=hi;};
 const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan'],region=s=>regionAt(s)??s.birth?.region;
-const city=s=>CITY.includes(region(s))||F(s).wentBangkok===true,country=s=>!city(s),isan=s=>region(s)==='isan-village';
+// A scene already on the table at this station stays valid: the move counts from the next one.
+const city=s=>CITY.includes(region(s))||F(s).wentBangkok<s.age,country=s=>!city(s),isan=s=>region(s)==='isan-village';
 const cls=s=>s.intake?.class??s.birth?.class,rich=s=>['high_class','royal_associated'].includes(cls(s)),poor=s=>!rich(s);
 const male=s=>(s.intake?.sex??s.birth?.sex)==='male',female=s=>(s.intake?.sex??s.birth?.sex)==='female';
 const flag=k=>s=>F(s)[k]!==undefined,no=k=>s=>F(s)[k]===undefined;

@@ -134,7 +134,7 @@ export const PIVOTS=[
     effects:{cash:40000,wellbeing:2},flags:{married:20,oilPress:true},pathway:'work',
     note:'You said yes. The wedding took three days and you learned the price of everything in that house.'},
    {id:'go',label:'Take the letter and go to Bangkok',cost:'The fare, the fees, and the faces at the bus.',
-    effects:{cash:-12000,wellbeing:3,skills:{iq:2}},locks:{iq:3},flags:{wentBangkok:true},pathway:'college',
+    effects:{cash:-12000,wellbeing:3,skills:{iq:2}},locks:{iq:3},flags:{wentBangkok:20},pathway:'college',
     note:'You left on the morning bus. The aunt from the oil press was at the stop and looked the other way.'}
   ]
  },
