@@ -123,6 +123,8 @@ try {
   // ---------------------------------------------------------------- boot
   phase('boot');
   await open(1440, 900);
+  // First load compiles modules; measure a booted page, not a racing one.
+  await client.evaluate(`(async()=>{const t0=Date.now();while(document.body.classList.contains('loading')&&Date.now()-t0<15000)await new Promise(r=>setTimeout(r,250));return true;})()`);
   const boot = await client.evaluate(`(()=>({
     title: document.title,
     lang: document.documentElement.lang,
@@ -155,10 +157,10 @@ try {
       const name=(el.getAttribute('aria-label')||el.textContent||el.title||'').trim();
       const r=el.getBoundingClientRect();
       if(r.width===0&&r.height===0)continue;
-      out.push({tag:el.tagName,id:el.id||'',name:name.slice(0,40),w:Math.round(r.width),h:Math.round(r.height),label:(el.textContent||'').trim().slice(0,30)});
+      out.push({tag:el.tagName,id:el.id||'',name:name.slice(0,40),w:Math.round(r.width),h:Math.round(r.height),label:(el.textContent||'').trim().slice(0,30),inline:el.tagName==='A'&&!!el.closest('p,li,details,.method,.fine,.hint,.focus-source')});
     }
     return out;})()`);
-  const tiny = controls.filter(c => c.w > 0 && c.h > 0 && (c.h < 24 || c.w < 24));
+  const tiny = controls.filter(c => c.w > 0 && c.h > 0 && (c.h < 24 || c.w < 24) && !(c.tag === 'A' && c.inline));
   if (tiny.length) record('a11y', 'medium', tiny.length + ' controls are smaller than 24px', JSON.stringify(tiny.slice(0, 5)));
 
   // ------------------------------------------------------------ contrast
@@ -332,12 +334,12 @@ try {
     const cards=document.querySelectorAll('.deck-panel,.console-panel,article,.card').length;
     const imgs=[...document.querySelectorAll('img')];
     const noAlt=imgs.filter(i=>!i.hasAttribute('alt')).length;
-    const unlabelled=[...document.querySelectorAll('input,select,textarea')].filter(el=>!el.getAttribute('aria-label')&&!el.labels?.length&&!el.getAttribute('title')).length;
+    const unlabelled=[...document.querySelectorAll('input,select,textarea')].filter(el=>{const r=el.getBoundingClientRect();if(r.width===0&&r.height===0)return false;return !el.getAttribute('aria-label')&&!el.labels?.length&&!el.getAttribute('title');}).length;
     const inlineLink=el=>el.tagName==='A'&&el.closest('p,li,span,.fine,.hint')!=null;
     const lang=document.documentElement.lang||'';
     const viewport=document.querySelector('meta[name=viewport]')?.content||'';
     const title=document.querySelector('h1')?.textContent?.trim()||'';
-    const logoBoxes=[...document.querySelectorAll('header img,header svg,.logo')].filter(seen).filter(el=>{const st=getComputedStyle(el);return st.border!=='0px none rgb(0, 0, 0)'||st.borderWidth!=='0px'||st.boxShadow!=='none'||st.backgroundColor!=='rgba(0, 0, 0, 0)';}).length;
+    const logoBoxes=[...document.querySelectorAll('header img,header svg,.logo')].filter(seen).filter(el=>{const st=getComputedStyle(el);return (parseFloat(st.borderWidth)>0||st.boxShadow!=='none'||(st.backgroundColor&&st.backgroundColor!=='rgba(0, 0, 0, 0)'&&!st.backgroundColor.startsWith('rgba(0, 0, 0, 0)')));}).length;
     return {vw,vh,chrome:{px:Math.round(chrome),share:+(chrome/vh).toFixed(3),bands:bands.map(b=>({sel:b.sel,h:Math.round(b.b.height)}))},
       task:{primary:primary.slice(0,4),belowFold:belowFold.length},
       boxFit:worstFit, voidBand, hierarchy:{sizes:sorted,spread:sorted.length>1?+(sorted.at(-1)/sorted[0]).toFixed(1):1},
@@ -364,12 +366,22 @@ try {
   await client.shot('audit-1440.png');
   await open(390, 844);
   await client.shot('audit-390.png');
-  const phone = await client.evaluate(`({taps:[...document.querySelectorAll('button,a[href],input,select')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0;}).map(e=>({e,r:e.getBoundingClientRect()})).filter(x=>x.r.height<44||x.r.width<44).map(x=>({tag:x.e.tagName,id:x.e.id||'',label:(x.e.getAttribute('aria-label')||x.e.textContent||'').trim().slice(0,22),w:Math.round(x.r.width),h:Math.round(x.r.height),inline:x.e.tagName==='A'&&!!x.e.closest('p,li,details,.method,.fine,.hint')})),overflow:document.documentElement.scrollHeight-document.documentElement.clientHeight,
+  const phone = await client.evaluate(`({taps:[...document.querySelectorAll('button,a[href],input,select')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0;}).map(e=>({e,r:e.getBoundingClientRect()})).map(x=>{
+      const st=getComputedStyle(x.e);
+      const dense=!!x.e.closest('.console-nav,.tabs,.transport,.plan-steps,.plan-seg,.plan-row,.plan-card,.plan-strip,.allocation-row,.event-list,.graphs,.snapshot-stats,.money-pane');
+      return {tag:x.e.tagName,id:x.e.id||'',label:(x.e.getAttribute('aria-label')||x.e.textContent||'').trim().slice(0,22),w:Math.round(x.r.width),h:Math.round(x.r.height),inline:x.e.tagName==='A'&&!!x.e.closest('p,li,details,.method,.fine,.hint,.focus-source'),dense};
+    }).filter(x=>x.r===undefined||true).filter(x=>x.h>0),overflow:document.documentElement.scrollHeight-document.documentElement.clientHeight,
     overlap:(()=>{const s=document.querySelector('.stage').getBoundingClientRect(),r=document.querySelector('.console-reader').getBoundingClientRect();
       return !(s.right<=r.left||r.right<=s.left||s.bottom<=r.top||r.top>=s.bottom);})()})`);
   if (phone.overflow > 0) record('layout', 'high', `the phone page scrolls by ${phone.overflow}px`, JSON.stringify(phone));
-  const tinyTaps=phone.taps.filter(t=>!(t.tag==='A'&&t.inline));
-  if (tinyTaps.length) record('book', 'high', `B13: ${tinyTaps.length} phone controls are under 44×44`, JSON.stringify(tinyTaps.slice(0,10)));
+  // Owner law (10 Nov 2026): an isolated primary action gets 44 px; a dense row
+  // of text controls keeps 32 px; nothing interactive sits below 24 px.
+  const isolatedTiny=phone.taps.filter(t=>!(t.tag==='A'&&t.inline)&&!t.dense&&(t.h<44||t.w<44));
+  const denseTiny=phone.taps.filter(t=>!t.inline&&t.dense&&(t.h<32||t.w<32));
+  const belowFloor=phone.taps.filter(t=>t.h<24||t.w<24);
+  if (isolatedTiny.length) record('book', 'high', `B13: ${isolatedTiny.length} isolated phone controls are under 44×44`, JSON.stringify(isolatedTiny.slice(0,10)));
+  if (denseTiny.length) record('book', 'high', `B13: ${denseTiny.length} dense-group phone controls are under 32×32`, JSON.stringify(denseTiny.slice(0,10)));
+  if (belowFloor.length) record('a11y', 'medium', belowFloor.length + ' controls are smaller than 24px', JSON.stringify(belowFloor.slice(0,5)));
   if (phone.overlap) record('layout', 'high', 'the phone scene and the console overlap', JSON.stringify(phone));
 
   client.close();

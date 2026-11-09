@@ -78,7 +78,10 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
   if(key==='bucket'){bucketUI.render(panes.bucket);if(opened)window.dispatchEvent(new Event('life-bucket-open'));}
   if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}
   if(key==='cv')cvPane(getState());
-  if(key==='world')worldPane(getState());
+  // The year band records the shared economy at the life's present age.
+  // Rebuilding the pane never refreshes it, so opening World re-renders
+  // the band too; otherwise it stays at the age of the last full render.
+  if(key==='world'){worldPane(getState());renderWorldNow(worldNow,getState());}
   // The Plan console is permanent on a wide screen; every console is a card in
   // one swipeable strip on a narrow one.
   for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(wide.matches?k!==key:false);buttons[k].setAttribute('aria-pressed',String(k===key));}

@@ -1,8 +1,8 @@
 # Product audit · the Book's ship gate
 
-Base: http://127.0.0.1:4221 · 2026-11-06T16:27:12.931Z
+Base: http://127.0.0.1:4219 · 2026-11-09T23:13:53.369Z
 
-Verdict: **PASS** (0 high, 0 medium)
+Verdict: **REVISE** (0 high, 2 medium)
 
 Auditor: the automated product audit (`scripts/audit-product.mjs`), run against the built page.
 Builder ≠ auditor: the page was built by other agents; this gate walks it, and a human walk is still required.
@@ -17,20 +17,22 @@ Builder ≠ auditor: the page was built by other agents; this gate walks it, and
 
 ## Findings
 
-- **low** · performance · one view costs 19 requests and 2223 kB  
-  {"nodes":995,"buttons":64}
+- **medium** · performance · one view costs 28 requests and 11946 kB  
+  {"nodes":1127,"buttons":108}
+- **medium** · a11y · 4 controls are smaller than 24px  
+  [{"tag":"A","id":"","label":"Framework source","w":92,"h":18,"inline":true,"dense":false},{"tag":"A","id":"","label":"Research","w":46,"h":18,"inline":true,"dense":false},{"tag":"A","id":"","label":"WHO: Dengue","w":77,"h":18,"inline":true,"dense":false},{"tag":"A","id":"","label":"WHO: HIV and AIDS","w":108,"h":18,"inline":true,"dense":false}]
 - **low** · performance · frame pacing could not be measured in this browser  
-  {"frames":0,"ms":3002}
+  {"frames":0,"ms":3003}
 - **low** · book · B1 first-screen task passes  
-  [{"label":"Play","top":57},{"label":"Answer 2 questions →","top":847}]
+  [{"label":"Play","top":19},{"label":"Answer 1 question →","top":612}]
 - **low** · book · B2 chrome cost passes  
-  [{"sel":"header","h":50},{"sel":".world-head","h":41},{"sel":".world-bottom","h":40},{"sel":".console-actions","h":44},{"sel":".console-nav","h":35}]
+  [{"sel":"header","h":68},{"sel":".world-bottom","h":40},{"sel":".console-nav","h":35}]
 - **low** · book · B3 box fit passes  
-  {"sel":"console-panel console-card","ratio":0.51,"boxH":86,"textH":168}
+  {"sel":"console-panel console-card","ratio":0.18,"boxH":287,"textH":1557}
 - **low** · book · B4 void passes  
   null
 - **low** · book · B7 hierarchy passes  
-  [11,12,14,16,22,24,64]
+  [11,12,14,16,17,24,64]
 - **low** · book · B10 logos unboxed passes
 - **low** · book · B13 ship basics passes  
   {"noAlt":0,"unlabelled":0,"lang":"en","viewport":"width=device-width,initial-scale=1","title":"Life choices"}

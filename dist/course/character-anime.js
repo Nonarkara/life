@@ -1,5 +1,6 @@
 import * as T from 'three';
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js';
+import {MeshoptDecoder} from 'three/examples/jsm/libs/meshopt_decoder.module.js';
 import {clone} from 'three/examples/jsm/utils/SkeletonUtils.js';
 import {makeVisitorMaterial} from './cast-wardrobe.js';
 // The anime cast from Thailand Digital Valley: three rigged VRoid sample models,
@@ -21,7 +22,7 @@ export function loadAnimeCast(){
    manager.setURLModifier(url=>url.endsWith(row.png)?new URL(row.map,base).href:url);
    const response=await fetch(new URL(row.glb,base));
    if(!response.ok)throw new Error(`Model request failed (${response.status})`);
-   const gltf=await new GLTFLoader(manager).parseAsync(await response.arrayBuffer(),base.href);
+   const gltf=await new GLTFLoader(manager).setMeshoptDecoder(MeshoptDecoder).parseAsync(await response.arrayBuffer(),base.href);
    const human=gltf.parser.json.extras?.humanBones,names={};
    for(const key in human)names[key]=gltf.parser.json.nodes[human[key]].name;
    for(const key of ['head','leftUpperArm','rightUpperArm','leftLowerArm','rightLowerArm','leftUpperLeg','rightUpperLeg','leftLowerLeg','rightLowerLeg'])if(!names[key])throw new Error(`Missing ${key} bone`);

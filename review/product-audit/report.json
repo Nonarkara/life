@@ -1,43 +1,49 @@
 {
  "summary": {
-  "base": "http://127.0.0.1:4221",
-  "when": "2026-11-06T16:27:12.929Z",
+  "base": "http://127.0.0.1:4219",
+  "when": "2026-11-09T23:13:53.368Z",
   "counts": {
    "high": 0,
-   "medium": 0,
-   "low": 9
+   "medium": 2,
+   "low": 8
   }
  },
  "findings": [
   {
    "area": "performance",
-   "severity": "low",
-   "what": "one view costs 19 requests and 2223 kB",
-   "evidence": "{\"nodes\":995,\"buttons\":64}"
+   "severity": "medium",
+   "what": "one view costs 28 requests and 11946 kB",
+   "evidence": "{\"nodes\":1127,\"buttons\":108}"
+  },
+  {
+   "area": "a11y",
+   "severity": "medium",
+   "what": "4 controls are smaller than 24px",
+   "evidence": "[{\"tag\":\"A\",\"id\":\"\",\"label\":\"Framework source\",\"w\":92,\"h\":18,\"inline\":true,\"dense\":false},{\"tag\":\"A\",\"id\":\"\",\"label\":\"Research\",\"w\":46,\"h\":18,\"inline\":true,\"dense\":false},{\"tag\":\"A\",\"id\":\"\",\"label\":\"WHO: Dengue\",\"w\":77,\"h\":18,\"inline\":true,\"dense\":false},{\"tag\":\"A\",\"id\":\"\",\"label\":\"WHO: HIV and AIDS\",\"w\":108,\"h\":18,\"inline\":true,\"dense\":false}]"
   },
   {
    "area": "performance",
    "severity": "low",
    "what": "frame pacing could not be measured in this browser",
-   "evidence": "{\"frames\":0,\"ms\":3002}"
+   "evidence": "{\"frames\":0,\"ms\":3003}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B1 first-screen task passes",
-   "evidence": "[{\"label\":\"Play\",\"top\":57},{\"label\":\"Answer 2 questions →\",\"top\":847}]"
+   "evidence": "[{\"label\":\"Play\",\"top\":19},{\"label\":\"Answer 1 question →\",\"top\":612}]"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B2 chrome cost passes",
-   "evidence": "[{\"sel\":\"header\",\"h\":50},{\"sel\":\".world-head\",\"h\":41},{\"sel\":\".world-bottom\",\"h\":40},{\"sel\":\".console-actions\",\"h\":44},{\"sel\":\".console-nav\",\"h\":35}]"
+   "evidence": "[{\"sel\":\"header\",\"h\":68},{\"sel\":\".world-bottom\",\"h\":40},{\"sel\":\".console-nav\",\"h\":35}]"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B3 box fit passes",
-   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.51,\"boxH\":86,\"textH\":168}"
+   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.18,\"boxH\":287,\"textH\":1557}"
   },
   {
    "area": "book",
@@ -49,7 +55,7 @@
    "area": "book",
    "severity": "low",
    "what": "B7 hierarchy passes",
-   "evidence": "[11,12,14,16,22,24,64]"
+   "evidence": "[11,12,14,16,17,24,64]"
   },
   {
    "area": "book",
