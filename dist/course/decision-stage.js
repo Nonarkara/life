@@ -12,7 +12,9 @@ export function initDecisionStage({onDismiss}){
  const reading=document.createElement('div'),actions=document.createElement('div');reading.className='decision-reading';actions.className='decision-actions';document.body.append(dialog);
  const homes=new WeakMap();let activeKey=null,shown=[];
  function restore(){for(const node of shown)if(node.isConnected&&dialog.contains(node))homes.get(node)?.after(node);shown=[];}
- function hide(){restore();if(dialog.open)dialog.close();document.body.classList.remove('decision-open');activeKey=null;}
+ // On phones and tablets the panel is exactly as tall as what it says. The rest belongs to the world.
+ const fit=()=>{if(innerWidth>1279||!dialog.open)return;dialog.style.height='auto';dialog.style.maxHeight='none';const h=Math.ceil(dialog.getBoundingClientRect().height);dialog.style.height='';dialog.style.maxHeight='';document.body.style.setProperty('--rpg-height',Math.min(h,Math.round(innerHeight*.62))+'px');};
+ function hide(){restore();if(dialog.open)dialog.close();document.body.classList.remove('decision-open');document.body.style.removeProperty?.('--rpg-height');activeKey=null;}
  const dismiss=()=>{const key=activeKey;hide();onDismiss(key);};
  close.onclick=dismiss;dialog.addEventListener('cancel',event=>{event.preventDefault();dismiss();});
  return {hide,show(nodes,{key,label,...context}){
@@ -25,6 +27,6 @@ export function initDecisionStage({onDismiss}){
   for(const node of nodes){if(!homes.has(node)){const anchor=document.createComment('decision home');node.before(anchor);homes.set(node,anchor);}(action?(node===action?actions:reading):content).append(node);}shown=[...nodes];
   dialog.setAttribute('aria-labelledby',label);document.body.classList.add('decision-open');
   if(!dialog.open)dialog.showModal();
-  if(key!==activeKey){dialog.scrollTop=0;const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});}activeKey=key;
+  if(key!==activeKey){dialog.scrollTop=0;const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});}activeKey=key;globalThis.requestAnimationFrame?.(fit);
  }};
 }

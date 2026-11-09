@@ -5,7 +5,7 @@
 // marquees, through 1980s lane floodlights, shared family landlines and VHS tapes,
 // the 1997 Tom Yum Goong crisis and 1999 Skytrain opening, to the 2011 flood, 2014
 // curfew and cashless 2020s streets.
-export const COHORT_YEARS=Object.freeze([1949,1970,1981,1990,2000,2026]);
+export const COHORT_YEARS=Object.freeze([1949,1955,1970,1981,1990,2000,2026]);
 export const DEFAULT_COHORT_YEARS=Object.freeze([1949,1981,2000]);
 export const HISTORICAL_COHORTS=Object.freeze({
  1949:{
@@ -14,6 +14,13 @@ export const HISTORICAL_COHORTS=Object.freeze({
   label:'1949 · Post-war & Canal Era (Mother’s generation)',
   shortLabel:'Born 1949',
   note:'Grow up alongside provincial canals and wooden shophouses, enter Bangkok’s evening colleges in the 1960s, build a manual-ledger career through the 1980s boom, face the 1997 financial crisis at 48, and reach age 77 in 2026.'
+ },
+ 1955:{
+  year:1955,
+  code:'55',
+  label:'1955 · The Thammasat Generation',
+  shortLabel:'Born 1955',
+  note:'Turn eighteen as the students bring down the generals in October 1973, and be twenty-one when the university gates close on 6 October 1976.'
  },
  1970:{
   year:1970,

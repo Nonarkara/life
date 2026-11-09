@@ -8,7 +8,7 @@ export const SCENARIO_PALETTES={};
 function assign(ids,{joy=false,sad=false}={}){
  ids.split(' ').forEach((id,i)=>{SCENARIO_PALETTES[id]={plates:[sad?dark[i%10]:dark[(i+3)%10],sad?dark[(i+1)%10]:bright[(i+2)%10]],opening:joy?1:0};});
 }
-assign('d_job d_organ d_limb d_loved d_killed d_betray d_sue d_evict d_attack d_partner d_temper d_rumour d_lend d_boss d_rich d_father s_loan s_title s_chamoy s_forex s_1997 s_bike s_fluke s_hiv s_skip s_abroad s_pills s_tsunami s_flood s_rice s_scam s_alone',{sad:true});
+assign('d_job d_organ d_limb d_loved d_killed d_betray d_sue d_evict d_attack d_partner d_temper d_rumour d_lend d_boss d_rich d_father s_loan s_title s_chamoy s_forex s_1997 s_bike s_fluke s_hiv s_skip s_abroad s_pills s_tsunami s_flood s_rice s_scam s_alone h_forest_end h_vietnam',{sad:true});
 assign('th_curfew th_buyer_bill th_dry_season th_bangkok_accounting th_bank_merger parent-language coast-boat village-buffalo girl-school temple-boy go-abroad gifted-child',{sad:true});
 assign('th_harvest_transport th_unpaid_placement th_first_love_regret');
 assign('class_family_business class_debt class_ambition class_overtime class_connections class_expectations',{sad:true});

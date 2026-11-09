@@ -112,7 +112,7 @@ export const BANK_ENCOUNTERS=[
   "Next April you stand in the line at the district office and put your hand in the box. Red is two years. Black is home. A man at the district says there are ways.",[
   o('draw','Stand in the line and draw',{wellbeing:-1,later:[{after:5,health:2,skills:{physique:1},wellbeing:-1,text:"You had drawn red. Two years in Lop Buri, and a haircut you still recognise in photographs.",when:lot(3)},{after:5,wellbeing:2,text:"You had drawn black. Your mother gave a meal to the monks and you got drunk behind the district office.",when:elseLot(3)}]},"The box was warmer inside than you expected."),
   o('volunteer','Volunteer and shorten the term',{wellbeing:-2,skills:{physique:2,drive:1}},"You signed up ahead of the line and got six months off. You learned to fold a blanket so it could stand."),
-  o('pay','Pay the man at the district',{cash:-15000,wellbeing:-1},"Your name moved to another page. Your friend from the next house went instead, and you helped carry his bag.")]),
+  o('pay','Pay the man at the district',{cash:-15000,wellbeing:-1},"Your name moved to another page. Your friend from the next house went instead, and you helped carry his bag.")],{director:true}),
  scene('b_draft_south','work',20,25,[era(2004,2020),male,poor],'Your batch is going south',
   "You drew red, and your batch has been told Narathiwat. A cousin knows a colonel who can move a name. He wants a month of your father's income.",[
   o('go','Go with your batch',{cash:6000,wellbeing:-3,skills:{physique:2},risk:.03,deathCause:"You went south with your batch. A roadside bomb on a rubber track ended this life."},"You guarded a school. The teachers arrived in a pickup with you on the back of it, and left the same way."),

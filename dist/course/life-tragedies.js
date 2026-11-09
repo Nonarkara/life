@@ -108,4 +108,4 @@ const SAD_SCENES=[
 const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan'];
 const GATES={country:s=>!CITY.includes(regionAt(s,s.age-1)),city:s=>CITY.includes(regionAt(s,s.age-1)),isan:s=>regionAt(s,s.age-1)==='isan-village',woman:s=>s.intake?.sex==='female',man:s=>s.intake?.sex==='male',parent:s=>{const p={...s.pivotFlags,...s.story?.flags}.parent;return typeof p==='number'&&p<s.age;}};
 const cal=s=>{const y=birthYearOf(s);return y===null?null:y+s.age;};
-export const SAD_ENCOUNTERS=SAD_SCENES.map(({from,to,gate,...scene})=>({...scene,director:true,eligible:s=>{const c=cal(s);return !!s.intake?.class&&c!==null&&c+4>=from&&c<=to&&(!gate||GATES[gate](s))&&rand(s.seed,s.age,scene.id)<(to-from<4?.5:.09);}}));
+export const SAD_ENCOUNTERS=SAD_SCENES.map(({from,to,gate,...scene})=>({...scene,director:true,eligible:s=>{const c=cal(s);return !!s.intake?.class&&c!==null&&c+4>=from&&c<=to&&(!gate||GATES[gate](s))&&rand(s.seed,s.age,scene.id)<(to-from<4?.5:.06);}}));

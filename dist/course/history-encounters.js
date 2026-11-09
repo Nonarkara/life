@@ -1,6 +1,7 @@
 // History a person has to live through, for lives with a birth year. Each scene is offered at the
 // five-year station whose window holds its year. Situations are original; dated facts are from
 // ERA-EVENTS-AND-BUDDHISM.md (bbc) or the source named beside the scene. Nobody royal, no named perpetrators.
+import {rand} from './sim.js';
 import {birthYearOf} from './thai-history.js';
 import {regionAt,regionIdFor} from './regions.js';
 const F=s=>({...s.pivotFlags,...s.story?.flags});
@@ -63,6 +64,7 @@ export const HISTORY_ENCOUNTERS=[
   o('away','Stay away from the university',{wellbeing:-4},'You stayed away. In the morning you counted who was left, and you have never stopped counting.'),
   o('burn','Burn the books in the yard',{wellbeing:-3,flag:'burnedBooks'},'They took a long time to burn. You stirred the ash into the drain.'),
   o('food','Take food to the gate',{wellbeing:1,risk:.15,deathCause:'You took food to the university gate on the morning of 6 October 1976. Nobody found out what happened to you for a long time.'},'You left the food at the gate at dusk. You went home for one night\'s sleep, and that is why you are alive.'),
+  o('inside','Stay inside the university with your friends',{health:-8,wellbeing:-14,skills:{eq:2},flag:'forest',risk:.3,deathCause:'You stayed inside the university on the morning of 6 October 1976.'},'You got over the wall in somebody else\'s shoes. The person you came with did not. That week you left for the forest with a false name.'),
   o('forest','Leave for the forest with the others',{cash:-3000,health:-6,wellbeing:2,skills:{physique:2,eq:1},flag:'forest'},'You went in the back of a truck with a false name. The first thing they taught you was how to sleep sitting up.')]),
  scene('h_1976_names',1976,'connection',[aged(1976,20,70),no('marched'),city],'A list of names',
   'A neighbour with a scarf and a clipboard is writing down who on the soi reads what. He has been kind to you. He asks about the student who rents a room near yours.',[
@@ -74,7 +76,18 @@ export const HISTORY_ENCOUNTERS=[
   o('silent','Say you sleep early',{wellbeing:-2},'You said you sleep early. Both sides seemed to accept it. You stopped sleeping.'),
   o('feed','Keep giving the rice',{cash:-800,wellbeing:1,risk:.04,deathCause:'Soldiers came to the village for the people who had given rice.'},'You left a sack by the bamboo. Some mornings it was someone you grew up with who had taken it.'),
   o('tell','Tell the officer',{cash:500,wellbeing:-6},'The officer was pleased. Your neighbours stopped asking you to their ordinations.')]),
- scene('h_1980_return',1980,'family',[flag('forest')],'Come home',
+ scene('h_forest_end',1980,'family',[flag('forest'),s=>rand(s.seed,0,'forest-end')>=.35],'The fifth rainy season',
+  'You have had malaria twice. The radio from China has gone quiet, the nights are long, and some of the comrades have stopped arguing and started leaving. The government is dropping papers that promise nobody will be punished. A baby is due in your shelter and there is no midwife.',[
+  o('down','Walk down under the amnesty',{wellbeing:-4,skills:{eq:1}},'A soldier your own age gave you rice and a form. Your mother did not know you until you spoke.'),
+  o('stay','Stay with the comrades',{health:-10,wellbeing:-6,risk:.12,deathCause:'Malaria took you in the forest, under a false name. Your family never got a letter.'},'You stayed until there was nobody left to argue with. You came down alone.'),
+  o('baby','Have the baby here',{health:-8,wellbeing:4,skills:{eq:2},flag:'forestChild',risk:.1,deathCause:'There was no doctor for the birth. You are buried near a stream the maps do not name.'},'She was born on a bamboo floor in the rain. Her first name was one you both chose. Her papers say something else.'),
+  o('poppy','Take what the hill traders sell for the pain',{health:-14,wellbeing:2,flag:'opium'},'It made the nights shorter. After you came down it took six years to stop.')]),
+ scene('h_vietnam',1969,'work',[aged(1969,18,26),male],'The division is asking for men',
+  'You drew red. The army wants volunteers for South Vietnam, and the pay is more than your father has ever seen at once. A boy in your intake says the Americans have ice cream.',[
+  o('stay','Stay in the barracks at home',{wellbeing:-1},'Two years of polishing things. You still hear about the ones who went.'),
+  o('go','Volunteer for Vietnam',{cash:20000,health:-8,wellbeing:-8,skills:{drive:2},risk:.06,deathCause:'You went to Vietnam with the division and came home under a flag.'},'You bought your parents a roof. You do not sit with your back to a door.'),
+  o('hills','Go to the hills, against the insurgents',{health:-4,wellbeing:-6,skills:{physique:2},risk:.04,deathCause:'A mine on a path in the Phu Phan hills ended this life.'},'The people on the other side spoke with your grandmother\'s accent.')]),
+ scene('h_1980_return',1980,'family',[flag('forest'),s=>rand(s.seed,0,'forest-end')<.35],'Come home',
   'The government says those in the forest can come home and not be tried (Order 66/2523). Your comrades are arguing. Someone at home has sent a photograph of themselves, older, with nothing written on it.',[
   o('home','Walk out and sign the paper',{wellbeing:2,health:2,flag:'cameHome'},'You signed a paper at a district office. The clerk had been at school with you, and neither of you said so.'),
   o('stay','Stay until it is finished',{wellbeing:-3,health:-5,risk:.08,deathCause:'You stayed in the forest after the amnesty. Someone at home kept your place laid at the table.'},'You stayed. There were fewer of you every season, and then it was only an argument about a map.')]),

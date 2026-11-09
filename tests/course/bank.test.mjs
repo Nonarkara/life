@@ -63,7 +63,7 @@ test('the bank spreads across ages, regions, classes, sexes and decades, and no 
  for(const c of CLASSES)assert.ok(classes.has(c),c);
  for(const x of SEXES)assert.ok(sexes.has(x),x);
  const worst=Object.entries(count).sort((a,b)=>b[1]-a[1])[0];assert.ok(worst[1]<=lives*.35,worst[0]+' is in '+worst[1]+'/'+lives+' lives');
- assert.ok(Object.keys(count).length>=BANK.length*.75,'scenes reached '+Object.keys(count).length+'/'+BANK.length);
+ assert.ok(Object.keys(count).length>=BANK.length*.7,/* the draft now takes every man's age-20 station */'scenes reached '+Object.keys(count).length+'/'+BANK.length);
 });
 
 test('a scene tied to the real economy appears only in years the data says so',()=>{

@@ -50,8 +50,12 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  // The room the word for family is built on: what stands here says who these people are.
  const fx=poor?3.5:3.3,fz=poor?5.9:5.76,fy=poor?FLOOR+.14:FLOOR+m(.86)+.05;
  b.ball(3.25,FLOOR+.2,6.55,.17,.2,.17,'#7a5a42',8);b.box(3.09,5.2,FLOOR+m(1.55),.14,1.3,.03,'#8c795e');for(let i=0;i<5;i++)b.ball(3.16,FLOOR+m(1.55)+.07,5.32+i*.24,.05,.04,.05,['#e7dfcc','#b5553c','#d8c7a4'][i%3],7);
- const fire=group(),flame=batchOf(fire);flame.ball(fx,fy,fz,.07,.05,.07,'#ffae42',6);flame.ball(fx,fy+.03,fz,.04,.05,.04,'#ffe0a0',6);
- const steam=group(),puffs=batchOf(steam);for(let i=0;i<3;i++)puffs.ball(fx+i*.03,fy+.24+i*.14,fz+(i%2)*.03,.05+i*.01,.05,.05,'#e6e3da',6);
+ const gas=!poor&&plan.year>=1975&&plan.marks.concrete,fire=group();
+ if(gas){b.cylinder(fx,fz,fy-.02,.12,.12,.02,'#2c3436',12);b.cylinder(fx,fz,fy,.05,.05,.02,'#6b7270',10);}
+ // Each tongue of flame is its own small piece, so it can leap on its own.
+ const tongues=Array.from({length:9},(_,i)=>{const a=i/9*Math.PI*2,g=group(fire);g.position.set(fx+Math.cos(a)*.085,fy+.015,fz+Math.sin(a)*.085);const t=batchOf(g);t.ball(0,.045,0,.022,.05,.022,gas?'#5aa8ff':'#ffae42',5);t.ball(0,.1,0,.016,.05,.016,'#ffb347',5);return g;});
+ const wok=group();wok.position.set(fx,fy+.13,fz);{const w=batchOf(wok);w.ball(0,0,0,.17,.05,.17,'#2c2c2a',10);w.box(.14,-.012,.03,.2,.024,.024,'#3a3a38');for(let i=0;i<6;i++)w.ball(Math.cos(i*2)*.08,.05,Math.sin(i*2)*.08,.022,.015,.022,['#c8372d','#e0a020','#4f7a3a'][i%3],5);}
+ const steam=group(),puffs=batchOf(steam);for(let i=0;i<3;i++)puffs.ball(fx+i*.03,fy+.34+i*.14,fz+(i%2)*.03,.05+i*.015,.05,.05,i?'#e6e3da':'#d9856a',6);
  // What the decade and the income have put in the room.
  const backShelf=FLOOR+m(.9);
  if(!bare)b.box(5.3,3.1,FLOOR,.62,.22,m(.7),'#8c795e');
@@ -69,7 +73,9 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  if(plan.homeKind==='villa'&&!plan.abroad){b.box(2.55,2.6,-.015,.45,4.4,.01,'#7f9a68');b.box(2.5,2.6,0,.07,4.4,m(1.8),'#e6e0d0');b.box(2.5,2.6,0,4.5,.07,m(1.8),'#e6e0d0');}
  // Height marks and shelves come from inhabited3d; the kitchen stool stays out of every route.
  void KITCHEN;
- return {update(state,age,context,time){const feeds=kitchenFeeds(state,age);plates.forEach((p,i)=>{p.visible=i<feeds;});const t=((time%60)+60)%60,cooking=(t<8||t>=44)&&context?.residence?.id==='family'&&feeds>1;fire.visible=cooking;steam.visible=cooking;steam.position.y=(t*.35)%.12;}};
+ return {update(state,age,context,time,cooking=false){const feeds=kitchenFeeds(state,age);plates.forEach((p,i)=>{p.visible=i<feeds;});fire.visible=cooking;wok.visible=cooking||poor===false;steam.visible=cooking;if(!cooking)return;
+  // Every few seconds the wok catches: the whole ring leaps, and the pan is tossed.
+  const flare=Math.max(0,Math.sin(time*1.7))**8,toss=flare*.05;tongues.forEach((g,i)=>{g.scale.y=.7+Math.abs(Math.sin(time*(17+i*1.3)+i*2.1))*.75+flare*2.2;g.scale.x=g.scale.z=.85+Math.sin(time*23+i)*.2;});wok.position.y=fy+.13+toss;wok.rotation.z=Math.sin(time*5.5)*.05+toss;steam.position.y=(time*.35)%.14;}};
 }
 furnishHome.metrics={seat:.235,tableTop:m(.73)};
 // Everything that closes the dollhouse when the player is out in the street.

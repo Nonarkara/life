@@ -232,7 +232,7 @@ function createScene(original){
   // The other homes: only the ones the camera can reach are posed.
   lots.forEach((a,i)=>{const row=lotRoster[i],act=row&&Math.hypot(row.lot[0]+1.8-cam.x,row.lot[1]+1.7-cam.z)<cam.span*1.15?lotActivity(row,age,time,P.year):null;if(!act){a.root.visible=false;return;}place(a,act,{elder:row.age>=60,scale:row.who==='young'?statureOf(row.age):1},LOT_FLOOR);});
   // Town objects -------------------------------------------------------------------
-  world.rooms.update(state,age);world.districts.update(state,age);world.home.update(state,age,context,time);
+  world.rooms.update(state,age);world.districts.update(state,age);const mumAtStove=parentsHere&&family.mother&&walkEnv('mother').pose==='cook';world.home.update(state,age,context,time,mumAtStove);
   world.manual.visible=manualWork;world.office.visible=!manualWork&&!P.farm;world.cradle.visible=age<6;world.infant.visible=age<1;world.toys.visible=age>=1&&age<8;world.dog.visible=dogAt(state,age);world.farm.visible=P.farm||P.style==='market';
   for(const [from,g] of world.growth)g.visible=age>=from&&P.style==='market';
   const inside=focus.x>=2.9&&focus.x<=7.1&&focus.y>=2.9&&focus.y<=7.2&&!(context.residence.id!=='family');
@@ -250,7 +250,7 @@ function createScene(original){
   sunDir.set(Math.cos(az)*Math.cos(hour.el),Math.sin(hour.el),.62*Math.sin(az)*Math.cos(hour.el)+.28).normalize();
   // A step of the sun is the only thing that needs a new shadow map; a paused day costs nothing.
   const step=Math.floor(t*2);if(step!==shadowStep){shadowStep=step;const cx=clampZone(focus.x),cz=5.5;sun.target.position.set(cx,0,cz);sun.position.copy(sun.target.position).addScaledVector(sunDir,70);sun.updateMatrixWorld();sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;}
-  nightGlow.value=hour.lit*.85;glow.intensity=hour.lit*4.2;glow.position.set(context.residence.base[0]+1.4,1.3,context.residence.base[1]+2);
+  nightGlow.value=hour.lit*.85;glow.intensity=hour.lit*4.2;glow.position.set(context.residence.base[0]+1.4,1.3,context.residence.base[1]+2);if(mumAtStove){glow.position.set(3.45,1,5.8);glow.intensity=Math.max(glow.intensity,2.4+Math.sin(time*19)*.7);}
   // Weather is the place's, drawn around wherever the life is.
   snow.visible=plan.climate==='cold';rain.visible=world.flood.visible&&!snow.visible;
   if(snow.visible){snow.position.set(focus.x,0,focus.y);const p=snowGeo.attributes.position.array;for(let i=0;i<600;i++){p[i*3+1]=(9+((i*0.37)%9)-(time*.55+i*.013)%9)%9;p[i*3]=((i*7.31)%24)-12+Math.sin(time*.6+i)*.15;}snowGeo.attributes.position.needsUpdate=true;}
