@@ -210,3 +210,20 @@ body.has-top-console #age{white-space:nowrap}
 .plan-live{align-content:space-between}
 @media(max-width:899px){.life-plan{max-height:none}.plan-option{min-height:32px;padding:2px 6px}.plan-label{font-size:13px}}
 @media(min-width:900px){.plan-card{grid-template-columns:1fr}}
+
+/* Research tab: a long reading surface, earned scroll. */
+.research{display:flex;flex-direction:column;gap:6px;min-height:0}
+.research-head{display:grid;gap:4px}
+.research-head h2{margin:0}
+.research-note{font-size:12px;line-height:1.35;margin:0;opacity:.8;max-width:65ch}
+.research-search{width:100%;min-height:34px;padding:2px 8px;border:1px solid var(--line,#8886);background:none;color:inherit;font:inherit;border-radius:0}
+.research-filter{display:flex;flex-wrap:wrap;gap:4px}
+.research-chip{font-size:12px;padding:2px 8px;min-height:32px;width:auto;max-width:none;border:1px solid var(--line,#8886);background:none;color:inherit}
+.research-chip[aria-pressed=true]{background:var(--amber,#b56a00);border-color:var(--amber,#b56a00);color:#17110a;font-weight:600}
+.research-count{font-size:11px;margin:0;opacity:.75}
+.research-list{list-style:none;margin:0;padding:0;display:grid;gap:0;overflow:auto;min-height:0}
+.research-item{display:grid;grid-template-columns:72px minmax(0,1fr);gap:8px;padding:6px 0;border-top:1px solid var(--line,#8886)}
+.research-when{font-size:12px;font-variant-numeric:tabular-nums;font-weight:600}
+.research-title{font-size:14px;margin:0;font-weight:600}
+.research-summary{font-size:13px;line-height:1.4;margin:2px 0;max-width:65ch}
+.research-source{font-size:11px;margin:0;opacity:.72}

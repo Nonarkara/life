@@ -4,6 +4,8 @@ import {renderInvestments} from './investment-view.js';
 import {t} from './i18n.js';
 import {roomRecord,recordedCommute} from './biography.js';
 import {renderEconomy,renderWorldNow} from './economy-view.js';
+import {renderResearch} from './research-view.js';
+import {birthYearOf} from './thai-history.js';
 import {REGIONS,MOVE_TARGETS} from './regions.js';
 import {PURCHASES,HOUSING,openFinance,setBudget,setHousing,setWorkplace,setRegion,currentRegion,WORKPLACES,buy,monthlyFlow,netWorth,moveReserve} from './finance.js';
 import {availablePathways} from './pathways.js';
@@ -12,8 +14,9 @@ import {eventsFor} from './events.js';
 import {baselineComparison} from './baseline.js';
 import {alternativeDeltas} from './alternatives.js';
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
-const ORDER=[['plan','Plan'],['you','You'],['bucket','Bucket list'],['money','Money'],['cv','CV'],['world','World'],['history','History']];
+const ORDER=[['plan','Plan'],['you','You'],['bucket','Bucket list'],['money','Money'],['cv','CV'],['world','World'],['research','Research'],['history','History']];
 export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getState().age}){
+ let research=null;const openResearch=pane=>{research??=renderResearch(pane,()=>{const s=getState(),by=birthYearOf(s);return by===null?null:by+Math.floor(getAge());});research.show();};
  const bucketUI=initBucketView({getState,getAge,change});
  const main=document.querySelector('main'),stage=main.querySelector('.stage'),decision=main.querySelector('.decision'),resources=main.querySelector('.resources'),method=main.querySelector('.method');
  document.body.classList.add('console-mode');
@@ -68,6 +71,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
  place();wide.addEventListener('change',place);
 
  function select(key,{align=true,reset=true}={}){
+  if(key==='research')openResearch(panes.research);
   const opened=active!==key;active=key;document.body.dataset.consoleView=key;document.body.classList.toggle('plan-active',key==='plan');
   if(key==='bucket'){bucketUI.render(panes.bucket);if(opened)window.dispatchEvent(new Event('life-bucket-open'));}
   if(key==='money'){moneyPane(getState());if(isMoving()||getState().stage!=='review'||getState().story?.pending)for(const control of panes.money.querySelectorAll('input,select,button:not([data-money-view])'))control.disabled=true;}
