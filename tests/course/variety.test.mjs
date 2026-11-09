@@ -39,7 +39,7 @@ test('a 1949 life meets its history, and each life meets a different one',()=>{
   seqs.add(q.join('>'));for(const id of new Set(q))count[id]=(count[id]??0)+1;total+=1;history+=q.filter(id=>id.startsWith('h_')).length;
  }
  assert.ok(seqs.size>=N*MIN_DISTINCT,'distinct '+seqs.size);
- assert.ok(history/total>=4,'history scenes per life '+history/total); // 1976 and Vietnam can end a life early, and a route takes some stations
+ assert.ok(history/total>=3.5,'history scenes per life '+history/total); // lives can now end early at zero, and a route takes some stations
  for(const id of ['m_kits','m_funds'])assert.equal(count[id]??0,0,id+' before its time');
  const worst=Object.entries(count).sort((a,b)=>b[1]-a[1])[0];assert.ok(worst[1]<=N*.9,worst[0]+' is in '+worst[1]+'/'+N);
 });
@@ -207,4 +207,12 @@ test('gold: priced from world gold and the baht, bought from income, and the sav
  let s=begin(configureLife(newLife(5550),{birthYear:1981,class:'middle_class'}));const settle=()=>{for(const p of pendingPivots(s))s=applyPivot(s,p,openOptions(p,s)[0].id);const ps=s.story?.pending;if(ps){s=resolveEncounter(s,encounterById(ps.id).options.find(o=>choiceAvailable(s,o)).id,.3);}};settle();
  while(s.stage==='review'&&s.age<40){if(s.age>=20)s=setGoldPct(s,20);const m=live(s);if(m===s)break;s=m;settle();}
  assert.equal(validate(JSON.parse(JSON.stringify(s))),true);if(s.stage==='review')assert.ok(s.finance.goldWeight>0,'gold was bought');assert.ok(PURCHASES.house.minAge===20);
+});
+
+import {assetsOf,sellAsset} from '../../dist/course/life-persona.js';
+test('what you own has a price over time, and can be sold at a loss when life demands',()=>{
+ const b=begin(configureLife(newLife(77),{birthYear:1981,class:'middle_class'}));let s=openF({...b,story:{...b.story,pending:null},age:25});s={...s,finance:{...s.finance,available:300000}};
+ s=buy(s,'car');assert.equal(assetsOf(s).some(a=>a.key==='car'),true);const later={...s,age:35},car=assetsOf(later).find(a=>a.key==='car');assert.ok(car.value<280000&&car.points.length>=2,'cars lose value');
+ const sold=sellAsset(later,'car');assert.equal(sold.finance.available-later.finance.available,car.value);assert.equal(assetsOf(sold).some(a=>a.key==='car'),false);assert.equal(sellAsset(sold,'car'),sold);
+ const am=sellAsset(later,'amulet');assert.equal(assetsOf(am).some(a=>a.key==='amulet'),false,'even your father’s amulet can go');assert.ok(am.wellbeing<later.wellbeing);
 });

@@ -1,3 +1,4 @@
+import {assetsOf} from './life-persona.js';
 import {choiceAvailable} from './finance.js';
 import {choiceSymbol,choiceSymbolKey,questionCategoryBadge} from './choice-symbols.js';
 import {t} from './i18n.js';
@@ -24,6 +25,7 @@ export function renderEncounterChoices(root,state,scene,{onChoose,extra=()=>[],f
   if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}
   button.append(...extra(choice));button.onclick=()=>onChoose?.(choice);root.append(button);
  }
+ if(scene.options.some(o=>!choiceAvailable(state,o))&&assetsOf(state).length){const b=document.createElement('button');b.type='button';b.className='encounter-sell';b.textContent=t('Sell something to pay for this');b.onclick=()=>{document.querySelector('.decision-set-aside')?.click();document.querySelector('.console-nav button[data-key="you"]')?.click();window.dispatchEvent(new Event('life-open-you'));};root.append(b);}
  if(scene.sourceKey){
   // A scenario written from a book: the disclosure says where it came from and
   // what the source key means, so a reader is never left thinking it is a record.
