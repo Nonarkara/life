@@ -5,7 +5,7 @@ import {newLife,configureLife} from '../../dist/course/sim.js';
 
 test('every kind of birth survives the round trip exactly',()=>{
   let n=0;
-  for(let seed=1;seed<=600;seed+=7)for(const options of [{},{sex:'male'},{class:'low_class'},{class:'high_class',sex:'female'},{class:'royal_associated'},{class:'bureaucratic_class'},{class:'working_class',sex:'intersex'}]){
+  for(let seed=1;seed<=600;seed+=7)for(const options of [{},{sex:'male'},{class:'low_class'},{class:'high_class',sex:'female'},{class:'bureaucratic_class'},{class:'working_class',sex:'intersex'}]){
     const life=configureLife(newLife(seed),options),code=encodeBirth(life);
     assert.match(code,/^[0-9a-z]+-[fmi][hlmwbr]-[0-9a]{5}$/);
     assert.deepEqual(decodeBirth(code),life,'the same birth comes back for '+code);n++;

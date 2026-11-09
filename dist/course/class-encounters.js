@@ -22,7 +22,7 @@ export const CLASS_ENCOUNTERS=[
  context('bureaucratic_class','class_connections','A relative offers an introduction','A family connection offers to introduce you to someone in your field. An introduction is a chance, not a job.',[
    choice('meet','Go to the meeting',{cash:-500,skills:{eq:2}},'You paid for the trip and practiced making your case. No position was guaranteed.'),
    choice('own','Prepare an application yourself',{skills:{iq:1,drive:1}},'You prepared your own application. The result still depended on the opening and the people choosing.')]),
- context('royal_associated','class_expectations','The family name comes with expectations','A family gathering matters to your relatives. Attending takes money and time you had planned to use elsewhere.',[
+ context('high_class','class_expectations','The family name comes with expectations','A family gathering matters to your relatives. Attending takes money and time you had planned to use elsewhere.',[
    choice('attend','Attend and contribute ฿2,000',{cash:-2000,wellbeing:2,skills:{eq:1}},'You attended and contributed. The family had your company, and your own plans had less money.'),
    choice('decline','Decline and keep your commitments',{wellbeing:-1,skills:{drive:1}},'You kept your commitments and declined. The conversation was difficult, but the choice was yours.')]),
  // A second class pressure at the start of adulthood (25–35), so each birth
@@ -48,7 +48,7 @@ export const CLASS_ENCOUNTERS=[
    choice('move','Accept the posting',{cash:5000,wellbeing:-2,skills:{drive:1}},'You accepted the posting. Your career advances, but your family life is strained.'),
    choice('decline','Decline and stay',{wellbeing:1,skills:{eq:1}},'You declined and stayed with your family. The promotion went to someone else.'),
  ],()=>true,35,false),
- context('royal_associated','class_name_pressure','The family name','A charity event expects your family\'s presence and a donation. Attending means time and money; declining means gossip.',[
+ context('high_class','class_name_pressure','The family name','A charity event expects your family\'s presence and a donation. Attending means time and money; declining means gossip.',[
    choice('decline','Send your regrets',{wellbeing:-1,skills:{drive:1}},'You sent your regrets. Some relatives were upset, but your own plans stayed intact.'),
    choice('attend','Attend and donate',{cash:-15000,wellbeing:1,skills:{eq:1}},'You attended and donated. The family name was honored, but your budget took a hit.'),
  ],()=>true,35,false),
@@ -74,7 +74,7 @@ export const CLASS_ENCOUNTERS=[
    choice('study','Study the ledger',{skills:{iq:1},wellbeing:-1},'You read every entry. The numbers told a story you had not known, and it changed how you see your own.'),
    choice('close','Leave it closed',{wellbeing:1,skills:{eq:1}},'You left it closed. Some histories are kinder when they stay where they are.'),
  ],()=>true,35,false),
- context('royal_associated','class_name_plaque','The name on the gate','A new building bears your family’s name. You are asked to speak at the opening, but the speech would praise a history you do not fully believe in.',[
+ context('high_class','class_name_plaque','The name on the gate','A new building bears your family’s name. You are asked to speak at the opening, but the speech would praise a history you do not fully believe in.',[
    choice('speak','Speak and accept the honor',{cash:-3000,wellbeing:-1,skills:{eq:1}},'You spoke. The name was honored, but the words left a taste you could not wash out.'),
    choice('decline','Decline and write your own',{wellbeing:1,skills:{drive:1}},'You declined. The building keeps your name, but the words are yours alone.'),
  ],()=>true,35,false)

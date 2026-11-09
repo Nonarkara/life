@@ -40,7 +40,7 @@ function others(state){
  const share=f=>alive.length?Math.round(alive.filter(f).length/alive.length*100):0;
  const cls=state.birth.class;let classGap=null;
  if(CLASS_KEYS.includes(cls)){
-  const other=['high_class','royal_associated'].includes(cls)?'low_class':'high_class',at=Math.min(state.age,60);
+  const other=['high_class'].includes(cls)?'low_class':'high_class',at=Math.min(state.age,60);
   const typical=c=>{const v=Array.from({length:PER_CLASS},(_,k)=>drift({...configureLife(newLife(state.seed+k*97+1),{...(state.intake??{}),class:c}),...policy(state)},at).history.find(r=>r.age===at)).filter(Boolean).map(worth);return v.length?median(v):null;};
   const a=typical(cls),b=typical(other);if(a!==null&&b!==null)classGap={at,cls,other,mine:a,theirs:b};
  }

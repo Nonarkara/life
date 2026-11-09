@@ -18,7 +18,7 @@ const all=(...f)=>s=>f.every(g=>g(s));
 const o=(id,label,effects,outcome)=>({id,label,...effects,outcome});
 // House rule the engine and tests rely on: the first option costs nothing, so no life is ever stuck.
 const scene=(id,category,min,max,eligible,title,prompt,options)=>({id,category,min,max,priority:2,eligible,title,prompt,options:[...options.filter(x=>!(x.cash<0)).slice(0,1),...options.filter((x,i,a)=>x!==a.find(y=>!(y.cash<0)))]});
-const RICH=of('high_class','royal_associated'),NOT_RICH=of('low_class','working_class','middle_class'),POOR=of('low_class','working_class');
+const RICH=of('high_class'),NOT_RICH=of('low_class','working_class','middle_class'),POOR=of('low_class','working_class');
 export {cls,of,at,sex,happened,motherGone,fatherGone,withMother,withFather,away,child,all,o,scene,RICH,NOT_RICH,POOR};
 
 export const WAVE1_ENCOUNTERS=[
@@ -38,7 +38,7 @@ export const WAVE1_ENCOUNTERS=[
   o('take','Take the seat',{cash:60000,wellbeing:-2,skills:{iq:1}},'You signed papers you half understood. The fee arrived every quarter, and so did the phone calls.'),
   o('learn','Take it after a year of learning the business',{wellbeing:-1,skills:{iq:1}},'You spent a year in the accounts office first. At the table later, you asked the questions no one else did.'),
   o('decline','Decline and keep your own work',{wellbeing:2,skills:{drive:1}},'You said no. Your uncle did not raise it again, and did not forget it either.')]),
- scene('w1_match','connection',24,34,of('high_class','royal_associated','bureaucratic_class'),'Dinner with a suitable family',
+ scene('w1_match','connection',24,34,of('high_class','bureaucratic_class'),'Dinner with a suitable family',
   'The two mothers have arranged a dinner. The other family\'s child keeps checking the door. Your mother has bought you a new shirt for it.',[
   o('try','Go, and try to like them',{wellbeing:1,skills:{eq:1}},'You talked about the food, then about your mothers. It was a better evening than either of you expected.'),
   o('polite','Go, be polite, and say no afterwards',{wellbeing:-1},'You were polite. Your mother stopped mentioning it after a week, which was worse.'),

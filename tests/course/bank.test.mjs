@@ -16,7 +16,7 @@ import {regionAt} from '../../dist/course/regions.js';
 const LANGS=['th','zh-CN','ja','ko'];
 const textsOf=e=>[e.title,e.prompt,...e.options.flatMap(o=>[o.label,o.outcome,o.deathCause,...(o.later??[]).map(l=>l.text)])].filter(Boolean);
 const COHORTS=[1949,1970,1981,1990,2000];
-const LIVES=40,CLASSES=['low_class','working_class','middle_class','bureaucratic_class','high_class','royal_associated'],SEXES=['female','male'];
+const LIVES=40,CLASSES=['low_class','working_class','middle_class','bureaucratic_class','high_class'],SEXES=['female','male'];
 // Walks a complete life, recording each offered scene with the station it fell on.
 function walk(seed,opts,pick=(os,n)=>os[n%os.length],onStep=()=>{}){
  let s=begin(configureLife(newLife(seed),opts)),opened=false;const met=[];

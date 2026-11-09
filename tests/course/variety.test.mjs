@@ -115,3 +115,17 @@ test('the history bank cites a page for every entry, marks novels as fiction, an
  assert.ok(HISTORY_BANK.length>1000);assert.equal(new Set(HISTORY_BANK.map(e=>e.id)).size,HISTORY_BANK.length);
  for(const e of HISTORY_BANK){assert.ok(Number.isInteger(e.source.page),e.id);assert.ok(Number.isInteger(e.from)&&e.from<=e.to,e.id);assert.ok(!royal.test(e.title+' '+e.summary+' '+(e.seed??'')),e.id);if(/fiction/.test(e.source.book))assert.equal(e.kind,'texture',e.id);}
 });
+
+import {readSave} from '../../dist/course/save.js';
+import {CLASS_KEYS,CLASS_WEIGHTS} from '../../dist/course/backgrounds.js';
+import {decodeBirth,encodeBirth} from '../../dist/course/birthcode.js';
+import {readFileSync} from 'node:fs';
+test('the royal-associated birth is gone, and earlier lives and links still open',()=>{
+ assert.equal(CLASS_KEYS.includes('royal_associated'),false);assert.equal(Object.hasOwn(CLASS_WEIGHTS,'royal_associated'),false);
+ assert.ok(Math.abs(Object.values(CLASS_WEIGHTS).reduce((a,b)=>a+b,0)-1)<1e-9,'weights sum to one');
+ assert.ok(!/royal/i.test(readFileSync('dist/intake/index.html','utf8')));
+ const life=begin(configureLife(newLife(7919),{birthYear:1949,class:'high_class'}));
+ const old=JSON.parse(JSON.stringify(life));old.intake.class='royal_associated';if(old.birth.class)old.birth.class='royal_associated';
+ const store={getItem:()=>JSON.stringify(old),setItem(){}},read=readSave(store,validate);assert.ok(read.life,'old save opens');assert.equal(read.life.intake.class,'high_class');
+ const code=encodeBirth(configureLife(newLife(7919),{birthYear:1949,class:'high_class'})),oldCode=code.replace(/^([0-9a-z]+-[fmi])h/,'$1r');assert.notEqual(code,oldCode);assert.equal(decodeBirth(oldCode)?.intake.class,'high_class');
+});

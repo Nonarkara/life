@@ -15,15 +15,15 @@ const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan'];
 const city=s=>CITY.includes(placeOf(s))||F(s).wentBangkok<s.age,country=s=>!city(s);
 const cls=s=>s.intake?.class??s.birth?.class;
 const of=(...c)=>s=>c.includes(cls(s));
-const rich=of('high_class','royal_associated'),notRich=s=>!rich(s);
-const poor=s=>!['middle_class','bureaucratic_class','high_class','royal_associated'].includes(cls(s));
+const rich=of('high_class'),notRich=s=>!rich(s);
+const poor=s=>!['middle_class','bureaucratic_class','high_class'].includes(cls(s));
 const middling=of('middle_class','bureaucratic_class'),office=of('bureaucratic_class','middle_class','high_class');
 const male=s=>(s.intake?.sex??s.birth?.sex)==='male',female=s=>(s.intake?.sex??s.birth?.sex)==='female';
 const farm=s=>/rice-farming/.test(s.birth?.home??'');
 const route=s=>s.history?.at(-1)?.pathway;
 const college=s=>route(s)==='college';
 const even=s=>s.seed%2===0;
-const owner=of('middle_class','high_class','royal_associated');
+const owner=of('middle_class','high_class');
 const parent=s=>had('parent')(s);
 const motherAlive=s=>!(s.history??[]).some(r=>/(?<!grand)mother dies/.test(r.event??''));
 // A window on the calendar. The bank is for lives with a birth year; older lives replay exactly as they were.

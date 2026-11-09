@@ -5,7 +5,7 @@ import {birthYearOf} from './thai-history.js';
 // Authored family circumstances, never a demographic forecast.
 export function childhoodChapter(state, age) {
  const cls=state.intake?.class??state.birth?.class,band=backgroundBand(state);
- const income={low_class:30000,working_class:60000,middle_class:120000,bureaucratic_class:180000,high_class:300000,royal_associated:240000}[cls]??{constrained:60000,middle:180000,comfortable:600000}[band];
+ const income={low_class:30000,working_class:60000,middle_class:120000,bureaucratic_class:180000,high_class:300000,}[cls]??{constrained:60000,middle:180000,comfortable:600000}[band];
  const chapters=[
   [0,'Your mother\u2019s world becomes yours.','Your family makes room for a newborn. Care comes before any ambition.',
    "Brain development begins before birth. Genes and early experiences both help shape it."],

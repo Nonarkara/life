@@ -18,7 +18,7 @@ export function momentPlan(state,id){
 // the indigo mo hom and pha khao ma of farmers, the pha sin, the white-shirt school and
 // university uniform, khaki for government service.
 export function outfitFor(state,key,sex,age,year,{player=key==='player',place:given}={}){
- const cls=state.intake?.class??state.birth?.class,place=given??region(regionAt(state,state.age)),abroad=!!place?.country&&place.country!=='TH',rural=place?.style==='village'||place?.style==='coast',rich=['high_class','royal_associated'].includes(cls),poor=['low_class','working_class'].includes(cls),r=k=>rand(state.seed,age>=40?1:0,'outfit:'+key+':'+k),pick=(k,list)=>list[Math.floor(r(k)*list.length)],female=sex==='female'||sex!=='male'&&r('presents')<.5;
+ const cls=state.intake?.class??state.birth?.class,place=given??region(regionAt(state,state.age)),abroad=!!place?.country&&place.country!=='TH',rural=place?.style==='village'||place?.style==='coast',rich=['high_class'].includes(cls),poor=['low_class','working_class'].includes(cls),r=k=>rand(state.seed,age>=40?1:0,'outfit:'+key+':'+k),pick=(k,list)=>list[Math.floor(r(k)*list.length)],female=sex==='female'||sex!=='male'&&r('presents')<.5;
  const shoe=rich||!poor&&!rural?'shoes':'sandals',base={female,collar:false,pocket:false,mohom:false,blouseNeck:false,tucked:false,sleeve:'short',skirt:null,legs:'trousers',band:null,scarf:false,feet:shoe,trim:'#efe9d8'};
  const sin=()=>({skirt:'sin',bottom:pick('sin',['#7a3f3a','#3f5a50','#5a4a6a','#8a6a2f','#355068']),band:pick('band',['#c9a24a','#b5482f','#d7c9a0'])});
  const blouse=()=>({top:pick('blouse',['#e8ddc4','#d6c0a8','#c9d2c2','#d9c3c0','#bcc9c9']),blouseNeck:true,trim:'#f2ecdc'});

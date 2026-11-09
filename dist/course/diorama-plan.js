@@ -68,7 +68,7 @@ export function palette(style,place,seed){
  const walls=[...set.walls.slice(rot),...set.walls.slice(0,rot)].slice(0,3).map(c=>hsl(c,shift,-.05,tone));
  return {walls,roofs:set.roofs.map(c=>hsl(c,shift*.7,0,(r()-.5)*.05)),accent:hsl(pick(set.accent),0,-.12,.02),accents:set.accent,road:hsl(set.road,shift,0,tone*.5),leaf:set.leaf.map(c=>hsl(c,shift,0,(r()-.5)*.04)),ground:hsl(place.look.ground,shift,-.1,.05+tone*.4),water:place.look.water,floor:hsl(place.look.floor,shift,0,tone),wall:hsl(place.look.wall,shift,0,tone)};
 }
-const TIERS={low_class:0,working_class:1,middle_class:2,bureaucratic_class:2,high_class:3,royal_associated:3};
+const TIERS={low_class:0,working_class:1,middle_class:2,bureaucratic_class:2,high_class:3,};
 export function townStyle(base,year,where){
  if(where.inCity&&where.place)return where.place==='condo'||where.place==='villa'?where.place:'slum';
  if(where.inCity)return 'slum';

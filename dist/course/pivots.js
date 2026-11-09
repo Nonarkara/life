@@ -556,12 +556,12 @@ export const pivotsForStation=age=>PIVOTS.filter(p=>p.station===age);
 const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools':/(?<!grand)father dies/,'stall-takeover':/(?<!grand)father dies/,'empty-house':/(?<!grand)mother dies/,'take-in':/(?<!grand)mother dies/};
 // A question that assumes a stall, a workshop or a site is asked only of the households that have one; the rest of the table is open to all.
 const STALL=['low_class','working_class','middle_class'],NOT_RICH=['low_class','working_class','middle_class','bureaucratic_class'];
-const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'school-leave':STALL,'stall-paper':STALL,'stall-takeover':STALL,'father-tools':STALL,'nephew':STALL,'partner-business':STALL,'college-cost':NOT_RICH,'buy-house':NOT_RICH,'year-abroad':['working_class','middle_class','bureaucratic_class','high_class','royal_associated']};
+const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'school-leave':STALL,'stall-paper':STALL,'stall-takeover':STALL,'father-tools':STALL,'nephew':STALL,'partner-business':STALL,'college-cost':NOT_RICH,'buy-house':NOT_RICH,'year-abroad':['working_class','middle_class','bureaucratic_class','high_class']};
 const MARKET_STALL = new Set(['child-roof','child-sponsor','stall-paper','stall-takeover','flood-move']);
 const PROVINCES=['nakhon-sawan','isan-village','pak-phanang'];
 const forkDue=state=>{const y=birthYearOf(state);return y!==null&&y<=1990&&PROVINCES.includes(state.birth?.region)&&['low_class','working_class','middle_class'].includes(state.intake?.class??state.birth?.class);};
 const savingsOf=s=>s.finance?netWorth(s.finance):s.cash;
-const during=(s,a,b)=>{const y=birthYearOf(s);return y!==null&&y>=a&&y<=b;},regionOf=s=>REGIONS[regionIdFor(s.birth)],sexOf=s=>s.intake?.sex??s.birth?.sex,bornClass=s=>s.intake?.class??s.birth?.class,notRich=s=>!['high_class','royal_associated'].includes(bornClass(s));
+const during=(s,a,b)=>{const y=birthYearOf(s);return y!==null&&y>=a&&y<=b;},regionOf=s=>REGIONS[regionIdFor(s.birth)],sexOf=s=>s.intake?.sex??s.birth?.sex,bornClass=s=>s.intake?.class??s.birth?.class,notRich=s=>!['high_class'].includes(bornClass(s));
 const ADDED={
  'parent-language':s=>during(s,1930,1985)&&s.seed%2===0&&['market','slum','condo','villa'].includes(regionOf(s)?.style),
  'coast-boat':s=>during(s,1930,1990)&&regionOf(s)?.style==='coast',
