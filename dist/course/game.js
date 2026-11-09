@@ -1,4 +1,5 @@
 import {renderEncounterChoices} from './encounter-view.js';
+import {SET_CLOSE} from './market-moments.js';
 import {dailyDateFor} from './birthcode.js';
 import {journeySnapshot} from './journey.js';
 import {initLifeEventView} from './life-event-view.js';
@@ -101,6 +102,7 @@ function questions(){
  const question=document.createElement('h2');question.id='pivot-title';question.textContent=pivot.prompt;
  const context=document.createElement('p');context.className='decision-context';context.textContent=pivot.context;
  const list=document.createElement('div');list.className='pivot-options';
+ const marketChart=pivot.market?setChart(pivot.market):null;
  for(const option of inWorldOrder(openOptions(pivot,state),state.seed,pivot.id+state.age)){
   if(option.slider){
     const wrap=document.createElement('div');wrap.className='slider-option';
@@ -121,7 +123,7 @@ function questions(){
     button.onclick=()=>{const before=state,next=applyPivot(state,pivot,option.id);if(next===before)return;state=next;showResult(before,state,{label:option.label,text:state.pivots.at(-1).note,record:state.pivots.at(-1)});render();};list.append(button);
   }
  }
- const reading=document.createElement('div');reading.className='pivot-reading';reading.append(progress,badges,question,context);card.append(reading,list);root.append(card);
+ const reading=document.createElement('div');reading.className='pivot-reading';reading.append(progress,badges,question,context,...(marketChart?[marketChart]:[]));card.append(reading,list);root.append(card);
 }
 
 function profiles(){const editor=$('profile'),habitsOpen=editor.querySelector('.profile-habits')?.open??false,root=resetProfileFields(editor);const routes=availablePathways(state.age);if(routes.length){const wrap=document.createElement('div');wrap.className='profile-field';const label=document.createElement('label');label.htmlFor='pathway';label.textContent='Education and work';const select=document.createElement('select');select.id='pathway';for(const[key,route]of routes){const o=document.createElement('option');o.value=key;o.textContent=route.label;select.append(o);}select.value=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');select.onchange=()=>{state={...state,pathway:select.value};save();render();document.querySelector('#pathway')?.focus({preventScroll:true});};wrap.append(label,select);
@@ -209,3 +211,7 @@ function tick(now){
  if((state.stage==='birth'||travel)&&now-lastCheckpoint>2000){lastCheckpoint=now;save();}requestAnimationFrame(tick);
 }
 window.addEventListener('life-preferences',()=>{dirty=true;render();});window.addEventListener('life-fonts-loaded',()=>{dirty=true;});window.addEventListener('life-stage-art',()=>{dirty=true;});window.addEventListener('life-settings-open',()=>{paused=true;dirty=true;});window.addEventListener('life-bucket-open',()=>{paused=true;dirty=true;});initSettings();window.addEventListener('resize',()=>{dirty=true;arrangeDeck($('life-deck'));placeDeckAction();});document.addEventListener('visibilitychange',()=>{lastTime=0;if(document.hidden){paused=true;dirty=true;}});consoleUI=initConsole({getState:()=>state,getAge:()=>age,isMoving:()=>!!travel,change:next=>{state=next;if(travel){state={...state,pendingAlternatives:stationAlternatives(state)};travel={...travel,to:live(state)};}render();}});personalUI=initPersonalConsole({getState:()=>state,isMoving:()=>!!travel});if(state.stage==='review'&&pendingPivots(state).length)tab='questions';render();requestAnimationFrame(tick);
+
+// The record up to the year being lived, and not one year further.
+function setChart(year){const ys=Object.keys(SET_CLOSE).map(Number).filter(y=>y<=year),max=Math.max(...ys.map(y=>SET_CLOSE[y])),pts=ys.map((y,i)=>`${(i/(ys.length-1)*296+2).toFixed(1)},${(66-SET_CLOSE[y]/max*62).toFixed(1)}`).join(' '),fig=document.createElement('figure');fig.className='market-chart';const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg'),line=document.createElementNS(svgNS,'polyline');svg.setAttribute('viewBox','0 0 300 68');svg.setAttribute('role','img');svg.setAttribute('aria-label',`SET ${ys[0]}–${year}`);line.setAttribute('points',pts);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','2');line.setAttribute('vector-effect','non-scaling-stroke');svg.append(line);const cap=document.createElement('figcaption'),n=y=>Math.round(SET_CLOSE[y]).toLocaleString('en');cap.textContent=`${ys[0]}: ${n(ys[0])} · ${year}: ${n(year)}. `+t('SET Index, December close (Wikipedia table).');fig.append(svg,cap);return fig;}
+document.addEventListener('life-branch',e=>{if(!e.detail||e.detail.stage!=='review'||!validate(e.detail))return;state=enableLifeEvents(e.detail);age=state.age;speed=1;childResult=null;travelEvent=null;arrival=0;childView=null;mode='world';paused=true;tab='questions';render();window.scrollTo(0,0);});

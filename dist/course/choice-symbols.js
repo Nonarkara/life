@@ -22,7 +22,7 @@ export const SYMBOL_PATHS={
 export const STATION_SYMBOLS={
  'child-roof':['tools','book','agreement'],'child-sponsor':['agreement','shield','agreement'],'child-water-bike':['bicycle','water','tools'],
  'school-apprentice':['book','tools','clock'],'school-leave':['travel','book','money'],'school-fall-climb':['shield','art','work'],
- 'college-cost':['book','agreement','work','clock'],'three-roads':['home','heart','travel'],'stall-paper':['agreement','shield','home'],'city-pay':['travel','home','agreement'],
+ 'college-cost':['book','agreement','work','clock'],'three-roads':['home','heart','travel'],'parent-language':['book','people'],'coast-boat':['book','work'],'village-buffalo':['care','book'],'girl-school':['home','book'],'temple-boy':['work','travel'],'go-abroad':['home','travel'],'gifted-child':['home','money'],'stall-paper':['agreement','shield','home'],'city-pay':['travel','home','agreement'],
  'partner-choice':['people','heart','clock'],'flood-repair':['tools','money','split'],'flood-move':['travel','home'],
  'year-abroad':['travel','home','clock'],'partner-business':['work','money','shield'],'promotion-away':['travel','home','agreement'],
  'parent-ill':['care','people','money'],'share-offer':['work','money','split'],'buy-house':['home','money','people'],
@@ -89,7 +89,7 @@ export function questionType(pivot){
 // Priority order: spiritual → relationships → money → work → health (catch-all).
 // Health is checked last because nearly every authored option has some
 // wellbeing or health effect; it should not dominate every question.
-export function questionCategory(pivot){
+export function questionCategory(pivot){if(pivot?.market)return 'money';
  const allEffects=pivot.options.flatMap(o=>[o.effects?.skills??{},o.effects?.cash!==undefined?{cash:1}:{},o.effects?.health!==undefined?{health:1}:{},o.effects?.wellbeing!==undefined?{wellbeing:1}:{}]);
  const flags=pivot.options.flatMap(o=>o.flags??{});
  const flagStr=JSON.stringify(flags);

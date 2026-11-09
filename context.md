@@ -920,3 +920,10 @@ reel now flexes to fill it. (4) `build.mjs` hashed and shipped `.DS_Store`, so
 the build id differed between worktrees; it now skips them.
 Open: Nemotron's spectrum slider has no question data feeding it (dormant
 code); native-speaker review of the cover in TH/ZH/JA/KO still owed.
+
+
+## Concept recording pass (2026-11-09)
+
+Measured against the owner's concept recording. Added: real SET Index year-end closes (`dist/course/market-moments.js`, from the Wikipedia annual table) at 1978/1993/1998/2008/2017, half of net worth, paid at the real five-year ratio; care and responsibility scores (`moral-ledger.js`, 128 authored judgments, fear never scored); ending ranks money/care/responsibility against 100 same-birth lives; playable other road ("Live this road", `relive(...,true)`); friend comparison via `&them=` (`parseThem` is the trust boundary); seven new station questions and place-specific childhood questions; forks change the painted room (`placeOf` in stage2d.js) instead of dropping to 3D; walking mirrored when coming home; 2D push-in while a decision is open. Save rule: scene eligibility is judged against the state before that station's answers (`beforeStation` in encounters.js).
+
+Not done: 3D zoom for big moments (the push-in is 2D), aged adult art, native Thai read of `roads-copy.js`/market copy, field-of-study as a relivable fork. Codex's literature scenes remain uncommitted in `prototype/`; not merged, they are plot-level adaptations of copyrighted novels and its own gate requires a native reader.

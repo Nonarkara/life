@@ -8,7 +8,7 @@ export const SCENARIO_PALETTES={};
 function assign(ids,{joy=false,sad=false}={}){
  ids.split(' ').forEach((id,i)=>{SCENARIO_PALETTES[id]={plates:[sad?dark[i%10]:dark[(i+3)%10],sad?dark[(i+1)%10]:bright[(i+2)%10]],opening:joy?1:0};});
 }
-assign('th_curfew th_buyer_bill th_dry_season th_bangkok_accounting th_bank_merger',{sad:true});
+assign('th_curfew th_buyer_bill th_dry_season th_bangkok_accounting th_bank_merger parent-language coast-boat village-buffalo girl-school temple-boy go-abroad gifted-child',{sad:true});
 assign('th_harvest_transport th_unpaid_placement th_first_love_regret');
 assign('class_family_business class_debt class_ambition class_overtime class_connections class_expectations',{sad:true});
 assign('class_family_pressure class_support_pressure class_housing_pressure class_family_time class_posting_pressure class_name_pressure class_heirloom class_photo class_water_offering class_lantern class_record class_name_plaque',{sad:true});

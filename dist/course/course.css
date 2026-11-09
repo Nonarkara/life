@@ -142,3 +142,10 @@ header>a{font-size:18px}
 .decision-dialog button:disabled:hover{text-decoration:none}
 /* Headings receive programmatic reading focus, not an interactive box. */
 .decision-dialog h2:focus,.decision-dialog #title:focus{outline:none}
+
+.market-chart{margin:8px 0 0}.market-chart svg{display:block;width:100%;height:68px;color:var(--amber,#b56a00)}.market-chart figcaption{font-size:calc(11px * var(--reading-scale,1));margin-top:2px}.reading-compare{border-collapse:collapse;width:100%}.reading-compare th,.reading-compare td{text-align:left;padding:2px 8px 2px 0;border-bottom:1px solid var(--line,#8886);font-variant-numeric:tabular-nums}.reading-branch{margin-top:6px;min-height:44px;padding:0 12px}
+@media (prefers-reduced-motion:no-preference){#world{transition:transform .5s cubic-bezier(.2,.7,.2,1);transform-origin:50% 72%}body.decision-open #world{transform:scale(1.14)}}
+
+@media(max-width:720px){div:has(>#age){display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:0}#age{line-height:1.05}#age-metrics{white-space:nowrap;font-size:calc(11px * var(--reading-scale,1));color:inherit;margin:0}.market-chart svg{height:48px}}
+
+.reading-turns li.reading-market{display:block}

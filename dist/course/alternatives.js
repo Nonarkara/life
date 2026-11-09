@@ -22,6 +22,7 @@ export function undoAnswer(state,record){
     story:{...state.story,flags:{...(before.flags??state.story?.flags)}},
     pivotFlags:{...(before.pivotFlags??state.pivotFlags??{})},
     pathway:before.pathway??state.pathway,
+    ...(record.moved&&state.finance?{finance:(({region,regionSince,...rest})=>({...rest,...(record.moved.region?{region:record.moved.region,regionSince:record.moved.regionSince}:{})}))(state.finance)}:{}),
   };
 }
 

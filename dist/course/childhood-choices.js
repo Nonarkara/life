@@ -1,4 +1,5 @@
 // Small choices inside inherited circumstances. These do not allocate DNA or an adult career.
+import {birthYearOf} from './thai-history.js';
 const option=(id,label,note,effects,symbol)=>({id,label,note,effects,symbol});
 export const CHILD_CHOICES=[
  {age:6,title:'Your first small choices',context:'School, play and helping at home all ask for your time.',options:[
@@ -10,20 +11,37 @@ export const CHILD_CHOICES=[
  {age:7,title:'Someone is left out of the game',context:'A child watches from the edge of the playground.',options:[
   option('invite','Invite them to join','You made room for another child.',{skills:{eq:1},wellbeing:1},'people'),
   option('rules','Teach them the rules first','You practised explaining something you knew.',{skills:{iq:1,eq:1}},'book'),
-  option('play','Keep playing with your usual friends','You stayed with the people you already knew.',{wellbeing:1},'heart')]},
+  option('play','Keep playing with your usual friends','You stayed with the people you already knew.',{wellbeing:1},'heart'),
+  option('torch','Go out with the torch','You came home muddy, with enough for a meal.',{cash:100,skills:{physique:1}},'tools'),
+  option('story','Stay in with your grandmother','She told the one about the well again.',{skills:{eq:1},wellbeing:1},'people')]},
  {age:8,title:'A free afternoon',context:'There is time for one thing before the family needs you back.',options:[
   option('bike','Practise riding a bicycle','You practised your balance in the lane.',{skills:{physique:1},health:1},'bicycle'),
   option('draw','Draw the things you noticed today','You gave your observations a shape.',{skills:{craft:1},wellbeing:1},'art'),
-  option('read','Borrow a book from the library','You found a story beyond your own street.',{skills:{iq:1}},'book')]},
+  option('read','Borrow a book from the library','You found a story beyond your own street.',{skills:{iq:1}},'book'),
+  option('share','Buy one and share it','You got half, and your cousin remembered.',{skills:{eq:1},wellbeing:1},'people'),
+  option('keep','Buy one and keep it','It was very cold and it was gone very quickly.',{wellbeing:1},'heart'),
+  option('coin','Keep the coin','You kept the coin in a tin for a while.',{cash:50,skills:{drive:1}},'money')]},
  {age:9,title:'Learning what matters to you',context:'A harder lesson, a friend and a job at home compete for the same afternoon.',options:[
   option('lesson','Work on the difficult lesson','You practised staying with something difficult.',{skills:{iq:1,drive:1}},'book'),
   option('friend','Make time for your friend','You practised listening to someone else.',{skills:{eq:1},wellbeing:1},'people'),
-  option('home','Finish the work at home','You learned to finish something others depended on.',{skills:{drive:1},cash:100},'home')]}
+  option('home','Finish the work at home','You learned to finish something others depended on.',{skills:{drive:1},cash:100},'home'),
+  option('carry','Get up and carry it','You walked behind her in the dark with the food getting heavier.',{skills:{eq:1,drive:1}},'home'),
+  option('bed','Stay in bed','She went alone. Nobody said anything about it at breakfast.',{wellbeing:1},'heart')]}
 ];
+// A historical childhood asks about the place it is lived in. Options stay on their year's
+// question so old saves and records keep their lookups.
+const RURAL=['a rice-farming household','a fishing household'],TOWN=['a market-stall household','a household in a riverside community'];
+const ALT={
+ 7:{when:s=>RURAL.includes(s.birth.home),title:'Frogs after the rain',context:'The field is full of frogs tonight, and the torch is yours if you want it.',ids:['torch','story']},
+ 8:{when:s=>TOWN.includes(s.birth.home),title:'The bell on the soi',context:'The ice-cream cart is coming down the soi. You have one coin, and a younger cousin is looking at it.',ids:['share','keep','coin']},
+ 9:{when:s=>s.seed%2===0,title:'Before light',context:'Your grandmother wants someone to carry the food to the monks before it is light.',ids:['carry','bed']}
+};
+const ALT_IDS=Object.values(ALT).flatMap(a=>a.ids);
+const shaped=(state,q)=>{const a=ALT[q.age];if(birthYearOf(state)!==null&&a?.when(state))return {...q,title:a.title,context:a.context,options:q.options.filter(o=>a.ids.includes(o.id))};return {...q,options:q.options.filter(o=>!ALT_IDS.includes(o.id))};};
 export function pendingChildChoice(state,age){
  if(state.stage!=='birth')return;
  const question=CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&q.age<=age&&!(state.childhood?.choices??[]).some(r=>r.age===q.age));
- if(question?.age!==6)return question;
+ if(question?.age!==6)return question&&shaped(state,question);
  const home=state.birth.home;
  const work=home==='a market-stall household'?'help':home==='a rice-farming household'?'farm':'chores';
  return {...question,options:question.options.filter(option=>['school',work,'ask'].includes(option.id))};

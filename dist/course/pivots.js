@@ -8,6 +8,9 @@
 //
 // These are authored game decisions, not advice about a real life.
 import {rand} from './sim.js';
+import {REGIONS,regionIdFor} from './regions.js';
+import {MARKET_PIVOTS,marketFits} from './market-moments.js';
+import {netWorth} from './finance.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
 
 // A station is one of the fourteen five-year reviews a life passes through.
@@ -524,9 +527,30 @@ export const PIVOTS=[
     note:'You wanted to be remembered as the one who stayed.'}
   ]
  },
+  {id:'parent-language',station:10,prompt:'Your grandfather still counts in Teochew. He is trying to teach you the words for food, and your friends have started doing his accent.',context:'Nobody has told you this will matter.',options:[
+   {id:'learn',label:'Learn the words',cost:'Your friends have a new joke.',effects:{skills:{eq:1}},note:'You learned the words for food, which was most of what he had to say in that language.'},
+   {id:'answer',label:'Answer him in Thai',cost:'He will stop trying sooner than you expect.',effects:{wellbeing:1},flags:{lostLanguage:10},note:'You answered in Thai. One year he stopped asking.'}]},
+  {id:'coast-boat',station:10,prompt:'Your uncle’s boat needs another pair of hands for the season. The teacher says a child who misses a season does not usually come back.',context:'The catch pays for the school shoes.',options:[
+   {id:'school',label:'Stay in school',cost:'Your uncle hires someone, and the family pays for it.',effects:{cash:-1500,skills:{iq:2}},note:'You stayed in school. Your uncle stopped asking you to the boat.'},
+   {id:'boat',label:'Go out on the boat',cost:'School will go on without you.',effects:{cash:3000,skills:{physique:2}},note:'You learned the water. You did not go back to school that year.'}]},
+  {id:'village-buffalo',station:10,prompt:'One child has to stay home to mind the buffalo, and you are the one old enough. The teacher walks out to the house to ask your parents not to choose you.',context:'Your parents have not said no to the teacher, and they have not said yes.',options:[
+   {id:'mind',label:'Stay with the buffalo',cost:'A younger child gets the school.',effects:{skills:{physique:1,eq:1}},note:'You stayed with the buffalo. The younger one read to you at night, for a while.'},
+   {id:'ask',label:'Ask to go to school',cost:'A younger child stays home instead.',effects:{wellbeing:-1,skills:{iq:2}},note:'You went to school. A younger child stayed home for you, and nobody mentioned it.'}]},
+  {id:'girl-school',station:15,prompt:'There is money for one child to go on to secondary school, and your parents have decided it is your brother. He is not the one with the marks.',context:'Your teacher has offered to come and speak to them.',options:[
+   {id:'leave',label:'Leave it',cost:'You will be the one who stays.',effects:{wellbeing:-2,skills:{craft:1}},note:'You left school that March. Your brother did not thank you, because nobody told him.'},
+   {id:'teacher',label:'Let the teacher speak to them',cost:'Your parents will not forget being told in their own house.',effects:{cash:-2000,wellbeing:-1,skills:{iq:2}},note:'The teacher came. You went on to the secondary school, and your parents paid without once looking at your report.'}]},
+  {id:'temple-boy',station:15,prompt:'The abbot says a boy who ordains as a novice can go to the temple school in the city and eat for free. It is how the poor get to Bangkok.',context:'It also means leaving, at fifteen, in a robe.',options:[
+   {id:'stay',label:'Stay and work the land',cost:'The abbot does not ask twice.',effects:{skills:{physique:2}},note:'You stayed. The abbot took the boy from the next house.'},
+   {id:'ordain',label:'Ordain and go',cost:'You will not come home for a long time.',effects:{wellbeing:-1,skills:{iq:2,eq:1}},flags:{novice:15},note:'You ordained and went. You learned to read Pali and to be hungry after noon.'}]},
+  {id:'go-abroad',station:30,prompt:'They are short of trained people in America and they have written to you. The visa is real. Your parents are getting older.',context:'If you go you will tell yourself it is for five years.',options:[
+   {id:'stay',label:'Stay in Thailand',cost:'You will always know what the salary was.',effects:{wellbeing:1},note:'You stayed. You kept the letter for a long time, in the drawer with the deeds.'},
+   {id:'go',label:'Go to America',cost:'You will hear about the funerals by telephone.',effects:{cash:-30000,wellbeing:-3},moveTo:'boston',flags:{emigrated:30},note:'You went. It was not five years.'}]},
+  {id:'gifted-child',station:40,prompt:'Your child’s teacher says a child like this comes along once in a career, and there is a place at a university abroad. It would take the house.',context:'Your child has not asked. Your child has stopped mentioning it.',options:[
+   {id:'keep',label:'Keep the house',cost:'Your child will find a way, or will not, and will remember.',effects:{wellbeing:1},note:'You kept the house. The child found a way, and told people they had found it alone.'},
+   {id:'sell',label:'Sell the house',cost:'You will rent, at your age, and you may never be thanked.',effects:{cash:-60000,wellbeing:-2},note:'You sold the house and rented the one behind it. The letters home were short and the results were good.'}]},
 ];
 
-export const pivotById=id=>PIVOTS.find(p=>p.id===id);
+export const pivotById=id=>PIVOTS.find(p=>p.id===id)??MARKET_PIVOTS.find(p=>p.id===id);
 export const pivotsForStation=age=>PIVOTS.filter(p=>p.station===age);
 // A question tied to a plot point is asked only in the worlds where that happened.
 const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools':/(?<!grand)father dies/,'stall-takeover':/(?<!grand)father dies/,'empty-house':/(?<!grand)mother dies/,'take-in':/(?<!grand)mother dies/};
@@ -536,7 +560,20 @@ const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'s
 const MARKET_STALL = new Set(['child-roof','child-sponsor','stall-paper','stall-takeover','flood-move']);
 const PROVINCES=['nakhon-sawan','isan-village','pak-phanang'];
 const forkDue=state=>{const y=birthYearOf(state);return y!==null&&y<=1990&&PROVINCES.includes(state.birth?.region)&&['low_class','working_class','middle_class'].includes(state.intake?.class??state.birth?.class);};
+const savingsOf=s=>s.finance?netWorth(s.finance):s.cash;
+const during=(s,a,b)=>{const y=birthYearOf(s);return y!==null&&y>=a&&y<=b;},regionOf=s=>REGIONS[regionIdFor(s.birth)],sexOf=s=>s.intake?.sex??s.birth?.sex,bornClass=s=>s.intake?.class??s.birth?.class,notRich=s=>!['high_class','royal_associated'].includes(bornClass(s));
+const ADDED={
+ 'parent-language':s=>during(s,1930,1985)&&s.seed%2===0&&['market','slum','condo','villa'].includes(regionOf(s)?.style),
+ 'coast-boat':s=>during(s,1930,1990)&&regionOf(s)?.style==='coast',
+ 'village-buffalo':s=>during(s,1930,1985)&&regionOf(s)?.style==='village',
+ 'girl-school':s=>during(s,1930,1975)&&sexOf(s)==='female'&&notRich(s),
+ 'temple-boy':s=>during(s,1930,1975)&&sexOf(s)==='male'&&notRich(s)&&PROVINCES.includes(s.birth?.region),
+ 'go-abroad':s=>during(s,1935,1985)&&(s.pathway==='college'||!!s.major)&&regionOf(s)?.country==='TH',
+ 'gifted-child':s=>(s.story?.flags?.parent??s.pivotFlags?.parent)!==undefined
+};
 export function fits(pivot,state){
+  if(pivot.market)return marketFits(pivot,savingsOf(state),birthYearOf(state));
+  if(ADDED[pivot.id])return ADDED[pivot.id](state);
   if(MARKET_STALL.has(pivot.id)&&state.birth?.home!=='a market-stall household')return false;
   if(pivot.id==='college-cost'&&state.cash>=18000)return false;
   if(pivot.id==='three-roads')return forkDue(state);
@@ -586,6 +623,7 @@ export function applyPivot(state,pivot,optionId){
   const effects={...(option.effects??{})};
   const skills={...(option.effects?.skills??{})};
   const flags={...(option.flags??{})};
+  if(option.halfStake)flags[option.halfStake]=Math.max(0,Math.round(savingsOf(state)/2));
   if(luck.roll!==null){
     const outcome=luck.won?option.luck.success:option.luck.failure;
     for(const[key,value]of Object.entries(outcome??{})){
@@ -609,10 +647,13 @@ export function applyPivot(state,pivot,optionId){
   for(const[axis,gain]of Object.entries(skills))next.skills[axis]=(next.skills[axis]??0)+gain;
   for(const[key,value]of Object.entries(flags))next.pivotFlags[key]=value;
   if(option.pathway)next.pathway=option.pathway;
+  // A move takes effect at the next station: scenes already asked at this age belong to the place you were.
+  if(option.moveTo&&next.finance)next.finance={...next.finance,region:option.moveTo,regionSince:state.age+5};
   const record={
     station:state.age,pivot:pivot.id,choice:option.id,note:option.note,
     locks:{...(option.locks??{})},effects,skills,flags,
     pathway:option.pathway,
+    moved:option.moveTo?{region:state.finance?.region,regionSince:state.finance?.regionSince,to:option.moveTo,since:state.age+5}:undefined,
     before:{cash:state.cash,health:state.health,wellbeing:state.wellbeing,skills:{...state.skills},flags:{...state.story?.flags},pivotFlags:{...(state.pivotFlags??{})},pathway:state.pathway},
     luck:luck.roll===null?undefined:{roll:Number(luck.roll.toFixed(3)),won:luck.won},
   };
@@ -624,10 +665,11 @@ export function applyPivot(state,pivot,optionId){
 export function pendingPivots(state){
   // A station asks the questions its plot points force (the flood, a parent's death) and ONE of its open questions, drawn by this life's seed, so no two lives are asked the same thing.
   const answered = new Set((state.pivots??[]).filter(record=>record.station===state.age).map(record=>record.pivot));
+  const markets = MARKET_PIVOTS.filter(pivot=>pivot.station===state.age&&!answered.has(pivot.id)&&marketFits(pivot,savingsOf(state),birthYearOf(state)));
   const open = pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&fits(pivot,state)&&sceneFits(pivot.id,state));
-  const free = [...answered].some(id=>!WHEN[id])?[]:open.filter(pivot=>!WHEN[pivot.id]);
+  const free = [...answered].some(id=>!WHEN[id]&&!id.startsWith('mkt-'))?[]:open.filter(pivot=>!WHEN[pivot.id]);
   const pick = free.find(pivot=>pivot.id==='three-roads')??free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
-  return open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id));
+  return [...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets];
 }
 
 // The commitment a question made: an axis cannot go below this for five years.

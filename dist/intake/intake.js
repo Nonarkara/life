@@ -70,6 +70,7 @@ function invited(){
  const daily=asked==='daily',day=dayOf(),life=daily?{...dailyLife(day),dailyDay:day}:decodeBirth(asked);
  if(life&&!daily){const claimed=new URLSearchParams(location.search).get('day');if(claimed&&dailyDateFor({...life,dailyDay:claimed}))life.dailyDay=claimed;}
  if(!life){$('intake-error').textContent=t('That birth link could not be read. Start a new life below.');return;}
+ try{const them=new URLSearchParams(location.search).get('them');if(them&&/^[0-9a-z.:,-]{1,1500}$/.test(them))localStorage.setItem('life-them',JSON.stringify({code:encodeBirth(life),them}));}catch{}
  lastOptions={};drawn=life;card(life);
  $('birth-title').textContent=t(daily?'Today’s life':'A life was sent to you');
  $('birth-again').hidden=true;$('birth-card').showModal();

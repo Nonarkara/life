@@ -52,3 +52,31 @@ test('every 1949 life can be saved and reopened after every answer',()=>{
    const ps=s.story?.pending;if(ps){const os=encounterById(ps.id).options.filter(o=>choiceAvailable(s,o)),c=os[seed%os.length];s=resolveEncounter(s,c.id,(seed%10)/100);assert.ok(ok(s),ps.id+'/'+c.id);}
   }}
 });
+
+// The recording's three promises: a fork changes the room, the chart ends at the year you are in, the answer is scored.
+import {SET_CLOSE,MARKET_PIVOTS,marketsDue} from '../../dist/course/market-moments.js';
+import {MORAL} from '../../dist/course/moral-ledger.js';
+import {parseThem} from '../../dist/course/life-reading.js';
+import {PIVOTS as ALL} from '../../dist/course/pivots.js';
+test('every scored answer exists, and hard-fear answers are never scored as cowardice',()=>{
+ const ids=new Set([...ENCOUNTERS.flatMap(e=>e.options.map(o=>e.id+'/'+o.id)),...ALL.flatMap(p=>p.options.map(o=>p.id+'/'+o.id))]);
+ for(const k of Object.keys(MORAL))assert.ok(ids.has(k),k);
+ assert.deepEqual(MORAL['h_rice_at_night/tell']??[0,0],[0,0]);
+});
+test('market payoff is exactly the real index ratio, and pays once',()=>{
+ assert.equal(marketsDue({set1993:40,set1993a:100000},40).length,0);const due=marketsDue({set1993:40,set1993a:100000},45);assert.equal(due.length,1);assert.equal(due[0].gain,Math.round(100000*(Math.round(100*SET_CLOSE[1998]/SET_CLOSE[1993])-100)/100));assert.ok(due[0].gain<0);assert.equal(marketsDue({set1993:40},50).length,0);
+ assert.equal(new Set(MARKET_PIVOTS.map(p=>p.id)).size,MARKET_PIVOTS.length);
+});
+test('a friend link is parsed strictly: junk is refused and unknown answers are dropped',()=>{
+ assert.equal(parseThem('<script>'),null);assert.equal(parseThem('999.1.1.1.'),null);
+ const ok=parseThem('62.1000.2.-1.three-roads:go,nonsense:x');assert.equal(ok.age,62);assert.equal(ok.answers.get('three-roads'),'go');assert.equal(ok.answers.has('nonsense'),false);
+});
+
+test('emigrating never breaks the save, whatever was pending at that station',()=>{
+ let went=0;for(let by=1935;by<=1985;by+=5)for(let seed=1;seed<=40;seed++){let s=begin(configureLife(newLife(seed*7919+by),{birthYear:by}));
+  while(s.stage==='review'&&s.age<45){s=live(s);if(s.stage!=='review')break;
+   for(const p of pendingPivots(s)){const os=openOptions(p,s),o=p.id==='go-abroad'?os.find(x=>x.id==='go'):os.find(x=>x.pathway==='college')??os[0];s=applyPivot(s,p,o.id);if(p.id==='go-abroad'){went++;assert.ok(validate(JSON.parse(JSON.stringify(s))),'after going, born '+by+' seed '+seed);}}
+   const ps=s.story?.pending;if(ps){const e=encounterById(ps.id),o=e.options.find(o=>choiceAvailable(s,o));s=resolveEncounter(s,o.id,.2);assert.ok(validate(JSON.parse(JSON.stringify(s))),ps.id);}
+  }}
+ assert.ok(went>=10,'emigrated lives '+went);
+});

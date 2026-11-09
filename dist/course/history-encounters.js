@@ -2,13 +2,13 @@
 // five-year station whose window holds its year. Situations are original; dated facts are from
 // ERA-EVENTS-AND-BUDDHISM.md (bbc) or the source named beside the scene. Nobody royal, no named perpetrators.
 import {birthYearOf} from './thai-history.js';
-import {regionAt} from './regions.js';
+import {regionAt,regionIdFor} from './regions.js';
 const F=s=>({...s.pivotFlags,...s.story?.flags});
 const cal=s=>{const y=birthYearOf(s);return y===null?null:y+s.age;};
 const ageIn=(s,y)=>birthYearOf(s)===null?-1:y-birthYearOf(s);
 const inWindow=y=>s=>{const c=cal(s);return c!==null&&c<=y&&y<c+5;};
 const aged=(y,lo,hi)=>s=>{const a=ageIn(s,y);return a>=lo&&a<=hi;};
-const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan'],region=s=>regionAt(s)??s.birth?.region;
+const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan'],region=s=>(F(s).emigrated===s.age?regionIdFor(s.birth):regionAt(s))??s.birth?.region;
 // A scene already on the table at this station stays valid: the move counts from the next one.
 const city=s=>CITY.includes(region(s))||F(s).wentBangkok<s.age,country=s=>!city(s),isan=s=>region(s)==='isan-village';
 const cls=s=>s.intake?.class??s.birth?.class,rich=s=>['high_class','royal_associated'].includes(cls(s)),poor=s=>!rich(s);
@@ -17,7 +17,7 @@ const flag=k=>s=>F(s)[k]!==undefined,no=k=>s=>F(s)[k]===undefined;
 const farm=s=>/rice-farming/.test(s.birth?.home??''),hasCar=s=>cls(s)!=='low_class';
 const all=(...t)=>s=>t.every(f=>f(s));
 const o=(id,label,fx,outcome)=>({id,label,...fx,outcome});
-const scene=(id,year,category,tests,title,prompt,options)=>({id,year,category,min:10,max:80,priority:0,eligible:all(inWindow(year),...tests),title,prompt,options});
+const scene=(id,year,category,tests,title,prompt,options)=>({id,year,category,min:10,max:80,priority:0,eligible:all(inWindow(year),s=>!(F(s).emigrated<s.age),...tests),title,prompt,options});
 
 export const HISTORY_ENCOUNTERS=[
  // The golden years, 1960s

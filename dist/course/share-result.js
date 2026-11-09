@@ -1,7 +1,7 @@
 import {birthURL,dailyDateFor} from './birthcode.js';
 // Pure payload generation keeps the day, translated result and immutable link together.
-export function resultShare(state,{score=null,translate=x=>x,origin,now=new Date()}={}){
- const url=birthURL(state,origin,now);if(!url)return null;
+export function resultShare(state,{score=null,translate=x=>x,origin,now=new Date(),themCode=null}={}){
+ const base=birthURL(state,origin,now);if(!base)return null;const url=themCode?base+'&them='+encodeURIComponent(themCode(state)):base;
  const day=dailyDateFor(state,now),key=day?'Daily life {day} (UTC): reached age {age}. Ikigai {score}/100 (game). Same birth, your choices:':'Reached age {age}. Ikigai {score}/100 (game). Same birth, your choices:';
  const text=translate(key).replace('{day}',day??'').replace('{age}',String(state.age)).replace('{score}',Number.isFinite(score)?String(score):'—');
  return {title:'Life2.0',text,url};

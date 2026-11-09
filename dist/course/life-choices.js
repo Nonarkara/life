@@ -13,6 +13,7 @@ export const MAJORS={
  arts:{label:'Fine arts',axes:['craft','eq'],pay:.85,cost:18000},
  humanities:{label:'Humanities',axes:['iq','eq'],pay:.95,cost:12000},
  agriculture:{label:'Agriculture',axes:['physique','iq'],pay:1,cost:10000},
+ forestry:{label:'Forestry',axes:['physique','iq'],pay:.95,cost:10000},
  sport:{label:'Sport science',axes:['physique','drive'],pay:1,cost:14000}
 };
 export const majorOf=state=>Object.hasOwn(MAJORS,state.major??'')?state.major:undefined;
