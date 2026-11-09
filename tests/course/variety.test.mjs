@@ -80,3 +80,14 @@ test('emigrating never breaks the save, whatever was pending at that station',()
   }}
  assert.ok(went>=10,'emigrated lives '+went);
 });
+
+import {bigMoment,momentPlan,MOMENT_SETS} from '../../dist/course/moment-plan.js';
+test('big moments open a place that differs by life and respects its year',()=>{
+ for(const id of Object.keys(MOMENT_SETS))assert.ok(ENCOUNTERS.some(e=>e.id===id)||ALL.some(p=>p.id===id),id+' is not a real moment');
+ assert.equal(bigMoment('m_crash'),false);assert.equal(bigMoment(undefined),false);
+ const place=(seed,age)=>({...begin(configureLife(newLife(seed),{birthYear:1949})),age});
+ const seen=new Set();for(let seed=1;seed<=40;seed++)seen.add(JSON.stringify(momentPlan(place(seed*7919,24),'h_1973_leaflet')));
+ assert.ok(seen.size>=35,'distinct places '+seen.size);
+ const old=momentPlan(place(7919,7),'h_film_van');assert.equal(old.cars,0);assert.equal(old.skyline,false);assert.ok(old.rows.every(r=>r.storeys===2));
+ const late=momentPlan(place(7919,60),'h_2010_table');assert.equal(late.skyline,true);
+});
