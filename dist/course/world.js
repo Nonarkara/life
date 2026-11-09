@@ -2,7 +2,7 @@ import {drawRouteMap} from './routemap.js';
 import {showPaintedCanvas} from './scene-registry.js';
 import {createRendererLoader} from './renderer-loader.js';
 const renderer=createRendererLoader(()=>import('./scene3d.js'),()=>window.dispatchEvent(new Event('life-stage-art')));
-import {drawStage2D,stageCaption,paintedCovers,paintedDay,stageArtFailed} from './stage2d.js';
+import {drawStage2D,stageCaption,paintedCovers,paintedDay,stageArtFailed,describePaintedScene} from './stage2d.js';
 import {animeManifest} from './anime-assets.js';
 import {t,preferences} from './i18n.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
@@ -24,7 +24,7 @@ export function drawWorld(canvas,state,age,time,mode='world',view={}){
  return result;
 }
 function paintWorld(canvas,state,age,time,mode='world',view={}){
- // Hybrid keeps ordinary routines in3D and paints supported recorded moments.
+ // Hybrid, the default, keeps ordinary routines in the diorama and paints recorded moments.
  // Explicit world preferences remain available; drawing never changes the life.
  if(preferences.stage!=='isometric'){
   if(drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
@@ -34,7 +34,8 @@ function paintWorld(canvas,state,age,time,mode='world',view={}){
    // Until the art manifest is in, nothing says whether this life is painted: hold the surface
    // rather than flash the 3D world and then change it. If the art cannot be fetched, go on in 3D.
    if(!animeManifest()&&!stageArtFailed()){canvas.hidden=false;return {held:true};}
-   if(preferences.stage==='painted'?paintedDay(state,age):paintedCovers(state,age,time)){canvas.hidden=false;return {held:true};}
+   // Hybrid holds only for a recorded beat; ordinary life goes straight to the diorama.
+   if(preferences.stage==='painted'?paintedDay(state,age):describePaintedScene(state,age,time).beat&&paintedCovers(state,age,time)){canvas.hidden=false;return {held:true};}
   }
 }
  if(mode==='course'){showPaintedCanvas(canvas);drawRouteMap(canvas,state);return;}

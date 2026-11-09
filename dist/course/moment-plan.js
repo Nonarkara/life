@@ -17,15 +17,15 @@ export function momentPlan(state,id){
 // What people wore. Authored from general Thai dress history, not from any one person:
 // the indigo mo hom and pha khao ma of farmers, the pha sin, the white-shirt school and
 // university uniform, khaki for government service.
-export function outfitFor(state,key,sex,age,year,{player=key==='player'}={}){
- const cls=state.intake?.class??state.birth?.class,place=region(regionAt(state,state.age)),abroad=!!place?.country&&place.country!=='TH',rural=place?.style==='village'||place?.style==='coast',rich=['high_class','royal_associated'].includes(cls),poor=['low_class','working_class'].includes(cls),r=k=>rand(state.seed,age>=40?1:0,'outfit:'+key+':'+k),pick=(k,list)=>list[Math.floor(r(k)*list.length)],female=sex==='female'||sex!=='male'&&r('presents')<.5;
+export function outfitFor(state,key,sex,age,year,{player=key==='player',place:given}={}){
+ const cls=state.intake?.class??state.birth?.class,place=given??region(regionAt(state,state.age)),abroad=!!place?.country&&place.country!=='TH',rural=place?.style==='village'||place?.style==='coast',rich=['high_class','royal_associated'].includes(cls),poor=['low_class','working_class'].includes(cls),r=k=>rand(state.seed,age>=40?1:0,'outfit:'+key+':'+k),pick=(k,list)=>list[Math.floor(r(k)*list.length)],female=sex==='female'||sex!=='male'&&r('presents')<.5;
  const shoe=rich||!poor&&!rural?'shoes':'sandals',base={female,collar:false,pocket:false,mohom:false,blouseNeck:false,tucked:false,sleeve:'short',skirt:null,legs:'trousers',band:null,scarf:false,feet:shoe,trim:'#efe9d8'};
  const sin=()=>({skirt:'sin',bottom:pick('sin',['#7a3f3a','#3f5a50','#5a4a6a','#8a6a2f','#355068']),band:pick('band',['#c9a24a','#b5482f','#d7c9a0'])});
  const blouse=()=>({top:pick('blouse',['#e8ddc4','#d6c0a8','#c9d2c2','#d9c3c0','#bcc9c9']),blouseNeck:true,trim:'#f2ecdc'});
  const knee=()=>({skirt:'knee',bottom:pick('sk',['#3f5a50','#5a4a6a','#35405a','#7a5a3f'])});
  const mansShirt=()=>({top:pick('sh',rich?['#f2eee2','#d9e2e6','#e6dcc4']:['#e6dcc4','#b9c6bf','#c7b8a2','#d8c7a4']),collar:true,pocket:true,tucked:rich||year<1990,bottom:pick('tr',['#3f3a34','#4b4f4a','#5a4e3c']),legs:year>=1970&&year<1980?'flare':'trousers'});
  if(age<6)return {...base,top:pick('play',['#e6dcc4','#c9d2c2','#d9c3c0']),legs:'shorts',bottom:'#6a6a5c',feet:'bare'};
- if(abroad)return female?{...base,...blouse(),...knee(),sleeve:'long',feet:'shoes'}:{...base,...mansShirt(),sleeve:'long',feet:'shoes'};
+ if(abroad){const cold=place.climate==='cold'||place.climate==='cool',coatC=pick('coat',['#2f3a40','#5a3a3a','#3f5a7a','#6a5a4a','#4f5f4a']),warm=cold?{coat:true,top:coatC,tucked:false,collar:false,pocket:false,neckScarf:pick('nsc',['#a5533f','#d8b25a','#3f6f8a','#e6e0cf']),hat:place.climate==='cold'&&r('kn')<.6?'knit':undefined,sleeve:'long'}:{};return female?{...base,...blouse(),...knee(),sleeve:'long',feet:'shoes',...warm}:{...base,...mansShirt(),sleeve:'long',feet:'shoes',...warm};}
  if(age<18)return {...base,top:'#f4f0e4',collar:true,pocket:!female,tucked:true,trim:'#f4f0e4',...(female?{skirt:'knee',bottom:'#2b3a55'}:{legs:'shorts',bottom:year<1980?'#8c7a58':'#2b3a55'}),feet:rural&&poor&&year<1975?'bare':'canvas'};
  if(player&&age<25&&(state.pathway==='college'||state.major))return {...base,top:'#f6f3ea',collar:true,tucked:true,trim:'#f6f3ea',feet:'shoes',...(female?{skirt:'knee',bottom:'#1f2228'}:{bottom:'#1f2228',legs:year>=1968&&year<1980?'flare':'trousers'})};
  // Khaki is government service, which a bureaucrat's child often entered and not always.
@@ -33,8 +33,26 @@ export function outfitFor(state,key,sex,age,year,{player=key==='player'}={}){
  // Farm and fishing clothes outlast the century.
  if(rural&&!rich&&(year<1995||r('farm-now')<.6)){if(female)return {...base,...blouse(),...sin(),feet:year<1960?'bare':'sandals'};if(poor||r('farm-class')<.5)return {...base,top:'#2f3d5c',mohom:true,trim:'#46567a',bottom:pick('farm',['#2f3d5c','#4a4438']),legs:pick('legs',['shorts','trousers']),scarf:true,feet:year<1960?'bare':'sandals'};}
  if(female&&age>=45&&year<1995&&!rich)return {...base,...blouse(),...sin(),feet:'sandals'};
- if(year>=1995&&!rich){const casual=pick('casual',[0,1,2]);return {...base,top:female?pick('tee',['#c98a7a','#e6dcc4','#6f8799','#b9c6bf']):pick('tee',['#4d6a7a','#c9c0a8','#8a5a48','#e8e4d8','#3f5a50']),collar:casual===0,bottom:casual===2||female?'#3a4a63':'#5a5448',feet:casual===2?'canvas':shoe};}
+ if(year>=1995&&!rich){const casual=pick('casual',[0,1,2]);return {...base,top:female?pick('tee',['#c98a7a','#e6dcc4','#6f8799','#b9c6bf','#d6b45a','#7f6f9a']):pick('tee',['#4d6a7a','#c9c0a8','#8a5a48','#e8e4d8','#3f5a50','#a5533f','#27323a']),collar:casual===0,stripes:r('st')<.22?pick('st2',['#efe9d8','#2f3d4c']):undefined,bottom:casual===2||female?pick('jn',['#3a4a63','#2f3a4c','#4f5a6b']):pick('tr2',['#5a5448','#39424c','#6b6252']),legs:casual===2&&r('sh')<.4?'shorts':'trousers',feet:casual===2?'canvas':year>=2005&&r('sn')<.5?'canvas':shoe};}
+ if(rich&&age>=25&&r('suit')<.5)return female?{...base,top:pick('jk',['#e9e2d2','#b9c6cf','#d8c3c0']),collar:true,trim:'#f2ecdc',sleeve:'long',skirt:'knee',bottom:pick('sk2',['#2f3d4c','#5a4a3f']),feet:'shoes'}:{...base,top:pick('suit',['#39424c','#4b4f4a','#5a5048']),collar:true,trim:'#f2eee2',tucked:true,sleeve:'long',bottom:pick('suit2',['#39424c','#4b4f4a']),feet:'shoes'};
  if(female&&year>=1970&&year<1980&&age<40&&r('flares')<.3)return {...base,...blouse(),bottom:pick('fl',['#35405a','#5a4a6a']),legs:'flare'};
  if(female)return {...base,...blouse(),...knee()};
  return {...base,...mansShirt(),sleeve:rich?'long':'short'};
+}
+// Who is about the street in this year: same bank of clothes, never the player's own.
+export function neighbourOutfit(state,key,sex,year,place){
+ const r=k=>rand(state.seed,0,key+':'+k),pick=(k,l)=>l[Math.floor(r(k)*l.length)];
+ const out=outfitFor(state,key,sex,25+Math.floor(r('age')*40),year,{player:false,place});
+ if(place.style==='market'&&r('ap')<.35)return {...out,apron:pick('ac',['#e8e2d2','#5a7a8a','#a5533f'])};
+ if((place.style==='village'||place.style==='coast')&&year<1995&&r('hat')<.5)return {...out,hat:'ngob'};
+ if(year>=1990&&r('cap')<.2)return {...out,hat:'cap',hatColor:pick('cc',['#3f5a70','#7a2f2a','#e6e0cf'])};
+ return out;
+}
+export const monkRobe={female:false,top:'#c9792a',bottom:'#c9792a',trim:'#c9792a',robe:true,sleeve:'cap',legs:'trousers',feet:'bare',skirt:null,collar:false,pocket:false,mohom:false,blouseNeck:false,tucked:false,band:null,scarf:false};
+// Hair is the first thing that tells two people apart at the size the diorama draws them.
+export function hairFor(state,key,sex,age,elder){
+ const r=k=>rand(state.seed,0,'hair:'+key+':'+k),pick=(k,l)=>l[Math.floor(r(k)*l.length)],base=pick('hue',['#1f1c19','#26211c','#2e2720','#191715','#3a2f26']);
+ const female=sex==='female'||sex!=='male'&&r('pres')<.5;
+ const style=age<4?'crop':age<12?(female?pick('kid',['bob','fringe','ponytail']):pick('kid',['crop','short'])):female?(elder?pick('old',['perm','bun','bob']):pick('adult',['long','bob','ponytail','bun','fringe','perm','side'])):(elder?pick('oldm',['short','crop','bald','side']):pick('adultm',['short','crop','side','short']));
+ return {style,color:base,grey:pick('grey',['#b9b8b0','#9a9a93','#d4d2c8'])};
 }

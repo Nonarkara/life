@@ -83,18 +83,22 @@ export function attachAnime(actor){
   const bones={};for(const key in source.names){const b=visual.getObjectByName(source.names[key]);if(b)bones[key]=b;}
   const drive=createAnimePoseDriver(bones,align,actor.rig);
   body.add(align);
-  return {id,align,material,bones,drive,scale,dispose(){body.remove(align);material.dispose();for(const skeleton of skeletons)skeleton.dispose();}};
+  return {id,align,material,bones,drive,scale,turned:Math.abs(source.row.turn)>1,dispose(){body.remove(align);material.dispose();for(const skeleton of skeletons)skeleton.dispose();}};
  }
  const originalUpdate=actor.update,originalLook=actor.setLook;
  function use(id){if(model?.id===id)return;model?.dispose();model=cast[id]?build(id):null;for(const p of bodyParts)p.visible=!model;}
- const pick=()=>MODEL_FOR[look.sex]??'c';
+ const pick=()=>look.model??MODEL_FOR[look.sex]??'c';
  function dress(){
   if(!model)return;const m=model.material.userData.visitorGarments;
   model.align.scale.x=model.align.scale.z=model.scale*(look.build??1);
   if(look.shirt)m.visitorTop.value.set(look.shirt);if(look.bottom)m.visitorBottom.value.set(look.bottom);
  }
  actor.setLook=(next={})=>{originalLook(next);if(next.shirt)wardrobe.top=next.shirt;if(next.bottom)wardrobe.bottom=next.bottom;if(model){use(pick());dress();}};
- actor.update=(activity,age,time,options)=>{originalUpdate(activity,age,time,options);if(!model){use(pick());dress();}model?.drive();};
+ const lean=new T.Quaternion(),xAxis=new T.Vector3(1,0,0);
+ actor.update=(activity,age,time,options)=>{originalUpdate(activity,age,time,options);if(!model){use(pick());dress();}if(!model)return;model.drive();
+  // Children have big heads; elders fold forward at the upper back. Both are after the walk.
+  if(model.bones.head)model.bones.head.scale.setScalar(look.headScale??1);
+  const stoop=look.stoop??0;if(stoop){lean.setFromAxisAngle(xAxis,stoop*(model.turned?-1:1));for(const k of ['spine','chest'])model.bones[k]?.quaternion.multiply(lean);}};
  // Detaching restores the procedural body; shared source geometry/maps stay cached.
  actor.anime={model:()=>model,shade(v){if(model)model.material.color.setScalar(v);},detach(){for(const p of bodyParts)p.visible=true;model?.dispose();model=null;actor.update=originalUpdate;actor.setLook=originalLook;actor.anime=null;}};
  return true;

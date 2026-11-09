@@ -8,8 +8,8 @@ import {MONEY_LESSONS} from '../../dist/course/money-lessons.js';
 import {consequencesDue} from '../../dist/course/lessons.js';
 const base=(age=17)=>({age,seed:7,intake:{sex:'female'},birth:{region:'samut-prakan',household:'parents'},profiles:[],history:[{age:15,from:10,pathway:'school'}],story:{seen:[],flags:{friend:15}}});
 before(async()=>{globalThis.fetch=async()=>({ok:true,json:async()=>JSON.parse(readFileSync(new URL('../../dist/course/anime/manifest.json',import.meta.url)))});await prepareStageArt();});
-test('the painted world is the default, and it retains a single truthful moment descriptor',()=>{
- assert.equal(preferences.stage,'painted');
+test('the diorama is the default, and painted moments keep a single truthful descriptor',()=>{
+ assert.equal(preferences.stage,'hybrid');
  const scene=describePaintedScene(base(),17,12);assert.equal(scene.beat,'bikes');assert.equal(scene.caption,MOMENT_CAPTIONS.bikes);assert.ok(scene.actors.every(a=>a.activity.pose==='ride'));assert.equal(scene.actors[1].flipX,true);
 });
 test('the hybrid world keeps continuous3D for ordinary life when it is chosen',()=>{
