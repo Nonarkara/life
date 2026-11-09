@@ -177,3 +177,14 @@ test('law 1: a life has a shape: an early knock, the twist in the middle, a reck
  const arc=lifeArc({history:[row(10,70),row(15,80),row(20,85),row(25,30),row(30,40)],story:{seen:[{id:'x',age:24,effects:{wellbeing:-20}}]}},()=>'The blow');
  assert.equal(arc.twist.age,25);assert.equal(arc.twist.what,'The blow');assert.equal(arc.peak,20);assert.equal(arc.back,false);
 });
+
+import {dealtGoals,setGoals,dealtStops,setStop,scoreLife,STOPS} from '../../dist/course/life-collection.js';
+test('collecting: goals dealt per life, stops never repeat a dish, and the end re-reads the record',()=>{
+ const born=begin(configureLife(newLife(7919),{birthYear:1981,class:'middle_class'}));let s={...born,story:{...born.story,pending:null},age:15};
+ const deal=dealtGoals(s.seed);assert.equal(deal.length,3);assert.equal(new Set([dealtGoals(1).join(),dealtGoals(2).join(),dealtGoals(3).join(),dealtGoals(4).join()]).size>1,true);
+ s=setGoals(s,deal.slice(0,2));assert.deepEqual(s.lifeGoals,deal.slice(0,2));assert.equal(setGoals(s,deal),s,'only two');
+ const first=dealtStops(s)[0];s=setStop(s,first);assert.equal(s.stops.length,1);assert.equal(validate(JSON.parse(JSON.stringify(s))),true);
+ const next={...s,age:20};assert.ok(!dealtStops(next).includes(first),'one dish once');
+ const lived=live({...s});assert.deepEqual(lived.lifeGoals,s.lifeGoals,'choices survive the years');assert.deepEqual(lived.stops,s.stops);
+ const r=scoreLife(s);assert.equal(r.goals.length,2);assert.equal(r.passed.length,1);assert.ok(Number.isFinite(r.total));assert.ok(Object.keys(STOPS).length>=20);
+});

@@ -7,6 +7,7 @@ import {MAJORS} from './life-choices.js';
 import {setBudget,monthlyFlow} from './finance.js';
 import {RUNGS,TOP,rungAt,birthRung,setRung,canAfford,ladderOpen} from './housing-ladder.js';
 import {leaveWorld} from './life-verdict.js';
+import {GOALS,STOPS,dealtGoals,canChooseGoals,setGoals,dealtStops,canStop,setStop} from './life-collection.js';
 import {PRIORITIES,prioritiesFor} from './priorities.js';
 import {climateLines} from './world-voice.js';
 import {birthYearOf} from './thai-history.js';
@@ -39,6 +40,10 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
   {const list=prioritiesFor(s.age);if(list.length){const c=card('Put first'),i=cards.length;for(const id of list)c.append(option(PRIORITIES[id].label,s.profile.priority===id,()=>{const fx=PRIORITIES[id];apply({...getState(),profile:{...getState().profile,priority:id,aim:fx.aim,focus:fx.focus}});onChosen();after(i);}));cards.push(c);}}
   // Road
   {const routes=availablePathways(s.age);if(routes.length>1){const c=card('Study or work'),i=cards.length,cur=routes.some(([k])=>k===s.pathway)?s.pathway:(s.age<20?'school':'work');for(const[k,r]of routes)c.append(option(r.label,k===cur,()=>{apply({...getState(),pathway:k});onChosen();if(k!=='college')after(i);}));if(cur==='college'){const label=el('label','plan-field','Field of study');const sel=el('select');sel.id='plan-major';const none=el('option',undefined,'Undecided');none.value='';sel.append(none);for(const[k,m]of Object.entries(MAJORS)){const o=el('option',undefined,m.label);o.value=k;sel.append(o);}sel.value=s.major??'';sel.onchange=()=>{apply({...getState(),major:sel.value||undefined});};label.append(sel);c.append(label);}cards.push(c);}}
+  // What you are secretly after: dealt three, keep two.
+  if(canChooseGoals(s)){const c=card('What you are secretly after'),now=s.lifeGoals??[];for(const id of dealtGoals(s.seed))c.append(option(t(GOALS[id].label),now.includes(id),()=>{const cur=getState().lifeGoals??[],next=cur.includes(id)?cur.filter(x=>x!==id):[...cur,id].slice(-2);apply(setGoals(getState(),next));onChosen();},GOALS[id].pts+' pts'));c.append(el('p','plan-key',t('Keep two. Nobody sees them until the end.')));cards.push(c);}
+  // One stop on the road, if the budget leaves room for it.
+  if(s.age>=15){const c=card('A stop on the road'),here=(s.stops??[]).find(x=>x.age===s.age)?.id,ok=canStop(s);if(ok)for(const id of dealtStops(s))c.append(option(t(STOPS[id].label),here===id,()=>{apply(setStop(getState(),id));onChosen();}));else c.append(el('p','plan-key',t('Nothing left over for the road. Spend more on fun to stop.')));cards.push(c);}
   // Money
   if(s.finance&&s.age>=15){const c=card('Your money'),i=cards.length,b=s.finance.budget;for(const[,label,v]of BUDGETS)c.append(option(label,b&&b.save===v.save&&b.fun===v.fun&&b.learn===v.learn,()=>{apply(setBudget(getState(),v));onChosen();after(i);},`${v.save} / ${v.fun} / ${v.learn}`));c.append(el('p','plan-key','Save / fun / learn, % of income'));cards.push(c);}
   // Habits

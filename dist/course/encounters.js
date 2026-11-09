@@ -15,10 +15,12 @@ import {ERA_ENCOUNTERS} from './era-scenarios.js';
 import {DIRECTOR_ENCOUNTERS,SAD_ENCOUNTERS,RECKONING} from './life-tragedies.js';
 import {ROUTE_ENCOUNTERS,BLOG_ENCOUNTERS} from './life-routes.js';
 import {HARD_ENCOUNTERS} from './life-hard.js';
+import {useCategories} from './life-collection.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
 const option=(id,label,effects,outcome)=>({id,label,...effects,outcome});
+const byIdLate=id=>ENCOUNTERS.find(e=>e.id===id);
 export const ENCOUNTERS=[
  {id:'after_hospital',category:'health',min:10,max:80,priority:0,title:'Making room to recover',prompt:'An illness or accident has interrupted your plans. Recovery still needs time, money and other people. What will you make room for now?',eligible:s=>!!s.lifeEventPolicy&&s.history?.at(-1)?.events?.some(e=>e.origin==='life'&&e.health<0&&['illness','dengue','accident'].includes(e.type)),options:[
   option('slow','Make the next weeks lighter',{cash:-600,health:2,wellbeing:1},'You used some money to make daily life easier while recovering. Other plans waited.'),
@@ -120,6 +122,7 @@ ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,..
 ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS,RECKONING,...ROUTE_ENCOUNTERS,...BLOG_ENCOUNTERS,...HARD_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
+useCategories(id=>byIdLate(id)?.category);
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.
 for(const e of ENCOUNTERS){const i=e.options.findIndex(x=>!(x.cash<0)&&!x.requires);if(i>0)e.options=[e.options[i],...e.options.filter((x,k)=>k!==i)];}
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
