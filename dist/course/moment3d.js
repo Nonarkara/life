@@ -1,5 +1,7 @@
 // The zoom. Ordinary days stay painted; a moment that changes the life opens here,
 // at eye level, in metres, with the rigged cast facing the camera so both eyes read.
+import {placeFor} from './moment-places.js';
+import {t} from './i18n.js';
 import {createPost} from './render-post.js';
 import * as T from 'three';
 import {mergeGeometries} from 'three/examples/jsm/utils/BufferGeometryUtils.js';
@@ -75,12 +77,16 @@ function build(state,plan){
 function disposeBuilt(built){const keepG=new Set([unit,...Object.values(FIGURE)]),keepM=new Set(toon.values());built.scene.traverse(o=>{if(o.isLight)o.shadow?.dispose?.();if(o.isInstancedMesh)o.dispose();if(o.geometry&&!keepG.has(o.geometry))o.geometry.dispose();for(const m of [].concat(o.material??[]))if(!keepM.has(m))m.dispose();});}
 const ease=t=>1-Math.pow(1-t,3);
 function ensureRenderer(world){if(stage?.renderer)return true;const canvas=document.createElement('canvas');canvas.className='moment-renderer';canvas.setAttribute('aria-hidden','true');world.after(canvas);try{const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.type=T.PCFShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));canvas.addEventListener('webglcontextlost',()=>{dead=true;closeMoment();canvas.remove();});const camera=new T.PerspectiveCamera(34,1,.1,320);stage={renderer,canvas,camera,post:createPost(renderer,new T.Scene(),camera),w:0,h:0};return true;}catch{canvas.remove();dead=true;return false;}}
+// The establishing shot: where this happened, then a hard cut into the room.
+let plate=null,plateTimer=0;
+function hidePlate(){clearTimeout(plateTimer);plate?.remove();plate=null;}
+function showPlate(set,regionId){hidePlate();const at=placeFor(set,regionId);if(!at)return;const box=document.createElement('figure');box.className='place-plate';box.style.cssText=stage.canvas.style.cssText;const img=document.createElement('img');img.src=new URL('anime/places/'+at.file+'.jpg',import.meta.url).href;img.alt=t(at.name);const cap=document.createElement('figcaption');cap.textContent=t(at.name)+' · '+t('Today’s map')+' · © OpenStreetMap';box.append(img,cap);box.onclick=hidePlate;stage.canvas.after(box);plate=box;plateTimer=setTimeout(hidePlate,2600);}
 export async function openMoment(world,state,id){
  if(dead)return;if(!ensureRenderer(world))return;
  const plan=momentPlan(state,id),key=JSON.stringify(plan)+id+state.seed+state.age;if(stage.key===key&&stage.built){stage.state=state;return;}
  const mine=++token;const ready=await loadAnimeCast();if(mine!==token||dead||!ready)return;
  // A bad set costs that one moment. The painted scene stays and the next moment still opens.
- closeBuilt();try{Object.assign(stage,{key,id,world,plan,built:build(state,plan),started:performance.now(),last:0,state,still:matchMedia('(prefers-reduced-motion: reduce)').matches||preferences.motion===true,shadows:3});stage.canvas.hidden=false;place();requestAnimationFrame(()=>{if(stage?.key===key&&stage.built)stage.canvas.classList.add('on');});stage.raf=requestAnimationFrame(frame);}catch(error){console.warn('This close-up is unavailable; the painted scene stays.',error);closeBuilt();stage.canvas.hidden=true;}
+ closeBuilt();try{Object.assign(stage,{key,id,world,plan,built:build(state,plan),started:performance.now(),last:0,state,still:matchMedia('(prefers-reduced-motion: reduce)').matches||preferences.motion===true,shadows:3});stage.canvas.hidden=false;place();showPlate(plan.set,regionAt(state,state.age));requestAnimationFrame(()=>{if(stage?.key===key&&stage.built)stage.canvas.classList.add('on');});stage.raf=requestAnimationFrame(frame);}catch(error){console.warn('This close-up is unavailable; the painted scene stays.',error);closeBuilt();stage.canvas.hidden=true;}
 }
 // Measured with the painted canvas's push-in switched off (body.moment-open), so the rects are true.
 function place(){const {canvas,renderer,camera}=stage,world=stage.world.offsetWidth?stage.world:stage.world.parentElement.querySelector('.world-renderer:not([hidden])')??stage.world,box=world.getBoundingClientRect(),parent=canvas.offsetParent?.getBoundingClientRect()??{left:0,top:0},w=Math.round(box.width),h=Math.round(box.height),l=Math.round(box.left-parent.left),t=Math.round(box.top-parent.top);if(!w||!h)return;if(l!==stage.l||t!==stage.t){stage.l=l;stage.t=t;canvas.style.left=l+'px';canvas.style.top=t+'px';}if(w!==stage.w||h!==stage.h){stage.w=w;stage.h=h;canvas.style.width=w+'px';canvas.style.height=h+'px';renderer.setSize(w,h,false);stage.post.setSize(w,h,renderer.getPixelRatio());camera.aspect=w/h;camera.updateProjectionMatrix();}}
@@ -100,4 +106,4 @@ function frame(now){
 }
 function closeBuilt(){if(!stage?.built)return;cancelAnimationFrame(stage.raf);for(const {a,undress} of stage.built.people){undress();a.anime?.detach();}disposeBuilt(stage.built);stage.built=null;stage.id=null;stage.key=null;}
 export const momentMemory=()=>stage?{...stage.renderer.info.memory,frame:stage.renderer.info.render.frame}:null;
-export function closeMoment(){token++;if(!stage)return;stage.canvas.classList.remove('on');closeBuilt();setTimeout(()=>{if(stage&&!stage.built)stage.canvas.hidden=true;},500);}
+export function closeMoment(){token++;hidePlate();if(!stage)return;stage.canvas.classList.remove('on');closeBuilt();setTimeout(()=>{if(stage&&!stage.built)stage.canvas.hidden=true;},500);}
