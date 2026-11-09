@@ -76,6 +76,13 @@ export const ROADS_PHRASES=[
 ['You walked behind her in the dark with the food getting heavier.','คุณเดินตามแกในความมืด สำรับหนักขึ้นเรื่อยๆ','你在黑暗中跟在她身后，饭食越来越沉。','暗い中を祖母の後ろについて歩いた。食べ物はだんだん重くなった。','어둠 속에서 할머니 뒤를 따라 걸었다. 음식은 점점 무거워졌다.'],
 ['Stay in bed','นอนต่อ','继续睡','寝ている','그냥 잔다'],
 ['She went alone. Nobody said anything about it at breakfast.','แกไปคนเดียว มื้อเช้าไม่มีใครพูดถึงเรื่องนี้','她一个人去了。早饭时没人提这件事。','祖母は一人で行った。朝食のとき、誰もそのことに触れなかった。','할머니는 혼자 가셨다. 아침 자리에서 아무도 그 얘기를 하지 않았다.'],
+['Nang talung at the temple fair','หนังตะลุงงานวัด','庙会上的皮影戏','寺の祭りの影絵芝居','절 잔치의 그림자극'],
+['A nang talung troupe has put up a white screen at the temple fair. One man does every voice, and the clown has just said something about the headman. Your mother says be home before midnight.','คณะหนังตะลุงขึงจอขาวในงานวัด นายหนังคนเดียวพากย์ทุกเสียง ไอ้เท่งเพิ่งแซวผู้ใหญ่บ้านไปหยกๆ แม่สั่งว่าให้กลับก่อนเที่ยงคืน','皮影戏班在庙会上挂起了白幕。一个人配所有的声音，丑角刚刚拿村长开了玩笑。妈妈说午夜前要回家。','影絵芝居の一座が寺の祭りに白い幕を張った。一人が全ての声を演じ、道化がたった今、村長をからかった。母は夜中までに帰れと言う。','그림자극 패가 절 잔치에 흰 막을 쳤다. 한 사람이 모든 목소리를 내고, 광대가 방금 이장을 놀렸다. 어머니는 자정 전에 들어오라고 한다.'],
+['Go home before midnight','กลับก่อนเที่ยงคืน','午夜前回家','夜中までに帰る','자정 전에 돌아간다'],
+['You walked home in the dark and could hear the drums from the road.','คุณเดินกลับบ้านมืดๆ ออกมาถึงถนนแล้วยังได้ยินเสียงกลอง','你摸黑走回家，到了路上还听得见鼓声。','暗い道を帰った。通りに出ても太鼓が聞こえた。','어둠 속을 걸어 돌아왔다. 큰길까지 북소리가 들렸다.'],
+['You stayed. You could do the clown for weeks. Your mother did not speak to you until Sunday.','คุณอยู่จนจบ อีกหลายอาทิตย์ยังทำเสียงไอ้เท่งได้ แม่ไม่พูดด้วยจนวันอาทิตย์','你看到了最后。好几个星期你都能学那丑角。妈妈直到星期天才跟你说话。','最後まで見た。何週間も道化の真似ができた。母は日曜まで口をきかなかった。','끝까지 봤다. 몇 주 동안 광대 흉내를 낼 수 있었다. 어머니는 일요일까지 말을 하지 않았다.'],
+['Offer to carry the puppets for the troupe','ขอช่วยแบกรูปหนังให้คณะ','主动帮戏班扛皮影','一座の人形運びを買って出る','패의 인형을 날라 주겠다고 한다'],
+['You carried the hide puppets for three nights and learned how a thing is made to look alive.','คุณแบกรูปหนังอยู่สามคืน ได้รู้ว่าของที่ดูมีชีวิตเขาทำกันอย่างไร','你扛了三个晚上的皮影，懂了一样东西是怎么被弄得像活的。','三晩、革の人形を運び、物が生きて見える仕組みを知った。','사흘 밤 가죽 인형을 나르며, 사물이 살아 보이게 하는 법을 배웠다.'],
 // The ending
 ['Three ways to count this life','สามวิธีนับชีวิตนี้','衡量这一生的三种方式','この人生の三つの数え方','이 삶을 세는 세 가지 방법'],
 ['Care for those close to you','ดูแลคนใกล้ตัว','对身边人的照顾','身近な人へのケア','가까운 이를 돌본 일'],

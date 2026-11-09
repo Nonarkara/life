@@ -21,7 +21,12 @@ const scene=(id,year,category,tests,title,prompt,options)=>({id,year,category,mi
 
 export const HISTORY_ENCOUNTERS=[
  // The golden years, 1960s
- scene('h_film_van',1965,'connection',[aged(1965,12,19),country],'The film on the temple wall',
+ scene('h_nang_talung',1965,'connection',[aged(1965,12,19),s=>region(s)==='pak-phanang'],'Nang talung at the temple fair',
+  'A nang talung troupe has put up a white screen at the temple fair. One man does every voice, and the clown has just said something about the headman. Your mother says be home before midnight.',[
+  o('home','Go home before midnight',{skills:{eq:1}},'You walked home in the dark and could hear the drums from the road.'),
+  o('stay','Stay to the end',{wellbeing:3},'You stayed. You could do the clown for weeks. Your mother did not speak to you until Sunday.'),
+  o('help','Offer to carry the puppets for the troupe',{cash:200,skills:{craft:1}},'You carried the hide puppets for three nights and learned how a thing is made to look alive.')]),
+ scene('h_film_van',1965,'connection',[aged(1965,12,19),country,s=>region(s)!=='pak-phanang'],'The film on the temple wall',
   'A van has come to the temple with a projector. The voices are done live by two people behind the screen. Your mother says be home before the second reel.',[
   o('home','Go home before the second reel',{skills:{eq:1}},'You walked home in the dark and heard the crowd laugh from three fields away.'),
   o('stay','Stay to the end',{wellbeing:3},'You stayed. You could do both voices for weeks. Your mother did not speak to you until Sunday.'),
