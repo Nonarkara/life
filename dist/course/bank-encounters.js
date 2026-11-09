@@ -29,7 +29,8 @@ const motherAlive=s=>!(s.history??[]).some(r=>/(?<!grand)mother dies/.test(r.eve
 // A window on the calendar. The bank is for lives with a birth year; older lives replay exactly as they were.
 const era=(from,until)=>s=>{const c=cal(s);return c!==null&&c>=from&&(until===undefined||c<=until);};
 const year=y=>s=>{const c=cal(s);return c!==null&&c<=y&&y<c+5;};
-const macroIs=key=>s=>yearsAhead(s).some(y=>conditions(y)[key]);
+// The scene speaks in the present, so it needs the condition in the year on the console.
+const macroIs=key=>s=>{const c=cal(s);return c!==null&&conditions(c)[key];};
 const all=(...t)=>s=>t.every(f=>f(s));
 const stillHere=s=>cal(s)!==null&&!(F(s).emigrated<s.age)&&REGIONS[placeOf(s)]?.country==='TH';
 const o=(id,label,fx,outcome)=>({id,label,...fx,outcome});

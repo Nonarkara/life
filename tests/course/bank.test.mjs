@@ -1,3 +1,4 @@
+import {WORLD_YEARS} from '../../dist/course/world-series.js';
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {newLife,begin,live,configureLife,validate} from '../../dist/course/sim.js';
 import {ENCOUNTERS,encounterById,resolveEncounter} from '../../dist/course/encounters.js';
@@ -66,10 +67,10 @@ test('the bank spreads across ages, regions, classes, sexes and decades, and no 
 });
 
 test('a scene tied to the real economy appears only in years the data says so',()=>{
- let seen=0;everyLife((seed,opts)=>{for(const m of walk(seed,opts).met){const e=encounterById(m.id);if(!e.macro)continue;seen++;assert.ok([0,1,2,3,4].some(k=>conditions(m.year+k)[e.macro]),m.id+' in '+m.year);}});
- assert.ok(seen>=40,'macro scenes offered '+seen);
+ let seen=0;everyLife((seed,opts)=>{for(const m of walk(seed,opts).met){const e=encounterById(m.id);if(!e.macro)continue;seen++;assert.ok(conditions(m.year)[e.macro],m.id+' in '+m.year);}});
+ assert.ok(seen>=10,'macro scenes offered '+seen);
  const flood=encounterById('b_cheap_leap');const fake=(birthYear,age)=>({intake:{birthYear,class:'middle_class'},birth:{birthYear,region:'bang-na'},age,seed:1,history:[{age,pathway:'work'}],story:{flags:{}}});
- assert.equal(flood.eligible(fake(1949,20)),false,'no cheap credit in 1969 to 1973');assert.equal(flood.eligible(fake(1949,35)),true,'cheap credit in 1986 to 1988');
+ assert.equal(flood.eligible(fake(1949,20)),false,'no cheap credit in 1969 to 1973');const cheap=WORLD_YEARS.find(y=>y>1980&&conditions(y).cheapCredit);assert.equal(flood.eligible(fake(1949,cheap-1949)),true,'cheap credit in '+cheap);
 });
 
 test('later consequences of a macro gamble follow what the economy really did',()=>{

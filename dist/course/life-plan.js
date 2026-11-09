@@ -29,7 +29,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
  function card(title){const c=el('section','plan-card');c.append(el('h3','plan-title',title));return c;}
  function option(label,on,fn,note){const b=el('button','plan-option');b.type='button';b.setAttribute('aria-pressed',on?'true':'false');b.append(el('span','plan-label',label));if(note)b.append(el('span','plan-note',note));b.onclick=fn;return b;}
  function draw(){
-  const s=getState(),key=s.seed+':'+s.age;if(key!==stationKey){stationKey=key;local={};}
+  const s=getState(),key=s.seed+':'+s.age;if(key!==stationKey){stationKey=key;local={};const ranked=AXES.map(a=>[a.key,s.effort[a.key]]).sort((a,b)=>b[1]-a[1]);if(ranked[0][1]>2)local.main=ranked[0][0];if(ranked[1][1]>2&&ranked[1][1]<ranked[0][1])local.second=ranked[1][0];}
   const cards=[],locks=locksFor(s);
   // Focus
   {const c=card('Work on'),pick=local.main;let i=cards.length;for(const a of AXES){const tag=a.key===local.main?'Main':a.key===local.second?'Second':locks[a.key]!==undefined?'Held':'';c.append(option(axisName(a),a.key===local.main||a.key===local.second,()=>{const was={...local};if(local.main===a.key){local.main=local.second;local.second=undefined;}else if(local.second===a.key)local.second=undefined;else if(!local.main)local.main=a.key;else local.second=a.key;apply({...getState(),effort:effortFrom(local.main,local.second,locks)});onChosen();if(!was.second&&local.second)after(i);},tag));}void pick;cards.push(c);}
@@ -42,7 +42,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
   // Habits
   if(s.age>=15){const c=card('How you live');const set=(k,v)=>{apply({...getState(),profile:{...getState().profile,[k]:v}});onChosen();};const row=(label,k,opts)=>{const g=el('div','plan-row');g.append(el('span','plan-row-label',label));const r=el('div','plan-seg');for(const[v,tx]of opts){const b=el('button','plan-seg-btn',tx);b.type='button';b.setAttribute('aria-pressed',s.profile[k]===v?'true':'false');b.onclick=()=>set(k,v);r.append(b);}g.append(r);c.append(g);};row('Temple','religion',[['practice','Go'],['explore','Sometimes'],['none','No']]);if(s.age>=20){row('Smoke','smoke',[['no','No'],['yes','Yes']]);row('Drink','drink',[['no','No'],['social','Yes']]);}cards.push(c);}
   // Live
-  {const c=card('The next five years');c.classList.add('plan-live');const year=birthYearOf(s);const lines=year===null?[]:climateLines(year+s.age);if(lines.length)c.append(el('p','plan-signal',lines[0]));else c.append(el('p','plan-signal',t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)));c.append(commit);commit.hidden=false;cards.push(c);}
+  {const c=card('The next five years');c.classList.add('plan-live');const year=birthYearOf(s);const lines=year===null||s.age<15?[]:climateLines(year+s.age);if(lines.length)c.append(el('p','plan-signal',lines[0]));else c.append(el('p','plan-signal',t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)));c.append(commit);commit.hidden=false;cards.push(c);}
   const left=strip.scrollLeft;strip.replaceChildren(...cards);strip.scrollLeft=left;
   steps.replaceChildren(...cards.map((c,i)=>{const b=el('button','plan-step',c.firstChild.textContent);b.type='button';b.onclick=()=>go(i);return b;}));
   mark();

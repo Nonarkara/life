@@ -932,3 +932,8 @@ Not done: 3D zoom for big moments (the push-in is 2D), aged adult art, native Th
 ## 3D moments (2026-11-09)
 
 Ordinary days stay painted. Decisions listed in `dist/course/moment-plan.js` (`MOMENT_SETS`, 28 scene ids) open `dist/course/moment3d.js`: an eye-level perspective stage in real metres (person 1.7 m, storey 3.2 m), with the VRoid cast facing the camera. Places vary by seed, region, class and year through `momentPlan`. The old isometric pixel view remains only as the fallback for lives the painted art does not cover. Clothing: `dist/course/period-dress.js` keeps each rigged model's face and hair and rebuilds the body and clothes on its skeleton; `outfitFor` in `moment-plan.js` is authored from general Thai dress history and has not been checked by a Thai dress historian.
+
+
+## Transformation pass (2026-11-09)
+
+Default screen is the 3D diorama (`scene3d.js`, `diorama-*.js`, `home3d.js`); painted manga panels only on recorded beats. Next five years are planned on left-to-right cards (`life-plan.js`, `priorities.js`), ending on the Live button. One top console holds age, transport and the real Thai economy for the year (`top-console.js`; World Bank series pinned in `world-series.js`; SET in `market-moments.js`; headlines in `world-headlines.js`). Event bank: `bank-encounters.js`. Research tab: `research-view.js` over `thai-history-bank.js`, 1,142 cited entries from Mishra 2010, Baker and Phongpaichit (35-page preview only), Siam Mapped, Four Reigns, เหมืองแร่, อยู่กับก๋ง and a general sheet; novels are marked fiction and appear only as conditions of life. Entries that read as the crown were removed. No native reader has checked the Thai of the bank or research.

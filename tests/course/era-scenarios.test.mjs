@@ -98,7 +98,7 @@ test('an era scene resolves like any other encounter and keeps the record',()=>{
  assert.equal(entry.id,scene.id);
  // Walk real lives until the scene is offered, so the record is a real one.
  let found=null;
- for(let seed=1;seed<=40&&!found;seed++){
+ for(let seed=1;seed<=600&&!found;seed++){
   let s=begin(configureLife(newLife(seed),{birthYear:1949}));
   for(let step=0;step<16&&s.stage!=='recap'&&!found;step++){
    const pending=s.story?.pending;

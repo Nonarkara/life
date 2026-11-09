@@ -6,7 +6,7 @@ const ERAS=[['early','Before 1855',-Infinity,1854],['trade','1855 to 1931',1855,
 const KINDS=[['all','All'],['event','Events'],['moment','Turning points'],['life','Daily life']];
 const kindOf=e=>e.kind==='texture'||e.kind==='situation'?'life':e.kind;
 const eraFor=y=>ERAS.find(([,,a,b])=>y>=a&&y<=b)?.[0]??'boom';
-const when=e=>e.from===e.to?String(e.from):e.from+'–'+e.to;
+const yr=y=>y<0?Math.abs(y).toLocaleString('en')+' BCE':String(y),when=e=>e.from===e.to?yr(e.from):yr(e.from)+'–'+yr(e.to);
 // A life's own years come first; the search looks across everything.
 export function renderResearch(root,getYear){
  let bank=null,era=null,kind='all',query='',lastLang=null,hint=null;
@@ -23,7 +23,7 @@ export function renderResearch(root,getYear){
   for(const[id,label]of KINDS)btn(kinds,label,kind===id,()=>{kind=id;draw();});
   const rows=bank.filter(e=>{const[,,a,b]=ERAS.find(x=>x[0]===era)??[,,-Infinity,Infinity];return (q||(e.to>=a&&e.from<=b))&&(kind==='all'||kindOf(e)===kind)&&(!q||[e.title,e.summary,e.th?.[0],e.th?.[1],e.place,e.who].some(v=>v?.toLowerCase().includes(q)));});
   count.textContent=t('{n} entries').replace('{n}',rows.length);
-  list.replaceChildren(...rows.slice(0,200).map(e=>{const li=el('li','research-item'),th=lang==='th'&&e.th,when_=el('span','research-when',when(e)),body=el('div');body.append(el('h3','research-title',th?e.th[0]:e.title),el('p','research-summary',th?e.th[1]:e.summary));const src=el('p','research-source',e.source.book+', p. '+e.source.page+(e.kind==='texture'?' · '+t('fiction'):''));body.append(src);li.append(when_,body);return li;}));
+  list.replaceChildren(...rows.map(e=>{const li=el('li','research-item'),th=lang==='th'&&e.th,when_=el('span','research-when',when(e)),body=el('div');body.append(el('h3','research-title',th?e.th[0]:e.title),el('p','research-summary',th?e.th[1]:e.summary));const src=el('p','research-source',e.source.book+', p. '+e.source.page+(e.kind==='texture'?' · '+t('fiction'):''));body.append(src);li.append(when_,body);return li;}));
   lastLang=lang;
  }
  search.oninput=()=>{query=search.value;draw();};

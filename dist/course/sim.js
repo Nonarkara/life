@@ -6,7 +6,7 @@ import {REGIONS,HOUSEHOLDS,COUNTRIES,BAND_REGIONS,CLASS_REGIONS,householdFor,hou
 import {ikigai} from './ikigai.js';
 import {consequencesDue} from './lessons.js';
 import {marketsDue} from './market-moments.js';
-import {PRIORITIES,priorityFx} from './priorities.js';
+import {PRIORITIES,priorityFx,prioritiesFor} from './priorities.js';
 import {MAJORS,majorOf,majorFit,mismatched,partnerNature,together,reconciled,ventureSwing,dogAt} from './life-choices.js';
 const CITY_BIRTHS=['khlong-toei','bang-na','sukhumvit'];
 import {createEconomy,economyFor,validEconomy} from './economy.js';
@@ -98,7 +98,7 @@ setback-=ventureSwing(s,age);
 // The road taken at twenty keeps paying, and keeps costing.
 if(s.pivotFlags?.oilPress!==undefined){setback-=from<40?200000:from<65?2000000:800000;moodAdj-=1;}
 if(s.pivotFlags?.keptShop!==undefined&&from<60){setback-=40000;moodAdj+=1;}
-{const fx=priorityFx(s.profile?.priority);if(fx&&adult&&!retired&&fx.pay)setback-=Math.round(fx.pay*earnings*60);if(fx?.mood)moodAdj+=fx.mood;if(fx?.body)bodyAdj+=fx.body;}
+{const fx=prioritiesFor(from).includes(s.profile?.priority)?priorityFx(s.profile.priority):null;if(fx&&adult&&!retired&&fx.pay)setback-=Math.round(fx.pay*earnings*60);if(fx?.mood)moodAdj+=fx.mood;if(fx?.body)bodyAdj+=fx.body;}
 if(s.pivotFlags?.emigrated!==undefined&&from>=30){setback-=from<65?1000000:200000;moodAdj-=1;}
 // Past choices return: on the timeline, in this period's costs, in body and mind.
 for(const m of marketsDue(s.pivotFlags,from)){setback-=m.gain;event+=' '+m.text;}

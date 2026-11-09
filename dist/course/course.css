@@ -247,3 +247,5 @@ body.has-plan .latest-event{position:static;margin:0}
 .research{display:block}.research-list{overflow:visible;min-height:auto;margin-top:6px}
 
 @media(max-width:899px){.research-head h2,.research-note{display:none}.research-filter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.research-filter::-webkit-scrollbar{display:none}.research-chip{flex:0 0 auto}}
+
+.top-news{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
