@@ -32,6 +32,18 @@ export function crowdRoster(plan){
  }
  return rows;
 }
+// Young lives are lived among other young people: friends walking the road in twos and threes.
+// Lanes only, so nobody stands inside a building or on the family's own routes.
+export function youthRoster(plan,age){
+ if(age<12||age>=30)return [];
+ const r=lifeRandom(plan.seed,'youth'+Math.floor(age/5)),n=plan.style==='village'||plan.style==='fringe'?3:5,rows=[],sexes=['female','male','intersex'];
+ let group=-1,lane=0,phase=0;
+ for(let i=0;i<n;i++){
+  if(i%3===0){group++;lane=(group+Math.floor(r()*3))%LANES.length;phase=r()*40;}
+  rows.push({salt:800+i+plan.seed%97,youth:true,sex:sexes[Math.floor(r()*3)],elder:false,age:Math.max(12,Math.min(29,age+Math.round(r()*4)-2)),role:'walk',pose:'walk',lane,speed:.58,phase:phase+(i%3)*1.1,offset:(i%3)*.16});
+ }
+ return rows;
+}
 export function crowdActivity(row,time,plan){
  const t=((time%60)+60)%60;
  if(row.role==='alms'){if(t>9)return null;const [x0,x1,z]=LANES[row.lane],span=x1-x0,along=Math.min(span,t*1.1+row.phase%8);return {x:x0+along,y:z,dx:1,dy:0,distance:t*.55,moving:true,pose:'walk'};}
@@ -39,5 +51,5 @@ export function crowdActivity(row,time,plan){
  if(t>=54)return null;
  const [x0,x1,z]=LANES[row.lane],span=x1-x0,clock=time*row.speed+row.phase*row.speed,d=((clock%(2*span))+2*span)%(2*span),out=d<span,x=out?x0+d:x1-(d-span);
  // The stride counts total distance walked, so it never runs backward on the return leg.
- return {x,y:z+(out?0:.14),dx:out?1:-1,dy:0,distance:Math.abs(clock),moving:true,pose:row.pose};
+ return {x,y:z+(out?0:.14)+(row.offset??0),dx:out?1:-1,dy:0,distance:Math.abs(clock),moving:true,pose:row.pose};
 }

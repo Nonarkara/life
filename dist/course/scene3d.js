@@ -17,7 +17,9 @@ import {rand} from './sim.js';
 import {currentPalette} from './palettes.js';
 import {createBatch,bake,m,METRE,nightGlow} from './diorama-kit.js';
 import {townPlan,familyAt,lifeRandom} from './diorama-plan.js';
-import {crowdRoster,crowdActivity} from './diorama-cast.js';
+import {crowdRoster,crowdActivity,youthRoster} from './diorama-cast.js';
+import {visitorWardrobe,applyWardrobe} from './cast-wardrobe.js';
+import {youthsInOwnClothes} from './moment-plan.js';
 import {furnishHome,buildHomeShell} from './home3d.js';
 // A long lens on a model on a table. The figures are real-metre people in a world where one
 // unit is 1.55 m, so a door is taller than whoever walks through it.
@@ -153,7 +155,7 @@ function createScene(original){
  // --- the cast
  const actors={mother:createCharacter({shirt:'#718979',sex:'female',plain:true}),father:createCharacter({shirt:'#87735c',plain:true}),player:createCharacter({shirt:'#bd914d',plain:true}),partner:createCharacter({shirt:'#8a7a6a',plain:true}),kid:createCharacter({shirt:'#b5553c',plain:true})};
  for(const actor of Object.values(actors)){scene.add(actor.root);actor.root.visible=false;}
- const crowd=Array.from({length:7},()=>{const a=createCharacter({shirt:'#93957b',plain:true});scene.add(a.root);a.root.visible=false;return a;});
+ const crowd=Array.from({length:12},()=>{const a=createCharacter({shirt:'#93957b',plain:true});scene.add(a.root);a.root.visible=false;return a;});
  let gone=false,castReady=false;
  loadAnimeCast().then(c=>{if(!c||gone)return;castReady=true;for(const a of [...Object.values(actors),...crowd])try{attachAnime(a);}catch(error){console.warn('Anime figure skipped.',error);a.anime?.detach();}lastLooks='';});
  const STAND={x:0,y:0,dx:0,dy:0,moving:false,pose:'stand',facing:0,distance:0};
@@ -167,6 +169,12 @@ function createScene(original){
   actor.undress=dressPeriod(actor,outfit,{elder,matte:true,hair});actor.dressStamp=stamp;
   actor.rig.look.headScale=headScale;actor.rig.look.stoop=stoop;
  }
+ // The Digital Valley figures as they are: their own modelled clothes, with this person's colours.
+ function wearOwnClothes(actor,index,age){
+  if(!actor.anime)return;const stamp='own'+index;if(actor.dressStamp===stamp)return;
+  actor.undress?.();actor.undress=null;actor.rig.look.headScale=1;actor.rig.look.stoop=0;actor.update(STAND,age,1e7,{world:FIGURE,scale:1});
+  const model=actor.anime.model();if(model)applyWardrobe(model.material,visitorWardrobe(index,false));actor.dressStamp=stamp;
+ }
  function applyLooks(state,age,here,born,plan,family,time){
   const hh=household(state.birth),seed=state.seed,withGrandparents=childhoodAway(state.birth,age),year=plan.year;
   const parentAge=n=>age+26+rand(seed,0,n+'-gap')*6;
@@ -175,8 +183,8 @@ function createScene(original){
   actors.player.setLook(appearance(rand,seed,'player',born,{sex}));dressActor(actors.player,'player',sex,state,age,year,{elder:age>=60,place:plan.place,headScale:headFor(age),stoop:age>=68?.15:age>=60?.08:0});
   if(family.partner){const ps=rand(seed,0,'partner-sex')<.92?(sex==='female'?'male':'female'):sex;actors.partner.setLook(appearance(rand,seed,'partner',here,{sex:ps}));dressActor(actors.partner,'partner',ps,state,age,year,{elder:age>=62,place:plan.place,stoop:age>=68?.12:0});}
   if(family.child){const ks=rand(seed,0,'kid-sex')<.5?'female':'male';actors.kid.setLook(appearance(rand,seed,'kid',here,{sex:ks}));dressActor(actors.kid,'kid',ks,state,Math.max(1,family.childAge),year,{place:plan.place,headScale:headFor(family.childAge)});}
-  roster=crowdRoster(plan);
-  roster.forEach((row,i)=>{const a=crowd[i];a.setLook(appearance(rand,seed+row.salt,'crowd'+row.salt,here,{sex:row.sex,elder:row.elder}));dressActor(a,'crowd'+row.salt,row.sex,state,row.child?10:30,year,{elder:row.elder,place:plan.place,stoop:row.elder?.12:0,monk:row.robe,headScale:row.child?1.2:1});});
+  roster=[...crowdRoster(plan),...youthRoster(plan,age)];
+  roster.forEach((row,i)=>{const a=crowd[i];a.setLook(appearance(rand,seed+row.salt,'crowd'+row.salt,here,{sex:row.sex,elder:row.elder}));if(row.youth){if(youthsInOwnClothes(year))wearOwnClothes(a,seed+row.salt*37,row.age);else dressActor(a,'youth'+row.salt,row.sex,state,row.age,year,{place:plan.place});return;}dressActor(a,'crowd'+row.salt,row.sex,state,row.child?10:30,year,{elder:row.elder,place:plan.place,stoop:row.elder?.12:0,monk:row.robe,headScale:row.child?1.2:1});});
  }
  let roster=[];
  let lost=false;canvas.addEventListener('webglcontextlost',()=>{lost=true;});
@@ -207,7 +215,7 @@ function createScene(original){
   const [roomX,roomZ]=context.residence.base,familyHome=context.residence.id==='family';
   if(family.partner&&(t<8||t>=46))place(actors.partner,familyHome?{x:roomX+.82,y:roomZ+2.45,dx:0,dy:0,moving:false,facing:-Math.PI/2,pose:'cook'}:{x:roomX+3.35,y:roomZ+1.95,dx:0,dy:0,moving:false,facing:Math.PI,pose:'rest'},{elder:age>=62,scale:.98});else actors.partner.root.visible=false;
   if(family.child){const a=t*.3;place(actors.kid,{x:roomX+1.2+Math.cos(a)*.22,y:roomZ+2.5+Math.sin(a)*.18,dx:-Math.sin(a),dy:Math.cos(a),distance:t*.2,moving:family.childAge>=1,pose:family.childAge<2?'crawl':family.childAge<4?'toddle':'walk'},{scale:statureOf(family.childAge)});}else actors.kid.root.visible=false;
-  crowd.forEach((a,i)=>{const row=roster[i];if(!row){a.root.visible=false;return;}const act=crowdActivity(row,time,P);if(!act){a.root.visible=false;return;}place(a,act,{elder:row.elder,scale:row.scale??1});});
+  crowd.forEach((a,i)=>{const row=roster[i];if(!row){a.root.visible=false;return;}const act=crowdActivity(row,time,P);if(!act){a.root.visible=false;return;}place(a,act,{elder:row.elder,scale:row.youth?statureOf(row.age):row.scale??1});});
   // Town objects -------------------------------------------------------------------
   world.rooms.update(state,age);world.districts.update(state,age);world.home.update(state,age,context,time);
   world.manual.visible=manualWork;world.office.visible=!manualWork&&!P.farm;world.cradle.visible=age<6;world.infant.visible=age<1;world.toys.visible=age>=1&&age<8;world.dog.visible=dogAt(state,age);world.farm.visible=P.farm||P.style==='market';

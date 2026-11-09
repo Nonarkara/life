@@ -67,3 +67,11 @@ test('family is on the board only while the record says so',()=>{
  assert.equal(familyAt(wed,26).child,false);assert.equal(familyAt(wed,30).childAge,3);
 });
 test('seeded randomness is stable',()=>{const a=lifeRandom(5,'x'),b=lifeRandom(5,'x'),c=lifeRandom(6,'x');assert.equal(a(),b());assert.notEqual(lifeRandom(5,'x')(),c());});
+
+import {youthRoster} from '../../dist/course/diorama-cast.js';
+test('young lives walk among young people, and older lives do not',()=>{
+ const plan=townPlan(life(3,'middle_class','samut-prakan',1981,20),20);
+ assert.equal(youthRoster(plan,8).length,0);assert.equal(youthRoster(plan,45).length,0);
+ const rows=youthRoster(plan,20);assert.ok(rows.length>=3&&rows.length<=5);assert.ok(rows.length+7<=12,'fits the figure pool');
+ for(const row of rows){assert.ok(row.age>=12&&row.age<30);assert.equal(row.role,'walk');const a=crowdActivity(row,10,plan);assert.ok(a&&a.moving);}
+});
