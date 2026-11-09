@@ -1,7 +1,7 @@
 // English | Thai | Simplified Chinese | Japanese | Korean. History scenes and the other-roads ending; awaits a native reader.
 export const HISTORY_PHRASES=`
 The film on the temple wall|หนังกลางแปลง|寺墙上的电影|寺の壁に映る映画|절 담벼락의 영화
-A van has come to the temple with a projector. The voices are done live by two people behind the screen. Your mother says be home before the second reel.|รถหนังกลางแปลงมาฉายที่วัด สองคนพากย์สดอยู่หลังจอ แม่สั่งว่าให้กลับก่อนม้วนที่สอง|一辆面包车拉着放映机来到寺庙。配音是幕布后面两个人现场念的。母亲说，第二卷开始前要回家。|ワゴン車が映写機を積んで寺に来た。声はスクリーンの裏の二人が生でつけている。母は、二巻目の前に帰っておいでと言う。|승합차가 영사기를 싣고 절에 왔다. 목소리는 스크린 뒤의 두 사람이 그 자리에서 입힌다. 어머니는 두 번째 릴 전에 집에 오라고 한다.
+A van has come to the temple with a projector. The voices are done live by two people behind the screen. Your mother says be home before the second reel.|รถหนัง มาฉายหนังกลางแปลงที่วัด สองคนพากย์สดอยู่หลังจอ แม่สั่งว่าให้กลับก่อนม้วนที่สอง|一辆面包车拉着放映机来到寺庙。配音是幕布后面两个人现场念的。母亲说，第二卷开始前要回家。|ワゴン車が映写機を積んで寺に来た。声はスクリーンの裏の二人が生でつけている。母は、二巻目の前に帰っておいでと言う。|승합차가 영사기를 싣고 절에 왔다. 목소리는 스크린 뒤의 두 사람이 그 자리에서 입힌다. 어머니는 두 번째 릴 전에 집에 오라고 한다.
 Go home before the second reel|กลับบ้านก่อนม้วนที่สอง|第二卷开始前回家|二巻目の前に帰る|두 번째 릴 전에 집에 간다
 You walked home in the dark and heard the crowd laugh from three fields away.|คุณเดินกลับบ้านมืดๆ ห่างมาสามแปลงนาแล้วยังได้ยินเสียงคนหัวเราะ|你摸黑走回家，隔着三块田还听得见人群在笑。|暗い道を歩いて帰った。田んぼ三枚向こうから、みんなの笑い声が聞こえた。|어두운 길을 걸어 집에 왔다. 논 세 뙈기 너머에서 사람들 웃음소리가 들렸다.
 Stay to the end|อยู่ดูจนจบ|看到最后|最後まで見る|끝까지 본다
