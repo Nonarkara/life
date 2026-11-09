@@ -317,3 +317,17 @@ body.console-mode>header{flex:none}
  .decision-dialog .child-snapshot{margin-top:8px;max-width:none}
  html[data-text-size=extra] .decision-dialog[data-reading-stage=context][data-has-choices=true] .child-snapshot{display:none}
 }
+/* Childhood choice in the paused strip (<=1279px): the bar is chrome at a fixed
+   height, so its rows hug one line and the strip never grows a scrollbar. The
+   life snapshot already sits beside Age in the world head; the bar keeps only
+   the choice. Rows stay >=32px tall (dense-group rule), buttons hug content. */
+@media(max-width:1279px){
+ .decision-dialog #child-choice h2{font-size:calc(16px * var(--reading-scale));line-height:1.2;margin:0 0 2px}
+ .decision-dialog #child-choice .decision-context{font-size:calc(12px * var(--reading-scale));line-height:1.3;margin:0 0 4px}
+ .decision-dialog #child-choice .pivot-options{display:flex;flex-wrap:wrap;gap:4px 8px;margin:0;align-content:flex-start}
+ .decision-dialog #child-choice .pivot-option{display:inline-flex;align-items:center;gap:7px;width:auto;max-width:100%;min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:0;text-align:left}
+ .decision-dialog #child-choice .pivot-option .choice-symbol{width:18px;height:18px;margin:0}
+ .decision-dialog #child-choice .pivot-label{font-size:calc(13px * var(--reading-scale));line-height:1.2;max-width:none}
+ .decision-dialog #child-choice .pivot-cost{font-size:calc(11px * var(--reading-scale));line-height:1.2;white-space:nowrap}
+ .decision-dialog #child-choice .child-snapshot{display:none}
+}

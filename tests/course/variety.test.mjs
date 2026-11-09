@@ -129,3 +129,9 @@ test('the royal-associated birth is gone, and earlier lives and links still open
  const store={getItem:()=>JSON.stringify(old),setItem(){}},read=readSave(store,validate);assert.ok(read.life,'old save opens');assert.equal(read.life.intake.class,'high_class');
  const code=encodeBirth(configureLife(newLife(7919),{birthYear:1949,class:'high_class'})),oldCode=code.replace(/^([0-9a-z]+-[fmi])h/,'$1r');assert.notEqual(code,oldCode);assert.equal(decodeBirth(oldCode)?.intake.class,'high_class');
 });
+
+import {youthsAround,youthsInOwnClothes} from '../../dist/course/moment-plan.js';
+test('young lives are surrounded by young people, in the clothes of their year',()=>{
+ assert.equal(youthsAround(17,'soi'),6);assert.equal(youthsAround(45,'soi'),0);assert.equal(youthsAround(20,'table'),0);assert.equal(youthsAround(8,'soi'),0);
+ assert.equal(youthsInOwnClothes(1973),false);assert.equal(youthsInOwnClothes(2005),true);
+});

@@ -8,7 +8,8 @@ import {lightRamp} from './art-direction.js';
 import {appearance,regionAt,regionIdFor} from './regions.js';
 import {rand} from './sim.js';
 import {preferences} from './i18n.js';
-import {momentPlan,outfitFor} from './moment-plan.js';
+import {momentPlan,outfitFor,youthsAround,youthsInOwnClothes} from './moment-plan.js';
+import {visitorWardrobe,applyWardrobe} from './cast-wardrobe.js';
 import {dressPeriod} from './period-dress.js';
 let stage=null,dead=false,token=0;
 const toon=new Map(),mat=c=>{if(!toon.has(c))toon.set(c,new T.MeshToonMaterial({color:c,gradientMap:lightRamp()}));return toon.get(c);};
@@ -52,6 +53,12 @@ function cast(group,state,plan,set){
  const list=[at('player',sex,0,0,age>=60)];
  if(set==='table'){list[0].x=-1.1;list[0].z=.1;list.push(at('n0',sex==='male'?'female':'male',1.1,.1,age>=55));}
  else if(set!=='fork'&&set!=='airfield')list.push(at('n1',sex==='male'?'female':'male',innerWidth>720?-1.5:plan.side*1.5,-1.2,age>=58));
+ // The people your own age around you: the Thailand Digital Valley cast, each with their own outfit.
+ const spots=[[-2.4,-2.2],[2.6,-2.6],[-1.2,-3.9],[1.5,-4.5],[-3.5,-4.8],[3.6,-5.3]],sexes=['female','male','intersex'];
+ for(let i=0;i<youthsAround(age,set);i++){const key='y'+i,s=sexes[Math.floor(rand(state.seed,age+i,'youth-sex')*3)],[sx,sz]=spots[i],x=sx*plan.side;
+  const clothes=dress(state,key,s,age),a=createCharacter({...appearance(rand,state.seed,key,here,{sex:s}),...clothes});attachAnime(a);group.add(a.root);a.update({x,y:sz,dx:0,dy:0,pose:'stand',moving:false,facing:0,distance:0},age,0,{elder:false,scale:Math.min(1,.48+age*.035)});
+  let undress=()=>{};if(youthsInOwnClothes(plan.year)){const m=a.anime?.model?.();if(m)applyWardrobe(m.material,visitorWardrobe(Math.floor(rand(state.seed,age+i,'youth-wear')*2304),false));}else undress=dressPeriod(a,outfitFor(state,key,s,age,plan.year,{player:false}),{});
+  list.push({a,x,z:sz,elder:false,undress,toPlayer:i%2===0});}
  return list;
 }
 function build(state,plan){
@@ -84,7 +91,7 @@ function frame(now){
  place();const {camera,renderer,built,plan}=stage,e=ease(t),tall=camera.aspect<.9,dist=plan.set==='table'?(tall?7.2:5.2):(tall?7:5.6);
  const y=1.5+(19-1.5)*(1-e),z=dist+(34-dist)*(1-e),x=plan.camera+(plan.side*9-plan.camera)*(1-e);camera.position.set(x,y,z);camera.lookAt(0,1.22,-.2);
  const shift=!tall&&document.querySelector('.decision-dialog')?.open?Math.min(.22,(document.querySelector('.decision-dialog').getBoundingClientRect().width/innerWidth)*.5):0;if(shift)camera.setViewOffset(1000,1000,shift*1000,0,1000,1000);else camera.clearViewOffset();
- const clock=now/1000;for(const {a,x:px,z:pz,elder} of built.people){a.update({x:px,y:pz,dx:0,dy:0,pose:'stand',moving:false,facing:Math.atan2(camera.position.x-px,camera.position.z-pz),distance:0},stage.state.age,clock,{elder,scale:Math.min(1,.48+stage.state.age*.035)});}
+ const clock=now/1000;for(const {a,x:px,z:pz,elder,toPlayer} of built.people){a.update({x:px,y:pz,dx:0,dy:0,pose:'stand',moving:false,facing:toPlayer?Math.atan2(-px,-pz):Math.atan2(camera.position.x-px,camera.position.z-pz),distance:0},stage.state.age,clock,{elder,scale:Math.min(1,.48+stage.state.age*.035)});}
  for(const {a} of built.people)a.root.position.y=built.lift;
  for(const f of built.flicker)f.material.color.setScalar(.82+Math.sin(clock*23)*.05+Math.sin(clock*7)*.08);
  if(stage.shadows>0){stage.shadows--;renderer.shadowMap.needsUpdate=true;}

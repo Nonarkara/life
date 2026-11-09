@@ -11,6 +11,8 @@ export function visitorWardrobe(index,registered=true){
  const trim=tops[(seed*3+7)%tops.length],bottomPattern=Math.floor(seed/3)%3;
  return {id:`${top}/${bottom}/${patterns[pattern]}/${trim}/${bottomPattern}`,top,bottom,pattern,trim,bottomPattern,seed};
 }
+// A figure's whole outfit, set on a material already built.
+export function applyWardrobe(material,w){const u=material.userData.visitorGarments;u.visitorTop.value.set(w.top);u.visitorBottom.value.set(w.bottom);u.visitorTrim.value.set(w.trim);u.visitorPattern.value=w.pattern;u.visitorBottomPattern.value=w.bottomPattern;}
 export function makeVisitorMaterial(map,wardrobe){
  const material=new THREE.MeshToonMaterial({map,gradientMap:lightRamp(),alphaTest:.35,side:THREE.DoubleSide});
  const uniforms={visitorTop:{value:new THREE.Color(wardrobe.top)},visitorBottom:{value:new THREE.Color(wardrobe.bottom)},visitorTrim:{value:new THREE.Color(wardrobe.trim)},visitorPattern:{value:wardrobe.pattern},visitorBottomPattern:{value:wardrobe.bottomPattern}};

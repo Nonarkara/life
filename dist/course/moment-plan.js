@@ -3,11 +3,16 @@
 import {rand} from './sim.js';
 import {birthYearOf} from './thai-history.js';
 import {region,regionAt} from './regions.js';
-const AT={temple:'h_film_van h_nang_talung temple-boy',soi:'h_transistor h_1976_names girl-school',airfield:'h_airbase go-abroad',avenue:'h_1973_leaflet h_1973_truck h_1976_campus h_1992',village:'h_rice_at_night h_1980_return h_saudi h_garment h_road',gate:'h_1997_closed',water:'h_2011_flood flood_help flood-repair flood-move',table:'h_1973_radio h_1996_boom h_2010_table h_2020_glass gifted-child empty-house take-in',fork:'three-roads'};
+const AT={temple:'h_film_van h_nang_talung temple-boy',soi:'h_transistor h_1976_names girl-school b_net_cafe b_top_up',airfield:'h_airbase go-abroad',avenue:'h_1973_leaflet h_1973_truck h_1976_campus h_1992 b_ramkhamhaeng',village:'h_rice_at_night h_1980_return h_saudi h_garment h_road',gate:'h_1997_closed',water:'h_2011_flood flood_help flood-repair flood-move',table:'h_1973_radio h_1996_boom h_2010_table h_2020_glass gifted-child empty-house take-in',fork:'three-roads'};
 export const MOMENT_SETS=Object.fromEntries(Object.entries(AT).flatMap(([set,ids])=>ids.split(' ').map(id=>[id,set])));
 export const bigMoment=id=>typeof id==='string'&&Object.hasOwn(MOMENT_SETS,id);
 const AT_NIGHT=new Set(['h_film_van','h_nang_talung','h_rice_at_night','h_1992','h_1973_radio','h_2020_glass']);
 const NOW=2026;
+// Young lives happen among other young people. Places where a group of them would actually be.
+const AMONG_YOUTH=new Set(['soi','temple','avenue','village','gate']);
+export const youthsAround=(age,set)=>age>=12&&age<30&&AMONG_YOUTH.has(set)?6:0;
+// The Digital Valley figures wear today's clothes, so they appear as they are only once those clothes exist.
+export const youthsInOwnClothes=year=>year>=1995;
 export function momentPlan(state,id){
  const by=birthYearOf(state),year=by===null?NOW:by+state.age,r=k=>rand(state.seed,state.age,'moment:'+id+':'+k),place=region(regionAt(state,state.age)),pick=(k,list)=>list[Math.floor(r(k)*list.length)];
  // A storey is 3.2 m and a person is 1.7 m in every set: scale comes from the world, not the camera.
