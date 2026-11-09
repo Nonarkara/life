@@ -24,7 +24,8 @@ export {COHORT_YEARS,validCohortYear} from './thai-history.js';
 import {eraAnnualEvents} from './era-events.js';
 const hasMarket=f=>Array.isArray(f?.receipts)&&f.receipts.some(r=>r?.kind==='market');
 export const clamp=(v,a=0,b=100)=>Math.max(a,Math.min(b,v));
-export function rand(seed,age,domain){let h=2166136261;for(const c of `${seed}/${age}/${domain}`){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}h+=h<<13;h^=h>>>7;h+=h<<3;h^=h>>>17;h+=h<<5;return(h>>>0)/4294967296;}
+export {rand} from './rand.js';
+import {rand} from './rand.js';
 export const balanced=()=>Object.fromEntries(AXES.map(a=>[a.key,2]));
 export const validPoints=p=>!!p&&Object.keys(p).length===5&&AXES.every(a=>Number.isInteger(p[a.key])&&p[a.key]>=0&&p[a.key]<=10)&&Object.values(p).reduce((a,b)=>a+b,0)===10;
 export function transfer(p,key,delta,minima={}){

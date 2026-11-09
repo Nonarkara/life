@@ -1,7 +1,7 @@
 // History a person has to live through, for lives with a birth year. Each scene is offered at the
 // five-year station whose window holds its year. Situations are original; dated facts are from
 // ERA-EVENTS-AND-BUDDHISM.md (bbc) or the source named beside the scene. Nobody royal, no named perpetrators.
-import {rand} from './sim.js';
+import {rand} from './rand.js';
 import {birthYearOf} from './thai-history.js';
 import {regionAt,regionIdFor} from './regions.js';
 const F=s=>({...s.pivotFlags,...s.story?.flags});

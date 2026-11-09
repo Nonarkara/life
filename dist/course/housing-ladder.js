@@ -1,7 +1,7 @@
 // Six ways of living in one Thai town, from no house to a walled villa. You are born on one rung
 // and can move a step at a time; the other five stay open to view on their own lots, so you always
 // see who is above and below you. Authored game rules, not census data. Pure data, no three.js.
-import {rand} from './sim.js';
+import {rand} from './rand.js';
 import {recordedFinance,residenceAt} from './locations.js';
 import {currentRegion} from './finance.js';
 import {region,regionIdFor} from './regions.js';

@@ -1,7 +1,7 @@
 // The Director. It never touches you, only the world around you: a few things in each life that
 // nobody can prepare for, except by having lived through them once here. Authored game rules.
 // A life's list comes from its seed and birth class, so every life gets a different bad luck.
-import {rand} from './sim.js';
+import {rand} from './rand.js';
 import {birthYearOf} from './thai-history.js';
 import {regionAt} from './regions.js';
 const opt=(id,label,effects,outcome)=>({id,label,...effects,outcome});
