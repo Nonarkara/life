@@ -150,6 +150,9 @@ export function resolveEncounter(state,choiceId,roll){
  if(choice.risk&&roll<choice.risk){const y=birthYearOf(state);const age=y!==null&&encounter.year?Math.max(state.age,Math.min(state.age+4,encounter.year-y)):state.age;return {...next,stage:'recap',death:{age,cause:choice.deathCause,odds:choice.risk,chance:choice.risk,smoker:false,history:true}};}
  return choice.sellAll?sellAll(next):next;
 }
+// A scene is chosen when the station opens. A question answered afterwards at the same station
+// must not retroactively make that scene impossible, or the save would be lost.
+const beforeStation=(state,age)=>{const b=[...(state?.pivots??[]),...(state?.history??[]).flatMap(r=>r.pivots??[])].find(r=>r.station===age)?.before;return b?{cash:b.cash,health:b.health,wellbeing:b.wellbeing,skills:b.skills,pivotFlags:b.pivotFlags,pathway:b.pathway}:null;};
 export function validStory(story,age,state){
  if(story===undefined)return true;
  if(state&&!Array.isArray(state.history))return false;
@@ -163,8 +166,8 @@ export function validStory(story,age,state){
   for(const seen of story.seen){
    if(seen.age<=previousAge)return false;previousAge=seen.age;
    const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
-   const prior={...state,age:seen.age,health:row.health-(seen.effects.health||0),wellbeing:row.wellbeing-(seen.effects.wellbeing||0),cash:(row.cash??state.cash)-(seen.effects.cash||0),effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null}};
-   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(!['flood_help','remember','remember_mother'].includes(entry.id)&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash}))return false;
+   const prior={...state,age:seen.age,health:row.health-(seen.effects.health||0),wellbeing:row.wellbeing-(seen.effects.wellbeing||0),cash:(row.cash??state.cash)-(seen.effects.cash||0),effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null},...(beforeStation(state,seen.age)?{pivotFlags:beforeStation(state,seen.age).pivotFlags}:{})};
+   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(!['flood_help','remember','remember_mother'].includes(entry.id)&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash})&&!(beforeStation(state,seen.age)&&entry.eligible({...prior,...beforeStation(state,seen.age)})))return false;
    const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
   }
  }
@@ -172,5 +175,5 @@ export function validStory(story,age,state){
  if(Object.keys(expectedFlags).length!==Object.keys(story.flags).length||Object.entries(expectedFlags).some(([key,value])=>story.flags[key]!==value))return false;
  if(story.pending===null)return true;
  const pending=story.pending;
- return !!pending&&byId.has(pending.id)&&pending.age===age&&!story.seen.some(e=>e.age===age||e.id===pending.id)&&Array.isArray(pending.candidates)&&pending.candidates.includes(pending.id)&&pending.candidates.every(id=>byId.has(id))&&(!state||(eligibleEncounters({...state,story:{...story,pending:null}}).some(e=>e.id===pending.id)||pending.id==='m_crash'&&legacyMarketPrompt(state)));
+ return !!pending&&byId.has(pending.id)&&pending.age===age&&!story.seen.some(e=>e.age===age||e.id===pending.id)&&Array.isArray(pending.candidates)&&pending.candidates.includes(pending.id)&&pending.candidates.every(id=>byId.has(id))&&(!state||(eligibleEncounters({...state,...(beforeStation(state,age)??{}),story:{...story,pending:null}}).some(e=>e.id===pending.id)||pending.id==='m_crash'&&legacyMarketPrompt(state)));
 }
