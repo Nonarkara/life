@@ -1,3 +1,4 @@
+import {HARD_ENCOUNTERS} from './life-hard.js';
 import {THAI_ENCOUNTERS} from './thai-encounters.js';
 import {HISTORY_ENCOUNTERS} from './history-encounters.js';
 import {BANK_ENCOUNTERS} from './bank-encounters.js';
@@ -111,7 +112,7 @@ LESSONS.push(...MONEY_LESSONS);
 export function consequencesDue(state,from,to){
  const due=[];
  for(const seen of state.story?.seen??[]){
-  const lesson=LESSONS.find(l=>l.id===seen.id)??THAI_ENCOUNTERS.find(l=>l.id===seen.id)??HISTORY_ENCOUNTERS.find(l=>l.id===seen.id)??BANK_ENCOUNTERS.find(l=>l.id===seen.id)??ERA_ENCOUNTERS.find(l=>l.id===seen.id),choice=lesson?.options.find(o=>o.id===seen.choice);
+  const lesson=LESSONS.find(l=>l.id===seen.id)??THAI_ENCOUNTERS.find(l=>l.id===seen.id)??HISTORY_ENCOUNTERS.find(l=>l.id===seen.id)??BANK_ENCOUNTERS.find(l=>l.id===seen.id)??ERA_ENCOUNTERS.find(l=>l.id===seen.id)??HARD_ENCOUNTERS.find(l=>l.id===seen.id),choice=lesson?.options.find(o=>o.id===seen.choice);
   for(const later of choice?.later??[]){const at=later.at??seen.age+later.after;if(at>seen.age&&at>from&&at<=to&&(!later.when||later.when(state)))due.push({lesson:lesson.id,choice:choice.id,age:at,text:typeof later.text==='function'?later.text(state,at):later.text,cash:typeof later.cash==='function'?later.cash(state):later.cash??0,health:later.health??0,wellbeing:later.wellbeing??0,skills:later.skills??{}});}
  }
  return due;

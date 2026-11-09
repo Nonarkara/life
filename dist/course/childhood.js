@@ -28,7 +28,7 @@ export function childhoodChapter(state, age) {
  if(away){chapters.push([away.from,'Your grandparents’ home.','Your parents keep working in the city. You grow up with your grandparents, among their neighbours, fields and routines.'],[away.to,'Back with your parents.','You return to the city. The house is busier than the one you remember, and your grandparents feel far away.']);chapters.sort((a,b)=>a[0]-b[0]);}
  const chapter=chapters.filter(([start])=>age>=start).at(-1)??chapters[0];
  const record=state.childhood?.choices?.find(r=>r.age===Math.floor(age));
- const choice=record&&CHILD_CHOICES.find(q=>q.age===record.age)?.options.find(o=>o.id===record.choice);
+ const choice=record&&CHILD_CHOICES.filter(q=>q.age===record.age).flatMap(q=>q.options).find(o=>o.id===record.choice);
  const year=birthYearOf(state),happening=year===null?null:[...ERA_EVENTS.values()].find(e=>e.year===year+Math.floor(age));
  return {income,title:choice?.label??chapter[1],decision:choice?.note??chapter[2],biology:happening?.prompt??chapter[3]??chapters[0][3]};
 }

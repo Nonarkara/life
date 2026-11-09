@@ -1,3 +1,7 @@
+**Protected choice (owner, 10 November 2026):** the pixel finish on the 3D world (pixel grid, dithered palette, ink edges in `render-post.js`) is deliberate and overrides the workspace's no-pixel rule, for this project only. It is laid over the current figures and movement, never instead of them.
+
+**Top design law:** `_reference/DESIGN-PRINCIPLES.md` and `_reference/ULTIMATE-DESIGN-SYSTEM-CANON.md` in the workspace root. The world is the hero; the interface is as small as its words.
+
 # Life — style decisions
 
 ## Core

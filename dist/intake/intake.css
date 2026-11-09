@@ -69,3 +69,6 @@
 .intake-page .pick-list .pin{position:static;transform:none;text-align:left}
 .intake-page #town-pick .fine{margin:0;padding:8px 12px}
 @media (max-width:720px){.intake-page .pick-stage{aspect-ratio:1/1.08}}
+
+.intake-page{--mono:Jost,sans-serif}
+@media (min-width:721px) and (max-height:820px){.intake-page .overview.intake .panel{overflow:auto}}

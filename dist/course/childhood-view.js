@@ -28,7 +28,7 @@ export function initChildhoodView({onChoose,onContinue,getState}){
    const prev=el('div',undefined,'snapshot-choices');
    prev.append(el('h4',t('Choices made'),'snapshot-sub'));
    for(const c of choices){
-    const q=CHILD_CHOICES.find(q=>q.age===c.age);
+    const q=CHILD_CHOICES.find(q=>q.age===c.age&&q.options.some(o=>o.id===c.choice))??CHILD_CHOICES.find(q=>q.age===c.age);
     const o=q?.options.find(o=>o.id===c.choice);
     if(o){
      const item=el('div',undefined,'snapshot-choice');

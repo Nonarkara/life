@@ -24,7 +24,7 @@ export function effortFrom(main,second,locks={}){
 }
 export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()=>{}}){
  const root=el('section','life-plan');root.id='life-plan';root.setAttribute('aria-label','The next five years');root.hidden=true;mount.prepend(root);
- const steps=el('div','plan-steps');steps.setAttribute('role','group');const strip=el('div','plan-strip');root.append(steps,strip);
+ const steps=el('div','plan-steps');steps.setAttribute('role','group');const strip=el('div','plan-strip');const foot=el('div','plan-foot');root.append(steps,strip,foot);
  let local={},stationKey='',scrollTo=null;
  const go=i=>{const card=strip.children[i];if(!card)return;scrollTo=i;strip.scrollTo({left:card.offsetLeft-strip.offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});};
  const after=i=>requestAnimationFrame(()=>{if(strip.scrollWidth>strip.clientWidth+4)go(i+1);});
@@ -48,7 +48,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
   // Home: a step up, stay, or a step down. Only the home the family lives in moves on the ladder.
   if(ladderOpen(s)){const c=card('Where you live'),i=cards.length,was=rungAt(s,s.age-.5),now=s.finance.rung??birthRung(s),income=monthlyFlow(s,s.history?.at(-1)).income;for(const[to,verb]of [[was+1,'Move up: '],[was,'Stay: '],[was-1,'Move down: ']]){if(to<0||to>TOP)continue;const can=to<=was||canAfford(to,income),b=option(t(verb)+t(RUNGS[to].label),to===now,()=>{apply(setRung(getState(),to));onChosen();after(i);},can?'฿'+RUNGS[to].rent.toLocaleString('en')+t(' a month'):t('Rent is too high for this income'));b.disabled=!can;c.append(b);}cards.push(c);}
   // Live
-  {const c=card('The next five years');c.classList.add('plan-live');const year=birthYearOf(s);const lines=year===null||s.age<15?[]:climateLines(year+s.age);if(lines.length)c.append(el('p','plan-signal',lines[0]));else c.append(el('p','plan-signal',t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)));c.append(commit);commit.hidden=false;cards.push(c);}
+  {const year=birthYearOf(s);const lines=year===null||s.age<15?[]:climateLines(year+s.age);foot.replaceChildren(el('p','plan-signal',lines[0]??t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)),commit);commit.hidden=false;}
   const left=strip.scrollLeft;strip.replaceChildren(...cards);strip.scrollLeft=left;
   steps.replaceChildren(...cards.map((c,i)=>{const b=el('button','plan-step',c.firstChild.textContent);b.type='button';b.onclick=()=>go(i);return b;}));
   mark();

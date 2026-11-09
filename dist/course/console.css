@@ -358,3 +358,21 @@ body.console-mode>header{flex:none}
 .arc-beats dt{grid-row:1;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.arc-beats dd{grid-row:2;margin:0;font-size:14px;line-height:1.25}
 .verdict-cause{font-weight:600}.verdict-lead{color:var(--muted);border-top:1px solid var(--line);padding-top:8px;margin-top:10px!important}
 .arc-plot{position:relative}
+
+/* Plan board: boxes fit their words, one amber action, always in reach. */
+body.has-plan .plan-strip{align-items:start}
+body.has-plan .plan-card{display:flex;flex-flow:row wrap;align-content:flex-start;gap:4px}
+body.has-plan .plan-card>.plan-title,body.has-plan .plan-card>.plan-key,body.has-plan .plan-card>.plan-row,body.has-plan .plan-card>.plan-field{flex:0 0 100%}
+body.has-plan .plan-option{width:auto;flex:0 0 auto;max-width:100%;min-height:32px;padding:2px 8px;justify-content:flex-start}
+body.has-plan .plan-option[aria-pressed=true],body.has-plan .plan-seg-btn[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper,#f4f0e6)}
+body.has-plan .plan-seg{flex-wrap:wrap}body.has-plan .plan-seg-btn{flex:0 0 auto;padding:2px 8px;min-height:32px}
+.plan-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}.plan-foot .plan-signal{min-width:0;flex:1 1 auto;font-size:13px;line-height:1.25}
+.plan-foot #commit{flex:0 0 auto;width:max-content;max-width:none;min-height:44px;padding:4px 16px;background:#f59e0b;border:0;color:#17110a;font-weight:600;white-space:nowrap}
+body.has-plan .latest-event>summary{color:var(--ink)}
+.decision-set-aside,.decision-dialog .decision-set-aside{min-height:32px}
+/* Childhood choice: the effect sits under its choice, and the life-so-far panel waits. */
+#child-choice .pivot-option,.decision-dialog #child-choice .pivot-option{grid-template-columns:18px minmax(0,1fr)}
+#child-choice .pivot-cost,.decision-dialog #child-choice .pivot-cost{grid-column:2;grid-row:2;white-space:normal}
+.decision-dialog #child-choice .child-snapshot{display:none}
+/* The ending shares one edge; on a wide screen the route answers the verdict beside it. */
+@media(min-width:1100px){#recap{display:grid;grid-template-columns:minmax(0,65ch) minmax(0,1fr);gap:0 32px;align-items:start}#recap>*{grid-column:1/-1}#recap>.ending-verdict{grid-column:1;grid-row:1}#recap>.ending-route{grid-column:2;grid-row:1;margin:0}}

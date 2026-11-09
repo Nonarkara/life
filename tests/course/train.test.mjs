@@ -13,7 +13,7 @@ test('the default first five years take50seconds; skipping leads to a real age-s
  assert.equal([0,1,2,3,4].reduce((n,a)=>n+childYearSeconds(a),0),50);const s=skipChildIntro(newLife(31));assert.equal(nextChildAge(s),6);assert.equal(pendingChildChoice(s,6).age,6);assert.equal(decisionTempo({stage:'birth',childhood:true,speed:20}).held,true);
 });
 test('childhood answers apply once and keep the newborn record distinct from later learning',()=>{
- let s=newLife(31),origin=s.cash;for(const q of CHILD_CHOICES){const before=s;s=chooseChild(s,q.age,q.options[0].id);assert.notEqual(s,before);assert.equal(chooseChild(s,q.age,q.options[0].id),s);assert.ok(validate(s));}
+ let s=newLife(31),origin=s.cash;for(const age of [6,7,8,9]){const q=pendingChildChoice(s,age),before=s;s=chooseChild(s,q.age,q.options[0].id);assert.notEqual(s,before);assert.equal(chooseChild(s,q.age,q.options[0].id),s);assert.ok(validate(s));}
  const grown=begin(s);assert.ok(validate(grown));assert.equal(grown.history[0].cash,origin);assert.equal(grown.childhood.choices.length,4);assert.ok(grown.skills.iq>0);
 });
 test('a figure is sized by the plate it stands in, and a seated pose keeps its own height',()=>{

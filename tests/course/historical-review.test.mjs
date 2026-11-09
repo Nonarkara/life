@@ -21,7 +21,7 @@ test('each featured birth year can preview and complete its first five-year revi
 
 test('the first household task fits the birth record and rejects another household’s task', async () => {
   const {pendingChildChoice, chooseChild} = await import('../../dist/course/childhood-choices.js');
-  const original = configureLife(newLife(7), {birthYear:1949});
+  const original = configureLife(newLife(2), {birthYear:1949}); // a life whose first question is the household one
   for (const [home, task] of [['a rice-farming household','farm'],['a market-stall household','help'],['a home near the city','chores']]) {
     const life = {...original,birth:{...original.birth,home}};
     assert.deepEqual(pendingChildChoice(life,6).options.map(option => option.id), ['school',task,'ask']);
