@@ -188,3 +188,23 @@ test('collecting: goals dealt per life, stops never repeat a dish, and the end r
  const lived=live({...s});assert.deepEqual(lived.lifeGoals,s.lifeGoals,'choices survive the years');assert.deepEqual(lived.stops,s.stops);
  const r=scoreLife(s);assert.equal(r.goals.length,2);assert.equal(r.passed.length,1);assert.ok(Number.isFinite(r.total));assert.ok(Object.keys(STOPS).length>=20);
 });
+
+import {amuletOf,balanceOf,holdingsOfLife,mortgageLeft,personaName,setPersonaName} from '../../dist/course/life-persona.js';
+import {buy,openFinance as openF,monthlyFlow as flowOf} from '../../dist/course/finance.js';
+test('the card: inequality from day one, and a house is an asset with a debt on it',()=>{
+ const make=c=>{const b=begin(configureLife(newLife(77),{birthYear:1981,class:c}));return {...b,story:{...b.story,pending:null}};};
+ assert.ok(amuletOf(make('high_class')).value>=amuletOf(make('low_class')).value*1000);
+ let s=openF({...make('middle_class'),age:25});assert.equal(setPersonaName(s,'  <Noi>  ').personaName,'Noi');assert.ok(personaName(s).length>0);
+ s={...s,finance:{...s.finance,available:400000}};assert.equal(buy({...s,age:15},'house').finance.purchases.length,0,'not before twenty');
+ const base=flowOf(s).rent,h=buy(s,'house');assert.equal(holdingsOfLife(h).home,'owned');assert.ok(flowOf(h).rent>base,'the mortgage is paid monthly');
+ const b=balanceOf(h);assert.equal(b.mortgage,1200000);assert.equal(b.worth,100000+1500000-1200000);assert.equal(buy(h,'house'),h,'one house');assert.equal(mortgageLeft(h,45),0);assert.ok(h.finance.receipts.some(r=>r.id.startsWith('purchase:')));
+});
+
+import {goldPrice,setGoldPct} from '../../dist/course/gold.js';
+import {PURCHASES} from '../../dist/course/finance.js';
+test('gold: priced from world gold and the baht, bought from income, and the save stays valid',()=>{
+ assert.ok(goldPrice(1980)>4000&&goldPrice(1980)<9000,'1980');assert.ok(goldPrice(2020)>22000&&goldPrice(2020)<32000,'2020');assert.ok(goldPrice(1997)>goldPrice(1995)*.8);
+ let s=begin(configureLife(newLife(5550),{birthYear:1981,class:'middle_class'}));const settle=()=>{for(const p of pendingPivots(s))s=applyPivot(s,p,openOptions(p,s)[0].id);const ps=s.story?.pending;if(ps){s=resolveEncounter(s,encounterById(ps.id).options.find(o=>choiceAvailable(s,o)).id,.3);}};settle();
+ while(s.stage==='review'&&s.age<40){if(s.age>=20)s=setGoldPct(s,20);const m=live(s);if(m===s)break;s=m;settle();}
+ assert.equal(validate(JSON.parse(JSON.stringify(s))),true);if(s.stage==='review')assert.ok(s.finance.goldWeight>0,'gold was bought');assert.ok(PURCHASES.house.minAge===20);
+});

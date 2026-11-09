@@ -231,5 +231,5 @@ function syncMoment(){const pending=state.story?.pending,id=travel||state.stage!
 // The planner and the top console.
 let lifePlan,topConsole;
 function thaiEraYear(){const shown=travel?.to??state,by=birthYearOf(shown);return by===null?null:by+Math.floor(childView??age);}
-function syncPlan(){if(!lifePlan)return;if(state.stage==='review'&&!travel)lifePlan.draw();else lifePlan.hide();if(topConsole)topConsole.update(thaiEraYear());}
-queueMicrotask(()=>{const commit=$('commit'),home=commit.parentElement;lifePlan=initLifePlan({mount:$('editor').parentElement,getState:()=>state,apply:next=>{if(next===state)return;const ended=state.stage!=='recap'&&next.stage==='recap';state=next;if(ended){age=state.age;mode='course';tab='priorities';}save();render();if(ended)focusChapter();},commit,commitHome:home});topConsole=initTopConsole({openWorld:()=>consoleUI?.select?.('world')});render();});
+function syncPlan(){if(!lifePlan)return;if(state.stage==='review'&&!travel)lifePlan.draw();else lifePlan.hide();if(topConsole){topConsole.update(thaiEraYear());topConsole.persona(state);}}
+queueMicrotask(()=>{const commit=$('commit'),home=commit.parentElement;lifePlan=initLifePlan({mount:$('editor').parentElement,getState:()=>state,apply:next=>{if(next===state)return;const ended=state.stage!=='recap'&&next.stage==='recap';state=next;if(ended){age=state.age;mode='course';tab='priorities';}save();render();if(ended)focusChapter();},commit,commitHome:home});topConsole=initTopConsole({openWorld:()=>consoleUI?.select?.('world'),openYou:()=>consoleUI?.select?.('you')});render();});

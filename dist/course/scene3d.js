@@ -202,7 +202,7 @@ function createScene(original){
  let lost=false;canvas.addEventListener('webglcontextlost',()=>{lost=true;});
  const hour={sky:new T.Color(),sun:new T.Color(),hs:new T.Color(),hg:new T.Color(),i:1,h:1,el:1,lit:0};
  const focus3=new T.Vector3(),eye=new T.Vector3(),ray=new T.Raycaster(),mood=new T.Color(),shadowM=new T.Matrix4(),shadowScale=new T.Vector3(),sunDir=new T.Vector3();
- let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
+ let lastRegion=null,flyIn=0,lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
  const post=createPost(renderer,scene,camera);
  const cam={x:5.3,z:5.3,span:8},pinAt=new T.Vector3();
  function update(state,age,time,{homeFrame=false,tour=false,pick=null}={}){
@@ -210,7 +210,7 @@ function createScene(original){
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);post.setSize(w,h,renderer.getPixelRatio());camera.aspect=w/h;lastSignature='';}
   const plan=townPlan(state,age),here=plan.regionId,born=regionIdFor(state.birth),family=familyAt(state,age);
-  if(!world||appliedKey!==plan.key){appliedKey=plan.key;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;}
+  if(!world||appliedKey!==plan.key){const farther=plan.abroad&&lastRegion!==plan.regionId&&lastRegion!==null;appliedKey=plan.key;lastRegion=plan.regionId;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;if(farther)flyIn=7;}
   const looks=[appliedKey,state.seed,state.birth?.household,state.intake?.sex,Math.floor(age/5),family.partner,family.child,castReady].join('/');
   if(looks!==lastLooks){lastLooks=looks;applyLooks(state,age,here,born,plan,family,time);}
   canvas.setAttribute('aria-label',original.getAttribute('aria-label')??'Your growing world');
@@ -264,7 +264,9 @@ function createScene(original){
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;
   const follow=stop?{x:stop.x,y:stop.z}:age<5?{x:5.2,y:5.2}:focus;
-  const ease=camReady?1-Math.exp(-dt*2.6):1;camReady=true;
+  // The first sight of a far country: a very small town under a very large sky, then the slow descent.
+  const arriving=flyIn>0;if(arriving){flyIn=Math.max(0,flyIn-dt);if(!camReady)cam.span=70;}
+  const ease=camReady||arriving?1-Math.exp(-dt*(arriving?.55:2.6)):1;camReady=true;
   cam.x+=(follow.x-cam.x)*ease;cam.z+=(follow.y-cam.z)*ease;cam.span+=(span-cam.span)*ease;
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),(()=>{const reader=document.querySelector('.console-reader');return reader&&!reader.hidden&&getComputedStyle(reader).visibility!=='hidden'?reader.getBoundingClientRect():null;})()):0;
   focus3.set(cam.x,.45,cam.z);

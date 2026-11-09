@@ -6,12 +6,13 @@ import {careerFactor} from './life-choices.js';
 import {holdingsValue,validHoldings,markHoldings,validInvestmentLedger} from './investments.js';
 import {periodEconomy} from './economy.js';
 import {validRung,rungRent} from './housing-ladder.js';
+import {mortgageDue} from './life-persona.js';
 export {WORKPLACES};
 export const CITY_TRAVEL={expense:1000,minutes:50};
 export const validFinanceLocation=(f,age=80)=>f===undefined||!!f&&(f.housing===undefined||Object.hasOwn(HOUSING,f.housing))&&(f.workplace===undefined||Object.hasOwn(WORKPLACES,f.workplace))&&(f.locationSince===undefined||Number.isInteger(f.locationSince)&&f.locationSince>=20&&f.locationSince<=age)&&(f.region===undefined||Object.hasOwn(REGIONS,f.region))&&(f.regionSince===undefined||Number.isInteger(f.regionSince)&&f.regionSince>=20&&f.regionSince<=age+5)&&validRung(f.rung);
 export const DEFAULT_BUDGET={save:20,fun:10,learn:10};
 export const HOUSING={family:{label:'Family home',rent:1500,transport:1500,minutes:60},far:{label:'Lower rent · longer commute',rent:3500,transport:1500,minutes:80},near:{label:'Higher rent · shorter commute',rent:6500,transport:500,minutes:20}};
-export const PURCHASES={snack:{label:'Enjoy a snack',cost:40,hours:0,wellbeing:1,skills:{}},book:{label:'Read a book',cost:100,hours:2,wellbeing:0,skills:{iq:1}},comics:{label:'Comics and a conversation',cost:80,hours:2,wellbeing:1,skills:{eq:1}},class:{label:'Attend a short class',cost:500,hours:4,wellbeing:0,skills:{craft:2}},sport:{label:'Play sport with friends',cost:100,hours:2,wellbeing:1,skills:{physique:1}}};
+export const PURCHASES={motorbike:{label:'Buy a motorbike',cost:35000,hours:0,wellbeing:1,skills:{},minAge:20,once:true},car:{label:'Buy a used car',cost:280000,hours:0,wellbeing:2,skills:{},minAge:20,once:true},house:{label:'Buy a house: down payment, 20-year mortgage',cost:300000,hours:0,wellbeing:3,skills:{},minAge:20,once:true},snack:{label:'Enjoy a snack',cost:40,hours:0,wellbeing:1,skills:{}},book:{label:'Read a book',cost:100,hours:2,wellbeing:0,skills:{iq:1}},comics:{label:'Comics and a conversation',cost:80,hours:2,wellbeing:1,skills:{eq:1}},class:{label:'Attend a short class',cost:500,hours:4,wellbeing:0,skills:{craft:2}},sport:{label:'Play sport with friends',cost:100,hours:2,wellbeing:1,skills:{physique:1}}};
 const integer=n=>Number.isSafeInteger(n)&&n>=0;
 const cap=n=>Math.max(0,Math.min(100,n));
 export const netWorth=f=>f?f.available+f.reserve+holdingsValue(f)-f.debt:0;
@@ -39,7 +40,7 @@ export function monthlyFlow(state,row){
  const place=REGIONS[currentRegion(state)],adultCosts=!studying&&state.age>=20;
  const income=Math.round(baseIncome*(!studying&&state.age>=20&&state.age<60?(WORKPLACES[workplace]?.payFactor??1)*place.pay:1));
  const studentHome=studying&&state.age>=20&&housing!=='family',studentCity=studentHome&&housing==='near'&&workplace==='city';
- const k=adultCosts?place.cost:1,ladder=adultCosts&&housing==='family'?rungRent(state,home.rent):0;
+ const k=adultCosts?place.cost:1,ladder=(adultCosts&&housing==='family'?rungRent(state,home.rent):0)+(adultCosts?mortgageDue(state):0);
  return {income,rent:Math.round(((studying&&housing==='family'?0:home.rent)+ladder)*k),transport:Math.round((studying&&housing==='family'?0:home.transport+((cityTravel||studentCity)?CITY_TRAVEL.expense:0))*k),essential:Math.round((studying?Math.round(allowance(state)*.7)+(studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0):state.age<20?1200:9000+home.rent+ladder+home.transport+(cityTravel?CITY_TRAVEL.expense:0))*k),commute:studying?(studentHome?(studentCity?80:home.minutes):30):home.minutes+(cityTravel?CITY_TRAVEL.minutes:0),source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
 }
 export function advanceFinance(before,next){
@@ -77,6 +78,7 @@ export function advanceFinance(before,next){
 }
 export function buy(state,key){
  const item=PURCHASES[key],f=state.finance;if(!item||!f||state.stage!=='review'||state.story?.pending||f.available<item.cost)return state;
+ if(item.minAge&&state.age<item.minAge||item.once&&f.purchases.some(p=>p.key===key))return state;
  if(f.purchases.some(p=>p.age===state.age&&p.key===key))return state;
  const hours=f.purchases.filter(p=>p.age===state.age).reduce((n,p)=>n+PURCHASES[p.key].hours,0);if(hours+item.hours>8)return state;
  const purchase={key,age:state.age,cost:item.cost,hours:item.hours},finance={...f,available:f.available-item.cost,purchases:[...f.purchases,purchase],receipts:[...f.receipts,{id:'purchase:'+state.age+':'+key,age:state.age,kind:'purchase',income:0,expense:item.cost,change:-item.cost}]};
