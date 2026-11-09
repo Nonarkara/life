@@ -22,7 +22,7 @@ import {visitorWardrobe,applyWardrobe} from './cast-wardrobe.js';
 import {youthsInOwnClothes} from './moment-plan.js';
 import {furnishHome,buildHomeShell} from './home3d.js';
 import {buildOpenHouses} from './open-houses3d.js';
-import {lotCast,lotActivity,lotCaption,tourStop,LOT_FLOOR,RUNGS,clearOfLots} from './housing-ladder.js';
+import {lotCast,lotActivity,lotCaption,tourStop,othersOf,LOT_FLOOR,RUNGS,clearOfLots} from './housing-ladder.js';
 import {roomHas} from './diorama-plan.js';
 import {t as tr} from './i18n.js';
 // A long lens on a model on a table. The figures are real-metre people in a world where one
@@ -202,8 +202,8 @@ function createScene(original){
  const hour={sky:new T.Color(),sun:new T.Color(),hs:new T.Color(),hg:new T.Color(),i:1,h:1,el:1,lit:0};
  const focus3=new T.Vector3(),eye=new T.Vector3(),ray=new T.Raycaster(),mood=new T.Color(),shadowM=new T.Matrix4(),shadowScale=new T.Vector3(),sunDir=new T.Vector3();
  let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
- const cam={x:5.3,z:5.3,span:8};
- function update(state,age,time,{homeFrame=false,tour=false}={}){
+ const cam={x:5.3,z:5.3,span:8},pinAt=new T.Vector3();
+ function update(state,age,time,{homeFrame=false,tour=false,pick=null}={}){
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);camera.aspect=w/h;lastSignature='';}
@@ -257,8 +257,8 @@ function createScene(original){
   const phone=w<=720,tall=w/h<1.15;
   const still=!focus.moving&&age>=3;
   // Small children stay in the room; a person walking gets the town.
-  const stop=tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.home)+' · '+tr(c.doing))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}tourLine.hidden=!stop;
-  let span=stop?(stop.kind==='town'?(phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
+  const stop=pick?{kind:'town',x:6.4,z:6.6}:tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.home)+' · '+tr(c.doing))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}tourLine.hidden=!stop||!!pick;
+  let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;
   const follow=stop?{x:stop.x,y:stop.z}:age<5?{x:5.2,y:5.2}:focus;
@@ -271,6 +271,8 @@ function createScene(original){
   if(dock)camera.setViewOffset(w,h,dock/2,0,w,h);else camera.clearViewOffset();camera.updateProjectionMatrix();
   // Cutaways keep the protagonist readable through foreground buildings.
   scene.updateMatrixWorld();camera.updateMatrixWorld(true);
+  // Where each house sits on the screen, for the labels the birth form puts over them.
+  if(pick){const H=h;pick([{rung:P.rung,x:5,z:4.8},...othersOf(P.rung).map(({rung,lot})=>({rung,x:lot[0]+lot[2]/2,z:lot[1]+lot[3]/2}))].map(h=>{const v=pinAt.set(h.x,2.8,h.z).project(camera);return {rung:h.rung,x:(v.x+1)/2*w,y:(1-v.y)/2*H};}));}
   if(age>=1&&(cutTick++%4===0||!hidden.size)){const open=stop?.kind==='town'?[...new Set(lotRoster.map(r=>r.lot))].map(([x,z,w,d])=>anchorAt(x+w/2,z+d/2)):stop?.kind==='lot'?[[-1.4,-1.3],[1.4,-1.3],[-1.4,1.3],[1.4,1.3],[0,0]].map(([a,e])=>anchorAt(stop.x+a,stop.z+e)):Object.values(actors.player.anchors);hidden=obscuringBuildings(camera,open,buildings.map(b=>b.group),ray);}
   const cutKey=[...hidden].map(g=>buildings.findIndex(b=>b.group===g)).sort().join();if(cutKey!==lastCut){lastCut=cutKey;renderer.shadowMap.needsUpdate=true;}
   // A building in the way is lifted off the board; its slab stays.

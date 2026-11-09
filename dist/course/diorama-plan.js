@@ -79,7 +79,7 @@ export function townStyle(base,year,where){
 // Thai homes follow the rung you live on; the region still decides what a modest house looks like.
 export function homeKindFor(style,where,rung){
  if(where.place==='villa')return 'villa';if(where.place==='condo')return 'condo';
- if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2&&style==='market')return 'row';if(rung===3&&style==='slum')return 'shophouse';}
+ if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return 'row';if(rung===3)return 'shophouse';}
  return {slum:'shack',village:'stilt',fringe:'stilt',coast:'plank',market:'shophouse',condo:'flat',villa:'villa',tower:'hdb',tokyo:'tatami',newengland:'triple',brick:'terrace'}[style]??'shophouse';
 }
 // Things a room holds at this year and this income. Income shifts the year a thing arrives.

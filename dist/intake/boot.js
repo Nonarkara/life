@@ -2,6 +2,7 @@
 try {
   await import('./intake.js');
   document.getElementById('random-life').disabled = false;
+  document.getElementById('see-town').disabled = false;
   document.querySelector('#intake-form button[type="submit"]').disabled = false;
 } catch (error) {
   console.error('Life2.0 intake could not open', error);

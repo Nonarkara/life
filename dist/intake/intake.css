@@ -54,3 +54,18 @@
 .intake-page .lives li span{grid-column:1;color:var(--muted);font-size:var(--body)}
 .intake-page .lives li a{grid-column:2;grid-row:1/3;align-self:center;color:var(--ink);text-underline-offset:3px;font-size:var(--body)}
 #birth-card textarea{box-sizing:border-box;width:100%;font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:4px}#birth-card textarea:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+/* The town at birth: the dialog is as tall as the town, the labels sit on the houses. */
+.intake-page #town-pick{width:min(1080px,96vw);padding:0;margin:auto;border:1px solid var(--ink);background:var(--paper);color:var(--ink)}
+.intake-page #town-pick::backdrop{background:rgba(10,14,20,.45)}
+.intake-page .pick-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 12px}
+.intake-page .pick-head h2{margin:0;font-size:16px;line-height:1.25}
+.intake-page .pick-stage{position:relative;aspect-ratio:16/9;overflow:hidden;border-block:1px solid var(--rule)}
+.intake-page .pick-stage canvas{display:block;width:100%;height:100%}
+.intake-page #pick-pins{position:absolute;inset:0;pointer-events:none}
+.intake-page .pin{position:absolute;transform:translate(-50%,-100%);min-height:32px;padding:4px 8px;font:500 13px/1.2 var(--sans);white-space:nowrap;background:var(--paper);color:var(--ink);border:1px solid var(--ink);cursor:pointer;pointer-events:auto}
+.intake-page .pin:hover,.intake-page .pin:focus-visible{background:#f59e0b;outline:none}
+.intake-page .pick-list{position:static!important;display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--paper)}
+.intake-page .pick-list .pin{position:static;transform:none;text-align:left}
+.intake-page #town-pick .fine{margin:0;padding:8px 12px}
+@media (max-width:720px){.intake-page .pick-stage{aspect-ratio:1/1.08}}
