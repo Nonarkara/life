@@ -1,5 +1,6 @@
 // The planner and the top console. No native reader has checked these yet.
 export const PLAN_PHRASES=[
+['All','ทั้งหมด','全部','すべて','전체'],
 ['Settings and more','ตั้งค่าและอื่นๆ','设置与更多','設定など','설정 및 더보기'],
 ['What seven books and a World Bank table say happened in Thailand. Novels are marked: they show how life felt, not what occurred.','สิ่งที่หนังสือเจ็ดเล่มและตารางธนาคารโลกบอกว่าเกิดขึ้นในไทย นิยายมีป้ายกำกับ มันบอกว่าชีวิตรู้สึกอย่างไร ไม่ได้บอกว่าเกิดอะไร','七本书和世界银行的数据记录的泰国。小说另有标记：它们写的是日子的感觉，不是史实。','七冊の本と世界銀行の表が語るタイ。小説には印がある。起きたことではなく、暮らしの手触りを示すものだ。','일곱 권의 책과 세계은행 자료가 말하는 태국. 소설은 표시해 두었다. 사실이 아니라 삶의 느낌을 보여 준다.'],
 ['Search','ค้นหา','搜索','検索','검색'],
