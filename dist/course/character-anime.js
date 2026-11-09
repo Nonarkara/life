@@ -83,7 +83,7 @@ export function attachAnime(actor){
   const bones={};for(const key in source.names){const b=visual.getObjectByName(source.names[key]);if(b)bones[key]=b;}
   const drive=createAnimePoseDriver(bones,align,actor.rig);
   body.add(align);
-  return {id,align,material,drive,scale,dispose(){body.remove(align);material.dispose();for(const skeleton of skeletons)skeleton.dispose();}};
+  return {id,align,material,bones,drive,scale,dispose(){body.remove(align);material.dispose();for(const skeleton of skeletons)skeleton.dispose();}};
  }
  const originalUpdate=actor.update,originalLook=actor.setLook;
  function use(id){if(model?.id===id)return;model?.dispose();model=cast[id]?build(id):null;for(const p of bodyParts)p.visible=!model;}
@@ -96,6 +96,6 @@ export function attachAnime(actor){
  actor.setLook=(next={})=>{originalLook(next);if(next.shirt)wardrobe.top=next.shirt;if(next.bottom)wardrobe.bottom=next.bottom;if(model){use(pick());dress();}};
  actor.update=(activity,age,time,options)=>{originalUpdate(activity,age,time,options);if(!model){use(pick());dress();}model?.drive();};
  // Detaching restores the procedural body; shared source geometry/maps stay cached.
- actor.anime={shade(v){if(model)model.material.color.setScalar(v);},detach(){for(const p of bodyParts)p.visible=true;model?.dispose();model=null;actor.update=originalUpdate;actor.setLook=originalLook;actor.anime=null;}};
+ actor.anime={model:()=>model,shade(v){if(model)model.material.color.setScalar(v);},detach(){for(const p of bodyParts)p.visible=true;model?.dispose();model=null;actor.update=originalUpdate;actor.setLook=originalLook;actor.anime=null;}};
  return true;
 }

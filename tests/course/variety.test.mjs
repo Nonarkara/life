@@ -91,3 +91,20 @@ test('big moments open a place that differs by life and respects its year',()=>{
  const old=momentPlan(place(7919,7),'h_film_van');assert.equal(old.cars,0);assert.equal(old.skyline,false);assert.ok(old.rows.every(r=>r.storeys===2));
  const late=momentPlan(place(7919,60),'h_2010_table');assert.equal(late.skyline,true);
 });
+
+import {outfitFor} from '../../dist/course/moment-plan.js';
+test('clothes belong to their year and their person',()=>{
+ const life=(seed,opt,age)=>({...begin(configureLife(newLife(seed),{birthYear:1949,...opt})),age});
+ for(let seed=1;seed<=30;seed++){
+  const kid=outfitFor(life(seed*7919,{sex:'female'},15),'player','female',15,1964);assert.equal(kid.top,'#f4f0e4');assert.equal(kid.skirt,'knee');
+  for(const year of [1950,1965,1985,2000,2015])assert.notEqual(outfitFor(life(seed*7919,{sex:'male'},30),'player','male',30,year).legs,'flare');
+ }
+ const farmer=[...Array(60).keys()].map(i=>life((i+1)*7919,{sex:'male',class:'low_class',region:'isan-village'},30)).map(s=>outfitFor(s,'player','male',30,1979));
+ assert.ok(farmer.every(o=>o.mohom&&o.scarf),'farmer wears mo hom');
+ const lives=(opt,age)=>[...Array(40).keys()].map(i=>life((i+1)*7919,opt,age));
+ assert.ok(lives({sex:'male',class:'low_class',region:'isan-village'},60).some(s=>outfitFor(s,'player','male',60,2009).mohom),'farmers still wear mo hom after 1995');
+ assert.ok(lives({sex:'female',class:'middle_class',region:'bang-na'},60).every(s=>outfitFor(s,'player','female',60,2009).skirt!=='sin'),'no pha sin by default in 2009 Bangkok');
+ assert.ok(lives({sex:'female',class:'low_class',region:'isan-village'},30).every(s=>outfitFor(s,'player','female',30,1979).skirt==='sin'),'pha sin in the 1979 village');
+ assert.ok(lives({sex:'female',class:'working_class',region:'khlong-toei'},20).every(s=>outfitFor(s,'player','female',20,1969).skirt!=='sin'),'young city women wore blouse and skirt');
+ assert.ok(lives({sex:'male',class:'middle_class',region:'bang-na'},30).every(s=>outfitFor(s,'n1','male',30,1979).feet==='shoes'),'a city clerk wears shoes');
+});

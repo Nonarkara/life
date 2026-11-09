@@ -8,7 +8,8 @@ import {lightRamp} from './art-direction.js';
 import {appearance,regionAt,regionIdFor} from './regions.js';
 import {rand} from './sim.js';
 import {preferences} from './i18n.js';
-import {momentPlan} from './moment-plan.js';
+import {momentPlan,outfitFor} from './moment-plan.js';
+import {dressPeriod} from './period-dress.js';
 let stage=null,dead=false,token=0;
 const toon=new Map(),mat=c=>{if(!toon.has(c))toon.set(c,new T.MeshToonMaterial({color:c,gradientMap:lightRamp()}));return toon.get(c);};
 const unit=new T.BoxGeometry(1,1,1);
@@ -47,16 +48,16 @@ const SETS={
 };
 function dress(state,key,sex,age){const cls=state.intake?.class??state.birth?.class,rich=['high_class','royal_associated'].includes(cls),list=rich?['#efe9d8','#cfd8cf','#b9c6cf']:['#e6dcc4','#c9d2c2','#d8c7a4','#c7b8a2','#b9c6bf'];return {shirt:list[Math.floor(rand(state.seed,age>=40?1:0,key+'shirt')*list.length)],bottom:rich?'#384450':['#425546','#66535e','#78664e'][Math.floor(rand(state.seed,0,key+'bot')*3)]};}
 function cast(group,state,plan,set){
- const age=state.age,here=regionAt(state,age),born=regionIdFor(state.birth),sex=state.intake?.sex??state.birth?.sex??'female',at=(key,s,x,z,elder=false)=>{const clothes=dress(state,key,s,age),a=createCharacter({...appearance(rand,state.seed,key,key==='player'?born:here,{sex:s,elder}),...clothes});attachAnime(a);a.setLook(clothes);group.add(a.root);return {a,x,z,elder};};
+ const age=state.age,here=regionAt(state,age),born=regionIdFor(state.birth),sex=state.intake?.sex??state.birth?.sex??'female',at=(key,s,x,z,elder=false)=>{const clothes=dress(state,key,s,age),a=createCharacter({...appearance(rand,state.seed,key,key==='player'?born:here,{sex:s,elder}),...clothes});attachAnime(a);a.setLook(clothes);group.add(a.root);a.update({x,y:z,dx:0,dy:0,pose:'stand',moving:false,facing:0,distance:0},age,0,{elder,scale:Math.min(1,.48+age*.035)});const undress=dressPeriod(a,outfitFor(state,key,s,age,plan.year),{elder});return {a,x,z,elder,undress};};
  const list=[at('player',sex,0,0,age>=60)];
  if(set==='table'){list[0].x=-1.1;list[0].z=.1;list.push(at('n0',sex==='male'?'female':'male',1.1,.1,age>=55));}
- else if(set!=='fork'&&set!=='airfield')list.push(at('n1',sex==='male'?'female':'male',innerWidth>720?-1.5:plan.side*1.5,-1.2));
+ else if(set!=='fork'&&set!=='airfield')list.push(at('n1',sex==='male'?'female':'male',innerWidth>720?-1.5:plan.side*1.5,-1.2,age>=58));
  return list;
 }
 function build(state,plan){
  const root=new T.Group(),k={...kit(root),root},scene=new T.Scene(),bg=plan.night?'#1d2733':plan.sky;scene.background=new T.Color(bg);scene.fog=new T.Fog(bg,plan.night?14:26,plan.night?70:150);scene.add(root);
  const ground=new T.Mesh(new T.PlaneGeometry(240,240),mat(plan.set==='airfield'?'#8a8f6c':plan.ground));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;root.add(ground);
- scene.add(new T.HemisphereLight(plan.night?'#8799b0':'#f4e9c6','#6a6256',plan.night?1:1.5));const sun=new T.DirectionalLight(plan.night?'#a9b9d6':'#fff0d2',plan.night?1:2.6);sun.position.set(-14*plan.side,26,16);sun.castShadow=true;sun.shadow.mapSize.set(1536,1536);Object.assign(sun.shadow.camera,{left:-26,right:26,top:26,bottom:-26,far:90});sun.shadow.bias=-.0006;scene.add(sun);
+ scene.add(new T.HemisphereLight(plan.night?'#8799b0':'#f4e9c6','#6a6256',plan.night?1:1.5));const sun=new T.DirectionalLight(plan.night?'#a9b9d6':'#fff0d2',plan.night?1:2.6);sun.position.set(-14*plan.side,26,16);sun.castShadow=true;sun.shadow.mapSize.set(1536,1536);Object.assign(sun.shadow.camera,{left:-26,right:26,top:26,bottom:-26,far:90});sun.shadow.bias=-.0006;sun.shadow.normalBias=.035;scene.add(sun);
  if(plan.night){const lamp=new T.PointLight('#ffcf8a',22,18);lamp.position.set(plan.side*1.4,3,2.2);scene.add(lamp);}
  SETS[plan.set](k,plan);
  const people=cast(root,state,plan,plan.set);
@@ -89,6 +90,6 @@ function frame(now){
  if(stage.shadows>0){stage.shadows--;renderer.shadowMap.needsUpdate=true;}
  renderer.render(built.scene,camera);
 }
-function closeBuilt(){if(!stage?.built)return;cancelAnimationFrame(stage.raf);for(const {a} of stage.built.people)a.anime?.detach();disposeBuilt(stage.built);stage.built=null;stage.id=null;stage.key=null;}
-export const momentMemory=()=>stage?.renderer.info.memory??null;
+function closeBuilt(){if(!stage?.built)return;cancelAnimationFrame(stage.raf);for(const {a,undress} of stage.built.people){undress();a.anime?.detach();}disposeBuilt(stage.built);stage.built=null;stage.id=null;stage.key=null;}
+export const momentMemory=()=>stage?{...stage.renderer.info.memory,frame:stage.renderer.info.render.frame}:null;
 export function closeMoment(){token++;if(!stage)return;stage.canvas.classList.remove('on');closeBuilt();setTimeout(()=>{if(stage&&!stage.built)stage.canvas.hidden=true;},500);}
