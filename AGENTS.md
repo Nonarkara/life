@@ -1,3 +1,11 @@
+# The three laws of Life2.0 (owner, 10 November 2026)
+
+These outrank every plan in this repo. A change that breaks one is a defect, whatever else it adds.
+
+1. **Better than the viral one.** Better graphics, a better story, or a deeper mirror; ideally all three. Every life is built as a story: it builds, a big twist drops it, and it comes back round to a reckoning before the end. Choices are the platform for what follows, so a decision must be able to send a life completely astray.
+2. **No two lives alike.** Hundreds of players must never get the same life. One decision branches to a different route. Guard: `npm test` plays hundreds of lives and fails if any two match, if lives share too many scenes on average, or if any scene outside childhood reaches too many lives. Measure before claiming variety.
+3. **No hallucination, spatial or factual.** Every screen has one place for the eye to start and a clear order after it. The verdict is the title; nothing competes with it. A page that does not know where to start also lies about its content, its economy and its use of the screen. Prove it on a rendered screenshot at 390 x 844 and 1440 x 900. Facts carry a source or are not stated.
+
 # Life — permanent design constraints
 
 **Read `THE-BOOK.md` first. It is canon.** Non's design scripture — MSH, anti-slop, glance path,

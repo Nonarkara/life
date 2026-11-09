@@ -571,6 +571,7 @@ const ADDED={
  'go-abroad':s=>during(s,1935,1985)&&(s.pathway==='college'||!!s.major)&&regionOf(s)?.country==='TH',
  'gifted-child':s=>(s.story?.flags?.parent??s.pivotFlags?.parent)!==undefined
 };
+const SPINE={'flood-repair':.45,'child-water-bike':.5,'partner-business':.5,'city-pay':.55,'share-offer':.6,'parent-ill':.65,'stay-on':.65,leave:.65,'promotion-away':.7,'father-tools':.7,'buy-house':.7,'child-city':.75,'partner-choice':.75,'school-fall-climb':.75,'house-travel':.8,'year-abroad':.8,nephew:.85};
 export function fits(pivot,state){
   if(pivot.market)return marketFits(pivot,savingsOf(state),birthYearOf(state));
   if(ADDED[pivot.id])return ADDED[pivot.id](state);
@@ -666,7 +667,8 @@ export function pendingPivots(state){
   // A station asks the questions its plot points force (the flood, a parent's death) and ONE of its open questions, drawn by this life's seed, so no two lives are asked the same thing.
   const answered = new Set((state.pivots??[]).filter(record=>record.station===state.age).map(record=>record.pivot));
   const markets = MARKET_PIVOTS.filter(pivot=>pivot.station===state.age&&!answered.has(pivot.id)&&marketFits(pivot,savingsOf(state),birthYearOf(state)));
-  const open = pivotsForStation(state.age).filter(pivot=>occurred(pivot,state)&&fits(pivot,state)&&sceneFits(pivot.id,state));
+  // The old spine appeared in most lives. Each big question now reaches only some of them, fixed per life.
+  const open = pivotsForStation(state.age).filter(pivot=>(SPINE[pivot.id]===undefined||!state.intake?.class||rand(state.seed,0,'spine:'+pivot.id)<SPINE[pivot.id])&&occurred(pivot,state)&&fits(pivot,state)&&sceneFits(pivot.id,state));
   const free = [...answered].some(id=>!WHEN[id]&&!id.startsWith('mkt-'))?[]:open.filter(pivot=>!WHEN[pivot.id]);
   const pick = free.find(pivot=>pivot.id==='three-roads')??free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
   return [...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets];

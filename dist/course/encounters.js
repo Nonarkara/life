@@ -1,3 +1,4 @@
+import {rand} from './rand.js';
 import {THAI_ENCOUNTERS} from './thai-encounters.js';
 import {CLASS_ENCOUNTERS} from './class-encounters.js';
 import {recordedFundLoss,legacyMarketPrompt} from './market-evidence.js';
@@ -11,7 +12,7 @@ import {HISTORY_ENCOUNTERS} from './history-encounters.js';
 import {BANK_ENCOUNTERS} from './bank-encounters.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
 import {ERA_ENCOUNTERS} from './era-scenarios.js';
-import {DIRECTOR_ENCOUNTERS,SAD_ENCOUNTERS} from './life-tragedies.js';
+import {DIRECTOR_ENCOUNTERS,SAD_ENCOUNTERS,RECKONING} from './life-tragedies.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -114,7 +115,7 @@ ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,..
 // Reigns, Many Lives, Mom and Letters from Thailand, each tagged with the
 // source it was written from. They are offered only in the years they
 // belong to, so a 1940s scene cannot happen to someone born in 1981.
-ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS);
+ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS,RECKONING);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.
@@ -128,7 +129,7 @@ export function eligibleEncounters(state){
  return ENCOUNTERS.filter(e=>(state.age>=15||e.child)&&state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
 }
 export function offerEncounter(state,roll,keep=()=>true){
- const eligible=eligibleEncounters(state).filter(keep);if(!eligible.length)return state;
+ const eligible=eligibleEncounters(state).filter(keep).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
  // Urgency rule, one job: a birth-class pressure must get a hearing inside its
  // window even though thirty background encounters share its priority. It does
  // not displace authored story beats — it only wins a station that no story

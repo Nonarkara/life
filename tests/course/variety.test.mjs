@@ -1,5 +1,5 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
-import {newLife,begin,live} from '../../dist/course/sim.js';
+import {newLife,begin,live,rand} from '../../dist/course/sim.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {choiceAvailable} from '../../dist/course/finance.js';
 import {pendingPivots,applyPivot,openOptions} from '../../dist/course/pivots.js';
@@ -155,4 +155,25 @@ test('the door: leaving for the temple ends the life, saves, and is the only thi
 test('the pretend lives are labelled data: shares add up and all three roads were walked',()=>{
  assert.ok(POPULATION.n>=1000);for(const [id,o] of Object.entries(POPULATION.scenes)){const sum=Object.values(o).reduce((a,r)=>a+r[0],0);assert.ok(Math.abs(sum-100)<=Object.keys(o).length,id+' '+sum);}
  for(const k of ['monk','fun','safe'])assert.ok(POPULATION.paths[k].share>0,k);
+});
+
+import {lifeArc} from '../../dist/course/life-verdict.js';
+// Law 2: no two lives alike. Plays a mixed crowd and measures what players actually feel.
+test('law 2: a crowd of lives never repeats, and no fixed spine runs through them',()=>{
+ const n=180,lives=[];
+ for(let i=1;i<=n;i++){const seed=i*104729+7;let s=begin(configureLife(newLife(seed),{birthYear:[1949,1955,1970,1981,1990,2000][i%6]})),q=[];
+  const pick=(l,id)=>l[Math.floor(rand(seed,s.age,id)*l.length)];
+  const ans=()=>{for(const p of pendingPivots(s)){q.push(p.id);s=applyPivot(s,p,pick(openOptions(p,s),p.id).id);}const ps=s.story?.pending;if(ps){q.push(ps.id);s=resolveEncounter(s,pick(encounterById(ps.id).options.filter(o=>choiceAvailable(s,o)),ps.id).id,.3);}};
+  ans();while(s.stage==='review'&&s.age<80){const m=live(s);if(m===s)break;s=m;ans();}lives.push(q);}
+ assert.equal(new Set(lives.map(q=>q.join('>'))).size,n,'every life is its own');
+ const sets=lives.map(q=>new Set(q));let t=0,c=0;for(let a=0;a<n;a++)for(let b=a+1;b<Math.min(n,a+30);b++){let k=0;for(const x of sets[a])if(sets[b].has(x))k++;t+=k/(sets[a].size+sets[b].size-k);c++;}
+ assert.ok(t/c<.15,'mean overlap '+t/c);
+ const count={};for(const q of sets)for(const x of q)count[x]=(count[x]??0)+1;const worst=Object.entries(count).sort((a,b)=>b[1]-a[1])[0];assert.ok(worst[1]/n<=.6,worst.join(' '));
+});
+test('law 1: a life has a shape: an early knock, the twist in the middle, a reckoning near the end',()=>{
+ for(let seed=1;seed<=200;seed++){for(const age of Object.keys(directorSchedule(seed*17,'working_class')).map(Number))assert.ok(age>=20&&age<=70);}
+ const middle=[...Array(200).keys()].filter(i=>Object.keys(directorSchedule((i+1)*17,'working_class')).some(a=>a>=35&&a<=55)).length;assert.ok(middle>=190,'a twist in the middle '+middle);
+ const row=(age,wellbeing,health=80)=>({age,wellbeing,health,cash:0});
+ const arc=lifeArc({history:[row(10,70),row(15,80),row(20,85),row(25,30),row(30,40)],story:{seen:[{id:'x',age:24,effects:{wellbeing:-20}}]}},()=>'The blow');
+ assert.equal(arc.twist.age,25);assert.equal(arc.twist.what,'The blow');assert.equal(arc.peak,20);assert.equal(arc.back,false);
 });

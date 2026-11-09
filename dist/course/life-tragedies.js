@@ -74,10 +74,11 @@ export const DIRECTOR_SCENES=[
 ];
 const STATIONS=[20,25,30,35,40,45,50,55,60,65,70];
 const CLASS_INDEX={low_class:0,working_class:1,middle_class:2,bureaucratic_class:3,high_class:4};
-// Three things, chosen once per life, weighted by the class you were born into.
+// A life is built like a story: an early knock, the twist in the middle, and a last blow late on.
+const ARC=[[20,35,1],[35,55,4],[55,70,1]],HARD=new Set(['d_killed','d_loved','d_limb','d_evict','d_betray','d_partner','d_temper','d_attack','d_organ']);
 export function directorSchedule(seed,cls){
  const c=CLASS_INDEX[cls]??2,out={},used=new Set();
- for(let n=0;n<3;n++){const pool=DIRECTOR_SCENES.filter(s=>!used.has(s.id)&&s.odds[c]>0),total=pool.reduce((a,s)=>a+s.odds[c],0);let at=rand(seed,n,'director')*total,pick=pool.at(-1);for(const s of pool)if((at-=s.odds[c])<0){pick=s;break;}used.add(pick.id);const fit=STATIONS.filter(a=>a>=pick.min&&a<=pick.max&&!out[a]);if(fit.length)out[fit[Math.floor(rand(seed,n,'director-age')*fit.length)]]=pick.id;}
+ ARC.forEach(([from,to,hard],n)=>{const ages=STATIONS.filter(a=>a>=from&&a<=to&&!out[a]),weight=s=>s.odds[c]*(HARD.has(s.id)?hard:1),pool=DIRECTOR_SCENES.filter(s=>!used.has(s.id)&&weight(s)>0&&ages.some(a=>a>=s.min&&a<=s.max));if(!pool.length)return;let at=rand(seed,n,'director')*pool.reduce((a,s)=>a+weight(s),0),pick=pool.at(-1);for(const s of pool)if((at-=weight(s))<0){pick=s;break;}used.add(pick.id);const fit=ages.filter(a=>a>=pick.min&&a<=pick.max);out[fit[Math.floor(rand(seed,n,'director-age')*fit.length)]]=pick.id;});
  return out;
 }
 const cast=s=>directorSchedule(s.seed,s.intake?.class??s.birth?.class);
@@ -87,6 +88,11 @@ export const DIRECTOR_ENCOUNTERS=DIRECTOR_SCENES.map(({odds,needs,options,...sce
 
 // The saddest things that really happen here, each resting on a source the note names.
 // The situations are composites; the numbers are not. Rare per life, and only in their years.
+// Near the end every story comes back round: the one call you have been meaning to make.
+export const RECKONING={id:'d_reckon',category:'connection',min:70,max:75,director:true,eligible:s=>!!s.intake?.class&&s.age===(rand(s.seed,0,'reckon')<.5?70:75),title:'Who is left to ring',prompt:'You are seventy-something. Most of the numbers in your phone will not answer now. There is one you have been meaning to call since the worst year of your life.',options:[
+ opt('ring','Ring them',{wellbeing:4,skills:{eq:2}},'They picked up on the sixth ring. Neither of you said the thing. You talked about the price of fish for an hour.'),
+ opt('letter','Write it down and do not send it',{wellbeing:1},'It is in the drawer with the deed. Someone will find it.'),
+ opt('leave','Leave it',{wellbeing:-3},'You left it. The number stayed in the phone.')]};
 const SAD_SCENES=[
  {id:"s_loan",category:"money",min:18,max:70,from:1980,to:2026,gate:null,title:"The man on the motorbike",prompt:"The rice has gone and the school wants its fee. A man on a motorbike will lend you five thousand today, no paper, twenty percent a month. He already knows where you live.",rehearse:"This is real. A 2019 University of the Thai Chamber of Commerce survey of 1,201 people found that 40.8 percent of household debt was owed to loan sharks, and police were arresting lenders who charged up to 20 percent per day. (The ASEAN Post, 2019)",options:[opt("sell","Sell the motorbike instead",{"wellbeing": -4},"You walked to work for two years. You owed nobody."),opt("borrow","Take the money",{"cash": 5000, "wellbeing": -12},"You paid him for three years and still owed him five thousand. He was always polite."),opt("family","Go to the village fund and be embarrassed",{"wellbeing": -3, "skills": {"eq": 1}},"Everyone knew by evening. The interest was one percent.")]},
  {id:"s_title",category:"family",min:25,max:70,from:1985,to:2018,gate:"country",title:"The paper in his drawer",prompt:"Your father handed the land deed to the moneylender years ago against a small loan. The moneylender’s son now says the debt has grown and the land is his. Your family has farmed it for sixty years.",rehearse:"This is real. In 2018 the government returned 1,534 deeds worth about 3 billion baht to 1,358 Northeasterners at one ceremony in Kalasin, some of whom had lost their land almost 30 years earlier. (The Nation Thailand, 2018)",options:[opt("work","Keep working it and hope nobody comes",{"wellbeing": -6},"They came in the ninth year, with a surveyor."),opt("complain","Go to the district office with everyone else",{"wellbeing": -3, "skills": {"iq": 1}},"Four years of forms. You got the deed back, and your father did not live to see it."),opt("pay","Borrow from a bank to buy it back",{"cash": -25000, "wellbeing": -5},"You own it again. Now the bank has the paper.")]},

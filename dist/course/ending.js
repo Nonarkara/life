@@ -12,7 +12,8 @@ import {resultShare,deliverShare,copyShare} from './share-result.js';
 import {lifeCardView} from './card-view.js';
 import {replayComparison} from './replay-compare.js';
 import {renderReading,themCode} from './life-reading.js';
-import {pathOf} from './life-verdict.js';
+import {pathOf,lifeArc} from './life-verdict.js';
+import {encounterById} from './encounters.js';
 import {kitchenFeeds} from './diorama-plan.js';
 import {POPULATION} from './population.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
@@ -26,10 +27,20 @@ export function growthWindows(history){
 export function renderEnding(root,state,{storage}={}){
  if(storage===undefined){try{storage=localStorage;}catch{storage=null;}}
  releaseCard?.();resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
- // The verdict first: three ways a life can go, and which one this was.
- {const path=pathOf(state),stats=POPULATION.paths[path],v=document.createElement('section');v.className='ending-verdict';const lead=document.createElement('p');lead.className='verdict-lead';lead.textContent=t('Unless you become a monk, there are only two lives on offer: a fun one that is insanely risky, or a safe one where you never find out why you were born.');const h=document.createElement('h2');h.textContent=t({monk:'You left for the temple at {a}.',fun:'You had the fun life, and it was insanely risky.',safe:'You had the safe life.'}[path]).replace('{a}',state.age);const b=document.createElement('p');b.textContent=t({monk:'You walked out through the door in the set. About {s}% of the pretend lives did. Nobody can tell you whether it was enough.',fun:'About {s}% of the pretend lives went this way, and {d}% of those were dead before sixty. You can say what you lived for. You paid for it.',safe:'About {s}% of the pretend lives went this way, and only {d}% of those were dead before sixty. It held. You still do not know why you were born.'}[path]).replace('{s}',Math.round(stats.share)).replace('{d}',stats.early);const fed=Array.from({length:state.age+1},(_,a)=>kitchenFeeds(state,a)),k=document.createElement('p');k.textContent=t('The Thai word for family, ครอบครัว, has the kitchen, ครัว, inside it. At its fullest yours fed {a}. At the end, {b}.').replace('{a}',Math.max(...fed)).replace('{b}',fed.at(-1));v.append(lead,h,b,k);root.append(v);}
- // What the life said comes first; the map and the instruments follow it.
- renderReading(root,state);
+ // One page, one path for the eye: the verdict is the title, then the arc of the life, then what it comes to.
+ {const path=pathOf(state),stats=POPULATION.paths[path],v=document.createElement('section');v.className='ending-verdict';const say=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;n.textContent=text;return n;};
+  const arc=lifeArc(state,id=>encounterById(id)?.title??null);
+  if(arc){const fig=document.createElement('figure');fig.className='arc';const NSs='http://www.w3.org/2000/svg',svgEl=document.createElementNS(NSs,'svg'),lo=Math.min(...arc.points.map(p=>p.v)),hi=Math.max(...arc.points.map(p=>p.v)),a0=arc.points[0].age,span=Math.max(1,arc.end-a0),X=p=>(p.age-a0)/span*100,Y=p=>30-(p.v-lo)/Math.max(1,hi-lo)*26-2;svgEl.setAttribute('viewBox','0 0 100 30');svgEl.setAttribute('preserveAspectRatio','none');svgEl.setAttribute('role','img');svgEl.setAttribute('aria-label',t('Wellbeing across this life'));const line=document.createElementNS(NSs,'polyline');line.setAttribute('points',arc.points.map(p=>X(p)+','+Y(p)).join(' '));line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','1.5');line.setAttribute('vector-effect','non-scaling-stroke');svgEl.append(line);const plot=document.createElement('div');plot.className='arc-plot';plot.append(svgEl);fig.append(plot);
+   if(arc.twist){const p=arc.points.find(q=>q.age===arc.twist.age),dot=document.createElement('span');dot.className='arc-dot';dot.style.left=X(p)+'%';dot.style.top=Y(p)/30*100+'%';plot.append(dot);}
+   const dl=document.createElement('dl');dl.className='arc-beats';const beat=(k,x)=>dl.append(say('dt',null,t(k)),say('dd',null,x));
+   beat('Rise',t('Climbed until {a}').replace('{a}',arc.peak));
+   beat('Twist',arc.twist?(t('At {a}').replace('{a}',arc.twist.age)+(arc.twist.what?': '+t(arc.twist.what):'')):t('Nothing broke it'));
+   beat('End',state.death?t(state.death.ordained?'Walked out at {a}':'Over at {a}').replace('{a}',state.death.age):arc.twist?(arc.back?t('It came back'):t('It never came back')):t('It held to the end'));
+   fig.append(dl);v.append(fig);}
+  if(state.death&&!state.death.ordained)v.append(say('p','verdict-cause',t(state.death.cause)));
+  v.append(say('p',null,t({monk:'You walked out through the door in the set. About {s}% of the pretend lives did. Nobody can tell you whether it was enough.',fun:'About {s}% of the pretend lives went this way, and {d}% of those were dead before sixty. You can say what you lived for. You paid for it.',safe:'About {s}% of the pretend lives went this way, and only {d}% of those were dead before sixty. It held. You still do not know why you were born.'}[path]).replace('{s}',Math.round(stats.share)).replace('{d}',stats.early)));
+  const fed=Array.from({length:state.age+1},(_,a)=>kitchenFeeds(state,a));v.append(say('p',null,t('The Thai word for family, ครอบครัว, has the kitchen, ครัว, inside it. At its fullest yours fed {a}. At the end, {b}.').replace('{a}',Math.max(...fed)).replace('{b}',fed.at(-1))));
+  v.append(say('p','verdict-lead',t('Unless you become a monk, there are only two lives on offer: a fun one that is insanely risky, or a safe one where you never find out why you were born.')));root.append(v);}
  const numbers=document.createElement('details');numbers.className='full-life-record ending-numbers';{const s=document.createElement('summary');s.textContent='The numbers';numbers.append(s);}
  // Where the life went leads the ending; the resource tracks follow it.
  const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);root.append(route);new ResizeObserver(()=>drawRouteMap(map,state)).observe(map);
@@ -121,6 +132,7 @@ export function renderEnding(root,state,{storage}={}){
   numbers.append(box);
  }
  root.append(numbers);
+ {const said=document.createElement('details');said.className='full-life-record ending-said';const sum=document.createElement('summary');sum.textContent=t('What this life said');said.append(sum);renderReading(said,state);numbers.before(said);}
 }
 
 export {lifeCard} from './life-card.js';
