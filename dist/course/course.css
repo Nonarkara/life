@@ -227,3 +227,15 @@ body.has-top-console #age{white-space:nowrap}
 .research-title{font-size:14px;margin:0;font-weight:600}
 .research-summary{font-size:13px;line-height:1.4;margin:2px 0;max-width:65ch}
 .research-source{font-size:11px;margin:0;opacity:.72}
+
+/* Header and tab row: nothing sits on anything else. */
+.top-main{justify-content:space-between}
+.top-who{flex:1 1 auto;overflow:hidden}
+body.has-top-console #age-metrics{display:block;overflow:hidden;text-overflow:ellipsis}
+body.has-top-console .transport{flex:0 0 auto;width:auto;margin:0;position:static}
+.console-nav{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.console-nav::-webkit-scrollbar{display:none}
+.console-nav button{padding:4px 5px;font-size:13px;flex:0 0 auto}
+body.has-plan .latest-event{position:static;margin:0}
+
+@media(max-width:899px){body.has-top-console #age{font-size:15px}body.has-top-console #transport button{min-width:28px;width:28px;padding:0;min-height:30px}body.has-top-console #transport{gap:0}}
