@@ -65,7 +65,8 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  if(R.fan){b.box(6.67,4.95,FLOOR,.03,.03,m(1.15),'#71766f');b.ball(6.68,FLOOR+m(1.15),4.97,.11,.11,.02,'#9aa8a2',8);}
  if(R.aircon)b.box(4.4,3.09,FLOOR+m(2.3),.64,.1,.16,'#ece8dc');
  if(R.sewing){b.box(6.45,3.15,FLOOR,.42,.26,m(.66),'#6a5642');b.box(6.5,3.2,FLOOR+m(.66),.28,.12,.14,'#2f3436');}
- if(R.altar){b.box(3.095,3.35,FLOOR+m(1.7),.14,.5,.03,'#a08868');b.cylinder(3.16,3.5,FLOOR+m(1.7)+.03,.03,.04,.1,'#c9a14a',6);b.cylinder(3.16,3.72,FLOOR+m(1.7)+.03,.03,.04,.1,'#c9a14a',6);}
+ if(R.altar&&plan.faith==='muslim'){b.box(3.09,3.6,FLOOR+m(1.5),.012,.8,.34,'#1f4f3f');for(let i=0;i<5;i++)b.beam(3.08,FLOOR+m(1.5)+.1+(i%2)*.1,3.68+i*.13,3.08,FLOOR+m(1.5)+.2-(i%2)*.1,3.76+i*.13,.016,.016,'#d9b24a');}
+ else if(R.altar){b.box(3.095,3.35,FLOOR+m(1.7),.14,.5,.03,'#a08868');b.ball(3.16,FLOOR+m(1.7)+.09,3.6,.05,.07,.04,'#c9a14a',7);b.ball(3.16,FLOOR+m(1.7)+.17,3.6,.025,.03,.025,'#c9a14a',6);b.cylinder(3.16,3.42,FLOOR+m(1.7)+.03,.02,.03,.08,'#d9d2c0',6);b.cylinder(3.16,3.78,FLOOR+m(1.7)+.03,.02,.03,.08,'#d9d2c0',6);}
  // A rug for lives that own one; bare boards otherwise. Plant in the corner.
  if(plan.tier>=1){b.box(RUG[0]-.42,RUG[1]-.4,FLOOR,.84,.76,.004,acc);b.box(RUG[0]-.36,RUG[1]-.34,FLOOR+.004,.72,.64,.002,'#d9cfb8');}
  if(bare){b.box(5.75,3.2,FLOOR+.24,1,.62,.2,'#a58a5e');b.ball(5.9,FLOOR+.13,3.82,.13,.13,.012,'#23282a',8);b.ball(6.6,FLOOR+.13,3.82,.13,.13,.012,'#23282a',8);for(let i=0;i<4;i++)b.ball(5.95+i*.2,FLOOR+.5,3.4+(i%2)*.2,.14,.1,.14,['#d9d2c0','#c9a14a','#7f8a78'][i%3],6);b.ball(4.05,FLOOR+.14,3.3,.22,.16,.18,'#7f8a78',7);b.ball(4.45,FLOOR+.13,3.28,.2,.14,.16,'#a08a68',7);}

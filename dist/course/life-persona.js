@@ -13,7 +13,7 @@ export const setPersonaName=(s,x)=>{const n=cleanName(x);return n?{...s,personaN
 // Authored prices in the order of real Thai amulet markets, not an appraisal.
 const AMULET={low_class:{tier:0,label:'Temple-fair clay amulet',value:50},working_class:{tier:1,label:'Brass amulet from your father',value:1500},middle_class:{tier:2,label:'Silver-cased amulet',value:40000},bureaucratic_class:{tier:3,label:'Gold-cased old amulet',value:300000},high_class:{tier:4,label:'A famous old amulet, worth a house',value:8000000}};
 export const AMULET_COLOR=['#9a8466','#b08a3c','#b9bcbc','#d9a92e','#f59e0b'];
-export function amuletOf(s){const a=AMULET[s.intake?.class]??AMULET.working_class;return rand(s.seed,0,'worn-cross')<.04?{...a,cross:true,label:a.label.replace(/amulet/i,'cross')}:a;}
+export function amuletOf(s){const a=AMULET[s.intake?.class]??AMULET.working_class;if(s.birth?.region==='pak-phanang'&&rand(s.seed,0,'faith')<.3)return {...a,label:'Prayer beads from your father',cross:false};return rand(s.seed,0,'worn-cross')<.04?{...a,cross:true,label:a.label.replace(/amulet/i,'cross')}:a;}
 const soldAt=(s,k)=>(s.finance?.sold??[]).some(x=>x.key===k);
 const bought=(s,k)=>{if(soldAt(s,k))return undefined;const flag=k==='watch'?({...s.pivotFlags,...s.story?.flags}).g_watch:undefined;return (s.finance?.purchases??[]).find(p=>p.key===k)??(typeof flag==='number'?{key:k,age:flag}:undefined);};
 export const HOUSE_PRICE=1500000,MORTGAGE=1200000,MORTGAGE_YEARS=20,MORTGAGE_MONTHLY=7000;

@@ -252,7 +252,7 @@ function createScene(original){
   const step=Math.floor(t*2);if(step!==shadowStep){shadowStep=step;const cx=clampZone(focus.x),cz=5.5;sun.target.position.set(cx,0,cz);sun.position.copy(sun.target.position).addScaledVector(sunDir,70);sun.updateMatrixWorld();sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;}
   nightGlow.value=hour.lit*.85;glow.intensity=hour.lit*4.2;glow.position.set(context.residence.base[0]+1.4,1.3,context.residence.base[1]+2);if(mumAtStove){glow.position.set(3.45,1,5.8);glow.intensity=Math.max(glow.intensity,2.4+Math.sin(time*19)*.7);}
   // Weather is the place's, drawn around wherever the life is.
-  snow.visible=plan.climate==='cold';rain.visible=world.flood.visible&&!snow.visible;
+  snow.visible=plan.climate==='cold';rain.visible=(world.flood.visible||plan.rainy&&t>=28&&t<40)&&!snow.visible;
   if(snow.visible){snow.position.set(focus.x,0,focus.y);const p=snowGeo.attributes.position.array;for(let i=0;i<600;i++){p[i*3+1]=(9+((i*0.37)%9)-(time*.55+i*.013)%9)%9;p[i*3]=((i*7.31)%24)-12+Math.sin(time*.6+i)*.15;}snowGeo.attributes.position.needsUpdate=true;}
   if(rain.visible){rain.position.set(focus.x,0,focus.y);const p=rainGeo.attributes.position.array;for(let i=0;i<400;i++){const y=(dropY[i]-time*9%9+9)%9;p[i*6+1]=y;p[i*6+4]=y-.38;}rainGeo.attributes.position.needsUpdate=true;}
   // Camera ------------------------------------------------------------------------

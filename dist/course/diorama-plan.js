@@ -2,7 +2,7 @@
 // Every date below was checked against a source before use; where sources disagree the
 // later, safer year is used, because an object appearing a little late is not a lie and
 // an object appearing early is.
-import {region,regionAt,household,childhoodAway} from './regions.js';
+import {region,regionAt,regionIdFor,household,childhoodAway} from './regions.js';
 import {birthYearOf} from './thai-history.js';
 import {rand,flagsOf} from './sim.js';
 import {placeOf} from './stage2d.js';
@@ -77,6 +77,8 @@ export function townStyle(base,year,where){
  return base==='condo'&&year<1975?'fringe':base;
 }
 // Thai homes follow the rung you live on; the region still decides what a modest house looks like.
+// A Muslim family is a southern-coast life in this game; about three in ten there. Authored, not census.
+export const faithOf=state=>regionIdFor(state.birth)==='pak-phanang'&&rand(state.seed,0,'faith')<.3?'muslim':'buddhist';
 export function homeKindFor(style,where,rung){
  if(where.place==='villa')return 'villa';if(where.place==='condo')return 'condo';
  if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return 'row';if(rung===3)return 'shophouse';}
@@ -115,5 +117,5 @@ export function townPlan(state,age){
  const finance=recordedFinance(state,age),worth=finance?netWorth(finance):0,tier=Math.max(RUNG_TIER[rung],worth>=3500000?3:worth>=800000?2:0),found=roomHas(year,tier,marks,abroad,rand(seed,0,'sewing')),room=homeKind==='pavement'?{...found,tv:false,flatTv:false,fan:false,fridge:false,aircon:false,computer:false,phone:false,sewing:false,bed:false,oilLamp:true,altar:false}:found,flood=floodAt(state,age);
  // The model is rebuilt in steps: a mark appearing, or a five-year growth stage.
  const growth=Math.floor(year/5)*5,bits=Object.entries(marks).filter(([,v])=>v).map(([k])=>k).join(','),things=Object.entries(room).filter(([,v])=>v).map(([k])=>k).join(',');
- return {key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast'};
+ return {key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),faith:faithOf(state),rainy:!abroad&&rand(seed,growth,'rain-year')<.5,seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast'};
 }

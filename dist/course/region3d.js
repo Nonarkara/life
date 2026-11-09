@@ -88,7 +88,7 @@ function prop([kind,x,z,w,d],b,plan,r){
  if(kind==='pillar'){b.cylinder(x+.1,z+.1,0,.11,.11,.92,'#b23a2e',10);b.ball(x+.1,.94,z+.1,.12,.09,.12,'#b23a2e',8);return;}
 }
 // Ground that is not available to building: roads, home, pond, field, stall, the garden path.
-export const KEEP_CLEAR=[[2.5,2.6,4.8,4.7],[3,8.3,2.6,2.2],[8.8,8.8,4.4,3.6],[6,8.3,2.4,2],[-5.6,7,24.2,1.9],[7.1,-5.6,2,24],[4.2,12.9,4.5,1.6],[8.3,1.2,6.2,.8],[10,5.2,4.1,1.2],[13.4,5.2,.8,2],...LOTS];
+export const KEEP_CLEAR=[[2.5,2.6,4.8,4.7],[3,8.3,2.6,2.2],[8.8,8.8,4.4,3.6],[6,8.3,2.4,2],[-5.6,7,24.2,1.9],[7.1,-5.6,2,24],[4.2,12.9,4.5,1.6],[8.3,1.2,6.2,.8],[10,5.2,4.1,1.2],[13.4,5.2,.8,2],[14.2,-.9,3.9,2.8],...LOTS];
 export const clearOfRoutes=(x,z,w,d)=>!KEEP_CLEAR.some(([a,b,c,e])=>x<a+c&&x+w>a&&z<b+e&&z+d>b);
 export function createRegionScenery({scene,registerBuilding}){
  let root=null,built=[];
@@ -199,6 +199,15 @@ export function createRegionScenery({scene,registerBuilding}){
     for(const [x,z] of [[-4,6.5],[.7,9.1],[10.5,12.3],[15,8.95]])tree(open,x,z,2.4+r()*.8,P.leaf,r);}
   };
   (LAYOUT[style]??LAYOUT.market)();
+  if(!plan.abroad){
+   // What every Thai neighbourhood has: a wat or a mosque, flags at the gate, bananas in every gap.
+   const flag=(b,x,z,h=S*2.1)=>{b.box(x,z,0,.04,.04,h,'#d9d4c6');[['#a51931',0],['#f4f5f8',1],['#2d2a4a',2],['#f4f5f8',4],['#a51931',5]].forEach(([c,i])=>b.box(x+.04,z,h-.06*(i+1),.42,.01,i===2?.12:.06,c));};
+   if(plan.faith==='muslim')unit(b=>{b.box(14.5,-.7,0,2.4,1.5,S*1.1,'#eae3cf');b.ball(15.7,S*1.1+.32,.05,.62,.55,.62,'#3f7a62',12);b.cylinder(17.2,-.5,0,.13,.08,S*2.4,'#eae3cf',8);b.ball(17.2,S*2.45,-.5,.15,.2,.15,'#3f7a62',8);for(let i=0;i<4;i++)b.box(14.75+i*.55,.8,.3,.32,.012,S*.6,'#3e4e54',1);b.box(15,.803,S*.8,1.4,.012,.12,'#c9a14a');},[14.5,-.7,3,1.5]);
+   else if(style!=='village'){unit(b=>wat(b,14.3,-.7,2.9,1.6,r),[14.3,-.7,2.9,1.6]);unit(b=>chedi(b,17.15,-.1),[17.15,-.1,.8,.8]);}
+   if(plan.faith!=='muslim'){open.box(14.95,1.05,0,.34,.28,.2,'#e4decd');open.ball(15.12,.34,1.19,.13,.15,.11,'#d9a92e',8);open.ball(15.12,.54,1.19,.07,.08,.07,'#d9a92e',8);open.cylinder(15.12,1.19,.61,.03,.0,.09,'#d9a92e',6,false);}
+   flag(open,14.1,1.1);flag(open,8.95,1.25);flag(open,2.2,6.75,S*1.4);
+   for(let i=0;i<14;i++){const x=-5+r()*23,z=-5+r()*22;if(clearOfRoutes(x-.3,z-.3,.6,.6)&&clearOfLots(x-.3,z-.3,.6,.6))bananas(open,x,z);}
+  }
   for(const p of PROPS[style]??PROPS.market)if(has(marks,p[5])&&(plan.abroad||clearOfLots(p[1],p[2],p[3]??0,p[4]??0)))prop(p,open,plan,r);
   // Whoever sits in this town has something to sit on.
   for(const row of crowdRoster(plan))if(row.role==='still'&&row.pose==='sit'){open.box(row.x-.13,row.z-.13,.235,.26,.26,.03,marks.stools?P.accent:'#8a7050');for(const [a,e] of [[-.11,-.11],[.08,-.11],[-.11,.08],[.08,.08]])open.box(row.x+a,row.z+e,0,.03,.03,.235,'#6b5a45');}
