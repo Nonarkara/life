@@ -45,7 +45,7 @@ export function dressPeriod(actor,outfit,{elder=false,warm=[.93,.84,.76]}={}){
   if(outfit.skirt==='sin')for(const [K,A,F] of [[LK,LA,LT],[RK,RA,RT]])tube(K.clone().lerp(A,.5),A,.044,.03,skin);else for(const [K,A] of [[LK,LA],[RK,RA]]){tube(K.clone().add(new T.Vector3(0,.1,0)),A,.05,.032,skin);}
  }else{
   add(loft(outfit.tucked?[{y:hips.y-.13,rx:hipX-.03,rz:.105},{y:hips.y-.02,rx:hipX-.012,rz:.118},{y:waistY-.03,rx:w.waistX+.014,rz:.108},{y:waistY+.012,rx:w.waistX+.016,rz:.11}]:[{y:hips.y-.13,rx:hipX-.03,rz:.105},{y:hips.y-.07,rx:hipX-.03,rz:.105}]),bot);if(outfit.tucked)add(loft([{y:waistY-.006,rx:w.waistX+.02,rz:.114},{y:waistY+.018,rx:w.waistX+.02,rz:.114}]),dark);
-  for(const [H,K,A] of [[LH,LK,LA],[RH,RK,RA]]){const top2=H.clone().add(new T.Vector3(0,.05,0));
+  for(const [H,K,A] of [[LH,LK,LA],[RH,RK,RA]]){const top2=H.clone().add(new T.Vector3(0,outfit.tucked?.05:-.03,0));
    if(outfit.legs==='shorts'){const end=H.clone().lerp(K,.72);tube(top2,end,.078,.074,bot);tube(end,K,.052,.048,skin);tube(K,A,.048,.03,skin);}
    else{tube(top2,K,.078,.058,bot);ball(K,.058,.045,.058,bot);tube(K,A.clone().add(new T.Vector3(0,.03,0)),.058,outfit.legs==='flare'?.095:.05,bot);}}
  }
