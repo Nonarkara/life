@@ -6,6 +6,7 @@ import {REGIONS,HOUSEHOLDS,COUNTRIES,BAND_REGIONS,CLASS_REGIONS,householdFor,hou
 import {ikigai} from './ikigai.js';
 import {consequencesDue} from './lessons.js';
 import {marketsDue} from './market-moments.js';
+import {PRIORITIES,priorityFx} from './priorities.js';
 import {MAJORS,majorOf,majorFit,mismatched,partnerNature,together,reconciled,ventureSwing,dogAt} from './life-choices.js';
 const CITY_BIRTHS=['khlong-toei','bang-na','sukhumvit'];
 import {createEconomy,economyFor,validEconomy} from './economy.js';
@@ -64,7 +65,7 @@ export function newLegacyLife(seed=43127){const birth=rand(seed,0,'household');r
 export function newLife(seed=43127){const roll=rand(seed,0,'class');const cls=drawClass(roll);const t=CLASS_TIERS[cls];const choices=CLASS_REGIONS[cls];const regionId=choices[Math.floor(rand(seed,0,'intake-region')*choices.length)];const place=REGIONS[regionId].place,home=REGIONS[regionId].home;return {version:2,seed,economy:createEconomy(seed),story:newStory(seed),stage:'birth',age:0,attributes:balanced(),effort:balanced(),profile:defaultProfile(),birth:{place,home,region:regionId,household:householdFor(rand(seed,0,'household-kind')),cash:t.cash,sensitivity:rand(seed,0,'sensitivity')>.5?'Sensitive to pressure':'Steady under pressure',body:rand(seed,0,'body')>.5?'Strong physical starting condition':'Ordinary physical starting condition',class:cls},cash:t.cash,health:rand(seed,0,'body')>.5?94:88,wellbeing:rand(seed,0,'sensitivity')>.5?62:68,skills:{physique:0,iq:0,eq:0,craft:0,drive:0},history:[],profiles:[],original:null,death:null,previous:null};}
 export function begin(s){if(s.stage!=='birth'||!validPoints(s.attributes))return s;const due=bucketDue(s,10),origin=s.childhood?.origin??s,health=clamp(s.health+due.health,0,100),wellbeing=clamp(s.wellbeing+due.wellbeing,0,100),skills={...s.skills};for(const[k,v]of Object.entries(due.skills))skills[k]+=v;const start={age:0,health:origin.health,wellbeing:origin.wellbeing,cash:origin.cash,event:'Born into '+s.birth.home,effort:{...s.attributes},profile:defaultProfile()};return {...s,health,wellbeing,skills,...(due.bucket?{bucket:due.bucket}:{}),age:10,stage:'review',original:{...s.attributes},effort:{...s.attributes},history:[start,{...start,age:10,health,wellbeing,cash:s.cash,event:'Childhood: family, school and the world you inherited.'+(s.childhood?.choices.length?' '+s.childhood.choices.map(r=>r.note).join(' '):''),...(due.events.length?{events:due.events}:{})}]};}
 export const goals={balance:'A life with room to breathe',sport:'Become an athlete',art:'Make a life through art',security:'Build financial security',connection:'Love and belong'};
-export function sanitiseProfile(p,age){const q={...defaultProfile()};for(const [key,allowed]of Object.entries({drink:['no','social'],smoke:['no','yes'],religion:['explore','practice','none'],intimacy:['unsure','together','separate'],aim:Object.keys(goals)}))if(allowed.includes(p?.[key]))q[key]=p[key];if(p?.focus!==undefined)q.focus=Object.hasOwn(FOCUSES,p.focus)?p.focus:'none';if(age<20){q.drink='no';q.smoke='no';q.intimacy='unsure';}return q;}
+export function sanitiseProfile(p,age){const q={...defaultProfile()};for(const [key,allowed]of Object.entries({drink:['no','social'],smoke:['no','yes'],religion:['explore','practice','none'],intimacy:['unsure','together','separate'],aim:Object.keys(goals)}))if(allowed.includes(p?.[key]))q[key]=p[key];if(p?.focus!==undefined)q.focus=Object.hasOwn(FOCUSES,p.focus)?p.focus:'none';if(Object.hasOwn(PRIORITIES,p?.priority))q.priority=p.priority;if(age<20){q.drink='no';q.smoke='no';q.intimacy='unsure';}return q;}
 function stepSkills(s){
  const from=s.age,age=from+5,e=lockedEffort(s),content=ikigai(s)?.score??50,growth=content<35?.75:1;
  const due=consequencesDue(s,from,age),bucket=bucketDue(s,age),pathway=pathwayPeriod(s,rand(s.seed,age,'independent-work'));
@@ -97,6 +98,7 @@ setback-=ventureSwing(s,age);
 // The road taken at twenty keeps paying, and keeps costing.
 if(s.pivotFlags?.oilPress!==undefined){setback-=from<40?200000:from<65?2000000:800000;moodAdj-=1;}
 if(s.pivotFlags?.keptShop!==undefined&&from<60){setback-=40000;moodAdj+=1;}
+{const fx=priorityFx(s.profile?.priority);if(fx&&adult&&!retired&&fx.pay)setback-=Math.round(fx.pay*earnings*60);if(fx?.mood)moodAdj+=fx.mood;if(fx?.body)bodyAdj+=fx.body;}
 if(s.pivotFlags?.emigrated!==undefined&&from>=30){setback-=from<65?1000000:200000;moodAdj-=1;}
 // Past choices return: on the timeline, in this period's costs, in body and mind.
 for(const m of marketsDue(s.pivotFlags,from)){setback-=m.gain;event+=' '+m.text;}

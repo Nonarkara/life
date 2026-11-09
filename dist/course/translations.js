@@ -4,6 +4,7 @@ import {WAVE2_PHRASES} from './wave2-copy.js';
 import {ENDING_PHRASES} from './ending-copy.js';
 import {HISTORY_PHRASES} from './history-copy.js';
 import {ROADS_PHRASES} from './roads-copy.js';
+import {PLAN_PHRASES} from './plan-copy.js';
 import {MARKET_PHRASES} from './market-moments.js';
 import {DECISION_PHRASES} from './decision-copy.js';
 import {TRAIN_PHRASES} from './train-copy.js';
@@ -2426,7 +2427,7 @@ Street vendors take instant QR payments and new electric rail lines reach the ou
 phrases.push(...DECISION_PHRASES);
 
 phrases.push(...THAI_PHRASES);
-phrases.push(...WAVE1_PHRASES,...WAVE2_PHRASES,...ENDING_PHRASES,...HISTORY_PHRASES,...ROADS_PHRASES,...MARKET_PHRASES);
+phrases.push(...WAVE1_PHRASES,...WAVE2_PHRASES,...ENDING_PHRASES,...HISTORY_PHRASES,...ROADS_PHRASES,...PLAN_PHRASES,...MARKET_PHRASES);
 phrases.push(['The object that belonged to someone','สิ่งของที่เป็นของใครบางคน','某人的物品','誰かの持ち物','누군가의 소유물']);
 phrases.push(['A small jade amulet turns up among your grandparents’ things. It has no market value, but it belonged to the person who started the family business. Keep it, or sell it for something you need?','เครื่องรางหยกเล็ก ๆ ปรากฏในของของคุณย่า คุณตา ไม่มีมูลค่าทางตลาด แต่มันเป็นของผู้เริ่มต้นธุรกิจครอบครัว เก็บไว้ หรือขายเพื่อสิ่งที่คุณต้องการ','一块小玉护身符出现在你祖辈的物品中。它没有市场价值，但它属于创办家族生意的人。保留它，还是卖掉换点你需要的东西？','小さな玉のお守りが祖父母の品の中に見つかります。市場価値はありませんが、家族のビジネスを始めた人のものでした。それを取っておくか、必要なもののために売るかです。','작은 옥 부적이 조부모님의 소지품에서 발견됩니다. 시장 가치는 없지만 가족 사업을 시작한 분의 것입니다. 간직할까요, 필요한 것을 위해 팔까요?']);
 phrases.push(['Keep it with your own things','เก็บไว้กับสิ่งของของคุณ','把它和你自己的东西放在一起','自分のものと一緒に保管する','자신의 물건과 함께 보관하세요']);

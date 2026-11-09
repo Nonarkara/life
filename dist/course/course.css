@@ -154,3 +154,59 @@ header>a{font-size:18px}
 @media (prefers-reduced-motion:reduce){.moment-renderer{transition:none}}
 
 body.moment-open #world{transform:none!important;transition:none!important}.stage .moment-renderer{image-rendering:auto;aspect-ratio:auto;max-height:none;min-height:0}
+
+/* Top console: one bar. Phone first, MSH: every box is its text plus padding. */
+.has-top-console body>header,body.has-top-console>header{padding:4px 12px}
+.top-console{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;align-items:center;width:100%}
+.top-console>a{display:none}
+.top-main{display:flex;align-items:center;gap:8px;min-width:0;grid-column:1}
+.top-who{display:flex;flex-direction:column;min-width:0;gap:0}
+body.has-top-console #age{font-size:17px;line-height:1.1}
+body.has-top-console #age-metrics{font-size:11px;margin:0;color:inherit;opacity:.8}
+body.has-top-console #location{display:none}
+body.has-top-console .top-console>div:last-child{grid-column:2;grid-row:1;display:flex;gap:2px}
+body.has-top-console .top-console>div:last-child button{font-size:12px;padding:3px 4px;min-height:28px}
+.top-world{grid-column:1/-1;display:grid;gap:1px;text-align:left;background:none;border:0;padding:0;width:100%;max-width:none;min-width:0;color:inherit;cursor:pointer}
+.top-gauges{display:flex;gap:10px;overflow:hidden;white-space:nowrap}
+.gauge{display:inline-flex;align-items:baseline;gap:3px;font-size:11px}
+.gauge-label{opacity:.72}
+.gauge-value{font-weight:600;font-variant-numeric:tabular-nums}
+.gauge-spark{display:none;width:48px;height:14px;align-self:center}
+.top-news{font-size:12px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(min-width:900px){.top-console{grid-template-columns:auto auto minmax(0,1fr) auto;gap:14px}.top-console>a{display:block;grid-column:1}.top-console>a span{display:none}.top-main{grid-column:2;grid-row:1}.top-world{grid-column:3;grid-row:1}.gauge-spark{display:block}body.has-top-console .top-console>div:last-child{grid-column:4;grid-row:1}}
+/* Planner: one row of cards, left to right. */
+.has-plan #life-deck,.has-plan .plan-pair,.has-plan .allocation-heading,.has-plan #editor>.tabs,.has-plan #profile,.has-plan #effect-preview,.has-plan .decision>.section-line{display:none!important}
+.has-plan .decision>#title{display:none}
+.life-plan{display:grid;gap:4px;min-height:0}
+.plan-steps{display:flex;gap:4px;overflow:hidden}
+.plan-step{font-size:12px;padding:2px 4px;min-height:26px;border:0;border-bottom:2px solid transparent;background:none;white-space:nowrap;color:inherit;opacity:.7}
+.plan-step[aria-current=step]{border-bottom-color:var(--amber,#b56a00);opacity:1;font-weight:600}
+.plan-strip{display:grid;grid-auto-flow:column;grid-auto-columns:100%;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;min-width:0}
+.plan-strip::-webkit-scrollbar{display:none}
+.plan-card{scroll-snap-align:start;display:flex;flex-direction:column;gap:3px;min-width:0;border:1px solid var(--line,#8886);padding:6px 8px;background:var(--paper,transparent)}
+.plan-title{font-size:13px;margin:0 0 2px;font-weight:600;letter-spacing:.02em}
+.plan-option{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;max-width:none;min-height:34px;padding:2px 8px;border:1px solid var(--line,#8886);background:none;color:inherit;text-align:left;cursor:pointer}
+.plan-option[aria-pressed=true]{background:var(--amber,#b56a00);border-color:var(--amber,#b56a00);color:#17110a;font-weight:600}
+.plan-label{font-size:14px;line-height:1.2}
+.plan-note{font-size:11px;font-variant-numeric:tabular-nums;opacity:.85}
+.plan-key{font-size:11px;margin:2px 0 0;opacity:.75}
+.plan-field{display:grid;font-size:12px;gap:2px}
+.plan-field select{min-height:34px;width:100%}
+.plan-row{display:grid;grid-template-columns:64px minmax(0,1fr);align-items:center;gap:6px}
+.plan-row-label{font-size:13px}
+.plan-seg{display:flex;gap:4px}
+.plan-seg-btn{flex:1 1 0;max-width:none;width:auto;min-height:34px;padding:2px 4px;font-size:13px;border:1px solid var(--line,#8886);background:none;color:inherit;cursor:pointer}
+.plan-seg-btn[aria-pressed=true]{background:var(--amber,#b56a00);border-color:var(--amber,#b56a00);color:#17110a;font-weight:600}
+.plan-live{justify-content:space-between}
+.plan-signal{font-size:13px;line-height:1.35;margin:0}
+.plan-live #commit{width:100%;max-width:none;min-height:44px}
+@media(min-width:900px){.plan-steps{display:none}.plan-strip{grid-auto-flow:row;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));overflow:visible}}
+
+body.has-top-console #age{white-space:nowrap}
+.has-plan .console-actions{display:none}
+/* Phone: two columns of choices inside a card, so a card is never taller than its place. */
+.plan-card{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:min-content;gap:4px;align-content:start}
+.plan-card>.plan-title,.plan-card>.plan-key,.plan-card>.plan-row,.plan-card>.plan-field,.plan-card>.plan-signal,.plan-card>#commit{grid-column:1/-1}
+.plan-live{align-content:space-between}
+@media(max-width:899px){.life-plan{max-height:none}.plan-option{min-height:32px;padding:2px 6px}.plan-label{font-size:13px}}
+@media(min-width:900px){.plan-card{grid-template-columns:1fr}}
