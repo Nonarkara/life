@@ -10,6 +10,7 @@ import {WAVE2_ENCOUNTERS} from './wave2-encounters.js';
 import {HISTORY_ENCOUNTERS} from './history-encounters.js';
 import {BANK_ENCOUNTERS} from './bank-encounters.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
+import {ERA_ENCOUNTERS} from './era-scenarios.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -108,13 +109,18 @@ ENCOUNTERS.push(
   option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
 ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS,...THAI_ENCOUNTERS);
 ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,...BANK_ENCOUNTERS);
+// The literature-grounded scenario bank: situations written against Four
+// Reigns, Many Lives, Mom and Letters from Thailand, each tagged with the
+// source it was written from. They are offered only in the years they
+// belong to, so a 1940s scene cannot happen to someone born in 1981.
+ENCOUNTERS.push(...ERA_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.
 for(const e of ENCOUNTERS){const i=e.options.findIndex(x=>!(x.cash<0)&&!x.requires);if(i>0)e.options=[e.options[i],...e.options.filter((x,k)=>k!==i)];}
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
 export const encounterById=id=>byId.get(id);
-const BANK_SHARE=Object.freeze({history:.2,quiet:.65,macro:.5});
+const BANK_SHARE=Object.freeze({history:.18,quiet:.8,macro:.5});
 export function eligibleEncounters(state){
  if(state.stage!=='review'||state.age<10||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
  const seen=new Set(state.story.seen.map(e=>e.id));
@@ -161,6 +167,8 @@ export function resolveEncounter(state,choiceId,roll){
 // A scene is chosen when the station opens. A question answered afterwards at the same station
 // must not retroactively make that scene impossible, or the save would be lost.
 const beforeStation=(state,age)=>{const b=[...(state?.pivots??[]),...(state?.history??[]).flatMap(r=>r.pivots??[])].find(r=>r.station===age)?.before;return b?{cash:b.cash,health:b.health,wellbeing:b.wellbeing,skills:b.skills,pivotFlags:b.pivotFlags,pathway:b.pathway}:null;};
+// Money scenes are judged by the ledger of their own time, not by what has been repaid since.
+const moneyThen=(state,age)=>{const i=state.history.findIndex(r=>r.age===age);return [i-1,i].map(n=>state.history[n]?.finance).filter(Boolean).map(f=>({...state.finance,...f}));};
 export function validStory(story,age,state){
  if(story===undefined)return true;
  if(state&&!Array.isArray(state.history))return false;
@@ -175,7 +183,7 @@ export function validStory(story,age,state){
    if(seen.age<=previousAge)return false;previousAge=seen.age;
    const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
    const prior={...state,age:seen.age,health:row.health-(seen.effects.health||0),wellbeing:row.wellbeing-(seen.effects.wellbeing||0),cash:(row.cash??state.cash)-(seen.effects.cash||0),effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null},...(beforeStation(state,seen.age)?{pivotFlags:beforeStation(state,seen.age).pivotFlags}:{})};
-   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(!['flood_help','remember','remember_mother','th_unpaid_placement'].includes(entry.id)&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash})&&!(beforeStation(state,seen.age)&&entry.eligible({...prior,...beforeStation(state,seen.age)})))return false;
+   const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(!['flood_help','remember','remember_mother','th_unpaid_placement'].includes(entry.id)&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash})&&!(beforeStation(state,seen.age)&&entry.eligible({...prior,...beforeStation(state,seen.age)}))&&!moneyThen(state,seen.age).some(finance=>entry.eligible({...prior,finance})))return false;
    const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
   }
  }

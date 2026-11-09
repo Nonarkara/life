@@ -10,6 +10,7 @@ import {DECISION_PHRASES} from './decision-copy.js';
 import {TRAIN_PHRASES} from './train-copy.js';
 import {HYBRID_PHRASES} from './hybrid-copy.js';
 import {BANK_PHRASES} from './bank-copy.js';
+import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
 2000 · A new century|2000 · ศตวรรษใหม่|2000 · 新世纪|2000 · 新しい世紀|2000 · 새로운 세기
@@ -2486,3 +2487,7 @@ phrases.push(['Stand and listen until the song ends','ยืนและฟั�
 phrases.push(['You listened. The song ended, but the street it remembered stayed with you for days.','คุณฟัง เพลงจบ แต่ถนนที่มันจดจำอยู่กับคุณเป็นเวลาหลายวัน','你听了。歌结束了，但它记起的那条街道在你身边待了好几天。','あなたは聞きました。歌は終わりましたが、それが思い出した通りが何日もあなたと共にいました。','들었습니다. 노래가 끝났지만, 그 노래가 기억한 거리가 며칠 동안 당신과 함께했습니다.']);
 phrases.push(['Close the window and keep working','ปิดหน้าต่างแล้วทำงานต่อ','关上窗户继续工作','窓を閉めて仕事を続ける','창문을 닫고 계속 일하기']);
 phrases.push(['You closed the window. The song finished without you, and the street stayed forgotten.','คุณปิดหน้าต่าง เพลงจบไปโดยไม่มีคุณ และถนนยังคงถูกลืม','你关上了窗户。歌没有你就结束了，那条街道依然被遗忘。','あなたは窓を閉めました。歌はあなたなしで終わり、通りは忘れられたままでした。','창문을 닫았습니다. 노래는 당신 없이 끝났고, 거리는 여전히 잊혀진 채였습니다.']);
+
+// The literature-grounded scenario bank: its own copy file, kept apart so the
+// scenes can be reviewed and re-translated as one block.
+phrases.push(...ERA_SCENARIO_PHRASES);
