@@ -2,7 +2,7 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import * as T from 'three';
 import {createCharacter} from '../../dist/course/character3d.js';
-import {obscuringBuildings,cameraSpan,applyCutaway} from '../../dist/course/scene3d.js';
+import {obscuringBuildings,cameraSpan} from '../../dist/course/scene3d.js';
 import {createDistricts,revealedPlaces,floorAt,overlappingReaderWidth} from '../../dist/course/district3d.js';
 import {RESIDENCES} from '../../dist/course/locations.js';
 
@@ -26,14 +26,6 @@ test('camera reserves only actual canvas-reader overlap, never an adjacent colum
  assert.equal(overlappingReaderWidth(canvas,{left:900,right:1260,top:50,bottom:650}),0);
  assert.equal(overlappingReaderWidth(canvas,{left:640,right:1000,top:50,bottom:650}),260);
  assert.equal(overlappingReaderWidth(canvas,{left:0,right:900,top:650,bottom:900}),0);
-});
-test('cutaway invalidates the opaque shader exactly on entering and leaving transparency',()=>{
- const material=new T.MeshStandardMaterial(),base={material,opacity:1,transparent:false,depthWrite:true},initial=material.version;
- applyCutaway(base,false);assert.equal(material.version,initial);
- applyCutaway(base,true);assert.equal(material.version,initial+1);assert.equal(material.transparent,true);assert.equal(material.depthWrite,false);assert.equal(material.opacity,.14);
- applyCutaway(base,true);assert.equal(material.version,initial+1);
- applyCutaway(base,false);assert.equal(material.version,initial+2);assert.equal(material.transparent,false);assert.equal(material.depthWrite,true);assert.equal(material.opacity,1);
- applyCutaway(base,false);assert.equal(material.version,initial+2);material.dispose();
 });
 test('adult camera preserves a legible human scale and joins school/adult spans continuously',()=>{
  assert.equal(cameraSpan(10),8.5);assert.equal(cameraSpan(20),9.8);assert.equal(cameraSpan(60),11);

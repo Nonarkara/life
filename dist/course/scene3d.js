@@ -26,13 +26,6 @@ const FOV=9,VIEW=new T.Vector3(.62,.86,.86).normalize();
 
 // A renderer change must hide the old surface without allocating a new GPU scene.
 export function cameraSpan(age,phone=false){return age<1?3.5+age*2:phone?Math.min(9,5+age*.12):age<10?5.5+age*.3:age<20?8.5+(age-10)*.13:9.8+Math.min(40,age-20)*.03;}
-export function applyCutaway(base,faded){
- const material=base.material,transparent=faded||base.transparent,depthWrite=faded?false:base.depthWrite;
- const changed=material.transparent!==transparent||material.depthWrite!==depthWrite;
- material.opacity=base.opacity*(faded?.14:1);material.transparent=transparent;material.depthWrite=depthWrite;
- // THREE's OPAQUE shader define depends on transparent at compilation time.
- if(changed)material.needsUpdate=true;
-}
 export function drawScene3D(original,state,age,time,mode,view={}){
  let entry=scenes.get(original);
  if(entry===false)return false;
@@ -46,14 +39,14 @@ export function drawScene3D(original,state,age,time,mode,view={}){
 }
 // The controlled sky, as a table of hours. t is the 60-second day.
 const HOURS=[
- {t:0, sky:'#b39d91',sun:'#ffd2ac',i:1.6,hs:'#e6e0dc',hg:'#9a9088',h:1.25,el:.2,lit:.2},
+ {t:0, sky:'#b7a596',sun:'#ffd9b8',i:2.1,hs:'#efe9e2',hg:'#a59b90',h:1.6,el:.3,lit:.2},
  {t:7, sky:'#bcb29d',sun:'#ffe8cc',i:2.4,hs:'#f0ece0',hg:'#9a9688',h:1.25,el:.55,lit:0},
  {t:24,sky:'#c5c7c2',sun:'#fffaf2',i:2.7,hs:'#f6f6f2',hg:'#aaa89c',h:1.45,el:1.15,lit:0},
- {t:40,sky:'#bf9d76',sun:'#ffc98e',i:2.5,hs:'#ece0c8',hg:'#948670',h:1.1,el:.42,lit:.05},
- {t:47,sky:'#8c7d92',sun:'#ff9a6e',i:1.3,hs:'#b3a4b8',hg:'#5f5660',h:.62,el:.14,lit:.75},
+ {t:40,sky:'#c4a27a',sun:'#ffce96',i:2.8,hs:'#f0e4cc',hg:'#a89a82',h:1.5,el:.52,lit:.05},
+ {t:47,sky:'#a08a88',sun:'#ffb07a',i:2,hs:'#e0d0c8',hg:'#8a7e78',h:1.15,el:.26,lit:.65},
  {t:51,sky:'#2b3442',sun:'#a9b6cc',i:.75,hs:'#808a9c',hg:'#3a3f4a',h:.62,el:.9,lit:1},
  {t:57.5,sky:'#2b3442',sun:'#a9b6cc',i:.75,hs:'#808a9c',hg:'#3a3f4a',h:.62,el:.9,lit:1},
- {t:60,sky:'#b39d91',sun:'#ffd2ac',i:1.6,hs:'#e6e0dc',hg:'#9a9088',h:1.25,el:.2,lit:.2}
+ {t:60,sky:'#b7a596',sun:'#ffd9b8',i:2.1,hs:'#efe9e2',hg:'#a59b90',h:1.6,el:.3,lit:.2}
 ];
 const ca=new T.Color(),cb=new T.Color();
 function hourAt(t,out){
@@ -68,11 +61,11 @@ function createScene(original){
  let renderer;
  try{renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance',stencil:false});}catch(error){canvas.remove();throw error;}
  renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.outputColorSpace=T.SRGBColorSpace;renderer.toneMapping=T.NeutralToneMapping;renderer.toneMappingExposure=1;
- renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
+ renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFShadowMap;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;
  const scene=new T.Scene();try{scene.background=new T.Color('#d6ccb5');
  const camera=new T.PerspectiveCamera(FOV,1,4,260);
  const hemi=new T.HemisphereLight('#f4e9c6','#6a8c91',1);scene.add(hemi);
- const sun=new T.DirectionalLight('#fff2d1',2.5);sun.castShadow=true;sun.shadow.bias=-.0006;sun.shadow.normalBias=.03;sun.shadow.intensity=.72;sun.shadow.radius=4;scene.add(sun,sun.target);
+ const sun=new T.DirectionalLight('#fff2d1',2.5);sun.castShadow=true;sun.shadow.bias=-.0006;sun.shadow.normalBias=.03;sun.shadow.intensity=.6;sun.shadow.radius=4;scene.add(sun,sun.target);
  const coarse=matchMedia?.('(pointer: coarse)')?.matches;sun.shadow.mapSize.set(coarse?1536:2048,coarse?1536:2048);
  Object.assign(sun.shadow.camera,{left:-27,right:27,top:27,bottom:-27,near:1,far:150});
  // The table the model stands on: only the shadow is drawn, over the sky colour.
@@ -81,8 +74,8 @@ function createScene(original){
  // --- the world, rebuilt only when the plan's key changes
  let world=null,appliedKey='';const buildings=[];
  const scenery=createRegionScenery({scene,registerBuilding:register});
- function register(group){group.userData.building=true;group.userData.pendingBuilding=true;buildings.push({group,surfaces:null});}
- function surfacesOf(entry){if(entry.surfaces)return entry.surfaces;const list=[];entry.group.traverse(o=>{if(o.material)list.push({material:o.material,opacity:o.material.opacity,transparent:o.material.transparent,depthWrite:o.material.depthWrite});});entry.surfaces=list;return list;}
+ function register(group){group.userData.building=true;buildings.push({group,surfaces:null});}
+ function surfacesOf(entry){if(entry.surfaces)return entry.surfaces;const list=[];entry.group.traverse(o=>{if(o.material)list.push(o.material);});entry.surfaces=list;return list;}
  function buildWorld(plan){
   disposeWorld();
   buildings.length=0;
@@ -189,12 +182,12 @@ function createScene(original){
  let lost=false;canvas.addEventListener('webglcontextlost',()=>{lost=true;});
  const hour={sky:new T.Color(),sun:new T.Color(),hs:new T.Color(),hg:new T.Color(),i:1,h:1,el:1,lit:0};
  const focus3=new T.Vector3(),eye=new T.Vector3(),ray=new T.Raycaster(),mood=new T.Color(),shadowM=new T.Matrix4(),shadowScale=new T.Vector3(),sunDir=new T.Vector3();
- let lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
+ let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
  const cam={x:5.3,z:5.3,span:8};
  function update(state,age,time,{homeFrame=false}={}){
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
-  if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,2,Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);camera.aspect=w/h;lastSignature='';}
+  if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);camera.aspect=w/h;lastSignature='';}
   const plan=townPlan(state,age),here=plan.regionId,born=regionIdFor(state.birth),family=familyAt(state,age);
   if(!world||appliedKey!==plan.key){appliedKey=plan.key;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;}
   const looks=[appliedKey,state.seed,state.birth?.household,state.intake?.sex,Math.floor(age/5),family.partner,family.child,castReady].join('/');
@@ -205,16 +198,16 @@ function createScene(original){
   // Cast placement ----------------------------------------------------------------
   const P=plan,manualWork=context.pathway==='vocational'&&age>=15&&age<60;
   let shadowCount=0;
-  const place=(a,act,opts,y)=>{a.root.visible=true;a.update(act,age,time,{...opts,world:FIGURE});const px=act.x,pz=act.y,fy=y??floorAt(px,pz);a.root.position.y=fy;if(shadowCount<MAX_SHADOWS){const sca=opts.scale??1,len=Math.min(2.2,.6/Math.max(.28,Math.tan(hour.el)))*sca+.25,sx=sunDir.x,sz=sunDir.z,L=Math.hypot(sx,sz)||1;shadowM.makeRotationY(Math.atan2(-sz,sx));shadowM.scale(shadowScale.set(len*1.3,1,.36*sca));shadowM.setPosition(px-sx/L*len*.5,fy+.012,pz-sz/L*len*.5);decals.setMatrixAt(shadowCount++,shadowM);}};
+  const place=(a,act,opts,y)=>{a.root.visible=true;a.update(act,age,time,{...opts,world:FIGURE});const px=act.x,pz=act.y,fy=y??floorAt(px,pz);a.root.position.y=fy;if(shadowCount<MAX_SHADOWS){const sca=opts.scale??1,len=fy>.1?.55*sca:Math.min(2.2,.6/Math.max(.28,Math.tan(hour.el)))*sca+.25,sx=sunDir.x,sz=sunDir.z,L=Math.hypot(sx,sz)||1;shadowM.makeRotationY(Math.atan2(-sz,sx));shadowM.scale(shadowScale.set(len*1.3,1,.36*sca));shadowM.setPosition(px-sx/L*len*.5,fy+.012,pz-sz/L*len*.5);decals.setMatrixAt(shadowCount++,shadowM);}};
   const walkEnv=name=>routine(name,age,time,goal,context);
   const parentsHere=here===born||childhoodAway(state.birth,age);
   for(const name of ['mother','father']){const a=actors[name];if(!(parentsHere&&family[name])){a.root.visible=false;continue;}place(a,relabel(walkEnv(name),P,name),{elder:age+28>=60||!!household(state.birth)[name]?.elder||childhoodAway(state.birth,age),scale:1});}
   if(age>=1)place(actors.player,relabel(activity,P,'player'),{elder:age>=60,scale:statureOf(age)});else actors.player.root.visible=false;
-  // A partner shares the player's evenings at home; by day they are out.
-  if(family.partner&&(t<8||t>=46)){const o=context.residence.origin;place(actors.partner,{x:o[0]+.62,y:o[1]+.32,dx:0,dy:0,moving:false,facing:-Math.PI/2,pose:t<8?'eat':'rest'},{elder:age>=62,scale:.98});}else actors.partner.root.visible=false;
-  if(family.child){const o=context.residence.origin,a=(t*.3);place(actors.kid,{x:o[0]-.9+Math.cos(a)*.3,y:o[1]+.35+Math.sin(a)*.25,dx:-Math.sin(a),dy:Math.cos(a),distance:t*.2,moving:family.childAge>=1,pose:family.childAge<2?'crawl':family.childAge<4?'toddle':'walk'},{scale:statureOf(family.childAge)});}else actors.kid.root.visible=false;
+  // A partner shares the player's mornings and evenings at home; by day they are out.
+  const [roomX,roomZ]=context.residence.base,familyHome=context.residence.id==='family';
+  if(family.partner&&(t<8||t>=46))place(actors.partner,familyHome?{x:roomX+.82,y:roomZ+2.45,dx:0,dy:0,moving:false,facing:-Math.PI/2,pose:'cook'}:{x:roomX+3.35,y:roomZ+1.95,dx:0,dy:0,moving:false,facing:Math.PI,pose:'rest'},{elder:age>=62,scale:.98});else actors.partner.root.visible=false;
+  if(family.child){const a=t*.3;place(actors.kid,{x:roomX+1.2+Math.cos(a)*.22,y:roomZ+2.5+Math.sin(a)*.18,dx:-Math.sin(a),dy:Math.cos(a),distance:t*.2,moving:family.childAge>=1,pose:family.childAge<2?'crawl':family.childAge<4?'toddle':'walk'},{scale:statureOf(family.childAge)});}else actors.kid.root.visible=false;
   crowd.forEach((a,i)=>{const row=roster[i];if(!row){a.root.visible=false;return;}const act=crowdActivity(row,time,P);if(!act){a.root.visible=false;return;}place(a,act,{elder:row.elder,scale:row.scale??1});});
-  world.stall.visible=true;
   // Town objects -------------------------------------------------------------------
   world.rooms.update(state,age);world.districts.update(state,age);world.home.update(state,age,context,time);
   world.manual.visible=manualWork;world.office.visible=!manualWork&&!P.farm;world.cradle.visible=age<6;world.infant.visible=age<1;world.toys.visible=age>=1&&age<8;world.dog.visible=dogAt(state,age);world.farm.visible=P.farm||P.style==='market';
@@ -229,7 +222,7 @@ function createScene(original){
   hourAt(t,hour);
   const palette=currentPalette(),moodName=palette?.name??lifeMoodAt(state,age),chord=palette?.world??MOOD_CHORDS[moodName],hard=palette?.mood==='difficult'||moodName==='difficult';
   scene.background.copy(hour.sky);if(chord?.sky)scene.background.lerp(mood.set(chord.sky),.14);
-  sun.color.copy(hour.sun);sun.intensity=hour.i*(hard?.74:1);hemi.color.copy(hour.hs);hemi.groundColor.copy(hour.hg);hemi.intensity=hour.h*(hard?.84:1);
+  sun.color.copy(hour.sun);sun.intensity=hour.i*(hard?.86:1);hemi.color.copy(hour.hs);if(chord?.sky)hemi.color.lerp(mood.set(chord.sky),.2);hemi.groundColor.copy(hour.hg);hemi.intensity=hour.h*(hard?.92:1);
   const phase=Math.min(1,t/48),night=t>=48,az=night?1.9:phase*Math.PI;
   sunDir.set(Math.cos(az)*Math.cos(hour.el),Math.sin(hour.el),.62*Math.sin(az)*Math.cos(hour.el)+.28).normalize();
   // A step of the sun is the only thing that needs a new shadow map; a paused day costs nothing.
@@ -259,7 +252,9 @@ function createScene(original){
   if(age>=1&&(cutTick++%4===0||!hidden.size)){hidden=obscuringBuildings(camera,Object.values(actors.player.anchors),buildings.map(b=>b.group),ray);}
   const cutKey=[...hidden].map(g=>buildings.findIndex(b=>b.group===g)).sort().join();if(cutKey!==lastCut){lastCut=cutKey;renderer.shadowMap.needsUpdate=true;}
   // A building in the way is lifted off the board; its slab stays.
-  for(const entry of buildings)for(const base of surfacesOf(entry)){const off=age>=1&&hidden.has(entry.group);base.material.visible=!off;}
+  for(const entry of buildings){const off=age>=1&&hidden.has(entry.group);for(const material of surfacesOf(entry))material.visible=!off;}
+  // A phone that cannot hold the frame rate gives up sharpness before it gives up motion.
+  const now=performance.now();if(lastFrame){frameSum+=Math.min(120,now-lastFrame);if(++frames===60){const avg=frameSum/59;frames=0;frameSum=0;if(avg>44&&quality>0){quality--;width=0;}else if(avg<26&&quality<2&&++calm>=4){quality++;calm=0;width=0;}}}lastFrame=now;
   // Nothing moved: keep the last picture, spend nothing.
   const signature=[w,h,time,age,plan.key,moodName,dock,cam.x.toFixed(3),cam.z.toFixed(3),cam.span.toFixed(3),hidden.size,family.partner].join('|');
   if(signature===lastSignature&&!renderer.shadowMap.needsUpdate)return;lastSignature=signature;

@@ -17,7 +17,7 @@ export const PROPS={
  coast:[['spirit',2,6.3],['net',.4,9.4,1.6,.8],['cart',-2.2,10.2,.9,.55],['bananas',-.8,5.4],['pickup',-1.2,5.6,1.3,.7,'pickup'],['motorbike',.9,6.2,.8,.3,'motorbike']],
  villa:[['spirit',2,6.3],['car',13.6,9.4,1.5,.7,'pickup'],['rider',13.5,9.1,.8,.3,'rider']],
  tower:[['bench',.2,5.2,.9,.3],['bench',1.3,5.2,.9,.3]],
- tokyo:[['vending',.5,5.9,.4,.3],['vending',1,5.9,.4,.3],['pole',2.2,6.5,.1,.1],['pole',-1.8,6.6,.1,.1],['pole',13.8,9.4,.1,.1],['bicycle',-3.4,6.4,.8,.2]],
+ tokyo:[['vending',.5,5.9,.4,.3],['vending',1,5.9,.4,.3],['pole',2.2,6.5,.1,.1],['pole',-1.8,6.6,.1,.1],['bicycle',-3.4,6.4,.8,.2]],
  newengland:[['hydrant',.4,6.6,.12,.12],['car',-1.9,9.2,1.5,.7],['car',13.6,9.4,1.5,.7]],
  brick:[['pillar',.4,6.6,.2,.2],['bench',-2.2,6.2,.9,.3]]
 };
@@ -53,6 +53,7 @@ function tripleDecker(b,x,z,w,d,c,roof,r){b.box(x,z,0,w,d,S*2.9,c);for(let y=.25
 function terrace(b,x,z,w,d,c,roof,r){b.box(x,z,0,w,d,S*2,c);windows(b,x,z,0,w,d,S,r,{rows:2,cols:2,win:m(.95),side:false,glass:'#4a5a62'});b.box(x+w*.1,z+d,S-.04,w*.8,.012,.05,WHITE);door(b,x+w*.38,z+d,0,'#2f3a40');b.gable(x,z,S*2,w,d,m(1.5),roof,{along:'x',over:.05,gableColor:c});b.box(x+w-.2,z+d*.4,S*2+.2,.22,.3,.7,'#7a4434');}
 function wat(b,x,z,w,d,r){b.box(x-.15,z-.15,0,w+.3,d+.3,.18,'#d8d3c5');b.box(x,z,.18,w,d,S*1.15,'#efe9da');for(let i=0;i<4;i++)b.box(x+.12+i*(w-.3)/3.2,z+d,.5,.14,.012,S*.65,'#3f4a48');b.gable(x+.05,z,S*1.15+.18,w-.1,d,m(2.4),'#b0472f',{along:'x',over:.24,gableColor:'#d9a74a'});b.gable(x+w*.2,z,S*1.15+.74,w*.6,d,m(2.2),'#c0603b',{along:'x',over:.1,gableColor:'#d9a74a'});}
 function chedi(b,x,z){b.box(x,z,0,1,1,.16,'#e4decd');b.box(x+.12,z+.12,.16,.76,.76,.2,'#efe9da');b.cylinder(x+.5,z+.5,.36,.34,.22,.42,'#efe9da',10);b.cylinder(x+.5,z+.5,.78,.22,.0,1.3,'#dcd5c2',10,false);}
+function officeFront(b,x,z,w,d,c,r,floors,acc){b.box(x,z,0,w,d,S*floors,c);const step=S;for(let f=0;f<floors;f++){b.box(x+.12,z+d,.5+f*step,w-.24,.012,m(1.25),'#5a6e76',r()<.55?1:0);b.box(x+w,z+.12,.5+f*step,.012,d-.24,m(1.25),'#5a6e76',r()<.45?1:0);for(let a=.12+(w-.24)/4;a<w-.2;a+=(w-.24)/4)b.box(x+a,z+d+.002,.5+f*step,.03,.012,m(1.25),c);}b.box(x-.03,z+d,0,w+.06,.3,.05,acc);b.box(x-.03,z-.03,S*floors,w+.06,d+.06,.06,'#a29f94');}
 function shed(b,x,z,w,d,roof,acc,r){for(const a of [0,w-.07])for(const e of [0,d-.07])b.box(x+a,z+e,0,.07,.07,S*1.05,STEEL);b.gable(x,z,S*1.05,w,d,m(.8),roof,{over:.2,along:'x'});for(let i=0;i<3;i++){const tx=x+.2+i*(w-.4)/2.6;b.box(tx,z+.25,0,.5,d-.5,.48,'#8a7458');for(let j=0;j<3;j++)b.ball(tx+.1+j*.16,.54,z+.5+(j%2)*.2,.07,.06,.07,[acc,'#c9a14a','#6f8f5a'][j],6);}}
 function store(b,x,z,w,d,r){b.box(x,z,0,w,d,S*.95,'#eeeae0');b.box(x+.06,z+d,.04,w-.12,.012,S*.68,'#aab8ba',1);b.box(x-.03,z+d,S*.72,w+.06,.08,S*.2,'#e8e4d8');b.box(x-.03,z+d+.07,S*.72,w+.06,.012,.05,'#4f7a8a');b.box(x-.02,z-.02,S*.95,w+.04,d+.04,.05,'#a7a497');}
 function schoolHall(b,x,z,w,d,c,roof,r,modern,acc){if(modern){b.box(x,z,0,w,d,S*1.9,c);windows(b,x,z,0,w,d,S,r,{rows:2,cols:Math.round(w/.7),win:m(1)});b.box(x-.03,z+d,S-.04,w+.06,.22,.05,acc);b.box(x-.03,z-.03,S*1.9,w+.06,d+.06,.06,'#a29f94');}else{for(let a=.05;a<w;a+=.6)b.box(x+a,z+d-.08,0,.07,.07,S*.96,WOOD);b.box(x,z,S*.96,w,d,S*.9,c);windows(b,x,z,S*.9,w,d,S,r,{cols:Math.round(w/.72),win:m(1),side:false});b.gable(x,z,S*1.86,w,d,m(1.3),roof,{along:'x',over:.16,gableColor:c});}}
@@ -110,8 +111,8 @@ export function createRegionScenery({scene,registerBuilding}){
    const [sx,sz,sw,sd]=FOOTPRINTS.school,[wx,wz,ww,wd]=FOOTPRINTS.work,[cx,cz,cw,cd]=FOOTPRINTS.clinic,[mx,mz,mw,md]=FOOTPRINTS.market;
    unit(b=>schoolHall(b,sx,sz,sw,sd,w0,roofC,r,mod,P.accent),[sx,sz,sw,sd]);
    unit(b=>clinic(b,cx,cz,cw,cd,WHITE,roofC,r,mod),[cx,cz,cw,cd]);
-   unit(b=>{if(style==='village'||style==='fringe')shed(b,wx,wz,ww,wd,roofC,P.accent,r);else concreteShop(b,wx,wz,ww,wd,w0,r,mod?3:2,P.accent,marks);},[wx,wz,ww,wd]);
-   unit(b=>shed(b,mx,mz,mw,md,roofC,P.accent,r),[mx,mz,mw,md]);
+   unit(b=>{if(style==='village'||style==='fringe')shed(b,wx,wz,ww,wd,roofC,P.accent,r);else if(plan.abroad||marks.tower)officeFront(b,wx,wz,ww,wd,w0,r,marks.highrise?7:3,P.accent);else if(!marks.concrete)woodShop(b,wx,wz,ww,wd,'#8f6f4c',r,2);else concreteShop(b,wx,wz,ww,wd,w0,r,mod?3:2,P.accent,marks);},[wx,wz,ww,wd]);
+   unit(b=>{if(plan.abroad||marks.tower)store(b,mx,mz,mw,md,r);else shed(b,mx,mz,mw,md,roofC,P.accent,r);},[mx,mz,mw,md]);
   };
   const LAYOUT={
    market(){const early=!marks.concrete;
@@ -152,9 +153,9 @@ export function createRegionScenery({scene,registerBuilding}){
    condo(){const low=!marks.tower,mod=year>=1985;
     institutions(mod);
     const blocks=[[-5.2,3.4,3.6,3.3],[-1.2,3.4,3.3,3.2],[-5.2,-3.4,3.3,2.4],[14.3,-3.5,3.8,3],[14.3,1.2,3.8,4.9],[9.3,13,4.2,4.6],[14.3,13,3.8,4.6],[-5.2,9.2,4,4],[-1,13,3.6,4.4],[3.4,-5,4.8,3.6],[9.2,-5,4.6,3.4],[3,14.8,5,3]];
-    for(const [x,z,w,d] of blocks){if(!clearOfRoutes(x,z,w,d))continue;const q=r();const tall=marks.tower&&q<(marks.highrise?.5:.25)&&x<3&&z<7&&!(x>-2&&z>2.9);if(tall)unit(b=>tower(b,x+.3,z+.3,Math.min(w,2.8)-.4,d-.6,wall(),r,14+Math.floor(r()*(marks.highrise?26:12)),P.accent),[x,z,w,d]);else if(low||q<.75)unit(b=>slab(b,x+.1,z+.1,w-.2,d-.2,wall(),r,cap(x,z,(year<1985?3:4)+Math.floor(r()*(year<1985?2:5))),P.accent),[x,z,w,d]);else unit(b=>{for(let a=0;a<w-1.1;a+=1.3)concreteShop(b,x+a,z+d-1.9,1.3,1.9,wall(),r,3,P.accent,marks);},[x,z,w,d]);}
+    for(const [x,z,w,d] of blocks){if(!clearOfRoutes(x,z,w,d))continue;const q=r();const tall=marks.tower&&q<(marks.highrise?.6:.3)&&x<3&&z<7;if(tall)unit(b=>tower(b,x+.3,z+.3,Math.min(w,2.8)-.4,d-.6,wall(),r,14+Math.floor(r()*(marks.highrise?26:12)),P.accent),[x,z,w,d]);else if(low||q<.75)unit(b=>slab(b,x+.1,z+.1,w-.2,d-.2,wall(),r,cap(x,z,(year<1985?3:4)+Math.floor(r()*(year<1985?2:5))),P.accent),[x,z,w,d]);else unit(b=>{for(let a=0;a<w-1.1;a+=1.3)concreteShop(b,x+a,z+d-1.9,1.3,1.9,wall(),r,3,P.accent,marks);},[x,z,w,d]);}
     if(marks.store)unit(b=>store(b,13.6,9.2,2.6,1.6,r),[13.6,9.2,2.6,1.6]);
-    if(marks.viaduct)viaduct(open,-5.5,18.5,-5.5);
+    if(marks.viaduct)viaduct(open,-5.5,18.5,-1.9);
     if(marks.mast)mast(open,-5,-1.1);
     for(const x of [-4,0,10.8,15])lamp(x,6.94);
     scatterTrees(7,[[-5,8.9,6,.3],[13.4,12.4,4,.5],[.8,10.4,1.5,.5]],[1.2,1.8]);},
@@ -171,7 +172,7 @@ export function createRegionScenery({scene,registerBuilding}){
     const estates=[[-5.2,2.9,7.5,4.1],[-5.2,9.1,6,4.4],[9.3,12.6,4.5,5.4],[14.1,12.6,4.1,5.4],[14.2,-4.8,4,5],[14.2,.5,4,6.2],[-5.2,-4.9,3,3.7],[3,-5.2,4,3.8],[9.2,-5.2,4.6,3.6],[-.8,13.8,8.9,4.2]];
     for(const [x,z,w,d] of estates){if(!clearOfRoutes(x,z,w,d))continue;open.box(x+.05,z+.05,-.014,w-.1,d-.1,.01,'#7f9a68');unit(b=>compound(b,x,z,w,d,'#e6e0d0'),[x,z,w,.08]);const W=Math.min(w-1.4,3.4),D=Math.min(d-1.6,2.3),hx=x+.5+r()*(w-W-1),hz=z+.4;unit(b=>villa(b,hx,hz,W,D,wall(),roof(),r,marks),[hx,hz,W,D]);if(r()<.4&&d>4){const pw=Math.min(1.8,w-1.2),px=x+w-pw-.3,pz=z+d-1.5;open.box(px-.06,pz-.06,-.008,pw+.12,1.12,.008,'#e8e2d4');open.box(px,pz,-.003,pw,1,.004,'#6fb0c0');}tree(open,x+.5+r()*(w-1),z+d-.7,1.7+r()*.8,P.leaf,r);if(r()<.6)tree(open,x+w-.5,z+.5,2+r()*.6,P.leaf,r);}
     if(marks.tower)for(const [x,z] of [[12.4,-4.8],[-5,-1.1]])unit(b=>tower(b,x,z,1.6,1.6,'#d9d6cc',r,16+Math.floor(r()*20),P.accent),[x,z,1.6,1.6]);
-    if(marks.viaduct)viaduct(open,-5.5,18.5,-5.5);
+    if(marks.viaduct)viaduct(open,-5.5,18.5,-1.9);
     if(marks.store)unit(b=>store(b,13.5,9.1,2.5,1.6,r),[13.5,9.1,2.5,1.6]);
     if(marks.mast)mast(open,-5.2,-2);
     for(const x of [-4,1,10.8,15.5])lamp(x,6.94);},
