@@ -312,7 +312,7 @@ export const MOMENT_CAPTIONS={bikes:'Cycling to school with your friend.',love:'
 // a rented city room, the big house you married into, the stall you kept.
 // ponytail: thresholds are authored game tuning, in the game's own baht.
 const VILLA_WORTH=3500000,CONDO_WORTH=800000,CONDO_FROM=1985,OFFICE_FROM=1985;
-function placeOf(state,age,life,style){
+export function placeOf(state,age,life,style){
  const flags=flagsOf(state),at=k=>typeof flags[k]==='number'&&flags[k]<=age,by=birthYearOf(state),year=by===null?null:by+age,modern=year===null||year>=CONDO_FROM;
  const worth=(()=>{const f=recordedFinance(state,age);return f?netWorth(f):0;})(),inCity=at('wentBangkok')||life.residence.id==='nearCity'||life.residence.id==='far';
  const place=flags.oilPress&&at('married')||worth>=VILLA_WORTH?'villa':inCity?(modern&&worth>=CONDO_WORTH?'condo':'slum'):style;

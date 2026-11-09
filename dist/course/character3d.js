@@ -5,9 +5,9 @@ import {illustratedMaterial,inkOutline,faceTexture} from './art-direction.js';
 // built once and shown or recoloured by setLook, so a look change costs nothing.
 const ACTIVITY_KEYS=['x','y','dx','dy','pose','moving','facing','distance'];
 export const HAIR_STYLES=['short','crop','side','long','bob','bun','ponytail'];
-export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',height=1,sex='male',hairStyle,build=1,bottom='#364744',skirt}={}){
+export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',height=1,sex='male',hairStyle,build=1,bottom='#364744',skirt,plain=false}={}){
  const root=new T.Group(),body=new T.Group();body.rotation.order='YXZ';root.add(body);
- const material=color=>illustratedMaterial(color,{character:true});
+ const material=color=>plain?new T.MeshLambertMaterial({color}):illustratedMaterial(color,{character:true});
  const cloth=material(shirt),flesh=material(skin),trousers=material(bottom),shoe=material('#253733'),hairMat=material(hair),paper=material('#efe6d3'),skirtMat=material(bottom);
  const mesh=(g,m,parent,x=0,y=0,z=0)=>{const o=new T.Mesh(g,m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;};
  const sphere=(r,m,parent,x,y,z,sx=1,sy=1,sz=1)=>{const o=mesh(new T.SphereGeometry(r,22,16),m,parent,x,y,z);o.scale.set(sx,sy,sz);return o;};
@@ -96,12 +96,12 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   torso.scale.x*=look.coat?1.12:look.sweater?1.05:1;
  }
  setLook();
- inkOutline(body);inkOutline(ball);
+ if(!plain){inkOutline(body);inkOutline(ball);}
  // Overlapping action: the ponytail and long hair trail behind the head.
  const trailing=[styles.ponytail,styles.long];
  let previousTime=null,previousAge,previousElder,previousScale,previousLook;
  const previousActivity={},oldJoints=new Float64Array(limbs.length*2);
- function update(activity,age,time,{elder=false,scale=1}={}){
+ function update(activity,age,time,{elder=false,scale=1,world=1}={}){
   // A redraw at the same simulation instant must not finish a half-settled pose.
   // A changed chapter/activity/look still updates, even while the clock is held.
   let unchanged=true;for(const key of ACTIVITY_KEYS)if(activity[key]!==previousActivity[key]){unchanged=false;break;}
@@ -114,14 +114,14 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   const a=activity,walking=a.moving,pose=a.pose,ordinaryWalk=walking&&pose==='walk';
   // One complete adult walk cycle advances 1.05 world units. Ride/crawl retain
   // their own authored cadence; the longer-legged anime cast needs a quiet walk.
-  const cycle=(a.distance??time*.7)*Math.PI*2/((ordinaryWalk?1.05:.65)*scale),step=Math.sin(cycle);
-  root.position.set(a.x,0,a.y);root.scale.setScalar(look.height*scale);
+  const stride=(ordinaryWalk?1.05:.65)*scale*world*(world===1?1:look.height),cycle=(a.distance??time*.7)*Math.PI*2/stride,step=Math.sin(cycle);
+  root.position.set(a.x,0,a.y);root.scale.setScalar(look.height*scale*world);
   // The swimmer stays aligned with the basin while entering from its narrow pier.
   const target=pose==='swim'?Math.PI/2:walking?Math.atan2(a.dx,a.dy):pose==='care'?-2.3:a.facing??0;
   body.rotation.y=target;
   // Quiet weight transfer for walking; other activities retain their own motion.
   const contact=Math.abs(Math.cos(cycle));
-  body.position.y=ordinaryWalk?Math.abs(step)*.004:walking?(.015+Math.abs(step)*.025):0;body.rotation.z=walking?step*(ordinaryWalk?.012:.025):0;body.rotation.x=walking?(ordinaryWalk?.015:.04):0;
+  body.position.y=ordinaryWalk?-.84*(1-Math.cos(step*.30)):walking?(.015+Math.abs(step)*.025):0;body.rotation.z=walking?step*(ordinaryWalk?.012:.025):0;body.rotation.x=walking?(ordinaryWalk?.015:.04):0;
   body.scale.set(ordinaryWalk?1:walking?1+contact*.018:1,ordinaryWalk?1:walking?1-contact*.03:1+Math.sin(time*2.1)*.008,ordinaryWalk?1:walking?1+contact*.018:1);
   head.rotation.set(0,0,0);torso.rotation.set(0,0,0);
   for(const limb of limbs){limb.pivot.rotation.set(0,0,0);limb.bend.rotation.set(0,0,0);}
@@ -130,8 +130,8 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
    arms[i].pivot.rotation.x=walking?-step*(ordinaryWalk?.22:.5)*sign:(i===0?.06:-.04)+Math.sin(time*1.3+i)*.02;arms[i].bend.rotation.x=walking?(ordinaryWalk?-.15:-.25)-Math.max(0,Math.sin(cycle*sign+.6))*(ordinaryWalk?.12:.3):-.12;arms[i].pivot.rotation.z=sign*(i===0?.08:.12);}
   head.rotation.y=walking?-step*(ordinaryWalk?.03:.06):Math.sin(time*.5)*.05;
   book.visible=['study','draw','rest'].includes(pose);cup.visible=pose==='eat';cup.position.set(.22,1.06,.28);tool.visible=['draw','craft'].includes(pose);hammerHead.visible=pose==='craft';can.visible=pose==='garden';ball.visible=['play','exercise'].includes(pose);bike.visible=pose==='ride';
-  if(['rest','eat','study','work','recover'].includes(pose)&&!walking){
-   body.position.y=-.32+(scale<.9?.52*(1/scale-1):0);for(const leg of legs){leg.pivot.rotation.x=-1.45;leg.bend.rotation.x=1.45;}
+  if(['rest','eat','study','work','recover','sit'].includes(pose)&&!walking){
+   body.position.y=-.38+(scale<.9?.46*(1/scale-1):0);for(const leg of legs){leg.pivot.rotation.x=-1.45;leg.bend.rotation.x=1.45;}
    for(const arm of arms){arm.pivot.rotation.x=-.65;arm.bend.rotation.x=-.7;}
    head.rotation.x=pose==='rest'?.16:.22;
   }
@@ -147,6 +147,15 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   if(pose==='swim'){body.position.y=-.12+Math.sin(time*3)*.025;body.rotation.x=1.32;body.rotation.z=0;head.rotation.x=-1.05;head.rotation.y=0;for(let i=0;i<2;i++){const sign=i===0?1:-1,s=Math.sin(time*3.2+i*Math.PI);arms[i].pivot.rotation.x=-1.35+s*.55;arms[i].bend.rotation.x=-.25;legs[i].pivot.rotation.x=s*.28*sign;legs[i].bend.rotation.x=.25;}}
   if(pose==='fall'){const phase=(time%6)/6,down=phase<.45?Math.min(1,phase/.25):Math.max(0,1-(phase-.45)/.35);body.position.y=-.58*down;body.rotation.x=.95*down;body.rotation.z=.18*down;head.rotation.x=-.45*down;head.rotation.y=0;for(let i=0;i<2;i++){legs[i].pivot.rotation.x=-.85*down;legs[i].bend.rotation.x=1.1*down;arms[i].pivot.rotation.x=-1.1*down;arms[i].bend.rotation.x=-.35*(1-down);}}
   if(ball.visible){ball.position.set(.3+Math.sin(time*2)*.18,.14+Math.abs(Math.sin(time*2))*.12,.45);legs[1].pivot.rotation.x=Math.sin(time*2)*.3;arms[0].pivot.rotation.z=.2;}
+  if(pose==='carry'&&walking){for(let i=0;i<2;i++){const sign=i===0?1:-1;arms[i].pivot.rotation.x=-1.5;arms[i].bend.rotation.x=-1.2;arms[i].pivot.rotation.z=sign*.1;legs[i].pivot.rotation.x=step*.26*sign;legs[i].bend.rotation.x=Math.max(0,-Math.cos(cycle)*sign)*.42;}body.position.y=-.84*(1-Math.cos(step*.26));}
+  if(pose==='sell'){for(const arm of arms){arm.pivot.rotation.x=-.7;arm.bend.rotation.x=-.55;}arms[1].pivot.rotation.x=-.55+Math.sin(time*1.7)*.28;head.rotation.y=Math.sin(time*.8)*.3;}
+  if(pose==='bow'){const k=(Math.sin(time*.7)+1)/2;body.position.y=-.5;body.rotation.x=.12+k*.5;for(const leg of legs){leg.pivot.rotation.x=-.2;leg.bend.rotation.x=2.2;}for(const arm of arms){arm.pivot.rotation.x=-1.25;arm.bend.rotation.x=-1.55;}head.rotation.x=k*.18;}
+  if(pose==='farm'){const s=Math.sin(time*1.6);body.rotation.x=.55+s*.1;body.position.y=-.08;for(let i=0;i<2;i++){legs[i].pivot.rotation.x=-.25;legs[i].bend.rotation.x=.45;arms[i].pivot.rotation.x=-.95+(i?s:-s)*.28;arms[i].bend.rotation.x=-.25;}head.rotation.x=-.3;}
+  if(pose==='mend'){body.position.y=-.5;body.rotation.x=.25;for(const leg of legs){leg.pivot.rotation.x=-1.75;leg.bend.rotation.x=2;}for(let i=0;i<2;i++){arms[i].pivot.rotation.x=-.8+Math.sin(time*3+i*2)*.1;arms[i].bend.rotation.x=-.8;}head.rotation.x=.35;}
+  if(pose==='squat'){body.position.y=-.5;body.rotation.x=.1;for(const leg of legs){leg.pivot.rotation.x=-1.85;leg.bend.rotation.x=2.1;}for(const arm of arms){arm.pivot.rotation.x=-.75;arm.bend.rotation.x=-.5;}head.rotation.x=.08+Math.sin(time*.5)*.04;}
+  if(pose==='wash'){body.position.y=-.5;body.rotation.x=.42+Math.sin(time*2.6)*.05;for(const leg of legs){leg.pivot.rotation.x=-1.8;leg.bend.rotation.x=2.1;}for(let i=0;i<2;i++){arms[i].pivot.rotation.x=-.9+Math.sin(time*5+i*3)*.2;arms[i].bend.rotation.x=-.2;}head.rotation.x=.3;}
+  if(pose==='sweep'){const s=Math.sin(time*2.2);body.rotation.x=.22;for(let i=0;i<2;i++){arms[i].pivot.rotation.x=-.65+s*.25;arms[i].bend.rotation.x=-.45;}head.rotation.x=.2;}
+  if(pose==='phone'){arms[1].pivot.rotation.x=-1.1;arms[1].bend.rotation.x=-1.3;arms[0].pivot.rotation.x=.04;head.rotation.x=.3;}
   if(pose==='crawl'){body.rotation.x=1.25;body.position.y=-.02;head.rotation.x=-1;for(let i=0;i<2;i++){const sign=i===0?1:-1,s=Math.sin(cycle)*sign;arms[i].pivot.rotation.x=-1.25+s*.3;arms[i].bend.rotation.x=0;legs[i].pivot.rotation.x=-.35-s*.3;legs[i].bend.rotation.x=1.55;}}
   if(pose==='toddle'){for(let i=0;i<2;i++){const sign=i===0?1:-1;arms[i].pivot.rotation.z=sign*.55;arms[i].pivot.rotation.x=-.4;legs[i].pivot.rotation.x=Math.sin(cycle*1.6)*.32*sign;legs[i].bend.rotation.x=0;}body.rotation.z=Math.sin(cycle*1.6)*.07;}
   if(pose==='cook'){for(const arm of arms){arm.pivot.rotation.x=-.95;arm.bend.rotation.x=-.45;}arms[1].pivot.rotation.z=-.2+Math.sin(time*4)*.15;head.rotation.x=.32;cup.visible=true;cup.position.set(-.05,1.02,.42);}
@@ -158,9 +167,9 @@ export function createCharacter({shirt='#bd914d',skin='#b88b69',hair='#323b34',h
   coatGroup.rotation.x=legs[0].pivot.rotation.x<-1?-1.1:0;skirtGroup.rotation.x=legs[0].pivot.rotation.x<-1?-1.25:0;skirtGroup.scale.y=legs[0].pivot.rotation.x<-1?.62:1;
   for(const g of trailing)if(g?.visible){g.rotation.x=walking?.18+Math.sin(cycle-1.1)*.12:Math.sin(time*1.4)*.03;}
   // Expression follows the activity: rest closes the eyes, shared moments smile, tasks focus.
-  const want=['rest','recover'].includes(pose)&&!walking?'closed':['eat','play','floor','trade','care','toddle','crawl','ride','swim'].includes(pose)?'smile':['study','work','draw','craft','cook','garden','fall'].includes(pose)?'focus':'calm';
+  const want=['rest','recover'].includes(pose)&&!walking?'closed':['eat','play','floor','trade','care','toddle','crawl','ride','swim','sell'].includes(pose)?'smile':['study','work','draw','craft','cook','garden','fall','farm','mend'].includes(pose)?'focus':'calm';
   if(want!==expression){expression=want;const tex=faceTexture(want,{lashes:look.sex==='female',elder});if(tex){headMat.map=tex;headMat.needsUpdate=true;}}
-  if(elder){body.rotation.x+=.06;if(!look.greyed){look.greyed=true;hairMat.color.set('#b4b6ae');}}else if(look.greyed){look.greyed=false;hairMat.color.set(look.hair);}
+  if(elder){body.rotation.x+=look.stoop?.0:.06;if(!look.greyed){look.greyed=true;hairMat.color.set('#b4b6ae');}}else if(look.greyed){look.greyed=false;hairMat.color.set(look.hair);}
  }
  return {root,update,setLook,anchors:{head,torso},rig:{body,head,legs,arms,bodyParts,look}};
 }
