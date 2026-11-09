@@ -11,6 +11,7 @@ import {HISTORY_ENCOUNTERS} from './history-encounters.js';
 import {BANK_ENCOUNTERS} from './bank-encounters.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
 import {ERA_ENCOUNTERS} from './era-scenarios.js';
+import {DIRECTOR_ENCOUNTERS,SAD_ENCOUNTERS} from './life-tragedies.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -113,7 +114,7 @@ ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,..
 // Reigns, Many Lives, Mom and Letters from Thailand, each tagged with the
 // source it was written from. They are offered only in the years they
 // belong to, so a 1940s scene cannot happen to someone born in 1981.
-ENCOUNTERS.push(...ERA_ENCOUNTERS);
+ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.
@@ -137,8 +138,9 @@ export function offerEncounter(state,roll,keep=()=>true){
  // A first-in-line encounter with time left is sometimes held back a station, so lives do not all open the same way.
  if(priority===1&&pool.every(e=>e.max>state.age)&&(roll*997)%1<.35){const rest=eligible.filter(e=>(e.priority??2)>1);if(rest.length){priority=Math.min(...rest.map(e=>e.priority??2));pool=rest.filter(e=>(e.priority??2)===priority);}}
  // The databank draws its own lot: a life meets ordinary things as well as the famous ones. Story beats (priority 1), recovery and class urgency are never displaced.
+ if(priority===2&&pool.some(e=>e.director))pool=pool.filter(e=>e.director);
  const bank=eligible.filter(e=>e.bank),open=priority===2||priority===0&&pool.every(e=>e.year&&!e.bank);
- if(bank.length&&open&&!pool.some(e=>e.urgent)){
+ if(bank.length&&open&&!pool.some(e=>e.urgent||e.director)){
   if((roll*7919)%1<(priority===2?BANK_SHARE.quiet:BANK_SHARE.history)){const macro=bank.filter(e=>e.macro);pool=macro.length&&(roll*104729)%1<BANK_SHARE.macro?macro:bank;}
   else{const rest=pool.filter(e=>!e.bank);if(rest.length)pool=rest;}
  }

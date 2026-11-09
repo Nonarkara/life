@@ -135,3 +135,24 @@ test('young lives are surrounded by young people, in the clothes of their year',
  assert.equal(youthsAround(17,'soi'),6);assert.equal(youthsAround(45,'soi'),0);assert.equal(youthsAround(20,'table'),0);assert.equal(youthsAround(8,'soi'),0);
  assert.equal(youthsInOwnClothes(1973),false);assert.equal(youthsInOwnClothes(2005),true);
 });
+
+import {DIRECTOR_ENCOUNTERS,SAD_ENCOUNTERS,directorSchedule} from '../../dist/course/life-tragedies.js';
+import {leaveWorld,pathOf,riskOf,RISKY_FROM} from '../../dist/course/life-verdict.js';
+import {POPULATION} from '../../dist/course/population.js';
+test('the Director gives each life its own few blows, and every blow can be met for free',()=>{
+ const seen=new Set();for(let n=1;n<=300;n++){const sch=directorSchedule(n*31,'middle_class'),ids=Object.values(sch);assert.ok(ids.length<=3&&new Set(ids).size===ids.length);seen.add(ids.slice().sort().join());}
+ assert.ok(seen.size>150,'lives get different bad luck: '+seen.size);
+ for(const e of [...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS]){assert.ok(e.rehearse,e.id);assert.ok(e.options.some(o=>!(o.cash<0)),e.id);assert.ok(!(e.options[0].cash<0),e.id);}
+ for(const e of SAD_ENCOUNTERS)assert.match(e.rehearse,/\(.+, \d{4}\)$/,e.id+' names its source');
+});
+test('the door: leaving for the temple ends the life, saves, and is the only third verdict',()=>{
+ const born=begin(configureLife(newLife(7919),{birthYear:1949,class:'middle_class'})),s={...born,story:{...born.story,pending:null},age:30};
+ assert.equal(validate(born),true);assert.equal(leaveWorld({...s,age:15}).stage,'review','not before twenty');
+ const left=leaveWorld(s);assert.equal(left.stage,'recap');assert.equal(pathOf(left),'monk');
+ const worn={history:[{health:30,wellbeing:20,finance:{available:0,reserve:0,debt:9,holdings:[]}}],profiles:[{profile:{smoke:'yes',drink:'social'}}],death:{age:40}};assert.ok(riskOf(worn)>=RISKY_FROM);assert.equal(pathOf(worn),'fun');
+ assert.equal(pathOf({history:[{health:90,wellbeing:80}],profiles:[{profile:{smoke:'no',drink:'no'}}]}),'safe');
+});
+test('the pretend lives are labelled data: shares add up and all three roads were walked',()=>{
+ assert.ok(POPULATION.n>=1000);for(const [id,o] of Object.entries(POPULATION.scenes)){const sum=Object.values(o).reduce((a,r)=>a+r[0],0);assert.ok(Math.abs(sum-100)<=Object.keys(o).length,id+' '+sum);}
+ for(const k of ['monk','fun','safe'])assert.ok(POPULATION.paths[k].share>0,k);
+});

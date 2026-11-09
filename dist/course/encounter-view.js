@@ -13,7 +13,7 @@ export function encounterTerms(choice,formatMoney=n=>'\u0e3f'+n.toLocaleString('
 }
 // The real encounter buttons are shared with the no-save study route. Layout
 // evidence should exercise the same cost, disabled state and action as the game.
-export function renderEncounterChoices(root,state,scene,{onChoose,formatMoney=n=>'฿'+n.toLocaleString('en')}={}){
+export function renderEncounterChoices(root,state,scene,{onChoose,extra=()=>[],formatMoney=n=>'฿'+n.toLocaleString('en')}={}){
  root.replaceChildren();
  const badge=document.createElement('div');badge.className='question-badges';badge.append(questionCategoryBadge(scene.category==='family'?'relationships':scene.category));if(state.finance&&scene.options.some(o=>(o.cash??0)<0)){const wallet=document.createElement('span');wallet.className='decision-wallet';wallet.textContent=t('Cash + reserve: {value}').replace('{value}',formatMoney(state.finance.available+state.finance.reserve));badge.append(wallet);}
  root.append(badge);
@@ -22,7 +22,7 @@ export function renderEncounterChoices(root,state,scene,{onChoose,formatMoney=n=
   const label=document.createElement('span');label.textContent=choice.label;button.append(choiceSymbol(button.disabled?'unavailable':choiceSymbolKey(choice)),label);
   const terms=encounterTerms(choice,formatMoney);
   if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}
-  button.onclick=()=>onChoose?.(choice);root.append(button);
+  button.append(...extra(choice));button.onclick=()=>onChoose?.(choice);root.append(button);
  }
  if(scene.sourceKey){
   // A scenario written from a book: the disclosure says where it came from and

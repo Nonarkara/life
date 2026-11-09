@@ -3,6 +3,7 @@
 import {furniture} from './layout.js';
 import {HOME,HOME_FACING,KITCHEN,RUG} from './routines.js';
 import {m} from './diorama-kit.js';
+import {kitchenFeeds} from './diorama-plan.js';
 const FLOOR=.16,WALL=m(2.75);
 const KINDS={
  stilt:{floor:'#8a6a48',lines:'#6d5236',wall:'#8f6f4c',wallLines:'#6f5438',roof:'#8b7c68',shape:'gable'},
@@ -41,11 +42,16 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  const seat=furniture[3];seatAt(seat.x+seat.w/2,seat.y+seat.d/2,Math.PI,FLOOR,root);
  for(const [name,[x,z]] of Object.entries(HOME))seatAt(x,z,HOME_FACING[name],FLOOR,root);
  // Dining table.
- const d=furniture[4],top=FLOOR+furnishHome.metrics.tableTop;b.box(d.x,d.y,top,d.w,d.d,.035,bare?'#b89b6a':plan.tier>=2?'#a58a66':'#94805f');if(bare)for(const x of [d.x+.04,d.x+d.w-.34])b.box(x,d.y+.06,FLOOR,.3,d.d-.12,top-FLOOR,'#a58a5e');else for(const x of [d.x,d.x+d.w-.04])for(const z of [d.y,d.y+d.d-.04])b.box(x,z,FLOOR,.04,.04,top-FLOOR,'#77684f');for(const [x,z] of [[5.4,6.3],[5.75,6.25],[6,6.3]])b.ball(x,top+.05,z,.09,.018,.09,'#e7dfcc',8);
+ const d=furniture[4],top=FLOOR+furnishHome.metrics.tableTop;b.box(d.x,d.y,top,d.w,d.d,.035,bare?'#b89b6a':plan.tier>=2?'#a58a66':'#94805f');if(bare)for(const x of [d.x+.04,d.x+d.w-.34])b.box(x,d.y+.06,FLOOR,.3,d.d-.12,top-FLOOR,'#a58a5e');else for(const x of [d.x,d.x+d.w-.04])for(const z of [d.y,d.y+d.d-.04])b.box(x,z,FLOOR,.04,.04,top-FLOOR,'#77684f');const plates=[[5.4,6.3],[6,6.3],[5.7,6.24],[5.55,6.47],[5.9,6.47]].map(([x,z])=>{const g=group();batchOf(g).ball(x,top+.05,z,.09,.018,.09,'#e7dfcc',8);return g;});
  // Kitchen corner beside the routine's cook spot.
  if(poor){b.cylinder(3.5,5.9,FLOOR,.14,.11,.14,'#4a4a48',10);b.ball(3.5,FLOOR+.2,5.9,.1,.07,.1,'#5a5f5a',8);}else{b.box(3.1,5.3,FLOOR,.42,1.2,m(.86),'#9a8566');b.box(3.08,5.28,FLOOR+m(.86),.46,1.24,.03,plan.year>=1975?'#c9c3b1':'#a08868');}
  if(poor){}else if(plan.year>=1970&&!R.oilLamp)b.box(3.14,5.62,FLOOR+m(.86)+.03,.34,.3,.03,'#3f4644');else b.cylinder(3.3,5.78,FLOOR+m(.86)+.03,.13,.11,.1,'#8f6a4a',10);
  if(!poor)b.ball(3.3,FLOOR+m(.86)+.14,5.76,.1,.07,.1,'#5a5f5a',8);
+ // The room the word for family is built on: what stands here says who these people are.
+ const fx=poor?3.5:3.3,fz=poor?5.9:5.76,fy=poor?FLOOR+.14:FLOOR+m(.86)+.05;
+ b.ball(3.25,FLOOR+.2,6.55,.17,.2,.17,'#7a5a42',8);b.box(3.09,5.2,FLOOR+m(1.55),.14,1.3,.03,'#8c795e');for(let i=0;i<5;i++)b.ball(3.16,FLOOR+m(1.55)+.07,5.32+i*.24,.05,.04,.05,['#e7dfcc','#b5553c','#d8c7a4'][i%3],7);
+ const fire=group(),flame=batchOf(fire);flame.ball(fx,fy,fz,.07,.05,.07,'#ffae42',6);flame.ball(fx,fy+.03,fz,.04,.05,.04,'#ffe0a0',6);
+ const steam=group(),puffs=batchOf(steam);for(let i=0;i<3;i++)puffs.ball(fx+i*.03,fy+.24+i*.14,fz+(i%2)*.03,.05+i*.01,.05,.05,'#e6e3da',6);
  // What the decade and the income have put in the room.
  const backShelf=FLOOR+m(.9);
  if(!bare)b.box(5.3,3.1,FLOOR,.62,.22,m(.7),'#8c795e');
@@ -63,7 +69,7 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  if(plan.homeKind==='villa'&&!plan.abroad){b.box(2.55,2.6,-.015,.45,4.4,.01,'#7f9a68');b.box(2.5,2.6,0,.07,4.4,m(1.8),'#e6e0d0');b.box(2.5,2.6,0,4.5,.07,m(1.8),'#e6e0d0');}
  // Height marks and shelves come from inhabited3d; the kitchen stool stays out of every route.
  void KITCHEN;
- return {update(){}};
+ return {update(state,age,context,time){const feeds=kitchenFeeds(state,age);plates.forEach((p,i)=>{p.visible=i<feeds;});const t=((time%60)+60)%60,cooking=(t<8||t>=44)&&context?.residence?.id==='family'&&feeds>1;fire.visible=cooking;steam.visible=cooking;steam.position.y=(t*.35)%.12;}};
 }
 furnishHome.metrics={seat:.235,tableTop:m(.73)};
 // Everything that closes the dollhouse when the player is out in the street.

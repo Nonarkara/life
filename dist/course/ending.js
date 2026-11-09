@@ -12,6 +12,9 @@ import {resultShare,deliverShare,copyShare} from './share-result.js';
 import {lifeCardView} from './card-view.js';
 import {replayComparison} from './replay-compare.js';
 import {renderReading,themCode} from './life-reading.js';
+import {pathOf} from './life-verdict.js';
+import {kitchenFeeds} from './diorama-plan.js';
+import {POPULATION} from './population.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
@@ -23,6 +26,8 @@ export function growthWindows(history){
 export function renderEnding(root,state,{storage}={}){
  if(storage===undefined){try{storage=localStorage;}catch{storage=null;}}
  releaseCard?.();resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
+ // The verdict first: three ways a life can go, and which one this was.
+ {const path=pathOf(state),stats=POPULATION.paths[path],v=document.createElement('section');v.className='ending-verdict';const lead=document.createElement('p');lead.className='verdict-lead';lead.textContent=t('Unless you become a monk, there are only two lives on offer: a fun one that is insanely risky, or a safe one where you never find out why you were born.');const h=document.createElement('h2');h.textContent=t({monk:'You left for the temple at {a}.',fun:'You had the fun life, and it was insanely risky.',safe:'You had the safe life.'}[path]).replace('{a}',state.age);const b=document.createElement('p');b.textContent=t({monk:'You walked out through the door in the set. About {s}% of the pretend lives did. Nobody can tell you whether it was enough.',fun:'About {s}% of the pretend lives went this way, and {d}% of those were dead before sixty. You can say what you lived for. You paid for it.',safe:'About {s}% of the pretend lives went this way, and only {d}% of those were dead before sixty. It held. You still do not know why you were born.'}[path]).replace('{s}',Math.round(stats.share)).replace('{d}',stats.early);const fed=Array.from({length:state.age+1},(_,a)=>kitchenFeeds(state,a)),k=document.createElement('p');k.textContent=t('The Thai word for family, ครอบครัว, has the kitchen, ครัว, inside it. At its fullest yours fed {a}. At the end, {b}.').replace('{a}',Math.max(...fed)).replace('{b}',fed.at(-1));v.append(lead,h,b,k);root.append(v);}
  // What the life said comes first; the map and the instruments follow it.
  renderReading(root,state);
  const numbers=document.createElement('details');numbers.className='full-life-record ending-numbers';{const s=document.createElement('summary');s.textContent='The numbers';numbers.append(s);}

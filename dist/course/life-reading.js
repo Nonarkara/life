@@ -131,7 +131,7 @@ export function renderReading(root,state){
   box.append(el('p','reading-figure',fill('1 in {n}',{n:odds})));
   box.append(el('p',null,worn?fill('The game’s odds of dying in those five years. In good health they would have been 1 in {a}. Your health had come down to {b}.',{a:clear,b:Math.round(state.health)}):t('The game’s odds of dying in those five years, at your age and health. Most people live through odds like these. It came anyway.')));
   if(clean&&clean!==odds)box.append(el('p',null,fill('Without the smoking: 1 in {n}.',{n:clean})));
- }else if(!d){box.append(el('p','reading-figure',fill('{n} of 100',{n:r.others.reachedSame})));box.append(el('p',null,t('of the other lives from your birth got this far.')));}
+ }else if(!d||d.ordained){box.append(el('p','reading-figure',fill('{n} of 100',{n:r.others.reachedSame})));box.append(el('p',null,t('of the other lives from your birth got this far.')));}
  if(r.chapters>=2)box.append(el('p','reading-thesis',fill('Money rose in {a} of your {n} chapters. Wellbeing rose in {b}.',{a:r.moneyRose,n:r.chapters,b:r.wellRose})));
  if(r.chapters>=2){const track=el('dl','reading-track');for(const[label,a,b]of [['Personal net worth',money(r.first.money),money(r.last.money)],['Wellbeing',Math.round(r.first.wellbeing),Math.round(r.last.wellbeing)],['Physical health',Math.round(r.first.health),Math.round(r.last.health)]])track.append(el('dt',null,t(label)),el('dd',null,a+' → '+b));
  box.append(el('p','fine',fill('Age {a} → {b}',{a:r.first.age,b:r.last.age})),track);}

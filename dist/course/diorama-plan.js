@@ -101,6 +101,8 @@ export function familyAt(state,age){
  const flags=flagsOf(state),since=k=>typeof flags[k]==='number'&&flags[k]<=age,together=(since('married')||since('committed'))&&!since('separated'),hasChild=since('parent')&&!since('childLost'),childAge=hasChild?age-flags.parent:-1,place=regionAt(state,age),born=regionAt(state,0);
  return {mother:!parentGone(state,age,'mother'),father:!parentGone(state,age,'father'),partner:together,child:hasChild&&childAge<24,childAge,awayFromParents:age>=20&&place!==born&&!childhoodAway(state.birth,age)};
 }
+// ครอบครัว: ครอบ, to cover, and ครัว, the kitchen. Family is whoever one kitchen covers.
+export function kitchenFeeds(state,age){const f=familyAt(state,age),home=!f.awayFromParents;return 1+(home?(f.mother?1:0)+(f.father?1:0):0)+(f.partner?1:0)+(f.child?1:0);}
 export function floodAt(state,age){
  for(const row of state.history??[])if(row.age<=age&&/flood/i.test(row.event??''))return {since:row.age,water:age-row.age<1,mark:age-row.age<12};
  const seen=(state.story?.seen??[]).find(e=>e.age<=age&&/flood/i.test(String(e.id)));

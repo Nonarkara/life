@@ -21,6 +21,7 @@ import {crowdRoster,crowdActivity,youthRoster} from './diorama-cast.js';
 import {visitorWardrobe,applyWardrobe} from './cast-wardrobe.js';
 import {youthsInOwnClothes} from './moment-plan.js';
 import {furnishHome,buildHomeShell} from './home3d.js';
+import {createPost} from './render-post.js';
 import {buildOpenHouses} from './open-houses3d.js';
 import {lotCast,lotActivity,lotCaption,tourStop,othersOf,LOT_FLOOR,RUNGS,clearOfLots} from './housing-ladder.js';
 import {roomHas} from './diorama-plan.js';
@@ -202,11 +203,12 @@ function createScene(original){
  const hour={sky:new T.Color(),sun:new T.Color(),hs:new T.Color(),hg:new T.Color(),i:1,h:1,el:1,lit:0};
  const focus3=new T.Vector3(),eye=new T.Vector3(),ray=new T.Raycaster(),mood=new T.Color(),shadowM=new T.Matrix4(),shadowScale=new T.Vector3(),sunDir=new T.Vector3();
  let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
+ const post=createPost(renderer,scene,camera);
  const cam={x:5.3,z:5.3,span:8},pinAt=new T.Vector3();
  function update(state,age,time,{homeFrame=false,tour=false,pick=null}={}){
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
-  if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);camera.aspect=w/h;lastSignature='';}
+  if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);post.setSize(w,h,renderer.getPixelRatio());camera.aspect=w/h;lastSignature='';}
   const plan=townPlan(state,age),here=plan.regionId,born=regionIdFor(state.birth),family=familyAt(state,age);
   if(!world||appliedKey!==plan.key){appliedKey=plan.key;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;}
   const looks=[appliedKey,state.seed,state.birth?.household,state.intake?.sex,Math.floor(age/5),family.partner,family.child,castReady].join('/');
@@ -282,9 +284,9 @@ function createScene(original){
   // Nothing moved: keep the last picture, spend nothing.
   const signature=[w,h,time,age,plan.key,moodName,dock,cam.x.toFixed(3),cam.z.toFixed(3),cam.span.toFixed(3),hidden.size,family.partner].join('|');
   if(signature===lastSignature&&!renderer.shadowMap.needsUpdate)return;lastSignature=signature;
-  renderer.render(scene,camera);
+  post.setNight(hour.lit>.5);post.render();
  }
- return {canvas,update,memory:()=>({...renderer.info.memory,frame:renderer.info.render.frame,calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,programs:renderer.info.programs?.length}),dispose(){gone=true;disposeWorld();scenery.dispose();for(const a of [...Object.values(actors),...crowd,...lots]){a.undress?.();a.anime?.detach();}tourLine.remove();disposeScene(scene,renderer,canvas);}};
+ return {canvas,update,memory:()=>({...renderer.info.memory,frame:renderer.info.render.frame,calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,programs:renderer.info.programs?.length}),dispose(){gone=true;disposeWorld();scenery.dispose();for(const a of [...Object.values(actors),...crowd,...lots]){a.undress?.();a.anime?.detach();}tourLine.remove();post.dispose();disposeScene(scene,renderer,canvas);}};
  }catch(error){disposeScene(scene,renderer,canvas);throw error;}
 }
 function drawBus(b,plan){

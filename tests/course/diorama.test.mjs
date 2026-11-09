@@ -110,3 +110,8 @@ test('the form gets what it asked for, and the move card only shows where a move
  const s=openFinance(life(3,'middle_class','samut-prakan',1981,25));assert.equal(ladderOpen(s),true);
  assert.equal(ladderOpen(setRegion(s,'sukhumvit')),false,'rent is not charged after moving away, so no card');assert.equal(ladderOpen(setHousing(s,'near')),false);
 });
+import {kitchenFeeds} from '../../dist/course/diorama-plan.js';
+test('the kitchen feeds whoever is left: the table has one plate per person at home',()=>{
+ const s=life(3,'middle_class','samut-prakan',1981,20);assert.equal(kitchenFeeds(s,10),3);assert.equal(kitchenFeeds(s,79),1,'at the end you eat alone');
+ const flags=(a)=>({...s,pivotFlags:{married:a,parent:a+2}});assert.equal(kitchenFeeds(flags(25),30),5,'a child and a partner join the table');
+});
