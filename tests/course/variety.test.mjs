@@ -108,3 +108,10 @@ test('clothes belong to their year and their person',()=>{
  assert.ok(lives({sex:'female',class:'working_class',region:'khlong-toei'},20).every(s=>outfitFor(s,'player','female',20,1969).skirt!=='sin'),'young city women wore blouse and skirt');
  assert.ok(lives({sex:'male',class:'middle_class',region:'bang-na'},30).every(s=>outfitFor(s,'n1','male',30,1979).feet==='shoes'),'a city clerk wears shoes');
 });
+
+import {HISTORY_BANK} from '../../dist/course/thai-history-bank.js';
+test('the history bank cites a page for every entry, marks novels as fiction, and names no royal person',()=>{
+ const royal=/\b(king|queen|prince|princess|royal|monarch\w*|throne|crown|palace|reign\w*|chulalongkorn|mongkut|bhumibol|rama\s?[ivx0-9]+)\b/i;
+ assert.ok(HISTORY_BANK.length>1000);assert.equal(new Set(HISTORY_BANK.map(e=>e.id)).size,HISTORY_BANK.length);
+ for(const e of HISTORY_BANK){assert.ok(Number.isInteger(e.source.page),e.id);assert.ok(Number.isInteger(e.from)&&e.from<=e.to,e.id);assert.ok(!royal.test(e.title+' '+e.summary+' '+(e.seed??'')),e.id);if(/fiction/.test(e.source.book))assert.equal(e.kind,'texture',e.id);}
+});
