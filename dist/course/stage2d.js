@@ -6,6 +6,9 @@
 // awards skill, or advances time.
 import {routine,routineContext,routineCaption} from './routines.js';
 import {flagsOf,rand} from './sim.js';
+import {birthYearOf} from './thai-history.js';
+import {recordedFinance} from './locations.js';
+import {netWorth} from './finance.js';
 import {homeCast} from './presentation-state.js';
 import {travelFrame,anchoredPlateFrame} from './painted-camera.js';
 import {regionAt,REGIONS,household} from './regions.js';
@@ -34,7 +37,7 @@ const SETS={
   abroad:{plate:'abroad',ground:.84,figure:.36,span:[9,14]},
   garden:{plate:'garden',ground:.86,figure:.42,span:[4,9]},
   stall:{plate:'stall',ground:.88,figure:.42,span:[6,9]},
-  travel:{plate:'street-day',night:'street-day',ground:.88,figure:.42,span:[0,1]},
+  travel:{plate:'street-day',night:'street-dusk',ground:.88,figure:.42,span:[0,1]},
 };
 
 // Every cycle is two drawings played on twos: the way limited animation works.
@@ -134,8 +137,7 @@ export function paintedCovers(state,age=state?.age??0,time=1,description=null){
  const domestic=scene.beat==='bed'||['home','bedroom'].includes(scene.set)&&!scene.beat;
  if(region?.country!=='TH'&&!manifest.plates?.[`${scene.basePlate}@${style}`])return false;
  if(domestic){
-  const home=scene.life.residence.id==='family'?style:scene.life.residence.id;
-  if(!PAINTED_HOMES.has(home)&&!manifest.plates?.[`${scene.basePlate}@${home}`])return false;
+  if(region?.country!=='TH'&&!PAINTED_HOMES.has(style)&&!manifest.plates?.[`${scene.basePlate}@${style}`])return false;
  }
  return !!platePath(scene.plate)&&scene.actors.every(actor=>{const frames=actorFrames(state,actor.id,age,actor.activity,scene.beat??scene.set);return frames.length>0&&frames.every(([sheet,frame])=>!!spritePath(sheet,frame));});
 }
@@ -306,15 +308,28 @@ function silhouette(image){
 }
 export const MOMENT_CAPTIONS={bikes:'Cycling to school with your friend.',love:'The evening your relationship began.',fight:'The confrontation after you pushed back.',bully:'The bullying you experienced at school.',grades:'The study path you chose.',
  'grades-bad':'Your choices brought work and study into tension.',bed:'Making room for recovery at home.'};
+// Where a life is, as the painter drew it. A road taken has to change the room:
+// a rented city room, the big house you married into, the stall you kept.
+// ponytail: thresholds are authored game tuning, in the game's own baht.
+const VILLA_WORTH=3500000,CONDO_WORTH=800000,CONDO_FROM=1985,OFFICE_FROM=1985;
+function placeOf(state,age,life,style){
+ const flags=flagsOf(state),at=k=>typeof flags[k]==='number'&&flags[k]<=age,by=birthYearOf(state),year=by===null?null:by+age,modern=year===null||year>=CONDO_FROM;
+ const worth=(()=>{const f=recordedFinance(state,age);return f?netWorth(f):0;})(),inCity=at('wentBangkok')||life.residence.id==='nearCity'||life.residence.id==='far';
+ const place=flags.oilPress&&at('married')||worth>=VILLA_WORTH?'villa':inCity?(modern&&worth>=CONDO_WORTH?'condo':'slum'):style;
+ return {place:place==='condo'&&!modern?null:place,inCity,year};
+}
 export function describePaintedScene(state,age,time){
  const life=routineContext(state,age),goal=state.profiles?.at(-1)?.profile.aim??'balance',player=routine('player',age,time,goal,life);
  let set=setFor(player.action,player.moving);if(age<2)set='hospital';
  const region=REGIONS[regionAt(state,age)],style=region?.style;
  if(region?.country!=='TH'&&(set==='work'||set==='travel'))set='abroad';
  if(set==='work'&&(life.pathway==='vocational'||['engineering','architecture'].includes(state.major)))set='site';
+ const where=placeOf(state,age,life,style);
+ if(set==='work'&&region?.country==='TH'){const f=flagsOf(state);if(f.keptShop)set='stall';else if(where.year!==null&&where.year<OFFICE_FROM)set=!where.inCity&&(style==='village'||style==='coast')?'garden':'shop';}
  const beat=beatFor(state,age,player),moment=beat?BEATS[beat]:null,stage=SETS[set],night=player.phase==='Evening'||player.phase==='Coming home';
- const basePlate=moment?.plate??(night&&stage.night?stage.night:stage.plate);
- const domestic=beat==='bed'||!beat&&['home','bedroom'].includes(set),place=domestic&&life.residence.id!=='family'?life.residence.id:style;
+ const road=set==='travel'&&!night&&region?.country==='TH'&&!where.inCity?{village:'beat-lane',coast:'town'}[style]:null;
+ const basePlate=moment?.plate??road??(night&&stage.night?stage.night:stage.plate);
+ const domestic=beat==='bed'||!beat&&['home','bedroom'].includes(set),place=domestic?where.place:style;
  const plate=plateVariant(basePlate,place);
  // The original wooden room: front floor lies below the table's feet (.88).
  // A standing adult is calibrated against the door, not against a dock.
@@ -346,7 +361,7 @@ export const stageArtFailed=()=>artFailed;
 const dayCache=new Map();
 export function paintedDay(state,age){
  if(!animeManifest())return false;
- const key=[state.seed,age,state.history?.length,state.story?.seen?.length,state.pathway,state.major,state.stage,state.finance?.region,state.finance?.housing].join('|');
+ const key=[state.seed,age,state.history?.length,state.story?.seen?.length,state.pathway,state.major,state.stage,state.finance?.region,state.finance?.housing,state.pivots?.length].join('|');
  if(dayCache.has(key))return dayCache.get(key);
  let ok=true;
  for(let t=0;t<60&&ok;t+=3){ok=paintedCovers(state,age,t,describePaintedScene(state,age,t));}
@@ -632,7 +647,7 @@ function createStage(canvas){
     }else if(set==='travel'){
       drawn=drawTravel(paint,clock,player,age,plateKey);
       groundY=drawn?drawn.y+drawn.drawHeight*SETS.travel.ground:height*.86;
-      if(drawn){const lifted=fit(groundY);groundY=lifted.y;drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight*lifted.k,clock,seen*.44);}
+      if(drawn){const lifted=fit(groundY);groundY=lifted.y;drawFigure(paint,'player',age,player,'travel',groundY,drawn.drawHeight*lifted.k,clock,seen*.44,{flipX:player.phase==='Coming home'});}
     }else{
       drawn=drawPlate(paint,plateKey,0,stage.focus??.5);
       groundY=drawn?drawn.y+drawn.drawHeight*stage.ground:height*.84;

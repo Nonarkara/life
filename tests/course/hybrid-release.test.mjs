@@ -32,7 +32,7 @@ test('missing body, residence and age-specific pose retain3D instead of silently
  // The male cast is published now. Take it away and the scene must fall back to3D.
  try{delete manifest.sprites['player-m-bike'];assert.equal(paintedCovers({...base(),intake:{sex:'male'}},17,12),false);}finally{manifest.sprites['player-m-bike']=maleBike;}
  assert.equal(paintedCovers({...base(),intake:{sex:'male'}},17,12),true,'the male cast paints its own rider');
- const own={...base(35),finance:{housing:'near',workplace:'city',locationSince:30}};assert.equal(paintedCovers(own,35,1),false);
+ const own={...base(35),finance:{housing:'near',workplace:'city',locationSince:30}};assert.equal(paintedCovers(own,35,1),true,'a home of your own has its own painted room');assert.match(describePaintedScene(own,35,1).plate,/@/);
  assert.equal(paintedCovers(base(0),0,1),false);
  const elder={...base(65),history:[{age:65,event:'A health setback interrupts your plans.'}]};assert.equal(describePaintedScene(elder,65,54).beat,'bed');assert.equal(paintedCovers(elder,65,54),false,'no elderly lying pose exists');
 });
