@@ -8,6 +8,7 @@ import {LESSONS} from './lessons.js';
 import {WAVE1_ENCOUNTERS} from './wave1-encounters.js';
 import {WAVE2_ENCOUNTERS} from './wave2-encounters.js';
 import {HISTORY_ENCOUNTERS} from './history-encounters.js';
+import {BANK_ENCOUNTERS} from './bank-encounters.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
@@ -106,17 +107,18 @@ ENCOUNTERS.push(
   option('again','Move again and see whether the next place holds',{cash:-6000,wellbeing:-1,flag:'geo_again'},'You moved again. It held for a while, the way the last one did.'),
   option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
 ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS,...THAI_ENCOUNTERS);
-ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS);
+ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,...BANK_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.
 for(const e of ENCOUNTERS){const i=e.options.findIndex(x=>!(x.cash<0)&&!x.requires);if(i>0)e.options=[e.options[i],...e.options.filter((x,k)=>k!==i)];}
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
 export const encounterById=id=>byId.get(id);
+const BANK_SHARE=Object.freeze({history:.2,quiet:.65,macro:.5});
 export function eligibleEncounters(state){
- if(state.stage!=='review'||state.age<15||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
+ if(state.stage!=='review'||state.age<10||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
  const seen=new Set(state.story.seen.map(e=>e.id));
- return ENCOUNTERS.filter(e=>state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
+ return ENCOUNTERS.filter(e=>(state.age>=15||e.child)&&state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
 }
 export function offerEncounter(state,roll,keep=()=>true){
  const eligible=eligibleEncounters(state).filter(keep);if(!eligible.length)return state;
@@ -128,6 +130,12 @@ export function offerEncounter(state,roll,keep=()=>true){
  if(priority===2&&pool.some(e=>e.urgent&&!state.story.seen.some(s=>s.id===e.id)&&state.age>=e.max-10))pool=pool.filter(e=>e.urgent&&!state.story.seen.some(s=>s.id===e.id));
  // A first-in-line encounter with time left is sometimes held back a station, so lives do not all open the same way.
  if(priority===1&&pool.every(e=>e.max>state.age)&&(roll*997)%1<.35){const rest=eligible.filter(e=>(e.priority??2)>1);if(rest.length){priority=Math.min(...rest.map(e=>e.priority??2));pool=rest.filter(e=>(e.priority??2)===priority);}}
+ // The databank draws its own lot: a life meets ordinary things as well as the famous ones. Story beats (priority 1), recovery and class urgency are never displaced.
+ const bank=eligible.filter(e=>e.bank),open=priority===2||priority===0&&pool.every(e=>e.year&&!e.bank);
+ if(bank.length&&open&&!pool.some(e=>e.urgent)){
+  if((roll*7919)%1<(priority===2?BANK_SHARE.quiet:BANK_SHARE.history)){const macro=bank.filter(e=>e.macro);pool=macro.length&&(roll*104729)%1<BANK_SHARE.macro?macro:bank;}
+  else{const rest=pool.filter(e=>!e.bank);if(rest.length)pool=rest;}
+ }
  const last=state.story.seen.at(-1),fresh=pool.filter(e=>e.category!==byId.get(last?.id)?.category);if(fresh.length)pool=fresh;
  const selected=pool[Math.min(pool.length-1,Math.floor(roll*pool.length))];
  return {...state,story:{...state.story,pending:{id:selected.id,age:state.age,candidates:eligible.map(e=>e.id)}}};

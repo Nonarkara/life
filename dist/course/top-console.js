@@ -1,6 +1,6 @@
 // One bar instead of two: who and when, the transport, the real economy of this year, its news.
 import {WORLD_YEARS,worldAt} from './world-series.js';
-import {HEADLINES} from './world-headlines.js';
+import {headlinesFor} from './world-headlines.js';
 import {climateLines} from './world-voice.js';
 import {t} from './i18n.js';
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
@@ -12,5 +12,5 @@ export function initTopConsole({openWorld}){
  who.classList.add('top-who');main.append(who,transport);bar.append(brand,main,world,tools);header.append(bar);head.hidden=true;document.body.classList.add('has-top-console');
  const setHeight=()=>document.documentElement.style.setProperty('--life-header-height',header.offsetHeight+'px');new ResizeObserver(setHeight).observe(header);setHeight();
  let last=null;
- return {update(year){const key=year===null?'none':year+'|'+document.documentElement.lang;if(key===last)return;last=key;const w=year===null?null:worldAt(year);world.hidden=!w;if(!w)return;gauges.replaceChildren(...GAUGES.filter(([k])=>w[k]!=null).map(([k,label,unit,f])=>{const g=el('span','gauge');g.append(el('span','gauge-label',t(label)),el('b','gauge-value',f(w[k])+unit));const sp=spark(k,year);if(sp)g.append(sp);return g;}));const lines=[...(HEADLINES[year]??[]).map(x=>t(x)),...climateLines(year)];news.textContent=lines[0]??'';news.title=lines.join(' · ');}};
+ return {update(year){const key=year===null?'none':year+'|'+document.documentElement.lang;if(key===last)return;last=key;const w=year===null?null:worldAt(year);world.hidden=!w;if(!w)return;gauges.replaceChildren(...GAUGES.filter(([k])=>w[k]!=null).map(([k,label,unit,f])=>{const g=el('span','gauge');g.append(el('span','gauge-label',t(label)),el('b','gauge-value',f(w[k])+unit));const sp=spark(k,year);if(sp)g.append(sp);return g;}));const lines=[...headlinesFor(year).map(x=>t(x)),...climateLines(year)];news.textContent=lines[0]??'';news.title=lines.join(' · ');}};
 }
