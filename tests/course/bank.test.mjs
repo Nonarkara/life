@@ -87,3 +87,9 @@ test('a question put to a ten-year-old never holds the years up, and nobody unde
  const later=BANK.filter(e=>!e.child);assert.ok(later.every(e=>e.min>=15));
  const adult=['b_bar_cousin','b_sister_money','b_german_husband'];for(const id of adult)assert.ok(encounterById(id).min>=20,id);
 });
+
+import {setRegion} from '../../dist/course/finance.js';
+test('moving house after answering a place-bound scene cannot void the save',()=>{
+ let moved=0;everyLife((seed,opts)=>{walk(seed,opts,undefined,(s,at)=>{if(!encounterById(at)?.bank)return;for(const to of ['isan-village','sukhumvit','pak-phanang']){const next=setRegion(s,to);if(next===s)continue;moved++;assert.ok(validate(JSON.parse(JSON.stringify(next))),at+' then moved to '+to);}});});
+ assert.ok(moved>=200,'moves tried '+moved);
+});
