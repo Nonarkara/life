@@ -9,6 +9,8 @@ import {placeOf} from './stage2d.js';
 import {routineContext} from './routines.js';
 import {recordedFinance} from './locations.js';
 import {netWorth} from './finance.js';
+import {rungAt,clearOfLots} from './housing-ladder.js';
+export {clearOfLots};
 
 const BANGKOK=new Set(['khlong-toei','bang-na','sukhumvit']);
 const RURAL=new Set(['nakhon-sawan','isan-village','pak-phanang']);
@@ -68,18 +70,20 @@ export function palette(style,place,seed){
  const walls=[...set.walls.slice(rot),...set.walls.slice(0,rot)].slice(0,3).map(c=>hsl(c,shift,-.05,tone));
  return {walls,roofs:set.roofs.map(c=>hsl(c,shift*.7,0,(r()-.5)*.05)),accent:hsl(pick(set.accent),0,-.12,.02),accents:set.accent,road:hsl(set.road,shift,0,tone*.5),leaf:set.leaf.map(c=>hsl(c,shift,0,(r()-.5)*.04)),ground:hsl(place.look.ground,shift,-.1,.05+tone*.4),water:place.look.water,floor:hsl(place.look.floor,shift,0,tone),wall:hsl(place.look.wall,shift,0,tone)};
 }
-const TIERS={low_class:0,working_class:1,middle_class:2,bureaucratic_class:2,high_class:3,};
+const RUNG_TIER=[0,0,1,2,2,3];
 export function townStyle(base,year,where){
  if(where.inCity&&where.place)return where.place==='condo'||where.place==='villa'?where.place:'slum';
  if(where.inCity)return 'slum';
  return base==='condo'&&year<1975?'fringe':base;
 }
-export function homeKindFor(style,where){
+// Thai homes follow the rung you live on; the region still decides what a modest house looks like.
+export function homeKindFor(style,where,rung){
  if(where.place==='villa')return 'villa';if(where.place==='condo')return 'condo';
+ if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2&&style==='market')return 'row';if(rung===3&&style==='slum')return 'shophouse';}
  return {slum:'shack',village:'stilt',fringe:'stilt',coast:'plank',market:'shophouse',condo:'flat',villa:'villa',tower:'hdb',tokyo:'tatami',newengland:'triple',brick:'terrace'}[style]??'shophouse';
 }
 // Things a room holds at this year and this income. Income shifts the year a thing arrives.
-function roomHas(year,tier,marks,abroad,r){
+export function roomHas(year,tier,marks,abroad,r){
  const by=(rich,mid,poor)=>year>=[poor,mid,mid,rich][tier];
  const mains=marks.power||abroad;
  return {
@@ -105,9 +109,9 @@ export function floodAt(state,age){
 // Fewer people in the early years, more as the country fills up.
 export function crowdSize(style,year){const base=Math.round((year-1945)/13),adj={village:-1,fringe:-1,slum:1,market:1,condo:1,tower:1,tokyo:1,villa:-1,coast:0,newengland:-1,brick:1}[style]??0;return Math.max(1,Math.min(7,base+adj));}
 export function townPlan(state,age){
- const seed=state.seed,regionId=regionAt(state,age),place=region(regionId),year=lifeYear(state,age),context=routineContext(state,age),where=placeOf(state,age,context,place.style),style=townStyle(place.style,year,where),abroad=place.country!=='TH',marks=eraMarks(regionId,year,seed),homeKind=homeKindFor(style,where);
- const cls=state.intake?.class??state.birth?.class,finance=recordedFinance(state,age),worth=finance?netWorth(finance):0,tier=Math.max(TIERS[cls]??1,worth>=3500000?3:worth>=800000?2:0),room=roomHas(year,tier,marks,abroad,rand(seed,0,'sewing')),flood=floodAt(state,age);
+ const seed=state.seed,regionId=regionAt(state,age),place=region(regionId),year=lifeYear(state,age),context=routineContext(state,age),where=placeOf(state,age,context,place.style),style=townStyle(place.style,year,where),abroad=place.country!=='TH',marks=eraMarks(regionId,year,seed),rung=rungAt(state,age),homeKind=homeKindFor(style,where,abroad?undefined:rung);
+ const finance=recordedFinance(state,age),worth=finance?netWorth(finance):0,tier=Math.max(RUNG_TIER[rung],worth>=3500000?3:worth>=800000?2:0),found=roomHas(year,tier,marks,abroad,rand(seed,0,'sewing')),room=homeKind==='pavement'?{...found,tv:false,flatTv:false,fan:false,fridge:false,aircon:false,computer:false,phone:false,sewing:false,bed:false,oilLamp:true,altar:false}:found,flood=floodAt(state,age);
  // The model is rebuilt in steps: a mark appearing, or a five-year growth stage.
  const growth=Math.floor(year/5)*5,bits=Object.entries(marks).filter(([,v])=>v).map(([k])=>k).join(','),things=Object.entries(room).filter(([,v])=>v).map(([k])=>k).join(',');
- return {key:[seed,regionId,style,homeKind,tier,growth,bits,things,flood.mark].join('|'),seed,regionId,place,style,year,growth,abroad,marks,homeKind,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast'};
+ return {key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast'};
 }

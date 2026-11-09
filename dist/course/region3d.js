@@ -2,6 +2,7 @@ import * as T from 'three';
 import {createBatch,bake,m} from './diorama-kit.js';
 import {lifeRandom} from './diorama-plan.js';
 import {crowdRoster} from './diorama-cast.js';
+import {LOTS,clearOfLots} from './housing-ladder.js';
 // The town on the board. Institutions keep their positions in every life (school, work,
 // market, clinic), so routes and seats never move; everything else is laid out here from the
 // life's seed, its place and its year. Free-standing props are plain data so tests can prove
@@ -87,7 +88,7 @@ function prop([kind,x,z,w,d],b,plan,r){
  if(kind==='pillar'){b.cylinder(x+.1,z+.1,0,.11,.11,.92,'#b23a2e',10);b.ball(x+.1,.94,z+.1,.12,.09,.12,'#b23a2e',8);return;}
 }
 // Ground that is not available to building: roads, home, pond, field, stall, the garden path.
-export const KEEP_CLEAR=[[2.5,2.6,4.8,4.7],[3,8.3,2.6,2.2],[8.8,8.8,4.4,3.6],[6,8.3,2.4,2],[-5.6,7,24.2,1.9],[7.1,-5.6,2,24],[4.2,12.9,4.5,1.6],[8.3,1.2,6.2,.8],[10,5.2,4.1,1.2],[13.4,5.2,.8,2]];
+export const KEEP_CLEAR=[[2.5,2.6,4.8,4.7],[3,8.3,2.6,2.2],[8.8,8.8,4.4,3.6],[6,8.3,2.4,2],[-5.6,7,24.2,1.9],[7.1,-5.6,2,24],[4.2,12.9,4.5,1.6],[8.3,1.2,6.2,.8],[10,5.2,4.1,1.2],[13.4,5.2,.8,2],...LOTS];
 export const clearOfRoutes=(x,z,w,d)=>!KEEP_CLEAR.some(([a,b,c,e])=>x<a+c&&x+w>a&&z<b+e&&z+d>b);
 export function createRegionScenery({scene,registerBuilding}){
  let root=null,built=[];
@@ -131,7 +132,7 @@ export function createRegionScenery({scene,registerBuilding}){
     open.box(-3.72,-5.2,m(.75),.22,23,.03,WOOD);
     const dense=(x0,x1,z0,z1)=>{for(let z=z0;z<z1;){const d=.95+r()*.45;for(let x=x0;x<x1;){const w=.9+r()*.55;if(r()<.86&&clearOfRoutes(x,z,w,d))unit(b=>shack(b,x,z,w,d,wall(),roof(),r),[x,z,w,d]);x+=w+.06+(r()<.2?.3:0);}z+=d+.34;}};
     dense(-2.3,2.2,3.3,6.9);dense(-2.3,.8,9.2,18);dense(14.3,18.2,-5.2,6.9);dense(-2.2,18.2,-5.2,-3.2);dense(9.2,18.2,12.6,18.2);dense(13.4,18.2,9,12.2);dense(1.2,8.2,14.6,18);
-    if(marks.tower)for(const [x,z,w] of [[15,-3.7,2.6],[-2,14,2.4]])unit(b=>tower(b,x,z,w,1.9,pick(['#cfd0c8','#dcd8cc']),r,12+Math.floor(r()*14),P.accent),[x,z,w,1.9]);
+    if(marks.tower)for(const [x,z,w] of [[15,-3.7,2.6],[-2,14,2.4]])if(clearOfLots(x,z,w,1.9))unit(b=>tower(b,x,z,w,1.9,pick(['#cfd0c8','#dcd8cc']),r,12+Math.floor(r()*14),P.accent),[x,z,w,1.9]);
     scatterTrees(3,[[.2,10,.8,1],[6,11,2,1.6]],[1.2,1.8]);},
    village(){
     water(-5.4,-5.4,23.8,1.7);
@@ -198,11 +199,11 @@ export function createRegionScenery({scene,registerBuilding}){
     for(const [x,z] of [[-4,6.5],[.7,9.1],[10.5,12.3],[15,8.95]])tree(open,x,z,2.4+r()*.8,P.leaf,r);}
   };
   (LAYOUT[style]??LAYOUT.market)();
-  for(const p of PROPS[style]??PROPS.market)if(has(marks,p[5]))prop(p,open,plan,r);
+  for(const p of PROPS[style]??PROPS.market)if(has(marks,p[5])&&(plan.abroad||clearOfLots(p[1],p[2],p[3]??0,p[4]??0)))prop(p,open,plan,r);
   // Whoever sits in this town has something to sit on.
   for(const row of crowdRoster(plan))if(row.role==='still'&&row.pose==='sit'){open.box(row.x-.13,row.z-.13,.235,.26,.26,.03,marks.stools?P.accent:'#8a7050');for(const [a,e] of [[-.11,-.11],[.08,-.11],[-.11,.08],[.08,.08]])open.box(row.x+a,row.z+e,0,.03,.03,.235,'#6b5a45');}
   // Wires between the poles once a place has mains.
-  if(marks.power&&['market','slum','condo','fringe','village'].includes(style)){const y=S*1.9;for(let k=0;k<2;k++){open.beam(-5.3,y-k*.06,6.72,2.2,y-k*.06,6.72,.01,.01,DARK);}for(const x of [-4.5,1.6])open.box(x,6.68,0,.05,.05,y,'#8a8880');}
+  if(marks.power&&['market','slum','condo','fringe','village'].includes(style)){const y=S*1.9;for(let k=0;k<2;k++){open.beam(-5.3,y-k*.06,6.72,2.2,y-k*.06,6.72,.01,.01,DARK);}for(const x of [-4.5,plan.abroad?1.6:1.85])open.box(x,6.68,0,.05,.05,y,'#8a8880');}
   bake(open,root);
  }
  function dispose(){if(!root)return;root.traverse(o=>{o.geometry?.dispose();o.material?.dispose?.();});scene.remove(root);root=null;}

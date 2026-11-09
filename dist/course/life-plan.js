@@ -4,7 +4,8 @@ import {AXES,transfer} from './sim.js';
 import {locksFor} from './pivots.js';
 import {availablePathways} from './pathways.js';
 import {MAJORS} from './life-choices.js';
-import {setBudget} from './finance.js';
+import {setBudget,monthlyFlow} from './finance.js';
+import {RUNGS,TOP,rungAt,birthRung,setRung,canAfford,ladderOpen} from './housing-ladder.js';
 import {PRIORITIES,prioritiesFor} from './priorities.js';
 import {climateLines} from './world-voice.js';
 import {birthYearOf} from './thai-history.js';
@@ -41,6 +42,8 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
   if(s.finance&&s.age>=15){const c=card('Your money'),i=cards.length,b=s.finance.budget;for(const[,label,v]of BUDGETS)c.append(option(label,b&&b.save===v.save&&b.fun===v.fun&&b.learn===v.learn,()=>{apply(setBudget(getState(),v));onChosen();after(i);},`${v.save} / ${v.fun} / ${v.learn}`));c.append(el('p','plan-key','Save / fun / learn, % of income'));cards.push(c);}
   // Habits
   if(s.age>=15){const c=card('How you live');const set=(k,v)=>{apply({...getState(),profile:{...getState().profile,[k]:v}});onChosen();};const row=(label,k,opts)=>{const g=el('div','plan-row');g.append(el('span','plan-row-label',label));const r=el('div','plan-seg');for(const[v,tx]of opts){const b=el('button','plan-seg-btn',tx);b.type='button';b.setAttribute('aria-pressed',s.profile[k]===v?'true':'false');b.onclick=()=>set(k,v);r.append(b);}g.append(r);c.append(g);};row('Temple','religion',[['practice','Go'],['explore','Sometimes'],['none','No']]);if(s.age>=20){row('Smoke','smoke',[['no','No'],['yes','Yes']]);row('Drink','drink',[['no','No'],['social','Yes']]);}cards.push(c);}
+  // Home: a step up, stay, or a step down. Only the home the family lives in moves on the ladder.
+  if(ladderOpen(s)){const c=card('Where you live'),i=cards.length,was=rungAt(s,s.age-.5),now=s.finance.rung??birthRung(s),income=monthlyFlow(s,s.history?.at(-1)).income;for(const[to,verb]of [[was+1,'Move up: '],[was,'Stay: '],[was-1,'Move down: ']]){if(to<0||to>TOP)continue;const can=to<=was||canAfford(to,income),b=option(t(verb)+t(RUNGS[to].label),to===now,()=>{apply(setRung(getState(),to));onChosen();after(i);},can?'฿'+RUNGS[to].rent.toLocaleString('en')+t(' a month'):t('Rent is too high for this income'));b.disabled=!can;c.append(b);}cards.push(c);}
   // Live
   {const c=card('The next five years');c.classList.add('plan-live');const year=birthYearOf(s);const lines=year===null||s.age<15?[]:climateLines(year+s.age);if(lines.length)c.append(el('p','plan-signal',lines[0]));else c.append(el('p','plan-signal',t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)));c.append(commit);commit.hidden=false;cards.push(c);}
   const left=strip.scrollLeft;strip.replaceChildren(...cards);strip.scrollLeft=left;

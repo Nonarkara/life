@@ -1,6 +1,7 @@
 // The people who are not family: who is about in this place and year, and what they are doing.
 // Pure data. Every figure is on the road, at a stall or in a field, never inside a building.
 import {lifeRandom} from './diorama-plan.js';
+import {clearOfLots} from './housing-ladder.js';
 const STATIONS={
  market:[['sell',-1,10,Math.PI],['sit',-3.6,9.2,0],['bow',2.35,6.92,Math.PI],['cook',.3,10,Math.PI]],
  slum:[['sell',-1,10,Math.PI],['squat',.9,6.3,1.5],['sit',-2.5,9.1,.4],['wash',.8,5.5,0]],
@@ -18,7 +19,7 @@ const STATIONS={
 const LANES=[[-5,17.6,8.45],[-5,6.7,8.6],[9.4,17.6,8.3]];
 export function crowdRoster(plan){
  const r=lifeRandom(plan.seed,'crowd'+plan.regionId),n=plan.crowd,year=plan.year,thai=!plan.abroad,rows=[];
- const stations=[...(STATIONS[plan.style]??STATIONS.market)];
+ const stations=(STATIONS[plan.style]??STATIONS.market).filter(s=>plan.abroad||clearOfLots(s[1],s[2]));
  const person=(extra)=>rows.push({salt:rows.length+1+plan.seed%97,sex:r()<.52?'female':'male',elder:r()<.16,scale:.94+r()*.1,...extra});
  // A monk's alms round, morning only, in Thai places.
  if(thai&&plan.style!=='villa'&&n>=2)person({role:'alms',sex:'male',elder:false,lane:0,phase:r()*20,robe:true});

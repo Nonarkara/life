@@ -4,6 +4,7 @@ import {HISTORICAL_COHORTS} from '../course/thai-history.js';
 import {initSettings,t} from '../course/i18n.js';
 import {REGIONS,BAND_REGIONS,CLASS_REGIONS,COUNTRIES,household} from '../course/regions.js';
 import {retireClass} from '../course/save.js';
+import {RUNGS,birthRung,birthFits} from '../course/housing-ladder.js';
 import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../course/birthcode.js';
 import {readLives} from '../course/lives.js';
 import {deliverShare,copyShare} from '../course/share-result.js';
@@ -18,14 +19,15 @@ export function birthOdds(life,options){
  if(!['female','male','intersex'].includes(options.sex))p*=1/3;
  if(!CLASS_KEYS.includes(options.class))p*=CLASS_WEIGHTS[cls];
  if(!options.region)p*=1/CLASS_REGIONS[cls].length;
- p*=HOUSEHOLD_ODDS[life.birth.household]??1;
+ if(!options.raised)p*=HOUSEHOLD_ODDS[life.birth.household]??1;
  return Math.max(1,Math.round(1/p));
 }
 let drawn=null,lastOptions={};
-function draw_life(options){const seed=Math.floor(Math.random()*2147483646)+1;const life=configureLife(newLife(seed),options);if(!validate(life))throw Error('Invalid starting conditions');return life;}
+// A chosen household or the pavement are read from the seed, so choosing them means finding a seed that gives them.
+function draw_life(options){let life;for(let i=0;i<4000;i++){life=configureLife(newLife(Math.floor(Math.random()*2147483646)+1),options);if(birthFits(life,options))break;}if(!validate(life))throw Error('Invalid starting conditions');return life;}
 function card(life){
  const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class],cohort=HISTORICAL_COHORTS[life.intake.birthYear];
- const facts=[['Place',t(b.place)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
+ const facts=[['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
  if(cohort?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cohort.note);$('birth-facts').append(note);}
@@ -50,10 +52,10 @@ const shareBirth=async copyOnly=>{
  }finally{if(revision===shareRevision)action.disabled=false;}
 };
 $('birth-share').onclick=()=>shareBirth(false);birthCopy.onclick=()=>shareBirth(true);
-$('random-life').onclick=()=>{const year=Number($('birth-era').value);enter(year?{birthYear:year}:{});};$('intake-form').onsubmit=e=>{e.preventDefault();const era=$('birth-era')?.value;enter({sex:$('body-profile').value,class:$('birth-class').value,...(era&&era!=='random'?{birthYear:Number(era)}:{}),attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
+$('random-life').onclick=()=>{const year=Number($('birth-era').value);enter(year?{birthYear:year}:{});};$('intake-form').onsubmit=e=>{e.preventDefault();const era=$('birth-era')?.value;const home=$('birth-class').value,raised=$('raised-by').value;enter({sex:$('body-profile').value,class:home==='street'?'low_class':home,...(home==='street'?{street:true}:{}),...(raised!=='random'?{raised}:{}),...(era&&era!=='random'?{birthYear:Number(era)}:{}),attributes:points});};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
 try{const saved=retireClass(JSON.parse(localStorage.getItem('life-course-v2')));if(validate(saved)&&saved.stage!=='recap'){$('continue-life').hidden=false;$('continue-life').textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));}}catch{}
 function eraNote(){const era=$('birth-era')?.value,cohort=HISTORICAL_COHORTS[Number(era)];if($('era-note'))$('era-note').textContent=cohort?t(cohort.note):t('Watch Thailand transform from 1949 canals and 16mm cinema to the 1997 crisis, Skytrain and cashless 2020s streets.');}
-function classNote(){const v=$('birth-class').value,cls=CLASS_TIERS[v];$('class-note').textContent=cls?t(cls.note):t('The condition you are born into sets family resources and pressures, not your intelligence or destiny.');$('class-regions').textContent=(CLASS_REGIONS[v]??[]).map(id=>REGIONS[id]?.place).join(' · ')||t('Any Thai region.');eraNote();}
+function classNote(){const v=$('birth-class').value==='street'?'low_class':$('birth-class').value,cls=CLASS_TIERS[v];$('class-note').textContent=cls?t(cls.note):t('The condition you are born into sets family resources and pressures, not your intelligence or destiny.');$('class-regions').textContent=(CLASS_REGIONS[v]??[]).map(id=>REGIONS[id]?.place).join(' · ')||t('Any Thai region.');eraNote();}
 $('birth-class').addEventListener('change',classNote);$('birth-era')?.addEventListener('change',eraNote);
 // The lives already lived, each with a way to live the same birth again.
 function archive(){

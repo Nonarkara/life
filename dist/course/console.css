@@ -331,3 +331,5 @@ body.console-mode>header{flex:none}
  .decision-dialog #child-choice .pivot-cost{font-size:calc(11px * var(--reading-scale));line-height:1.2;white-space:nowrap}
  .decision-dialog #child-choice .child-snapshot{display:none}
 }
+
+.town-caption{position:absolute;left:8px;bottom:12px;margin:0;padding:3px 8px;max-width:calc(100% - 16px);background:#0a0e14;color:#f3efe3;font-size:12px;line-height:1.35;pointer-events:none}.town-caption[hidden]{display:none}

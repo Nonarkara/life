@@ -21,6 +21,10 @@ import {crowdRoster,crowdActivity,youthRoster} from './diorama-cast.js';
 import {visitorWardrobe,applyWardrobe} from './cast-wardrobe.js';
 import {youthsInOwnClothes} from './moment-plan.js';
 import {furnishHome,buildHomeShell} from './home3d.js';
+import {buildOpenHouses} from './open-houses3d.js';
+import {lotCast,lotActivity,lotCaption,tourStop,LOT_FLOOR,RUNGS,clearOfLots} from './housing-ladder.js';
+import {roomHas} from './diorama-plan.js';
+import {t as tr} from './i18n.js';
 // A long lens on a model on a table. The figures are real-metre people in a world where one
 // unit is 1.55 m, so a door is taller than whoever walks through it.
 const FIGURE=1.65/1.8*METRE;
@@ -98,6 +102,7 @@ function createScene(original){
   const districts=createDistricts({scene:root,box,round,chair,table,tree,label(){},registerBuilding:register,palette:plan.palette});
   const home=furnishHome({root,batchOf,group,box,round,chair,table,plan,register});
   const shell=buildHomeShell({root,batchOf,group,plan,register});
+  buildOpenHouses(batchOf(root),plan,r=>roomHas(plan.year,[0,0,1,2,2,3][r],plan.marks,false,rand(plan.seed,r,'sewing')));
   const road=batchOf(root);
   // Lit desks and work corners the routines already use.
   const manual=group(),office=group(),desks=plan.farm?[taskDesks[0]]:taskDesks;for(const [x,z] of desks)table(x,z,.75,root);if(plan.farm){const p2=batchOf(root);p2.box(10.4,5.25,-.022,3.9,1.55,.012,'#8ea27a');for(let x=10.5;x<14.2;x+=.3)for(let z=5.35;z<6.75;z+=.3)p2.box(x,z,-.012,.03,.03,.1,'#7fa05a');}
@@ -110,10 +115,10 @@ function createScene(original){
   // A pitch is usable ground; its markings sit on the plane the players stand on.
   road.box(9,9,-.022,4,3,.012,plan.climate==='cold'?'#e8edee':'#7f9a6e');for(const [x,z,w,d] of [[9,9,4,.025],[9,12,4,.025],[9,9,.025,3],[13,9,.025,3],[11,9,.025,3]])road.box(x,z,-.008,w,d,.006,'#e6e4d6');for(const x of [9,13]){road.box(x,10,0,.03,.03,m(1.5),'#e6dfcc');road.box(x,11,0,.03,.03,m(1.5),'#e6dfcc');road.box(x,10,m(1.5),.03,1,.03,'#e6dfcc');}
   // Garden plots at the end of the old-age route, and a small kitchen garden by the fields.
-  const farm=group(),f=batchOf(farm);for(let i=0;i<4;i++){f.box(-1+i*.6,1,-.02,.35,3,.016,'#927b58');for(let z=1.2;z<4;z+=.4)f.ball(-.85+i*.6,.08,z,.1,.08,.1,'#718559',6);}
+  const farm=group(),f=batchOf(farm);for(let i=0;i<4;i++){f.box(-1+i*.6,1,-.02,.35,2,.016,'#927b58');for(let z=1.2;z<3;z+=.4)f.ball(-.85+i*.6,.08,z,.1,.08,.1,'#718559',6);}
   const garden=batchOf(root);for(let i=0;i<4;i++)garden.box(3.4+i*.72,13.25,-.018,.6,.42,.012,'#927b58');for(let i=0;i<9;i++)garden.ball(3.55+i*.3,.09,13.45,.09,.08,.09,'#6f8a55',6);
   // Town growth the older game promised: houses that appear with the life's age.
-  const growth=[];for(const [from,x,z,w,d,h] of townGrowth){const g=group();const b=batchOf(g),c=plan.palette.walls[growth.length%plan.palette.walls.length];b.box(x,z,0,w,d,Math.max(h,m(3)),c);b.box(x+w*.4,z+d,0,m(.9),.012,m(2),'#3f4a48');b.gable(x,z,Math.max(h,m(3)),w,d,m(1.2),plan.palette.roofs[0],{over:.12,along:'x',gableColor:c});register(g);growth.push([from,g]);}
+  const growth=[];for(const [from,x,z,w,d,h] of townGrowth){if(!plan.abroad&&!clearOfLots(x,z,w,d))continue;const g=group();const b=batchOf(g),c=plan.palette.walls[growth.length%plan.palette.walls.length];b.box(x,z,0,w,d,Math.max(h,m(3)),c);b.box(x+w*.4,z+d,0,m(.9),.012,m(2),'#3f4a48');b.gable(x,z,Math.max(h,m(3)),w,d,m(1.2),plan.palette.roofs[0],{over:.12,along:'x',gableColor:c});register(g);growth.push([from,g]);}
   // Animated or age-gated objects keep their own parents.
   const bits=dollhouseBits({batchOf,group});
   drawBus(bits.busBatch,plan);
@@ -155,13 +160,17 @@ function createScene(original){
  // --- the cast
  const actors={mother:createCharacter({shirt:'#718979',sex:'female',plain:true}),father:createCharacter({shirt:'#87735c',plain:true}),player:createCharacter({shirt:'#bd914d',plain:true}),partner:createCharacter({shirt:'#8a7a6a',plain:true}),kid:createCharacter({shirt:'#b5553c',plain:true})};
  for(const actor of Object.values(actors)){scene.add(actor.root);actor.root.visible=false;}
+ // Five open homes: two people each, and the villa's maid.
+ const lots=Array.from({length:11},()=>{const a=createCharacter({shirt:'#93957b',plain:true});scene.add(a.root);a.root.visible=false;return a;});let lotRoster=[];
+ const tourLine=document.createElement('p');tourLine.className='town-caption';tourLine.hidden=true;canvas.after(tourLine);
+ const anchorAt=(x,z,y=.5)=>({getWorldPosition:v=>v.set(x,y,z)});
  const crowd=Array.from({length:12},()=>{const a=createCharacter({shirt:'#93957b',plain:true});scene.add(a.root);a.root.visible=false;return a;});
  let gone=false,castReady=false;
- loadAnimeCast().then(c=>{if(!c||gone)return;castReady=true;for(const a of [...Object.values(actors),...crowd])try{attachAnime(a);}catch(error){console.warn('Anime figure skipped.',error);a.anime?.detach();}lastLooks='';});
+ loadAnimeCast().then(c=>{if(!c||gone)return;castReady=true;for(const a of [...Object.values(actors),...crowd,...lots])try{attachAnime(a);}catch(error){console.warn('Anime figure skipped.',error);a.anime?.detach();}lastLooks='';});
  const STAND={x:0,y:0,dx:0,dy:0,moving:false,pose:'stand',facing:0,distance:0};
- function dressActor(actor,key,sex,state,age,year,{elder=false,place,headScale=1,stoop=0,monk=false}={}){
+ function dressActor(actor,key,sex,state,age,year,{elder=false,place,headScale=1,stoop=0,monk=false,cls}={}){
   if(!actor.anime)return;
-  const hair=monk?{style:'bald',color:'#26211c'}:hairFor(state,key,sex,age,elder),outfit=monk?monkRobe:key.startsWith('crowd')?neighbourOutfit(state,key,sex,year,place):outfitFor(state,key,sex,age,year,{place}),stamp=JSON.stringify([outfit,hair,elder,headScale,stoop]);
+  const hair=monk?{style:'bald',color:'#26211c'}:hairFor(state,key,sex,age,elder),outfit=monk?monkRobe:key.startsWith('crowd')?neighbourOutfit(state,key,sex,year,place):outfitFor(state,key,sex,age,year,{place,cls}),stamp=JSON.stringify([outfit,hair,elder,headScale,stoop]);
   if(actor.dressStamp===stamp&&actor.undress)return;
   actor.rig.look.headScale=1;actor.rig.look.stoop=0;
   // Clothes bind to a standing figure, wherever this one happens to be in its stride.
@@ -183,6 +192,8 @@ function createScene(original){
   actors.player.setLook(appearance(rand,seed,'player',born,{sex}));dressActor(actors.player,'player',sex,state,age,year,{elder:age>=60,place:plan.place,headScale:headFor(age),stoop:age>=68?.15:age>=60?.08:0});
   if(family.partner){const ps=rand(seed,0,'partner-sex')<.92?(sex==='female'?'male':'female'):sex;actors.partner.setLook(appearance(rand,seed,'partner',here,{sex:ps}));dressActor(actors.partner,'partner',ps,state,age,year,{elder:age>=62,place:plan.place,stoop:age>=68?.12:0});}
   if(family.child){const ks=rand(seed,0,'kid-sex')<.5?'female':'male';actors.kid.setLook(appearance(rand,seed,'kid',here,{sex:ks}));dressActor(actors.kid,'kid',ks,state,Math.max(1,family.childAge),year,{place:plan.place,headScale:headFor(family.childAge)});}
+  lotRoster=plan.abroad?[]:lotCast(plan.rung,seed,age);
+  lotRoster.forEach((row,i)=>{const a=lots[i],elder=row.age>=60,key='lot'+row.rung+row.who;a.setLook(appearance(rand,seed+row.salt*13,key,here,{sex:row.sex,elder}));dressActor(a,key,row.sex,state,row.dressAge??row.age,year,{elder,place:plan.place,cls:row.cls,headScale:headFor(row.age),stoop:elder?.12:0});});
   roster=[...crowdRoster(plan),...youthRoster(plan,age)];
   roster.forEach((row,i)=>{const a=crowd[i];a.setLook(appearance(rand,seed+row.salt,'crowd'+row.salt,here,{sex:row.sex,elder:row.elder}));if(row.youth){if(youthsInOwnClothes(year))wearOwnClothes(a,seed+row.salt*37,row.age);else dressActor(a,'youth'+row.salt,row.sex,state,row.age,year,{place:plan.place});return;}dressActor(a,'crowd'+row.salt,row.sex,state,row.child?10:30,year,{elder:row.elder,place:plan.place,stoop:row.elder?.12:0,monk:row.robe,headScale:row.child?1.2:1});});
  }
@@ -192,7 +203,7 @@ function createScene(original){
  const focus3=new T.Vector3(),eye=new T.Vector3(),ray=new T.Raycaster(),mood=new T.Color(),shadowM=new T.Matrix4(),shadowScale=new T.Vector3(),sunDir=new T.Vector3();
  let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
  const cam={x:5.3,z:5.3,span:8};
- function update(state,age,time,{homeFrame=false}={}){
+ function update(state,age,time,{homeFrame=false,tour=false}={}){
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);camera.aspect=w/h;lastSignature='';}
@@ -216,6 +227,8 @@ function createScene(original){
   if(family.partner&&(t<8||t>=46))place(actors.partner,familyHome?{x:roomX+.82,y:roomZ+2.45,dx:0,dy:0,moving:false,facing:-Math.PI/2,pose:'cook'}:{x:roomX+3.35,y:roomZ+1.95,dx:0,dy:0,moving:false,facing:Math.PI,pose:'rest'},{elder:age>=62,scale:.98});else actors.partner.root.visible=false;
   if(family.child){const a=t*.3;place(actors.kid,{x:roomX+1.2+Math.cos(a)*.22,y:roomZ+2.5+Math.sin(a)*.18,dx:-Math.sin(a),dy:Math.cos(a),distance:t*.2,moving:family.childAge>=1,pose:family.childAge<2?'crawl':family.childAge<4?'toddle':'walk'},{scale:statureOf(family.childAge)});}else actors.kid.root.visible=false;
   crowd.forEach((a,i)=>{const row=roster[i];if(!row){a.root.visible=false;return;}const act=crowdActivity(row,time,P);if(!act){a.root.visible=false;return;}place(a,act,{elder:row.elder,scale:row.youth?statureOf(row.age):row.scale??1});});
+  // The other homes: only the ones the camera can reach are posed.
+  lots.forEach((a,i)=>{const row=lotRoster[i],act=row&&Math.hypot(row.lot[0]+1.8-cam.x,row.lot[1]+1.7-cam.z)<cam.span*1.15?lotActivity(row,age,time,P.year):null;if(!act){a.root.visible=false;return;}place(a,act,{elder:row.age>=60,scale:row.who==='young'?statureOf(row.age):1},LOT_FLOOR);});
   // Town objects -------------------------------------------------------------------
   world.rooms.update(state,age);world.districts.update(state,age);world.home.update(state,age,context,time);
   world.manual.visible=manualWork;world.office.visible=!manualWork&&!P.farm;world.cradle.visible=age<6;world.infant.visible=age<1;world.toys.visible=age>=1&&age<8;world.dog.visible=dogAt(state,age);world.farm.visible=P.farm||P.style==='market';
@@ -244,10 +257,11 @@ function createScene(original){
   const phone=w<=720,tall=w/h<1.15;
   const still=!focus.moving&&age>=3;
   // Small children stay in the room; a person walking gets the town.
-  let span=age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
+  const stop=tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.home)+' · '+tr(c.doing))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}tourLine.hidden=!stop;
+  let span=stop?(stop.kind==='town'?(phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;
-  const follow=age<5?{x:5.2,y:5.2}:focus;
+  const follow=stop?{x:stop.x,y:stop.z}:age<5?{x:5.2,y:5.2}:focus;
   const ease=camReady?1-Math.exp(-dt*2.6):1;camReady=true;
   cam.x+=(follow.x-cam.x)*ease;cam.z+=(follow.y-cam.z)*ease;cam.span+=(span-cam.span)*ease;
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),(()=>{const reader=document.querySelector('.console-reader');return reader&&!reader.hidden&&getComputedStyle(reader).visibility!=='hidden'?reader.getBoundingClientRect():null;})()):0;
@@ -257,7 +271,7 @@ function createScene(original){
   if(dock)camera.setViewOffset(w,h,dock/2,0,w,h);else camera.clearViewOffset();camera.updateProjectionMatrix();
   // Cutaways keep the protagonist readable through foreground buildings.
   scene.updateMatrixWorld();camera.updateMatrixWorld(true);
-  if(age>=1&&(cutTick++%4===0||!hidden.size)){hidden=obscuringBuildings(camera,Object.values(actors.player.anchors),buildings.map(b=>b.group),ray);}
+  if(age>=1&&(cutTick++%4===0||!hidden.size)){const open=stop?.kind==='town'?[...new Set(lotRoster.map(r=>r.lot))].map(([x,z,w,d])=>anchorAt(x+w/2,z+d/2)):stop?.kind==='lot'?[[-1.4,-1.3],[1.4,-1.3],[-1.4,1.3],[1.4,1.3],[0,0]].map(([a,e])=>anchorAt(stop.x+a,stop.z+e)):Object.values(actors.player.anchors);hidden=obscuringBuildings(camera,open,buildings.map(b=>b.group),ray);}
   const cutKey=[...hidden].map(g=>buildings.findIndex(b=>b.group===g)).sort().join();if(cutKey!==lastCut){lastCut=cutKey;renderer.shadowMap.needsUpdate=true;}
   // A building in the way is lifted off the board; its slab stays.
   for(const entry of buildings){const off=age>=1&&hidden.has(entry.group);for(const material of surfacesOf(entry))material.visible=!off;}
@@ -268,7 +282,7 @@ function createScene(original){
   if(signature===lastSignature&&!renderer.shadowMap.needsUpdate)return;lastSignature=signature;
   renderer.render(scene,camera);
  }
- return {canvas,update,memory:()=>({...renderer.info.memory,frame:renderer.info.render.frame,calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,programs:renderer.info.programs?.length}),dispose(){gone=true;disposeWorld();scenery.dispose();for(const a of [...Object.values(actors),...crowd]){a.undress?.();a.anime?.detach();}disposeScene(scene,renderer,canvas);}};
+ return {canvas,update,memory:()=>({...renderer.info.memory,frame:renderer.info.render.frame,calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,programs:renderer.info.programs?.length}),dispose(){gone=true;disposeWorld();scenery.dispose();for(const a of [...Object.values(actors),...crowd,...lots]){a.undress?.();a.anime?.detach();}tourLine.remove();disposeScene(scene,renderer,canvas);}};
  }catch(error){disposeScene(scene,renderer,canvas);throw error;}
 }
 function drawBus(b,plan){
