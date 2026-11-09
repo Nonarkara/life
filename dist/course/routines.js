@@ -34,10 +34,11 @@ function infant(age,t,time){
 function evening(actor,age,t,start,origin,family){
  const spot=!family?null:actor==='mother'?{at:KITCHEN,pose:'cook',facing:-Math.PI/2,action:'Cooking dinner'}:actor==='player'&&(age<6||age>=18)?{at:RUG,pose:'floor',facing:0,action:age<6?'Playing on the rug':'Reading on the rug'}:null;
  const still={x:origin[0],y:origin[1],dx:0,dy:0,moving:false,facing:HOME_FACING[actor]};
- if(t>=start+5.2||start>52)return {...still,pose:'rest',action:'Resting at home',phase:dayPhase(t)};
+ const long=spot?.pose==='cook'?8:5.2;
+ if(t>=start+long||start>52)return {...still,pose:'rest',action:'Resting at home',phase:dayPhase(t)};
  if(!spot)return {...still,pose:'study',action:actor==='player'&&age<18?'Doing homework':'Reading by the lamp',phase:dayPhase(t)};
- const out=t<start+.8,back=t>=start+4.4;
- if(out||back){const p=samplePath(out?[origin,spot.at]:[spot.at,origin],(t-(out?start:start+4.4))/.8);return {...p,moving:true,pose:'walk',action:spot.action,phase:dayPhase(t)};}
+ const out=t<start+.8,back=t>=start+long-.8;
+ if(out||back){const p=samplePath(out?[origin,spot.at]:[spot.at,origin],(t-(out?start:start+long-.8))/.8);return {...p,moving:true,pose:'walk',action:spot.action,phase:dayPhase(t)};}
  return {x:spot.at[0],y:spot.at[1],dx:0,dy:0,moving:false,facing:spot.facing,pose:spot.pose,action:spot.action,phase:dayPhase(t)};
 }
 export function routine(actor,age,time,goal='balance',context={}){

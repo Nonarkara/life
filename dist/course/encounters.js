@@ -13,6 +13,7 @@ import {BANK_ENCOUNTERS} from './bank-encounters.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
 import {ERA_ENCOUNTERS} from './era-scenarios.js';
 import {DIRECTOR_ENCOUNTERS,SAD_ENCOUNTERS,RECKONING} from './life-tragedies.js';
+import {ROUTE_ENCOUNTERS,BLOG_ENCOUNTERS} from './life-routes.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
 export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%2?'Arun':'Dao'},flags:{},seen:[],pending:null});
@@ -115,7 +116,7 @@ ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,..
 // Reigns, Many Lives, Mom and Letters from Thailand, each tagged with the
 // source it was written from. They are offered only in the years they
 // belong to, so a 1940s scene cannot happen to someone born in 1981.
-ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS,RECKONING);
+ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS,RECKONING,...ROUTE_ENCOUNTERS,...BLOG_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 // House rule: an encounter's first option costs nothing, so a life with an empty purse is never stuck on a question it cannot answer.

@@ -20,9 +20,9 @@ test('conditions decide which consequence happens: a trip saved for comes too la
 test('complete lives with lessons stay valid and every returned consequence is recorded once',()=>{for(let seed=1;seed<=40;seed++){let s=to(begin(configureLife(newLife(seed))),80);assert.ok(validate(JSON.parse(JSON.stringify(s))),'seed '+seed);const all=s.history.flatMap(r=>r.consequences??[]);assert.equal(new Set(all.map(c=>c.lesson+c.choice+c.age+c.text)).size,all.length);}});
 test('investing early is real: funds bought every period compound, and the ledger still balances',async()=>{
  const {netWorth}=await import('../../dist/course/finance.js');let invest=0,spend=0;
- for(const seed of [3,7,11,19,23,29]){for(const choice of ['invest','spend']){
+ for(let seed=1;seed<=160;seed++){for(const choice of ['invest','spend']){
   let s=live(begin(configureLife(newLife(seed))));if(s.story.pending?.id!=='m_runway')continue;s=resolveEncounter(s,choice,.2);s=to(s,60);
-  assert.ok(validate(JSON.parse(JSON.stringify(s))),seed+choice);const w=netWorth(s.history.find(r=>r.age===60).finance);
+  assert.ok(validate(JSON.parse(JSON.stringify(s))),seed+choice);if(!s.history.find(r=>r.age===60)?.finance)continue;const w=netWorth(s.history.find(r=>r.age===60).finance);
   if(choice==='invest'){invest+=w;assert.ok(s.finance.receipts.some(r=>r.kind==='trade'&&r.side==='buy'),'funds were bought');}else{spend+=w;assert.ok(s.story.flags.invests!==undefined||!s.finance.receipts.some(r=>r.kind==='trade'),'nothing bought unasked');}}}
  assert.notEqual(invest,spend,'different funded choices produce different authored outcomes, without a promised winning percentage');
 });

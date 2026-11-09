@@ -39,7 +39,7 @@ test('a 1949 life meets its history, and each life meets a different one',()=>{
   seqs.add(q.join('>'));for(const id of new Set(q))count[id]=(count[id]??0)+1;total+=1;history+=q.filter(id=>id.startsWith('h_')).length;
  }
  assert.ok(seqs.size>=N*MIN_DISTINCT,'distinct '+seqs.size);
- assert.ok(history/total>=4.5,'history scenes per life '+history/total); // 1976 and Vietnam can now end a life early
+ assert.ok(history/total>=4,'history scenes per life '+history/total); // 1976 and Vietnam can end a life early, and a route takes some stations
  for(const id of ['m_kits','m_funds'])assert.equal(count[id]??0,0,id+' before its time');
  const worst=Object.entries(count).sort((a,b)=>b[1]-a[1])[0];assert.ok(worst[1]<=N*.9,worst[0]+' is in '+worst[1]+'/'+N);
 });
