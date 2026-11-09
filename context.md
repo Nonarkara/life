@@ -937,3 +937,20 @@ Ordinary days stay painted. Decisions listed in `dist/course/moment-plan.js` (`M
 ## Transformation pass (2026-11-09)
 
 Default screen is the 3D diorama (`scene3d.js`, `diorama-*.js`, `home3d.js`); painted manga panels only on recorded beats. Next five years are planned on left-to-right cards (`life-plan.js`, `priorities.js`), ending on the Live button. One top console holds age, transport and the real Thai economy for the year (`top-console.js`; World Bank series pinned in `world-series.js`; SET in `market-moments.js`; headlines in `world-headlines.js`). Event bank: `bank-encounters.js`. Research tab: `research-view.js` over `thai-history-bank.js`, 1,142 cited entries from Mishra 2010, Baker and Phongpaichit (35-page preview only), Siam Mapped, Four Reigns, เหมืองแร่, อยู่กับก๋ง and a general sheet; novels are marked fiction and appear only as conditions of life. Entries that read as the crown were removed. No native reader has checked the Thai of the bank or research.
+
+## Audit closeout · 10 November 2026 (Nemotron)
+The interrupted product audit was reconstructed and every finding closed. Real
+defects fixed: the World band froze at the last full render's age (opening World
+now re-renders it); the transformation pass's new chrome (console nav, folded
+menu key, life card, course toggle, reader exit, plan steps/options) never got
+the phone touch-target fix — 44 px isolated / 32 px dense per the 10 Nov owner
+ruling; hidden profile selects now carry aria-labels. The gate lied three ways
+and was repaired: a themed 0px border colour counted as a boxed logo, the boot
+check measured mid-boot (it now waits), and B13 demanded 44 px from dense rows
+the owner exempts at 32. Gate: 6 high → 0 high, 2 medium. 430 tests pass.
+Deployed 740ed9ec / head.life-5wz.pages.dev; live bytes verified.
+Tried and reverted: naive gltfpack -cc -kn recompress of the visitor GLBs
+(4.68 MB → 640 kB) — it rewrites node indices, breaking the humanBones extras
+map ("Missing head bone"). The 11.9 MB review view stays the one open medium;
+the proper path is a repack script that remaps humanBones indices after
+gltfpack, then MeshoptDecoder (already wired in character-anime.js).
