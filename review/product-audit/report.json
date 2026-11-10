@@ -1,7 +1,7 @@
 {
  "summary": {
   "base": "http://127.0.0.1:4219",
-  "when": "2026-11-10T01:53:30.277Z",
+  "when": "2026-11-10T07:45:07.300Z",
   "counts": {
    "high": 0,
    "medium": 2,
@@ -12,7 +12,7 @@
   {
    "area": "performance",
    "severity": "medium",
-   "what": "one view costs 28 requests and 11946 kB",
+   "what": "one view costs 28 requests and 11948 kB",
    "evidence": "{\"nodes\":1127,\"buttons\":108}"
   },
   {
@@ -43,7 +43,7 @@
    "area": "book",
    "severity": "low",
    "what": "B3 box fit passes",
-   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.18,\"boxH\":287,\"textH\":1557}"
+   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.21,\"boxH\":287,\"textH\":1342}"
   },
   {
    "area": "book",

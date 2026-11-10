@@ -938,6 +938,13 @@ Ordinary days stay painted. Decisions listed in `dist/course/moment-plan.js` (`M
 
 Default screen is the 3D diorama (`scene3d.js`, `diorama-*.js`, `home3d.js`); painted manga panels only on recorded beats. Next five years are planned on left-to-right cards (`life-plan.js`, `priorities.js`), ending on the Live button. One top console holds age, transport and the real Thai economy for the year (`top-console.js`; World Bank series pinned in `world-series.js`; SET in `market-moments.js`; headlines in `world-headlines.js`). Event bank: `bank-encounters.js`. Research tab: `research-view.js` over `thai-history-bank.js`, 1,142 cited entries from Mishra 2010, Baker and Phongpaichit (35-page preview only), Siam Mapped, Four Reigns, เหมืองแร่, อยู่กับก๋ง and a general sheet; novels are marked fiction and appear only as conditions of life. Entries that read as the crown were removed. No native reader has checked the Thai of the bank or research.
 
+## Phone plan screen & class-encounter drama · 10 November 2026
+- Phone plan screen gives its space back to the world (commit 69b3da8): header 150\u2192100 px (money + symbols on one line, 34 px transport keys); 'Work on' card 270\u2192160 px; world panel 392\u2192584 px; removed repeated card title and box; action moved to the panel's exit; step tabs scroll instead of clipping; both world overlays share one edge. 430 tests pass; product audit 0 high.
+- Establishing shots earned their keep (commit 709d54e): three real place renders (Yaowarat Road, Phuket Old Town, Ayutthaya Historical Park) verified to show their named places; five withheld (wrong render). Caption phrase 'Today's map' translated in all 5 languages (duplicate removed). Place art versioned in the build manifest; each place introduces itself once per visit; a shot that fails to load cuts straight to the scene.
+- game.js: profile selects carry aria-labels (commit 947bdc1).
+- Audit gate repaired (scripts/audit-product.mjs): boot poll before measuring (no longer flags mid-boot loading screen as failure), B10 logo check uses computed border-width, B13 classifies isolated actions (44 px) vs dense text-control groups (32 px floor, inline prose links exempt).
+- course.css: desktop plan-strip wraps cards side-by-side (minmax(220px,1fr)) with the strip scrollable inside dock height; phone keeps the horizontal swipe strip (100% width cards). Phone plan buttons: isolated actions 44\u00d744 px (symbols button, Life course, folded menu), dense groups 32 px floor.
+
 ## Audit closeout · 10 November 2026 (Nemotron)
 The interrupted product audit was reconstructed and every finding closed. Real
 defects fixed: the World band froze at the last full render's age (opening World

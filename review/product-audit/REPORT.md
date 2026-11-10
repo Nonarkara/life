@@ -1,6 +1,6 @@
 # Product audit · the Book's ship gate
 
-Base: http://127.0.0.1:4219 · 2026-11-10T01:53:30.279Z
+Base: http://127.0.0.1:4219 · 2026-11-10T07:45:07.301Z
 
 Verdict: **REVISE** (0 high, 2 medium)
 
@@ -17,7 +17,7 @@ Builder ≠ auditor: the page was built by other agents; this gate walks it, and
 
 ## Findings
 
-- **medium** · performance · one view costs 28 requests and 11946 kB  
+- **medium** · performance · one view costs 28 requests and 11948 kB  
   {"nodes":1127,"buttons":108}
 - **medium** · a11y · 4 controls are smaller than 24px  
   [{"tag":"A","id":"","label":"Framework source","w":92,"h":18,"inline":true,"dense":false},{"tag":"A","id":"","label":"Research","w":46,"h":18,"inline":true,"dense":false},{"tag":"A","id":"","label":"WHO: Dengue","w":77,"h":18,"inline":true,"dense":false},{"tag":"A","id":"","label":"WHO: HIV and AIDS","w":108,"h":18,"inline":true,"dense":false}]
@@ -28,7 +28,7 @@ Builder ≠ auditor: the page was built by other agents; this gate walks it, and
 - **low** · book · B2 chrome cost passes  
   [{"sel":"header","h":68},{"sel":".world-bottom","h":40},{"sel":".console-nav","h":35}]
 - **low** · book · B3 box fit passes  
-  {"sel":"console-panel console-card","ratio":0.18,"boxH":287,"textH":1557}
+  {"sel":"console-panel console-card","ratio":0.21,"boxH":287,"textH":1342}
 - **low** · book · B4 void passes  
   null
 - **low** · book · B7 hierarchy passes  
