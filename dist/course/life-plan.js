@@ -63,8 +63,8 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
  }
  function mark(){const w=strip.clientWidth||1,i=Math.round(strip.scrollLeft/(strip.children[0]?.offsetWidth+8||w));[...steps.children].forEach((b,n)=>b.setAttribute('aria-current',n===i?'step':'false'));if(i!==shown){shown=i;const a=steps.children[i];if(a)steps.scrollLeft=a.offsetLeft-steps.offsetLeft-16;fit(i);}}
  // On a phone the panel is as tall as the card on show. The rest belongs to the world.
- function fit(i){const body=document.body;if(body.classList.contains('decision-open'))return;if(innerWidth>899||root.hidden){strip.style.height='';body.style.removeProperty('--rpg-height');return;}const c=strip.children[i],dock=root.closest('.rpg-dock');if(!c||!dock)return;const top=strip.getBoundingClientRect().top-dock.getBoundingClientRect().top,tail=foot.offsetHeight+12,h=Math.min(Math.round(innerHeight*.5),Math.ceil(top+c.offsetHeight+tail));strip.style.height=h-top-tail+'px';body.style.setProperty('--rpg-height',h+'px');}
- addEventListener('resize',()=>fit(shown));
+ function fit(i){const body=document.body,v=body.dataset.consoleView;if(body.classList.contains('decision-open'))return;if(innerWidth>899||root.hidden||(v&&v!=='plan')){strip.style.height='';body.style.removeProperty('--rpg-height');return;}const c=strip.children[i],dock=root.closest('.rpg-dock');if(!c||!dock)return;const top=strip.getBoundingClientRect().top-dock.getBoundingClientRect().top,tail=foot.offsetHeight+12,h=Math.min(Math.round(innerHeight*.5),Math.ceil(top+c.offsetHeight+tail));strip.style.height=h-top-tail+'px';body.style.setProperty('--rpg-height',h+'px');}
+ addEventListener('resize',()=>fit(shown));new MutationObserver(()=>fit(shown)).observe(document.body,{attributes:true,attributeFilter:['data-console-view']});
  strip.addEventListener('scroll',()=>requestAnimationFrame(mark),{passive:true});
  return {draw(){root.hidden=false;document.body.classList.add('has-plan');draw();},hide(){if(root.hidden)return;root.hidden=true;document.body.classList.remove('has-plan');commitHome.append(commit);fit(shown);}};
 }

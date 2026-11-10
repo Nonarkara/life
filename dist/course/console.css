@@ -419,3 +419,5 @@ body.has-plan .plan-strip{max-height:clamp(112px,22dvh,190px);overflow-y:auto}
  body #overview{min-height:44px!important;padding:0 8px;white-space:nowrap;background:#0a0e14;color:#f3efe3}
  .town-caption{bottom:10px;min-height:32px;display:flex;align-items:center;padding:0 8px;max-width:calc(100% - 112px)}
 }
+/* Reading tabs (You, Money, CV...) are for reading: about half a phone screen, the plan keeps its fitted panel. */
+@media(max-width:899px){body.console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open)[data-console-view]:not([data-console-view="plan"]){--rpg-height:52dvh}}
