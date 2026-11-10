@@ -561,13 +561,13 @@ export const PIVOTS=[
     {id:'sell',label:'Sell while you still can',cost:'You walk away with something, but not everything.',effects:{cash:15000,wellbeing:-1,skills:{iq:1}},note:'You sold before it was all lost.'},
     {id:'walk',label:'Walk away and start over',cost:'You own nothing now, but you owe nothing either.',effects:{cash:5000,wellbeing:-4,skills:{drive:1}},note:'You walked away with nothing but your freedom.'}]},
   {id:'midlife-regret',station:45,prompt:'You look at your life and wonder if you chose the right road.',context:'The choices you made at twenty echo now, loudly.',options:[
-    {id:'accept',label:'Accept your life as it is',cost:'You stop wondering what might have been.',effects:{wellbeing:4,skills:{eq:1}},note:'You accepted your life as it was.')},
-    {id:'change',label:'Make one last change',cost:'You upend your life for a chance at what you missed.',effects:{cash:-50000,wellbeing:-1,skills:{drive:1}},note:'You made one last, desperate change.')},
-    {id:'hide',label:'Pretend it is fine',cost:'No one knows how you feel. Not even you, sometimes.',effects:{wellbeing:-3,skills:{iq:1}},note:'You pretended everything was fine.')},
+    {id:'accept',label:'Accept your life as it is',cost:'You stop wondering what might have been.',effects:{wellbeing:4,skills:{eq:1}},note:'You accepted your life as it was.'},
+    {id:'change',label:'Make one last change',cost:'You upend your life for a chance at what you missed.',effects:{cash:-50000,wellbeing:-1,skills:{drive:1}},note:'You made one last, desperate change.'},
+    {id:'hide',label:'Pretend it is fine',cost:'No one knows how you feel. Not even you, sometimes.',effects:{wellbeing:-3,skills:{iq:1}},note:'You pretended everything was fine.'}]},
   {id:'empty-nest',station:50,prompt:'Your child has left home. The house is quiet in a way it never was before.',context:'You built a life for them. Now they have one of their own.',options:[
-    {id:'travel',label:'Travel with your partner',cost:'The money is gone, but the memories remain.',effects:{cash:-25000,wellbeing:4,skills:{eq:1}},note:'You traveled with your partner.')},
-    {id:'focus',label:'Focus on your work',cost:'The house is quiet, but your purpose is clear.',effects:{cash:30000,wellbeing:-1,skills:{drive:1}},note:'You threw yourself into your work.')},
-    {id:'downsize',label:'Sell the house, move somewhere small',cost:'The walls are empty, but the money is free.',effects:{cash:50000,wellbeing:1,skills:{craft:1}},note:'You sold the family home and moved somewhere smaller.'})}
+    {id:'travel',label:'Travel with your partner',cost:'The money is gone, but the memories remain.',effects:{cash:-25000,wellbeing:4,skills:{eq:1}},note:'You traveled with your partner.'},
+    {id:'focus',label:'Focus on your work',cost:'The house is quiet, but your purpose is clear.',effects:{cash:30000,wellbeing:-1,skills:{drive:1}},note:'You threw yourself into your work.'},
+    {id:'downsize',label:'Sell the house, move somewhere small',cost:'The walls are empty, but the money is free.',effects:{cash:50000,wellbeing:1,skills:{craft:1}},note:'You sold the family home and moved somewhere smaller.'}]}
 ];
 
 export const pivotById=id=>PIVOTS.find(p=>p.id===id)??MARKET_PIVOTS.find(p=>p.id===id);
