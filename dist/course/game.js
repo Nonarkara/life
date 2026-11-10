@@ -179,7 +179,7 @@ function renderEncounter(){
 // After every choice: one sentence of what happened, then which numbers moved and by how much.
 // What the pretend lives chose, on the button itself: you decide with the data in front of you.
 let population=null;import('./population.js').then(m=>{population=m.POPULATION;dirty=true;try{render();}catch{}}).catch(()=>{});
-function popLine(scene,option){const row=population?.scenes[scene]?.[option];if(!row)return [];const n=document.createElement('small');n.className='pop-line';n.textContent=t('{p}% chose this · {d}% dead by 60').replace('{p}',row[0]).replace('{d}',row[2]);return [n];}
+function popLine(scene,option){const row=population?.scenes[scene]?.[option];if(!row)return [];const n=document.createElement('small');n.className='pop-line';n.textContent=t('{p}% of 20,000 simulated lives chose this · {d}% died by 60').replace('{p}',row[0]).replace('{d}',row[2]);return [n];}
 function showResult(before,after,details={}){
  let box=$('choice-result');if(!box){box=document.createElement('section');box.id='choice-result';box.setAttribute('role','status');$('editor').before(box);}
  const seen=after.story.seen.at(-1),moved=[],worth=s=>s.finance?netWorth(s.finance):s.cash;
