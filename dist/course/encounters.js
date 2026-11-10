@@ -15,6 +15,7 @@ import {ERA_ENCOUNTERS} from './era-scenarios.js';
 import {DIRECTOR_ENCOUNTERS,SAD_ENCOUNTERS,RECKONING} from './life-tragedies.js';
 import {ROUTE_ENCOUNTERS,BLOG_ENCOUNTERS} from './life-routes.js';
 import {HARD_ENCOUNTERS} from './life-hard.js';
+import {MID_ENCOUNTERS} from './mid-encounters.js';
 import {useCategories} from './life-collection.js';
 // Authored narrative rules. These effects and eligibility windows are game design,
 // not clinical, demographic or financial forecasts.
@@ -119,7 +120,7 @@ ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,..
 // Reigns, Many Lives, Mom and Letters from Thailand, each tagged with the
 // source it was written from. They are offered only in the years they
 // belong to, so a 1940s scene cannot happen to someone born in 1981.
-ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS,RECKONING,...ROUTE_ENCOUNTERS,...BLOG_ENCOUNTERS,...HARD_ENCOUNTERS);
+ENCOUNTERS.push(...ERA_ENCOUNTERS,...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS,RECKONING,...ROUTE_ENCOUNTERS,...BLOG_ENCOUNTERS,...HARD_ENCOUNTERS,...MID_ENCOUNTERS);
 const remembrance=ENCOUNTERS.find(e=>e.id==='remember');remembrance.max=55;
 ENCOUNTERS.push({...remembrance,id:'remember_mother',min:70,max:70});
 useCategories(id=>byIdLate(id)?.category);
@@ -129,9 +130,9 @@ const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
 export const encounterById=id=>byId.get(id);
 const BANK_SHARE=Object.freeze({history:.18,quiet:.8,macro:.5});
 export function eligibleEncounters(state){
- if(state.stage!=='review'||state.age<10||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
- const seen=new Set(state.story.seen.map(e=>e.id));
- return ENCOUNTERS.filter(e=>(state.age>=15||e.child)&&state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
+ if(state.stage!=='review'||state.age<10||!state.story||state.story.pending)return [];
+ const seenAtAge=new Set(state.story.seen.filter(e=>e.age===state.age).map(e=>e.id));
+ return ENCOUNTERS.filter(e=>state.age>=e.min&&state.age<=e.max&&!seenAtAge.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
 }
 export function offerEncounter(state,roll,keep=()=>true){
  const eligible=eligibleEncounters(state).filter(keep).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
