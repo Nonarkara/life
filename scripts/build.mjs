@@ -66,6 +66,16 @@ if(existsSync(manifestPath)){
  const version=path=>path.includes('?')?path+'&v='+buildId:path+'?v='+buildId;
  for(const[key,path]of Object.entries(manifest.plates??{}))manifest.plates[key]=version(path);
  for(const[,frames]of Object.entries(manifest.sprites??{}))for(const[name,path]of Object.entries(frames))frames[name]=version(path);
+ // Real-place establishing shots (Location Scout renders): self-maintaining from
+ // the built directory, so a re-shot place is versioned the moment it lands.
+ const placesDir=output+'/course/anime/places';
+ if(existsSync(placesDir)){
+  manifest.places={};
+  for(const entry of readdirSync(placesDir))if(/\.jpe?g$/i.test(entry)){
+   const key=entry.replace(/\.jpe?g$/i,'');
+   manifest.places[key]=version('places/'+entry);
+  }
+ }
  writeFileSync(manifestPath,JSON.stringify(manifest,null,1)+'\n');
  console.log('Stage art versioned with the build.');
 }

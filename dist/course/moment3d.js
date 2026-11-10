@@ -1,6 +1,7 @@
 // The zoom. Ordinary days stay painted; a moment that changes the life opens here,
 // at eye level, in metres, with the rigged cast facing the camera so both eyes read.
 import {placeFor} from './moment-places.js';
+import {placePath} from './anime-assets.js';
 import {t} from './i18n.js';
 import {createPost} from './render-post.js';
 import * as T from 'three';
@@ -79,8 +80,11 @@ const ease=t=>1-Math.pow(1-t,3);
 function ensureRenderer(world){if(stage?.renderer)return true;const canvas=document.createElement('canvas');canvas.className='moment-renderer';canvas.setAttribute('aria-hidden','true');world.after(canvas);try{const renderer=new T.WebGLRenderer({canvas,antialias:true,powerPreference:'low-power'});renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.type=T.PCFShadowMap;renderer.outputColorSpace=T.SRGBColorSpace;renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));canvas.addEventListener('webglcontextlost',()=>{dead=true;closeMoment();canvas.remove();});const camera=new T.PerspectiveCamera(34,1,.1,320);stage={renderer,canvas,camera,post:createPost(renderer,new T.Scene(),camera),w:0,h:0};return true;}catch{canvas.remove();dead=true;return false;}}
 // The establishing shot: where this happened, then a hard cut into the room.
 let plate=null,plateTimer=0;
+// The same establishing shot replays for every street moment would become a
+// tax on the way to the scene; a place introduces itself once per visit.
+const platesShown=new Set();
 function hidePlate(){clearTimeout(plateTimer);plate?.remove();plate=null;}
-function showPlate(set,regionId){hidePlate();const at=placeFor(set,regionId);if(!at)return;const box=document.createElement('figure');box.className='place-plate';box.style.cssText=stage.canvas.style.cssText;const img=document.createElement('img');img.src=new URL('anime/places/'+at.file+'.jpg',import.meta.url).href;img.alt=t(at.name);const cap=document.createElement('figcaption');cap.textContent=t(at.name)+' · '+t('Today’s map')+' · © OpenStreetMap';box.append(img,cap);box.onclick=hidePlate;stage.canvas.after(box);plate=box;plateTimer=setTimeout(hidePlate,2600);}
+function showPlate(set,regionId){hidePlate();const at=placeFor(set,regionId);if(!at||platesShown.has(at.file))return;const box=document.createElement('figure');box.className='place-plate';box.style.cssText=stage.canvas.style.cssText;const img=document.createElement('img');img.src=placePath(at.file)?new URL(placePath(at.file),new URL('../course/anime/',import.meta.url)).href:new URL('anime/places/'+at.file+'.jpg',import.meta.url).href;img.alt=t(at.name);const cap=document.createElement('figcaption');cap.textContent=t(at.name)+' · '+t('Today’s map')+' · © OpenStreetMap';img.onerror=hidePlate;box.append(img,cap);box.onclick=hidePlate;stage.canvas.after(box);plate=box;platesShown.add(at.file);plateTimer=setTimeout(hidePlate,2600);}
 export async function openMoment(world,state,id){
  if(dead)return;if(!ensureRenderer(world))return;
  const plan=momentPlan(state,id),key=JSON.stringify(plan)+id+state.seed+state.age;if(stage.key===key&&stage.built){stage.state=state;return;}

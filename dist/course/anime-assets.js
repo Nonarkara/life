@@ -33,6 +33,7 @@ export function stageImage(url){
 }
 
 export function platePath(key){return manifest?.plates?.[key]??null;}
+export function placePath(key){return manifest?.places?.[key]??null;}
 export function spritePath(sheet,frame){return manifest?.sprites?.[sheet]?.[frame]??null;}
 
 // Every path the manifest names is versioned at build time, so a new build of

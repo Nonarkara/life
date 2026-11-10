@@ -1,6 +1,6 @@
 # Product audit · the Book's ship gate
 
-Base: http://127.0.0.1:4219 · 2026-11-09T23:13:53.369Z
+Base: http://127.0.0.1:4219 · 2026-11-10T01:53:30.279Z
 
 Verdict: **REVISE** (0 high, 2 medium)
 
