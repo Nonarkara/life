@@ -127,15 +127,7 @@ export function projectedSkillGains(s){
 }
 // A question put to a ten-year-old never holds up the years: left unanswered, it passes.
 const passChildQuestion=s=>s?.story?.pending&&encounterById(s.story.pending.id)?.child?{...s,story:{...s.story,pending:null}}:s;
-export function live(s0){
-  const s=passChildQuestion(s0);
-  if(s.stage!=='review'||!validPoints(s.effort)||s.age>=80||s.story?.pending||s.finance?.receipts.length>993)return s;
-  if(rand(s.seed,s.age,'mid-encounter')<0.35){
-    return offerEncounter(s,rand(s.seed,s.age,'mid-encounter'));
-  }
-  const next=advancePeriod(s);
-  return offerEncounter(goldStep(autoInvest(next),(birthYearOf(next)??1981)+next.age),rand(s.seed,next.age,'encounter'));
-}
+export function live(s0){const s=passChildQuestion(s0);if(s.stage!=='review'||!validPoints(s.effort)||s.age>=80||s.story?.pending||s.finance?.receipts.length>993)return s;const next=advancePeriod(s);return offerEncounter(goldStep(autoInvest(next),(birthYearOf(next)??1981)+next.age),rand(s.seed,next.age,'encounter'));}
 export function replay(s){return {...(s.dailyDay?{dailyDay:s.dailyDay}:{}),...(s.intake?configureLife(s.intake.class?newLife(s.seed):newLegacyLife(s.seed),s.intake):s.birth.class?newLife(s.seed):newLegacyLife(s.seed)),economy:createEconomy(s.economy?.seed??s.seed),...(s.lifeEventPolicy?{lifeEventPolicy:{version:1,startAge:0}}:{}),...(s.bucket?.custom.length?{bucket:{custom:structuredClone(s.bucket.custom),planned:[],done:[]}}:{}),previous:{economy:s.economy,age:s.age,cash:s.cash,health:s.health,wellbeing:s.wellbeing,history:s.history,death:s.death,story:s.story,finance:s.finance}};}
 export function validate(s){
  const profile=p=>p&&Object.entries(sanitiseProfile(p,80)).every(([k,v])=>p[k]===v);

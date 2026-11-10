@@ -548,26 +548,6 @@ export const PIVOTS=[
   {id:'gifted-child',station:40,prompt:'Your child’s teacher says a child like this comes along once in a career, and there is a place at a university abroad. It would take the house.',context:'Your child has not asked. Your child has stopped mentioning it.',options:[
    {id:'keep',label:'Keep the house',cost:'Your child will find a way, or will not, and will remember.',effects:{wellbeing:1},note:'You kept the house. The child found a way, and told people they had found it alone.'},
    {id:'sell',label:'Sell the house',cost:'You will rent, at your age, and you may never be thanked.',effects:{cash:-60000,wellbeing:-2},note:'You sold the house and rented the one behind it. The letters home were short and the results were good.'}]},
-  {id:'class-crisis',station:25,prompt:'Your family can no longer afford the life you have built. The house, the school, the debts—they all demand payment at once.',context:'Your birth class has always shaped what you could afford, but now it demands payment.',options:[
-    {id:'sell',label:'Sell what you can and pay the debts',cost:'Your savings shrink, but the collectors go away.',effects:{cash:-25000,wellbeing:-2,skills:{drive:1}},note:'You sold what you could to pay the debts.'},
-    {id:'work',label:'Work harder, take more shifts',cost:'Your body takes the weight your money cannot.',effects:{cash:15000,health:-4,wellbeing:-2,skills:{drive:1}},note:'You worked yourself ragged to keep the family afloat.'},
-    {id:'leave',label:'Walk away from it all',cost:'You start over with nothing, but the debts do not follow.',effects:{cash:-5000,wellbeing:-5,skills:{eq:1}},note:'You left your debts behind and started again with nothing.'}]},
-  {id:'class-rise',station:30,prompt:'For the first time, you have more than your parents ever did. The world treats you differently now.',context:'Your class of birth has always shaped what you could afford, but now it demands payment.',options:[
-    {id:'spend',label:'Spend it, enjoy it',cost:'The money is gone, but you lived.',effects:{cash:-30000,wellbeing:4,skills:{craft:1}},note:'You spent your new wealth on living well.'},
-    {id:'save',label:'Save every baht',cost:'The money grows, but the present feels thin.',effects:{cash:40000,wellbeing:-2,skills:{drive:1}},note:'You saved every baht, but the present felt thin.'},
-    {id:'give',label:'Help your family, your village',cost:'The money is gone, but the gratitude remains.',effects:{cash:-20000,wellbeing:3,skills:{eq:1}},note:'You gave your new wealth to your family and community.'}]},
-  {id:'class-fall',station:35,prompt:'The business failed. The debt is real. Your class no longer protects you.',context:'You thought you had escaped your birth, but the world remembers.',options:[
-    {id:'fight',label:'Fight to keep it',cost:'You pour everything you have into saving it.',effects:{cash:-30000,wellbeing:-3,skills:{drive:1}},note:'You fought to keep what you had built.'},
-    {id:'sell',label:'Sell while you still can',cost:'You walk away with something, but not everything.',effects:{cash:15000,wellbeing:-1,skills:{iq:1}},note:'You sold before it was all lost.'},
-    {id:'walk',label:'Walk away and start over',cost:'You own nothing now, but you owe nothing either.',effects:{cash:5000,wellbeing:-4,skills:{drive:1}},note:'You walked away with nothing but your freedom.'}]},
-  {id:'midlife-regret',station:45,prompt:'You look at your life and wonder if you chose the right road.',context:'The choices you made at twenty echo now, loudly.',options:[
-    {id:'accept',label:'Accept your life as it is',cost:'You stop wondering what might have been.',effects:{wellbeing:4,skills:{eq:1}},note:'You accepted your life as it was.'},
-    {id:'change',label:'Make one last change',cost:'You upend your life for a chance at what you missed.',effects:{cash:-50000,wellbeing:-1,skills:{drive:1}},note:'You made one last, desperate change.'},
-    {id:'hide',label:'Pretend it is fine',cost:'No one knows how you feel. Not even you, sometimes.',effects:{wellbeing:-3,skills:{iq:1}},note:'You pretended everything was fine.'}]},
-  {id:'empty-nest',station:50,prompt:'Your child has left home. The house is quiet in a way it never was before.',context:'You built a life for them. Now they have one of their own.',options:[
-    {id:'travel',label:'Travel with your partner',cost:'The money is gone, but the memories remain.',effects:{cash:-25000,wellbeing:4,skills:{eq:1}},note:'You traveled with your partner.'},
-    {id:'focus',label:'Focus on your work',cost:'The house is quiet, but your purpose is clear.',effects:{cash:30000,wellbeing:-1,skills:{drive:1}},note:'You threw yourself into your work.'},
-    {id:'downsize',label:'Sell the house, move somewhere small',cost:'The walls are empty, but the money is free.',effects:{cash:50000,wellbeing:1,skills:{craft:1}},note:'You sold the family home and moved somewhere smaller.'}]}
 ];
 
 export const pivotById=id=>PIVOTS.find(p=>p.id===id)??MARKET_PIVOTS.find(p=>p.id===id);
