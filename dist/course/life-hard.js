@@ -3,6 +3,7 @@
 import {rand} from './rand.js';
 import {birthYearOf} from './thai-history.js';
 import {regionAt} from './regions.js';
+import {siblingsOf} from './birth-order.js';
 const O=(id,label,fx,outcome)=>({id,label,...fx,outcome});
 const F=s=>({...s.pivotFlags,...s.story?.flags}),had=(k,gap)=>s=>typeof F(s)[k]==='number'&&s.age-F(s)[k]>=gap,cal=s=>{const y=birthYearOf(s);return y===null?null:y+s.age;};
 const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan'],country=s=>!CITY.includes(regionAt(s,s.age-1)),male=s=>s.intake?.sex==='male',during=(a,b)=>s=>{const c=cal(s);return c!==null&&c+4>=a&&c<=b;};
@@ -76,6 +77,15 @@ export const HARD_ENCOUNTERS=[
   O('little','Take the little ones behind the house',{wellbeing:-8,skills:{eq:2}},'You counted to a thousand with your hand over your sister’s ear. Her ear was hot.'),
   O('between','Stand between him and your mother',{health:-8,wellbeing:-6,skills:{drive:2}},'You found out exactly how far a boy or a girl can stop a man, and it was not far.'),
   O('teacher','Tell the teacher what the marks are',{wellbeing:-4,skills:{eq:1}},'She looked at them for a long time. It got worse, and then someone came to the house.')],{rehearse:'If a house is like this: the Thai crisis line is 1300, for children and for adults. Telling someone is not betraying anyone.'}),
+ scene('s_lost','family',15,20,[s=>siblingsOf(s).lostBefore,once('s_lost',.95)],'The one before you','Your mother lights incense on a day nobody explains. There was a child before you, born too early to be given a name at home. Your parents say you are living for two.',[
+  O('ask','Ask about her',{wellbeing:3,skills:{eq:1}},'They told you everything, at the kitchen table, and then did not stop. You had never heard your father say her name.'),
+  O('carry','Carry it quietly',{wellbeing:-1,skills:{drive:2}},'You said nothing. You studied as if the second seat were also yours.')],{priority:0}),
+ scene('s_eldest','family',18,24,[s=>{const b=siblingsOf(s);return b.order===1&&b.total>=3;},once('s_eldest',.95)],'The eldest is always the one','The younger ones need school fees the same month you could start something of your own. Nobody at home says it. Everyone looks at you.',[
+  O('keep','Keep your wages',{wellbeing:-4,skills:{drive:1}},'You started the thing. It was quiet at home for a long time.'),
+  O('pay','Send your wages home',{cash:-8000,wellbeing:2,skills:{eq:2},later:[{after:10,cash:20000,wellbeing:3,text:'The youngest finished college and paid for your mother’s hospital bed without being asked.'}]},'Three of them finished school. You never found out what you would have started.')],{priority:0}),
+ scene('s_youngest','family',18,20,[s=>{const b=siblingsOf(s);return b.order===b.total&&b.total>=3;},once('s_youngest',.95)],'The last one at home','Everyone else has already left, and the house has been waiting for someone to stay. Your mother has started saying she is not lonely.',[
+  O('leave','Leave for the city',{wellbeing:-2,skills:{drive:2}},'You went. She packed rice for two days and called on Sundays, and said she was not lonely.'),
+  O('stay','Stay near them',{wellbeing:2,skills:{eq:2}},'You stayed. The days were slow and exactly the length of a whole afternoon with her.')],{priority:0}),
  scene('g_eldest','family',15,20,[s=>s.intake?.sex==='female'&&s.birth?.region==='pak-phanang'&&s.intake?.class==='low_class'&&rand(s.seed,0,'faith')<.3,once('g_eldest',.7)],'The eldest daughter','Your father breaks stone for a living. He has taken another wife, as he may, and there are eleven of you now. The teacher says a scholarship to Yala could be yours. Your mother has not said anything, and has started teaching you how to manage the small ones.',[
   O('stay','Stay and raise them',{wellbeing:-6,skills:{eq:2}},'You raised them. Four of them finished school. Nobody asked what you had wanted, and you stopped being able to say.'),
   O('go','Take the scholarship',{wellbeing:-4,skills:{iq:3},flag:'g_left_home'},'You went on the morning bus. Your mother packed rice for two days and did not come to the road.')]),

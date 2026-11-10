@@ -1,5 +1,6 @@
 // Draws the card and the bar's small symbols. Symbols are drawn, never emoji.
 import {t} from './i18n.js';
+import {siblingsOf,orderLabel} from './birth-order.js';
 import {AXES} from './sim.js';
 import {personaName,setPersonaName,amuletOf,AMULET_COLOR,holdingsOfLife,balanceOf,natureOf,assetsOf,sellAsset} from './life-persona.js';
 import {PURCHASES,buy} from './finance.js';
@@ -13,7 +14,7 @@ export function renderSlots(root,s){const a=amuletOf(s),h=holdingsOfLife(s),b=ba
 export function renderPersona(pane,s,apply){
  let card=pane.querySelector('.persona');if(!card){card=el('section','persona');pane.prepend(card);}
  const a=amuletOf(s),h=holdingsOfLife(s),b=balanceOf(s),n=natureOf(s),head=el('div','persona-head'),who=el('div'),input=el('input','persona-name');input.value=personaName(s);input.maxLength=24;input.setAttribute('aria-label',t('Your name'));input.onchange=()=>apply(setPersonaName(s,input.value));
- who.append(input,el('p','persona-meta',t('Age {n}').replace('{n}',s.age)+' · '+t(n.body)+' · '+t(n.drive)));const worth=el('div','persona-worth');worth.append(el('b',undefined,money(b.worth)),el('span',undefined,t('Net worth')));head.append(who,worth);
+ {const [k,n1,k1]=orderLabel(siblingsOf(s)),bo=t(k).replace('{n}',n1).replace('{k}',k1);who.append(input,el('p','persona-meta',t('Age {n}').replace('{n}',s.age)+' · '+bo+' · '+t(n.body)+' · '+t(n.drive)));}const worth=el('div','persona-worth');worth.append(el('b',undefined,money(b.worth)),el('span',undefined,t('Net worth')));head.append(who,worth);
  const stats=el('dl','persona-stats'),stat=(k,v)=>stats.append(el('dt',undefined,k),el('dd',undefined,String(Math.round(v))));stat(t('Health'),s.health);stat(t('Wellbeing'),s.wellbeing);for(const x of AXES)stat(t(x.key==='iq'?'IQ':x.key==='eq'?'EQ':x.label),s.skills?.[x.key]??0);
  const gear=el('ul','persona-gear');
  const line=pts=>{const svg=document.createElementNS(NS,'svg'),lo=Math.min(...pts),hi=Math.max(...pts),p=document.createElementNS(NS,'polyline');svg.setAttribute('viewBox','0 0 40 14');svg.setAttribute('class','asset-spark');svg.setAttribute('aria-hidden','true');p.setAttribute('points',pts.map((v,i)=>(i/Math.max(1,pts.length-1)*38+1).toFixed(1)+','+(13-(hi===lo?.5:(v-lo)/(hi-lo))*12).toFixed(1)).join(' '));p.setAttribute('fill','none');p.setAttribute('stroke','currentColor');p.setAttribute('stroke-width','1.3');svg.append(p);return svg;};
