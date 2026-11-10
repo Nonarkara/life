@@ -954,3 +954,25 @@ Tried and reverted: naive gltfpack -cc -kn recompress of the visitor GLBs
 map ("Missing head bone"). The 11.9 MB review view stays the one open medium;
 the proper path is a repack script that remaps humanBones indices after
 gltfpack, then MeshoptDecoder (already wired in character-anime.js).
+
+## Establishing shots hardened · 10 November 2026 (session 2)
+Claude's Rokehan real-place plates (3 shipped: Yaowarat, Phuket Old Town,
+Ayutthaya; 5 withheld because the render did not show the place — correct call
+under the no-hallucination law) carried three defects, all closed:
+- The caption phrase is translated by plan-copy; a duplicate row broke the
+  phrase test and was removed.
+- The place JPGs loaded via a runtime-concatenated URL that the build could
+  never version — a re-shot place would ride an old cache forever. They join
+  the stage-art manifest: build.mjs inventories `anime/places/` and versions
+  every path with the build; showPlate reads the versioned path with the
+  direct path as fallback. Wiring a future re-shot is now: drop the JPG in
+  `anime/places/`, rebuild, add one placeFor row.
+- The same plate replayed its 2.6 s for every street moment; a place now
+  introduces itself once per page visit, and a shot that fails to load cuts
+  straight to the scene. All three shipped renders were viewed and show
+  their named places. 430 tests; gate 0 high; deployed 425b2d19, live bytes
+  verified (manifest places + versioned URL 200).
+Open for the owner: hand-frame the five withheld places in Location Scout
+(Democracy Monument, Golden Mount, Don Mueang, Si Lom, Ban Chiang) — the
+pipeline accepts them the moment they land. The redistribution-terms
+question is the owner's to settle with the tool's maker.
