@@ -5,7 +5,7 @@
 // marquees, through 1980s lane floodlights, shared family landlines and VHS tapes,
 // the 1997 Tom Yum Goong crisis and 1999 Skytrain opening, to the 2011 flood, 2014
 // curfew and cashless 2020s streets.
-export const COHORT_YEARS=Object.freeze([1949,1955,1970,1981,1990,2000,2026]);
+export const COHORT_YEARS=Object.freeze([1949,1955,1970,1975,1981,1990,1997,2000,2026]);
 export const DEFAULT_COHORT_YEARS=Object.freeze([1949,1981,2000]);
 export const HISTORICAL_COHORTS=Object.freeze({
  1949:{
@@ -43,6 +43,8 @@ export const HISTORICAL_COHORTS=Object.freeze({
   shortLabel:'Born 1990',
   note:'Childhood during the 1997 crisis and the 1999 BTS Skytrain opening; enter adulthood alongside smartphones, the 2011 flood and modern urban transit.'
  },
+ 1975:{year:1975,code:'75',label:'1975 · The Year the Region Changed',shortLabel:'Born 1975',note:'Born the year Saigon and Vientiane fell, with the 1976 Thammasat massacre a year away; grow up on the export boom and meet the 1997 crisis at 22.'},
+ 1997:{year:1997,code:'97',label:'1997 · Born into the Crisis',shortLabel:'Born 1997',note:'Born the year the baht floated and the IMF came; your parents plan around that, and you reach 29 in 2026.'},
  2000:{year:2000,code:'00',label:'2000 · A new century',shortLabel:'Born 2000',note:'Reach age 20 in 2020.'},
  2026:{
   year:2026,
