@@ -421,3 +421,18 @@ body.has-plan .plan-strip{max-height:clamp(112px,22dvh,190px);overflow-y:auto}
 }
 /* Reading tabs (You, Money, CV...) are for reading: about half a phone screen, the plan keeps its fitted panel. */
 @media(max-width:899px){body.console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open)[data-console-view]:not([data-console-view="plan"]){--rpg-height:52dvh}}
+/* Phone ending: the tabs are a switch, not a stack. Only the chosen panel is laid out, so the ending is the ending. */
+@media(max-width:899px){
+ .console-mode.recap-stage .console-cards>.console-panel{display:none}
+ .console-mode.recap-stage:not([data-console-view]) #console-plan,.console-mode.recap-stage[data-console-view="plan"] #console-plan,
+ .console-mode.recap-stage[data-console-view="you"] #console-you,
+ .console-mode.recap-stage[data-console-view="bucket"] #console-bucket,
+ .console-mode.recap-stage[data-console-view="money"] #console-money,
+ .console-mode.recap-stage[data-console-view="cv"] #console-cv,
+ .console-mode.recap-stage[data-console-view="world"] #console-world,
+ .console-mode.recap-stage[data-console-view="research"] #console-research,
+ .console-mode.recap-stage[data-console-view="history"] #console-history{display:block}
+ .ending-lessons .ending-runway+h2,.ending-share{margin-bottom:12px}
+}
+/* Ending share row: the sentence first, then both buttons from the column's left edge, one height. */
+#recap .ending-share{align-items:center;gap:8px 12px}#recap .ending-share>.fine{flex:1 1 100%;margin:0;max-width:none}#recap .ending-share>button{flex:0 0 auto;min-height:36px!important}
