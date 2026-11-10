@@ -399,3 +399,23 @@ body.has-plan .plan-strip{max-height:clamp(112px,22dvh,190px);overflow-y:auto}
 .persona-shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px;margin-top:8px}.shop-card{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:6px;align-items:center;min-height:36px;padding:3px 6px;border:1px solid var(--line);background:none;color:inherit;font-size:12px;text-align:left}.shop-card:disabled{opacity:.45}.shop-card small{font-variant-numeric:tabular-nums}.encounter-sell{min-height:32px;margin-top:6px;padding:2px 8px;font-size:13px;background:none;border:1px solid var(--ink);color:inherit}.verdict-death{font-style:normal;margin:0 0 8px}
 
 .place-plate{position:absolute;z-index:3;margin:0;overflow:hidden;background:#f4f0e6;cursor:pointer}.place-plate img{display:block;width:100%;height:100%;object-fit:cover}.place-plate figcaption{position:absolute;left:8px;bottom:12px;padding:3px 8px;background:#0a0e14;color:#f3efe3;font-size:12px;line-height:1.35}
+/* MSH, phone and tablet: one header block, one panel that fits its card, overlays on one edge. */
+@media(max-width:899px){
+ .top-who{flex-flow:row wrap!important;align-items:center!important;column-gap:8px}
+ #age-metrics{width:auto}
+ #age{flex:0 0 100%}
+ body .top-slots{flex:0 1 auto;min-height:24px!important;margin:0;padding:0;justify-content:flex-start;align-self:center}
+ body .transport-key,body .top-more{width:34px!important;min-width:34px!important;padding:0}
+ .top-main{gap:4px}
+ .top-world{padding:0;margin:0}
+ body.has-plan .plan-title{display:none}
+ body.has-plan .plan-card{border:0;padding:0;background:none}
+ body.has-plan .plan-strip{max-height:none}
+ .plan-steps{overflow-x:auto;scrollbar-width:none}
+ .plan-steps::-webkit-scrollbar{display:none}
+ .plan-foot{order:1;padding:0}
+ .plan-foot #commit{min-height:40px!important;padding:4px 12px}
+ body.console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{top:auto;bottom:10px;right:8px;padding:0;background:none}
+ body #overview{min-height:32px!important;padding:0 8px;white-space:nowrap;background:#0a0e14;color:#f3efe3}
+ .town-caption{bottom:10px;min-height:32px;display:flex;align-items:center;padding:0 8px;max-width:calc(100% - 112px)}
+}

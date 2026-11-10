@@ -27,7 +27,7 @@ export function effortFrom(main,second,locks={}){
 export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()=>{}}){
  const root=el('section','life-plan');root.id='life-plan';root.setAttribute('aria-label','The next five years');root.hidden=true;mount.prepend(root);
  const steps=el('div','plan-steps');steps.setAttribute('role','group');const strip=el('div','plan-strip');const foot=el('div','plan-foot');root.append(steps,strip,foot);
- let local={},stationKey='',scrollTo=null;
+ let local={},stationKey='',scrollTo=null,shown=-1;
  const go=i=>{const card=strip.children[i];if(!card)return;scrollTo=i;strip.scrollTo({left:card.offsetLeft-strip.offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});};
  const after=i=>requestAnimationFrame(()=>{if(strip.scrollWidth>strip.clientWidth+4)go(i+1);});
  function card(title){const c=el('section','plan-card');c.append(el('h3','plan-title',title));return c;}
@@ -59,9 +59,12 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
   {const year=birthYearOf(s);const lines=year===null||s.age<15?[]:climateLines(year+s.age);foot.replaceChildren(el('p','plan-signal',lines[0]??t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)),commit);commit.hidden=false;}
   const left=strip.scrollLeft;strip.replaceChildren(...cards);strip.scrollLeft=left;
   steps.replaceChildren(...cards.map((c,i)=>{const b=el('button','plan-step',c.firstChild.textContent);b.type='button';b.onclick=()=>go(i);return b;}));
-  mark();
+  shown=-1;mark();
  }
- function mark(){const w=strip.clientWidth||1,i=Math.round(strip.scrollLeft/(strip.children[0]?.offsetWidth+8||w));[...steps.children].forEach((b,n)=>b.setAttribute('aria-current',n===i?'step':'false'));}
+ function mark(){const w=strip.clientWidth||1,i=Math.round(strip.scrollLeft/(strip.children[0]?.offsetWidth+8||w));[...steps.children].forEach((b,n)=>b.setAttribute('aria-current',n===i?'step':'false'));if(i!==shown){shown=i;const a=steps.children[i];if(a)steps.scrollLeft=a.offsetLeft-steps.offsetLeft-16;fit(i);}}
+ // On a phone the panel is as tall as the card on show. The rest belongs to the world.
+ function fit(i){const body=document.body;if(body.classList.contains('decision-open'))return;if(innerWidth>899||root.hidden){strip.style.height='';body.style.removeProperty('--rpg-height');return;}const c=strip.children[i],dock=root.closest('.rpg-dock');if(!c||!dock)return;const top=strip.getBoundingClientRect().top-dock.getBoundingClientRect().top,tail=foot.offsetHeight+12,h=Math.min(Math.round(innerHeight*.5),Math.ceil(top+c.offsetHeight+tail));strip.style.height=h-top-tail+'px';body.style.setProperty('--rpg-height',h+'px');}
+ addEventListener('resize',()=>fit(shown));
  strip.addEventListener('scroll',()=>requestAnimationFrame(mark),{passive:true});
- return {draw(){root.hidden=false;document.body.classList.add('has-plan');draw();},hide(){if(root.hidden)return;root.hidden=true;document.body.classList.remove('has-plan');commitHome.append(commit);}};
+ return {draw(){root.hidden=false;document.body.classList.add('has-plan');draw();},hide(){if(root.hidden)return;root.hidden=true;document.body.classList.remove('has-plan');commitHome.append(commit);fit(shown);}};
 }
