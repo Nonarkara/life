@@ -25,7 +25,7 @@ for(const cls of CLASS_KEYS)for(const sex of SEXES)for(const birthYear of COHORT
    s=begin(configureLife(newLife(seed),{class:cls,sex,birthYear}));
    const settle=()=>{for(let n=0;n<12;n++){const list=pendingPivots(s);if(!list.length)break;const q=list[0],open=openOptions(q,s),o=open[Math.floor(rand(seed,s.age,'fz'+q.id)*open.length)],next=applyPivot(s,q,o.id);if(next===s)break;s=next;met.push(q.id+':'+o.id);}
     if(s.story?.pending){const e=encounterById(s.story.pending.id),open=e.options.filter(o=>choiceAvailable(s,o)),list=open.length?open:e.options,o=list[Math.floor(rand(seed,s.age,'fz'+e.id)*list.length)];
-     const hit=sceneOf.get(e.id);if(hit){stageSeen.set(e.id,(stageSeen.get(e.id)??0)+1);const era=hit.sc.era;if(era&&!(birthYear+s.age+4>=era[0]&&birthYear+s.age<=era[1]))wrongYear.push(e.id+' at '+(birthYear+s.age));}
+     const hit=sceneOf.get(e.id);if(hit){stageSeen.set(e.id,(stageSeen.get(e.id)??0)+1);const era=hit.sc.era;if(era&&!(Array.isArray(era[0])?era:[era]).some(r=>birthYear+s.age+4>=r[0]&&birthYear+s.age<=r[1]))wrongYear.push(e.id+' at '+(birthYear+s.age));}
      s=resolveEncounter(s,o.id,rand(s.seed,s.age,'encounter-result'));met.push(e.id+':'+o.id);}};
    settle();
    for(let g=0;g<30&&s.stage==='review'&&s.age<80;g++){const next=live(s);if(next===s)break;s=next;settle();}

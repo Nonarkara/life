@@ -31,7 +31,7 @@ test('27 consecutive fresh lives change class, home and era every time',()=>{
  }
  assert.ok(homes.size>=4);
  assert.ok(openingQuestions.size>=2);
- assert.equal(eras.size,3);
+ assert.equal(eras.size,8); // every historical cohort, not only 1949, 1981 and 2000
 });
 
 test('explicit cohorts, classes and the timeless calendar stay available',()=>{

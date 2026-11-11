@@ -229,7 +229,7 @@ test('the same school-day clock takes different families to their recorded kind 
 test('fresh births expose different playable openings through age twenty',async()=>{
  const {drawBirth}=await import('../../dist/course/birth-draw.js');
  const {pendingChildChoice,chooseChild}=await import('../../dist/course/childhood-choices.js');
- const openings=new Set(),scenes=new Set(),ordinaryBesideDirected=new Set();
+ const openings=new Set(),scenes=new Set(),ordinaryBesideDirected=new Set();let contested=0,ordinaryWins=0;
  let previous;
  for(let seed=1;seed<=400;seed++){
   let draw=0,s=drawBirth({},{previous,varied:true,random:()=>rand(seed,++draw,'opening')});
@@ -247,7 +247,7 @@ test('fresh births expose different playable openings through age twenty',async(
    if(pending){
     const scene=encounterById(pending.id),candidates=pending.candidates.map(encounterById);
     path.push(scene.id);scenes.add(scene.id);
-    if(!scene.director&&candidates.some(e=>e.director)&&candidates.every(e=>(e.priority??2)===2))ordinaryBesideDirected.add(scene.id);
+    if(candidates.some(e=>e.director)&&candidates.every(e=>(e.priority??2)===2)){contested++;if(!scene.director){ordinaryWins++;ordinaryBesideDirected.add(scene.id);}}
     s=resolveEncounter(s,scene.options[0].id,.5);
    }
    const next=live(s);assert.notEqual(next,s,'the opening can advance');s=next;
@@ -256,5 +256,9 @@ test('fresh births expose different playable openings through age twenty',async(
  }
  assert.ok(openings.size>=395,openings.size+' distinct openings');
  assert.ok(scenes.size>=90,scenes.size+' offered incidents, up from 86');
- assert.ok(ordinaryBesideDirected.size>=10,'incidental directed scenes do not lock the pool');
+ // Measured as a share: callings chosen by answers now take more stations, so fewer stations are contested at all.
+ // 2026-11-12: 13 of 25 before answers chose callings and all eight eras were drawn, 6 of 18 after (small sample).
+ // The guard is that the pool is never locked: ordinary scenes keep winning a real share.
+ assert.ok(contested>=10&&ordinaryWins/contested>=.25,'ordinary scenes won '+ordinaryWins+' of '+contested+' stations beside a directed one');
+ assert.ok(ordinaryBesideDirected.size>=5,'distinct ordinary winners '+ordinaryBesideDirected.size);
 });

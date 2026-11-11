@@ -3,11 +3,13 @@ import {newLife,configureLife,validate,rand} from './sim.js';
 import {birthFits} from './housing-ladder.js';
 
 import {routeOf} from './life-routes.js';
-import {DEFAULT_COHORT_YEARS} from './thai-history.js';
+import {COHORT_YEARS} from './thai-history.js';
+// Every historical cohort the game has built, not only the first three: a random life can be born in 1955 or 1997.
+const DRAW_YEARS=COHORT_YEARS.filter(y=>y<2026);
 
 export function drawBirth(options={}, {previous=null, varied=false, random=Math.random}={}){
  const previousRoute=varied&&previous?routeOf(previous):null;
- const eras=DEFAULT_COHORT_YEARS.filter(year=>year!==previous?.intake?.birthYear);
+ const eras=DRAW_YEARS.filter(year=>year!==previous?.intake?.birthYear);
  const randomEra=options.birthYear==='historical'||(varied&&options.birthYear===undefined);
  for(let attempt=0;attempt<4000;attempt++){
   const seed=Math.floor(random()*2147483646)+1;
