@@ -38,7 +38,10 @@ const ALT={
  9:{when:s=>s.seed%2===0,title:'Before light',context:'Your grandmother wants someone to carry the food to the monks before it is light.',ids:['carry','bed']}
 };
 const ALT_IDS=Object.values(ALT).flatMap(a=>a.ids);
-const shaped=(state,q)=>{const a=ALT[q.age];if(birthYearOf(state)!==null&&a?.when(state))return {...q,title:a.title,context:a.context,options:q.options.filter(o=>a.ids.includes(o.id))};return {...q,options:q.options.filter(o=>!ALT_IDS.includes(o.id))};};
+// The seed may pick any question of the age, but the variant belongs to the first one:
+// reshape only a question that carries every variant option. Over any other question the
+// variant would promise options that do not exist and leave the dialog with nothing to click.
+const shaped=(state,q)=>{const a=ALT[q.age];if(birthYearOf(state)!==null&&a?.when(state)&&a.ids.every(id=>q.options.some(o=>o.id===id)))return {...q,title:a.title,context:a.context,options:q.options.filter(o=>a.ids.includes(o.id))};return {...q,options:q.options.filter(o=>!ALT_IDS.includes(o.id))};};
 CHILD_CHOICES.push(
  {age:6,title:'The short way past the dog',context:'The short way to school goes past the dog that bit your cousin. The long way makes you late.',options:[
   option('dog_short','Take the short way','You ran it every morning. The dog never once looked up.',{skills:{drive:1}},'tools'),
