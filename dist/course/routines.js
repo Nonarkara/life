@@ -56,7 +56,7 @@ export function routine(actor,age,time,goal='balance',context={}){
   else if(age>=5&&age<6)key='swim';
   else if(age>=8&&age<9&&t>=36&&t<48)key='bike';
   if(age>=15&&age<60){
-   if(context.pathway==='college'&&age<=25||context.pathway==='school'&&age<=20)key='school';
+   if(context.pathway==='college'&&age<=30||context.pathway==='school'&&age<=20)key='school';
    else if(context.pathway==='work')key='work';
    else if(context.pathway==='vocational')key='work';
    else if(context.pathway==='independent')key='art';

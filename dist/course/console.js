@@ -113,7 +113,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
   for(const[key,label]of [['budget','Budget'],['invest','Invest']]){const b=element('button',label);b.type='button';b.dataset.moneyView=key;b.setAttribute('aria-pressed',String(moneyView===key));b.onclick=()=>{moneyView=key;select('money');document.querySelector('[data-money-view='+key+']')?.focus({preventScroll:true});};views.append(b);}p.append(views);
   if(isMoving())p.append(element('p','Money controls reopen at your next review.','console-note'));
   if(moneyView==='invest'){renderInvestments(p,s,{getState,change,draft:investmentDraft,locked});return;}
-  const routes=availablePathways(s.age),route=routes.some(([key])=>key===s.pathway)?s.pathway:routes[0]?.[0]??'work',flow=monthlyFlow(s,{pathway:route});
+  const routes=availablePathways(s.age,s),route=routes.some(([key])=>key===s.pathway)?s.pathway:routes[0]?.[0]??'work',flow=monthlyFlow(s,{pathway:route});
   p.append(element('p',flow.source+' · '+money(flow.income)+' / month','console-note'));
   const tip=element('details',undefined,'money-tip');tip.open=s.age===15;tip.append(element('summary','A small money lesson'),element('p','Saving keeps options open. Enjoyment, books and classes also use money and time. There is no perfect allocation.'));p.append(tip);
   const policy=element('fieldset',undefined,'budget-policy');policy.append(element('legend','After essentials, split your next income'));

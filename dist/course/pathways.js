@@ -7,9 +7,13 @@ export const PATHWAYS={
  college:{label:'Attend college',from:20,to:25},
  work:{label:'Take a salaried job',from:20,to:60}
 };
-export function availablePathways(age){return Object.entries(PATHWAYS).filter(([,p])=>age>=p.from&&age<p.to);}
+export function scholarshipStudy(state,age=state?.age){
+ const award=state?.story?.flags?.r_scholarship_kid_2;
+ return Number.isInteger(award)&&age>=award&&age<award+5;
+}
+export function availablePathways(age,state){return Object.entries(PATHWAYS).filter(([key,p])=>age>=p.from&&(age<p.to||key==='college'&&scholarshipStudy(state,age)));}
 export function pathwayPeriod(state,roll){
- const routes=availablePathways(state.age);const route=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');
+ const routes=availablePathways(state.age,state);const route=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');
  if(state.age<15||state.age>=60)return {route,cash:0,learning:0,incomeFactor:1,description:''};
  const family=backgroundBand(state);
  const support=state.age<25?{constrained:1000,middle:6000,comfortable:24000}[family]:0;
@@ -17,7 +21,7 @@ export function pathwayPeriod(state,roll){
  const craftBonus=Math.min(16000,(state.skills?.craft??0)*450+(state.skills?.drive??0)*350);
  const choices={
  school:{cash:support-6000,learning:4,description:'You continued school. Family support helped with books and travel.'},
- college:{cash:support+merit-18000,learning:10+(state.pivotFlags?.meritScholar?2:0),description:'College brought study costs and more time to learn. A degree does not guarantee a job.'},
+ college:{cash:support+merit-(scholarshipStudy(state)?0:18000),learning:10+(state.pivotFlags?.meritScholar?2:0),description:'College brought study costs and more time to learn. A degree does not guarantee a job.'},
  vocational:{cash:4000+state.skills.physique*100+state.skills.craft*150,learning:5,description:'An apprenticeship paid a little while you learned through work.'},
  independent:roll<.2+Math.min(.35,((state.skills?.craft??0)+(state.skills?.drive??0))*.012)?{cash:24000+craftBonus,learning:3,description:'Your independent project found paying customers.'}:{cash:-5000,learning:3,description:'Independent work brought uneven income. The project cost more than it earned.'},
  work:{cash:0,learning:2,description:'Regular work supported the household. You learned on the job.'}

@@ -1,4 +1,5 @@
 import {rand} from './rand.js';
+import {regionIdFor} from './regions.js';
 import {THAI_ENCOUNTERS} from './thai-encounters.js';
 import {CLASS_ENCOUNTERS} from './class-encounters.js';
 import {recordedFundLoss,legacyMarketPrompt} from './market-evidence.js';
@@ -158,6 +159,7 @@ export function offerEncounter(state,roll,keep=()=>true){
   if((roll*7919)%1<(priority===2?BANK_SHARE.quiet:BANK_SHARE.history)){const macro=bank.filter(e=>e.macro);pool=macro.length&&(roll*104729)%1<BANK_SHARE.macro?macro:bank;}
   else{const rest=pool.filter(e=>!e.bank);if(rest.length)pool=rest;}
  }
+ if(state.age===25&&pool.some(e=>e.id==='r_scholarship_kid_2'))pool=pool.filter(e=>e.id==='r_scholarship_kid_2');
  const last=state.story.seen.at(-1),fresh=pool.filter(e=>e.category!==byId.get(last?.id)?.category);if(fresh.length)pool=fresh;
  const selected=pool[Math.min(pool.length-1,Math.floor(roll*pool.length))];
  return {...state,story:{...state.story,pending:{id:selected.id,age:state.age,candidates:eligible.map(e=>e.id)}}};
@@ -173,10 +175,12 @@ export function resolveEncounter(state,choiceId,roll){
  const flags={...state.story.flags};if(choice.flag)flags[choice.flag]=state.age;
  const seen=[...state.story.seen,{id:pending.id,age:state.age,choice:choice.id,outcome:storyText(outcome,state.story),effects}];
  const funded=state.finance?personalFlow(state,'encounter:'+state.age+':'+pending.id,Math.max(0,choice.cash??0)+(choice.uncertain&&roll<.5?4500:0),Math.max(0,-(choice.cash??0))):state;
- const next={...state,...(choice.pathway?{pathway:choice.pathway}:{}),finance:funded.finance,cash:state.finance?state.cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
+ const destination=choice.moveTo==='home'?regionIdFor(state.birth):choice.moveTo;
+ const finance=destination&&funded.finance?{...funded.finance,region:destination,regionSince:state.age}:funded.finance;
+ const next={...state,...(choice.pathway?{pathway:choice.pathway}:{}),finance,cash:state.finance?state.cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
  for(const[key,value]of Object.entries(effects.skills))next.skills[key]+=value;
  const last=state.history.at(-1);
- next.history=[...state.history.slice(0,-1),{...last,...(next.finance?{finance:{...(last.finance??{}),available:next.finance.available,reserve:next.finance.reserve,debt:next.finance.debt}}:{}),cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];
+ next.history=[...state.history.slice(0,-1),{...last,...(next.finance?{finance:{...(last.finance??{}),available:next.finance.available,reserve:next.finance.reserve,debt:next.finance.debt,...(destination?{region:destination,regionSince:state.age}:{})}}:{}),cash:next.cash,health:next.health,wellbeing:next.wellbeing,event:last.event+' '+seen.at(-1).outcome,storySkills:{...effects.skills},events:[...(last.events??[]),{type:choice.marker??(encounter.category==='health'?'recovery':encounter.category==='work'?'project':'connection'),encounter:encounter.id}]}];
  if(choice.risk&&roll<choice.risk){const y=birthYearOf(state);const age=y!==null&&encounter.year?Math.max(state.age,Math.min(state.age+4,encounter.year-y)):state.age;return {...next,stage:'recap',death:{age,cause:choice.deathCause,odds:choice.risk,chance:choice.risk,smoker:false,history:true}};}
  return choice.sellAll?sellAll(next):next;
 }

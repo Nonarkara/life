@@ -41,6 +41,7 @@ function card(life){
 }
 function enter(options,fresh=false){try{lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;}catch{$('intake-error').textContent=t('Try again');}}
 $('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/';}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
+$('birth-edit').onclick=()=>{$('birth-card').close();$('birth-era').focus();};
 $('birth-again').onclick=()=>{try{drawn=drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
 // family and place with the same luck, and chooses for themselves.

@@ -31,7 +31,7 @@ for(let i=1;i<=N;i++){
  const settle=()=>{for(let n=0;n<12;n++){const list=pendingPivots(s);if(!list.length)break;const q=list[0],o=choose(p,openOptions(q,s),s,'q');const next=applyPivot(s,q,o.id);if(next===s)break;s=next;met.push([q.id,o.id]);}if(s.story?.pending){const e=encounterById(s.story.pending.id),open=e.options.filter(o=>choiceAvailable(s,o));const o=choose(p,open.length?open:e.options,s,'e');s=resolveEncounter(s,o.id,rand(s.seed,s.age,'encounter-result'));met.push([e.id,o.id]);}};
  settle();
  for(let guard=0;guard<30&&s.stage==='review'&&s.age<80;guard++){
-  const effort=Object.fromEntries(KEYS.map((k,j)=>[k,p.effort[j]])),roads=availablePathways(s.age).map(([k])=>k),road=roads.includes(p.road)?p.road:roads[0];
+  const effort=Object.fromEntries(KEYS.map((k,j)=>[k,p.effort[j]])),roads=availablePathways(s.age,s).map(([k])=>k),road=roads.includes(p.road)?p.road:roads[0];
   s={...s,effort,...(road?{pathway:road}:{}),profile:{...s.profile,...p.habit}};if(s.finance)s=setBudget(s,p.budget);
   // Bot housing nudge: wealthy lives move up the ladder when they can afford it.
   // A nudge, not a mandate — 40% chance when the next rung is affordable.

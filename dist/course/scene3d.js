@@ -18,7 +18,7 @@ import {currentPalette} from './palettes.js';
 import {createBatch,bake,m,METRE,nightGlow} from './diorama-kit.js';
 import {townPlan,familyAt,lifeRandom} from './diorama-plan.js';
 import {crowdRoster,crowdActivity,youthRoster} from './diorama-cast.js';
-import {visitorWardrobe,applyWardrobe} from './cast-wardrobe.js';
+import {visitorWardrobe,applyWardrobe,setVisitorTopColour} from './cast-wardrobe.js';
 import {youthsInOwnClothes} from './moment-plan.js';
 import {furnishHome,buildHomeShell} from './home3d.js';
 import {createPost} from './render-post.js';
@@ -113,7 +113,16 @@ function createScene(original){
   // Stall: the mother's post on the south side of the lane.
   const stall=group(),st=batchOf(stall),acc=plan.palette.accent;st.box(6.4,9,0,1.5,.55,.5,'#9d8965');st.box(6.38,8.98,.5,1.54,.59,.03,'#8a7458');for(const x of [6.42,7.82])st.box(x,9.02,.53,.04,.04,.82,'#6b5236');st.gable(6.3,8.85,1.35,1.7,.85,.14,acc,{over:.04,along:'x'});for(let i=0;i<5;i++)st.ball(6.62+i*.26,.57,9.28,.08,.07,.08,['#c9a14a','#b5553c','#7f8f5a'][i%3],6);
   // Pond and pier, in every town, because swimming lessons happen there.
+  stall.visible=!plan.abroad;
+  if(plan.abroad){
+   const garden=batchOf(root);
+   garden.box(3.1,8.87,-.03,2.4,1.5,.015,plan.climate==='cold'?'#d8dedb':'#819473');
+   for(const x of [3.35,4.63])garden.box(x,9.85,-.015,.045,.045,.22,'#60655b');
+   garden.box(3.32,9.79,.20,1.42,.20,.04,'#795e47');
+   garden.box(3.32,9.96,.24,1.42,.04,.18,'#795e47');
+  }else{
   const pond=batchOf(root);pond.box(3.1,8.87,-.024,2.4,1.5,.02,'#a59a84');pond.box(3.2,8.97,-.02,2.2,1.3,.018,plan.palette.water);pond.box(4.02,8.5,.02,.56,.62,.03,'#8a7050');for(let z=8.54;z<9.08;z+=.12)pond.box(4.04,z,.05,.52,.012,.004,'#6b5236');for(const x of [4.05,4.5])pond.box(x,9.05,-.02,.05,.05,.1,'#6b5236');
+  }
   // A pitch is usable ground; its markings sit on the plane the players stand on.
   road.box(9,9,-.022,4,3,.012,plan.climate==='cold'?'#e8edee':'#7f9a6e');for(const [x,z,w,d] of [[9,9,4,.025],[9,12,4,.025],[9,9,.025,3],[13,9,.025,3],[11,9,.025,3]])road.box(x,z,-.008,w,d,.006,'#e6e4d6');for(const x of [9,13]){road.box(x,10,0,.03,.03,m(1.5),'#e6dfcc');road.box(x,11,0,.03,.03,m(1.5),'#e6dfcc');road.box(x,10,m(1.5),.03,1,.03,'#e6dfcc');}
   // Garden plots at the end of the old-age route, and a small kitchen garden by the fields.
@@ -177,6 +186,7 @@ function createScene(original){
   actor.rig.look.headScale=1;actor.rig.look.stoop=0;
   // Clothes bind to a standing figure, wherever this one happens to be in its stride.
   actor.update(STAND,age,1e7,{world:FIGURE,scale:1});actor.undress?.();
+  setVisitorTopColour(actor.anime.model()?.material,outfit.top);
   actor.undress=dressPeriod(actor,outfit,{elder,matte:true,hair});actor.dressStamp=stamp;
   actor.rig.look.headScale=headScale;actor.rig.look.stoop=stoop;
  }
@@ -191,7 +201,8 @@ function createScene(original){
   const parentAge=n=>age+26+rand(seed,0,n+'-gap')*6;
   for(const name of ['mother','father']){const mem=withGrandparents?{sex:name==='mother'?'female':'male',elder:true}:hh[name],from=withGrandparents?here:born,elder=!!mem.elder||parentAge(name)>=60,look=appearance(rand,seed,(withGrandparents?'grand-':'')+name,from,{sex:mem.sex,elder});actors[name].setLook(look);dressActor(actors[name],(withGrandparents?'grand-':'')+name,mem.sex,state,Math.min(90,parentAge(name)),year,{elder,place:plan.place,stoop:elder?.12:0});}
   const sex=state.intake?.sex??['female','male','intersex'][Math.floor(rand(seed,0,'intake-sex')*3)];
-  actors.player.setLook(appearance(rand,seed,'player',born,{sex}));dressActor(actors.player,'player',sex,state,age,year,{elder:age>=60,place:plan.place,headScale:headFor(age),stoop:age>=68?.15:age>=60?.08:0});
+  const look=appearance(rand,seed,'player',born,{sex});
+  actors.player.setLook({...look,shirt:outfitFor(state,'player',sex,age,year,{place:plan.place}).top});dressActor(actors.player,'player',sex,state,age,year,{elder:age>=60,place:plan.place,headScale:headFor(age),stoop:age>=68?.15:age>=60?.08:0});
   if(family.partner){const ps=rand(seed,0,'partner-sex')<.92?(sex==='female'?'male':'female'):sex;actors.partner.setLook(appearance(rand,seed,'partner',here,{sex:ps}));dressActor(actors.partner,'partner',ps,state,age,year,{elder:age>=62,place:plan.place,stoop:age>=68?.12:0});}
   if(family.child){const ks=rand(seed,0,'kid-sex')<.5?'female':'male';actors.kid.setLook(appearance(rand,seed,'kid',here,{sex:ks}));dressActor(actors.kid,'kid',ks,state,Math.max(1,family.childAge),year,{place:plan.place,headScale:headFor(family.childAge)});}
   lotRoster=plan.abroad?[]:lotCast(plan.rung,seed,age);
@@ -203,15 +214,15 @@ function createScene(original){
  let lost=false;canvas.addEventListener('webglcontextlost',()=>{lost=true;});
  const hour={sky:new T.Color(),sun:new T.Color(),hs:new T.Color(),hg:new T.Color(),i:1,h:1,el:1,lit:0};
  const focus3=new T.Vector3(),eye=new T.Vector3(),ray=new T.Raycaster(),mood=new T.Color(),shadowM=new T.Matrix4(),shadowScale=new T.Vector3(),sunDir=new T.Vector3();
- let lastRegion=null,flyIn=0,lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
+ let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
  const post=createPost(renderer,scene,camera);
  const cam={x:5.3,z:5.3,span:8},pinAt=new T.Vector3();
- function update(state,age,time,{homeFrame=false,tour=false,pick=null}={}){
+ function update(state,age,time,{homeFrame=false,tour=false,pick=null,animating=true}={}){
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);post.setSize(w,h,renderer.getPixelRatio());camera.aspect=w/h;lastSignature='';}
   const plan=townPlan(state,age),here=plan.regionId,born=regionIdFor(state.birth),family=familyAt(state,age);
-  if(!world||appliedKey!==plan.key){const farther=plan.abroad&&lastRegion!==plan.regionId&&lastRegion!==null;appliedKey=plan.key;lastRegion=plan.regionId;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;if(farther)flyIn=7;}
+  if(!world||appliedKey!==plan.key){appliedKey=plan.key;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;}
   const looks=[appliedKey,state.seed,state.birth?.household,state.intake?.sex,Math.floor(age/5),family.partner,family.child,castReady].join('/');
   if(looks!==lastLooks){lastLooks=looks;applyLooks(state,age,here,born,plan,family,time);}
   canvas.setAttribute('aria-label',original.getAttribute('aria-label')??'Your growing world');
@@ -260,14 +271,13 @@ function createScene(original){
   const phone=w<=720,tall=w/h<1.15;
   const still=!focus.moving&&age>=3;
   // Small children stay in the room; a person walking gets the town.
-  const stop=pick?{kind:'town',x:6.4,z:6.6}:tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}tourLine.hidden=!stop||!!pick;
+  const stop=pick?{kind:'town',x:6.4,z:6.6}:tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad)tourLine.textContent=tr(P.place.place);tourLine.hidden=(!stop&&!P.abroad)||!!pick;
   let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;
   const follow=stop?{x:stop.x,y:stop.z}:age<5?{x:5.2,y:5.2}:focus;
-  // The first sight of a far country: a very small town under a very large sky, then the slow descent.
-  const arriving=flyIn>0;if(arriving){flyIn=Math.max(0,flyIn-dt);if(!camReady)cam.span=70;}
-  const ease=camReady||arriving?1-Math.exp(-dt*(arriving?.55:2.6)):1;camReady=true;
+  // An arrival must be framed even while the life clock is held by a decision.
+  const ease=camReady&&animating?1-Math.exp(-dt*2.6):1;camReady=true;
   cam.x+=(follow.x-cam.x)*ease;cam.z+=(follow.y-cam.z)*ease;cam.span+=(span-cam.span)*ease;
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),(()=>{const reader=document.querySelector('.console-reader');return reader&&!reader.hidden&&getComputedStyle(reader).visibility!=='hidden'?reader.getBoundingClientRect():null;})()):0;
   focus3.set(cam.x,.45,cam.z);

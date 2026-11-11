@@ -1,3 +1,4 @@
+import {scholarshipStudy} from './pathways.js';
 import {backgroundBand} from './backgrounds.js';
 // Personal accounts use whole game baht; prices/effects are authored, not estimates.
 import {WORKPLACES} from './locations.js';
@@ -32,7 +33,7 @@ export function setWorkplace(state,workplace){return state.finance&&state.stage=
 export const currentRegion=state=>state.finance?.region??regionIdFor(state.birth);
 export function setRegion(state,id){return state.finance&&state.stage==='review'&&!state.story?.pending&&state.age>=20&&MOVE_TARGETS.includes(id)&&id!==currentRegion(state)?{...state,finance:{...state.finance,region:id,regionSince:state.age}}:state;}
 export function monthlyFlow(state,row){
- const studying=state.age<20&&row?.pathway==='school'||row?.pathway==='college'&&state.age<25;
+ const studying=state.age<20&&row?.pathway==='school'||row?.pathway==='college'&&(state.age<25||scholarshipStudy(state));
  const baseIncome=studying?allowance(state):state.age<20?(row?.pathway==='vocational'?5000:2500):Math.max(0,Math.round(row?.earnings??grossMonthlyPay(state)*(state.age>=60?1:({school:0,college:0,vocational:.6,independent:.2,work:1}[row?.pathway]??1))));
  const away=currentRegion(state)!==regionIdFor(state.birth),home=HOUSING[away&&(state.finance?.housing??'family')==='family'?'far':state.finance?.housing??'family'];
  const workplace=state.finance?.workplace??'local',housing=away&&(state.finance?.housing??'family')==='family'?'far':state.finance?.housing??'family';
@@ -41,7 +42,8 @@ export function monthlyFlow(state,row){
  const income=Math.round(baseIncome*(!studying&&state.age>=20&&state.age<60?(WORKPLACES[workplace]?.payFactor??1)*place.pay:1));
  const studentHome=studying&&state.age>=20&&housing!=='family',studentCity=studentHome&&housing==='near'&&workplace==='city';
  const k=adultCosts?place.cost:1,ladder=(adultCosts&&housing==='family'?rungRent(state,home.rent):0)+(adultCosts?mortgageDue(state):0);
- return {income,rent:Math.round(((studying&&housing==='family'?0:home.rent)+ladder)*k),transport:Math.round((studying&&housing==='family'?0:home.transport+((cityTravel||studentCity)?CITY_TRAVEL.expense:0))*k),essential:Math.round((studying?Math.round(allowance(state)*.7)+(studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0):state.age<20?1200:9000+home.rent+ladder+home.transport+(cityTravel?CITY_TRAVEL.expense:0))*k),commute:studying?(studentHome?(studentCity?80:home.minutes):30):home.minutes+(cityTravel?CITY_TRAVEL.minutes:0),source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
+ const grant=studying&&scholarshipStudy(state)&&studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0;
+ return {income:income+grant,rent:Math.round(((studying&&housing==='family'?0:home.rent)+ladder)*k),transport:Math.round((studying&&housing==='family'?0:home.transport+((cityTravel||studentCity)?CITY_TRAVEL.expense:0))*k),essential:Math.round((studying?Math.round(allowance(state)*.7)+(studentHome?home.rent+home.transport+(studentCity?CITY_TRAVEL.expense:0):0):state.age<20?1200:9000+home.rent+ladder+home.transport+(cityTravel?CITY_TRAVEL.expense:0))*k),commute:studying?(studentHome?(studentCity?80:home.minutes):30):home.minutes+(cityTravel?CITY_TRAVEL.minutes:0),source:studying?'Family allowance':state.age>=60?'Retirement income':'Work income'};
 }
 export function advanceFinance(before,next){
  if(next.age<=before.age)return next;

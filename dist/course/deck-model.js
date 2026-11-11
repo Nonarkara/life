@@ -5,7 +5,7 @@ import {holdingsValue} from './investments.js';
 export const deckBaht=n=>'฿'+Math.round(n).toLocaleString('en');
 export function deckFinance(state){
  if(!state.finance||state.age<15)return null;
- const f=state.finance,routes=availablePathways(state.age),pathway=routes.some(([id])=>id===state.pathway)?state.pathway:state.age<20?'school':'work';
+ const f=state.finance,routes=availablePathways(state.age,state),pathway=routes.some(([id])=>id===state.pathway)?state.pathway:state.age<20?'school':'work';
  const flow=monthlyFlow(state,{pathway}),income=flow.income,essential=flow.essential;
  const surplus=Math.max(0,income-essential),repayment=Math.min(f.debt??0,surplus),free=surplus-repayment;
  const fun=Math.floor(free*f.budget.fun/100),learn=Math.floor(free*f.budget.learn/100),saved=Math.floor(free*f.budget.save/100);
