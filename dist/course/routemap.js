@@ -19,7 +19,7 @@ export function routeModel(state){
 }
 export function routeText(state){const m=routeModel(state),spans=[];let from=0;for(let a=1;a<=m.end+1;a++)if(a>m.end||m.at[a]!==m.at[a-1]){spans.push(t(region(m.at[from]).place)+' '+from+'–'+(a>m.end?m.end:a));from=a;}return t('Where your life went')+': '+spans.join('; ')+'.';}
 export function drawRouteMap(canvas,state,fixed){
- const dpr=fixed?.dpr??(fixed?1:Math.min(devicePixelRatio||1,2)),w=fixed?.width??Math.max(280,canvas.clientWidth),h=fixed?.height??Math.max(200,canvas.clientHeight);
+ const dpr=fixed?.dpr??(fixed?1:Math.min(devicePixelRatio||1,2)),w=fixed?.width??Math.max(280,canvas.clientWidth),h=fixed?.height??Math.max(120,canvas.clientHeight);
  if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
  const c=canvas.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);c.fillStyle=PAPER;c.fillRect(0,0,w,h);
  const m=routeModel(state),phone=w<560,font=preferences.language==='th'?'Prompt':'Jost',size=phone?11:13;

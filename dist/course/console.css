@@ -436,3 +436,17 @@ body.has-plan .plan-strip{max-height:clamp(112px,22dvh,190px);overflow-y:auto}
 }
 /* Ending share row: the sentence first, then both buttons from the column's left edge, one height. */
 #recap .ending-share{align-items:center;gap:8px 12px}#recap .ending-share>.fine{flex:1 1 100%;margin:0;max-width:none}#recap .ending-share>button{flex:0 0 auto;min-height:36px!important}
+
+/* Ending: the heading takes focus for screen readers only, so it draws no ring; the life's own three lines sit under its arc. */
+.recap-stage #title:focus{outline:none}
+.verdict-did{list-style:none;margin:0 0 10px;padding:0}.verdict-did li{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:0 8px;padding:5px 0;border-top:1px solid var(--line)}.verdict-did b{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+@media(max-width:720px){.decision-dialog[open]{padding-bottom:max(12px,env(safe-area-inset-bottom))}}
+#recap .verdict-did{margin:0 0 10px;padding:0}#recap .verdict-did li{margin:0}
+@media(min-width:1100px){#recap{grid-template-rows:auto 1fr}}
+.did-what{color:var(--muted)}
+/* The timeline canvas must not size its own container: its buffer width fed back into the page width between 720 and 1100 px. */
+.ending-route{contain:inline-size}
+.recap-stage .console-cards>.console-panel{min-width:0;max-width:100%}
+.console-mode.recap-stage .rpg-dock>.console-reader{flex:1 1 0;min-width:0;max-width:100%}.console-mode.recap-stage .console-cards{min-width:0;max-width:100%}
+/* Tablet landscape gets the same two columns as desktop: the timeline and score sit beside the verdict instead of a blank right half. */
+@media(min-width:960px) and (max-width:1099.98px){#recap{display:grid;grid-template-columns:minmax(0,65ch) minmax(0,1fr);grid-template-rows:auto 1fr;gap:0 24px;align-items:start}#recap>*{grid-column:1/-1}#recap>.ending-verdict{grid-column:1;grid-row:1/3}#recap>.ending-route{grid-column:2;grid-row:1;margin:0}#recap>.ending-score{grid-column:2;grid-row:2;margin:12px 0 0}}

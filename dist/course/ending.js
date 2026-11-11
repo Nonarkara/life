@@ -14,7 +14,7 @@ import {replayComparison} from './replay-compare.js';
 import {renderReading,themCode} from './life-reading.js';
 import {pathOf,lifeArc} from './life-verdict.js';
 import {scoreLife} from './life-collection.js';
-import {encounterById} from './encounters.js';
+import {encounterById,storyText} from './encounters.js';
 import {kitchenFeeds} from './diorama-plan.js';
 import {POPULATION} from './population.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
@@ -34,10 +34,17 @@ export function renderEnding(root,state,{storage}={}){
   if(arc){const fig=document.createElement('figure');fig.className='arc';const NSs='http://www.w3.org/2000/svg',svgEl=document.createElementNS(NSs,'svg'),lo=Math.min(...arc.points.map(p=>p.v)),hi=Math.max(...arc.points.map(p=>p.v)),a0=arc.points[0].age,span=Math.max(1,arc.end-a0),X=p=>(p.age-a0)/span*100,Y=p=>30-(p.v-lo)/Math.max(1,hi-lo)*26-2;svgEl.setAttribute('viewBox','0 0 100 30');svgEl.setAttribute('preserveAspectRatio','none');svgEl.setAttribute('role','img');svgEl.setAttribute('aria-label',t('Wellbeing across this life'));const line=document.createElementNS(NSs,'polyline');line.setAttribute('points',arc.points.map(p=>X(p)+','+Y(p)).join(' '));line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','1.5');line.setAttribute('vector-effect','non-scaling-stroke');svgEl.append(line);const plot=document.createElement('div');plot.className='arc-plot';plot.append(svgEl);fig.append(plot);
    if(arc.twist){const p=arc.points.find(q=>q.age===arc.twist.age),dot=document.createElement('span');dot.className='arc-dot';dot.style.left=X(p)+'%';dot.style.top=Y(p)/30*100+'%';plot.append(dot);}
    const dl=document.createElement('dl');dl.className='arc-beats';const beat=(k,x)=>dl.append(say('dt',null,t(k)),say('dd',null,x));
-   beat('Rise',arc.peak===a0?t('It started at its best'):t('Climbed until {a}').replace('{a}',arc.peak));
+   // The rise is named from the line that is drawn: if it never got above where it began, say so.
+   const upTo=arc.points.filter(p=>p.age<=arc.peak),top=upTo.reduce((m,p)=>p.v>m.v?p:m,upTo[0]).age;
+   beat('Rise',top===a0?t('It started at its best'):t('Climbed until {a}').replace('{a}',top));
    beat('Twist',arc.twist?(t('At {a}').replace('{a}',arc.twist.age)+(arc.twist.what?': '+t(arc.twist.what):'')):t('Nothing broke it'));
    beat('End',state.death?t(state.death.ordained?'Walked out at {a}':'Over at {a}').replace('{a}',state.death.age):arc.twist?(arc.back===null?t('It ended there'):arc.back?t('It came back'):t('It never came back')):t('It held to the end'));
    fig.append(dl);v.append(fig);}
+  // What this life did that no other did: its three heaviest answers, in the words it was given at the time.
+  // ponytail: the translated line drops the luck suffix of an uncertain outcome; the saved English keeps it.
+  {const weight=e=>Math.abs(e.effects?.wellbeing??0)+Math.abs(e.effects?.health??0)+Math.log10(1+Math.abs(e.effects?.cash??0));
+   const did=(state.story?.seen??[]).filter(e=>e.outcome).sort((a,b)=>weight(b)-weight(a)).slice(0,3).sort((a,b)=>a.age-b.age);
+   if(did.length){const ol=document.createElement('ol');ol.className='verdict-did';for(const e of did){const li=document.createElement("li"),enc=encounterById(e.id),o=enc?.options.find(x=>x.id===e.choice),line=say('span',null,o?.outcome&&!o.uncertain?storyText(t(o.outcome),state.story):e.outcome);if(enc?.title)line.prepend(say('span','did-what',storyText(t(enc.title),state.story)+' · '));li.append(say('b',null,String(e.age)),line);ol.append(li);}v.append(ol);}}
   if(state.death&&!state.death.ordained){v.append(say('p','verdict-cause',t(state.death.cause)));const sex=state.intake?.sex;v.append(say('p','verdict-death',t(sex==='female'?'“Do you still have the dream, girl?” Death asked, and picked you up.':sex==='male'?'“Do you still have the dream, boy?” Death asked, and picked you up.':'“Do you still have the dream, child?” Death asked, and picked you up.')));if(/mind/.test(state.death.cause))v.append(say('p','score-credit',t('If this is close to home, the Mental Health Hotline is 1323.')));}
   v.append(say('p',null,t({monk:'You walked out through the door in the set. About {s}% of the pretend lives did. Nobody can tell you whether it was enough.',fun:'About {s}% of the pretend lives went this way, and {d}% of those were dead before sixty. You can say what you lived for. You paid for it.',safe:'About {s}% of the pretend lives went this way, and only {d}% of those were dead before sixty. It held. You still do not know why you were born.'}[path]).replace('{s}',Math.round(stats.share)).replace('{d}',stats.early)));
   const fed=Array.from({length:state.age+1},(_,a)=>kitchenFeeds(state,a));v.append(say('p',null,t('The Thai word for family, ครอบครัว, has the kitchen, ครัว, inside it. At its fullest yours fed {a}. At the end, {b}.').replace('{a}',Math.max(...fed)).replace('{b}',fed.at(-1))));
@@ -71,7 +78,7 @@ export function renderEnding(root,state,{storage}={}){
  const manual=document.createElement('textarea');manual.readOnly=true;manual.hidden=true;manual.rows=3;manual.setAttribute('aria-label',t('Result text and birth link'));manual.style.width='100%';manual.style.font='inherit';
  send.textContent=t('Share this result');
  const sendResult=async copying=>{const action=copying?copy:send;action.disabled=true;manual.hidden=true;preview.hidden=false;status.hidden=false;status.textContent=t('Preparing share…');try{const payload=resultShare(state,{score:reading?.score,translate:t,themCode});const outcome=await (copying?copyShare:deliverShare)(payload,navigator,{onWaiting:()=>{status.textContent=t('Still waiting for sharing. You can copy the text below.');manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;}});status.textContent=t({copied:'Copied. Paste it anywhere.',shared:'Passed to your device’s sharing system.',cancelled:'Sharing cancelled.',unavailable:'This birth cannot be shared.',manual:'Sharing was unavailable. Select and copy the text below.'}[outcome]);if(outcome==='manual'){manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;manual.focus();manual.select();}}finally{action.disabled=false;}};send.onclick=()=>sendResult(false);copy.onclick=()=>sendResult(true);
- const preview=document.createElement('p');preview.className='fine';preview.textContent=resultShare(state,{score:reading?.score,translate:t,themCode})?.text??'';share.append(preview);
+ const preview=document.createElement('p');preview.className='fine';preview.textContent=(resultShare(state,{score:reading?.score,translate:t,themCode})?.text??'').replace(/[:：]\s*$/,'.');share.append(preview);
  const cardTools=lifeCardView(state,storage);releaseCard=cardTools.destroy;share.append(...(link?[send,copy]:[]),cardTools.root,status,manual);root.insertBefore(share,route.nextSibling);
  const frame=document.createElement('div');frame.className='ending-visual';
  const chart=document.createElementNS(NS,'svg');chart.classList.add('ending-chart');chart.setAttribute('role','group');chart.setAttribute('aria-label','Health, wellbeing and cash across age');
