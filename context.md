@@ -983,3 +983,25 @@ Open for the owner: hand-frame the five withheld places in Location Scout
 (Democracy Monument, Golden Mount, Don Mueang, Si Lom, Ban Chiang) — the
 pipeline accepts them the moment they land. The redistribution-terms
 question is the owner's to settle with the tool's maker.
+
+## Fable 5.2 study + fuzz repair + deploy · 11 November 2026 (Nemotron)
+Studied Fable 5.2's three landed commits (30b77b8 honesty/era, 06c9035 ending/
+layout, 25d14d1 caption order). Its edge: audits the audit (it caught the 190
+placeholder translation rows that passed the letter of the test), falsifier-first
+(every fix ships with the test or fuzz gate that would have caught it), root-cause
+single-line fixes, and honest commit messages naming what was not checked.
+Repaired its fuzzer: the seed `i*7919+birthYear` had no class/sex component, so
+all six class/sex cells of a cohort replayed the identical random stream — "5400
+lives" were 540 lives played six times, and the correlated stream hid content
+(r_scholar_3/4 showed never-met at 28>6>0>0). With independent seeds
+(`+104729*cell`) the same run reads 22>12>7>7; scholar stages 3-4 were always
+reachable. Promoted two reported signals to hard gates (safe: fully seeded run):
+a scene nobody meets, and a cell whose lives all repeat (Law 2). Cells without
+route still only report — 2026 has none on purpose (SCENARIOS.md rule 11) and
+high_class pre-1981 is a known content boundary. Gates: 433 tests, fuzz 5400
+lives exit 0 (0 errors/invalid/unfinished/wrongYear, 0 never-met, 0 repeat cells,
+3274 route lives across 19 routes).
+Deployed: the housing-nudge commit (bc3024c) had never reached production —
+deploys are manual (DNS-SETUP.md line 17). Pushed 7fa5389, built, wrangler
+pages deploy; live build 1ab270c9c5fc verified: population fun 56.3 (was 52.4),
+plan-copy/game honesty line present, Fable's ending fix present in live bytes.
