@@ -193,3 +193,12 @@ html[lang=th] .pamphlet{--micro:12.5px}
 }
 @media (prefers-reduced-motion:reduce){.pamphlet .reel .rule em{transition:none}}
 .pamphlet .reel #reel-play{font:inherit;font-size:12px;line-height:1.3;border:0;border-bottom:1px solid var(--ink);padding:3px 0;min-height:28px;background:none;color:var(--ink);white-space:nowrap}
+
+/* Overview: the cover already says the name and offers the one action, so the bar does not say them twice. */
+body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar .brand,
+body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar-actions .begin{display:none}
+@media (max-width:720px){
+ body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar{flex-wrap:nowrap;padding:0 16px;gap:12px}
+ body:has(.menu button[data-sheet=overview][aria-pressed=true]) .menu{order:0;flex:1 1 0;padding:0}
+ body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar-actions{margin-left:0}
+}

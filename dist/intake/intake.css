@@ -72,3 +72,12 @@
 
 .intake-page{--mono:Jost,sans-serif}
 @media (min-width:721px) and (max-height:820px){.intake-page .overview.intake .panel{overflow:auto}}
+
+/* Phone: the form is its questions. Static reassurances live in the Conditions & care sheet, not under every select. */
+@media (max-width:720px){
+ .intake-page #body-profile+.fine,.intake-page #class-regions,.intake-page .starting-shape .fine+.fine,.intake-page .conditions .disclaimer{display:none}
+ .intake-page .fine{margin-bottom:10px}
+ .intake-page select{margin-bottom:4px}
+ .intake-page .point-editor{margin:0 0 6px}
+ .intake-page #intake-radar{max-height:200px;min-height:0}
+}
