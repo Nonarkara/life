@@ -5,7 +5,8 @@ import {writeFileSync} from 'node:fs';
 import {newLife,begin,live,configureLife,rand,validate} from '../dist/course/sim.js';
 import {pendingPivots,applyPivot,openOptions} from '../dist/course/pivots.js';
 import {encounterById,resolveEncounter} from '../dist/course/encounters.js';
-import {choiceAvailable,netWorth,setBudget} from '../dist/course/finance.js';
+import {choiceAvailable,netWorth,setBudget,monthlyFlow} from '../dist/course/finance.js';
+import {rungAt,setRung,canAfford,ladderOpen,TOP} from '../dist/course/housing-ladder.js';
 import {availablePathways} from '../dist/course/pathways.js';
 import {COHORT_YEARS} from '../dist/course/sim.js';
 import {pathOf,leaveWorld} from '../dist/course/life-verdict.js';
@@ -32,6 +33,9 @@ for(let i=1;i<=N;i++){
  for(let guard=0;guard<30&&s.stage==='review'&&s.age<80;guard++){
   const effort=Object.fromEntries(KEYS.map((k,j)=>[k,p.effort[j]])),roads=availablePathways(s.age).map(([k])=>k),road=roads.includes(p.road)?p.road:roads[0];
   s={...s,effort,...(road?{pathway:road}:{}),profile:{...s.profile,...p.habit}};if(s.finance)s=setBudget(s,p.budget);
+  // Bot housing nudge: wealthy lives move up the ladder when they can afford it.
+  // A nudge, not a mandate — 40% chance when the next rung is affordable.
+  if(s.finance&&ladderOpen(s)){const cur=rungAt(s,s.age),nxt=cur+1;if(nxt<=TOP&&canAfford(nxt,monthlyFlow(s,s.history?.at(-1)).income)&&rand(seed,s.age,'housing-nudge')<.4)s=setRung(s,nxt);}
   if(p.ordain&&s.age>=20&&s.age<=70&&rand(seed,s.age,'ordain')<p.ordain/8){s=leaveWorld(s);break;}
   const next=live(s);if(next===s)break;s=next;settle();
  }
