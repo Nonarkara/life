@@ -1005,3 +1005,17 @@ Deployed: the housing-nudge commit (bc3024c) had never reached production —
 deploys are manual (DNS-SETUP.md line 17). Pushed 7fa5389, built, wrangler
 pages deploy; live build 1ab270c9c5fc verified: population fun 56.3 (was 52.4),
 plan-copy/game honesty line present, Fable's ending fix present in live bytes.
+
+## Independent audit of Codex's courtyard/street-motion work · 11 November 2026 (Nemotron)
+Verified commit 11fe926 (build 0f0132f54cd8) against report claims, not on trust:
+436/436 tests pass; fuzz 5400 lives exit 0 under the hard gates (0 never-met,
+0 repeat cells, 0 wrong-year); courtyard chain reproduces exactly 312>137;
+live bytes carry the route (5 refs) and the Thai phrase; translations are real
+in all five languages, not placeholders. The new high_class route [1949,1975]
+closes the pre-1981 high_class no-route residual I had logged — cellsWithoutRoute
+is now the 2026 cohort alone, which is the documented deliberate boundary.
+Motion fix is genuine: continuous U-turn (position + heading), figures grounded
+at the actual street surface (STREET_SURFACE/CROSS_STREET_SURFACE constants),
+station shuffled per seed, youth offset halved; three new tests assert step
+continuity, station determinism and pond clearance. Honest not-checked list
+(overlap, bicycle turns, painted scale) matches what the tests do not cover.
