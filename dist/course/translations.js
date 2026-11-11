@@ -14,7 +14,20 @@ import {HYBRID_PHRASES} from './hybrid-copy.js';
 import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
-export const phrases=`2000 · A new century|2000 · ศตวรรษใหม่|2000 · 新世纪|2000 · 新しい世紀|2000 · 새로운 세기
+export const phrases=`
+Keys to the courtyard|กุญแจลานบ้าน|院子的钥匙|中庭の鍵|마당의 열쇠
+Your aunt hands you the keys to four rooms around a courtyard. A buyer offers cash for the whole property. Three households live there, and two have children at the school nearby.|ป้ายื่นกุญแจห้องสี่ห้องรอบลานบ้านให้คุณ มีคนเสนอซื้อที่ทั้งหมดด้วยเงินสด ที่นั่นมีสามครอบครัว สองครอบครัวมีลูกเรียนอยู่โรงเรียนใกล้บ้าน|姑妈把围着院子的四间屋的钥匙交给你。有人愿出现金买下整处房产。那里住着三户人家，其中两户的孩子在附近上学。|おばが中庭を囲む四部屋の鍵をあなたに渡す。買い手は敷地全体を現金で買うという。三世帯が暮らし、そのうち二世帯の子どもは近くの学校に通っている。|이모가 마당을 둘러싼 방 네 개의 열쇠를 건넵니다. 한 매수자가 건물 전체를 현금으로 사겠다고 합니다. 세 가구가 살고 있고 그중 두 가구의 아이들은 가까운 학교에 다닙니다.
+Keep the tenants and repair the rooms|ให้ผู้เช่าอยู่ต่อและซ่อมห้อง|让租户留下，修缮房间|住人に残ってもらい部屋を直す|세입자가 계속 살도록 하고 방을 수리한다
+The repairs took most of the rent. Each family kept its front door.|ค่าซ่อมกินค่าเช่าไปเกือบหมด แต่ทุกครอบครัวยังมีประตูบ้านเดิมให้กลับเข้าไป|租金大半花在了修缮上。每户人家都保住了自家那扇门。|家賃の大半は修繕に消えた。どの家族も、いつもの玄関に帰ることができた。|임대료 대부분이 수리비로 들었습니다. 각 가족은 원래 살던 집에 머물렀습니다.
+Sell and give each household time to move|ขายและให้แต่ละครอบครัวมีเวลาย้าย|卖掉房产，给各家留出搬迁时间|売却し、各世帯に引っ越しの時間を渡す|팔고 각 가구에 이사할 시간을 준다
+You paid for the move. The children could stay at their school, but they stopped meeting in the courtyard.|คุณออกค่าย้ายบ้านให้ เด็ก ๆ ยังเรียนที่เดิมได้ แต่ไม่ได้มาเจอกันที่ลานบ้านอีก|你付了搬家费。孩子们还能在原来的学校上学，却再也不在院子里碰面。|引っ越し代はあなたが出した。子どもたちは転校せずに済んだが、中庭で顔を合わせることはなくなった。|당신이 이사비를 냈습니다. 아이들은 같은 학교에 다닐 수 있었지만 마당에서 만나지는 않게 됐습니다.
+A room to return to|ห้องที่กลับมาได้|一间能回去的屋子|帰ってこられる部屋|돌아올 수 있는 방
+One of the children who grew up in the courtyard comes back with a parent who can no longer climb stairs. The only ground-floor room is where you keep your work.|เด็กคนหนึ่งที่โตมากับลานบ้านกลับมาพร้อมพ่อหรือแม่ที่ขึ้นบันไดไม่ไหวแล้ว ห้องชั้นล่างห้องเดียวคือห้องที่คุณใช้ทำงาน|一个在院子里长大的孩子回来了，带着已经爬不了楼梯的家长。唯一的底层房间是你的工作间。|中庭で育った子の一人が、階段を上れなくなった親を連れて戻ってくる。一階にある唯一の部屋は、あなたの仕事場だ。|마당에서 자란 아이 한 명이 이제 계단을 오를 수 없는 부모를 모시고 돌아옵니다. 1층의 유일한 방은 당신의 작업실입니다.
+Move your work upstairs|ย้ายที่ทำงานขึ้นชั้นบน|把工作间搬到楼上|仕事場を二階に移す|작업실을 위층으로 옮긴다
+Your work took longer on the stairs. On the ground floor, the parent could sit outside again.|ขึ้นลงบันไดทำให้งานของคุณช้าลง แต่คนที่อยู่ชั้นล่างกลับออกมานั่งข้างนอกได้อีกครั้ง|上下楼让你的工作慢了些。住在底层，那位家长又能坐到屋外了。|階段の分だけ仕事に時間がかかった。一階に移った親は、また外に座れるようになった。|계단을 오르내리느라 일이 더 오래 걸렸습니다. 1층에 사는 부모는 다시 밖에 앉을 수 있게 됐습니다.
+Help them find a room nearby|ช่วยหาห้องแถวนี้ให้|帮他们在附近找间屋子|近くで部屋を探すのを手伝う|가까운 곳에서 방을 구하도록 돕는다
+They found a room they could afford. The parent thanked you, and you saw them less often.|พวกเขาเจอห้องที่จ่ายไหว พ่อหรือแม่ของเขาขอบคุณคุณ แล้วคุณก็ได้เจอพวกเขาน้อยลง|他们找到一间租得起的屋子。那位家长向你道谢，从此你们见面少了。|払える家賃の部屋が見つかった。親は礼を言った。それから二人と会うことは少なくなった。|감당할 수 있는 방을 찾았습니다. 부모는 고맙다고 했고, 그 뒤로 당신은 두 사람을 덜 자주 봤습니다.
+2000 · A new century|2000 · ศตวรรษใหม่|2000 · 新世纪|2000 · 新しい世紀|2000 · 새로운 세기
 Born 2000|เกิดปี 2000|生于2000年|2000年生まれ|2000년생
 Reach age 20 in 2020.|อายุครบ 20 ปีในปี 2020|于2020年满20岁。|2020年に20歳になる。|2020년에 20세가 됩니다。
 Country of birth|ประเทศที่เกิด|出生国家|出生国|출생 국가

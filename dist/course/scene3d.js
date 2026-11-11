@@ -32,6 +32,7 @@ const FIGURE=1.65/1.8*METRE;
 const FOV=9,VIEW=new T.Vector3(.62,.86,.86).normalize();
 
 // A renderer change must hide the old surface without allocating a new GPU scene.
+const STREET_SURFACE=-.008, CROSS_STREET_SURFACE=-.006;
 export function cameraSpan(age,phone=false){return age<1?3.5+age*2:phone?Math.min(9,5+age*.12):age<10?5.5+age*.3:age<20?8.5+(age-10)*.13:9.8+Math.min(40,age-20)*.03;}
 export function drawScene3D(original,state,age,time,mode,view={}){
  let entry=scenes.get(original);
@@ -134,7 +135,7 @@ function createScene(original){
   const board=(x,z,w,d)=>{b.box(x,z,-1.3,w,d,1.27,edge);b.box(x,z,top-.003,w,d,.003,ground);b.box(x-.015,z+d,-.2,w+.03,.012,.04,'#c9c6b8');b.box(x+w,z-.015,-.2,.012,d+.03,.04,'#c9c6b8');};
   board(-5.6,-5.6,24.2,24.2);
   const R=P.road,asphalt=plan.year>=1965&&!['village','fringe'].includes(plan.style),line='#e7e0cf',curb=['market','condo','villa','tower','tokyo','newengland','brick'].includes(plan.style)&&plan.year>=1960;
-  b.box(-5.6,7.05,-.02,24.2,1.8,.012,R);b.box(7.2,-5.6,-.018,1.8,24.2,.012,R);
+  b.box(-5.6,7.05,STREET_SURFACE-.012,24.2,1.8,.012,R);b.box(7.2,-5.6,CROSS_STREET_SURFACE-.012,1.8,24.2,.012,R);
   if(curb)for(const [x,z,w,d] of [[-5.6,6.97,12.8,.08],[9,6.97,9.6,.08],[-5.6,8.85,12.8,.08],[9,8.85,9.6,.08],[7.12,-5.6,.08,12.6],[9,-5.6,.08,12.6],[7.12,8.9,.08,9.7],[9,8.9,.08,9.7]])b.box(x,z,-.02,w,d,.04,'#bdb9aa');
   if(asphalt)for(let x=-5;x<18;x+=1.6)if(x<7||x>9)b.box(x,7.93,-.006,.7,.035,.005,line);
  }
@@ -228,7 +229,7 @@ function createScene(original){
   const [roomX,roomZ]=context.residence.base,familyHome=context.residence.id==='family';
   if(family.partner&&(t<8||t>=46))place(actors.partner,familyHome?{x:roomX+.82,y:roomZ+2.45,dx:0,dy:0,moving:false,facing:-Math.PI/2,pose:'cook'}:{x:roomX+3.35,y:roomZ+1.95,dx:0,dy:0,moving:false,facing:Math.PI,pose:'rest'},{elder:age>=62,scale:.98});else actors.partner.root.visible=false;
   if(family.child){const a=t*.3;place(actors.kid,{x:roomX+1.2+Math.cos(a)*.22,y:roomZ+2.5+Math.sin(a)*.18,dx:-Math.sin(a),dy:Math.cos(a),distance:t*.2,moving:family.childAge>=1,pose:family.childAge<2?'crawl':family.childAge<4?'toddle':'walk'},{scale:statureOf(family.childAge)});}else actors.kid.root.visible=false;
-  crowd.forEach((a,i)=>{const row=roster[i];if(!row){a.root.visible=false;return;}const act=crowdActivity(row,time,P);if(!act){a.root.visible=false;return;}place(a,act,{elder:row.elder,scale:row.youth?statureOf(row.age):row.scale??1});});
+  crowd.forEach((a,i)=>{const row=roster[i];if(!row){a.root.visible=false;return;}const act=crowdActivity(row,time,P);if(!act){a.root.visible=false;return;}place(a,act,{elder:row.elder,scale:row.youth?statureOf(row.age):row.scale??1},act.moving?(act.x>=7.2&&act.x<=9?CROSS_STREET_SURFACE:STREET_SURFACE):undefined);});
   // The other homes: only the ones the camera can reach are posed.
   lots.forEach((a,i)=>{const row=lotRoster[i],act=row&&Math.hypot(row.lot[0]+1.8-cam.x,row.lot[1]+1.7-cam.z)<cam.span*1.15?lotActivity(row,age,time,P.year):null;if(!act){a.root.visible=false;return;}place(a,act,{elder:row.age>=60,scale:row.who==='young'?statureOf(row.age):1},LOT_FLOOR);});
   // Town objects -------------------------------------------------------------------

@@ -115,3 +115,35 @@ test('the kitchen feeds whoever is left: the table has one plate per person at h
  const s=life(3,'middle_class','samut-prakan',1981,20);assert.equal(kitchenFeeds(s,10),3);assert.equal(kitchenFeeds(s,79),1,'at the end you eat alone');
  const flags=(a)=>({...s,pivotFlags:{married:a,parent:a+2}});assert.equal(kitchenFeeds(flags(25),30),5,'a child and a partner join the table');
 });
+
+test('pedestrians turn within the lane without jumping across it',()=>{
+ const row={role:'walk',pose:'walk',lane:1,speed:.6,phase:0};
+ let previous=crowdActivity(row,0);
+ let turned=false;
+ for(let t=.005;t<45;t+=.005){
+  const next=crowdActivity(row,t);
+  assert.ok(Math.hypot(next.x-previous.x,next.y-previous.y)<=.003001);
+  assert.ok(next.dx*previous.dx+next.dy*previous.dy>.99);
+  turned||=next.dx<-.9;
+  previous=next;
+ }
+ assert.ok(turned);
+});
+
+test('different births use different authored street stations, consistently for a replay',()=>{
+ const plan={...townPlan(life(3,'middle_class','samut-prakan',1981,30),30),style:'market',crowd:3};
+ const stations=seed=>crowdRoster({...plan,seed}).filter(r=>r.role==='still').map(r=>[r.x,r.z]);
+ assert.deepEqual(stations(3),stations(3));
+ assert.ok(new Set(Array.from({length:12},(_,i)=>JSON.stringify(stations(i+1)))).size>1);
+});
+
+test('youth walking groups stay on the street beside the pond',()=>{
+ for(let seed=1;seed<=24;seed++){
+  for(const row of youthRoster({seed,style:'market'},20)){
+   for(let t=0;t<54;t+=.1){
+    const a=crowdActivity(row,t);
+    assert.ok(a.y<=8.71,'even the outside walker leaves clearance to the curb and pond');
+   }
+  }
+ }
+});

@@ -16,10 +16,15 @@ const STATIONS={
  brick:[['sit',-1.8,6.55,Math.PI],['phone',.7,6.9,.3]]
 };
 // Lanes along the two roads, clear of the family's own routes along z=7.2 and x=8.5.
-const LANES=[[-5,17.6,8.45],[-5,6.7,8.6],[9.4,17.6,8.3]];
+const LANES=[[-5,17.6,8.32],[-5,6.7,8.48],[9.4,17.6,8.18]];
 export function crowdRoster(plan){
  const r=lifeRandom(plan.seed,'crowd'+plan.regionId),n=plan.crowd,year=plan.year,thai=!plan.abroad,rows=[];
- const stations=(STATIONS[plan.style]??STATIONS.market).filter(s=>plan.abroad||clearOfLots(s[1],s[2]));
+ const stationDraw=lifeRandom(plan.seed,'stations'+plan.regionId);
+ const stations=(STATIONS[plan.style]??STATIONS.market)
+  .filter(s=>plan.abroad||clearOfLots(s[1],s[2]))
+  .map(station=>({station,rank:stationDraw()}))
+  .sort((a,b)=>a.rank-b.rank)
+  .map(({station})=>station);
  const person=(extra)=>rows.push({salt:rows.length+1+plan.seed%97,sex:r()<.52?'female':'male',elder:r()<.16,scale:.94+r()*.1,...extra});
  // A monk's alms round, morning only, in Thai places.
  if(thai&&plan.style!=='villa'&&n>=2)person({role:'alms',sex:'male',elder:false,lane:0,phase:r()*20,robe:true});
@@ -41,16 +46,29 @@ export function youthRoster(plan,age){
  let group=-1,lane=0,phase=0;
  for(let i=0;i<n;i++){
   if(i%3===0){group++;lane=(group+Math.floor(r()*3))%LANES.length;phase=r()*40;}
-  rows.push({salt:800+i+plan.seed%97,youth:true,sex:sexes[Math.floor(r()*3)],elder:false,age:Math.max(12,Math.min(29,age+Math.round(r()*4)-2)),role:'walk',pose:'walk',lane,speed:.58,phase:phase+(i%3)*1.1,offset:(i%3)*.16});
+  rows.push({salt:800+i+plan.seed%97,youth:true,sex:sexes[Math.floor(r()*3)],elder:false,age:Math.max(12,Math.min(29,age+Math.round(r()*4)-2)),role:'walk',pose:'walk',lane,speed:.58,phase:phase+(i%3)*1.1,offset:(i%3)*.04});
  }
  return rows;
 }
 export function crowdActivity(row,time,plan){
  const t=((time%60)+60)%60;
- if(row.role==='alms'){if(t>9)return null;const [x0,x1,z]=LANES[row.lane],span=x1-x0,along=Math.min(span,t*1.1+row.phase%8);return {x:x0+along,y:z,dx:1,dy:0,distance:t*.55,moving:true,pose:'walk'};}
+ if(row.role==='alms'){if(t>9)return null;const [x0,x1,z]=LANES[row.lane],span=x1-x0,along=Math.min(span,t*1.1+row.phase%8);return {x:x0+along,y:z,dx:1,dy:0,distance:along,moving:true,pose:'walk'};}
  if(row.role==='still')return t>=52&&row.pose!=='sit'?null:{x:row.x,y:row.z,dx:0,dy:0,moving:false,pose:row.pose,facing:row.facing};
  if(t>=54)return null;
- const [x0,x1,z]=LANES[row.lane],span=x1-x0,clock=time*row.speed+row.phase*row.speed,d=((clock%(2*span))+2*span)%(2*span),out=d<span,x=out?x0+d:x1-(d-span);
- // The stride counts total distance walked, so it never runs backward on the return leg.
- return {x,y:z+(out?0:.14)+(row.offset??0),dx:out?1:-1,dy:0,distance:Math.abs(clock),moving:true,pose:row.pose};
+ const [left,right,lane]=LANES[row.lane];
+ const radius=.07,straight=right-left-2*radius,turn=Math.PI*radius;
+ const clock=(time+row.phase)*row.speed,lap=2*(straight+turn);
+ const distance=((clock%lap)+lap)%lap;
+ const z=lane+(row.offset??0);
+ const activity={moving:true,pose:row.pose,distance:Math.abs(clock)};
+ if(distance<straight)return {...activity,x:left+radius+distance,y:z,dx:1,dy:0};
+ if(distance>=straight+turn&&distance<2*straight+turn){
+  return {...activity,x:right-radius-(distance-straight-turn),y:z+2*radius,dx:-1,dy:0};
+ }
+ // Keep the turn inside the same lane footprint, with continuous position and heading.
+ const turningRight=distance<straight+turn;
+ const start=turningRight?straight:2*straight+turn;
+ const angle=(turningRight?-Math.PI/2:Math.PI/2)+(distance-start)/radius;
+ const center=turningRight?right-radius:left+radius;
+ return {...activity,x:center+radius*Math.cos(angle),y:z+radius*(1+Math.sin(angle)),dx:-Math.sin(angle),dy:Math.cos(angle)};
 }
