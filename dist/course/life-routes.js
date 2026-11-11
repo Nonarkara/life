@@ -12,5 +12,9 @@ export function routeOf(s){
  // The oldest cohorts live through the most history, so fewer of them are pulled onto a route.
  if(!open.length||rand(s.seed,0,'route-any')>(y<1960?.45:.85))return null;return open[Math.floor(rand(s.seed,0,'route-pick')*open.length)].route;
 }
-export const ROUTE_ENCOUNTERS=ROUTE_DATA.flatMap(r=>r.scenes.map(({stage,years,...scene})=>({...scene,priority:-1,eligible:s=>{if(routeOf(s)!==r.route||!inYears(s,years))return false;if(stage===1)return true;const prev=flags(s)['r_'+r.route+'_'+(stage-1)];return typeof prev==='number'&&prev<s.age;}})));
+// `era` dates a scene to a real event: it opens only in a station that contains those years.
+// A life born too early or too late for the event steps over that scene instead of losing the route.
+const missed=(s,sc)=>{if(!sc?.era)return false;for(let a=Math.max(s.age,Math.ceil(sc.min/5)*5);a<=sc.max;a+=5)if(inStation({...s,age:a},sc.era))return false;return true;};
+const reached=(s,r,n)=>{if(n<1)return -1;const f=flags(s)['r_'+r.route+'_'+n];return typeof f==='number'?f:missed(s,r.scenes.find(x=>x.stage===n))?reached(s,r,n-1):null;};
+export const ROUTE_ENCOUNTERS=ROUTE_DATA.flatMap(r=>r.scenes.map(({stage,years,era,...scene})=>({...scene,priority:-1,eligible:s=>{if(routeOf(s)!==r.route||!inYears(s,years)||!inStation(s,era))return false;const prev=reached(s,r,stage-1);return prev!==null&&prev<s.age;}})));
 export const BLOG_ENCOUNTERS=BLOG_SCENES.map(({years,...scene})=>({...scene,bank:true,eligible:s=>!!s.intake?.class&&inStation(s,years)&&rand(s.seed,s.age,scene.id)<.4}));

@@ -15,7 +15,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         "max": 15,
         "category": "family",
         "title": "A crest on the envelope",
-        "prompt": "A boarding school in England has written to your father, and the envelope has a crest. Your friends at the international school are already choosing universities abroad. Khun Yai says a child should know how to write a letter in Thai before he leaves.",
+        "prompt": "A boarding school in England has written to your father, and the envelope has a crest. Your friends at the international school are already choosing universities abroad. Khun Yai says a child should know how to write a letter in Thai before leaving.",
         "options": [
         {
           "id": "go",
@@ -34,7 +34,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Study abroad lets a family skip the national exam route entirely. The Thai route has been TCAS since 2018 [S18]."
+      "rehearse": "Study abroad lets a family skip the national exam route entirely. The Thai route has been TCAS since 2018."
       },
       {
         "id": "r_soi_compound_2",
@@ -63,11 +63,11 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
           "skills": {"drive": 3},
         }
       ]
-      ,
-      "rehearse": "A young man back from abroad still faces conscription selection. Study defers it, and service is shorter for some graduates. Bribery is a crime under section 45 [S9]."
+      
       },
       {
         "id": "r_soi_compound_3",
+        "era": [2011, 2011],
         "stage": 3,
         "min": 25,
         "max": 40,
@@ -94,7 +94,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "The 2011 floods killed 815 people, affected 13.6 million and flooded whole industrial estates. The World Bank estimated losses at 1.425 trillion baht [S14]."
+      "rehearse": "The 2011 floods affected more than 13 million people and flooded whole industrial estates. The World Bank put the losses at about 1.43 trillion baht."
       },
       {
         "id": "r_soi_compound_4",
@@ -164,7 +164,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Belief is a gate. About 5% of children from the poorest fifth reach a bachelor's degree, against about 35% overall [S12]. The King's scholarship gives 9 places a year [S17]."
+      "rehearse": "Belief is a gate. About 5% of children from the poorest fifth reach a bachelor's degree, against a national average of about 32% (Equitable Education Fund)."
       },
       {
         "id": "r_scholarship_kid_2",
@@ -193,7 +193,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Government scholarship bonds commonly require 2x the funded years in service. On a breach, the money is repaid with a 2x penalty, 3x in all, and the guarantor can be liable [S16]."
+      "rehearse": "Government scholarship bonds commonly ask for twice the funded years in service. On a breach the money is repaid with a penalty on top, and the guarantor can be held liable. The terms differ by agency, so read the contract."
       },
       {
         "id": "r_scholarship_kid_3",
@@ -215,7 +215,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         {
           "id": "fly",
           "label": "Fly tonight",
-          "outcome": "You arrived for the second night. You shaved your head for the robes for nine days and made merit for him, and your mother held your arm at every ceremony.",
+          "outcome": "You arrived for the second night. Your mother held your arm at every ceremony.",
           "cash": -40000,
           "wellbeing": -10,
           "skills": {"eq": 3},
@@ -223,7 +223,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "A short ordination for a parent's merit at a funeral (\u0e1a\u0e27\u0e0a\u0e2b\u0e19\u0e49\u0e32\u0e44\u0e1f) is a common Thai rite. If this happens: say yes to one thing and let relatives carry the rest. Mental Health Hotline 1323."
+      "rehearse": "If this happens: say yes to one thing and let relatives carry the rest. Mental Health Hotline 1323."
       },
       {
         "id": "r_scholarship_kid_4",
@@ -237,7 +237,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         {
           "id": "go",
           "label": "Leave the university",
-          "outcome": "The first year you were the professor in every meeting, and nobody liked it. By the third, two provinces were using the dashboard you built.",
+          "outcome": "The first year you were the professor in every meeting, and nobody liked it. By the third, two provinces were using the measures you wrote.",
           "cash": 20000,
           "wellbeing": 3,
           "skills": {"craft": 2, "eq": 1},
@@ -290,7 +290,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Thailand has 20.83% of its people aged 60+ (2024). 12.9% of older people live alone [S13]."
+      "rehearse": "About one Thai in five is aged 60 or over. 12.9% of older people lived alone in 2024 (National Statistical Office)."
       }
     ]
   },
@@ -322,7 +322,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         {
           "id": "ask",
           "label": "Let him arrange it",
-          "outcome": "You were home by Christmas. Eight years later his nephew needed a place at your school, and you found one.",
+          "outcome": "You were home by the new year. Eight years later his nephew needed a place at your school, and you found one.",
           "wellbeing": 2,
           "skills": {"eq": 1},
           "flag": "r_kharatchakan_1"
@@ -333,6 +333,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
       },
       {
         "id": "r_kharatchakan_2",
+        "era": [1997, 2001],
         "stage": 2,
         "min": 25,
         "max": 30,
@@ -359,7 +360,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Thai GDP per capita fell 4.04% in 1997 and 8.83% in 1998 (repo cohort data, World Bank) [S24]. A state salary kept arriving."
+      "rehearse": "Thailand's economy shrank by about 2.8% in 1997 and 7.6% in 1998. A state salary kept arriving."
       },
       {
         "id": "r_kharatchakan_3",
@@ -388,7 +389,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "The civil servants' medical scheme covers the officer, spouse, parents and the first three children [S6, S8]."
+      "rehearse": "The civil servants' medical scheme covers the officer, the spouse, the parents and the children."
       },
       {
         "id": "r_kharatchakan_4",
@@ -426,7 +427,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         "max": 60,
         "category": "work",
         "title": "The last morning",
-        "prompt": "On your last morning the students line up with jasmine garlands, and the director gives a speech with your name spelled wrong. From next month the pension arrives on the same day the salary did, and the same card still covers your parents and your wife.",
+        "prompt": "On your last morning the students line up with jasmine garlands, and the director gives a speech with your name spelled wrong. From next month the pension arrives on the same day the salary did, and the same card still covers your parents and your spouse.",
         "options": [
         {
           "id": "happened",
@@ -438,7 +439,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Civil-service pensioners keep medical cover for themselves, their spouse and their parents [S8]. Pensioners were excluded from the old-age allowance under the older rules [S2]."
+      "rehearse": "Retired civil servants keep their medical cover. People with a public-sector pension do not receive the old-age allowance."
       }
     ]
   },
@@ -447,7 +448,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
     "fit": {
       "classes": ["low_class", "working_class"],
       "sex": "female",
-      "years": [1970, 2000]
+      "years": [1990, 2000]
     },
     "scenes": [
       {
@@ -478,7 +479,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "A registered job puts you in Section 33: 5% of wages, matched by the employer [S4]. 75.2% of Northeastern workers are informal, against 26.5% in Bangkok [S1]."
+      "rehearse": "A registered job puts you in Section 33: 5% of wages, matched by the employer. About half of Thai workers are informal and have no such line on a payslip."
       },
       {
         "id": "r_isan_daughter_2",
@@ -509,7 +510,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "1 in 4 Thai children live with neither parent. In the Northeast it is 36% [S10]."
+      "rehearse": "Nearly 1 in 4 Thai children live with neither parent. In the Northeast it is 36% (UNICEF, 2019)."
       },
       {
         "id": "r_isan_daughter_3",
@@ -518,7 +519,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         "max": 35,
         "category": "money",
         "title": "Four hundred baht and a form",
-        "prompt": "The water came into the industrial estate and the factory is not reopening. There is a form at the social security office. You can keep your cover if you pay it yourself, 432 baht a month, or you can stop.",
+        "prompt": "The factory has closed and is not reopening. There is a form at the social security office. You can keep your cover if you pay it yourself, 432 baht a month, or you can stop.",
         "options": [
         {
           "id": "stop",
@@ -539,7 +540,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Section 39: 432 baht a month keeps six benefits, if claimed within 6 months of leaving a job [S4]. The SSO pension needs 180 months of contributions [S5]."
+      "rehearse": "Section 39: 432 baht a month keeps your cover, if you apply within 6 months of leaving a job. The old-age pension needs 180 months of contributions."
       },
       {
         "id": "r_isan_daughter_4",
@@ -576,7 +577,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Remittances and returning to care are how many Isan families cover illness and old age [S23]. No share is claimed here."
+      "rehearse": "Remittances and returning to care are how many Isan families cover illness and old age. No share is claimed here."
       },
       {
         "id": "r_isan_daughter_5",
@@ -597,7 +598,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "SSO old-age pension from 55: 20% of reference earnings plus 1.5% for each year beyond 15, minimum 720 baht [S5]. At 60 the 600-baht allowance may be added, subject to the income test [S2]."
+      "rehearse": "Social security pays an old-age pension from 55: 20% of average earnings, plus 1.5% for each year beyond 15. At 60 the 600-baht allowance may be added, under the rules in force that year."
       }
     ]
   },
@@ -637,7 +638,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Selection is at 21 and service is two years. A deferment for supporting an incapable parent must be filed 30 days before selection day. Evading selection carries up to 3 years in prison [S9]."
+      "rehearse": "Selection is at 21 and service is up to two years. Deferment papers have a deadline before selection day, and evading selection is a crime."
       },
       {
         "id": "r_win_motorsai_2",
@@ -667,7 +668,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "52.7% of Thai workers are informal. In Bangkok it is 26.5% [S1]."
+      "rehearse": "About half of Thai workers are informal: no salary, no sick pay and no employer paying in."
       },
       {
         "id": "r_win_motorsai_3",
@@ -695,10 +696,11 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Section 40 options: 70, 100 or 300 baht a month. Sickness pays per day, and only the 100 and 300 options add an old-age lump sum [S4]."
+      "rehearse": "Section 40 options: 70, 100 or 300 baht a month. Sickness pays per day, and only the 100 and 300 options add an old-age lump sum."
       },
       {
         "id": "r_win_motorsai_4",
+        "era": [2020, 2021],
         "stage": 4,
         "min": 30,
         "max": 40,
@@ -725,7 +727,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Lending above the legal rate (generally 15% a year) is a crime: up to 2 years or 200,000 baht [S15]. The lender still answers when banks do not."
+      "rehearse": "Lending above the legal rate (generally 15% a year) is a crime: up to 2 years or 200,000 baht. The lender still answers when banks do not."
       },
       {
         "id": "r_win_motorsai_5",
@@ -746,7 +748,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Thailand's road deaths: 25.4 per 100,000 (2021, WHO) [S21]. UCS pays for treatment [S6]. If you joined Section 40, claim the daily sickness benefit [S4]. Emergency: 1669."
+      "rehearse": "Thailand's road deaths: 25.4 per 100,000 (WHO, 2021). The universal scheme pays for treatment. If you joined Section 40, claim the daily sickness benefit. Emergency: 1669."
       }
     ]
   },
@@ -786,7 +788,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Ordination is a rite of merit for the parents. A monk certified in Dhamma studies is not called up in peacetime [S9]."
+      "rehearse": "Ordination is a rite of merit for the parents."
       },
       {
         "id": "r_rice_debt_2",
@@ -816,10 +818,11 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "UCS covered about 47 million people from 2001\u201302, and the 30-baht copayment ended in 2006 [S6]. Before that, out-of-pocket spending was about a third of health spending [S6, S7]."
+      "rehearse": "The universal scheme covered about 47 million people from 2002, and the 30-baht copayment ended in 2006. Before it, a hospital bed was paid for out of pocket."
       },
       {
         "id": "r_rice_debt_3",
+        "era": [2011, 2011],
         "stage": 3,
         "min": 35,
         "max": 50,
@@ -845,7 +848,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "In 2011 the Nakhon Sawan barrier was breached and patients were moved by boat [S14]. BAAC is the main source of farm credit, and traders lend too [S24]."
+      "rehearse": "The 2011 floods affected more than 13 million people. The Bank for Agriculture is the main source of farm credit, and traders lend too."
       },
       {
         "id": "r_rice_debt_4",
@@ -878,6 +881,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
       },
       {
         "id": "r_rice_debt_5",
+        "era": [2008, 2100],
         "stage": 5,
         "min": 55,
         "max": 65,
@@ -895,7 +899,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "UCS has paid for dialysis since 2008 (repo source) [S24]. 12.9% of older people live alone (2024) [S13]."
+      "rehearse": "The universal scheme has paid for dialysis since 2008. 12.9% of older people lived alone in 2024."
       }
     ]
   },
@@ -935,7 +939,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "1 in 4 Thai children live with neither parent, 31% in the poorest fifth [S10]."
+      "rehearse": "Nearly 1 in 4 Thai children live with neither parent, and 39% in the poorest households (UNICEF, 2019)."
       },
       {
         "id": "r_no_buffer_2",
@@ -965,7 +969,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "If your life is before 2002, this was paid out of pocket. Since UCS, treatment is free and the costs are lost days and travel [S6, S7]."
+      "rehearse": "If your life is before 2002, this was paid out of pocket. Since the universal scheme, treatment is free and the costs are lost days and travel."
       },
       {
         "id": "r_no_buffer_3",
@@ -994,16 +998,17 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Above 15% a year is illegal [S15]. A 2019 survey found 40.8% of household debt owed to loan sharks [S24]."
+      "rehearse": "Above 15% a year is illegal. In a 2019 survey by the University of the Thai Chamber of Commerce, 40.8% of household debt was owed outside the banks."
       },
       {
         "id": "r_no_buffer_4",
+        "era": [2011, 2011],
         "stage": 4,
         "min": 40,
         "max": 45,
         "category": "money",
         "title": "The water in the rented room",
-        "prompt": "The water came up through the floor and stayed for five weeks. The rice cooker, the photographs and the papers are gone. The relief list wants a house registration from this district, and yours is from somewhere else.",
+        "prompt": "The water came up through the floor and stayed for five weeks. The rice cooker, the photographs and the papers are gone.",
         "options": [
         {
           "id": "happened",
@@ -1014,12 +1019,12 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "The 2011 floods affected 13.6 million people [S14]. Relief that depends on a house registration in the district needs a source before it is stated as policy."
+      "rehearse": "The 2011 floods affected more than 13 million people."
       },
       {
         "id": "r_no_buffer_5",
         "stage": 5,
-        "min": 55,
+        "min": 60,
         "max": 65,
         "category": "family",
         "title": "Nobody to take you",
@@ -1043,7 +1048,7 @@ export const ROUTE_DATA=[{"route":"scholar","fit":{"classes":["low_class","worki
         }
       ]
       ,
-      "rehearse": "Allowance 600 baht a month at 60\u201369 [S2]. 12.9% of older people live alone [S13]."
+      "rehearse": "The old-age allowance is 600 baht a month at 60 to 69. 12.9% of older people lived alone in 2024."
       }
     ]
   }
