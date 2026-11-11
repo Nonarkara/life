@@ -268,3 +268,23 @@ body.has-plan .latest-event{position:static;margin:0}
 @media(max-width:899px){.research-head h2,.research-note{display:none}.research-filter{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.research-filter::-webkit-scrollbar{display:none}.research-chip{flex:0 0 auto}}
 
 .top-news{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+/* Desktop bar: one row, as tall as its tallest control. The year runs through the middle like a market tape. */
+.top-tick{display:none}
+@media(min-width:900px){
+ .top-console{grid-template-columns:auto auto minmax(0,1fr) auto;align-items:center;gap:0 18px}
+ .top-main{justify-content:flex-start;gap:14px}
+ .top-who{flex:none;flex-direction:row;align-items:baseline;gap:10px;overflow:visible}
+ body.has-top-console #age{font-size:15px;white-space:nowrap}
+ body.has-top-console #age-metrics{font-size:12px;white-space:nowrap;overflow:visible}
+ .top-slots{margin-left:0}
+ .top-world{overflow:hidden}
+ .top-gauges,.top-news{display:none}
+ .top-tick{display:flex;width:max-content;animation:tick 60s linear infinite}
+ .top-world:hover .top-tick{animation-play-state:paused}
+ .tick-copy{display:flex;align-items:baseline;flex:none;gap:14px;padding-right:14px;white-space:nowrap;font-size:12px;min-width:max(600px,40vw)}
+ .tick-line{padding-left:14px;border-left:1px solid var(--line)}
+ .tick-copy .gauge{font-size:12px}
+}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.top-tick{animation:none!important}.top-world{overflow:hidden}}
