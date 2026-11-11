@@ -379,10 +379,16 @@ body.has-plan .latest-event>summary{color:var(--ink)}
 
 .ending-score{max-width:65ch;margin:0 0 16px;padding-top:8px;border-top:1px solid var(--line)}.score-total{font-size:32px;line-height:1.1;margin:0;font-variant-numeric:tabular-nums}.score-of{margin:0 0 6px;color:var(--muted)}.score-goals{list-style:none;margin:0 0 6px;padding:0}.score-missed{margin:0 0 6px}.score-titles{margin:0 0 6px;font-weight:600}.score-credit{margin:0;font-size:12px;color:var(--muted)}
 
-/* The action leads the board; only the cards scroll, so the world keeps the rest of the screen. */
-.plan-foot{order:-1;padding:0 0 2px}
-body.has-plan .plan-strip{max-height:clamp(112px,22dvh,190px);overflow-y:auto}
-@media(min-width:900px){body.has-plan .plan-row{grid-template-columns:1fr;gap:2px}}
+/* One active section and one action share the planner rail. */
+body.has-plan .life-plan{grid-template-columns:minmax(0,620px) auto;align-items:center;justify-content:start;column-gap:16px;padding:0 10px}
+body.has-plan .plan-steps{grid-column:1;overflow-x:auto;scrollbar-width:thin;min-width:0}
+body.has-plan .plan-strip{grid-column:1/-1;grid-row:2;max-height:16dvh;overflow-y:auto}
+body.has-plan .plan-card{border:0;padding:2px 0;background:none}
+body.has-plan .plan-title{display:none}
+.plan-foot{grid-column:2;grid-row:1;justify-self:start;padding:0}
+.plan-foot .plan-signal{white-space:nowrap}
+.plan-climate{flex-basis:100%;margin:0;color:var(--muted)}
+@media(min-width:900px){body.has-plan .plan-card>.plan-row{flex:0 1 auto;grid-template-columns:auto auto;margin-right:12px}}
 @media(min-width:1100px){#recap>.ending-verdict{grid-row:1/3}#recap>.ending-score{grid-column:2;grid-row:2;margin:12px 0 0}}
 
 /* The card: name and net worth win; everything else is a ruled line. */
@@ -413,7 +419,8 @@ body.has-plan .plan-strip{max-height:clamp(112px,22dvh,190px);overflow-y:auto}
  body.has-plan .plan-strip{max-height:none}
  .plan-steps{overflow-x:auto;scrollbar-width:none}
  .plan-steps::-webkit-scrollbar{display:none}
- .plan-foot{order:1;padding:0}
+ body.has-plan .life-plan{grid-template-columns:minmax(0,1fr);justify-content:stretch;padding:0 8px}
+ .plan-foot{grid-column:1;grid-row:3;justify-self:stretch;padding:0}
  .plan-foot #commit{min-height:44px!important;padding:4px 12px}
  body.console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{top:auto;bottom:10px;right:8px;padding:0;background:none}
  body #overview{min-height:44px!important;padding:0 8px;white-space:nowrap;background:#0a0e14;color:#f3efe3}

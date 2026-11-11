@@ -219,7 +219,7 @@ body.has-top-console .top-console>div:last-child button{font-size:12px;padding:3
 .plan-live{justify-content:space-between}
 .plan-signal{font-size:13px;line-height:1.35;margin:0}
 .plan-live #commit{width:100%;max-width:none;min-height:44px}
-@media(min-width:900px){.plan-steps{display:none}.plan-strip{grid-auto-flow:row;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;overflow-x:hidden;overflow-y:auto;max-height:var(--rpg-height);scroll-snap-type:y mandatory}}
+
 
 body.has-top-console #age{white-space:nowrap}
 .has-plan .console-actions{display:none}

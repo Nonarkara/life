@@ -4,6 +4,7 @@ import {newLife,begin,AXES,transfer} from '../course/sim.js';
 import {openFinance,setBudget} from '../course/finance.js';
 import {deckFinance,deckBaht} from '../course/deck-model.js';
 import {drawDeck} from '../course/life-deck.js';
+import {initLifePlan} from '../course/life-plan.js';
 import {initConsole} from '../course/console.js';
 import {initPersonalConsole} from '../course/personal-console.js';
 import {drawWorld} from '../course/world.js';
@@ -11,7 +12,7 @@ import {initSettings} from '../course/i18n.js';
 import {setPalette,paletteFor} from '../course/palettes.js';
 const $=id=>document.getElementById(id),pick=document.createElement('select');
 pick.setAttribute('aria-label','Review life');
-for(const [value,label]of [['10','Review: childhood · 10'],['55','Review: adult · 55'],['route','Review: moves and events · 55'],['flood','Review: flood · 30'],['married','Review: marriage · 35'],['loss','Review: bereavement · 55'],['recovery','Review: recovery · 45']]){const option=document.createElement('option');option.value=value;option.textContent=label;pick.append(option);}
+for(const [value,label]of [['10','Review: childhood · 10'],['55','Review: adult · 55'],['route','Review: moves and events · 55'],['flood','Review: flood · 30'],['married','Review: marriage · 35'],['loss','Review: bereavement · 55'],['recovery','Review: recovery · 45'],['instruments','Instrument check · 10']]){const option=document.createElement('option');option.value=value;option.textContent=label;pick.append(option);}
 const reviewHeader=document.querySelector('header');reviewHeader.style.flexWrap='wrap';pick.style.maxWidth='100%';pick.style.minWidth='0';pick.style.fontSize='calc(12px * var(--reading-scale))';pick.style.padding='2px 18px 2px 0';reviewHeader.append(pick);
 document.body.classList.remove('loading');document.body.classList.add('is-review');$('load-state').remove();
 let state;
@@ -32,15 +33,25 @@ const consoleUI=initConsole({getState:()=>state,change:s=>{state=s;render();}}),
 const deck=document.createElement('div');deck.id='life-deck';$('priorities').replaceChildren(deck);
 $('editor').hidden=false;$('birth-info').hidden=true;$('save-status').hidden=true;$('commit').hidden=false;$('commit').textContent='Live 5 years →';$('commit').title='Read-only visual fixture; no life advances.';
 $('tab-priorities').onclick=()=>{};
+const commit=$('commit'),planner=initLifePlan({
+ mount:$('editor').parentElement,getState:()=>state,commit,commitHome:commit.parentElement,
+ apply:next=>{if(next.stage==='review'){state=next;render();}}
+});
 function render(){
  setPalette(paletteFor(state,state.age));
  $('age').textContent='Age '+state.age;$('location').textContent='Review fixture';
+ if(pick.value==='instruments'){
+  planner.hide();
  const money=deckFinance(state),status=[['Health',state.health+' / 100'],['Mood',state.wellbeing+' / 100']];
  if(money)status.push(['Cash runway',money.runway+' months'],['Funds held',deckBaht(money.holdings)],['Debt',deckBaht(money.debt)]);
  const channels=AXES.map(a=>({label:a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label,value:String(state.effort[a.key]),detail:'+2',detailLabel:'By age '+(state.age+5),can:d=>transfer(state.effort,a.key,d)!==state.effort,step:d=>{state={...state,effort:transfer(state.effort,a.key,d)};render();}}));
  if(money)for(const [key,label]of [['save','Save'],['fun','Fun'],['learn','Learn']])channels.push({label,value:state.finance.budget[key]+'%',detail:deckBaht(money[{save:'saved',fun:'fun',learn:'learn'}[key]]),detailLabel:'per month',can:d=>setBudget(state,{...state.finance.budget,[key]:state.finance.budget[key]+5*d})!==state,step:d=>{state=setBudget(state,{...state.finance.budget,[key]:state.finance.budget[key]+5*d});render();}});
  drawDeck(deck,state,{channels,status,money,aim:state.profile.aim,setAim:aim=>{state={...state,profile:{...state.profile,aim}};render();},ikigai:state.age>=15?{score:60,parts:[['Love',65],['Good at',70],['Gives',45],['Sustains',60]]}:null});
+ }else{
+  document.body.classList.remove('deck-action-integrated');
+  planner.draw();
+ }
  consoleUI.render();personal.render();requestAnimationFrame(()=>drawWorld($('world'),state,state.age,25,'world',{animating:false}));$('scene-caption').textContent=drawWorld($('world'),state,state.age,25,'world',{animating:false})?.caption??'Review fixture';
 }
 $('overview').hidden=false;$('overview').textContent='Life course';$('overview').onclick=()=>openRouteView(state,{trigger:$('overview')});
-pick.onchange=()=>{const ages={flood:30,married:35,loss:55,recovery:45};state=fixture(ages[pick.value]??(pick.value==='route'?55:Number(pick.value)),pick.value==='route');if(ages[pick.value])state.history.at(-1).events=[{type:pick.value}];render();};window.addEventListener('resize',render);window.addEventListener('life-stage-art',render);window.addEventListener('life-preferences',render);initSettings();render();
+pick.onchange=()=>{const ages={instruments:10,flood:30,married:35,loss:55,recovery:45};state=fixture(ages[pick.value]??(pick.value==='route'?55:Number(pick.value)),pick.value==='route');if(ages[pick.value])state.history.at(-1).events=[{type:pick.value}];render();};window.addEventListener('resize',render);window.addEventListener('life-stage-art',render);window.addEventListener('life-preferences',render);initSettings();render();

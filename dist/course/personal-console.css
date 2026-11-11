@@ -254,7 +254,7 @@
  .life-deck .deck-rows dd{font-size:calc(14px * var(--reading-scale))}
 
 
- .console-mode:not(.birth-stage):not(.recap-stage) .player-console:not(:has(.life-deck:not([hidden]))){width:min(680px,calc(100% - 24px))!important}
+ .console-mode:not(.birth-stage):not(.recap-stage):not(.has-plan) .player-console:not(:has(.life-deck:not([hidden]))){width:min(680px,calc(100% - 24px))!important}
  .personal-console #allocation{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:none;width:100%}
  .personal-console #allocation .allocation-row{display:grid;grid-template-columns:28px 24px 28px;justify-content:start;gap:0;align-content:start}
  .personal-console #allocation .allocation-row>span:first-child{grid-column:1/-1;font-size:14px;line-height:1.3;margin:4px 0}
@@ -423,9 +423,12 @@
 .deck-measure{display:flex;flex-direction:column;align-items:center;line-height:1.15}
 .deck-measure .deck-label{min-width:0;white-space:normal;text-align:center;font-size:calc(11px * var(--reading-scale))}
 @media(min-width:1280px){
- .life-deck:not(:has(.deck-money)){grid-template-columns:360px 240px 170px minmax(180px,220px);gap:16px;justify-content:start}
- .life-deck:not(:has(.deck-money)) .deck-panel{background:transparent;border:0}
- .life-deck:not(:has(.deck-money)) .deck-set{max-width:360px}
+ .life-deck:not(:has(.deck-money)){grid-template-columns:minmax(300px,1.2fr) minmax(180px,1fr) minmax(136px,.75fr) minmax(175px,1fr);gap:0}
+ .life-deck:not(:has(.deck-money)) .deck-panel{background:transparent;border-width:0 0 0 1px}
+ .life-deck:not(:has(.deck-money)) .deck-set{max-width:none;border-left:0}
+ .life-deck:not(:has(.deck-money)) .deck-status .deck-rows{max-width:16ch}
+ .life-deck:not(:has(.deck-money)) .deck-keys:has(.deck-aim){display:flex;flex-wrap:wrap}
+ .life-deck:not(:has(.deck-money)) .deck-aim{width:auto;flex:0 0 auto}
  .life-deck .deck-stepper{grid-template-columns:28px minmax(44px,max-content) 28px}
  .life-deck .deck-value-label{justify-content:flex-start}
  .life-deck .deck-points{grid-template-columns:max-content minmax(0,1fr)}

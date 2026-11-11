@@ -26,15 +26,16 @@ export function effortFrom(main,second,locks={}){
 }
 export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()=>{}}){
  const root=el('section','life-plan');root.id='life-plan';root.setAttribute('aria-label','The next five years');root.hidden=true;mount.prepend(root);
- const steps=el('div','plan-steps');steps.setAttribute('role','group');const strip=el('div','plan-strip');const foot=el('div','plan-foot');root.append(steps,strip,foot);
- let local={},stationKey='',scrollTo=null,shown=-1;
- const go=i=>{const card=strip.children[i];if(!card)return;scrollTo=i;strip.scrollTo({left:card.offsetLeft-strip.offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});};
+ const steps=el('div','plan-steps');steps.setAttribute('role','group');steps.setAttribute('aria-label',t('The next five years'));const strip=el('div','plan-strip');const foot=el('div','plan-foot');root.append(steps,strip,foot);
+ let local={},stationKey='',shown=-1;
+ const go=i=>{const card=strip.children[i];if(!card)return;strip.scrollTo({left:card.offsetLeft-strip.offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});};
  const after=i=>requestAnimationFrame(()=>{if(strip.scrollWidth>strip.clientWidth+4)go(i+1);});
  function card(title){const c=el('section','plan-card');c.append(el('h3','plan-title',title));return c;}
  function option(label,on,fn,note){const b=el('button','plan-option');b.type='button';b.setAttribute('aria-pressed',on?'true':'false');b.append(el('span','plan-label',label));if(note)b.append(el('span','plan-note',note));b.onclick=()=>{if(!b.dataset.door&&local.door){local.door=false;}fn();};return b;}
  function draw(){
   const s=getState(),key=s.seed+':'+s.age;if(key!==stationKey){stationKey=key;local={};const ranked=AXES.map(a=>[a.key,s.effort[a.key]]).sort((a,b)=>b[1]-a[1]);if(ranked[0][1]>2)local.main=ranked[0][0];if(ranked[1][1]>2&&ranked[1][1]<ranked[0][1])local.second=ranked[1][0];}
-  const cards=[],locks=locksFor(s);
+  const cards=[],locks=locksFor(s),year=birthYearOf(s);
+  const climate=year!==null&&s.age>=15?climateLines(year+s.age)[0]:null;
   // Focus
   {const c=card('Work on'),pick=local.main;let i=cards.length;for(const a of AXES){const tag=a.key===local.main?'Main':a.key===local.second?'Second':locks[a.key]!==undefined?'Held':'';c.append(option(axisName(a),a.key===local.main||a.key===local.second,()=>{const was={...local};if(local.main===a.key){local.main=local.second;local.second=undefined;}else if(local.second===a.key)local.second=undefined;else if(!local.main)local.main=a.key;else local.second=a.key;apply({...getState(),effort:effortFrom(local.main,local.second,locks)});onChosen();if(!was.second&&local.second)after(i);},tag));}void pick;cards.push(c);}
   // Priority
@@ -55,15 +56,37 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
     const door=option(local.door?t('Yes. Leave everything.'):t('Leave the world for the temple'),!!local.door,()=>{if(!local.door){local.door=true;draw();return;}apply(leaveWorld(getState()));},local.door?t('You cannot come back from this.'):undefined);door.dataset.door='1';c.append(door);}cards.push(c);}
   // Home: a step up, stay, or a step down. Only the home the family lives in moves on the ladder.
   if(ladderOpen(s)){const c=card('Where you live'),i=cards.length,was=rungAt(s,s.age-.5),now=s.finance.rung??birthRung(s),income=monthlyFlow(s,s.history?.at(-1)).income;for(const[to,verb]of [[was+1,'Move up: '],[was,'Stay: '],[was-1,'Move down: ']]){if(to<0||to>TOP)continue;const can=to<=was||canAfford(to,income),b=option(t(verb)+t(RUNGS[to].label),to===now,()=>{apply(setRung(getState(),to));onChosen();after(i);},can?'฿'+RUNGS[to].rent.toLocaleString('en')+t(' a month'):t('Rent is too high for this income'));b.disabled=!can;c.append(b);}cards.push(c);}
-  // Live
-  {const year=birthYearOf(s);const lines=year===null||s.age<15?[]:climateLines(year+s.age);foot.replaceChildren(el('p','plan-signal',lines[0]??t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)),commit);commit.hidden=false;}
-  const left=strip.scrollLeft;strip.replaceChildren(...cards);strip.scrollLeft=left;
+  foot.replaceChildren(el('p','plan-signal',t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)),commit);commit.hidden=false;
+  const controls='button,select';
+  const activeCard=strip.children[shown],focused=document.activeElement;
+  const focusIndex=activeCard?.contains(focused)?Array.from(activeCard.querySelectorAll(controls)).indexOf(focused):-1;
+  const left=strip.scrollLeft;if(shown>=0&&strip.children[shown])measure.unobserve(strip.children[shown]);strip.replaceChildren(...cards);strip.scrollLeft=left;
   steps.replaceChildren(...cards.map((c,i)=>{const b=el('button','plan-step',c.firstChild.textContent);b.type='button';b.onclick=()=>go(i);return b;}));
   shown=-1;mark();
+  if(focusIndex>=0)strip.children[shown]?.querySelectorAll(controls)[focusIndex]?.focus({preventScroll:true});
  }
- function mark(){const w=strip.clientWidth||1,i=Math.round(strip.scrollLeft/(strip.children[0]?.offsetWidth+8||w));[...steps.children].forEach((b,n)=>b.setAttribute('aria-current',n===i?'step':'false'));if(i!==shown){shown=i;const a=steps.children[i];if(a)steps.scrollLeft=a.offsetLeft-steps.offsetLeft-16;fit(i);}}
+ const measure=new ResizeObserver(()=>fit(shown));
+ measure.observe(steps);measure.observe(foot);
+ function mark(){
+  const first=strip.children[0];
+  if(!first)return;
+  const i=Math.min(strip.children.length-1,Math.round(strip.scrollLeft/(first.offsetWidth+8)));
+  if(i===shown)return;
+  const old=strip.children[shown],moveFocus=old?.contains(document.activeElement);
+  if(old)measure.unobserve(old);
+  [...steps.children].forEach((button,n)=>{
+   button.setAttribute('aria-current',n===i?'step':'false');
+   strip.children[n].inert=n!==i;
+  });
+  shown=i;
+  measure.observe(strip.children[i]);
+  const active=steps.children[i];
+  steps.scrollLeft=active.offsetLeft-steps.offsetLeft-16;
+  if(moveFocus)active.focus({preventScroll:true});
+  fit(i);
+ }
  // On a phone the panel is as tall as the card on show. The rest belongs to the world.
- function fit(i){const body=document.body,v=body.dataset.consoleView;if(body.classList.contains('decision-open'))return;if(innerWidth>899||root.hidden||(v&&v!=='plan')){strip.style.height='';body.style.removeProperty('--rpg-height');return;}const c=strip.children[i],dock=root.closest('.rpg-dock');if(!c||!dock)return;const top=strip.getBoundingClientRect().top-dock.getBoundingClientRect().top,tail=foot.offsetHeight+12,h=Math.min(Math.round(innerHeight*.5),Math.ceil(top+c.offsetHeight+tail));strip.style.height=h-top-tail+'px';body.style.setProperty('--rpg-height',h+'px');}
+ function fit(i){const body=document.body,v=body.dataset.consoleView;if(body.classList.contains('decision-open'))return;if(root.hidden||(v&&v!=='plan')){strip.style.height='';body.style.removeProperty('--rpg-height');return;}const c=strip.children[i],dock=root.closest('.rpg-dock');if(!c||!dock)return;if(innerWidth>=900){strip.style.height=c.offsetHeight+'px';body.style.removeProperty('--rpg-height');return;}const top=strip.getBoundingClientRect().top-dock.getBoundingClientRect().top,tail=foot.offsetHeight+12,h=Math.min(Math.round(innerHeight*.5),Math.ceil(top+c.offsetHeight+tail));strip.style.height=Math.max(44,h-top-tail)+'px';body.style.setProperty('--rpg-height',h+'px');}
  addEventListener('resize',()=>fit(shown));new MutationObserver(()=>fit(shown)).observe(document.body,{attributes:true,attributeFilter:['data-console-view']});
  strip.addEventListener('scroll',()=>requestAnimationFrame(mark),{passive:true});
  return {draw(){root.hidden=false;document.body.classList.add('has-plan');draw();},hide(){if(root.hidden)return;root.hidden=true;document.body.classList.remove('has-plan');commitHome.append(commit);fit(shown);}};
