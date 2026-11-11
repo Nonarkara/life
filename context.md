@@ -1019,3 +1019,31 @@ at the actual street surface (STREET_SURFACE/CROSS_STREET_SURFACE constants),
 station shuffled per seed, youth offset halved; three new tests assert step
 continuity, station determinism and pond clearance. Honest not-checked list
 (overlap, bicycle turns, painted scale) matches what the tests do not cover.
+
+## The frozen age-9 dialog: place variant emptied a drama question · 11 November 2026 (Nemotron)
+Owner's report: at age 9 the screen sits on a paused "Before light" decision
+with no choice buttons — nothing clickable, time never advances; the save
+otherwise intact (header still reads ฿2,000 · +94 · ☺71).
+Root cause (source, not guesswork): dist/course/childhood-choices.js line 41
+shaped() stamped the age-7/8/9 place variant's title/context and filtered
+options to a.ids, whichever question line 80's seed pick landed on. A drama
+question ("The new radio" etc.) carries none of those ids, so the filter
+returned options: []; childhood-view.js line 50 then looped over zero options
+and rendered the prompt with no buttons while paused stayed on. Reproduced in
+Node: 7,785 zero-option cases across 5 classes x homes x 9 cohorts x ages 7
+(2,280), 8 (2,430), 9 (3,075), by title Frogs/Bell/Before-light. Falsifier-first:
+two tests written before the fix, both failing with the exact signatures
+("... rendered with no options", "seed 2: the seed picked index 2 but the
+screen showed 'Before light'").
+Fix (one guard + comment, 5 changed lines): the variant may reshape only a
+question that carries every variant option; otherwise the question passes
+through untouched. Both falsifiers green; full sweep walks 5,000+ lives ages
+6-9 with a clickable option every age and >=3 distinct age-9 titles (variety
+guard holds). npm test 440/440; npm run fuzz exit 0. Why the gates missed it:
+fuzz/npm test call begin(), which jumps past birth — the birth-stage UI path
+is only exercised by the new sweep.
+Shipped: build 5313f7c60693 deployed via wrangler; life.nonarkara.org
+/course/childhood-choices.js byte-identical to dist modulo the build's ?v=
+import query (guard present, 1 ref). Commit 6d5fc66 pushed == origin/main.
+Owner recovery: reload the page — the save loads at the stuck age and the
+choice buttons reappear; no data was lost.
