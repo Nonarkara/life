@@ -259,7 +259,7 @@ function createScene(original){
   const phone=w<=720,tall=w/h<1.15;
   const still=!focus.moving&&age>=3;
   // Small children stay in the room; a person walking gets the town.
-  const stop=pick?{kind:'town',x:6.4,z:6.6}:tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.home)+' · '+tr(c.doing))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}tourLine.hidden=!stop||!!pick;
+  const stop=pick?{kind:'town',x:6.4,z:6.6}:tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}tourLine.hidden=!stop||!!pick;
   let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;
