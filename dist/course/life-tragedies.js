@@ -84,12 +84,12 @@ export function directorSchedule(seed,cls){
 const cast=s=>directorSchedule(s.seed,s.intake?.class??s.birth?.class);
 const freeFirst=l=>[...l.filter(o=>!(o.cash<0)),...l.filter(o=>o.cash<0)];
 // Priority 2 with the director flag: it takes a quiet station, never a wedding or a piece of history.
-export const DIRECTOR_ENCOUNTERS=DIRECTOR_SCENES.map(({odds,needs,options,...scene})=>({...scene,options:freeFirst(options),director:true,eligible:s=>!!s.intake?.class&&cast(s)[s.age]===scene.id&&(!needs||needs(s))}));
+export const DIRECTOR_ENCOUNTERS=DIRECTOR_SCENES.map(({odds,needs,options,...scene})=>({...scene,options:freeFirst(options),director:true,arcBeat:true,eligible:s=>!!s.intake?.class&&cast(s)[s.age]===scene.id&&(!needs||needs(s))}));
 
 // The saddest things that really happen here, each resting on a source the note names.
 // The situations are composites; the numbers are not. Rare per life, and only in their years.
 // Near the end every story comes back round: the one call you have been meaning to make.
-export const RECKONING={id:'d_reckon',category:'connection',min:70,max:75,director:true,eligible:s=>!!s.intake?.class&&s.age===(rand(s.seed,0,'reckon')<.5?70:75),title:'Who is left to ring',prompt:'You are seventy-something. Most of the numbers in your phone will not answer now. There is one you have been meaning to call since the worst year of your life.',options:[
+export const RECKONING={id:'d_reckon',category:'connection',min:70,max:75,director:true,arcBeat:true,eligible:s=>!!s.intake?.class&&s.age===(rand(s.seed,0,'reckon')<.5?70:75),title:'Who is left to ring',prompt:'You are seventy-something. Most of the numbers in your phone will not answer now. There is one you have been meaning to call since the worst year of your life.',options:[
  opt('ring','Ring them',{wellbeing:4,skills:{eq:2}},'They picked up on the sixth ring. Neither of you said the thing. You talked about the price of fish for an hour.'),
  opt('letter','Write it down and do not send it',{wellbeing:1},'It is in the drawer with the deed. Someone will find it.'),
  opt('leave','Leave it',{wellbeing:-3},'You left it. The number stayed in the phone.')]};

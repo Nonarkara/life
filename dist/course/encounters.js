@@ -127,7 +127,7 @@ useCategories(id=>byIdLate(id)?.category);
 for(const e of ENCOUNTERS){const i=e.options.findIndex(x=>!(x.cash<0)&&!x.requires);if(i>0)e.options=[e.options[i],...e.options.filter((x,k)=>k!==i)];}
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
 export const encounterById=id=>byId.get(id);
-const BANK_SHARE=Object.freeze({history:.18,quiet:.8,macro:.5});
+const BANK_SHARE=Object.freeze({history:.18,quiet:.72,macro:.5});
 export function eligibleEncounters(state){
  if(state.stage!=='review'||state.age<10||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
  const seen=new Set(state.story.seen.map(e=>e.id));
@@ -144,7 +144,15 @@ export function offerEncounter(state,roll,keep=()=>true){
  // A first-in-line encounter with time left is sometimes held back a station, so lives do not all open the same way.
  if(priority===1&&pool.every(e=>e.max>state.age)&&(roll*997)%1<.35){const rest=eligible.filter(e=>(e.priority??2)>1);if(rest.length){priority=Math.min(...rest.map(e=>e.priority??2));pool=rest.filter(e=>(e.priority??2)===priority);}}
  // The databank draws its own lot: a life meets ordinary things as well as the famous ones. Story beats (priority 1), recovery and class urgency are never displaced.
- if(priority===2&&pool.some(e=>e.director))pool=pool.filter(e=>e.director);
+ if(priority===2&&pool.some(e=>e.director)){
+  const directed=pool.filter(e=>e.director),anchor=directed.filter(e=>e.arcBeat);
+  // Preserve scheduled beats. An incidental directed scene gets a turn
+  // without making all the other eligible scenes unreachable.
+  if(anchor.length)pool=anchor;
+  else if(!state.intake?.class||rand(state.seed,state.age,'scene-group')<.5)pool=directed;
+  else pool=pool.filter(e=>!e.director);
+  if(!pool.length)pool=directed;
+ }
  const bank=eligible.filter(e=>e.bank),open=priority===2||priority===0&&pool.every(e=>e.year&&!e.bank);
  if(bank.length&&open&&!pool.some(e=>e.urgent||e.director)){
   if((roll*7919)%1<(priority===2?BANK_SHARE.quiet:BANK_SHARE.history)){const macro=bank.filter(e=>e.macro);pool=macro.length&&(roll*104729)%1<BANK_SHARE.macro?macro:bank;}

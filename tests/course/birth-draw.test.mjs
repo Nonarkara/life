@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {pendingChildChoice} from '../../dist/course/childhood-choices.js';
+import {routeOf} from '../../dist/course/life-routes.js';
 import {drawBirth} from '../../dist/course/birth-draw.js';
 import {configureLife,newLife,replay} from '../../dist/course/sim.js';
 import {decodeBirth,encodeBirth} from '../../dist/course/birthcode.js';
@@ -16,6 +17,7 @@ test('27 consecutive fresh lives change class, home and era every time',()=>{
  for(let i=0;i<27;i++){
   const next=drawBirth({},{previous,varied:true,random});
   assert.notEqual(next.birth.home,previous.birth.home);
+  if(routeOf(previous))assert.notEqual(routeOf(next),routeOf(previous));
   assert.notEqual(next.birth.class,previous.birth.class);
   assert.notEqual(next.intake.birthYear,previous.intake.birthYear);
   assert.ok(!seeds.has(next.seed));

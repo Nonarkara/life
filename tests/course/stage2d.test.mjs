@@ -195,3 +195,21 @@ test('office cast uses the standing aisle and fits the painted doorway',async()=
  assert.ok(figureHeightPx(747,SETS.work.figure,400,'player',35)<460,'a person must fit under the doorway in the painting');
  assert.ok(figureHeightPx(747,SETS.work.figure*2,400,'player',35)>460,'the former blanket2x scale fails the same door reference');
 });
+
+test('the generic wooden room stands aside for other homes and failed paint',async()=>{
+ const S=await import('../../dist/course/stage2d.js');
+ const {prepareStageArt,stageImage,platePath}=await import('../../dist/course/anime-assets.js');
+ await prepareStageArt();
+ const life={seed:22,age:20,intake:{sex:'female',class:'middle_class'},birth:{household:'parents',class:'middle_class',region:'samut-prakan'},history:[]};
+ assert.ok(S.paintedCovers(life,20,1));
+ const bungalow={...life,finance:{rung:4}};
+ assert.equal(S.paintedCovers(bungalow,20,1),false);
+ assert.equal(S.paintedCovers({...life,birth:{...life.birth,region:'pak-phanang'}},20,1),false);
+ const OriginalImage=globalThis.Image;
+ try{
+  globalThis.Image=class {set src(_){this.onerror();}};
+  stageImage(platePath('home-day'));
+  assert.equal(S.paintedCovers(life,20,1),false);
+  assert.equal(S.paintedDay(life,20),false);
+ }finally{globalThis.Image=OriginalImage;}
+});

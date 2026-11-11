@@ -216,3 +216,45 @@ test('what you own has a price over time, and can be sold at a loss when life de
  const sold=sellAsset(later,'car');assert.equal(sold.finance.available-later.finance.available,car.value);assert.equal(assetsOf(sold).some(a=>a.key==='car'),false);assert.equal(sellAsset(sold,'car'),sold);
  const am=sellAsset(later,'amulet');assert.equal(assetsOf(am).some(a=>a.key==='amulet'),false,'even your father’s amulet can go');assert.ok(am.wellbeing<later.wellbeing);
 });
+
+test('the same school-day clock takes different families to their recorded kind of work',async()=>{
+ const {routine,routineContext}=await import('../../dist/course/routines.js');
+ const actions=['samut-prakan','nakhon-sawan','pak-phanang'].map(region=>{
+  const state={birth:{region},age:8};
+  return routine('mother',8,26,'balance',routineContext(state)).action;
+ });
+ assert.deepEqual(actions,['Tending the stall','In the garden','At work']);
+});
+
+test('fresh births expose different playable openings through age twenty',async()=>{
+ const {drawBirth}=await import('../../dist/course/birth-draw.js');
+ const {pendingChildChoice,chooseChild}=await import('../../dist/course/childhood-choices.js');
+ const openings=new Set(),scenes=new Set(),ordinaryBesideDirected=new Set();
+ let previous;
+ for(let seed=1;seed<=400;seed++){
+  let draw=0,s=drawBirth({},{previous,varied:true,random:()=>rand(seed,++draw,'opening')});
+  previous=s;
+  const path=[];
+  for(let age=6;age<=9;age++){
+   const question=pendingChildChoice(s,age);
+   path.push(question.title);
+   s=chooseChild(s,age,question.options[0].id);
+  }
+  s=begin(s);
+  while(s.age<=20&&s.stage==='review'){
+   for(const q of pendingPivots(s)){path.push(q.id);s=applyPivot(s,q,openOptions(q,s)[0].id);}
+   const pending=s.story.pending;
+   if(pending){
+    const scene=encounterById(pending.id),candidates=pending.candidates.map(encounterById);
+    path.push(scene.id);scenes.add(scene.id);
+    if(!scene.director&&candidates.some(e=>e.director)&&candidates.every(e=>(e.priority??2)===2))ordinaryBesideDirected.add(scene.id);
+    s=resolveEncounter(s,scene.options[0].id,.5);
+   }
+   const next=live(s);assert.notEqual(next,s,'the opening can advance');s=next;
+  }
+  openings.add(path.join('|'));
+ }
+ assert.ok(openings.size>=395,openings.size+' distinct openings');
+ assert.ok(scenes.size>=90,scenes.size+' offered incidents, up from 86');
+ assert.ok(ordinaryBesideDirected.size>=10,'incidental directed scenes do not lock the pool');
+});

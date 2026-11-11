@@ -4,7 +4,9 @@ const manifestURL=new URL('../course/anime/manifest.json',import.meta.url);
 // Paths in the manifest are written next to the manifest, so they are resolved
 // against the art folder and never against the page.
 const artBase=new URL('../course/anime/',import.meta.url);
-const images=new Map();
+const images=new Map(),failed=new Set();
+export const artFailureCount=()=>failed.size;
+export const stageImageFailed=url=>!!url&&failed.has(new URL(url,artBase).href);
 const notify=()=>{if(typeof window!=='undefined')window.dispatchEvent(new Event('life-stage-art'));};
 let manifest=null,pending=null;
 
@@ -25,7 +27,7 @@ export function stageImage(url){
   if(!images.has(source)){
     const image=new Image();
     image.decoding='async';
-    image.onload=notify;image.onerror=notify;
+    image.onload=notify;image.onerror=()=>{failed.add(source);notify();};
     image.src=source;
     images.set(source,image);
   }

@@ -13,8 +13,9 @@ import {homeCast} from './presentation-state.js';
 import {travelFrame,anchoredPlateFrame} from './painted-camera.js';
 import {regionAt,REGIONS,household} from './regions.js';
 import {preferences,t} from './i18n.js';
+import {rungAt} from './housing-ladder.js';
 import {agedImage} from './aging.js';
-import {prepareStageArt,stageImage,platePath,spritePath,animeManifest} from './anime-assets.js';
+import {prepareStageArt,stageImage,stageImageFailed,artFailureCount,platePath,spritePath,animeManifest} from './anime-assets.js';
 import {applyEraCanvasGrade} from './thai-history.js';
 
 // A set is one painted plate and the places people stand on it. `ground` is the
@@ -116,7 +117,6 @@ const ROLES={
 const SEX_SUFFIX={female:'',male:'-m',intersex:'-x'};
 // The Thai wooden house is painted; other kinds of house and every city abroad are
 // painted as variants named place@style (home-day@villa, street-day@tokyo).
-const PAINTED_HOMES=new Set(['market','village','coast']);
 export const plateVariant=(key,style)=>key&&style&&platePath(`${key}@${style}`)?`${key}@${style}`:key;
 let castLife=null;
 function parentSheet(state,slot){
@@ -134,12 +134,11 @@ export function paintedCovers(state,age=state?.age??0,time=1,description=null){
  const manifest=animeManifest();if(!manifest||age<5)return false;
  const scene=description??describePaintedScene(state,age,time);
  const region=REGIONS[regionAt(state,age)],style=region?.style;
- const domestic=scene.beat==='bed'||['home','bedroom'].includes(scene.set)&&!scene.beat;
+ const domestic=!scene.beat&&['home','bedroom'].includes(scene.set);
  if(region?.country!=='TH'&&!manifest.plates?.[`${scene.basePlate}@${style}`])return false;
- if(domestic){
-  if(region?.country!=='TH'&&!PAINTED_HOMES.has(style)&&!manifest.plates?.[`${scene.basePlate}@${style}`])return false;
- }
- return !!platePath(scene.plate)&&scene.actors.every(actor=>{const frames=actorFrames(state,actor.id,age,actor.activity,scene.beat??scene.set);return frames.length>0&&frames.every(([sheet,frame])=>!!spritePath(sheet,frame));});
+ if(domestic&&scene.plate===scene.basePlate&&(scene.place!=='market'||(state.birth?.class&&rungAt(state,age)!==3)))return false;
+ const usable=path=>!!path&&!stageImageFailed(path);
+ return usable(platePath(scene.plate))&&scene.actors.every(actor=>{const frames=actorFrames(state,actor.id,age,actor.activity,scene.beat??scene.set);return frames.length>0&&frames.every(([sheet,frame])=>usable(spritePath(sheet,frame)));});
 }
 
 function sheetFor(actor,age){
@@ -346,32 +345,32 @@ export function describePaintedScene(state,age,time){
   if(flags.friend!==undefined&&flags.friendDied===undefined&&(flags.friendLost===undefined||(flags.friendRepaired??-1)>flags.friendLost)&&['street','court'].includes(set))actors.push({id:'friend',activity:{pose:'stand',x:13,moving:false}});
   actors.sort((a,b)=>(a.activity.x??0)-(b.activity.x??0));const slots=slotsFor(set,actors.length);actors=actors.map((a,i)=>({...a,slot:slots[i]}));
  }
- return {life,goal,player,set,beat,moment,stage:room?{...stage,...room}:stage,room,basePlate,plate,actors,caption:beat?MOMENT_CAPTIONS[beat]:routineCaption(age,time,goal,life)};
+ return {life,goal,player,set,beat,moment,stage:room?{...stage,...room}:stage,room,basePlate,plate,place,actors,caption:beat?MOMENT_CAPTIONS[beat]:routineCaption(age,time,goal,life)};
 }
 
 // Exported for the tests: the drawn world must follow the routine, not taste.
 export {SETS,ROLES,setFor,roleFor,sheetFor,BEATS};
 
 let loadingArt=null,artFailed=false;
-export const stageArtFailed=()=>artFailed;
+export const stageArtFailed=canvas=>artFailed||stages.get(canvas)===false;
 // Whether the painted world can show every moment of this age's 60-second day. It is decided
 // once for the day, not per frame: a life the art covers only in part keeps the 3D world for
 // the whole age, instead of swapping worlds as the hours pass. Never decided before the art
 // manifest has loaded, so a late manifest is never mistaken for missing art.
-const dayCache=new Map();
+const dayCache=new WeakMap();
 export function paintedDay(state,age){
  if(!animeManifest())return false;
- const key=[state.seed,age,state.history?.length,state.story?.seen?.length,state.pathway,state.major,state.stage,state.finance?.region,state.finance?.housing,state.pivots?.length].join('|');
- if(dayCache.has(key))return dayCache.get(key);
+ const year=Math.floor(age),failures=artFailureCount(),cached=dayCache.get(state);
+ if(cached?.year===year&&cached.failures===failures)return cached.ok;
  let ok=true;
- for(let t=0;t<60&&ok;t+=3){ok=paintedCovers(state,age,t,describePaintedScene(state,age,t));}
- if(dayCache.size>96)dayCache.clear();
- dayCache.set(key,ok);return ok;
+ for(let t=0;t<60&&ok;t+=3)ok=paintedCovers(state,year,t,describePaintedScene(state,year,t));
+ dayCache.set(state,{year,failures,ok});
+ return ok;
 }
 export function drawStage2D(canvas,state,age,time,mode,view={}){
  if(mode!=='world')return false;
  if(!animeManifest()){
-  if(!loadingArt)loadingArt=prepareStageArt().catch(()=>{artFailed=true;});
+  if(!loadingArt)loadingArt=prepareStageArt().catch(()=>{artFailed=true;window.dispatchEvent(new Event('life-stage-art'));});
   return false;
  }
  const description=describePaintedScene(state,age,time);

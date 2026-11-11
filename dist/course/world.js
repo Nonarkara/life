@@ -30,12 +30,13 @@ function paintWorld(canvas,state,age,time,mode='world',view={}){
   if(drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
   // The painting may cover this scene but has not finished decoding. Holding
   // the surface is better than showing a different world for a moment.
-  if(mode==='world'){
+  if(mode==='world'&&!stageArtFailed(canvas)){
    // Until the art manifest is in, nothing says whether this life is painted: hold the surface
    // rather than flash the 3D world and then change it. If the art cannot be fetched, go on in 3D.
-   if(!animeManifest()&&!stageArtFailed()){canvas.hidden=false;return {held:true};}
+   if(!animeManifest()){return {held:true};}
    // Hybrid holds only for a recorded beat; ordinary life goes straight to the diorama.
-   if(preferences.stage==='painted'?paintedDay(state,age):describePaintedScene(state,age,time).beat&&paintedCovers(state,age,time)){canvas.hidden=false;return {held:true};}
+   const scene=describePaintedScene(state,age,time);
+   if((preferences.stage==='painted'?paintedDay(state,age):scene.beat)&&paintedCovers(state,age,time,scene))return {held:true};
   }
 }
  if(mode==='course'){showPaintedCanvas(canvas);drawRouteMap(canvas,state);return;}
