@@ -7,6 +7,38 @@ what is confirmed, corrected or rejected.
 
 ## Current shipped state
 
+Source a036c2f, build5b11e4b3887b, Pages 303074a8 (12 November2026).
+The week's agent work is merged into one tip: a new life now starts from a
+different birth, the diorama has a player-controlled camera, answers open
+callings, and the painted world wears this life's clothes. Measured before
+this release, not taken from the handoff reports:
+
+- The next life is a different birth. 300 varied draws against a saved life:
+  0 shared a household, a class, an era or a seed; worst case 7 attempts of
+  4000; 0 failures. All eight built eras are drawn; the intake says so.
+- "Live this birth again" is the same birth. A save from before the
+  birth-class system carried an upbringing and a region but no class, and
+  replay() dropped the region: 28 of 180 legacy lives came back in another
+  house. Fixed (a036c2f) and covered by a test; 0 of 180 now move.
+- The caption names the person before the place, so a neighbour's lot can no
+  longer be read as your own home. Rendered at 1440 and 390: "Someone your
+  age: selling at the kerb · No house · the pavement".
+- The camera control (follow / home / district / tour) renders at 390 and
+  1440; the tour is disabled while a life is abroad, and the clock is not
+  held by a question.
+- 453 tests pass. Browser runs against the live site reach age 0 with no
+  console warning or error, and both public hosts serve this build.
+- Not certified: touch input on a real phone, frame rate on M3 hardware,
+  human playtesting, and the camera on tablet widths.
+
+The interrupted era-events rewrite left in the prototype worktree is stashed
+as "interrupted era-events rewrite (Nov 9 session)" and is superseded by this
+tip; it must not be merged as it stands.
+
+---
+
+## Previous shipped state
+
 Source baab524, build4042ddced853, Pages c03fcdf5 (29 October2026).
 Resumed the unfinished childhood notes/pacing pass on newer main d5d2de5,
 preserving its painted default, art, save recovery and stable console design.

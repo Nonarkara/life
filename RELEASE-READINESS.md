@@ -9,6 +9,27 @@ Current audit evidence: [integration review](review/integration-oct28/REVIEW.md)
 
 ---
 
+# Release — 12 November 2026: a different life, a camera you can move
+
+Published source a036c2f, build 5b11e4b3887b, Cloudflare Pages deployment
+303074a8 (https://303074a8.life-5wz.pages.dev).
+Live at https://life.nonarkara.org/course/ .
+
+453 tests pass. The next life is drawn as a different household, class and era
+from the one just lived (300 varied draws, no collision, no failure); the
+ending offers "Start a different life" beside "Live this birth again"; the
+diorama has a player-controlled camera; answers open callings; the tour
+caption names the person before the place. Replaying a life keeps the house
+you were born in, including for saves from before the birth-class system,
+which used to come back in another one. Browser checks at 390 and 1440 and
+against the live site reach age 0 with no console warning or error; both public
+hosts serve this build.
+
+Not certified: touch input on a real phone, frame rate on M3 hardware, human
+playtesting, the camera on tablet widths.
+
+---
+
 # Historical release — 28 October 2026: reviewed MiniMax continuation
 
 Codeafb8334 (main repair418ada2), buildb02dbd45afdc, deployment97ffbdab.
