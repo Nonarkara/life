@@ -22,7 +22,9 @@ import {visitorWardrobe,applyWardrobe,setVisitorTopColour} from './cast-wardrobe
 import {youthsInOwnClothes} from './moment-plan.js';
 import {furnishHome,buildHomeShell} from './home3d.js';
 import {createPost} from './render-post.js';
-import {buildOpenHouses} from './open-houses3d.js';
+import {buildOpenHouses,posts} from './open-houses3d.js';
+import {setHomeLift} from './district-layout.js';
+import {lotLift} from './diorama-plan.js';
 import {lotCast,lotActivity,lotCaption,tourStop,othersOf,LOT_FLOOR,RUNGS,clearOfLots} from './housing-ladder.js';
 import {roomHas} from './diorama-plan.js';
 import {t as tr} from './i18n.js';
@@ -96,15 +98,18 @@ function createScene(original){
   const leafy=plan.palette.leaf;const treeR=lifeRandom(plan.seed,'wing-trees');
   const tree=(x,z,parent=root)=>{const b=batchOf(parent);b.cylinder(x,z,0,.05,.035,1.05,'#6a5a48',6);for(let i=0;i<3;i++)b.ball(x+(i?Math.cos(i*2)*.26:0),1.35+treeR()*.3,z+(i?Math.sin(i*2)*.26:0),.42,.36,.42,leafy[i%leafy.length],6);};
   const {seat,tableTop}=furnishHome.metrics;
+  // A house on posts: everything that belongs to the room rides up with its floor.
+  const up=group();up.position.y=plan.lift;setHomeLift(plan.lift);const upGroup=(p=up)=>group(p);
+  if(plan.lift){if(plan.style==='slum')batchOf(root).box(2.7,2.7,-.02,4.6,4.2,.018,plan.palette.water);posts(batchOf(root),[3,3,4,3.6],plan.lift,{jar:plan.style!=='slum'});}
   // Seats face the way the sitter faces; only the four quarter-turns occur.
   const chair=(x,z,angle=0,floor=0,parent=root)=>{const b=batchOf(parent),s=m(.42),w=s/2,c='#7d6a52';for(const dx of [-w+.02,w-.05])for(const dz of [-w+.02,w-.05])b.box(x+dx,z+dz,floor,.03,.03,seat,c);b.box(x-w,z-w,floor+seat,s,s,.03,'#9f9377');const q=Math.round(((angle%(Math.PI*2))+Math.PI*2)/(Math.PI/2))%4;if(q===0)b.box(x-w,z-w,floor+seat,s,.03,m(.42),c);else if(q===2)b.box(x-w,z+w-.03,floor+seat,s,.03,m(.42),c);else if(q===1)b.box(x-w,z-w,floor+seat,.03,s,m(.42),c);else b.box(x+w-.03,z-w,floor+seat,.03,s,m(.42),c);return {visibleKey:0,position:{x,y:floor,z}};};
   const table=(x,z,w=.75,parent=root)=>{const b=batchOf(parent);for(const dx of [0,w-.04])for(const dz of [0,.4])b.box(x+dx,z+dz,0,.04,.04,tableTop,'#77684f');b.box(x-.04,z-.04,tableTop,w+.08,.52,.04,'#a99773');};
   plinth(root,batchOf,plan);
   const rooms=createInhabitedRooms({scene:root,box,round});
   const districts=createDistricts({scene:root,box,round,chair,table,tree,label(){},registerBuilding:register,palette:plan.palette});
-  const home=furnishHome({root,batchOf,group,box,round,chair,table,plan,register});
-  const shell=buildHomeShell({root,batchOf,group,plan,register});
-  buildOpenHouses(batchOf(root),plan,r=>roomHas(plan.year,[0,0,1,2,2,3][r],plan.marks,false,rand(plan.seed,r,'sewing')));
+  const home=furnishHome({root:up,batchOf,group:upGroup,box,round,chair,table,plan,register});
+  const shell=buildHomeShell({root:up,batchOf,group:upGroup,plan,register});
+  buildOpenHouses(batchOf(root),plan,r=>roomHas(plan.year,[0,0,1,2,2,3][r],plan.marks,false,rand(plan.seed,r,'sewing')),lift=>{const g=group();g.position.y=lift;return batchOf(g);});
   const road=batchOf(root);
   // Lit desks and work corners the routines already use.
   const manual=group(),office=group(),desks=plan.farm?[taskDesks[0]]:taskDesks;for(const [x,z] of desks)table(x,z,.75,root);if(plan.farm){const p2=batchOf(root);p2.box(10.4,5.25,-.022,3.9,1.55,.012,'#8ea27a');for(let x=10.5;x<14.2;x+=.3)for(let z=5.35;z<6.75;z+=.3)p2.box(x,z,-.012,.03,.03,.1,'#7fa05a');}
@@ -131,7 +136,7 @@ function createScene(original){
   // Town growth the older game promised: houses that appear with the life's age.
   const growth=[];for(const [from,x,z,w,d,h] of townGrowth){if(!plan.abroad&&!clearOfLots(x,z,w,d))continue;const g=group();const b=batchOf(g),c=plan.palette.walls[growth.length%plan.palette.walls.length];b.box(x,z,0,w,d,Math.max(h,m(3)),c);b.box(x+w*.4,z+d,0,m(.9),.012,m(2),'#3f4a48');b.gable(x,z,Math.max(h,m(3)),w,d,m(1.2),plan.palette.roofs[0],{over:.12,along:'x',gableColor:c});register(g);growth.push([from,g]);}
   // Animated or age-gated objects keep their own parents.
-  const bits=dollhouseBits({batchOf,group});
+  const bits=dollhouseBits({batchOf,group:upGroup});root.add(bits.dog,bits.bus);
   drawBus(bits.busBatch,plan);
   const flood=new T.Mesh(new T.PlaneGeometry(9.4,1.8),new T.MeshLambertMaterial({color:'#809e98',transparent:true,opacity:.62}));flood.rotation.x=-Math.PI/2;flood.position.set(5.5,.03,7.95);flood.visible=false;root.add(flood);
   for(const [parent,batch] of batches){if(batch.size)bake(batch,parent);}
@@ -156,7 +161,7 @@ function createScene(original){
   dog.position.set(2.75,0,5.2);const d=batchOf(dog);d.box(-.14,-.06,.12,.28,.12,.13,'#a26a3c');d.ball(.18,.27,0,.075,.07,.07,'#945c30',6);d.box(.21,-.03,.28,.08,.06,.03,'#693e1e');for(const [x,z] of [[-.12,-.05],[.09,-.05],[-.12,.03],[.09,.03]])d.box(x,z,0,.04,.04,.13,'#784420');
   return {cradle,infant,toys,dog,bus,busBatch:batchOf(bus)};
  }
- function disposeWorld(){if(!world)return;world.root.traverse(o=>{o.geometry?.dispose();o.material?.dispose?.();});scene.remove(world.root);world=null;}
+ function disposeWorld(){setHomeLift(0);if(!world)return;world.root.traverse(o=>{o.geometry?.dispose();o.material?.dispose?.();});scene.remove(world.root);world=null;}
  // Weather: snow where the place is cold, rain in the flood years.
  const flakes=new Float32Array(600*3);for(let i=0;i<600;i++){flakes[i*3]=Math.random()*24-12;flakes[i*3+1]=Math.random()*9;flakes[i*3+2]=Math.random()*24-12;}
  const snowGeo=new T.BufferGeometry();snowGeo.setAttribute('position',new T.BufferAttribute(flakes,3));
@@ -242,9 +247,9 @@ function createScene(original){
   if(family.child){const a=t*.3;place(actors.kid,{x:roomX+1.2+Math.cos(a)*.22,y:roomZ+2.5+Math.sin(a)*.18,dx:-Math.sin(a),dy:Math.cos(a),distance:t*.2,moving:family.childAge>=1,pose:family.childAge<2?'crawl':family.childAge<4?'toddle':'walk'},{scale:statureOf(family.childAge)});}else actors.kid.root.visible=false;
   crowd.forEach((a,i)=>{const row=roster[i];if(!row){a.root.visible=false;return;}const act=crowdActivity(row,time,P);if(!act){a.root.visible=false;return;}place(a,act,{elder:row.elder,scale:row.youth?statureOf(row.age):row.scale??1},act.moving?(act.x>=7.2&&act.x<=9?CROSS_STREET_SURFACE:STREET_SURFACE):undefined);});
   // The other homes: only the ones the camera can reach are posed.
-  lots.forEach((a,i)=>{const row=lotRoster[i],act=row&&Math.hypot(row.lot[0]+1.8-cam.x,row.lot[1]+1.7-cam.z)<cam.span*1.15?lotActivity(row,age,time,P.year):null;if(!act){a.root.visible=false;return;}place(a,act,{elder:row.age>=60,scale:row.who==='young'?statureOf(row.age):1},LOT_FLOOR);});
+  lots.forEach((a,i)=>{const row=lotRoster[i],act=row&&Math.hypot(row.lot[0]+1.8-cam.x,row.lot[1]+1.7-cam.z)<cam.span*1.15?lotActivity(row,age,time,P.year):null;if(!act){a.root.visible=false;return;}place(a,act,{elder:row.age>=60,scale:row.who==='young'?statureOf(row.age):1},LOT_FLOOR+lotLift(P,row.rung));});
   // Town objects -------------------------------------------------------------------
-  world.rooms.update(state,age);world.districts.update(state,age);const mumAtStove=parentsHere&&family.mother&&walkEnv('mother').pose==='cook';world.home.update(state,age,context,time,mumAtStove);
+  world.rooms.update(state,age,P.lift);world.districts.update(state,age);const mumAtStove=parentsHere&&family.mother&&walkEnv('mother').pose==='cook';world.home.update(state,age,context,time,mumAtStove);
   world.manual.visible=manualWork;world.office.visible=!manualWork&&!P.farm;world.cradle.visible=age<6;world.infant.visible=age<1;world.toys.visible=age>=1&&age<8;world.dog.visible=dogAt(state,age);world.farm.visible=P.farm||P.style==='market';
   for(const [from,g] of world.growth)g.visible=age>=from&&P.style==='market';
   const inside=focus.x>=2.9&&focus.x<=7.1&&focus.y>=2.9&&focus.y<=7.2&&!(context.residence.id!=='family');

@@ -2,6 +2,7 @@
 // and nothing between the rooms and whoever is watching.
 import {m} from './diorama-kit.js';
 import {othersOf,LOT_FLOOR,RUNGS} from './housing-ladder.js';
+import {lotLift,rural} from './diorama-plan.js';
 const F=LOT_FLOOR,WALL=m(2.75),S=m(3),TABLE=m(.73);
 const stool=(b,x,z,c='#3f6f9a')=>b.cylinder(x,z,F,.09,.08,.235,c,8);
 const seat=(b,x,z,c)=>{b.box(x-.14,z-.14,F+.2,.28,.28,.035,c);for(const [a,e] of [[-.13,-.13],[.1,-.13],[-.13,.1],[.1,.1]])b.box(x+a,z+e,F,.03,.03,.2,'#6b5a45');};
@@ -38,12 +39,22 @@ const BUILD={
  bungalow(b,[X,Z,W,D],p,R){const w='#d9cdb4';b.box(X-.05,Z-.05,-.015,W+.1,D+.1,.01,'#7f9a68');room(b,X,Z,W,D-.5,'#a98a62',w);for(let a=.25;a<W;a+=.25)b.box(X+a,Z,F,.008,D-.5,.002,'#8f7350');for(const a of [.9,2.2])b.box(X+a,Z+.075,F+m(1),.9,.012,m(1.2),'#a9c4c4',1);
   b.box(X+.35,Z+.45,F,1.3,.9,m(.42),'#6a5442');b.box(X+.4,Z+.5,F+m(.42),1.2,.8,.04,'#e4e0d0');table(b,X,Z,'#a58a66','#6a5442');seat(b,X+1.1,Z+2,'#9f9377');seat(b,X+2.5,Z+2,'#9f9377');b.box(X+.1,Z+1.7,F,.42,1,m(.86),'#9a8566');b.ball(X+3.2,1,Z+3.1,.34,.42,.34,p.palette.leaf[0],7);b.box(X+3.15,Z+3.05,0,.05,.05,.7,'#6a5a48');goods(b,X,Z,R);},
  // Two storeys, stone underfoot, a wall to keep the street on the street, someone paid to sweep.
- villa(b,[X,Z,W,D],p,R){const w='#f1ece0';b.box(X-.05,Z-.05,-.015,W+.1,D+.1,.01,'#7f9a68');b.box(X,Z,0,W,D-.5,F,'#d8d2c2');b.box(X,Z,F,W,.07,S*1.9,w);b.box(X,Z,F,.07,D-.5,S*1.9,w);for(const a of [.5,1.7])b.box(X+a,Z+.075,F+m(.9),.9,.012,m(1.5),'#a9c4c4',1);
+ villa(b,[X,Z,W,D],p,R){const w=rural(p.style)?'#9c7b55':'#f1ece0';b.box(X-.05,Z-.05,-.015,W+.1,D+.1,.01,'#7f9a68');b.box(X,Z,0,W,D-.5,F,'#d8d2c2');b.box(X,Z,F,W,.07,S*1.9,w);b.box(X,Z,F,.07,D-.5,S*1.9,w);for(const a of [.5,1.7])b.box(X+a,Z+.075,F+m(.9),.9,.012,m(1.5),'#a9c4c4',1);
   b.box(X,Z,F+S,W,1.5,.07,'#a98a62');b.box(X+.5,Z+.2,F+S+.07,1.4,1,m(.42),'#5f4a38');b.box(X+.55,Z+.25,F+S+.07+m(.42),1.3,.9,.05,'#efe9d9');for(let a=0;a<W;a+=.28)b.box(X+a,Z+1.48,F+S+.07,.025,.025,.42,'#e6e0d0');b.box(X,Z+1.48,F+S+.49,W,.03,.03,'#e6e0d0');
   table(b,X,Z,'#5f4a38','#4a3a2c');seat(b,X+1.1,Z+2,'#b09a78');seat(b,X+2.5,Z+2,'#b09a78');b.box(X+.1,Z+1.75,F,.42,1,m(.86),'#c9c3b1');b.ball(X+1.85,F+S-.28,Z+2.05,.17,.16,.17,'#e8d9a8',8);
   b.box(X+W+.1,Z-.1,0,.07,D+.15,m(1.8),'#e6e0d0');if(p.year>=1960){const c=p.palette.accent;b.box(X+1.6,Z+D-.45,.1,1.5,.42,.22,c);b.box(X+1.9,Z+D-.42,.32,.8,.36,.2,'#55686e');for(const a of [1.75,2.8])for(const e of [-.45,-.03])b.box(X+a,Z+D+e,0,.22,.02,.22,'#23282a');}goods(b,X,Z,R);}
 };
-export function buildOpenHouses(batch,plan,roomFor){
+// In a village or a fishing town the middle rungs stand on posts like everyone else's house.
+export function buildOpenHouses(batch,plan,roomFor,raised=()=>batch){
  if(plan.abroad)return;
- for(const {rung,lot} of othersOf(plan.rung))BUILD[RUNGS[rung].id](batch,lot,plan,roomFor(rung));
+ for(const {rung,lot} of othersOf(plan.rung)){const lift=lotLift(plan,rung);if(lift){if(plan.style==='slum')batch.box(lot[0]-.3,lot[1]-.3,-.02,lot[2]+.6,lot[3]+.6,.018,plan.palette.water);posts(batch,lot,lift,{jar:plan.style!=='slum'});}BUILD[RUNGS[rung].id](lift?raised(lift):batch,lot,plan,roomFor(rung));}
+}
+// Posts, a cross-brace and a ladder-stair under a raised floor; the shade below is lived in.
+export function posts(b,[X,Z,W,D],lift,{jar=true}={}){
+ for(const x of [X+.05,X+W/2-.04,X+W-.13])for(const z of [Z+.05,Z+D/2-.04,Z+D-.13])b.box(x,z,0,.08,.08,lift+.02,'#6d5640');
+ b.box(X-.04,Z-.04,lift-.02,W+.08,D+.08,.04,'#7a6048');
+ b.beam(X+.09,.08,Z+D-.09,X+W-.09,lift*.8,Z+D-.09,.03,.03,'#6d5640');
+ const sx=X+W-.55;for(let i=0;i<6;i++)b.box(sx,Z+D+.02+i*.09,lift*(1-(i+1)/6.5),.42,.09,.025,'#8a6c4c');
+ for(const x of [sx-.02,sx+.42])b.beam(x,lift,Z+D,x,0,Z+D+.56,.03,.03,'#6d5640');
+ if(jar){b.ball(X+.45,.22,Z+.55,.2,.22,.2,'#7a5a42',8);b.box(X+.9,Z+.3,0,.9,.55,.3,'#9a8566');}
 }

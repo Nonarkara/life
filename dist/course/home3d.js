@@ -27,7 +27,7 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  b.box(3,3,0,4,3.6,FLOOR,floor);
  if(!bare)for(let x=3;x<7;x+=plan.homeKind==='tatami'?1:.25)b.box(x,3,FLOOR,.008,3.6,.002,K.lines);
  if(plan.homeKind==='tatami')for(let z=3;z<6.6;z+=.9)b.box(3,z,FLOOR,4,.008,.002,K.lines);
- b.box(3,6.6,0,4,.6,FLOOR*.5,floor);
+ if(!plan.lift)b.box(3,6.6,0,4,.6,FLOOR*.5,floor);
  const wallBand=(x,z,w,d)=>{b.box(x,z,FLOOR,w,d,wallH,wall);if(bare)b.box(x-.02,z-.02,FLOOR+wallH,w+.04,d+.04,.05,'#a29f94');if(K.wallLines){if(w>d)for(let a=.18;a<w;a+=.2)b.box(x+a,z+d,FLOOR,.008,.003,WALL,K.wallLines);else for(let a=.18;a<d;a+=.2)b.box(x+w,z+a,FLOOR,.003,.008,WALL,K.wallLines);}};
  wallBand(3,3,4,.08);wallBand(3,3,.08,3.6);
  // Window in the back wall, with whatever hangs at it in this house.

@@ -9,8 +9,10 @@ export function revealedPlaces(state,age=state.age){
  for(const record of records){const home=residenceAt(record);homes.add(home.id);city||=workplaceAt(record).id==='city'||home.id==='nearCity';}
  return {homes,city};
 }
+// The family house may stand on posts; the doorstep ramp then becomes the stair.
+let homeLift=0;export const setHomeLift=h=>{homeLift=h;};
 export function floorAt(x,z){
- for(const room of Object.values(RESIDENCES)){const [bx,bz]=room.base;if(x>=bx&&x<=bx+4&&z>=bz&&z<=bz+4.2)return Math.max(0,Math.min(.16,(bz+4.2-z)/.6*.16));}
+ for(const room of Object.values(RESIDENCES)){const [bx,bz]=room.base,top=.16+(room.id==='family'?homeLift:0);if(x>=bx&&x<=bx+4&&z>=bz&&z<=bz+4.2)return Math.max(0,Math.min(top,(bz+4.2-z)/.6*top));}
  return 0;
 }
 export function overlappingReaderWidth(canvasRect,readerRect){

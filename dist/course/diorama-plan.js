@@ -71,6 +71,13 @@ export function palette(style,place,seed){
  return {walls,roofs:set.roofs.map(c=>hsl(c,shift*.7,0,(r()-.5)*.05)),accent:hsl(pick(set.accent),0,-.12,.02),accents:set.accent,road:hsl(set.road,shift,0,tone*.5),leaf:set.leaf.map(c=>hsl(c,shift,0,(r()-.5)*.04)),ground:hsl(place.look.ground,shift,-.1,.05+tone*.4),water:place.look.water,floor:hsl(place.look.floor,shift,0,tone),wall:hsl(place.look.wall,shift,0,tone)};
 }
 const RUNG_TIER=[0,0,1,2,2,3];
+// Rural Thai houses stand on posts: the floor above the wet season, the shade below for work.
+// ponytail: one height per kind; a richer teak house could stand higher.
+export const LIFT={stilt:.95,plank:.7,shack:.4};
+export const rural=style=>style==='village'||style==='fringe'||style==='coast';
+// A riverside community builds its poorest rooms on short posts over the water.
+export const lotLift=(plan,rung)=>plan.abroad?0:rural(plan.style)&&(rung===1||rung===2)?(plan.style==='coast'?LIFT.plank:LIFT.stilt):plan.style==='slum'&&rung===1?LIFT.shack:0;
+// ponytail: these rungs are exactly the ones homeKindFor raises for the player; settlements.test.mjs holds them together.
 export function townStyle(base,year,where){
  if(where.inCity&&where.place)return where.place==='condo'||where.place==='villa'?where.place:'slum';
  if(where.inCity)return 'slum';
@@ -81,7 +88,7 @@ export function townStyle(base,year,where){
 export const faithOf=state=>regionIdFor(state.birth)==='pak-phanang'&&rand(state.seed,0,'faith')<.3?'muslim':'buddhist';
 export function homeKindFor(style,where,rung){
  if(where.place==='villa')return 'villa';if(where.place==='condo')return 'condo';
- if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return 'row';if(rung===3)return 'shophouse';}
+ if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return style==='village'||style==='fringe'?'stilt':style==='coast'?'plank':'row';if(rung===3)return 'shophouse';}
  return {slum:'shack',village:'stilt',fringe:'stilt',coast:'plank',market:'shophouse',condo:'flat',villa:'villa',tower:'hdb',tokyo:'tatami',newengland:'triple',brick:'terrace'}[style]??'shophouse';
 }
 // Things a room holds at this year and this income. Income shifts the year a thing arrives.
@@ -117,5 +124,5 @@ export function townPlan(state,age){
  const finance=recordedFinance(state,age),worth=finance?netWorth(finance):0,tier=Math.max(RUNG_TIER[rung],worth>=3500000?3:worth>=800000?2:0),found=roomHas(year,tier,marks,abroad,rand(seed,0,'sewing')),room=homeKind==='pavement'?{...found,tv:false,flatTv:false,fan:false,fridge:false,aircon:false,computer:false,phone:false,sewing:false,bed:false,oilLamp:true,altar:false}:found,flood=floodAt(state,age);
  // The model is rebuilt in steps: a mark appearing, or a five-year growth stage.
  const growth=Math.floor(year/5)*5,bits=Object.entries(marks).filter(([,v])=>v).map(([k])=>k).join(','),things=Object.entries(room).filter(([,v])=>v).map(([k])=>k).join(',');
- return {key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),faith:faithOf(state),rainy:!abroad&&rand(seed,growth,'rain-year')<.5,seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast'};
+ return {key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),faith:faithOf(state),rainy:!abroad&&rand(seed,growth,'rain-year')<.5,seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast',lift:abroad||homeKind==='shack'&&style!=='slum'?0:LIFT[homeKind]??0};
 }

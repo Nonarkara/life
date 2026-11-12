@@ -31,16 +31,16 @@ export function createInhabitedRooms({scene,box,round}){
  box(.02,.13,.015,.17,.014,.004,'#667b76',buyerNotes);
  // Height marks stay at the childhood wall. No future marks are pre-displayed.
  for(let i=0;i<7;i++){scene.add(markRoot[i]=new T.Group());box(3.09,4.6,.4+i*.1,.02,.1,.012,'#7f6a50',markRoot[i]);}
- return {schoolCase,books,roots,update(state,age){
-  const r=roomRecord(state,age),[x,z]=r.home.base;
+ return {schoolCase,books,roots,update(state,age,lift=0){
+  const r=roomRecord(state,age),[x,z]=r.home.base,up=r.home.id==='family'?lift:0;roots.get('family').position.y=lift;markRoot.forEach(m=>m.position.y=lift);
   for(const[id,g]of roots)g.visible=id==='family'||id===r.home.id;
-  schoolCase.visible=r.possessions.length>0;schoolCase.position.set(x+3.12,.16,z+2.2);
-  books.visible=r.books>0;books.position.set(x+3.08,.655,z+.67);books.children.forEach((c,i)=>c.visible=i<Math.min(6,r.books));
-  comic.visible=r.comics>0;comic.position.set(x+3.12,.42,z+2.2);
-  work.visible=r.workspace;work.position.set(x+3.12,.655,z+.95);
-  memory.visible=r.remembered;memory.position.set(x+.2,.63,z+.15);
-  recovery.visible=r.recovering;recovery.position.set(x+1.45,.16,z+.5);
-  buyerNotes.visible=r.buyerNotes;buyerNotes.position.set(x+.2,.635,z+.32);
+  schoolCase.visible=r.possessions.length>0;schoolCase.position.set(x+3.12,.16+up,z+2.2);
+  books.visible=r.books>0;books.position.set(x+3.08,.655+up,z+.67);books.children.forEach((c,i)=>c.visible=i<Math.min(6,r.books));
+  comic.visible=r.comics>0;comic.position.set(x+3.12,.42+up,z+2.2);
+  work.visible=r.workspace;work.position.set(x+3.12,.655+up,z+.95);
+  memory.visible=r.remembered;memory.position.set(x+.2,.63+up,z+.15);
+  recovery.visible=r.recovering;recovery.position.set(x+1.45,.16+up,z+.5);
+  buyerNotes.visible=r.buyerNotes;buyerNotes.position.set(x+.2,.635+up,z+.32);
   markRoot.forEach((m,i)=>m.visible=age>=6+i*2);
  }};
 }

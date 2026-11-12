@@ -52,7 +52,8 @@ function hdb(b,x,z,w,d,c,r,floors,acc){for(let a=.15;a<w;a+=.9)b.box(x+a,z+d-.3,
 function tokyoHouse(b,x,z,w,d,c,roof,r){b.box(x,z,0,w,d,S*1.75,c);for(let y=.2;y<S*1.7;y+=.18)b.box(x-.002,z+d,y,w+.004,.004,.008,'#a8a396');windows(b,x,z,0,w,d,S,r,{rows:2,cols:Math.max(1,Math.round(w/1.1)),win:m(.9),glass:'#5a6a6e'});door(b,x+w*.65,z+d,0,'#7a6a58',m(.85));b.gable(x,z,S*1.75,w,d,m(1.1),roof,{along:'x',over:.13,gableColor:c});b.box(x-.08,z+d,S*.96,w+.16,.26,.05,roof);}
 function tripleDecker(b,x,z,w,d,c,roof,r){b.box(x,z,0,w,d,S*2.9,c);for(let y=.25;y<S*2.9;y+=.16)b.box(x-.003,z+d,y,w+.006,.005,.01,'#f0ece2');for(let f=0;f<3;f++){b.box(x+.05,z+d,f*S,w-.1,.5,.05,'#f2eee4');for(const a of [.05,w/2,w-.11])b.box(x+a,z+d+.42,f*S,.05,.05,S,'#f2eee4');b.box(x+.05,z+d+.45,f*S+.3,w-.1,.03,.03,'#f2eee4');}windows(b,x,z,0,w,d,S,r,{rows:3,cols:2,win:m(.9),glass:'#47586a'});door(b,x+w*.42,z+d,0,'#7a2f2a');b.gable(x,z,S*2.9,w,d,m(1.6),roof,{along:'x',over:.12,gableColor:c});}
 function terrace(b,x,z,w,d,c,roof,r){b.box(x,z,0,w,d,S*2,c);windows(b,x,z,0,w,d,S,r,{rows:2,cols:2,win:m(.95),side:false,glass:'#4a5a62'});b.box(x+w*.1,z+d,S-.04,w*.8,.012,.05,WHITE);door(b,x+w*.38,z+d,0,'#2f3a40');b.gable(x,z,S*2,w,d,m(1.5),roof,{along:'x',over:.05,gableColor:c});b.box(x+w-.2,z+d*.4,S*2+.2,.22,.3,.7,'#7a4434');}
-function wat(b,x,z,w,d,r){b.box(x-.15,z-.15,0,w+.3,d+.3,.18,'#d8d3c5');b.box(x,z,.18,w,d,S*1.15,'#efe9da');for(let i=0;i<4;i++)b.box(x+.12+i*(w-.3)/3.2,z+d,.5,.14,.012,S*.65,'#3f4a48');b.gable(x+.05,z,S*1.15+.18,w-.1,d,m(2.4),'#b0472f',{along:'x',over:.24,gableColor:'#d9a74a'});b.gable(x+w*.2,z,S*1.15+.74,w*.6,d,m(2.2),'#c0603b',{along:'x',over:.1,gableColor:'#d9a74a'});}
+// An ubosot, not a chapel: a steep roof in stepped tiers, a green-edged skirt, gold chofa at the ridge ends.
+function wat(b,x,z,w,d,r){const H=S*1.1+.18,top=H+.28+m(3.1);b.box(x-.15,z-.15,0,w+.3,d+.3,.18,'#d8d3c5');b.box(x,z,.18,w,d,S*1.1,'#efe9da');for(let i=0;i<4;i++)b.box(x+.12+i*(w-.3)/3.2,z+d,.5,.14,.012,S*.6,'#3f4a48');b.gable(x-.3,z-.14,H-.2,w+.6,d+.28,m(1.5),'#3f7a5a',{along:'x',over:.06,gableColor:'#d9a74a'});b.gable(x-.06,z,H,w+.12,d,m(2.2),'#c8702f',{along:'x',over:.1,gableColor:'#d9a74a'});b.gable(x+w*.2,z+.03,H+.28,w*.6,d-.06,m(3.1),'#d58a3c',{along:'x',over:.04,gableColor:'#e2b450'});for(const [ex,dir] of [[x+w*.2,-1],[x+w*.8,1]])b.beam(ex,top-.03,z+d/2,ex+dir*.2,top+.3,z+d/2,.04,.04,'#d9a92e');}
 function chedi(b,x,z){b.box(x,z,0,1,1,.16,'#e4decd');b.box(x+.12,z+.12,.16,.76,.76,.2,'#efe9da');b.cylinder(x+.5,z+.5,.36,.34,.22,.42,'#efe9da',10);b.cylinder(x+.5,z+.5,.78,.22,.0,1.3,'#dcd5c2',10,false);}
 function officeFront(b,x,z,w,d,c,r,floors,acc){b.box(x,z,0,w,d,S*floors,c);const step=S;for(let f=0;f<floors;f++){b.box(x+.12,z+d,.5+f*step,w-.24,.012,m(1.25),'#5a6e76',r()<.55?1:0);b.box(x+w,z+.12,.5+f*step,.012,d-.24,m(1.25),'#5a6e76',r()<.45?1:0);for(let a=.12+(w-.24)/4;a<w-.2;a+=(w-.24)/4)b.box(x+a,z+d+.002,.5+f*step,.03,.012,m(1.25),c);}b.box(x-.03,z+d,0,w+.06,.3,.05,acc);b.box(x-.03,z-.03,S*floors,w+.06,d+.06,.06,'#a29f94');}
 function shed(b,x,z,w,d,roof,acc,r){for(const a of [0,w-.07])for(const e of [0,d-.07])b.box(x+a,z+e,0,.07,.07,S*1.05,STEEL);b.gable(x,z,S*1.05,w,d,m(.8),roof,{over:.2,along:'x'});for(let i=0;i<3;i++){const tx=x+.2+i*(w-.4)/2.6;b.box(tx,z+.25,0,.5,d-.5,.48,'#8a7458');for(let j=0;j<3;j++)b.ball(tx+.1+j*.16,.54,z+.5+(j%2)*.2,.07,.06,.07,[acc,'#c9a14a','#6f8f5a'][j],6);}}
@@ -111,7 +112,8 @@ export function createRegionScenery({scene,registerBuilding}){
   const institutions=(mod,w0=wall(),roofC=roof())=>{
    const [sx,sz,sw,sd]=FOOTPRINTS.school,[wx,wz,ww,wd]=FOOTPRINTS.work,[cx,cz,cw,cd]=FOOTPRINTS.clinic,[mx,mz,mw,md]=FOOTPRINTS.market;
    unit(b=>schoolHall(b,sx,sz,sw,sd,w0,roofC,r,mod,P.accent),[sx,sz,sw,sd]);
-   unit(b=>clinic(b,cx,cz,cw,cd,WHITE,roofC,r,mod),[cx,cz,cw,cd]);
+   // A village or fishing-town health station is one storey.
+   unit(b=>clinic(b,cx,cz,cw,cd,WHITE,roofC,r,mod&&!['village','fringe','coast'].includes(style)),[cx,cz,cw,cd]);
    unit(b=>{if(style==='village'||style==='fringe')shed(b,wx,wz,ww,wd,roofC,P.accent,r);else if(plan.abroad||marks.tower)officeFront(b,wx,wz,ww,wd,w0,r,marks.highrise?7:3,P.accent);else if(!marks.concrete)woodShop(b,wx,wz,ww,wd,'#8f6f4c',r,2);else concreteShop(b,wx,wz,ww,wd,w0,r,mod?3:2,P.accent,marks);},[wx,wz,ww,wd]);
    unit(b=>{if(plan.abroad||marks.tower)store(b,mx,mz,mw,md,r);else shed(b,mx,mz,mw,md,roofC,P.accent,r);},[mx,mz,mw,md]);
   };
@@ -135,7 +137,10 @@ export function createRegionScenery({scene,registerBuilding}){
     if(marks.tower)for(const [x,z,w] of [[15,-3.7,2.6],[-2,14,2.4]])if(clearOfLots(x,z,w,1.9))unit(b=>tower(b,x,z,w,1.9,pick(['#cfd0c8','#dcd8cc']),r,12+Math.floor(r()*14),P.accent),[x,z,w,1.9]);
     scatterTrees(3,[[.2,10,.8,1],[6,11,2,1.6]],[1.2,1.8]);},
    village(){
-    water(-5.4,-5.4,23.8,1.7);
+    // Nakhon Sawan stands where the Ping and the Nan meet; an Isan village keeps its rice in a barn on posts.
+    const river=plan.regionId==='nakhon-sawan',isan=plan.regionId==='isan-village';
+    water(-5.4,-5.4,23.8,1.7);if(river)for(const x of [-4.6,2.4,12.8])boat(x+r()*.6,-5.15,1.4+r()*.4,pick(['#6d5640','#3f6f8a','#7a3f3a']));
+    if(isan)for(const [x,z] of [[-3.5,6.1],[.2,2.2],[-4.2,12.4],[17.2,5.9],[12.6,-3.4]])if(clearOfRoutes(x,z,.8,.7))unit(b=>{for(const [a,e] of [[0,0],[.68,0],[0,.58],[.68,.58]])b.box(x+a,z+e,0,.07,.07,m(1.3),WOOD);b.box(x-.03,z-.03,m(1.3),.84,.74,m(1.6),'#9a7c5a');b.gable(x-.08,z-.08,m(2.9),.94,.84,m(.9),'#8b7c68',{along:'x',over:.08});},[x,z,.8,.7]);
     open.box(-5.4,-3.7,-.02,23.8,.08,.02,'#7a7f60');
     institutions(marks.concrete&&year>=1990,'#d8cda8',pick(P.roofs));
     for(const [x,z,w,d] of [[-5,3.1,3.1,3.7],[-5,9.3,3,3.6],[-1.7,12,2.5,2.4],[9.3,13,4.2,4],[14.2,-3.2,3.8,3.6],[14.2,9.2,3.9,3],[.9,14.7,3.4,3.3],[14,13.2,4,4.6]])if(r()<.85)paddy(x,z,w,d);
