@@ -1063,3 +1063,42 @@ in the bundle. The recolour commit 89d9f02 touches aging.js + stage2d.js only
 the reviewer's three fixes (once-per-age compute, edge pass, age's place).
 Honest not-checked: rendered screenshots at 390x844/1440x900 (no browser tooling
 in session) and the acknowledged gold fleck / two-frame painted walk.
+
+## Full audit of the painted-outfit recolour, and the fleck fix · 12 November 2026 (Nemotron)
+Owner's order: "many agents tried to make it work and it's not fully working
+yet." Audited the whole chain on real pixels, not on reports. Findings:
+(D1) shipped redress() left 8,975 cloth-family (hue>=34) mustard misses across
+all 52 player frames — the painter's lit shade lifts value and drops
+saturation, falling outside both band gates; visible gold flecks on shirt and
+trousers (Claude's "one chest fleck" understated it). (D2) the shipped edge
+pass already tinted shoes/apron/easel on some frames (stand-paint); the report
+was silent on this. (D3) the /^player/ age gate is CORRECT, not a defect —
+child sheets are white school uniforms, elder sheets sage/gray, no mustard at
+all; redressing them splatters desk and skin (proof composites). outfitFor
+swept 11,880 outfits: 0 missing top/bottom; castLife always set; single draw
+path; single redress implementation. (D4) 4 player-a-* sheets are orphaned
+(in manifest, never in ROLES). (D5) report's "54 poses" vs 52 files, 48 drawn.
+(D6) NPC art never recoloured — by design. (D7) pre-1980 boy has 3D tan
+shorts vs painted navy shorts (minor, art-bound).
+Fix shipped: grow three pixels out of each band hit, gated to the cloth's own
+colour family (shirt hue 34-55 and blue<=110, trousers hue 40-75 and
+blue<=120, both S>=.28 and .3<=V<=.93); edge pass cut to one family-gated
+pass. Measured on all sheets: misses 8,975 -> 447 (-95%); stand-paint prop
+pixels 24 extra / 1,584 fewer vs shipped; XOR red-vs-blue net-positive on
+every probe frame. Rejected variants with numbers: global bands (desk
+splatter), S-floor without hue floor (blue arms), hue floor 38 (misses rose
+to 4,864), edge x2 (prop leak). Falsifier tests first: two synthetic-pixel
+tests (lit shade must take the colour; skin, green prop and pale wood beside
+it must not) — all three assertions failed pre-fix, pass post-fix. Port is
+byte-identical to the measured candidate on all 52 sheets. npm test 451/451;
+fuzz exit 0; build 19a9bb9edcfb; live build.json matches; live aging.js and
+stage2d.js byte-identical to out/. Live rendered proof: drove a real life to
+age 15 on life.nonarkara.org with World=Painted stage and captured the 2000x816
+stage canvas — figure wears this life's pale tee and navy trousers (raw art is
+mustard/olive everywhere), skin/shoes/stool/bag untouched, no visible flecks
+on the zoomed figure. Commit 1028019 pushed == origin/main. Honest
+not-checked: exact-viewport screenshots at 390x844/1440x900 — the desktop
+window was not visible to the capture tool (canvas pixels at 2000x816 stand
+in); residual 447px flecks are at seams, visible only zoomed; sarong/skirt/
+coat still render as trousers (needs new art, owner call); painted walk still
+two frames.
