@@ -1047,3 +1047,19 @@ Shipped: build 5313f7c60693 deployed via wrangler; life.nonarkara.org
 import query (guard present, 1 ref). Commit 6d5fc66 pushed == origin/main.
 Owner recovery: reload the page — the save loads at the stuck age and the
 choice buttons reappear; no data was lost.
+
+## Independent verification of the recolour and overseas-route reports · 12 November 2026 (Nemotron)
+Both handoff reports checked against ancestry and live bytes, not on trust.
+HEAD == origin/main == 89d9f02, clean tree. npm test 449/449 (Claude's
+"444 tests" is stale — later commits added tests, including redress.test.mjs
+2/2); fuzz 5,400 lives exit 0. Live build.json == 0c0c6148908a, matching the
+recolour report exactly. Byte-compared live vs local (modulo the build's ?v=
+import query): game.bundle.js, childhood-choices.js, route-data.js, aging.js,
+stage2d.js all identical, so live is this checkout. Feature markers found in
+live bytes: the age-9 variant guard (1), Massachusetts/London/Singapore in
+route-data (1/6/3), recolour comments in aging.js (4), "Live this birth again"
+in the bundle. The recolour commit 89d9f02 touches aging.js + stage2d.js only
+(bands repainted at draw time, skin/hair/shoes untouched) and its diff carries
+the reviewer's three fixes (once-per-age compute, edge pass, age's place).
+Honest not-checked: rendered screenshots at 390x844/1440x900 (no browser tooling
+in session) and the acknowledged gold fleck / two-frame painted walk.
