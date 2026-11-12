@@ -40,9 +40,30 @@ export function redress(pixels,top,bottom,w=0){
  // ponytail: fixed hue bands measured on the shipped sheets; a new sheet in other colours needs new bands.
  for(let p=0;p<n;p++){const i=p*4;if(pixels[i+3]<40)continue;const [h,s,v]=hsv(i);
   hit[p]=h>=0&&h<=50&&s>=.56&&(h>=33&&v>=.35||h>=20&&(v>=.65||s>=.72&&v>=.42))?1:h>=40&&h<=95&&s>=.15&&s<.56&&v>=.22&&v<=.62?2:0;}
- // Edge pixels between cloth and its ink line are darker than either band: take them from a repainted neighbour.
- for(let pass=0;w&&pass<2;pass++){const add=[];for(let p=0;p<n;p++){if(hit[p]||pixels[p*4+3]<40)continue;const [h,s,v]=hsv(p*4);if(h<10||h>95||s<.3||v>=.65)continue;
-  const x=p%w,k=(x>0&&hit[p-1])||(x<w-1&&hit[p+1])||hit[p-w]||hit[p+w];if(k)add.push([p,k]);}for(const [p,k] of add)hit[p]=k;}
+ // The painter's lit shade inside a band lifts the value and drops the saturation, so it misses
+ // both windows above and survives as a gold fleck. Grow three pixels out of each hit — but only
+ // inside that cloth's own colour family: skin sits at hue <=33, pale wood and the apron sit
+ // above the blue ceilings, so neither can enter (measured: 8975 stray flecks -> 447).
+ if(w){const hgt=n/w;
+  for(let r=0;r<3;r++){const add=[];
+   for(let p=0;p<n;p++){if(hit[p]||pixels[p*4+3]<40)continue;
+    const x=p%w,y=(p/w)|0;let k=0;
+    for(let dy=-1;dy<=1&&!k;dy++)for(let dx=-1;dx<=1;dx++){const xx=x+dx,yy=y+dy;if(xx<0||xx>=w||yy<0||yy>=hgt)continue;const q=yy*w+xx;if(hit[q]){k=hit[q];break;}}
+    if(!k)continue;const [h,s,v]=hsv(p*4);
+    if(h<15||s<.28||v<.3||v>.93)continue;
+    if(k===1?(h<34||h>55||pixels[p*4+2]>110):(h<40||h>75||pixels[p*4+2]>120))continue;
+    add.push([p,k]);}
+   for(const [p,k] of add)hit[p]=k;}}
+ // Edge pixels between cloth and its ink line are darker than either band: take them from a
+ // repainted neighbour — one pass, and only inside that neighbour's family, so a shoe, an apron
+ // or an easel leg beside the sleeve is not dragged in with a second pass (1584 fewer than before).
+ if(w){const add=[];
+  for(let p=0;p<n;p++){if(hit[p]||pixels[p*4+3]<40)continue;const [h,s,v]=hsv(p*4);if(h<10||h>95||s<.3||v>=.65)continue;
+   const x=p%w,k=(x>0&&hit[p-1])||(x<w-1&&hit[p+1])||hit[p-w]||hit[p+w];
+   if(!k)continue;
+   if(k===1&&h>55)continue;if(k===2&&h<38)continue;
+   add.push([p,k]);}
+  for(const [p,k] of add)hit[p]=k;}
  let count=0;
  for(let p=0;p<n;p++){if(!hit[p])continue;const i=p*4,v=Math.max(pixels[i],pixels[i+1],pixels[i+2])/255,[C,ref]=hit[p]===1?[T,.85]:[B,.5];
   for(let c=0;c<3;c++)pixels[i+c]=Math.min(255,Math.round(C[c]*v/ref));count++;}
