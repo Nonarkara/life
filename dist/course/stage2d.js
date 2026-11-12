@@ -11,10 +11,11 @@ import {recordedFinance} from './locations.js';
 import {netWorth} from './finance.js';
 import {homeCast} from './presentation-state.js';
 import {travelFrame,anchoredPlateFrame} from './painted-camera.js';
-import {regionAt,REGIONS,household} from './regions.js';
+import {regionAt,REGIONS,household,region} from './regions.js';
 import {preferences,t} from './i18n.js';
 import {rungAt} from './housing-ladder.js';
-import {agedImage} from './aging.js';
+import {agedImage,redressedImage} from './aging.js';
+import {outfitFor} from './moment-plan.js';
 import {prepareStageArt,stageImage,stageImageFailed,artFailureCount,platePath,spritePath,animeManifest} from './anime-assets.js';
 import {applyEraCanvasGrade} from './thai-history.js';
 
@@ -296,6 +297,13 @@ function actorFrames(state,actor,age,activity,set){
  const role=roleFor(kind,age,activity.pose,activity.moving,set),table=ROLES[sheetFor(kind,age)]?.[role];
  return (activity.moving?(table??[]):(table??[]).slice(0,1)).map(([sheet,frame])=>[castSheet(state,actor,sheet),frame]);
 }
+// The clothes the 3D figure wears at this age and place; once per age, not every frame.
+let worn=null;
+function playerOutfit(state,age){
+ if(worn?.state===state&&worn.age===age)return worn.outfit;
+ const outfit=outfitFor(state,'player',state.intake?.sex??state.birth?.sex,age,(birthYearOf(state)??1981)+age,{place:region(regionAt(state,age))});
+ worn={state,age,outfit};return outfit;
+}
 // A flat dark copy of a drawn figure, made once, used to throw its shadow.
 const silhouettes=new WeakMap();
 function silhouette(image){
@@ -437,7 +445,8 @@ function createStage(canvas){
     const path=spritePath(sheet,frame);
     const raw=path?stageImage(path):null;
     if(!raw||!raw.complete||!raw.naturalWidth)return null;
-    const image=actor==='player'&&/^player/.test(sheet)?agedImage(raw,age):raw;
+    const dress=actor==='player'&&/^player/.test(sheet)&&castLife?playerOutfit(castLife,Math.floor(age)):null;
+    const image=dress?redressedImage(agedImage(raw,age),dress.top,dress.bottom):raw;
     const figure=options.figure??SETS[set]?.figure??.25;
     // Frames keep their true height on the sheet (the tallest is 400px), so a seated body is drawn seated, not stretched.
     const figureHeight=figureHeightPx(plateHeight,figure,image.naturalHeight,actor,age);

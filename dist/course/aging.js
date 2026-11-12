@@ -28,5 +28,31 @@ export function agedImage(image,age){
  const key=image.src+'#'+level;if(cache.has(key))return cache.get(key);
  try{const c=document.createElement('canvas');c.width=image.naturalWidth;c.height=image.naturalHeight;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(image,0,0);
   const data=g.getImageData(0,0,c.width,c.height);greyHair(data.data,c.width,c.height,level);g.putImageData(data,0,0);
-  c.naturalWidth=c.width;c.naturalHeight=c.height;c.complete=true;cache.set(key,c);return c;}catch{return image;}
+  c.naturalWidth=c.width;c.naturalHeight=c.height;c.complete=true;c.key=key;cache.set(key,c);return c;}catch{return image;}
+}
+// The painter drew one outfit for the player: a mustard shirt and olive trousers in every pose.
+// A life wears its own clothes, so those two bands are repainted in the colours the 3D figure
+// wears this year, keeping the painter's shading. Skin is less saturated than the shirt and
+// is left alone. Returns a count of recoloured pixels.
+const hex=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));
+export function redress(pixels,top,bottom,w=0){
+ const T=hex(top),B=hex(bottom),n=pixels.length/4,hit=new Uint8Array(n),hsv=i=>{const r=pixels[i],g=pixels[i+1],b=pixels[i+2],mx=Math.max(r,g,b),d=mx-Math.min(r,g,b);return [d?60*(mx===r?((g-b)/d+6)%6:mx===g?(b-r)/d+2:(r-g)/d+4):-1,mx?d/mx:0,mx/255];};
+ // ponytail: fixed hue bands measured on the shipped sheets; a new sheet in other colours needs new bands.
+ for(let p=0;p<n;p++){const i=p*4;if(pixels[i+3]<40)continue;const [h,s,v]=hsv(i);
+  hit[p]=h>=0&&h<=50&&s>=.56&&(h>=33&&v>=.35||h>=20&&(v>=.65||s>=.72&&v>=.42))?1:h>=40&&h<=95&&s>=.15&&s<.56&&v>=.22&&v<=.62?2:0;}
+ // Edge pixels between cloth and its ink line are darker than either band: take them from a repainted neighbour.
+ for(let pass=0;w&&pass<2;pass++){const add=[];for(let p=0;p<n;p++){if(hit[p]||pixels[p*4+3]<40)continue;const [h,s,v]=hsv(p*4);if(h<10||h>95||s<.3||v>=.65)continue;
+  const x=p%w,k=(x>0&&hit[p-1])||(x<w-1&&hit[p+1])||hit[p-w]||hit[p+w];if(k)add.push([p,k]);}for(const [p,k] of add)hit[p]=k;}
+ let count=0;
+ for(let p=0;p<n;p++){if(!hit[p])continue;const i=p*4,v=Math.max(pixels[i],pixels[i+1],pixels[i+2])/255,[C,ref]=hit[p]===1?[T,.85]:[B,.5];
+  for(let c=0;c<3;c++)pixels[i+c]=Math.min(255,Math.round(C[c]*v/ref));count++;}
+ return count;
+}
+const dressed=new Map();
+export function redressedImage(image,top,bottom){
+ if(!top||!bottom||!image?.naturalWidth||typeof document==='undefined')return image;
+ const key=(image.src??image.key)+'#'+top+bottom;if(dressed.has(key))return dressed.get(key);
+ try{const c=document.createElement('canvas');c.width=image.naturalWidth;c.height=image.naturalHeight;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(image,0,0);
+  const data=g.getImageData(0,0,c.width,c.height);redress(data.data,top,bottom,c.width);g.putImageData(data,0,0);
+  c.naturalWidth=c.width;c.naturalHeight=c.height;c.complete=true;dressed.set(key,c);return c;}catch{return image;}
 }
