@@ -26,7 +26,7 @@ export function drawWorld(canvas,state,age,time,mode='world',view={}){
 function paintWorld(canvas,state,age,time,mode='world',view={}){
  // Hybrid, the default, keeps ordinary routines in the diorama and paints recorded moments.
  // Explicit world preferences remain available; drawing never changes the life.
- if(preferences.stage!=='isometric'){
+ if(preferences.stage!=='isometric'&&(!view.camera||view.camera==='follow')){
   if(drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
   // The painting may cover this scene but has not finished decoding. Holding
   // the surface is better than showing a different world for a moment.
@@ -48,7 +48,10 @@ const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];
 Object.assign(C,canvasWorld()??MOOD_CHORDS[lifeMoodAt(state,age)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawRouteMap(canvas,state);return;}
-const zoom=(age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance',context),follow=age<6?0:.7;const center=[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
+const zoom=(view.camera==='district'?Math.min(1,bw/440,bh/280):view.camera==='home'?3:age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);
+const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance',context),follow=age<6?0:.7;
+const [homeX,homeY]=context.residence.origin;
+const center=view.camera==='district'?[0,95]:view.camera==='home'?[(homeX-homeY)*15,(homeX+homeY)*7.5-12]:[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:document.body.classList.contains('console-mode')&&state.stage!=='birth'?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);
 const p=(x,y,z=0)=>[(x-y)*15,(x+y)*7.5-z*15];
 function poly(v,col){c.beginPath();v.forEach((a,i)=>i?c.lineTo(...p(...a)):c.moveTo(...p(...a)));c.closePath();c.fillStyle=col;c.fill();}

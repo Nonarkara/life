@@ -217,7 +217,7 @@ function createScene(original){
  let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
  const post=createPost(renderer,scene,camera);
  const cam={x:5.3,z:5.3,span:8},pinAt=new T.Vector3();
- function update(state,age,time,{homeFrame=false,tour=false,pick=null,animating=true}={}){
+ function update(state,age,time,{homeFrame=false,tour=false,pick=null,animating=true,camera:cameraView="follow"}={}){
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);post.setSize(w,h,renderer.getPixelRatio());camera.aspect=w/h;lastSignature='';}
@@ -271,13 +271,17 @@ function createScene(original){
   const phone=w<=720,tall=w/h<1.15;
   const still=!focus.moving&&age>=3;
   // Small children stay in the room; a person walking gets the town.
-  const stop=pick?{kind:'town',x:6.4,z:6.6}:tour&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad)tourLine.textContent=tr(P.place.place);tourLine.hidden=(!stop&&!P.abroad)||!!pick;
+  const [homeX,homeZ]=context.residence.origin;
+  const stop=pick||cameraView==='district'?{kind:'town',x:6.4,z:6.6}
+    :cameraView==='home'?{kind:'home',x:homeX,z:homeZ,rung:P.rung}
+    :(tour||cameraView==='tour')&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad)tourLine.textContent=tr(P.place.place);tourLine.hidden=(!stop&&!P.abroad)||!!pick||cameraView==='home'||cameraView==='district';
   let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
+  const changedView=cam.view!==cameraView;cam.view=cameraView;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;
   const follow=stop?{x:stop.x,y:stop.z}:age<5?{x:5.2,y:5.2}:focus;
   // An arrival must be framed even while the life clock is held by a decision.
-  const ease=camReady&&animating?1-Math.exp(-dt*2.6):1;camReady=true;
+  const ease=camReady&&animating&&!changedView?1-Math.exp(-dt*2.6):1;camReady=true;
   cam.x+=(follow.x-cam.x)*ease;cam.z+=(follow.y-cam.z)*ease;cam.span+=(span-cam.span)*ease;
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),(()=>{const reader=document.querySelector('.console-reader');return reader&&!reader.hidden&&getComputedStyle(reader).visibility!=='hidden'?reader.getBoundingClientRect():null;})()):0;
   focus3.set(cam.x,.45,cam.z);
@@ -288,14 +292,14 @@ function createScene(original){
   scene.updateMatrixWorld();camera.updateMatrixWorld(true);
   // Where each house sits on the screen, for the labels the birth form puts over them.
   if(pick){const H=h;pick([{rung:P.rung,x:5,z:4.8},...othersOf(P.rung).map(({rung,lot})=>({rung,x:lot[0]+lot[2]/2,z:lot[1]+lot[3]/2}))].map(h=>{const v=pinAt.set(h.x,2.8,h.z).project(camera);return {rung:h.rung,x:(v.x+1)/2*w,y:(1-v.y)/2*H};}));}
-  if(age>=1&&(cutTick++%4===0||!hidden.size)){const open=stop?.kind==='town'?[...new Set(lotRoster.map(r=>r.lot))].map(([x,z,w,d])=>anchorAt(x+w/2,z+d/2)):stop?.kind==='lot'?[[-1.4,-1.3],[1.4,-1.3],[-1.4,1.3],[1.4,1.3],[0,0]].map(([a,e])=>anchorAt(stop.x+a,stop.z+e)):Object.values(actors.player.anchors);hidden=obscuringBuildings(camera,open,buildings.map(b=>b.group),ray);}
+  if(age>=1&&(changedView||cutTick++%4===0||!hidden.size)){const open=stop?.kind==='town'?[...new Set(lotRoster.map(r=>r.lot))].map(([x,z,w,d])=>anchorAt(x+w/2,z+d/2)):(stop?.kind==='lot'||stop?.kind==='home')?[[-1.4,-1.3],[1.4,-1.3],[-1.4,1.3],[1.4,1.3],[0,0]].map(([a,e])=>anchorAt(stop.x+a,stop.z+e)):Object.values(actors.player.anchors);hidden=obscuringBuildings(camera,open,buildings.map(b=>b.group),ray);}
   const cutKey=[...hidden].map(g=>buildings.findIndex(b=>b.group===g)).sort().join();if(cutKey!==lastCut){lastCut=cutKey;renderer.shadowMap.needsUpdate=true;}
   // A building in the way is lifted off the board; its slab stays.
   for(const entry of buildings){const off=age>=1&&hidden.has(entry.group);for(const material of surfacesOf(entry))material.visible=!off;}
   // A phone that cannot hold the frame rate gives up sharpness before it gives up motion.
   const now=performance.now();if(lastFrame){frameSum+=Math.min(120,now-lastFrame);if(++frames===60){const avg=frameSum/59;frames=0;frameSum=0;if(avg>44&&quality>0){quality--;width=0;}else if(avg<26&&quality<2&&++calm>=4){quality++;calm=0;width=0;}}}lastFrame=now;
   // Nothing moved: keep the last picture, spend nothing.
-  const signature=[w,h,time,age,plan.key,moodName,dock,cam.x.toFixed(3),cam.z.toFixed(3),cam.span.toFixed(3),hidden.size,family.partner].join('|');
+  const signature=[w,h,time,age,plan.key,moodName,dock,cam.x.toFixed(3),cam.z.toFixed(3),cam.span.toFixed(3),cameraView,cutKey,family.partner].join('|');
   if(signature===lastSignature&&!renderer.shadowMap.needsUpdate)return;lastSignature=signature;
   post.setNight(hour.lit>.5);post.render();
  }

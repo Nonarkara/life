@@ -15,6 +15,11 @@ import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+World camera|มุมมองโลก|世界视角|世界の視点|세계 시점
+Follow life|ตามตัวละคร|跟随角色|人物を追う|인물 따라가기
+Home view|ดูบ้าน|查看住处|住まいを見る|집 보기
+District view|ดูย่าน|查看街区|地区を見る|지구 보기
+Neighbourhood tour|ชมละแวกบ้าน|游览社区|近所を巡る|동네 둘러보기
 Keys to the courtyard|กุญแจลานบ้าน|院子的钥匙|中庭の鍵|마당의 열쇠
 Your aunt hands you the keys to four rooms around a courtyard. A buyer offers cash for the whole property. Three households live there, and two have children at the school nearby.|ป้ายื่นกุญแจห้องสี่ห้องรอบลานบ้านให้คุณ มีคนเสนอซื้อที่ทั้งหมดด้วยเงินสด ที่นั่นมีสามครอบครัว สองครอบครัวมีลูกเรียนอยู่โรงเรียนใกล้บ้าน|姑妈把围着院子的四间屋的钥匙交给你。有人愿出现金买下整处房产。那里住着三户人家，其中两户的孩子在附近上学。|おばが中庭を囲む四部屋の鍵をあなたに渡す。買い手は敷地全体を現金で買うという。三世帯が暮らし、そのうち二世帯の子どもは近くの学校に通っている。|이모가 마당을 둘러싼 방 네 개의 열쇠를 건넵니다. 한 매수자가 건물 전체를 현금으로 사겠다고 합니다. 세 가구가 살고 있고 그중 두 가구의 아이들은 가까운 학교에 다닙니다.
 Keep the tenants and repair the rooms|ให้ผู้เช่าอยู่ต่อและซ่อมห้อง|让租户留下，修缮房间|住人に残ってもらい部屋を直す|세입자가 계속 살도록 하고 방을 수리한다
