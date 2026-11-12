@@ -23,3 +23,10 @@ palette and mood; it rejects redundant information and invented spatial demand.
 Treat the rules in DESIGN-RULES.md as release requirements, not suggestions.
 Preserve the live world, charts, controls, saved lives and multilingual access.
 Do not call a source scan, build or automated test a visual approval.
+
+**Measure the tree that is actually served.** The build writes a new `out/` by
+renaming, so a preview server already running on 4219 can keep serving the
+previous build's directory, and a render or a probe then measures stale bytes.
+After `npm run build`, restart the server and assert the subject exists before
+measuring it. The build id in `build.json` is a content hash of the output:
+compare it with the live `build.json` to prove which tree is deployed.
