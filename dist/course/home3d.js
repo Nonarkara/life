@@ -9,9 +9,9 @@ const KINDS={
  stilt:{floor:'#8a6a48',lines:'#6d5236',wall:'#8f6f4c',wallLines:'#6f5438',roof:'#8b7c68',shape:'gable'},
  plank:{floor:'#94795a',lines:'#745b40',wall:'#9fb0ab',wallLines:'#7f928d',roof:'#a45b45',shape:'gable'},
  shack:{floor:'#8a7457',lines:'#6e5a42',wall:'#8e9ca0',wallLines:'#74838a',roof:'#7a8486',shape:'mono'},
- shophouse:{floor:'#b5aa94',lines:'#a49982',wall:'#e0d4b8',roof:'#a56a50',shape:'floors',floors:1},
+ shophouse:{floor:'#b5aa94',lines:'#a49982',wall:'#e0d4b8',roof:'#a56a50',shape:'floors',floors:2},
  flat:{floor:'#c7bca6',lines:'#b3a891',wall:'#dcd8cc',roof:'#a7a497',shape:'floors',floors:3},
- condo:{floor:'#c2a883',lines:'#aa9069',wall:'#efebe0',roof:'#a7a497',shape:'floors',floors:6},
+ condo:{floor:'#c2a883',lines:'#aa9069',wall:'#efebe0',roof:'#a7a497',shape:'floors',floors:7},
  villa:{floor:'#a98a62',lines:'#8f7350',wall:'#f1ece0',roof:'#5f6a6a',shape:'hip'},
  hdb:{floor:'#bcae96',lines:'#a89a80',wall:'#e8e2d4',roof:'#a7a497',shape:'floors',floors:5},
  tatami:{floor:'#b8b28a',lines:'#979069',wall:'#ddd8cc',roof:'#4f5a5e',shape:'gable'},
@@ -72,6 +72,7 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  if(bare){b.box(5.75,3.2,FLOOR+.24,1,.62,.2,'#a58a5e');b.ball(5.9,FLOOR+.13,3.82,.13,.13,.012,'#23282a',8);b.ball(6.6,FLOOR+.13,3.82,.13,.13,.012,'#23282a',8);for(let i=0;i<4;i++)b.ball(5.95+i*.2,FLOOR+.5,3.4+(i%2)*.2,.14,.1,.14,['#d9d2c0','#c9a14a','#7f8a78'][i%3],6);b.ball(4.05,FLOOR+.14,3.3,.22,.16,.18,'#7f8a78',7);b.ball(4.45,FLOOR+.13,3.28,.2,.14,.16,'#a08a68',7);}
  else{b.box(6.62,3.22,FLOOR,.22,.22,.2,'#a5533f');b.ball(6.73,FLOOR+.35,3.33,.17,.22,.17,'#4f7a4a',7);}
  if(plan.homeKind==='villa'&&!plan.abroad){b.box(2.55,2.6,-.015,.45,4.4,.01,'#7f9a68');b.box(2.5,2.6,0,.07,4.4,m(1.8),'#e6e0d0');b.box(2.5,2.6,0,4.5,.07,m(1.8),'#e6e0d0');}
+ storeys(b,plan,wall);
  // Height marks and shelves come from inhabited3d; the kitchen stool stays out of every route.
  void KITCHEN;
  return {update(state,age,context,time,cooking=false){const feeds=kitchenFeeds(state,age);plates.forEach((p,i)=>{p.visible=i<feeds;});fire.visible=cooking;wok.visible=cooking||poor===false;steam.visible=cooking;if(!cooking)return;
@@ -79,6 +80,30 @@ export function furnishHome({root,batchOf,group,chair,plan}){
   const flare=Math.max(0,Math.sin(time*1.7))**8,toss=flare*.05;tongues.forEach((g,i)=>{g.scale.y=.7+Math.abs(Math.sin(time*(17+i*1.3)+i*2.1))*.75+flare*2.2;g.scale.x=g.scale.z=.85+Math.sin(time*23+i)*.2;});wok.position.y=fy+.13+toss;wok.rotation.z=Math.sin(time*5.5)*.05+toss;steam.position.y=(time*.35)%.14;}};
 }
 furnishHome.metrics={seat:.235,tableTop:m(.73)};
+// The room is one floor of a building. Its back walls rise into the rest of it, cut open like a
+// doll's house, so a condo child sees the tower they live in and a shophouse child the family above the shop.
+// ponytail: storey counts are authored per kind, not drawn from any survey. They match the closed shell in buildHomeShell (KINDS floors; the villa's upper storey under its hip).
+const ABOVE={shophouse:2,flat:3,condo:7,villa:1};
+function storeys(b,plan,wall){
+ const n=ABOVE[plan.homeKind]??0;if(!n||plan.abroad)return;
+ const S=m(3),base=FLOOR+WALL,acc=plan.palette.accent,r=lifeR(plan.seed),condo=plan.homeKind==='condo'||plan.homeKind==='flat';
+ for(let f=0;f<n;f++){const y=base+f*S;
+  b.box(3,3,y,4,.08,S,wall);b.box(3,3,y,.08,3.6,S,wall);
+  // The floor above, open to the street: a strip deep enough to hold someone else's life.
+  b.box(3,3,y-.03,4,1.05,.06,'#c9c3b1');b.box(3,3,y-.03,1.05,3.6,.06,'#c9c3b1');
+  for(const x of [3.4,4.6,5.8])b.box(x,3.085,y+m(1),.8,.012,m(1.2),'#a9c4c4',r()<.6?1:0);
+  for(const z of [4.2,5.4])b.box(3.085,z,y+m(1),.012,.8,m(1.2),'#a9c4c4',r()<.6?1:0);
+  if(condo){b.box(5.9+r()*.3,3.1,y+m(2.2),.5,.14,.18,'#ece8dc');if(r()<.6)for(let i=0;i<3;i++)b.box(3.3+i*.32,4,y+m(1.4),.22,.012,.3,['#b5553c','#e6d9b8','#4f7a9a'][i]);}
+  else if(plan.homeKind==='shophouse'){b.box(3.2,3.2,y+.03,1.1,.6,m(.42),'#7d6951');b.box(3.25,3.25,y+.03+m(.42),1,.5,.03,'#e4e0d0');b.ball(6.5,y+.3,3.4,.2,.26,.2,'#4f7a4a',7);}
+  else{for(let a=3.2;a<7;a+=.28)b.box(a,4.03,y+.03,.025,.025,.42,'#e6e0d0');b.box(3,4.03,y+.45,4,.03,.03,'#e6e0d0');}
+  if(f>0||condo)b.box(3,4.03,y+.03,4,.02,.02,acc);
+ }
+ // A shophouse opens to the street: steel shutters folded back, a sign, the day's goods on the step.
+ if(plan.homeKind==='shophouse'){for(const x of [3.02,5.9])for(let i=0;i<5;i++)b.box(x+i*.075,6.56,FLOOR,.06,.05,WALL,'#8d9290');b.box(3,6.54,FLOOR+WALL-m(.55),4,.05,m(.55),acc);b.box(3.3,6.53,FLOOR+WALL-m(.42),2.2,.012,m(.25),'#ece7da');
+  for(let i=0;i<4;i++){const x=3.12+i*.32;b.box(x,6.66,0,.28,.3,.18,'#8a6c4c');for(let k=0;k<3;k++)b.ball(x+.06+k*.08,.22,6.81,.05,.045,.05,['#d9a92e','#b5553c','#6f8a3f','#e6d9b8'][(i+k)%4],6);}}
+ const top=base+n*S;b.box(2.95,2.95,top,4.1,1.15,.08,'#a7a497');b.box(2.95,2.95,top,1.15,3.7,.08,'#a7a497');
+}
+const lifeR=seed=>{let h=(seed*2654435761)>>>0;return ()=>{h=(h+0x6d2b79f5)>>>0;let t=Math.imul(h^h>>>15,h|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296;};};
 // Everything that closes the dollhouse when the player is out in the street.
 export function buildHomeShell({group,batchOf,plan,register}){
  const K=KINDS[plan.homeKind]??KINDS.shophouse,g=group(),b=batchOf(g),wall=['stilt','plank','shack','row','bungalow'].includes(plan.homeKind)?K.wall:plan.palette.wall,H=FLOOR+WALL;
@@ -87,7 +112,7 @@ export function buildHomeShell({group,batchOf,plan,register}){
  b.box(3,6.52,FLOOR,3.3,.08,WALL,wall);b.box(6.92,3,FLOOR,.08,3.6,WALL,wall);b.box(6.3,6.52,FLOOR+m(2.1),.7,.08,WALL-m(2.1),wall);
  for(const x of [3.5,5])b.box(x,6.6,FLOOR+m(1),.9,.012,m(1.2),'#3e4e54',1);for(const z of [3.6,5.1])b.box(7,z,FLOOR+m(1),.012,.9,m(1.2),'#3e4e54',1);
  if(K.shape==='gable')b.gable(3,3,H,4,3.6,m(1.5),K.roof,{over:.18,along:'x',gableColor:wall});
- else if(K.shape==='hip')b.hip(3,3,H,4,3.6,m(1.6),K.roof,.2);
+ else if(K.shape==='hip'){const up=plan.homeKind==='villa'&&!plan.abroad?m(3):0;if(up)b.box(3,3,H,4,3.6,up,wall);b.hip(3,3,H+up,4,3.6,m(1.6),K.roof,.2);}
  else if(K.shape==='mono')b.beam(2.85,H+.26,4.8,7.15,H-.02,4.8,3.95,.03,K.roof);
  else{const up=K.floors,h=m(3)*up;b.box(3,3,H,4,3.6,h,wall);for(let f=0;f<up;f++){for(const x of [3.3,4.5,5.7])b.box(x,6.6,H+f*m(3)+m(1),.8,.012,m(1.2),'#3e4e54',(x*(f+3)*7%1)<.6?1:0);b.box(2.97,6.6,H+f*m(3),4.06,.16,.04,'#c9c6ba');}b.box(2.97,2.97,H+h,4.06,3.66,.06,K.roof);}
  register(g);

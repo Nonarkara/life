@@ -1,10 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import * as T from 'three';
+import {readFileSync} from 'node:fs';
 import {createRegionScenery} from '../../dist/course/region3d.js';
 import {townPlan,lotLift} from '../../dist/course/diorama-plan.js';
 import {setHomeLift,floorAt} from '../../dist/course/district-layout.js';
 import {newLife,begin,configureLife} from '../../dist/course/sim.js';
+import {furnishHome} from '../../dist/course/home3d.js';
+import {createBatch} from '../../dist/course/diorama-kit.js';
 // The overhaul's first law: where you are born must be visible. Every Thai birthplace builds its
 // own scenery, and a village family lives up a stair, as rural Thai families did.
 const BIRTHS={'samut-prakan':'working_class','nakhon-sawan':'low_class','khlong-toei':'low_class','isan-village':'low_class','bang-na':'middle_class','pak-phanang':'middle_class','sukhumvit':'high_class'};
@@ -26,4 +29,21 @@ test('the neighbours on the class ladder build like their place',()=>{
  for(const rung of [1,2])assert.ok(lotLift(village,rung)>0);for(const rung of [0,3,4,5])assert.equal(lotLift(village,rung),0);
  for(const [r,c,rung] of [['isan-village','low_class',1],['isan-village','working_class',2],['khlong-toei','low_class',1],['samut-prakan','working_class',2]])assert.equal(lotLift(planAt(r,c),rung)>0,planAt(r,c).lift>0,r+' rung '+rung);
  for(const rung of [0,1,2,3,4,5])assert.equal(lotLift(town,rung),0);
+});
+// What the camera sees first is the home. Its building must differ by birthplace, not only its paint.
+function homePrint(plan){const batches=new Map(),root=new T.Group(),batchOf=p=>{if(!batches.has(p))batches.set(p,createBatch());return batches.get(p);};
+ furnishHome({root,batchOf,group:(p=root)=>{const g=new T.Group();p.add(g);return g;},chair(){},table(){},plan,register(){}});let n=0;for(const b of batches.values())n+=b.size;return n;}
+test('the home itself is a different building in each town birthplace',()=>{
+ const towns=[['samut-prakan','working_class'],['bang-na','middle_class'],['pak-phanang','middle_class'],['sukhumvit','high_class']].map(([r,c])=>[r,planAt(r,c)]);
+ const prints=towns.map(([r,p])=>r+' '+p.homeKind+' '+homePrint(p));
+ assert.equal(new Set(towns.map(([,p])=>homePrint(p))).size,4,prints.join(' | '));
+ const tall=p=>homePrint(p);assert.ok(tall(planAt('bang-na','middle_class'))>tall(planAt('samut-prakan','working_class'))+40,'a condo home stands in a tower');
+});
+test('a closed town home is as tall as the open one, and its shutters leave the door clear',()=>{
+ const src=readFileSync(new URL('../../dist/course/home3d.js',import.meta.url),'utf8');
+ const above=Object.fromEntries([...src.match(/const ABOVE=\{([^}]*)\}/)[1].matchAll(/(\w+):(\d+)/g)].map(m=>[m[1],+m[2]]));
+ for(const kind of ['shophouse','flat','condo']){const shell=+src.match(new RegExp(kind+":\\{[^}]*floors:(\\d+)"))[1];assert.equal(shell,above[kind],kind);}
+ // The family door is the gap at x 6.3-6.92; no shutter slat may stand in it.
+ const xs=src.match(/for\(const x of \[([\d.,]+)\]\)for\(let i=0;i<5;i\+\+\)b\.box\(x\+i\*\.075,6\.56/)[1].split(',').map(Number);
+ for(const x of xs)assert.ok(x+4*.075+.06<=6.3||x>=6.92,'slats at '+x);
 });
