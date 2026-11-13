@@ -16,6 +16,7 @@ export const PROPS={
  fringe:[['spirit',2,6.3],['bananas',-.8,6],['buffalo',-1.6,9.7,.95,.42],['samlor',.6,9.2,.9,.5,'samlor'],['pickup',-3.9,9.2,1.3,.7,'pickup']],
  condo:[['spirit',2,6.3],['cart',-1.4,9.2,.9,.55],['car',.3,9.3,1.5,.7,'pickup'],['motorbike',-2.8,9.3,.8,.3,'motorbike'],['winstand',13.5,9.0,.7,.3,'winTaxi'],['rider',-.5,5.9,.8,.3,'rider']],
  coast:[['spirit',2,6.3],['net',.4,9.4,1.6,.8],['cart',-2.2,10.2,.9,.55],['bananas',-.8,5.4],['pickup',-1.2,5.6,1.3,.7,'pickup'],['motorbike',.9,6.2,.8,.3,'motorbike']],
+ beach:[['spirit',2,6.3],['cart',-1.4,9.2,.9,.55],['samlor',.6,9.2,.9,.5,'samlor'],['motorbike',-2.8,9.3,.8,.3,'motorbike'],['bananas',-.8,5.9]],
  villa:[['spirit',2,6.3],['car',13.6,9.4,1.5,.7,'pickup'],['rider',13.5,9.1,.8,.3,'rider']],
  tower:[['bench',.2,5.2,.9,.3],['bench',1.3,5.2,.9,.3]],
  tokyo:[['vending',.5,5.9,.4,.3],['vending',1,5.9,.4,.3],['pole',2.2,6.5,.1,.1],['pole',-1.8,6.6,.1,.1],['bicycle',-3.4,6.4,.8,.2]],
@@ -119,15 +120,42 @@ export function createRegionScenery({scene,registerBuilding}){
   };
   const LAYOUT={
    market(){const early=!marks.concrete;
+    // Udon Thani: a tight provincial shophouse row around the lake park of Nong Prajak.
+    // Pathum Wan: Bangkok shophouse blocks; Siam Center opened in 1973, MBK in 1985, and
+    // Chulalongkorn University's campus has been the district's green since 1917.
+    const udon=plan.regionId==='udon-thani',pw=plan.regionId==='pathum-wan',W=udon?.72:1;
     institutions(!early);
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
-    const shop=(b,x,z,w,d)=>{const c=wall();if(early||r()<(year<1975?.4:.1))woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,c,r,cap(x,z,2+Math.floor(r()*(year>=1990?3:2))),P.accent,marks);};
-    row(-5.2,2.4,4.7,2.2,1.1,1.8,make(shop));row(-5.2,-2.3,-.6,2.2,1.1,1.6,make(shop));row(2.9,6.9,-.5,2.8,1.9,2.1,make(shop));
-    row(9.2,18.2,14.8,2.4,1.2,1.9,make(shop));row(14.2,18.2,4.4,2.4,1.1,1.6,make(shop));row(-5.2,.9,12.2,2.6,1.2,2,make(shop));row(.9,8.4,15,2.6,1.4,2.4,make(shop));
+    const shop=(b,x,z,w,d)=>{const c=wall();if(early||r()<(year<1975?.4:.1))woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,c,r,cap(x,z,(pw?3:2)+Math.floor(r()*(year>=1990?3:2))),P.accent,marks);};
+    const rw=(x0,x1,z,d,a,b)=>row(x0,x1,z,d,a*W,b*W,make(shop));
+    rw(-5.2,2.4,4.7,2.2,1.1,1.8);if(!udon)rw(-5.2,-2.3,-.6,2.2,1.1,1.6);rw(2.9,6.9,-.5,2.8,1.9,2.1);
+    if(pw){open.box(9.2,16.2,-.014,9,2,.01,'#7f9a68');for(const [x,z] of [[9.8,16.8],[11.6,17.4],[13.4,16.7],[15.2,17.5],[17.2,16.9]])if(clearOfLots(x-.3,z-.3,.6,.6))tree(open,x,z,1.9+r()*.8,P.leaf,r);}
+    else rw(9.2,18.2,14.8,2.4,1.2,1.9);
+    rw(14.2,18.2,4.4,2.4,1.1,1.6);rw(-5.2,.9,12.2,2.6,1.2,2);rw(.9,8.4,15,2.6,1.4,2.4);
     if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);else unit(b=>woodShop(b,13.8,9.2,2.2,1.8,pick(P.walls),r,1),[13.8,9.2,2.2,1.8]);
     if(marks.mast)mast(open,-5,-1.2);
-    row(-5.2,18.2,-4.8,1.9,1.3,2.4,make(shop));
+    if(udon){water(-5.2,-5.2,3,4.4);scatterTrees(7,[[-5.2,-.6,3,1.6],[-2,-5.2,.5,3]],[1.6,2.4]);rw(-1.4,18.2,-4.8,1.9,1.3,2.4);}
+    else if(pw){const mall=(x,w,f)=>{if(clearOfRoutes(x,-5,w,2.4))unit(b=>slab(b,x,-5,w,2.4,'#e4e0d6',r,f,P.accent),[x,-5,w,2.4]);};
+     rw(-5.2,3.2,-4.8,1.9,1.3,2.4);if(year>=1973)mall(3.6,3.4,4);else rw(3.6,7,-4.8,1.9,1.3,2.4);if(year>=1985)mall(9.2,5,7);else rw(9.2,14.2,-4.8,1.9,1.3,2.4);rw(14.6,18.2,-4.8,1.9,1.3,2.4);
+     if(marks.viaduct)viaduct(open,-5.5,18.5,-1.9);}
+    else rw(-5.2,18.2,-4.8,1.9,1.3,2.4);
     scatterTrees(9,[[-5,9.2,8,1.8],[9.2,12.5,8,2],[14.3,-1,3,3],[1.2,10.5,3,.4]]);},
+   beach(){const clear=(x,z,w,d)=>clearOfRoutes(x,z,w,d)&&!Object.values(FOOTPRINTS).some(([a,b,c,e])=>x<a+c&&x+w>a&&z<b+e&&z+d>b);
+    // Hua Hin: the town runs down to a long sand beach; squid boats lie off it, and ponies
+    // for hire walk the sand. Beach umbrellas and ponies are drawn from 1970, on the safe side.
+    water(-5.5,-5.5,24,2.1,'#e2d3a8');open.box(-5.5,-3.3,-.018,24,2.3,.006,'#e2d3a8');
+    for(const x of [-3.5,3,10.5,15.5])boat(x+r()*1.2,-5.1+r()*.8,1.5+r()*.4,pick([P.accent,'#2f6f9a','#c0563f','#3f8a7a']));
+    institutions(marks.concrete,pick(P.walls),roof());
+    if(year>=1970){for(let x=3.2;x<17.6;x+=1.1+r()*.5)if(r()<.75&&clear(x,-2.85,.5,.6)){open.box(x+.23,-2.6,0,.03,.03,m(2.1),'#d9d4c6');open.box(x,-2.83,m(2.1),.5,.5,.03,pick([P.accent,'#d8b25a','#2f6f9a','#ece7da']));open.box(x+.05,-2.42,0,.4,.16,.05,'#ece7da');}
+     for(const x of [2.2,5.2])if(clear(x,-2.2,.7,.2))unit(b=>{b.box(x,-2.2,m(.9),.62,.18,m(.6),pick(['#8a6a4c','#d9d4c6','#5a4a3c']));for(const a of [.04,.52])for(const e of [.02,.12])b.box(x+a,-2.2+e,0,.05,.05,m(.95),'#5a4a3c');b.box(x+.6,-2.18,m(1.3),.16,.14,.18,'#5a4a3c');},[x,-2.2,.62,.18]);}
+    for(const [x,z,w,d] of [[-5,-.9,2.2,1.7],[-4.9,9.4,2.1,1.7],[14.4,13.3,2.2,1.7],[10,13.2,2.2,1.7]])if(r()<.85&&clear(x,z,w,d))unit(b=>stilt(b,x,z,w,d,pick(['#c9b48e','#b79a72','#a98a62']),roof(),r,marks,m(.6)),[x,z,w,d]);
+    const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
+    const shop=(b,x,z,w,d)=>{if(!marks.concrete||r()<.3)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
+    row(-5.2,2.4,4.7,2.2,1.1,1.8,make(shop));row(14.2,18.2,4.4,2.4,1.1,1.6,make(shop));row(-2.4,.9,12.2,2.6,1.2,2,make(shop));row(.9,8.4,15,2.6,1.4,2.4,make(shop));
+    // Condominium towers rose along the Hua Hin shore through the 2000s; one stands for them.
+    if(year>=2005)for(const [x,z] of [[-4.9,1.1]])if(clear(x,z,1.9,1.4))unit(b=>tower(b,x,z,1.9,1.4,'#e4e0d6',r,8+Math.floor(r()*4),P.accent),[x,z,1.9,1.4]);
+    if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);if(marks.mast)mast(open,-5.2,2.6);
+    for(let i=0;i<9;i++){const x=-5.2+r()*23,z=-1.3+r()*.2;if(clear(x-.2,z-.2,.4,.4))palm(open,x,z,1.7+r(),P.leaf,r);}scatterTrees(8,[[-5,6.6,7,.4],[9,12.3,9,.5],[14,6.1,4,1]],[1.7,2.7],palm);},
    slum(){institutions(false,pick(P.walls),roof());
     water(-5.4,-5.4,2,23.8);
     for(let z=-5;z<17;z+=1.35){const w=1+r()*.5;if(clearOfRoutes(-3.5,z,w,1.15)&&r()<.92)unit(b=>shack(b,-3.5,z,w,1.15,wall(),roof(),r,m(.9)),[-3.5,z,w,1.15]);}

@@ -28,7 +28,7 @@ function drift(start,upTo=80){
 }
 const policy=state=>state.lifeEventPolicy?{lifeEventPolicy:{...state.lifeEventPolicy}}:{};
 export const sameBirth=(state,k)=>{
- const base=state.intake?configureLife(newLife(state.seed),state.intake):state.birth.class?newLife(state.seed):newLegacyLife(state.seed),seed=Math.floor(rand(state.seed,k,'fellow')*2**31);
+ const base=state.intake?configureLife(newLife(state.seed),{...state.intake,region:state.birth?.region}):state.birth.class?newLife(state.seed):newLegacyLife(state.seed),seed=Math.floor(rand(state.seed,k,'fellow')*2**31);
  return {...base,...policy(state),seed,story:newStory(seed),economy:createEconomy(seed)};
 };
 // ponytail: 160 short simulations, under 100 ms; memoised because render can run twice.

@@ -1,5 +1,6 @@
 import {of,at,sex,withMother,withFather,child,all,o,scene,RICH,NOT_RICH,POOR} from './wave1-encounters.js';
 import {regionAt} from './regions.js';
+import {birthYearOf} from './thai-history.js';
 // Content wave 2 (REBUILD-STRATEGY.md step 3). Aimed at the thinnest stretches of the deck:
 // the school years (10-19) and old age (60-80), plus middle and civil-service households.
 // Same grammar as wave 1: one small object, a cost carried by a named person, no verdict, no year.
@@ -50,6 +51,22 @@ export const WAVE2_ENCOUNTERS=[
   o('both','Do both, and sleep less',{health:-1,skills:{physique:1,drive:1}},'You did both. You could fall asleep anywhere for the rest of your life.'),
   o('cousin','Pay your cousin to walk them twice a week',{cash:-200,skills:{iq:1}},'Your cousin took your coins and the cows. Your marks went up by one line.'),
   o('ask','Ask your father to sell one',{wellbeing:-1},'He did not sell one. He did start walking them himself on Mondays.')]),
+ // One school-years scene for each town birthplace. Tutoring schools filled Siam Square from the 1970s; drawn from 1975.
+ {...scene('w2_ponies','family',10,15,all(at('hua-hin'),withMother,s=>(birthYearOf(s)??1981)+s.age>=1970),'Walking the ponies home',
+  'In the school holidays, the man who hires out ponies on the beach pays a few coins to anyone who will lead them home at dusk. Your mother says the sand is not a job.',[
+  o('lead','Lead them home',{cash:100,skills:{physique:1}},'You led two ponies home every evening. Your mother stopped mentioning the sand.'),
+  o('ride','Ask for a ride instead of coins',{wellbeing:1},'He let you ride the old grey one to the end of the beach and back. You never asked for coins again.'),
+  o('stay','Stay home as she asks',{skills:{iq:1}},'You stayed home and read. From the window you watched the ponies go past without you.')]),child:true},
+ {...scene('w2_lake_rice','family',10,15,all(at('udon-thani'),NOT_RICH),'Nong Prajak after school',
+  'After school everyone goes to Nong Prajak, the lake in the middle of town. Your aunt sells grilled sticky rice by the water and wants you behind the grill until dark.',[
+  o('grill','Stand behind the grill',{cash:80,skills:{craft:1}},'You learned to turn forty sticks at once. Your aunt paid you in rice, and on Fridays in coins.'),
+  o('walk','Walk round the lake with your friends',{wellbeing:1,skills:{eq:1}},'You walked the lake until the lights came on. Your aunt found another child to help.'),
+  o('study','Do your homework at her table',{skills:{iq:1}},'You did your homework between customers. The pages smelled of smoke.')]),child:true},
+ scene('w2_siam_tutor','school',14,18,all(at('pathum-wan'),withFather,s=>(birthYearOf(s)??1981)+s.age>=1975),'Tutoring in Siam Square',
+  'The tutoring schools above the shops in Siam Square are full every Saturday. Your father says the fee is a month of his overtime.',[
+  o('enrol','Enrol',{cash:-300,skills:{iq:1}},'Your father worked the overtime. You sat at the back and copied every board.'),
+  o('notes','Copy a friend\'s notes',{skills:{iq:1,eq:1},wellbeing:-1},'You copied her notes on Sunday nights. She wanted your lunch money in return.'),
+  o('alone','Study on your own',{skills:{drive:1}},'You studied at the kitchen table. Your father kept his overtime and bought a fan.')]),
  scene('w2_stall_shift','work',10,15,all(of('working_class','middle_class'),at('samut-prakan','khlong-toei','bang-na'),withMother,withFather),'Minding the stall at five',
   'At five every evening you mind your parents\' stall so they can eat. Your friends are at the football ground across the road.',[
   o('mind','Mind the stall',{skills:{craft:1,eq:1}},'You learned to count change without looking. Customers asked for you by name.'),

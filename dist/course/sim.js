@@ -4,13 +4,13 @@ import {validJourney} from './journey.js';
 import {periodLifeEvents,lifeEventFlags,validLifeEvents} from './life-events.js';
 import {validChildhood} from './childhood-choices.js';
 import {bucketDue,bucketFlags,validBucket} from './bucket-list.js';
-import {REGIONS,HOUSEHOLDS,COUNTRIES,BAND_REGIONS,CLASS_REGIONS,householdFor,household} from './regions.js';
+import {REGIONS,HOUSEHOLDS,COUNTRIES,BAND_REGIONS,CLASS_REGIONS,LEGACY_CLASS_REGIONS,householdFor,household} from './regions.js';
 import {ikigai} from './ikigai.js';
 import {consequencesDue} from './lessons.js';
 import {marketsDue} from './market-moments.js';
 import {PRIORITIES,priorityFx,prioritiesFor} from './priorities.js';
 import {MAJORS,majorOf,majorFit,mismatched,partnerNature,together,reconciled,ventureSwing,dogAt} from './life-choices.js';
-const CITY_BIRTHS=['khlong-toei','bang-na','sukhumvit'];
+const CITY_BIRTHS=['khlong-toei','bang-na','sukhumvit','pathum-wan'];
 import {createEconomy,economyFor,validEconomy} from './economy.js';
 import {validHoldings,autoInvest} from './investments.js';
 import {FOCUSES} from './motivations.js';
@@ -65,7 +65,7 @@ export function eraWeight(axis,from){
  return from<15?.5:from<55?1:.6;
 }
 export function newLegacyLife(seed=43127){const birth=rand(seed,0,'household');return {version:2,seed,economy:createEconomy(seed),story:newStory(seed),stage:'birth',age:0,attributes:balanced(),effort:balanced(),profile:defaultProfile(),birth:{place:birth<.5?'Nakhon Sawan':'Samut Prakan',home:birth<.5?'a farming household':'a market-stall household',region:birth<.5?'nakhon-sawan':'samut-prakan',household:householdFor(rand(seed,0,'household-kind')),cash:birth<.5?18000:42000,sensitivity:rand(seed,0,'sensitivity')>.5?'Sensitive to pressure':'Steady under pressure',body:rand(seed,0,'body')>.5?'Strong physical starting condition':'Ordinary physical starting condition'},cash:birth<.5?18000:42000,health:rand(seed,0,'body')>.5?94:88,wellbeing:rand(seed,0,'sensitivity')>.5?62:68,skills:{physique:0,iq:0,eq:0,craft:0,drive:0},history:[],profiles:[],original:null,death:null,previous:null};}
-export function newLife(seed=43127){const roll=rand(seed,0,'class');const cls=drawClass(roll);const t=CLASS_TIERS[cls];const choices=CLASS_REGIONS[cls];const regionId=choices[Math.floor(rand(seed,0,'intake-region')*choices.length)];const place=REGIONS[regionId].place,home=REGIONS[regionId].home;return {version:2,seed,economy:createEconomy(seed),story:newStory(seed),stage:'birth',age:0,attributes:balanced(),effort:balanced(),profile:defaultProfile(),birth:{place,home,region:regionId,household:householdFor(rand(seed,0,'household-kind')),cash:t.cash,sensitivity:rand(seed,0,'sensitivity')>.5?'Sensitive to pressure':'Steady under pressure',body:rand(seed,0,'body')>.5?'Strong physical starting condition':'Ordinary physical starting condition',class:cls},cash:t.cash,health:rand(seed,0,'body')>.5?94:88,wellbeing:rand(seed,0,'sensitivity')>.5?62:68,skills:{physique:0,iq:0,eq:0,craft:0,drive:0},history:[],profiles:[],original:null,death:null,previous:null};}
+export function newLife(seed=43127){const roll=rand(seed,0,'class');const cls=drawClass(roll);const t=CLASS_TIERS[cls];const choices=LEGACY_CLASS_REGIONS[cls];const regionId=choices[Math.floor(rand(seed,0,'intake-region')*choices.length)];const place=REGIONS[regionId].place,home=REGIONS[regionId].home;return {version:2,seed,economy:createEconomy(seed),story:newStory(seed),stage:'birth',age:0,attributes:balanced(),effort:balanced(),profile:defaultProfile(),birth:{place,home,region:regionId,household:householdFor(rand(seed,0,'household-kind')),cash:t.cash,sensitivity:rand(seed,0,'sensitivity')>.5?'Sensitive to pressure':'Steady under pressure',body:rand(seed,0,'body')>.5?'Strong physical starting condition':'Ordinary physical starting condition',class:cls},cash:t.cash,health:rand(seed,0,'body')>.5?94:88,wellbeing:rand(seed,0,'sensitivity')>.5?62:68,skills:{physique:0,iq:0,eq:0,craft:0,drive:0},history:[],profiles:[],original:null,death:null,previous:null};}
 export function begin(s){if(s.stage!=='birth'||!validPoints(s.attributes))return s;const due=bucketDue(s,10),origin=s.childhood?.origin??s,health=clamp(s.health+due.health,0,100),wellbeing=clamp(s.wellbeing+due.wellbeing,0,100),skills={...s.skills};for(const[k,v]of Object.entries(due.skills))skills[k]+=v;const start={age:0,health:origin.health,wellbeing:origin.wellbeing,cash:origin.cash,event:'Born into '+s.birth.home,effort:{...s.attributes},profile:defaultProfile()};return offerEncounter({...s,health,wellbeing,skills,...(due.bucket?{bucket:due.bucket}:{}),age:10,stage:'review',original:{...s.attributes},effort:{...s.attributes},history:[start,{...start,age:10,health,wellbeing,cash:s.cash,event:'Childhood: family, school and the world you inherited.'+(s.childhood?.choices.length?' '+s.childhood.choices.map(r=>r.note).join(' '):''),...(due.events.length?{events:due.events}:{})}]},rand(s.seed,10,'encounter'));}
 export const goals={balance:'A life with room to breathe',sport:'Become an athlete',art:'Make a life through art',security:'Build financial security',connection:'Love and belong'};
 export function sanitiseProfile(p,age){const q={...defaultProfile()};for(const [key,allowed]of Object.entries({drink:['no','social'],smoke:['no','yes'],religion:['explore','practice','none'],intimacy:['unsure','together','separate'],aim:Object.keys(goals)}))if(allowed.includes(p?.[key]))q[key]=p[key];if(p?.focus!==undefined)q.focus=Object.hasOwn(FOCUSES,p.focus)?p.focus:'none';if(Object.hasOwn(PRIORITIES,p?.priority))q.priority=p.priority;if(age<20){q.drink='no';q.smoke='no';q.intimacy='unsure';}return q;}
@@ -156,14 +156,16 @@ export function configureLife(s,options={}){
   if(!validPoints(options.attributes))for(let i=0;i<10;i++)attributes[AXES[Math.floor(rand(s.seed,i,'intake-point')*AXES.length)].key]++;
   const cash=t.cash;
   // Where you are born follows your class; place and household text agree with it.
-  const classRegions=CLASS_REGIONS[cls]??['nakhon-sawan'];
-  const regionId=options.region&&classRegions.includes(options.region)?options.region:classRegions[Math.floor(rand(s.seed,0,'intake-region')*classRegions.length)];
+  const regionId=options.region&&(CLASS_REGIONS[cls]??[]).includes(options.region)?options.region:defaultRegion(s.seed,cls);
   const {place,home}=REGIONS[regionId];
   // Some city children grow up with grandparents in the provinces while parents work.
   const away=CITY_BIRTHS.includes(regionId)&&rand(s.seed,0,'grandparents')<(regionId==='sukhumvit'?.12:.3);
   const childhood=away?{region:rand(s.seed,0,'grandparents-place')<.6?'isan-village':'pak-phanang',from:3,to:9}:undefined;
   return {...s,attributes,effort:{...attributes},cash,intake:{sex,class:cls,country:'th',...(birthYear?{birthYear}:{}),attributes:{...attributes}},birth:{...s.birth,place,home,region:regionId,...(childhood?{childhood}:{}),...(birthYear?{birthYear}:{}),sex,class:cls,cash}};
 }
+
+// The place a seed and class resolve to when nothing names one: what every existing birth code means.
+export function defaultRegion(seed,cls){const list=LEGACY_CLASS_REGIONS[cls]??['nakhon-sawan'];return list[Math.floor(rand(seed,0,'intake-region')*list.length)];}
 
 // Exact historical intake algorithm: old saved/share identities remain stable.
 function configureLegacyLife(s,options={}){

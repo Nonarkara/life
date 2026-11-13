@@ -12,11 +12,11 @@ import {netWorth} from './finance.js';
 import {rungAt,clearOfLots} from './housing-ladder.js';
 export {clearOfLots};
 
-const BANGKOK=new Set(['khlong-toei','bang-na','sukhumvit']);
+const BANGKOK=new Set(['khlong-toei','bang-na','sukhumvit','pathum-wan']);
 const RURAL=new Set(['nakhon-sawan','isan-village','pak-phanang']);
 // BTS Sukhumvit line: Mo Chit to On Nut opened 5 December 1999; On Nut to Bearing, the
-// stretch through Bang Na, 12 August 2011. It never ran through Khlong Toei's port slums.
-const VIADUCT={sukhumvit:1999,'bang-na':2011};
+// stretch through Bang Na, 12 August 2011. Siam station, Pathum Wan, opened with the first line. It never ran through Khlong Toei's port slums.
+const VIADUCT={sukhumvit:1999,'bang-na':2011,'pathum-wan':1999};
 export function lifeYear(state,age=state.age){const by=birthYearOf(state);return Math.floor((by??1981)+age);}
 export function eraMarks(regionId,year,seed=1){
  const place=region(regionId),abroad=place.country!=='TH',bkk=BANGKOK.has(regionId),rural=RURAL.has(regionId),tier=bkk?0:rural?2:1;
@@ -59,6 +59,7 @@ const STYLE_SET={
  fringe:{walls:['#8f6f4c','#a78a66','#d6c7a6'],roofs:['#8b7c68','#a56a50'],accent:['#7a3f3a','#3f5a50'],road:'#c7ab82',leaf:['#55794a','#6a8a4f']},
  condo:{walls:['#dcd8cc','#cfd0c8','#e4dfd2','#c4c8c4'],roofs:['#8f948f','#a29f94'],accent:['#3f6f8a','#b5553c','#6f8f7a'],road:'#a8a79c',leaf:['#527050','#5f8058']},
  coast:{walls:['#9fb7b5','#c2b48a','#8fb0a0','#d4c7a6','#b78f72'],roofs:['#a45b45','#8f7a64','#6f8a88'],accent:['#2f6f9a','#c0563f','#d8b25a'],road:'#d2c4a0',leaf:['#4e7a58','#5f8d5f']},
+ beach:{walls:['#c9b48e','#b79a72','#d8cfb8','#9fb7b5'],roofs:['#8a5a44','#a0755a','#6f7a72'],accent:['#2f6f9a','#c0563f','#d8b25a'],road:'#d8cba6',leaf:['#4e7a58','#5f8d5f']},
  villa:{walls:['#f1ece0','#ebe6da','#e9e2d0'],roofs:['#5f6a6a','#7a5f50','#6a7470'],accent:['#2f4a5a','#8a6a4a'],road:'#b4b1a4',leaf:['#46704a','#527a4f','#3f6848']},
  tower:{walls:['#e8e2d4','#ddd6c6','#e4ded0'],roofs:['#8a9a98','#b4876a'],accent:['#c77d5a','#6f9a8a','#d8b25a','#5f7a9a'],road:'#a9a89e',leaf:['#4a7c52','#5a8a5a']},
  tokyo:{walls:['#ddd8cc','#c9c4b8','#e5e1d6','#b9b3a6'],roofs:['#4f5a5e','#5c5a58','#3f4a50'],accent:['#2f7f5f','#8a4a3a'],road:'#9c9c94',leaf:['#50704f','#5f7c58']},
@@ -88,8 +89,8 @@ export function townStyle(base,year,where){
 export const faithOf=state=>regionIdFor(state.birth)==='pak-phanang'&&rand(state.seed,0,'faith')<.3?'muslim':'buddhist';
 export function homeKindFor(style,where,rung){
  if(where.place==='villa')return 'villa';if(where.place==='condo')return 'condo';
- if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return style==='village'||style==='fringe'?'stilt':style==='coast'?'plank':'row';if(rung===3)return 'shophouse';}
- return {slum:'shack',village:'stilt',fringe:'stilt',coast:'plank',market:'shophouse',condo:'flat',villa:'villa',tower:'hdb',tokyo:'tatami',newengland:'triple',brick:'terrace'}[style]??'shophouse';
+ if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return style==='village'||style==='fringe'?'stilt':style==='coast'?'plank':'row';if(rung===3)return style==='beach'?'bungalow':'shophouse';}
+ return {slum:'shack',village:'stilt',fringe:'stilt',coast:'plank',beach:'bungalow',market:'shophouse',condo:'flat',villa:'villa',tower:'hdb',tokyo:'tatami',newengland:'triple',brick:'terrace'}[style]??'shophouse';
 }
 // Things a room holds at this year and this income. Income shifts the year a thing arrives.
 export function roomHas(year,tier,marks,abroad,r){

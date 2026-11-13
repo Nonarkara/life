@@ -11,7 +11,7 @@ const yearsAhead=s=>{const c=cal(s);return c===null?[]:[c,c+1,c+2,c+3,c+4];};
 const placeOf=s=>regionAt(s,s.age-1);
 const had=k=>s=>typeof F(s)[k]==='number'&&F(s)[k]<s.age;
 const at=(...ids)=>s=>ids.includes(placeOf(s));
-const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan'];
+const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan','pathum-wan'];
 const city=s=>CITY.includes(placeOf(s))||F(s).wentBangkok<s.age,country=s=>!city(s);
 const cls=s=>s.intake?.class??s.birth?.class;
 const of=(...c)=>s=>c.includes(cls(s));
@@ -325,7 +325,7 @@ export const BANK_ENCOUNTERS=[
   o('send','Send money for someone to look in on her',{cash:-6000,wellbeing:-2},"A girl from the next village came twice a week. Your mother told you she was very good and did not say her name."),
   o('bring','Bring her to live with you in the city',{cash:-12000,wellbeing:-1,skills:{eq:1},later:[{after:5,wellbeing:-3,text:"She sat at the window of a building where nobody knew her. She asked when she could go home."}]},"She brought her own pillow and a jar of pla ra the neighbours complained about."),
   o('quit','Leave your job and go home',{cash:-60000,wellbeing:2,skills:{eq:2},flag:'caredForParent',later:[{after:10,cash:-60000,text:"You were fifty and the job adverts stopped at forty-five."}]},"You put a rail in the bathroom. You learned how she liked the rice.")]),
- scene('b_no_card','connection',35,65,[era(2000),office,at('samut-prakan','bang-na','sukhumvit')],'The woman with no card',
+ scene('b_no_card','connection',35,65,[era(2000),office,at('samut-prakan','bang-na','sukhumvit','pathum-wan')],'The woman with no card',
   "The woman from Myanmar who cleans for you has a child with fever and no papers. The registration round closed last month. The hospital will ask, and a policeman has been round the back lane.",[
   o('clinic','Tell her about the volunteer clinic behind the market',{wellbeing:-1},"She went on her day off. She came to work the next morning and did the windows."),
   o('money','Give her money and let her manage',{cash:-2000,wellbeing:-1},"She came to work the next day and did not mention it."),

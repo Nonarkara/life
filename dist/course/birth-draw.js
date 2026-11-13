@@ -1,6 +1,7 @@
 // The fresh-birth draw is separate from shared, daily and exact-birth replays.
 import {newLife,configureLife,validate,rand} from './sim.js';
 import {birthFits} from './housing-ladder.js';
+import {CLASS_REGIONS} from './regions.js';
 
 import {routeOf} from './life-routes.js';
 import {COHORT_YEARS} from './thai-history.js';
@@ -14,7 +15,10 @@ export function drawBirth(options={}, {previous=null, varied=false, random=Math.
  for(let attempt=0;attempt<4000;attempt++){
   const seed=Math.floor(random()*2147483646)+1;
   const birthYear=randomEra?eras[Math.floor(rand(seed,0,'fresh-era')*eras.length)]:options.birthYear;
-  const life=configureLife(newLife(seed),{...options,birthYear});
+  // A fresh birth may land in any birthplace its class has, not only the ones older codes know.
+  let life=configureLife(newLife(seed),{...options,birthYear});
+  const places=CLASS_REGIONS[life.intake?.class];
+  if(!options.region&&places)life=configureLife(newLife(seed),{...options,birthYear,region:places[Math.floor(rand(seed,0,'fresh-place')*places.length)]});
   if(!birthFits(life,options))continue;
   if(varied&&previous&&(seed===previous.seed||life.birth.home===previous.birth.home||life.birth.class===previous.birth.class))continue;
   if(previousRoute&&routeOf(life)===previousRoute)continue;

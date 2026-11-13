@@ -701,7 +701,7 @@ Female, male or intersex. It changes how you look, not what you can become.|ห�
 Upbringing|การเลี้ยงดู|成长环境|生い立ち|성장 환경
 Constrained, middle or comfortable household money. It sets family support, school and where you are born.|ฐานะครอบครัวจำกัด ปานกลาง หรือสบาย กำหนดการสนับสนุนจากครอบครัว โรงเรียน และที่เกิด|家庭经济拮据、中等或宽裕。它决定家庭支持、学校和出生地。|家計は苦しい、中程度、ゆとりあり。家族の支え、学校、生まれる場所が決まります。|빠듯한, 중간, 넉넉한 집안 형편. 가족의 지원, 학교, 태어날 곳이 정해집니다.
 Birthplaces|ที่เกิด|出生地|生まれる場所|출생지
-Khlong Toei riverside community · an Isan rice village · a Bang Na apartment block · a Pak Phanang fishing town · Samut Prakan · a walled house on Sukhumvit.|ชุมชนริมน้ำคลองเตย · หมู่บ้านทำนาในอีสาน · อพาร์ตเมนต์ย่านบางนา · เมืองประมงปากพนัง · สมุทรปราการ · บ้านมีรั้วรอบบนสุขุมวิท|孔堤河畔社区 · 伊桑稻作村庄 · 曼纳公寓楼 · 北汕渔镇 · 北榄府 · 素坤逸路上的高墙宅院。|クロントイの川辺のコミュニティ · イサーンの稲作の村 · バンナーの集合住宅 · パークパナンの漁師町 · サムットプラーカーン · スクンビットの塀に囲まれた家。|끌롱떠이 강변 마을 · 이산의 벼농사 마을 · 방나의 아파트 단지 · 빡파낭의 어촌 · 사뭇쁘라깐 · 수쿰윗의 담장 두른 집.
+Khlong Toei riverside community · an Isan rice village · a Bang Na apartment block · a Pak Phanang fishing town · Samut Prakan · a walled house on Sukhumvit · a wooden bungalow by the sea in Hua Hin · a shophouse row in Udon Thani · a Pathum Wan shophouse near Siam Square.|ชุมชนริมน้ำคลองเตย · หมู่บ้านทำนาในอีสาน · อพาร์ตเมนต์ย่านบางนา · เมืองประมงปากพนัง · สมุทรปราการ · บ้านมีรั้วรอบบนสุขุมวิท · บังกะโลไม้ริมทะเลหัวหิน · ตึกแถวในอุดรธานี · ตึกแถวปทุมวันใกล้สยามสแควร์|孔堤河畔社区 · 伊桑稻作村庄 · 曼纳公寓楼 · 北汕渔镇 · 北榄府 · 素坤逸路上的高墙宅院 · 华欣海边的木屋 · 乌隆他尼的一排骑楼店屋 · 暹罗广场附近的巴吞旺骑楼店屋。|クロントイの川辺のコミュニティ · イサーンの稲作の村 · バンナーの集合住宅 · パークパナンの漁師町 · サムットプラーカーン · スクンビットの塀に囲まれた家 · ホアヒンの海辺の木造バンガロー · ウドーンターニーのショップハウス長屋 · サイアムスクエア近くのパトゥムワンのショップハウス。|끌롱떠이 강변 마을 · 이산의 벼농사 마을 · 방나의 아파트 단지 · 빡파낭의 어촌 · 사뭇쁘라깐 · 수쿰윗의 담장 두른 집 · 후아힌 바닷가의 목조 방갈로 · 우돈타니의 상가주택 줄집 · 시암 스퀘어 근처 빠툼완의 상가주택.
 Households|ครัวเรือน|家庭|家族構成|가구
 Two parents, a parent and a grandmother, two mothers or two fathers. Stated at birth.|พ่อแม่สองคน พ่อหรือแม่กับยาย แม่สองคน หรือพ่อสองคน ระบุตั้งแต่เกิด|父母双全、单亲与祖母、两位母亲或两位父亲。出生时即说明。|両親、親と祖母、二人の母、二人の父。誕生時に示されます。|부모 두 분, 한 부모와 할머니, 두 엄마, 두 아빠. 태어날 때 표시됩니다.
 Ten points across five attributes. A game constraint, not a biological law: practice changes what you can do.|สิบแต้มสำหรับห้าคุณลักษณะ เป็นข้อจำกัดของเกม ไม่ใช่กฎทางชีววิทยา การฝึกฝนเปลี่ยนสิ่งที่คุณทำได้|五项属性共十个点数。这是游戏限制，不是生物定律：练习会改变你的能力。|5つの属性に10ポイント。生物学の法則ではなくゲームの制約です。練習でできることは変わります。|다섯 속성에 10점. 생물학 법칙이 아닌 게임의 제약입니다. 연습하면 할 수 있는 것이 달라집니다.
@@ -1165,6 +1165,9 @@ Ban Non Sawang, Khon Kaen|บ้านโนนสว่าง ขอนแก�
 Bang Na, Bangkok|บางนา กรุงเทพฯ|曼谷邦纳|バンコク・バンナー|방콕 방나
 Pak Phanang, Nakhon Si Thammarat|ปากพนัง นครศรีธรรมราช|洛坤府北帕南|ナコーンシータンマラート県パークパナン|나콘시탐마랏 빡파낭
 Sukhumvit, Bangkok|สุขุมวิท กรุงเทพฯ|曼谷素坤逸|バンコク・スクンビット|방콕 수쿰윗
+Hua Hin, Prachuap Khiri Khan|หัวหิน ประจวบคีรีขันธ์|巴蜀府华欣|プラチュワップキーリーカン県ホアヒン|쁘라쭈압키리칸 후아힌
+Udon Thani|อุดรธานี|乌隆他尼|ウドーンターニー|우돈타니
+Pathum Wan, Bangkok|ปทุมวัน กรุงเทพฯ|曼谷巴吞旺|バンコク・パトゥムワン|방콕 빠툼완
 Toa Payoh, Singapore|โตอาปาโยห์ สิงคโปร์|新加坡大巴窑|シンガポール・トアパヨ|싱가포르 토아파요
 Nerima, Tokyo|เนริมะ โตเกียว|东京练马|東京・練馬|도쿄 네리마
 Somerville, Massachusetts|ซอมเมอร์วิลล์ แมสซาชูเซตส์|马萨诸塞州萨默维尔|マサチューセッツ州サマービル|매사추세츠 서머빌
@@ -1173,6 +1176,9 @@ a household in a riverside community|ครอบครัวในชุมช�
 a rice-farming household|ครอบครัวชาวนา|种稻的农家|米作りの農家|벼농사를 짓는 가정
 a household in an apartment block|ครอบครัวในอพาร์ตเมนต์|公寓楼里的家庭|集合住宅の家庭|아파트 단지의 가정
 a fishing household|ครอบครัวชาวประมง|渔民家庭|漁師の家庭|어부 가정
+a household in a wooden bungalow by the sea|ครอบครัวในบังกะโลไม้ริมทะเล|海边木屋里的家庭|海辺の木造バンガローの家庭|바닷가 목조 방갈로의 가정
+a household in a town shophouse row|ครอบครัวในตึกแถวกลางเมือง|城里一排骑楼店屋中的家庭|町のショップハウス長屋の家庭|시내 상가주택 줄집의 가정
+a household in a Pathum Wan shophouse row|ครอบครัวในตึกแถวย่านปทุมวัน|巴吞旺一排骑楼店屋中的家庭|パトゥムワンのショップハウス長屋の家庭|빠툼완 상가주택 줄집의 가정
 a household in a large walled house|ครอบครัวในบ้านหลังใหญ่ที่มีรั้วรอบ|住在带围墙大宅里的家庭|塀に囲まれた大きな家の家庭|담장이 있는 큰 집의 가정
 Your grandmother dies. The family has to find a different rhythm.|ยายจากไป ครอบครัวต้องปรับชีวิตใหม่|祖母离世，家人需要重新找到生活的节奏。|祖母が亡くなる。家族は新しい暮らしのリズムを見つけなければならない。|할머니가 돌아가신다. 가족은 새로운 생활의 리듬을 찾아야 한다.
 Your grandmother dies. Familiar places carry different memories.|ยายจากไป สถานที่คุ้นเคยเก็บความทรงจำที่ต่างไป|祖母离世，熟悉的地方承载着不同的记忆。|祖母が亡くなる。見慣れた場所が違う記憶を帯びる。|할머니가 돌아가신다. 익숙한 곳들이 다른 기억을 품는다.
