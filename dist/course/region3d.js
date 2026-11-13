@@ -56,6 +56,10 @@ function tripleDecker(b,x,z,w,d,c,roof,r){b.box(x,z,0,w,d,S*2.9,c);for(let y=.25
 function terrace(b,x,z,w,d,c,roof,r){b.box(x,z,0,w,d,S*2,c);windows(b,x,z,0,w,d,S,r,{rows:2,cols:2,win:m(.95),side:false,glass:'#4a5a62'});b.box(x+w*.1,z+d,S-.04,w*.8,.012,.05,WHITE);door(b,x+w*.38,z+d,0,'#2f3a40');b.gable(x,z,S*2,w,d,m(1.5),roof,{along:'x',over:.05,gableColor:c});b.box(x+w-.2,z+d*.4,S*2+.2,.22,.3,.7,'#7a4434');}
 // An ubosot, not a chapel: a steep roof in stepped tiers, a green-edged skirt, gold chofa at the ridge ends.
 function wat(b,x,z,w,d,r){const H=S*1.1+.18,top=H+.28+m(3.1);b.box(x-.15,z-.15,0,w+.3,d+.3,.18,'#d8d3c5');b.box(x,z,.18,w,d,S*1.1,'#efe9da');for(let i=0;i<4;i++)b.box(x+.12+i*(w-.3)/3.2,z+d,.5,.14,.012,S*.6,'#3f4a48');b.gable(x-.3,z-.14,H-.2,w+.6,d+.28,m(1.5),'#3f7a5a',{along:'x',over:.06,gableColor:'#d9a74a'});b.gable(x-.06,z,H,w+.12,d,m(2.2),'#c8702f',{along:'x',over:.1,gableColor:'#d9a74a'});b.gable(x+w*.2,z+.03,H+.28,w*.6,d-.06,m(3.1),'#d58a3c',{along:'x',over:.04,gableColor:'#e2b450'});for(const [ex,dir] of [[x+w*.2,-1],[x+w*.8,1]])b.beam(ex,top-.03,z+d/2,ex+dir*.2,top+.3,z+d/2,.04,.04,'#d9a92e');}
+// An Isan sim: a small ordination hall, whitewashed, under one steep plain roof.
+function sim(b,x,z,w,d){b.box(x-.1,z-.1,0,w+.2,d+.2,.22,'#cfc8b6');b.box(x+.2,z+.1,.22,w-.4,d-.2,S*.9,'#efe9da');for(let i=0;i<3;i++)b.box(x+.45+i*(w-.9)/2.2,z+d-.1,.45,.12,.012,S*.5,'#3f4a48');b.gable(x+.05,z-.02,S*.9+.22,w-.1,d+.04,m(2.6),'#8a4a3a',{along:'x',over:.12,gableColor:'#efe9da'});}
+// A Chinese shrine on the river: red walls, a green tiled roof, lanterns at the door.
+function shrine(b,x,z,w,d){b.box(x-.1,z-.1,0,w+.2,d+.2,.16,'#cfc8b6');b.box(x,z,.16,w,d,S*.95,'#a5312a');b.box(x+w*.38,z+d,.16,w*.24,.012,S*.7,'#3a2a22');b.gable(x-.15,z-.12,S*.95+.16,w+.3,d+.24,m(1.3),'#3f7a5a',{along:'x',over:.1,gableColor:'#a5312a'});for(const a of [.2,.8])b.ball(x+w*a,S*.8,z+d+.12,.1,.13,.1,'#d9a92e',8);b.box(x+w*.3,z+d,S*.95+.1,w*.4,.02,.18,'#d9a92e');}
 function chedi(b,x,z){b.box(x,z,0,1,1,.16,'#e4decd');b.box(x+.12,z+.12,.16,.76,.76,.2,'#efe9da');b.cylinder(x+.5,z+.5,.36,.34,.22,.42,'#efe9da',10);b.cylinder(x+.5,z+.5,.78,.22,.0,1.3,'#dcd5c2',10,false);}
 function officeFront(b,x,z,w,d,c,r,floors,acc){b.box(x,z,0,w,d,S*floors,c);const step=S;for(let f=0;f<floors;f++){b.box(x+.12,z+d,.5+f*step,w-.24,.012,m(1.25),'#5a6e76',r()<.55?1:0);b.box(x+w,z+.12,.5+f*step,.012,d-.24,m(1.25),'#5a6e76',r()<.45?1:0);for(let a=.12+(w-.24)/4;a<w-.2;a+=(w-.24)/4)b.box(x+a,z+d+.002,.5+f*step,.03,.012,m(1.25),c);}b.box(x-.03,z+d,0,w+.06,.3,.05,acc);b.box(x-.03,z-.03,S*floors,w+.06,d+.06,.06,'#a29f94');}
 function shed(b,x,z,w,d,roof,acc,r){for(const a of [0,w-.07])for(const e of [0,d-.07])b.box(x+a,z+e,0,.07,.07,S*1.05,STEEL);b.gable(x,z,S*1.05,w,d,m(.8),roof,{over:.2,along:'x'});for(let i=0;i<3;i++){const tx=x+.2+i*(w-.4)/2.6;b.box(tx,z+.25,0,.5,d-.5,.48,'#8a7458');for(let j=0;j<3;j++)b.ball(tx+.1+j*.16,.54,z+.5+(j%2)*.2,.07,.06,.07,[acc,'#c9a14a','#6f8f5a'][j],6);}}
@@ -177,7 +181,7 @@ export function createRegionScenery({scene,registerBuilding}){
     const port=()=>{water(-2.2,-5.5,20.6,.9);open.box(-2.2,-4.6,-.016,20.4,1.5,.008,'#b9b6aa');
      open.box(1.4,-5.45,-.02,4.6,.7,.34,'#3e4e54');open.box(1.7,-5.35,.32,1.1,.5,.42,'#ece7da');
      const quay=(x,w)=>clearOfRoutes(x,-4.4,w,1.2);
-     if(year>=1978){for(const [x,c] of [[-1.9,5],[2.4,9],[10,10],[14.4,10]])if(quay(x,c*.32))containers(open,x,-4.4,c,year>=1995?3:2,r);for(const x of [5.6,13.25])unit(b=>crane(b,x,-4.5),[x,-4.5,1.2,1]);}
+     if(year>=1978){for(const [x,c] of [[-1.9,4],[3.6,5],[9.4,8]])if(quay(x,c*.32))containers(open,x,-4.4,c,year>=1995?3:2,r);for(const x of [-.4,5.5])unit(b=>crane(b,x,-4.5),[x,-4.5,1.2,1]);}
      else for(const [x,w] of [[-1.9,3.6],[2.4,4.4],[10,3.8],[14.2,3.9]])if(quay(x,w))unit(b=>shed(b,x,-4.4,w,1.2,ZINC,P.accent,r),[x,-4.4,w,1.2]);};
     water(-5.4,-5.4,2,23.8);
     for(let z=-5;z<17;z+=1.35){const w=1+r()*.5;if(clearOfRoutes(-3.5,z,w,1.15)&&r()<.92)unit(b=>shack(b,-3.5,z,w,1.15,wall(),roof(),r,m(.9)),[-3.5,z,w,1.15]);}
@@ -198,7 +202,7 @@ export function createRegionScenery({scene,registerBuilding}){
     for(const [x,z,w,d] of [[-5,3.1,3.1,3.7],[-5,9.3,3,3.6],[-1.7,12,2.5,2.4],[9.3,13,4.2,4],[14.2,-3.2,3.8,3.6],[14.2,9.2,3.9,3],[.9,14.7,3.4,3.3],[14,13.2,4,4.6]])if(r()<.85)paddy(x,z,w,d);
     const houses=[[-1.9,3.6,2,1.7],[-4.8,14,2.2,1.8],[5.4,14.8,2.3,1.8],[10.2,-4.1,2.4,1.9],[14.7,3.8,2.4,1.9],[5.9,10.8,1.8,1.6],[-2.9,-1.8,2,1.8],[1.2,-3,2.2,1.9]];
     for(const [x,z,w,d] of houses)if(r()<.8&&clearOfRoutes(x,z,w,d))unit(b=>stilt(b,x,z,w,d,wall(),roof(),r,marks),[x,z,w,d]);
-    unit(b=>wat(b,14.2,-.6,2.9,1.6,r),[14.2,-.6,2.9,1.6]);
+    unit(b=>isan?sim(b,14.2,-.6,2.9,1.6):wat(b,14.2,-.6,2.9,1.6,r),[14.2,-.6,2.9,1.6]);
     if(r()<.7)unit(b=>chedi(b,16.9,1.6),[16.9,1.6,1,1]);
     if(marks.mast)mast(open,-4.8,-3.2);if(marks.store)unit(b=>store(b,-4.8,12.9,1.9,1.3,r),[-4.8,12.9,1.9,1.3]);
     scatterTrees(14,[[-5,2.7,7,.5],[8.9,12.4,9,.6],[-1,9,3.6,2],[14,7,4,1.6],[-5.2,17,23,1.2]],[1.4,2.6]);scatterTrees(5,[[-3,12,4,2],[12,-3,2,2],[6,12,2,1.5]],[1.8,2.6],palm);},
@@ -213,7 +217,8 @@ export function createRegionScenery({scene,registerBuilding}){
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
     const shop=(b,x,z,w,d)=>{if(early||r()<.35)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
     const rw=(x0,x1,z,d)=>row(x0,x1,z,d,1.1,1.7,make(shop));
-    rw(-5.2,2.4,4.7,2.2);rw(-5.2,-2.3,-.6,2.2);rw(2.9,6.9,-.5,2.6);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);rw(14.2,18.2,4.4,2.4);
+    rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.6);
+    for(const x of [-4.6,-2.4])for(let i=0;i<4;i++)open.box(x,-3.0-i*.12,-.01-i*.03,1.2,.12,.04,'#cfc8b6');open.box(-5.2,-2.7,-.012,3.2,2.2,.008,'#b9b6aa');rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);rw(14.2,18.2,4.4,2.4);
     for(const [x,z,w,d] of [[9.3,13,4.2,4],[14.2,13.2,4,4.6]])paddy(x,z,w,d);
     if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);else unit(b=>woodShop(b,13.8,9.2,2.2,1.8,pick(P.walls),r,1),[13.8,9.2,2.2,1.8]);
     if(marks.mast)mast(open,-5,-1.2);
@@ -227,7 +232,8 @@ export function createRegionScenery({scene,registerBuilding}){
    condo(){const low=!marks.tower,mod=year>=1985;
     institutions(mod);
     const blocks=[[-5.2,3.4,3.6,3.3],[-1.2,3.4,3.3,3.2],[-5.2,-3.4,3.3,2.4],[14.3,-3.5,3.8,3],[14.3,1.2,3.8,4.9],[9.3,13,4.2,4.6],[14.3,13,3.8,4.6],[-5.2,9.2,4,4],[-1,13,3.6,4.4],[3.4,-5,4.8,3.6],[9.2,-5,4.6,3.4],[3,14.8,5,3]];
-    for(const [x,z,w,d] of blocks){if(!clearOfRoutes(x,z,w,d))continue;const q=r();const tall=marks.tower&&q<(marks.highrise?.6:.3)&&x<3&&z<0&&(plan.regionId!=='bang-na'||year>=2005);if(tall)unit(b=>tower(b,x+.3,z+.3,Math.min(w,2.8)-.4,d-.6,wall(),r,14+Math.floor(r()*(marks.highrise?26:12)),P.accent),[x,z,w,d]);else if(low||q<.75)unit(b=>slab(b,x+.1,z+.1,w-.2,d-.2,wall(),r,cap(x,z,plan.regionId==='bang-na'&&year<2000?2+Math.floor(r()*3):(year<1985?3:4)+Math.floor(r()*(year<1985?2:5))),P.accent),[x,z,w,d]);else unit(b=>{for(let a=0;a<w-1.1;a+=1.3)concreteShop(b,x+a,z+d-1.9,1.3,1.9,wall(),r,3,P.accent,marks);},[x,z,w,d]);}
+    for(const [x,z,w,d] of blocks){if(!clearOfRoutes(x,z,w,d))continue;const q=r();const tall=marks.tower&&q<(marks.highrise?.6:.3)&&x<3&&z<0&&(plan.regionId!=='bang-na'||year>=2005);if(tall)unit(b=>tower(b,x+.3,z+.3,Math.min(w,2.8)-.4,d-.6,wall(),r,14+Math.floor(r()*(marks.highrise?26:12)),P.accent),[x,z,w,d]);// Bang Na before 2005: housing-estate townhouse rows, not slabs.
+    else if((low||q<.75)&&!(plan.regionId==='bang-na'&&year<2005))unit(b=>slab(b,x+.1,z+.1,w-.2,d-.2,wall(),r,cap(x,z,plan.regionId==='bang-na'&&year<2000?2+Math.floor(r()*3):(year<1985?3:4)+Math.floor(r()*(year<1985?2:5))),P.accent),[x,z,w,d]);else unit(b=>{for(let a=0;a<w-1.1;a+=1.3)concreteShop(b,x+a,z+d-1.9,1.3,1.9,wall(),r,3,P.accent,marks);},[x,z,w,d]);}
     if(marks.store)unit(b=>store(b,13.6,9.2,2.6,1.6,r),[13.6,9.2,2.6,1.6]);
     if(marks.viaduct)viaduct(open,-5.5,18.5,-1.9);
     if(marks.mast)mast(open,-5,-1.1);
@@ -277,6 +283,8 @@ export function createRegionScenery({scene,registerBuilding}){
    // What every Thai neighbourhood has: a wat or a mosque, flags at the gate, bananas in every gap.
    const flag=(b,x,z,h=S*2.1)=>{b.box(x,z,0,.04,.04,h,'#d9d4c6');[['#a51931',0],['#f4f5f8',1],['#2d2a4a',2],['#f4f5f8',4],['#a51931',5]].forEach(([c,i])=>b.box(x+.04,z,h-.06*(i+1),.42,.01,i===2?.12:.06,c));};
    if(plan.faith==='muslim')unit(b=>{b.box(14.5,-.7,0,2.4,1.5,S*1.1,'#eae3cf');b.ball(15.7,S*1.1+.32,.05,.62,.55,.62,'#3f7a62',12);b.cylinder(17.2,-.5,0,.13,.08,S*2.4,'#eae3cf',8);b.ball(17.2,S*2.45,-.5,.15,.2,.15,'#3f7a62',8);for(let i=0;i<4;i++)b.box(14.75+i*.55,.8,.3,.32,.012,S*.6,'#3e4e54',1);b.box(15,.803,S*.8,1.4,.012,.12,'#c9a14a');},[14.5,-.7,3,1.5]);
+   else if(layout==='river')unit(b=>shrine(b,14.5,-.6,2.4,1.4),[14.5,-.6,2.4,1.4]);
+   else if(plan.regionId==='udon-thani')unit(b=>sim(b,14.3,-.7,2.9,1.6),[14.3,-.7,2.9,1.6]);
    else if(layout!=='village'){unit(b=>wat(b,14.3,-.7,2.9,1.6,r),[14.3,-.7,2.9,1.6]);unit(b=>chedi(b,17.15,-.1),[17.15,-.1,.8,.8]);}
    if(plan.faith!=='muslim'){open.box(14.95,1.05,0,.34,.28,.2,'#e4decd');open.ball(15.12,.34,1.19,.13,.15,.11,'#d9a92e',8);open.ball(15.12,.54,1.19,.07,.08,.07,'#d9a92e',8);open.cylinder(15.12,1.19,.61,.03,.0,.09,'#d9a92e',6,false);}
    flag(open,14.1,1.1);flag(open,8.95,1.25);flag(open,2.2,6.75,S*1.4);
