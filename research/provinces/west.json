@@ -1,0 +1,87 @@
+[
+  {
+    "id": "kanchanaburi", "nameEn": "Kanchanaburi", "nameTh": "กาญจนบุรี", "region": "west",
+    "town": { "name": "Mueang Kanchanaburi (Kanchanaburi town, where the Khwae Noi and Khwae Yai meet)", "kind": "market-town", "source": "https://en.wikipedia.org/wiki/Kanchanaburi" },
+    "terrain": ["mountain", "river", "plain"],
+    "archetype": "west-border",
+    "households": [
+      { "class": "low_class", "home": "farm house on a sugarcane and cassava plot", "livelihood": "grows sugarcane (about 4.39 million tonnes province-wide), cassava and rice, the province's largest sector at about 25% of output", "source": "https://en.wikipedia.org/wiki/Kanchanaburi_province" },
+      { "class": "working_class", "home": "rented row house near a sugar mill", "livelihood": "works in manufacturing, the second-largest sector at 24.4%, which includes the Mitr Kasetr sugar mill", "source": "https://en.wikipedia.org/wiki/Kanchanaburi_province" },
+      { "class": "low_class", "home": "wooden house in a mining district", "livelihood": "sapphire mining near Bo Phloi", "source": "https://en.wikipedia.org/wiki/Kanchanaburi_province" }
+    ],
+    "faith": { "buddhist": 0.9852, "muslim": 0.0035, "christian": 0.0097, "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand" },
+    "landmarks": [
+      { "name": "Erawan Falls", "kind": "waterfall", "from": null, "source": "https://en.wikipedia.org/wiki/Erawan_National_Park", "note": "Seven pools stepping down a forested hill, the water leaving through three spouts shaped like the heads of the white elephant Erawan." },
+      { "name": "Confluence of the Khwae Noi and Khwae Yai into the Mae Klong", "kind": "river", "from": null, "source": "https://en.wikipedia.org/wiki/Kanchanaburi", "note": "Two rivers meeting at the edge of a mountain range beside the town." },
+      { "name": "Mueang Sing Historical Park (Prasat Muang Sing)", "kind": "prang-khmer", "from": null, "source": "https://en.wikipedia.org/wiki/Kanchanaburi_province", "note": "A Khmer-era temple site of laterite and stone, no build year given in source." }
+    ]
+  },
+  {
+    "id": "phetchaburi", "nameEn": "Phetchaburi", "nameTh": "เพชรบุรี", "region": "west",
+    "town": { "name": "Mueang Phetchaburi (Phetchaburi town)", "kind": "market-town", "source": "https://en.wikipedia.org/wiki/Phetchaburi" },
+    "terrain": ["mountain", "plain", "coast"],
+    "archetype": "west-gulf-coast",
+    "note": "New archetype: a Gulf-of-Thailand province of palm-sugar groves, salt pans and a coast resort, with mountains behind. Also used for Prachuap Khiri Khan.",
+    "households": [
+      { "class": "low_class", "home": "house among sugar palm trees", "livelihood": "palm sugar, Ban Lat district specialises in it; the province has more sugar palms than any other", "source": "https://en.wikipedia.org/wiki/Phetchaburi_province" },
+      { "class": "working_class", "home": "house beside salt pans on the coast", "livelihood": "salt farming, 137 families worked 9,880 rai in 2011 (Ban Laem is known for salt and seafood)", "source": "https://en.wikipedia.org/wiki/Phetchaburi_province" },
+      { "class": "middle_class", "home": "shophouse near the Cha-am beach strip", "livelihood": "beach tourism at Cha-am", "source": "https://en.wikipedia.org/wiki/Phetchaburi_province" }
+    ],
+    "faith": { "buddhist": 0.9741, "muslim": 0.022, "christian": 0.003, "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand" },
+    "landmarks": [
+      { "name": "Wat Ko Kaeo Suttharam", "kind": "wat-central", "from": null, "source": "https://en.wikipedia.org/wiki/Phetchaburi_province", "note": "Central-Thai temple with interior murals dated to about 1734-35." },
+      { "name": "Tanaosi Range and Kaeng Krachan forest", "kind": "mountain", "from": null, "source": "https://en.wikipedia.org/wiki/Phetchaburi_province", "note": "Forested ridge on the Myanmar border, in Thailand's largest national park, covering nearly half the province." },
+      { "name": "Cha-am beach", "kind": "sea", "from": null, "source": "https://en.wikipedia.org/wiki/Phetchaburi_province", "note": "Gulf shore beach resort, being eroded by the sea." }
+    ]
+  },
+  {
+    "id": "prachuap-khiri-khan", "nameEn": "Prachuap Khiri Khan", "nameTh": "ประจวบคีรีขันธ์", "region": "west",
+    "town": { "name": "Bang Saphan (Ban Krut area, Gulf coast; a different town from Hua Hin)", "kind": "coast", "source": "https://en.wikipedia.org/wiki/Bang_Saphan_district" },
+    "terrain": ["coast", "mountain", "plain"],
+    "archetype": "west-gulf-coast",
+    "households": [
+      { "class": "low_class", "home": "wooden house in a coconut grove", "livelihood": "coconut farming, about 40% of the province's farmers grow only coconuts", "source": "https://en.wikipedia.org/wiki/Prachuap_Khiri_Khan_province" },
+      { "class": "working_class", "home": "village house in Ban Huai Kriab", "livelihood": "black-and-white rattan basketry, a weaving group of 38 members running nine shops", "source": "https://en.wikipedia.org/wiki/Bang_Saphan_district" },
+      { "class": "low_class", "home": "hut by a stream in Ban Pa Ron", "livelihood": "gold panning in Klong Thong stream, which locals still do", "source": "https://en.wikipedia.org/wiki/Bang_Saphan_district" }
+    ],
+    "faith": null,
+    "landmarks": [
+      { "name": "Ban Krut beach", "kind": "sea", "from": null, "source": "https://en.wikipedia.org/wiki/Bang_Saphan_district", "note": "Long Gulf of Thailand beach with a few bungalow resorts." },
+      { "name": "Tenasserim Hills", "kind": "mountain", "from": null, "source": "https://en.wikipedia.org/wiki/Bang_Saphan_district", "note": "A wall of hills along the western horizon on the Myanmar border." },
+      { "name": "Khao Sam Roi Yot", "kind": "mountain", "from": null, "source": "https://en.wikipedia.org/wiki/Khao_Sam_Roi_Yot_National_Park", "note": "Limestone peaks rising from the shore, up to 605 m, beside Thailand's largest freshwater marsh." }
+    ]
+  },
+  {
+    "id": "ratchaburi", "nameEn": "Ratchaburi", "nameTh": "ราชบุรี", "region": "west",
+    "town": { "name": "Damnoen Saduak", "kind": "market-town", "source": "https://en.wikipedia.org/wiki/Damnoen_Saduak_Floating_Market" },
+    "terrain": ["river", "plain", "mountain"],
+    "archetype": "central-river",
+    "households": [
+      { "class": "low_class", "home": "wooden house on a canal bank", "livelihood": "sells fruit and vegetables from a small wooden sampan on the canals (the vendors wear blue mo hom shirts and straw hats)", "source": "https://en.wikipedia.org/wiki/Damnoen_Saduak_Floating_Market" },
+      { "class": "middle_class", "home": "shophouse near the market", "livelihood": "sells food and souvenirs to day-trip visitors, busiest 7 to 9 in the morning", "source": "https://en.wikipedia.org/wiki/Damnoen_Saduak_Floating_Market" }
+    ],
+    "faith": { "buddhist": 0.9814, "muslim": 0.0035, "christian": 0.0127, "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand" },
+    "landmarks": [
+      { "name": "Damnoen Saduak Floating Market", "kind": "market", "from": 1981, "source": "https://en.wikipedia.org/wiki/Damnoen_Saduak_Floating_Market", "note": "A maze of narrow canals crowded with sampans of produce, later covered by a roof; the modern market began in 1981." },
+      { "name": "Khao Bin cave", "kind": "mountain", "from": null, "source": "https://en.wikipedia.org/wiki/Ratchaburi_province", "note": "Limestone cave where large bat colonies swarm out in the evening." },
+      { "name": "Kaeng Som Maew", "kind": "river", "from": null, "source": "https://en.wikipedia.org/wiki/Ratchaburi_province", "note": "A large stone islet in the Phachi River." }
+    ]
+  },
+  {
+    "id": "tak", "nameEn": "Tak", "nameTh": "ตาก", "region": "west",
+    "town": { "name": "Mae Sot", "kind": "city", "source": "https://en.wikipedia.org/wiki/Mae_Sot" },
+    "terrain": ["mountain", "river", "plain"],
+    "archetype": "west-border",
+    "households": [
+      { "class": "low_class", "home": "bamboo and timber house in a Karen hill village", "livelihood": "hill-tribe farming; Karen are the largest hill tribe in Tak, and about a quarter of the province's people belong to hill tribes", "source": "https://en.wikipedia.org/wiki/Tak_province" },
+      { "class": "low_class", "home": "rented room near a garment factory", "livelihood": "migrant family from Myanmar working in factories and garment workshops; the town's local industries rely heavily on Burmese workers", "source": "https://en.wikipedia.org/wiki/Mae_Sot_District" },
+      { "class": "middle_class", "home": "shophouse in town", "livelihood": "cross-border trade with Myanmar, mainly wholesale gems and teak, plus textiles and jade", "source": "https://en.wikipedia.org/wiki/Mae_Sot" }
+    ],
+    "faith": null,
+    "landmarks": [
+      { "name": "Thai-Myanmar Friendship Bridge", "kind": "bridge", "from": 1997, "source": "https://en.wikipedia.org/wiki/Mae_Sot", "note": "Road bridge over the Moei River to Myawaddy, opened in 1997." },
+      { "name": "Moei River", "kind": "river", "from": null, "source": "https://en.wikipedia.org/wiki/Tak_province", "note": "The border river that the Friendship Bridge crosses." },
+      { "name": "Thi Lo Su Waterfall", "kind": "waterfall", "from": null, "source": "https://en.wikipedia.org/wiki/Tak_province", "note": "Large waterfall in the south of the province, a seasonal ecotourism spot." }
+    ]
+  }
+]

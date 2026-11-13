@@ -1,0 +1,864 @@
+[
+ {
+  "id": "chumphon",
+  "nameEn": "Chumphon",
+  "nameTh": "ชุมพร",
+  "region": "south",
+  "town": {
+   "name": "Chumphon (Mueang Chumphon)",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Chumphon"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "plain"
+  ],
+  "archetype": "south-coast",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "timber house beside a coffee and durian plot on the eastern plain",
+    "livelihood": "Robusta coffee and durian smallholders",
+    "source": "https://en.wikipedia.org/wiki/Chumphon_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "house with banana rows behind it",
+    "livelihood": "banana growers (lady finger and Cavendish)",
+    "source": "https://en.wikipedia.org/wiki/Chumphon_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.989,
+   "muslim": 0.007,
+   "source": "https://en.wikipedia.org/wiki/Nationality,_religion,_and_language_data_for_the_provinces_of_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Hat Sai Ri",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chumphon_province",
+    "note": "a long pale beach on the Gulf of Thailand"
+   },
+   {
+    "name": "Mu Ko Chumphon islands",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chumphon_province",
+    "note": "low green islands offshore in the Gulf"
+   },
+   {
+    "name": "Lang Suan River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chumphon_province",
+    "note": "the main river running through the plain to the Gulf"
+   }
+  ]
+ },
+ {
+  "id": "krabi",
+  "nameEn": "Krabi",
+  "nameTh": "กระบี่",
+  "region": "south",
+  "town": {
+   "name": "Krabi town (Mueang Krabi)",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Krabi_province"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "island"
+  ],
+  "archetype": "south-rubber",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "small house at the edge of a rubber plantation",
+    "livelihood": "rubber tappers",
+    "source": "https://en.wikipedia.org/wiki/Krabi_province"
+   },
+   {
+    "class": "working_class",
+    "home": "house among oil palms",
+    "livelihood": "palm oil smallholders",
+    "source": "https://en.wikipedia.org/wiki/Krabi_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "shophouse or guesthouse near the coast",
+    "livelihood": "tourism and boat services",
+    "source": "https://en.wikipedia.org/wiki/Krabi_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.65,
+   "muslim": 0.346,
+   "christian": 0.0014,
+   "source": "https://en.wikipedia.org/wiki/Krabi_province"
+  },
+  "landmarks": [
+   {
+    "name": "Limestone karsts of Krabi",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Krabi_province",
+    "note": "steep grey limestone towers rising from flat land and sea, many holding caves"
+   },
+   {
+    "name": "Khao Phanom Bencha",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Krabi_province",
+    "note": "the forested high ridge inland, 1,397 m"
+   },
+   {
+    "name": "Andaman coast and islands",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Krabi_province",
+    "note": "turquoise sea dotted with rocky islands, 154 in the province"
+   }
+  ]
+ },
+ {
+  "id": "nakhon-si-thammarat",
+  "nameEn": "Nakhon Si Thammarat",
+  "nameTh": "นครศรีธรรมราช",
+  "region": "south",
+  "town": {
+   "name": "Tha Sala",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Tha_Sala_District"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "plain"
+  ],
+  "archetype": "south-coast",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "shophouse in the old city near the temple",
+    "livelihood": "trade serving pilgrims and tourists at religious sites",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Si_Thammarat_province"
+   },
+   {
+    "class": "bureaucratic_class",
+    "home": "official housing in the provincial capital",
+    "livelihood": "provincial government service",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Si_Thammarat"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9208,
+   "muslim": 0.0703,
+   "source": "https://en.wikipedia.org/wiki/Nakhon_Si_Thammarat_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Phra Mahathat Woramahawihan",
+    "kind": "chedi-south",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_Mahathat_Woramahawihan",
+    "note": "a bell-shaped chedi about 78 m tall with a gold-leaf spire, ringed by small stupas and stucco elephants"
+   },
+   {
+    "name": "Khao Luang",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Si_Thammarat_province",
+    "note": "the 1,835 m forested peak, highest in the south"
+   },
+   {
+    "name": "Old city wall and north gate",
+    "kind": "monument-nonroyal",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Si_Thammarat",
+    "note": "a short stretch of brick wall and one gate, restored in the 1680s"
+   }
+  ]
+ },
+ {
+  "id": "narathiwat",
+  "nameEn": "Narathiwat",
+  "nameTh": "นราธิวาส",
+  "region": "south",
+  "town": {
+   "name": "Narathiwat town",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Narathiwat_province"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "river"
+  ],
+  "archetype": "deep-south-malay-muslim",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "wooden house near the Bang Nara estuary",
+    "livelihood": "Muslim fishing family",
+    "source": "https://en.wikipedia.org/wiki/Narathiwat_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village house with a small plot",
+    "livelihood": "smallholder farming",
+    "source": "https://en.wikipedia.org/wiki/Narathiwat_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.179,
+   "muslim": 0.82,
+   "source": "https://en.wikipedia.org/wiki/Narathiwat_province"
+  },
+  "landmarks": [
+   {
+    "name": "Narathiwat Central Mosque",
+    "kind": "mosque",
+    "from": 1981,
+    "source": "https://en.wikipedia.org/wiki/Narathiwat_province",
+    "note": "a three-storey Arabian-style place of worship with a high tower and domed roof"
+   },
+   {
+    "name": "Narathat Beach",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Narathiwat_province",
+    "note": "the town beach by the Bang Nara river mouth"
+   },
+   {
+    "name": "Pacho Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Narathiwat_province",
+    "note": "a forest waterfall in Budo-Su-ngai Padi National Park"
+   }
+  ]
+ },
+ {
+  "id": "pattani",
+  "nameEn": "Pattani",
+  "nameTh": "ปัตตานี",
+  "region": "south",
+  "town": {
+   "name": "Pattani town",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Pattani_province"
+  },
+  "terrain": [
+   "coast",
+   "plain"
+  ],
+  "archetype": "deep-south-malay-muslim",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "house near the fishing harbour",
+    "livelihood": "Muslim fishing family (over 80,000 fisheries workers in the province)",
+    "source": "https://en.wikipedia.org/wiki/Pattani_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.1241,
+   "muslim": 0.8757,
+   "source": "https://en.wikipedia.org/wiki/Pattani_province"
+  },
+  "landmarks": [
+   {
+    "name": "Pattani Central Mosque",
+    "kind": "mosque",
+    "from": 1963,
+    "source": "https://thaiholidayguide.com/attraction/pattani-central-mosque",
+    "note": "a place of worship with one big green central dome, four smaller domes, twin minarets and a reflecting pool"
+   },
+   {
+    "name": "Wat Chang Hai",
+    "kind": "chedi-south",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Pattani_province",
+    "note": "an ancient Buddhist temple more than 300 years old"
+   },
+   {
+    "name": "Gulf of Thailand coast",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Pattani_province",
+    "note": "a flat shoreline with small fishing boats"
+   }
+  ]
+ },
+ {
+  "id": "phang-nga",
+  "nameEn": "Phang Nga",
+  "nameTh": "พังงา",
+  "region": "south",
+  "town": {
+   "name": "Takua Pa",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Takua_Pa_District"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "island"
+  ],
+  "archetype": "south-coast",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "house on land once dredged for tin",
+    "livelihood": "rubber plantation work (rubber now covers the old dredged areas)",
+    "source": "https://en.wikipedia.org/wiki/Takua_Pa_District"
+   },
+   {
+    "class": "low_class",
+    "home": "island village house on Ko Yao",
+    "livelihood": "Ko Yao island community, about 90 percent Muslim (livelihood not sourced)",
+    "source": "https://en.wikipedia.org/wiki/Ko_Yao_district"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.763,
+   "muslim": 0.232,
+   "source": "https://en.wikipedia.org/wiki/Nationality,_religion,_and_language_data_for_the_provinces_of_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Phang Nga Bay limestone islands",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phang_Nga_province",
+    "note": "limestone formations with caves and mangroves rising out of calm green water"
+   },
+   {
+    "name": "Ko Yao islands",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ko_Yao_district",
+    "note": "two long low islands in the bay"
+   },
+   {
+    "name": "Si Phang Nga mountains",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phang_Nga_province",
+    "note": "rugged hills under dipterocarp forest"
+   }
+  ]
+ },
+ {
+  "id": "phatthalung",
+  "nameEn": "Phatthalung",
+  "nameTh": "พัทลุง",
+  "region": "south",
+  "town": {
+   "name": "Khuan Khanun",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Khuan_Khanun_District"
+  },
+  "terrain": [
+   "lake",
+   "mountain",
+   "plain"
+  ],
+  "archetype": "south-rubber",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "house in a rubber village near the wetlands",
+    "livelihood": "rubber farmers selling latex through the local cooperative",
+    "source": "https://en.wikipedia.org/wiki/Khuan_Khanun_District"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.88,
+   "muslim": 0.117,
+   "source": "https://en.wikipedia.org/wiki/Phatthalung_province"
+  },
+  "landmarks": [
+   {
+    "name": "Khao Ok Thalu",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phatthalung_province",
+    "note": "a 177 m hill with a hill temple and a holy cave, the province symbol"
+   },
+   {
+    "name": "Thale Noi",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Khuan_Khanun_District",
+    "note": "a shallow lake ringed by swamp, home to water birds"
+   },
+   {
+    "name": "Songkhla Lake",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phatthalung_province",
+    "note": "a broad shallow lake on the eastern edge of the province"
+   }
+  ]
+ },
+ {
+  "id": "phuket",
+  "nameEn": "Phuket",
+  "nameTh": "ภูเก็ต",
+  "region": "south",
+  "town": {
+   "name": "Phuket Town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Phuket_City"
+  },
+  "terrain": [
+   "island",
+   "coast"
+  ],
+  "archetype": "south-island",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "narrow two-storey Sino-Portuguese shophouse in the Old Town",
+    "livelihood": "Sino-Thai (Hokkien, Peranakan) shop trade, descendants of 19th-century tin miners",
+    "source": "https://en.wikipedia.org/wiki/Phuket_province"
+   },
+   {
+    "class": "working_class",
+    "home": "house beside a rubber plantation",
+    "livelihood": "rubber plantation work",
+    "source": "https://en.wikipedia.org/wiki/Phuket_province"
+   },
+   {
+    "class": "low_class",
+    "home": "rented room in a tourist area",
+    "livelihood": "tourism work (about 80 percent of provincial GDP in a 2017 figure)",
+    "source": "https://en.wikipedia.org/wiki/Phuket_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.686,
+   "muslim": 0.266,
+   "christian": 0.0098,
+   "source": "https://en.wikipedia.org/wiki/Phuket_province"
+  },
+  "landmarks": [
+   {
+    "name": "Phuket Old Town",
+    "kind": "market",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phuket_City",
+    "note": "rows of one- and two-storey Sino-Portuguese shophouses with narrow fronts, pastel walls and arched windows"
+   },
+   {
+    "name": "Wat Chalong",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phuket_province",
+    "note": ""
+   },
+   {
+    "name": "Phuket Big Buddha",
+    "kind": "monument-nonroyal",
+    "from": 2014,
+    "source": "https://en.wikipedia.org/wiki/Phuket_Big_Buddha",
+    "note": "a seated white-marble Buddha 45 m tall on a hilltop above Chalong Bay"
+   },
+   {
+    "name": "Laem Phromthep",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phuket_province",
+    "note": "the rocky southern cape used as a sunset viewpoint"
+   }
+  ]
+ },
+ {
+  "id": "ranong",
+  "nameEn": "Ranong",
+  "nameTh": "ระนอง",
+  "region": "south",
+  "town": {
+   "name": "Ranong town",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Ranong"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "river"
+  ],
+  "archetype": "south-coast",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "house near the estuary and port",
+    "livelihood": "fishing and port work",
+    "source": "https://en.wikipedia.org/wiki/Ranong_province"
+   },
+   {
+    "class": "low_class",
+    "home": "house in the wet hills",
+    "livelihood": "rubber and cashew nut farming",
+    "source": "https://en.wikipedia.org/wiki/Ranong_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.885,
+   "muslim": 0.109,
+   "source": "https://en.wikipedia.org/wiki/Nationality,_religion,_and_language_data_for_the_provinces_of_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Pak Chan estuary",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ranong",
+    "note": "a wide river mouth facing Kawthaung across the water, with ferries"
+   },
+   {
+    "name": "Ngao Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ranong_province",
+    "note": "a forest waterfall in one of Thailand's wettest provinces"
+   },
+   {
+    "name": "Tenasserim Hills",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ranong",
+    "note": "green hills rising close behind the town"
+   }
+  ]
+ },
+ {
+  "id": "satun",
+  "nameEn": "Satun",
+  "nameTh": "สตูล",
+  "region": "south",
+  "town": {
+   "name": "Satun town",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Satun_province"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "island"
+  ],
+  "archetype": "deep-south-malay-muslim",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "coastal village house",
+    "livelihood": "Muslim fishing family",
+    "source": "https://en.wikipedia.org/wiki/Satun_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "shop near the pier",
+    "livelihood": "tourism and ferry trade to Langkawi",
+    "source": "https://en.wikipedia.org/wiki/Satun_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.2302,
+   "muslim": 0.7677,
+   "source": "https://en.wikipedia.org/wiki/Satun_province"
+  },
+  "landmarks": [
+   {
+    "name": "Satun Central Mosque (Masjid Mambang)",
+    "kind": "mosque",
+    "from": 1979,
+    "source": "https://thai-tour.com/eng/satun/satun-central-mosque",
+    "note": "a place of worship in modern Islamic style with marble, coloured glass and a dome tower"
+   },
+   {
+    "name": "Tarutao islands",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Satun_province",
+    "note": "forested marine national park islands off the coast"
+   },
+   {
+    "name": "Thale Ban",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Satun_province",
+    "note": "a large freshwater swamp in forest near the Malaysian border"
+   }
+  ]
+ },
+ {
+  "id": "songkhla",
+  "nameEn": "Songkhla",
+  "nameTh": "สงขลา",
+  "region": "south",
+  "town": {
+   "name": "Songkhla old town (Mueang Songkhla)",
+   "kind": "city",
+   "source": "https://www.thaiholidayguide.com/attraction/songkla-old-town/"
+  },
+  "terrain": [
+   "coast",
+   "lake",
+   "plain"
+  ],
+  "archetype": "south-coast",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "Sino-Portuguese shophouse on Nang Ngam road",
+    "livelihood": "Sino-Thai shop trade in the old commercial district",
+    "source": "https://www.thaiholidayguide.com/attraction/songkla-old-town/"
+   },
+   {
+    "class": "working_class",
+    "home": "house near Samila beach",
+    "livelihood": "Gulf fishing around Ko Nu and Ko Maew",
+    "source": "https://en.wikipedia.org/wiki/Songkhla_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.6371,
+   "muslim": 0.3316,
+   "source": "https://en.wikipedia.org/wiki/Songkhla_province"
+  },
+  "landmarks": [
+   {
+    "name": "Golden Mermaid, Samila Beach",
+    "kind": "monument-nonroyal",
+    "from": 1966,
+    "source": "https://www.thaiholidayguide.com/attraction/laem-samila/",
+    "note": "a bronze mermaid seated on rocks combing her hair with a golden comb"
+   },
+   {
+    "name": "Songkhla Old Town shophouses",
+    "kind": "market",
+    "from": null,
+    "source": "https://www.thaiholidayguide.com/attraction/songkla-old-town/",
+    "note": "Sino-Portuguese shophouse rows with ornate window frames and plasterwork, a red former rice mill, wall murals"
+   },
+   {
+    "name": "Tinsulanonda Bridge",
+    "kind": "bridge",
+    "from": 1986,
+    "source": "https://en.wikipedia.org/wiki/Songkhla_province",
+    "note": "a 2.6 km concrete bridge to Ko Yo, longest in Thailand"
+   },
+   {
+    "name": "Khao Tang Kuan",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Songkhla_province",
+    "note": "a hill above the town by the sea"
+   }
+  ]
+ },
+ {
+  "id": "surat-thani",
+  "nameEn": "Surat Thani",
+  "nameTh": "สุราษฎร์ธานี",
+  "region": "south",
+  "town": {
+   "name": "Chaiya",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Chaiya_district"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "river",
+   "island"
+  ],
+  "archetype": "south-rubber",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "stilt house at an estuary farm",
+    "livelihood": "oyster farming",
+    "source": "https://en.wikipedia.org/wiki/Surat_Thani_province"
+   },
+   {
+    "class": "low_class",
+    "home": "house among coconut, rubber and oil palm",
+    "livelihood": "coconut, rubber and oil palm smallholders",
+    "source": "https://en.wikipedia.org/wiki/Surat_Thani_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "house with a loom",
+    "livelihood": "hand-woven silk in Phum Riang",
+    "source": "https://en.wikipedia.org/wiki/Surat_Thani_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.973,
+   "muslim": 0.02,
+   "christian": 0.002,
+   "source": "https://en.wikipedia.org/wiki/Nationality,_religion,_and_language_data_for_the_provinces_of_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Phra Borommathat Chaiya",
+    "kind": "chedi-south",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Surat_Thani_province",
+    "note": "a Srivijaya-style stupa believed to be about 1,200 years old"
+   },
+   {
+    "name": "Khao Sok limestone mountains",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Surat_Thani_province",
+    "note": "limestone peaks and forest in the west of the province"
+   },
+   {
+    "name": "Tapi River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Surat_Thani_province",
+    "note": "the main river crossing a plain of plantations"
+   }
+  ]
+ },
+ {
+  "id": "trang",
+  "nameEn": "Trang",
+  "nameTh": "ตรัง",
+  "region": "south",
+  "town": {
+   "name": "Kantang",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Kantang_District"
+  },
+  "terrain": [
+   "coast",
+   "river",
+   "mountain"
+  ],
+  "archetype": "south-rubber",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "house in a rubber village",
+    "livelihood": "rubber growers (rubber was first planted in Thailand in Trang, 1899)",
+    "source": "https://en.wikipedia.org/wiki/Trang_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "shophouse coffee shop in Trang",
+    "livelihood": "Sino-Thai kopi tiam, dim sum and roast pork trade",
+    "source": "https://en.wikipedia.org/wiki/Trang_province"
+   },
+   {
+    "class": "low_class",
+    "home": "house by the Kantang river mouth",
+    "livelihood": "fishing crew and fishing-port work",
+    "source": "https://en.wikipedia.org/wiki/Kantang_District"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.8,
+   "muslim": 0.185,
+   "christian": 0.015,
+   "source": "https://en.wikipedia.org/wiki/Trang_province"
+  },
+  "landmarks": [
+   {
+    "name": "Trang River mouth at Kantang",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Kantang_District",
+    "note": "a river mouth with fishing boats, at the last stop of the Andaman rail line"
+   },
+   {
+    "name": "Pak Meng Beach",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Trang_province",
+    "note": "the province's best-known beach"
+   },
+   {
+    "name": "Ko Libong",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Trang_province",
+    "note": "a large low island offshore in the Strait of Malacca"
+   }
+  ]
+ },
+ {
+  "id": "yala",
+  "nameEn": "Yala",
+  "nameTh": "ยะลา",
+  "region": "south",
+  "town": {
+   "name": "Yala city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Yala,_Thailand"
+  },
+  "terrain": [
+   "mountain",
+   "plain",
+   "lake"
+  ],
+  "archetype": "deep-south-malay-muslim",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "shophouse on the radial streets",
+    "livelihood": "trade and business",
+    "source": "https://en.wikipedia.org/wiki/Yala,_Thailand"
+   },
+   {
+    "class": "bureaucratic_class",
+    "home": "official housing near the district offices",
+    "livelihood": "government services",
+    "source": "https://en.wikipedia.org/wiki/Yala,_Thailand"
+   },
+   {
+    "class": "working_class",
+    "home": "house near the rubber factory",
+    "livelihood": "agriculture and light industry (rubber factory, ice plant)",
+    "source": "https://en.wikipedia.org/wiki/Yala,_Thailand"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.1845,
+   "muslim": 0.8146,
+   "christian": 0.0008,
+   "source": "https://en.wikipedia.org/wiki/Yala_province"
+  },
+  "landmarks": [
+   {
+    "name": "Bueng Nam Sai",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Yala_province",
+    "note": "a natural lake in Raman district"
+   },
+   {
+    "name": "Sankalakhiri Range at Ulu Titi Basah",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Yala_province",
+    "note": "forested border mountains, 1,533 m"
+   },
+   {
+    "name": "Tham Phab Khien Fa Panang rock paintings",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Yala,_Thailand",
+    "note": "caves east of the city with 500-year-old rock paintings"
+   }
+  ]
+ }
+]

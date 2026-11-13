@@ -1,0 +1,447 @@
+[
+ {
+  "id": "chachoengsao",
+  "nameEn": "Chachoengsao",
+  "nameTh": "ฉะเชิงเทรา",
+  "region": "east",
+  "town": {
+   "name": "Mueang Chachoengsao (Chachoengsao town, on the Bang Pakong River)",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Chachoengsao_province"
+  },
+  "terrain": [
+   "plain",
+   "river",
+   "mountain"
+  ],
+  "archetype": "east-industrial",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farmhouse on the western river plain",
+    "livelihood": "rice farming on the low Bang Pakong plain",
+    "source": "https://en.wikipedia.org/wiki/Chachoengsao_province"
+   },
+   {
+    "class": "working_class",
+    "home": "rented house in Phanom Sarakham district",
+    "livelihood": "works in an electronic-waste recycling factory; 28 new recycling plants opened after the 2018 import ban, mostly in Ko Khanun subdistrict",
+    "source": "https://en.wikipedia.org/wiki/Chachoengsao_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.927,
+   "muslim": 0.0648,
+   "christian": 0.0067,
+   "source": "https://en.wikipedia.org/wiki/Chachoengsao_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Sothonwararam",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Sothonwararam",
+    "note": "Riverside temple on the Bang Pakong, first named Wat Hong in the late Ayutthaya period; its main hall is on the provincial seal and shelters the Buddha image Luang Pho Sothon."
+   },
+   {
+    "name": "Bang Pakong River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Sothonwararam",
+    "note": "The river running past the town and the rice plain."
+   },
+   {
+    "name": "Khao Ang Rue Nai Wildlife Sanctuary",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chachoengsao_province",
+    "note": "Large forested hill sanctuary of about 1,078 sq km in Tha Takiap district."
+   }
+  ]
+ },
+ {
+  "id": "chanthaburi",
+  "nameEn": "Chanthaburi",
+  "nameTh": "จันทบุรี",
+  "region": "east",
+  "town": {
+   "name": "Chanthaburi town (on the Chanthaburi River)",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Chanthaburi"
+  },
+  "terrain": [
+   "coast",
+   "mountain",
+   "river",
+   "plain"
+  ],
+  "archetype": "east-orchard",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "house beside a durian orchard",
+    "livelihood": "durian growing; in 2000 the province produced about 380,000 tonnes, around 45.6% of Thailand's durian",
+    "source": "https://en.wikipedia.org/wiki/Chanthaburi_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "shophouse in the old town",
+    "livelihood": "gem trade; Chanthaburi and neighbouring Trat are a centre of ruby and sapphire mining and trading",
+    "source": "https://en.wikipedia.org/wiki/Chanthaburi_province"
+   },
+   {
+    "class": "working_class",
+    "home": "house near the cathedral",
+    "livelihood": "ethnic Vietnamese Catholic family, a significant minority who arrived in three waves; the town has been a bishop's seat since 1944",
+    "source": "https://en.wikipedia.org/wiki/Chanthaburi_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9795,
+   "muslim": 0.004,
+   "christian": 0.0122,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Cathedral of the Immaculate Conception",
+    "kind": "church",
+    "from": 1909,
+    "source": "https://en.wikipedia.org/wiki/Cathedral_of_the_Immaculate_Conception,_Chanthaburi",
+    "note": "Neo-Gothic cathedral with twin spires and a nave with two side aisles, visible from much of town; begun 1904, inaugurated 1909."
+   },
+   {
+    "name": "Khao Khitchakut",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chanthaburi_province",
+    "note": "Mountain with a sacred balancing rock and a Buddha footprint on its summit."
+   },
+   {
+    "name": "Phlio Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chanthaburi_province",
+    "note": "Forest waterfall in Namtok Phlio National Park, which the provincial slogan celebrates."
+   }
+  ]
+ },
+ {
+  "id": "chonburi",
+  "nameEn": "Chonburi",
+  "nameTh": "ชลบุรี",
+  "region": "east",
+  "town": {
+   "name": "Laem Chabang (port city, Si Racha and Bang Lamung districts)",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Laem_Chabang_Port"
+  },
+  "terrain": [
+   "coast",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "east-industrial",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "rented room near the industrial parks",
+    "livelihood": "factory work; over 200 companies operate in Laem Chabang, and the Saha Group park alone has about 80 factories with 20,000 employees",
+    "source": "https://en.wikipedia.org/wiki/Laem_Chabang_Port"
+   },
+   {
+    "class": "low_class",
+    "home": "farmhouse on shrinking plantation land",
+    "livelihood": "pineapple plantations, which have declined sharply as industry grew",
+    "source": "https://en.wikipedia.org/wiki/Laem_Chabang_Port"
+   },
+   {
+    "class": "working_class",
+    "home": "rented room, registered at home in another province",
+    "livelihood": "migrant worker; about 60,000 people work in Laem Chabang without registering residence there",
+    "source": "https://en.wikipedia.org/wiki/Laem_Chabang_Port"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9408,
+   "muslim": 0.015,
+   "christian": 0.0366,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Laem Chabang container port",
+    "kind": "port",
+    "from": 1991,
+    "source": "https://en.wikipedia.org/wiki/Laem_Chabang_Port",
+    "note": "Gantry cranes and container terminals along the shore; development began 1988, container port completed 1991."
+   },
+   {
+    "name": "Sanctuary of Truth, Pattaya",
+    "kind": "monument-nonroyal",
+    "from": 1981,
+    "source": "https://en.wikipedia.org/wiki/Sanctuary_of_Truth",
+    "note": "All-timber temple-castle of carved teak with a 105 m central spire; construction began 1981. 1981 is when construction began; it is still being built."
+   },
+   {
+    "name": "Khao Khiao range",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chonburi_province",
+    "note": "Low mountain range running northwest to southeast across the province."
+   },
+   {
+    "name": "Bang Saen beach",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chonburi_province",
+    "note": "Gulf beach, known for its Songkran sand-Buddha contest."
+   }
+  ]
+ },
+ {
+  "id": "prachinburi",
+  "nameEn": "Prachinburi",
+  "nameTh": "ปราจีนบุรี",
+  "region": "east",
+  "town": {
+   "name": "Si Maha Phot (Rojana Industrial Park area, Tambon Hua Wa)",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Si_Maha_Phot_district"
+  },
+  "terrain": [
+   "plain",
+   "mountain"
+  ],
+  "archetype": "east-industrial",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "rented room near the industrial park",
+    "livelihood": "factory line work; manufacturing is about 71% of provincial output and 84.5% of workers are outside agriculture",
+    "source": "https://en.wikipedia.org/wiki/Prachinburi_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "house in the new town",
+    "livelihood": "technician or office staff at the Honda plant in Rojana Industrial Park (opened March 2016)",
+    "source": "https://en.wikipedia.org/wiki/Si_Maha_Phot_district"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Honda plant, Rojana Industrial Park",
+    "kind": "industrial",
+    "from": 2016,
+    "source": "https://en.wikipedia.org/wiki/Si_Maha_Phot_district",
+    "note": "Large car factory with an initial capacity of 60,000 vehicles a year; opened March 2016."
+   },
+   {
+    "name": "Wat Si Maha Phot and its Bodhi tree",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Prachinburi_province",
+    "note": "Temple of the district's namesake Bodhi tree, said to have been planted about 2,000 years ago."
+   },
+   {
+    "name": "Sa Morakot and Si Mahosot ancient town",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Prachinburi_province",
+    "note": "Moated ancient town with Buddha footprint carvings, an ancient reservoir and a Khmer-era hospital of the late 1100s."
+   },
+   {
+    "name": "Khao Yai National Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Khao_Yai_National_Park",
+    "note": "Forested mountain park; highest peak Khao Rom at 1,351 m."
+   }
+  ]
+ },
+ {
+  "id": "rayong",
+  "nameEn": "Rayong",
+  "nameTh": "ระยอง",
+  "region": "east",
+  "town": {
+   "name": "Map Ta Phut",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Map_Ta_Phut"
+  },
+  "terrain": [
+   "coast",
+   "plain",
+   "island",
+   "mountain"
+  ],
+  "archetype": "east-industrial",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "rented house near the estate",
+    "livelihood": "works in the Map Ta Phut Industrial Estate (151 factories; petrochemicals, refining, power and steel)",
+    "source": "https://en.wikipedia.org/wiki/Map_Ta_Phut_Industrial_Estate"
+   },
+   {
+    "class": "low_class",
+    "home": "village house inside the estate zone",
+    "livelihood": "one of about 30 agricultural and residential communities (over 49,000 residents) living in the industrial zone",
+    "source": "https://en.wikipedia.org/wiki/Map_Ta_Phut_Industrial_Estate"
+   },
+   {
+    "class": "working_class",
+    "home": "house in Na Dan village on Ko Samet",
+    "livelihood": "tourism, the mainstay of the island's economy; many residents settled without formal land title",
+    "source": "https://en.wikipedia.org/wiki/Ko_Samet"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Map Ta Phut Industrial Estate",
+    "kind": "industrial",
+    "from": 1990,
+    "source": "https://en.wikipedia.org/wiki/Map_Ta_Phut_Industrial_Estate",
+    "note": "Gas-processing plants and flares at the largest industrial park in Thailand; opened 1990."
+   },
+   {
+    "name": "Ko Samet",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ko_Samet",
+    "note": "Small forested island shaped like a letter t, with beaches on its east coast; on the provincial seal."
+   },
+   {
+    "name": "Khao Chamao waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Rayong_province",
+    "note": "Waterfall in Khao Chamao-Khao Wong National Park."
+   }
+  ]
+ },
+ {
+  "id": "sa-kaeo",
+  "nameEn": "Sa Kaeo",
+  "nameTh": "สระแก้ว",
+  "region": "east",
+  "town": {
+   "name": "Aranyaprathet (border town)",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Aranyaprathet"
+  },
+  "terrain": [
+   "plain",
+   "mountain"
+  ],
+  "archetype": "east-border-market",
+  "note": "New archetype: a railway and market town at the Cambodian border, trade and second-hand goods rather than factories or orchards.",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "shophouse stall near the border",
+    "livelihood": "second-hand clothing trade, a significant share of the town's trade, with Cambodians crossing daily with pushcarts",
+    "source": "https://en.wikipedia.org/wiki/Aranyaprathet"
+   },
+   {
+    "class": "middle_class",
+    "home": "shop in Rong Kluea market",
+    "livelihood": "runs one of about 1,380 stores, most selling goods from the Cambodian side",
+    "source": "https://en.wikipedia.org/wiki/Rong_Kluea_Market"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9956,
+   "muslim": 0.0013,
+   "christian": 0.0025,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Rong Kluea Market",
+    "kind": "market",
+    "from": 1991,
+    "source": "https://en.wikipedia.org/wiki/Rong_Kluea_Market",
+    "note": "About 66 acres of sheds in 40 panels of shops next to the border arch; opened in its present form 15 June 1991."
+   },
+   {
+    "name": "Prasat Sdok Kok Thom",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sa_Kaeo_province",
+    "note": "Khmer temple known for a stone inscription dated 1052."
+   },
+   {
+    "name": "Pang Sida National Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sa_Kaeo_province",
+    "note": "Forested park of 844 sq km."
+   }
+  ]
+ },
+ {
+  "id": "trat",
+  "nameEn": "Trat",
+  "nameTh": "ตราด",
+  "region": "east",
+  "town": {
+   "name": "Trat town",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Trat"
+  },
+  "terrain": [
+   "coast",
+   "island",
+   "mountain",
+   "plain"
+  ],
+  "archetype": "east-orchard",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "house in a fruit orchard",
+    "livelihood": "durian, rambutan and mangosteen growing",
+    "source": "https://en.wikipedia.org/wiki/Trat"
+   },
+   {
+    "class": "working_class",
+    "home": "house in a rubber-growing village",
+    "livelihood": "rubber planting; Trat has the third-largest rubber area in Thailand, about 55,461 hectares in 2017",
+    "source": "https://en.wikipedia.org/wiki/Trat_province"
+   },
+   {
+    "class": "low_class",
+    "home": "stilt house over the sea at Bang Bao on Ko Chang",
+    "livelihood": "fishing, which sustains many Ko Chang villages (Ban Salak Phet is the largest and oldest)",
+    "source": "https://en.wikipedia.org/wiki/Ko_Chang"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Ko Chang",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ko_Chang",
+    "note": "Mountainous island with rainforest, waterfalls and coral reefs; highest peak Khao Salak Phet at 744 m; part of Mu Ko Chang Marine National Park."
+   },
+   {
+    "name": "Khlong Kaeo waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Namtok_Khlong_Kaeo_National_Park",
+    "note": "Seven-level waterfall in Bo Rai district, near the Cambodian border."
+   },
+   {
+    "name": "Khao Salak Phet",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ko_Chang",
+    "note": "Highest peak on Ko Chang at 744 m."
+   }
+  ]
+ }
+]

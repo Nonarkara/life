@@ -1,0 +1,1077 @@
+[
+ {
+  "id": "amnat-charoen",
+  "nameEn": "Amnat Charoen",
+  "nameTh": "อำนาจเจริญ",
+  "region": "northeast",
+  "town": {
+   "name": "Amnat Charoen town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Amnat_Charoen_province"
+  },
+  "terrain": [
+   "plain",
+   "river"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home in a rice village",
+    "livelihood": "jasmine (hom mali) rice farming; 883,499 rai planted in 2016, with sugarcane rising",
+    "source": "https://en.wikipedia.org/wiki/Amnat_Charoen_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village craft home",
+    "livelihood": "ikat silk, sedge mats, fish sauce and chili paste made at home",
+    "source": "https://en.wikipedia.org/wiki/Amnat_Charoen_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9928,
+   "muslim": 0.0009,
+   "christian": 0.0058,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Kaeng Tanglang",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Amnat_Charoen_province",
+    "note": "Rock islands in the Mekong that show only from February to May when the river is low."
+   },
+   {
+    "name": "Phu Sa Dok Bua National Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Amnat_Charoen_province",
+    "note": "A 231 km2 forested national park on the province's list of sights; a green rise on the horizon."
+   }
+  ]
+ },
+ {
+  "id": "bueng-kan",
+  "nameEn": "Bueng Kan",
+  "nameTh": "บึงกาฬ",
+  "region": "northeast",
+  "town": {
+   "name": "Bueng Kan town",
+   "kind": "market-town",
+   "source": "https://en.wikipedia.org/wiki/Bueng_Kan_province"
+  },
+  "terrain": [
+   "river",
+   "plateau",
+   "mountain"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "rubber-farm home beside the Mekong",
+    "livelihood": "rubber as the cash crop (Nonsa village study of 98 rubber farmers), with some rice and livestock for food",
+    "source": "https://so02.tci-thaijo.org/index.php/hasss/article/view/263576"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9937,
+   "muslim": 0.0007,
+   "christian": 0.0053,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Phu Thok",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Bueng_Kan_province",
+    "note": "A lone cliff-sided mountain in Si Wilai District; its Isan name means lonely mountain."
+   },
+   {
+    "name": "Hin Sam Wan",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Bueng_Kan_province",
+    "note": "Rock formation about 75 million years old, called Three Whale Rock because it looks like a family of whales."
+   },
+   {
+    "name": "Mekong River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Bueng_Kan_province",
+    "note": "The river that forms the province's border with Laos to the north and east."
+   }
+  ]
+ },
+ {
+  "id": "buriram",
+  "nameEn": "Buriram",
+  "nameTh": "บุรีรัมย์",
+  "region": "northeast",
+  "town": {
+   "name": "Buriram city (Mueang Buriram)",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Buriram_province"
+  },
+  "terrain": [
+   "plateau",
+   "plain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home in a rice village",
+    "livelihood": "rice farming on Isan's plateau; sticky rice covers about 60% of cultivated land (regional figure)",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   },
+   {
+    "class": "working_class",
+    "home": "village home with a migrant worker away",
+    "livelihood": "family members leave for higher wages, particularly in Bangkok (regional pattern)",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9896,
+   "muslim": 0.0015,
+   "christian": 0.0059,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Phanom Rung",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phanom_Rung",
+    "note": "Sandstone and laterite Khmer sanctuary on the rim of an extinct volcano at about 402 m, reached by a 160 m causeway with lotus-bud posts and naga bridges; built 10th-13th c."
+   },
+   {
+    "name": "Chang Arena",
+    "kind": "stadium",
+    "from": 2011,
+    "source": "https://en.wikipedia.org/wiki/Chang_Arena",
+    "note": "Football stadium of 32,600 seats under floodlights, opened 4 June 2011."
+   }
+  ]
+ },
+ {
+  "id": "chaiyaphum",
+  "nameEn": "Chaiyaphum",
+  "nameTh": "ชัยภูมิ",
+  "region": "northeast",
+  "town": {
+   "name": "Chaiyaphum city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Chaiyaphum_province"
+  },
+  "terrain": [
+   "mountain",
+   "plateau"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home in the hills and plateau edge",
+    "livelihood": "rice, tapioca, sugar cane and taro root farming, with irrigation from Chulabhorn Dam",
+    "source": "https://en.wikipedia.org/wiki/Chaiyaphum_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village home with a migrant worker away",
+    "livelihood": "family members leave for higher wages, particularly in Bangkok (regional pattern)",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9974,
+   "muslim": 0.001,
+   "christian": 0.0012,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Pa Hin Ngam National Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chaiyaphum_province",
+    "note": "Strangely shaped rock formations with fields of Siam tulips."
+   },
+   {
+    "name": "Sai Thong Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chaiyaphum_province",
+    "note": "The main attraction of Sai Thong National Park."
+   },
+   {
+    "name": "Tat Ton Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chaiyaphum_province",
+    "note": "Waterfalls in dry dipterocarp forest; Tat Ton is the province's most visited national park (2024)."
+   }
+  ]
+ },
+ {
+  "id": "kalasin",
+  "nameEn": "Kalasin",
+  "nameTh": "กาฬสินธุ์",
+  "region": "northeast",
+  "town": {
+   "name": "Kalasin town (Mueang Kalasin)",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Kalasin_province"
+  },
+  "terrain": [
+   "plain",
+   "plateau",
+   "lake"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home in a rice village",
+    "livelihood": "sticky rice, manioc and sugar cane farming; baskets and silk made at home",
+    "source": "https://en.wikipedia.org/wiki/Kalasin_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village home with a migrant worker away",
+    "livelihood": "family members leave for higher wages, particularly in Bangkok (regional pattern)",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9966,
+   "muslim": 0.0013,
+   "christian": 0.0016,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Lam Pao Dam",
+    "kind": "lake",
+    "from": 1968,
+    "source": "https://en.wikipedia.org/wiki/Kalasin_province",
+    "note": "Dam built 1963-1968 holding 1,430 million m3 for flood control and farming; a broad reservoir."
+   },
+   {
+    "name": "Thesuda Bridge",
+    "kind": "bridge",
+    "from": 2006,
+    "source": "https://en.wikipedia.org/wiki/Kalasin_province",
+    "note": "A 2.4 km reinforced concrete bridge finished in 2006 linking Sahatsakhan and Nong Kung Si districts."
+   },
+   {
+    "name": "Phra That Yakhu",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Kalasin_province",
+    "note": "Octagonal brick chedi, the provincial landmark. Build year not stated by the source."
+   }
+  ]
+ },
+ {
+  "id": "khon-kaen",
+  "nameEn": "Khon Kaen",
+  "nameTh": "ขอนแก่น",
+  "region": "northeast",
+  "town": {
+   "name": "Khon Kaen city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Khon_Kaen_province"
+  },
+  "terrain": [
+   "plateau",
+   "river"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "bureaucratic_class",
+    "home": "town flat or house near the university",
+    "livelihood": "staff at Khon Kaen University, the largest and oldest university in the Northeast",
+    "source": "https://en.wikipedia.org/wiki/Khon_Kaen_province"
+   },
+   {
+    "class": "low_class",
+    "home": "farm home in a rice village",
+    "livelihood": "rice farming on the plateau; sticky rice covers about 60% of cultivated land (regional figure)",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9943,
+   "muslim": 0.0015,
+   "christian": 0.0036,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Phra That Kham Kaen",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phra_That_Kham_Kaen",
+    "note": "Golden Lao-style chedi about 19 m tall on a low base, on the grounds of Wat Chetiyaphum; no documented build date, thought 17th c."
+   },
+   {
+    "name": "Chi River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Khon_Kaen_province",
+    "note": "The Chi and Phong rivers flow through the province."
+   }
+  ]
+ },
+ {
+  "id": "loei",
+  "nameEn": "Loei",
+  "nameTh": "เลย",
+  "region": "northeast",
+  "town": {
+   "name": "Loei town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Loei_province"
+  },
+  "terrain": [
+   "mountain",
+   "river"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "highland farm home",
+    "livelihood": "macadamia, passion fruit and Arabica coffee on the highlands; bananas, sesame and rubber on the plains",
+    "source": "https://en.wikipedia.org/wiki/Loei_province"
+   },
+   {
+    "class": "working_class",
+    "home": "town home near the mine",
+    "livelihood": "work at the large open-pit gold mine in Wang Saphung District, which employs many locals",
+    "source": "https://en.wikipedia.org/wiki/Loei_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9955,
+   "muslim": 0.001,
+   "christian": 0.0033,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Phu Kradueng",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phu_Kradueng_National_Park",
+    "note": "A flat-topped mesa rising about 1,000 m above the valleys with steep sandstone cliffs on three sides."
+   },
+   {
+    "name": "Phra That Si Song Rak",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phra_That_Si_Song_Rak",
+    "note": "Stupa about 20 m tall and 9 m wide at the base, built around 1560 on the Man River in Dan Sai."
+   },
+   {
+    "name": "Loei River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Loei_province",
+    "note": "A tributary of the Mekong that runs through a fertile basin ringed by mountains."
+   }
+  ]
+ },
+ {
+  "id": "maha-sarakham",
+  "nameEn": "Maha Sarakham",
+  "nameTh": "มหาสารคาม",
+  "region": "northeast",
+  "town": {
+   "name": "Maha Sarakham town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Maha_Sarakham_province"
+  },
+  "terrain": [
+   "plain",
+   "river"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home among rice fields",
+    "livelihood": "rice farming on a plain covered with rice fields",
+    "source": "https://en.wikipedia.org/wiki/Maha_Sarakham_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village weaving home",
+    "livelihood": "silk, named in the provincial motto",
+    "source": "https://en.wikipedia.org/wiki/Maha_Sarakham_province"
+   },
+   {
+    "class": "bureaucratic_class",
+    "home": "town house near the campus",
+    "livelihood": "staff and students at Mahasarakham University, 41,000 students in 2017",
+    "source": "https://en.wikipedia.org/wiki/Maha_Sarakham_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Chi River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Maha_Sarakham_province",
+    "note": "The province's main river through flat rice land 130-230 m above sea level."
+   },
+   {
+    "name": "Kantharawichai moated mound",
+    "kind": "archaeological-site",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Maha_Sarakham_province",
+    "note": "Early Buddhist ordination hall about 37 by 10 m with Dvaravati silver plaques (10th-11th c), excavated 1972."
+   }
+  ]
+ },
+ {
+  "id": "mukdahan",
+  "nameEn": "Mukdahan",
+  "nameTh": "มุกดาหาร",
+  "region": "northeast",
+  "town": {
+   "name": "Mukdahan town (Mueang Mukdahan)",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Mukdahan_province"
+  },
+  "terrain": [
+   "river",
+   "plateau",
+   "mountain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "shophouse near the river port",
+    "livelihood": "border trade and logistics; the province bills itself the Gateway to Indochina and has Special Economic Zone status",
+    "source": "https://en.wikipedia.org/wiki/Mukdahan_province"
+   },
+   {
+    "class": "low_class",
+    "home": "village home with a migrant worker away",
+    "livelihood": "family members leave for higher wages, particularly in Bangkok (regional pattern)",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Second Thai-Lao Friendship Bridge",
+    "kind": "bridge",
+    "from": 2006,
+    "source": "https://en.wikipedia.org/wiki/Mukdahan",
+    "note": "Bridge over the Mekong to Savannakhet, opened 20 December 2006."
+   },
+   {
+    "name": "Mekong River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Mukdahan_province",
+    "note": "Forms the eastern border with Laos for about 72 km; banks around 130-140 m."
+   },
+   {
+    "name": "Phu Pha Thoep National Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Mukdahan_province",
+    "note": "Known for rock formations."
+   }
+  ]
+ },
+ {
+  "id": "nakhon-phanom",
+  "nameEn": "Nakhon Phanom",
+  "nameTh": "นครพนม",
+  "region": "northeast",
+  "town": {
+   "name": "Nakhon Phanom town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nakhon_Phanom_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "village weaving home",
+    "livelihood": "hand-woven silk and cotton, in Renu Nakhon, That Phanom and Si Songkhram districts",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Phanom_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "riverside trading home",
+    "livelihood": "fish trading; Si Songkhram is the largest fish trading centre of the Mekong and Songkhram basin in Isan",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Phanom_province"
+   },
+   {
+    "class": "working_class",
+    "home": "home of a khene maker",
+    "livelihood": "hand-made khene instruments",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Phanom_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phra That Phanom",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_That_Phanom",
+    "note": "Square chedi about 53 m tall with a 110 kg gold spire; it collapsed on 11 August 1975 and was rebuilt, finished 23 March 1979. Older than 1900 as a site."
+   },
+   {
+    "name": "Mekong River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Phanom_province",
+    "note": "The town sits on the Mekong's banks; a riverfront promenade runs along it."
+   }
+  ]
+ },
+ {
+  "id": "nakhon-ratchasima",
+  "nameEn": "Nakhon Ratchasima",
+  "nameTh": "นครราชสีมา",
+  "region": "northeast",
+  "town": {
+   "name": "Nakhon Ratchasima city (Khorat)",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nakhon_Ratchasima_province"
+  },
+  "terrain": [
+   "plateau",
+   "plain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "factory worker's rented home",
+    "livelihood": "manufacturing, e.g. Seagate disk drives employing about 12,100",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Ratchasima_province"
+   },
+   {
+    "class": "low_class",
+    "home": "farm home",
+    "livelihood": "rice, tapioca and sugar growing, processed in the province",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Ratchasima_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phimai Historical Park",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phimai_Historical_Park",
+    "note": "Khmer sanctuary of sandstone and laterite with a central prang, a naga bridge and galleries; late 11th to late 12th c."
+   },
+   {
+    "name": "Khao Yai National Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Ratchasima_province",
+    "note": "Forested mountains in the west of the province, about 2,166 km2."
+   }
+  ]
+ },
+ {
+  "id": "nong-bua-lamphu",
+  "nameEn": "Nong Bua Lamphu",
+  "nameTh": "หนองบัวลำภู",
+  "region": "northeast",
+  "town": {
+   "name": "Nong Bua Lamphu town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nong_Bua_Lamphu_province"
+  },
+  "terrain": [
+   "plateau",
+   "plain"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home beside the paddies",
+    "livelihood": "rice and fishery work: agriculture and fishery employ 45.9% of workers (2025), paddy is 52.3% of farmland",
+    "source": "https://en.wikipedia.org/wiki/Nong_Bua_Lamphu_province"
+   },
+   {
+    "class": "bureaucratic_class",
+    "home": "town house",
+    "livelihood": "education is 12.0% of provincial output (2023); school and college staff",
+    "source": "https://en.wikipedia.org/wiki/Nong_Bua_Lamphu_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9975,
+   "muslim": 0.0009,
+   "christian": 0.0013,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Phu Kao-Phu Phan Kham National Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nong_Bua_Lamphu_province",
+    "note": "318 km2 national park in the hills, 84,867 visitors in FY2024."
+   },
+   {
+    "name": "Erawan Caves",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nong_Bua_Lamphu_province",
+    "note": "Cave site on the province's sights list; no date given."
+   }
+  ]
+ },
+ {
+  "id": "nong-khai",
+  "nameEn": "Nong Khai",
+  "nameTh": "หนองคาย",
+  "region": "northeast",
+  "town": {
+   "name": "Nong Khai town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nong_Khai_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home",
+    "livelihood": "pineapple, tobacco and tomato farming; tomatoes on an industrial scale in Si Chiang Mai District",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   },
+   {
+    "class": "bureaucratic_class",
+    "home": "town house",
+    "livelihood": "education is 14.2% of provincial output (2021); school staff",
+    "source": "https://en.wikipedia.org/wiki/Nong_Khai_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9948,
+   "muslim": 0.0007,
+   "christian": 0.0042,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "First Thai-Lao Friendship Bridge",
+    "kind": "bridge",
+    "from": 1994,
+    "source": "https://en.wikipedia.org/wiki/Nong_Khai_province",
+    "note": "Bridge over the Mekong to Vientiane, opened 1994."
+   },
+   {
+    "name": "Sala Keoku",
+    "kind": "monument-nonroyal",
+    "from": 1978,
+    "source": "https://en.wikipedia.org/wiki/Sala_Keoku",
+    "note": "Park of giant concrete sculptures up to about 25 m, including a seated Buddha sheltered by a seven-headed naga; building began 1978. 1978 is when construction began."
+   },
+   {
+    "name": "Mekong River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nong_Khai_province",
+    "note": "Forms the border with Laos along the valley."
+   }
+  ]
+ },
+ {
+  "id": "roi-et",
+  "nameEn": "Roi Et",
+  "nameTh": "ร้อยเอ็ด",
+  "region": "northeast",
+  "town": {
+   "name": "Roi Et town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Roi_Et_province"
+  },
+  "terrain": [
+   "plain",
+   "river"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home",
+    "livelihood": "rice farming; the Chi and Mun floodplain is good rice land and the motto names fragrant white rice",
+    "source": "https://en.wikipedia.org/wiki/Roi_Et_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village weaving home",
+    "livelihood": "Saket silk, named in the provincial motto",
+    "source": "https://en.wikipedia.org/wiki/Roi_Et_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Chi River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Roi_Et_province",
+    "note": "Drains the flat province, 130-160 m above sea level, with the Mun River as its southern boundary."
+   }
+  ]
+ },
+ {
+  "id": "sakon-nakhon",
+  "nameEn": "Sakon Nakhon",
+  "nameTh": "สกลนคร",
+  "region": "northeast",
+  "town": {
+   "name": "Sakon Nakhon city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Sakon_Nakhon_province"
+  },
+  "terrain": [
+   "plateau",
+   "lake",
+   "mountain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home",
+    "livelihood": "fish and rice, the province's two major products",
+    "source": "https://en.wikipedia.org/wiki/Sakon_Nakhon_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "cattle farm home",
+    "livelihood": "Pon Yang Kham Breeding Cooperatives, incorporated 1980, producing branded beef",
+    "source": "https://en.wikipedia.org/wiki/Sakon_Nakhon_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phra That Choeng Chum",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phra_That_Choeng_Chum",
+    "note": "Rectangular brick-and-mortar chedi 24 m tall; completed 12th-16th c per its infobox."
+   },
+   {
+    "name": "Nong Han Lake",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sakon_Nakhon_province",
+    "note": "The biggest natural lake in northeast Thailand, a resort near the city."
+   },
+   {
+    "name": "Phu Phan Mountains",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sakon_Nakhon_province",
+    "note": "Mountains bounding the province on the south."
+   }
+  ]
+ },
+ {
+  "id": "sisaket",
+  "nameEn": "Sisaket",
+  "nameTh": "ศรีสะเกษ",
+  "region": "northeast",
+  "town": {
+   "name": "Sisaket town",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Sisaket_province"
+  },
+  "terrain": [
+   "plain",
+   "mountain",
+   "river"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home",
+    "livelihood": "largely agricultural; garlic and shallots earned GI registration in 2020",
+    "source": "https://en.wikipedia.org/wiki/Sisaket_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village home with a migrant worker away",
+    "livelihood": "family members leave for higher wages, particularly in Bangkok (regional pattern)",
+    "source": "https://en.wikipedia.org/wiki/Isan"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9921,
+   "muslim": 0.0016,
+   "christian": 0.0055,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Prasat Hin Ban Samo",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sisaket_province",
+    "note": "Khmer temple about 1,000 years old in Prang Ku District, shown on the provincial seal."
+   },
+   {
+    "name": "Dangrek Mountains",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sisaket_province",
+    "note": "The chain through the south that forms the border with Cambodia; Khao Phra Wihan National Park lies in it."
+   }
+  ]
+ },
+ {
+  "id": "surin",
+  "nameEn": "Surin",
+  "nameTh": "สุรินทร์",
+  "region": "northeast",
+  "town": {
+   "name": "Surin city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Surin_province"
+  },
+  "terrain": [
+   "plain",
+   "mountain"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "farm home in a Khmer-speaking village",
+    "livelihood": "rice farming topped up with sugarcane cutting, construction work and silk weaving",
+    "source": "https://en.wikipedia.org/wiki/Surin_province"
+   },
+   {
+    "class": "low_class",
+    "home": "Kuy elephant-keeping home",
+    "livelihood": "Kuy families raise about a quarter of Thailand's domesticated elephants",
+    "source": "https://en.wikipedia.org/wiki/Surin_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "shophouse near the border road",
+    "livelihood": "cross-border trade with Cambodia through Chong Chom",
+    "source": "https://en.wikipedia.org/wiki/Surin_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Prasat Sikhoraphum",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Prasat_Sikhoraphum",
+    "note": "12th-century Khmer temple of Suryavarman II with Lao-influenced tower roofs, converted to Buddhist use in the 16th c."
+   },
+   {
+    "name": "Prasat Ta Muen Thom",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Surin_province",
+    "note": "Khmer temple on the Dangrek; no date in the source."
+   },
+   {
+    "name": "Dangrek Mountains",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Surin_province",
+    "note": "Southern border range averaging about 500 m, steep on the Cambodian side."
+   }
+  ]
+ },
+ {
+  "id": "ubon-ratchathani",
+  "nameEn": "Ubon Ratchathani",
+  "nameTh": "อุบลราชธานี",
+  "region": "northeast",
+  "town": {
+   "name": "Ubon Ratchathani city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Ubon_Ratchathani_province"
+  },
+  "terrain": [
+   "river",
+   "plateau",
+   "mountain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home",
+    "livelihood": "rice, the nation's leading rice-producing province; about 50% of the workforce is in agriculture",
+    "source": "https://en.wikipedia.org/wiki/Ubon_Ratchathani_province"
+   },
+   {
+    "class": "working_class",
+    "home": "town rented room",
+    "livelihood": "manufacturing, worth billions of baht",
+    "source": "https://en.wikipedia.org/wiki/Ubon_Ratchathani_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "shophouse near the border crossing",
+    "livelihood": "trade and tourism through the Chongmek Mekong crossing",
+    "source": "https://en.wikipedia.org/wiki/Ubon_Ratchathani_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Pha Taem",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Pha_Taem_National_Park",
+    "note": "Cliffs above the Mekong with prehistoric rock paintings 3,000-4,000 years old; park established 1991."
+   },
+   {
+    "name": "Khong Chiam confluence",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ubon_Ratchathani_province",
+    "note": "Where the Mun meets the Mekong, two coloured rivers side by side."
+   },
+   {
+    "name": "Sao Chaliang",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ubon_Ratchathani_province",
+    "note": "Mushroom-shaped sandstone pillars in Pha Taem."
+   }
+  ]
+ },
+ {
+  "id": "udon-thani",
+  "nameEn": "Udon Thani",
+  "nameTh": "อุดรธานี",
+  "region": "northeast",
+  "town": {
+   "name": "Udon Thani city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Udon_Thani_province"
+  },
+  "terrain": [
+   "plateau",
+   "plain"
+  ],
+  "archetype": "isan-town",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home near the potash deposit",
+    "livelihood": "rice farming is the main income of the communities near the proposed potash mine",
+    "source": "https://en.wikipedia.org/wiki/Udon_Thani_province"
+   },
+   {
+    "class": "working_class",
+    "home": "town rented room",
+    "livelihood": "work in a transport and industrial hub that has drawn migrants",
+    "source": "https://en.wikipedia.org/wiki/Udon_Thani_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Ban Chiang",
+    "kind": "archaeological-site",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ban_Chiang",
+    "note": "UNESCO World Heritage site (1992) with a museum and an open-pit recreation of the 1974-75 dig; finds from Bronze Age to about 200 CE."
+   },
+   {
+    "name": "Phu Phra Bat Historical Park",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Udon_Thani_province",
+    "note": "Prehistoric rock shelters ringed with Dvaravati-period sema stones."
+   }
+  ]
+ },
+ {
+  "id": "yasothon",
+  "nameEn": "Yasothon",
+  "nameTh": "ยโสธร",
+  "region": "northeast",
+  "town": {
+   "name": "Yasothon city",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Yasothon_province"
+  },
+  "terrain": [
+   "plain",
+   "river"
+  ],
+  "archetype": "isan-village",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm home",
+    "livelihood": "rice, called white-rice production source in the motto; also sweet watermelon",
+    "source": "https://en.wikipedia.org/wiki/Yasothon_province"
+   },
+   {
+    "class": "working_class",
+    "home": "village home making cushions",
+    "livelihood": "mon khit pillows named in the motto",
+    "source": "https://en.wikipedia.org/wiki/Yasothon_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.9891,
+   "muslim": 0.0009,
+   "christian": 0.0096,
+   "source": "https://en.wikipedia.org/wiki/Religion_in_Thailand"
+  },
+  "landmarks": [
+   {
+    "name": "Dong Mueang Toei",
+    "kind": "archaeological-site",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Yasothon_province",
+    "note": "Moated town in Kham Khuean Kaeo district with an inscription naming the place Sankhapura."
+   },
+   {
+    "name": "Chi River lowlands",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Yasothon_province",
+    "note": "Southern half is Chi lowlands with ponds and swamps; northern half is plains with low hills."
+   }
+  ]
+ }
+]

@@ -1,0 +1,489 @@
+[
+ {
+  "id": "chiang-mai",
+  "nameEn": "Chiang Mai",
+  "nameTh": "เชียงใหม่",
+  "region": "north",
+  "town": {
+   "name": "Mueang Chiang Mai (the old walled city)",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Chiang_Mai"
+  },
+  "terrain": [
+   "mountain",
+   "river",
+   "plain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "hill-village farm home",
+    "livelihood": "rice, corn, tobacco and cabbage farming with livestock",
+    "source": "https://en.wikipedia.org/wiki/Chiang_Mai_province"
+   },
+   {
+    "class": "working_class",
+    "home": "craft workshop home",
+    "livelihood": "handicrafts: silverware, embroidery, silk, celadon, lacquerware, woodcarving, parasols",
+    "source": "https://en.wikipedia.org/wiki/Chiang_Mai_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "town shophouse or flat",
+    "livelihood": "tourism and trade; the province is the tourist hub of the north",
+    "source": "https://en.wikipedia.org/wiki/Chiang_Mai_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.82,
+   "muslim": 0.0057,
+   "christian": 0.156,
+   "source": "https://en.wikipedia.org/wiki/Chiang_Mai_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Phra That Doi Suthep",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_That_Doi_Suthep",
+    "note": "Gold chedi about 24 m tall on an octagonal base with a tiered umbrella top, reached by 309 steps lined with naga balustrades."
+   },
+   {
+    "name": "Wat Chedi Luang",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chiang_Mai",
+    "note": "Founded 1401; a large old brick chedi in the walled city, damaged by an earthquake in the 16th century."
+   },
+   {
+    "name": "Doi Inthanon",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chiang_Mai_province",
+    "note": "Forested mountain, 2,565 m, the highest in Thailand."
+   }
+  ]
+ },
+ {
+  "id": "chiang-rai",
+  "nameEn": "Chiang Rai",
+  "nameTh": "เชียงราย",
+  "region": "north",
+  "town": {
+   "name": "Mueang Chiang Rai",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Chiang_Rai"
+  },
+  "terrain": [
+   "mountain",
+   "river",
+   "plain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "hill-village farm home",
+    "livelihood": "rice, corn, tobacco and cabbage farming",
+    "source": "https://en.wikipedia.org/wiki/Chiang_Rai_province"
+   },
+   {
+    "class": "working_class",
+    "home": "farm home on the northern slopes",
+    "livelihood": "coffee, pineapple, coconut and banana growing",
+    "source": "https://en.wikipedia.org/wiki/Chiang_Rai_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Rong Khun",
+    "kind": "wat-lanna",
+    "from": 1997,
+    "source": "https://en.wikipedia.org/wiki/Wat_Rong_Khun",
+    "note": "All-white contemporary Lanna-style temple with a three-tiered roof, many nagas and mirror-glass chips that sparkle."
+   },
+   {
+    "name": "Doi Tung",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chiang_Rai_province",
+    "note": "Mountain of 1,389 m in the north of the province, the province's key terrain feature."
+   },
+   {
+    "name": "Kok River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chiang_Rai_province",
+    "note": "The river that flows through Chiang Rai city."
+   }
+  ]
+ },
+ {
+  "id": "lampang",
+  "nameEn": "Lampang",
+  "nameTh": "ลำปาง",
+  "region": "north",
+  "town": {
+   "name": "Mueang Lampang",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Lampang"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "worker's house near the factories",
+    "livelihood": "ceramics: over 200 factories in and around Mueang Lampang",
+    "source": "https://en.wikipedia.org/wiki/Lampang_province"
+   },
+   {
+    "class": "working_class",
+    "home": "mining-district home in Mae Mo",
+    "livelihood": "lignite mining and the coal-fired power plant",
+    "source": "https://en.wikipedia.org/wiki/Lampang_province"
+   },
+   {
+    "class": "low_class",
+    "home": "farm home in the Wang valley",
+    "livelihood": "rice and pineapple farming",
+    "source": "https://en.wikipedia.org/wiki/Lampang_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Phra That Lampang Luang",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_That_Lampang_Luang",
+    "note": "Teak Lanna temple with a bronze-sheathed bell-shaped chedi and an open-sided vihara with three-tiered shingle roof and tall wooden columns."
+   },
+   {
+    "name": "Wat Sri Chum",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Lampang_province",
+    "note": "Burmese-style temple in Lampang."
+   }
+  ]
+ },
+ {
+  "id": "lamphun",
+  "nameEn": "Lamphun",
+  "nameTh": "ลำพูน",
+  "region": "north",
+  "town": {
+   "name": "Mueang Lamphun",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Lamphun"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "orchard house in the Ping valley",
+    "livelihood": "longan orchards; a longan festival is held each August",
+    "source": "https://en.wikipedia.org/wiki/Lamphun"
+   },
+   {
+    "class": "low_class",
+    "home": "farm house at the edge of town",
+    "livelihood": "rice fields around the town",
+    "source": "https://en.wikipedia.org/wiki/Lamphun"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Phra That Hariphunchai",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_That_Hariphunchai",
+    "note": "Bell-shaped central chedi with repousse Buddha images on bronze sheets; on the one-satang coin."
+   },
+   {
+    "name": "Chedi Suwanna",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_That_Hariphunchai",
+    "note": "Pyramid-shaped Dvaravati-style stupa about 46 m tall (Wikipedia places it in the same compound)."
+   },
+   {
+    "name": "Ko Luang Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Lamphun_province",
+    "note": "Waterfall in Mae Ping National Park."
+   }
+  ]
+ },
+ {
+  "id": "mae-hong-son",
+  "nameEn": "Mae Hong Son",
+  "nameTh": "แม่ฮ่องสอน",
+  "region": "north",
+  "town": {
+   "name": "Mueang Mae Hong Son",
+   "kind": "hill",
+   "source": "https://en.wikipedia.org/wiki/Mae_Hong_Son"
+  },
+  "terrain": [
+   "mountain",
+   "river"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "mountain-village home; it was the poorest province in 2012",
+    "livelihood": "farming in a province that is 85.5% forest",
+    "source": "https://en.wikipedia.org/wiki/Mae_Hong_Son_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "town house near the main market",
+    "livelihood": "guesthouses and trips to hill villages, caves and waterfalls",
+    "source": "https://en.wikipedia.org/wiki/Mae_Hong_Son"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.775,
+   "muslim": 0.005,
+   "christian": 0.209,
+   "source": "https://en.wikipedia.org/wiki/Mae_Hong_Son_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Phrathat Doi Kong Mu",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Mae_Hong_Son_province",
+    "note": "Temple on Doi Kong Mu, a hill above the town."
+   },
+   {
+    "name": "Mae Surin Falls",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Mae_Hong_Son_province",
+    "note": "Described as the highest waterfall in northern Thailand."
+   },
+   {
+    "name": "Pang Oung",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Mae_Hong_Son_province",
+    "note": "Reservoir in Mueang Mae Hong Son district."
+   }
+  ]
+ },
+ {
+  "id": "nan",
+  "nameEn": "Nan",
+  "nameTh": "น่าน",
+  "region": "north",
+  "town": {
+   "name": "Mueang Nan",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nan,_Thailand"
+  },
+  "terrain": [
+   "river",
+   "mountain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm house in the Nan valley",
+    "livelihood": "farming and fishing: 53% of the workforce, 29% of output (2022)",
+    "source": "https://en.wikipedia.org/wiki/Nan_province"
+   },
+   {
+    "class": "bureaucratic_class",
+    "home": "town house",
+    "livelihood": "administrative, educational and hospital work in town",
+    "source": "https://en.wikipedia.org/wiki/Nan,_Thailand"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Phumin",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phumin",
+    "note": "Cross-shaped ordination hall (1596) that seems to rest on two giant nagas, with four entrances and teak pillars."
+   },
+   {
+    "name": "Wat Phra That Chang Kham",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nan,_Thailand",
+    "note": "Chedi with gilded elephant heads."
+   },
+   {
+    "name": "Wat Phra That Khao Noi",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nan,_Thailand",
+    "note": "Fifteenth-century temple on a hill over the city with a golden standing Buddha."
+   }
+  ]
+ },
+ {
+  "id": "phayao",
+  "nameEn": "Phayao",
+  "nameTh": "พะเยา",
+  "region": "north",
+  "town": {
+   "name": "Mueang Phayao",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Phayao"
+  },
+  "terrain": [
+   "lake",
+   "mountain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "farm house near the lake",
+    "livelihood": "crops and livestock on farmland watered by Kwan Phayao (16,500 families nearby)",
+    "source": "https://en.wikipedia.org/wiki/Kwan_Phayao"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.979,
+   "muslim": null,
+   "christian": 0.008,
+   "source": "https://en.wikipedia.org/wiki/Phayao_province"
+  },
+  "landmarks": [
+   {
+    "name": "Kwan Phayao",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Kwan_Phayao",
+    "note": "Shallow lake of 19.8 km2 beside the town, the largest freshwater lake in the north."
+   },
+   {
+    "name": "Wat Si Khom Kham",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phayao_province",
+    "note": "Temple housing Phra Chao Ton Luang, a seated Buddha about 18 m high."
+   },
+   {
+    "name": "Doi Luang",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phayao_province",
+    "note": "Mountain of 1,694 m that rises over the Phayao valley."
+   }
+  ]
+ },
+ {
+  "id": "phrae",
+  "nameEn": "Phrae",
+  "nameTh": "แพร่",
+  "region": "north",
+  "town": {
+   "name": "Mueang Phrae",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Phrae"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "town house",
+    "livelihood": "textile industry (the town is known for textiles; no detail given)",
+    "source": "https://en.wikipedia.org/wiki/Phrae"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phra That Cho Hae",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phrae_province",
+    "note": "Stupa on a hill about 9 km southeast of the town; the provincial symbol."
+   },
+   {
+    "name": "Phae Mueang Phi",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phrae",
+    "note": "Eroded mushroom rocks and pillars of earth a few km north of town."
+   }
+  ]
+ },
+ {
+  "id": "uttaradit",
+  "nameEn": "Uttaradit",
+  "nameTh": "อุตรดิตถ์",
+  "region": "north",
+  "town": {
+   "name": "Mueang Uttaradit",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Uttaradit"
+  },
+  "terrain": [
+   "river",
+   "mountain",
+   "plain"
+  ],
+  "archetype": "lanna-valley",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "orchard house",
+    "livelihood": "durian and langsat orchards (about 20,000 t of durian in 2012)",
+    "source": "https://en.wikipedia.org/wiki/Uttaradit_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Phra Thaen Sila At",
+    "kind": "wat-lanna",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Uttaradit_province",
+    "note": "Temple whose mondop sits on a laterite block; shown on the provincial seal."
+   },
+   {
+    "name": "Ton Sak Yai teak tree",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Uttaradit_province",
+    "note": "Teak tree over 1,500 years old with a trunk about 9.87 m round, in Ton Sak Yai National Park (kind is a stand-in; no tree kind exists)."
+   },
+   {
+    "name": "Nan River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Uttaradit_province",
+    "note": "The river whose valley the province lies in."
+   }
+  ]
+ }
+]

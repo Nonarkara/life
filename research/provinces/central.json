@@ -1,0 +1,1312 @@
+[
+ {
+  "id": "bangkok",
+  "nameEn": "Bangkok",
+  "nameTh": "กรุงเทพมหานคร",
+  "region": "central",
+  "town": {
+   "name": "Khlong Toei",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Khlong_Toei_District"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "bangkok-port",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "informal settlement beside the port, on land owned by the Port Authority",
+    "livelihood": "port-area community; district built around Bangkok Port",
+    "source": "https://en.wikipedia.org/wiki/Khlong_Toei_District"
+   },
+   {
+    "class": "middle_class",
+    "home": "Sukhumvit and Pathum Wan, among hotels, retail outlets and large shopping malls",
+    "livelihood": "retail and hotel work",
+    "source": "https://en.wikipedia.org/wiki/Bangkok"
+   },
+   {
+    "class": "middle_class",
+    "home": "shophouse in Yaowarat/Sampheng, Chinatown",
+    "livelihood": "shop trade: gold, textiles, food ingredients",
+    "source": "https://en.wikipedia.org/wiki/Yaowarat_Road"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Democracy Monument",
+    "kind": "monument-nonroyal",
+    "from": 1940,
+    "source": "https://en.wikipedia.org/wiki/Democracy_Monument,_Bangkok",
+    "note": "Art Deco traffic-circle monument, four wing structures 24 m high around a palm-leaf box holding the 1932 constitution"
+   },
+   {
+    "name": "Yaowarat Road (Chinatown)",
+    "kind": "market",
+    "from": 1900,
+    "source": "https://en.wikipedia.org/wiki/Yaowarat_Road",
+    "note": "Dense shophouse street of gold shops, with a street-food crowd at night; built 1892-1900"
+   },
+   {
+    "name": "Khlong Toei Port (Bangkok Port)",
+    "kind": "port",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Khlong_Toei_District",
+    "note": "Cargo port on the Chao Phraya; construction began 1938, finished after WWII (exact opening year not stated) Construction began 1938 and finished after WWII; opening year not sourced, so it is not drawn.",
+    "fromUnverified": true,
+    "fromUnknown": true
+   },
+   {
+    "name": "Wat Traimit",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Yaowarat_Road",
+    "note": "Temple at the start of Yaowarat Road near Odeon Circle; year not stated",
+    "fromUnverified": true
+   }
+  ],
+  "extraDistricts": [
+   {
+    "name": "Samphanthawong (Sampheng / Yaowarat)",
+    "character": "Chinese trading quarter; gold, textile and food shops; night food street",
+    "source": "https://en.wikipedia.org/wiki/Yaowarat_Road"
+   },
+   {
+    "name": "Thonburi (west bank, e.g. Taling Chan)",
+    "character": "less developed side, traditional khlongs still exist, residential and rural areas",
+    "source": "https://en.wikipedia.org/wiki/Thonburi"
+   },
+   {
+    "name": "Pathum Wan / Siam",
+    "character": "largest shopping malls in Southeast Asia",
+    "source": "https://en.wikipedia.org/wiki/Bangkok"
+   }
+  ],
+  "notes": "Existing game districts: Sukhumvit (Watthana/Khlong Toei), Pathum Wan are sourced from the Bangkok page. Bang Na: no source found, left out. Bangkok page gives no religion share. Rama VIII Bridge and Bhumibol Bridge skipped (named for kings). Yaowarat Road was ordered by Rama V but is a street, not a royal-identity site."
+ },
+ {
+  "id": "ang-thong",
+  "nameEn": "Ang Thong",
+  "nameTh": "อ่างทอง",
+  "region": "central",
+  "town": {
+   "name": "Ang Thong",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Ang_Thong_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-rice",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "rice farm on the Chao Phraya/Noi river plain",
+    "livelihood": "rice farming; agriculture and fishing employed 23.1% of workers (2024)",
+    "source": "https://en.wikipedia.org/wiki/Ang_Thong_province"
+   },
+   {
+    "class": "working_class",
+    "home": "craft household",
+    "livelihood": "moulded court dolls, firebrick, wickerwork",
+    "source": "https://en.wikipedia.org/wiki/Ang_Thong_province"
+   },
+   {
+    "class": "working_class",
+    "home": "town home",
+    "livelihood": "factory work; manufacturing is 19.4% of output",
+    "source": "https://en.wikipedia.org/wiki/Ang_Thong_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Noi River and Chao Phraya River plain",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ang_Thong_province",
+    "note": "Low flat plain with no mountains or forest, cut by rivers and canals"
+   },
+   {
+    "name": "Wat Chaiyo Worawihan",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ang_Thong_province",
+    "note": "Temple with a large Buddha; one of nine auspicious temples; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Wat Pa Mok Worawihan",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ang_Thong_province",
+    "note": "Temple with a reclining Buddha; year not stated",
+    "fromUnverified": true
+   }
+  ]
+ },
+ {
+  "id": "chai-nat",
+  "nameEn": "Chai Nat",
+  "nameTh": "ชัยนาท",
+  "region": "central",
+  "town": {
+   "name": "Chai Nat",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Chai_Nat_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-rice",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "rice farm in the lower Chao Phraya valley",
+    "livelihood": "irrigated rice paddies fed by the Chao Phraya Dam",
+    "source": "https://en.wikipedia.org/wiki/Chai_Nat_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Chao Phraya Dam",
+    "kind": "industrial",
+    "from": 1957,
+    "source": "https://en.wikipedia.org/wiki/Chai_Nat_province",
+    "note": "Low river barrage across the Chao Phraya, first dam built in Thailand (finished 1957)"
+   },
+   {
+    "name": "Chai Nat Bird Park",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Chai_Nat_province",
+    "note": "248 rai bird park, largest in Thailand; opening year not stated",
+    "fromUnverified": true
+   }
+  ],
+  "notes": "Only one household sourced; page gives no sector breakdown."
+ },
+ {
+  "id": "kamphaeng-phet",
+  "nameEn": "Kamphaeng Phet",
+  "nameTh": "กำแพงเพชร",
+  "region": "central",
+  "town": {
+   "name": "Kamphaeng Phet",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Kamphaeng_Phet_province"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "central-upland",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm on the Ping River flats",
+    "livelihood": "banana growing, especially the kluai khai (Lady Finger banana)",
+    "source": "https://en.wikipedia.org/wiki/Kamphaeng_Phet_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Kamphaeng Phet Historical Park",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Kamphaeng_Phet_province",
+    "note": "Old town walls and ruined monuments, part of a World Heritage Site; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Khlong Lan Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Kamphaeng_Phet_province",
+    "note": "Waterfall in Khlong Lan National Park, in the forested Dawna Range to the west"
+   },
+   {
+    "name": "Ping River flats",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Kamphaeng_Phet_province",
+    "note": "Flat river land along the Ping, a Chao Phraya tributary"
+   }
+  ]
+ },
+ {
+  "id": "lopburi",
+  "nameEn": "Lopburi",
+  "nameTh": "ลพบุรี",
+  "region": "central",
+  "town": {
+   "name": "Lopburi",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Lopburi_province"
+  },
+  "terrain": [
+   "plain",
+   "river"
+  ],
+  "archetype": "central-upland",
+  "households": [
+   {
+    "class": "bureaucratic_class",
+    "home": "town beside a large military base",
+    "livelihood": "military service; Plaek Phibunsongkhram made Lopburi the largest military base in Thailand in 1937; Khok Kathiam Air Force Base 9 km north",
+    "source": "https://en.wikipedia.org/wiki/Lopburi_province"
+   },
+   {
+    "class": "low_class",
+    "home": "farm between the Lopburi and Pa Sak rivers",
+    "livelihood": "farming; sunflower fields in Phatthana Nikhom (livelihood role not stated)",
+    "source": "https://en.wikipedia.org/wiki/Lopburi_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phra Prang Sam Yot",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phra_Prang_Sam_Yot",
+    "note": "Three-towered Khmer-style temple, brick with stucco, around macaque monkeys; built early 13th century"
+   },
+   {
+    "name": "San Phra Kan",
+    "kind": "chinese-shrine",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Lopburi_province",
+    "note": "Shrine in the town centre beside a herd of macaques; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Sunflower fields, Phatthana Nikhom",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Lopburi_province",
+    "note": "Fields of sunflowers on the plains and low hills east of the town",
+    "fromUnverified": true
+   }
+  ],
+  "notes": "Kinds for San Phra Kan/sunflower fields are approximate; the Narai palace was excluded."
+ },
+ {
+  "id": "nakhon-nayok",
+  "nameEn": "Nakhon Nayok",
+  "nameTh": "นครนายก",
+  "region": "central",
+  "town": {
+   "name": "Nakhon Nayok",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nakhon_Nayok_province"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "central-upland",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "rice-field plain along the Nakhon Nayok River",
+    "livelihood": "rice farming (implied by the provincial seal's rice ear; livelihoods not described on the page)",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Nayok_province"
+   },
+   {
+    "class": "working_class",
+    "home": "family near the dam and waterfalls",
+    "livelihood": "tourism, e.g. white-water rafting at Khun Dan Prakan Chon Dam",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Nayok_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Khun Dan Prakan Chon Dam",
+    "kind": "industrial",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Nayok_province",
+    "note": "Dam popular for rafting, two hours from Bangkok; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Nang Rong Waterfall",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Nayok_province",
+    "note": "Waterfall in the hills of Khao Yai area"
+   },
+   {
+    "name": "Yod Khao Kiew",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Nayok_province",
+    "note": "Highest point 1,292 m in the Sankamphaeng Range to the north"
+   }
+  ]
+ },
+ {
+  "id": "nakhon-pathom",
+  "nameEn": "Nakhon Pathom",
+  "nameTh": "นครปฐม",
+  "region": "central",
+  "town": {
+   "name": "Nakhon Pathom",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nakhon_Pathom_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-river",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "farm on the Tha Chin plain",
+    "livelihood": "pig farming, long-standing, early farmers mostly Thai-Chinese",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Pathom_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "university town",
+    "livelihood": "education and relocated government offices",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Pathom_province"
+   },
+   {
+    "class": "working_class",
+    "home": "industrial-zone worker home",
+    "livelihood": "factory work in industrial zones",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Pathom_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phra Pathommachedi",
+    "kind": "chedi-south",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Pathom_province",
+    "note": "Enormous bell-shaped chedi; page gives conflicting 1860/1870 dates for the current building (rebuild, site older than 1900)"
+   },
+   {
+    "name": "Phutthamonthon Buddhism Park",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Pathom_province",
+    "note": "Buddhist park; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Tha Chin River canals",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Pathom_province",
+    "note": "Tha Chin River with many agricultural canals"
+   }
+  ],
+  "notes": "Phutthamonthon is from the 20th century but the page gives no year, so do not draw it unless a year is found."
+ },
+ {
+  "id": "nakhon-sawan",
+  "nameEn": "Nakhon Sawan",
+  "nameTh": "นครสวรรค์",
+  "region": "central",
+  "town": {
+   "name": "Pak Nam Pho (Nakhon Sawan city)",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nakhon_Sawan_province"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "lake"
+  ],
+  "archetype": "central-river",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "trading family in the river town where the Ping and Nan meet",
+    "livelihood": "historically a major rice and teak trading centre (current livelihoods not described on the page)",
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Sawan_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Meeting of the Ping and Nan rivers",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Sawan_province",
+    "note": "Ping and Nan merge near the city to form the Chao Phraya"
+   },
+   {
+    "name": "Bueng Boraphet",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Sawan_province",
+    "note": "Largest freshwater wetland in Thailand, 212 km2, east of the city"
+   },
+   {
+    "name": "Wat Khao Kob",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Sawan_province",
+    "note": "Temple on the highest mountaintop in the city; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Pak Nam Pho Chinese New Year festival",
+    "kind": "chinese-shrine",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nakhon_Sawan_province",
+    "note": "Dragon festival held for over 100 years"
+   }
+  ]
+ },
+ {
+  "id": "nonthaburi",
+  "nameEn": "Nonthaburi",
+  "nameTh": "นนทบุรี",
+  "region": "central",
+  "town": {
+   "name": "Nonthaburi",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Nonthaburi_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-river",
+  "households": [
+   {
+    "class": "middle_class",
+    "home": "riverside durian orchard",
+    "livelihood": "durian growing (orchards mostly near rivers, many lost to flooding and pollution)",
+    "source": "https://en.wikipedia.org/wiki/Nonthaburi_province"
+   },
+   {
+    "class": "working_class",
+    "home": "pottery household on Ko Kret",
+    "livelihood": "earthenware pottery, shown on the provincial seal",
+    "source": "https://en.wikipedia.org/wiki/Nonthaburi_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "commuter town home",
+    "livelihood": "trade (16.7% of output) and manufacturing (13.6%)",
+    "source": "https://en.wikipedia.org/wiki/Nonthaburi_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.961,
+   "muslim": 0.031,
+   "christian": 0.0059,
+   "source": "https://en.wikipedia.org/wiki/Nonthaburi_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Paramaiyikawat leaning chedi",
+    "kind": "chedi-south",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nonthaburi_province",
+    "note": "Temple with a leaning chedi; the page does not place it on Ko Kret; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Chao Phraya River",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Nonthaburi_province",
+    "note": "Chao Phraya basin, 637 km2, no forest"
+   }
+  ]
+ },
+ {
+  "id": "pathum-thani",
+  "nameEn": "Pathum Thani",
+  "nameTh": "ปทุมธานี",
+  "region": "central",
+  "town": {
+   "name": "Rangsit",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Pathum_Thani_province"
+  },
+  "terrain": [
+   "plain",
+   "river"
+  ],
+  "archetype": "central-industrial",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "apartment near an industrial park",
+    "livelihood": "factory work; manufacturing is 46.6% of output (Nava Nakorn, Bangkadi, Techno Thani)",
+    "source": "https://en.wikipedia.org/wiki/Pathum_Thani_province"
+   },
+   {
+    "class": "low_class",
+    "home": "paddy farm on canals",
+    "livelihood": "rice farming, about 530 km2 of paddy",
+    "source": "https://en.wikipedia.org/wiki/Pathum_Thani_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "university household",
+    "livelihood": "10 higher education institutions, 141,616 students",
+    "source": "https://en.wikipedia.org/wiki/Pathum_Thani_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Phra Dhammakaya",
+    "kind": "wat-central",
+    "from": 1970,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_Dhammakaya",
+    "note": "Vast stupa (Dhammakaya Cetiya) complex in Khlong Luang; founded 1970, official temple 1977, stupa built later"
+   },
+   {
+    "name": "Rice paddies and khlongs",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Pathum_Thani_province",
+    "note": "Low alluvial flats crossed by canals feeding the paddy"
+   }
+  ],
+  "notes": "Page says the province is heavily Mon; counts: 201 temples, 39 churches, 32 mosques. Stupa completion year not stated, so the 1970 founding year is early."
+ },
+ {
+  "id": "phetchabun",
+  "nameEn": "Phetchabun",
+  "nameTh": "เพชรบูรณ์",
+  "region": "central",
+  "town": {
+   "name": "Phetchabun",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Phetchabun_province"
+  },
+  "terrain": [
+   "mountain",
+   "river",
+   "plateau"
+  ],
+  "archetype": "central-upland",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "cabbage farm on Phu Thap Boek highlands",
+    "livelihood": "cabbage growing, largest cabbage area in Thailand",
+    "source": "https://en.wikipedia.org/wiki/Phetchabun_province"
+   },
+   {
+    "class": "low_class",
+    "home": "valley farm on the Pa Sak",
+    "livelihood": "sweet tamarind and tobacco growing",
+    "source": "https://en.wikipedia.org/wiki/Phetchabun_province"
+   },
+   {
+    "class": "working_class",
+    "home": "tourism household",
+    "livelihood": "tourism is the main industry",
+    "source": "https://en.wikipedia.org/wiki/Phetchabun_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phu Thap Boek",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phetchabun_province",
+    "note": "Highest mountain in the province, cabbage fields on the slopes"
+   },
+   {
+    "name": "Si Thep Historical Park",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phetchabun_province",
+    "note": "Ancient town ruins, dated archaeologically, not by build year"
+   },
+   {
+    "name": "Khao Kho",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phetchabun_province",
+    "note": "Cool-climate national park nicknamed the Switzerland of Thailand"
+   }
+  ]
+ },
+ {
+  "id": "phichit",
+  "nameEn": "Phichit",
+  "nameTh": "พิจิตร",
+  "region": "central",
+  "town": {
+   "name": "Phichit",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Phichit_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-rice",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "rice farm on the Nan and Yom plain",
+    "livelihood": "rice farming; agriculture is 37.7% of output and 43.8% of workers",
+    "source": "https://en.wikipedia.org/wiki/Phichit_province"
+   },
+   {
+    "class": "low_class",
+    "home": "lotus and fish pond household",
+    "livelihood": "lotus growing and freshwater aquaculture",
+    "source": "https://en.wikipedia.org/wiki/Phichit_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Bueng Si Fai",
+    "kind": "lake",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phichit_province",
+    "note": "Large lake in the town; named in the page, no description"
+   },
+   {
+    "name": "Wat Tha Luang",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phichit_province",
+    "note": "Temple of Luang Pho Phet; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Phichit long-boat racing on the Nan",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phichit_province",
+    "note": "Long boat races on the river"
+   }
+  ]
+ },
+ {
+  "id": "phitsanulok",
+  "nameEn": "Phitsanulok",
+  "nameTh": "พิษณุโลก",
+  "region": "central",
+  "town": {
+   "name": "Phitsanulok",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Phitsanulok_province"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "central-river",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "farm of sugarcane, rice, cassava or maize",
+    "livelihood": "field crops; agriculture 28% of output, 41.9% of employment",
+    "source": "https://en.wikipedia.org/wiki/Phitsanulok_province"
+   },
+   {
+    "class": "low_class",
+    "home": "raft home on the Nan River",
+    "livelihood": "river living; Raft homes of the Nan River are in the provincial motto",
+    "source": "https://en.wikipedia.org/wiki/Phitsanulok_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "education worker home",
+    "livelihood": "education is 11.5% of output",
+    "source": "https://en.wikipedia.org/wiki/Phitsanulok_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.95,
+   "muslim": null,
+   "christian": null,
+   "source": "https://en.wikipedia.org/wiki/Phitsanulok_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Phra Si Rattana Mahathat",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phitsanulok_province",
+    "note": "Old temple holding the Phra Phuttha Chinnarat Buddha; built 1357 per the page"
+   },
+   {
+    "name": "Nan River raft homes",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phitsanulok_province",
+    "note": "Houses floating on rafts along the Nan"
+   },
+   {
+    "name": "Thung Salaeng Luang",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Phitsanulok_province",
+    "note": "1,262 km2 national park; establishment year not stated"
+   }
+  ],
+  "notes": "Wat Phra Si Rattana Mahathat is described as a royal temple on the page; kept as a temple only, no royal image."
+ },
+ {
+  "id": "ayutthaya",
+  "nameEn": "Phra Nakhon Si Ayutthaya",
+  "nameTh": "พระนครศรีอยุธยา",
+  "region": "central",
+  "town": {
+   "name": "Ayutthaya",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Ayutthaya_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-river",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "apartment near an industrial park",
+    "livelihood": "factory work; manufacturing about 61% of output, Honda plant",
+    "source": "https://en.wikipedia.org/wiki/Ayutthaya_province"
+   },
+   {
+    "class": "low_class",
+    "home": "paddy farm on the Lopburi and Pa Sak rivers",
+    "livelihood": "rice farming; flood plains flood for months each year",
+    "source": "https://en.wikipedia.org/wiki/Ayutthaya_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "boat-noodle shop family",
+    "livelihood": "Ayutthaya is considered the origin of boat noodles",
+    "source": "https://en.wikipedia.org/wiki/Ayutthaya_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.95,
+   "muslim": 0.0426,
+   "christian": 0.0035,
+   "source": "https://en.wikipedia.org/wiki/Ayutthaya_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Mahathat Buddha head in fig roots",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ayutthaya_province",
+    "note": "Sandstone Buddha head wrapped by tree roots among ruined prangs"
+   },
+   {
+    "name": "Wat Chaiwatthanaram",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ayutthaya_province",
+    "note": "Ruined Khmer-style riverside temple with a central prang"
+   },
+   {
+    "name": "Wat Yai Chai Mongkhon",
+    "kind": "chedi-south",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Ayutthaya_province",
+    "note": "Temple near an old Khmer-era water reservoir; year not stated",
+    "fromUnverified": true
+   }
+  ]
+ },
+ {
+  "id": "samut-prakan",
+  "nameEn": "Samut Prakan",
+  "nameTh": "สมุทรปราการ",
+  "region": "central",
+  "town": {
+   "name": "Samut Prakan",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Samut_Prakan_province"
+  },
+  "terrain": [
+   "coast",
+   "river",
+   "plain"
+  ],
+  "archetype": "central-industrial",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "factory-worker home",
+    "livelihood": "car-plant work; two Nissan factories employ about 4,000",
+    "source": "https://en.wikipedia.org/wiki/Samut_Prakan_province"
+   },
+   {
+    "class": "low_class",
+    "home": "west-bank shrimp and paddy farm",
+    "livelihood": "rice paddies, shrimp farms, snakeskin gourami fishing",
+    "source": "https://en.wikipedia.org/wiki/Samut_Prakan_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Phra Samut Chedi",
+    "kind": "chedi-south",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Prakan_province",
+    "note": "Pagoda on an island in the Chao Phraya at the river mouth; part of centre begun 1819"
+   },
+   {
+    "name": "Phi Sua Samut fort",
+    "kind": "industrial",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Prakan_province",
+    "note": ".",
+    "fromUnverified": true
+   },
+   {
+    "name": "Suvarnabhumi Airport",
+    "kind": "industrial",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Prakan_province",
+    "note": "Airport in Bang Phli district; opening year not stated on this page",
+    "fromUnverified": true
+   }
+  ],
+  "notes": "Suvarnabhumi opened 2006 is commonly known but not confirmed on the opened page; left unsourced."
+ },
+ {
+  "id": "samut-sakhon",
+  "nameEn": "Samut Sakhon",
+  "nameTh": "สมุทรสาคร",
+  "region": "central",
+  "town": {
+   "name": "Samut Sakhon (Mahachai)",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Samut_Sakhon_province"
+  },
+  "terrain": [
+   "coast",
+   "river",
+   "plain"
+  ],
+  "archetype": "central-coast-salt",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "salt-pan family on the shore",
+    "livelihood": "sea salt; 12,572 rai of pans, 242 families (2011)",
+    "source": "https://en.wikipedia.org/wiki/Samut_Sakhon_province"
+   },
+   {
+    "class": "low_class",
+    "home": "fishing family",
+    "livelihood": "short-mackerel fishing; largest catch in Thailand",
+    "source": "https://en.wikipedia.org/wiki/Samut_Sakhon_province"
+   },
+   {
+    "class": "working_class",
+    "home": "factory worker home",
+    "livelihood": "6,458 factories, 372,282 workers (2022)",
+    "source": "https://en.wikipedia.org/wiki/Samut_Sakhon_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Salt pans along the Tha Chin mouth",
+    "kind": "sea",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Sakhon_province",
+    "note": "Flat shallow pans of sea salt by the gulf"
+   },
+   {
+    "name": "Red Bridge",
+    "kind": "bridge",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Sakhon_province",
+    "note": "Bridge named in the page; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Wat Wisutthiwarawat",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Sakhon_province",
+    "note": "Temple named in the page; year not stated",
+    "fromUnverified": true
+   }
+  ]
+ },
+ {
+  "id": "samut-songkhram",
+  "nameEn": "Samut Songkhram",
+  "nameTh": "สมุทรสงคราม",
+  "region": "central",
+  "town": {
+   "name": "Samut Songkhram",
+   "kind": "coast",
+   "source": "https://en.wikipedia.org/wiki/Samut_Songkhram_province"
+  },
+  "terrain": [
+   "coast",
+   "river",
+   "plain"
+  ],
+  "archetype": "central-coast-salt",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "salt-farm household",
+    "livelihood": "sea salt; 4,535 rai, 111 households (2011)",
+    "source": "https://en.wikipedia.org/wiki/Samut_Songkhram_province"
+   },
+   {
+    "class": "middle_class",
+    "home": "canal-side orchard family",
+    "livelihood": "lychee, pomelo and coconut growing",
+    "source": "https://en.wikipedia.org/wiki/Samut_Songkhram_province"
+   },
+   {
+    "class": "low_class",
+    "home": "fishing family",
+    "livelihood": "pla thu (short mackerel) fishing",
+    "source": "https://en.wikipedia.org/wiki/Samut_Songkhram_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Maeklong Railway Market",
+    "kind": "market",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Maeklong_Railway",
+    "note": "Seafood market built around the track; stalls pull awnings back when the train passes; line opened 1904, market year not stated The railway opened 1904; the market year is not sourced, so it is not drawn.",
+    "fromUnknown": true
+   },
+   {
+    "name": "Amphawa Floating Market",
+    "kind": "market",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Songkhram_province",
+    "note": "Canal-side floating market; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Mae Klong River mouth and coastal salt lakes",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Samut_Songkhram_province",
+    "note": "Canals and sea-salt lakes by the bay"
+   }
+  ]
+ },
+ {
+  "id": "saraburi",
+  "nameEn": "Saraburi",
+  "nameTh": "สระบุรี",
+  "region": "central",
+  "town": {
+   "name": "Saraburi",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Saraburi_province"
+  },
+  "terrain": [
+   "plain",
+   "plateau",
+   "mountain"
+  ],
+  "archetype": "central-industrial",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "quarry or cement-plant worker home",
+    "livelihood": "cement and stone: 133 plants, 17 mining sites in Na Pra Lan",
+    "source": "https://en.wikipedia.org/wiki/Saraburi_province"
+   },
+   {
+    "class": "low_class",
+    "home": "farm on the high plains",
+    "livelihood": "agriculture; provincial motto cites sunflower fields",
+    "source": "https://en.wikipedia.org/wiki/Saraburi_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.8934,
+   "muslim": 0.0032,
+   "christian": null,
+   "source": "https://en.wikipedia.org/wiki/Saraburi_province"
+  },
+  "landmarks": [
+   {
+    "name": "Wat Phra Phutthabat",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Wat_Phra_Phutthabat",
+    "note": "Temple around a gilded Buddha footprint; built 1624"
+   },
+   {
+    "name": "Kaeng Khoi Junction",
+    "kind": "industrial",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Saraburi_province",
+    "note": "Main railway junction; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Namtok Sam Lan",
+    "kind": "waterfall",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Saraburi_province",
+    "note": "Waterfall in a hilly national park, declared 1981"
+   }
+  ],
+  "notes": "Faith is 2007 figures; Christian share not given (five churches)."
+ },
+ {
+  "id": "sing-buri",
+  "nameEn": "Sing Buri",
+  "nameTh": "สิงห์บุรี",
+  "region": "central",
+  "town": {
+   "name": "Sing Buri",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Sing_Buri_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-rice",
+  "households": [
+   {
+    "class": "working_class",
+    "home": "factory worker home",
+    "livelihood": "manufacturing is 29.7% of output",
+    "source": "https://en.wikipedia.org/wiki/Sing_Buri_province"
+   },
+   {
+    "class": "low_class",
+    "home": "rice and sugarcane farm",
+    "livelihood": "agriculture employs 22.3%; rice and sugarcane",
+    "source": "https://en.wikipedia.org/wiki/Sing_Buri_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Phra Non Chaksi",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sing_Buri_province",
+    "note": "Temple with a large reclining Buddha; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Chao Phraya plain in flood",
+    "kind": "river",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sing_Buri_province",
+    "note": "Flat plain at about 17 m, floods in the rainy season"
+   }
+  ],
+  "notes": "Bang Rachan memorial excluded (site of a battle)."
+ },
+ {
+  "id": "sukhothai",
+  "nameEn": "Sukhothai",
+  "nameTh": "สุโขทัย",
+  "region": "central",
+  "town": {
+   "name": "Sukhothai Thani",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Sukhothai_province"
+  },
+  "terrain": [
+   "plain",
+   "river",
+   "mountain"
+  ],
+  "archetype": "central-rice",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "rice and sugarcane farm in the Yom basin",
+    "livelihood": "rice, sugarcane, durian and tangerine growing",
+    "source": "https://en.wikipedia.org/wiki/Sukhothai_province"
+   },
+   {
+    "class": "working_class",
+    "home": "fish-processing household",
+    "livelihood": "fishing and fish processing in Kong Krailat",
+    "source": "https://en.wikipedia.org/wiki/Sukhothai_province"
+   }
+  ],
+  "faith": {
+   "buddhist": 0.998,
+   "muslim": null,
+   "christian": 0.002,
+   "source": "https://en.wikipedia.org/wiki/Sukhothai_province"
+  },
+  "landmarks": [
+   {
+    "name": "Sukhothai Historical Park",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sukhothai_province",
+    "note": "Ruined city with Wat Phra Phai Luang; traced to the 12th century"
+   },
+   {
+    "name": "Si Satchanalai Historical Park",
+    "kind": "prang-khmer",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sukhothai_province",
+    "note": "Ruined temples of Si Satchanalai; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Khao Luang range",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Sukhothai_province",
+    "note": "Highest ground, about 1,200 m, in Ramkhamhaeng National Park"
+   }
+  ],
+  "notes": "Faith is 2014 figures; Muslims are a small minority, first mosque opened 2012, no share stated."
+ },
+ {
+  "id": "suphan-buri",
+  "nameEn": "Suphan Buri",
+  "nameTh": "สุพรรณบุรี",
+  "region": "central",
+  "town": {
+   "name": "Suphan Buri",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Suphan_Buri_province"
+  },
+  "terrain": [
+   "river",
+   "plain"
+  ],
+  "archetype": "central-rice",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "paddy farm on the Tha Chin plain",
+    "livelihood": "rice farming",
+    "source": "https://en.wikipedia.org/wiki/Suphan_Buri_province"
+   },
+   {
+    "class": "low_class",
+    "home": "water-chestnut pond household",
+    "livelihood": "water chestnut growing, Thailand's largest producer",
+    "source": "https://en.wikipedia.org/wiki/Suphan_Buri_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Pa Lelai Worawihan",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Suphan_Buri_province",
+    "note": "Temple named in the page; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Wat Phai Rong Wua",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Suphan_Buri_province",
+    "note": "Temple with a Buddhist heaven-and-hell park; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Dragon Descendants Museum",
+    "kind": "industrial",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Suphan_Buri_province",
+    "note": "Museum with a Chinese village replica and giant dragon statue; year not stated",
+    "fromUnverified": true
+   }
+  ],
+  "notes": "Don Chedi Memorial excluded (royal/battle)."
+ },
+ {
+  "id": "uthai-thani",
+  "nameEn": "Uthai Thani",
+  "nameTh": "อุทัยธานี",
+  "region": "central",
+  "town": {
+   "name": "Uthai Thani",
+   "kind": "city",
+   "source": "https://en.wikipedia.org/wiki/Uthai_Thani_province"
+  },
+  "terrain": [
+   "river",
+   "plain",
+   "mountain"
+  ],
+  "archetype": "central-upland",
+  "households": [
+   {
+    "class": "low_class",
+    "home": "pomelo-grower family in Ban Namtok",
+    "livelihood": "pomelo growing (seal and motto)",
+    "source": "https://en.wikipedia.org/wiki/Uthai_Thani_province"
+   },
+   {
+    "class": "working_class",
+    "home": "cattle-market household",
+    "livelihood": "a famous cattle market (motto)",
+    "source": "https://en.wikipedia.org/wiki/Uthai_Thani_province"
+   }
+  ],
+  "faith": null,
+  "landmarks": [
+   {
+    "name": "Wat Khao Sakae Krang",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Uthai_Thani_province",
+    "note": "Pavilion atop the Khao Sakae Krang mountain; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Wat Chan Tharam",
+    "kind": "wat-central",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Uthai_Thani_province",
+    "note": "Lead-image temple; year not stated",
+    "fromUnverified": true
+   },
+   {
+    "name": "Huai Kha Khaeng",
+    "kind": "mountain",
+    "from": null,
+    "source": "https://en.wikipedia.org/wiki/Uthai_Thani_province",
+    "note": "2,780 km2 forest sanctuary on the western border, World Heritage 1991"
+   }
+  ],
+  "notes": "Forest covers 51.4% of the province."
+ }
+]
