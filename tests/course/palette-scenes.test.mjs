@@ -39,6 +39,7 @@ test('replaying an earlier age cannot reveal a future incident palette',()=>{
 });
 test('committing a period retains the recorded question palette while travelling',()=>{
  let s=begin(newLife(31));for(const p of pendingPivots(s))s=applyPivot(s,p,openOptions(p,s)[0].id);
+ if(s.story?.pending)s=resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.5);
  const before=paletteCue(s,10),next=live(s);
  assert.equal(paletteCue(next,10.01).plate,before.plate);
  assert.equal(paletteCue(next,10.01).reason,before.reason);

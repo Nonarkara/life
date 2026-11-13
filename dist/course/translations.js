@@ -1129,6 +1129,7 @@ Sport science|วิทยาศาสตร์การกีฬา|运动科�
 Your grandparents’ home.|บ้านปู่ย่าตายาย|祖父母的家|祖父母の家|조부모님의 집
 Your parents keep working in the city. You grow up with your grandparents, among their neighbours, fields and routines.|พ่อแม่ยังคงทำงานในเมือง คุณเติบโตกับปู่ย่าตายาย ท่ามกลางเพื่อนบ้าน ทุ่งนา และกิจวัตรของท่าน|父母继续在城里工作。你在祖父母身边长大，周围是他们的邻居、田地和日常。|両親は都会で働き続ける。あなたは祖父母のもとで、近所の人や田畑、その暮らしのリズムの中で育つ。|부모님은 도시에서 계속 일한다. 당신은 조부모님의 이웃과 논밭, 일상 속에서 자란다.
 Back with your parents.|กลับมาอยู่กับพ่อแม่|回到父母身边|両親のもとへ戻る|부모님 곁으로
+Across your lives on this device you have met {a} of {b} scenes.|ในทุกชีวิตบนเครื่องนี้ คุณได้พบ {a} จาก {b} ฉากแล้ว|在这台设备上的所有人生里，你已经遇到了{b}个场景中的{a}个。|この端末でのすべての人生で、{b}の場面のうち{a}に出会った。|이 기기에서 살아 본 모든 삶에서 {b}개 장면 중 {a}개를 만났다.
 Family moved|ย้ายบ้าน|举家搬迁|一家で引っ越し|가족 이사
 Moved to {place} at {n}|ย้ายไป{place} ตอนอายุ {n} ขวบ|{n}岁时搬到{place}|{n}歳で{place}へ引っ越し|{n}살에 {place} 쪽으로 이사
 The transfer letter.|หนังสือคำสั่งย้าย|调令|転勤の辞令|전근 발령장

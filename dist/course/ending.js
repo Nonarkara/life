@@ -14,7 +14,8 @@ import {replayComparison} from './replay-compare.js';
 import {renderReading,themCode} from './life-reading.js';
 import {pathOf,lifeArc} from './life-verdict.js';
 import {scoreLife} from './life-collection.js';
-import {encounterById,storyText} from './encounters.js';
+import {encounterById,storyText,ENCOUNTERS} from './encounters.js';
+import {metScenes} from './scene-memory.js';
 import {kitchenFeeds} from './diorama-plan.js';
 import {POPULATION} from './population.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
@@ -50,6 +51,8 @@ export function renderEnding(root,state,{storage}={}){
   const fed=Array.from({length:state.age+1},(_,a)=>kitchenFeeds(state,a));v.append(say('p',null,t('The Thai word for family, ครอบครัว, has the kitchen, ครัว, inside it. At its fullest yours fed {a}. At the end, {b}.').replace('{a}',Math.max(...fed)).replace('{b}',fed.at(-1))));
   v.append(say('p','verdict-lead',t('Unless you become a monk, there are only two lives on offer: a fun one that is insanely risky, or a safe one where you never find out why you were born.')));root.append(v);}
  const numbers=document.createElement('details');numbers.className='full-life-record ending-numbers';{const s=document.createElement('summary');s.textContent='The numbers';numbers.append(s);}
+ // How much of the bank this device has met, across lives.
+ {const met=new Set([...metScenes()].filter(id=>encounterById(id)));if(met.size){const p=document.createElement('p');p.className='fine';p.textContent=t('Across your lives on this device you have met {a} of {b} scenes.').replace('{a}',met.size).replace('{b}',ENCOUNTERS.length);numbers.append(p);}}
  // Where the life went leads the ending; the resource tracks follow it.
  const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);root.append(route);new ResizeObserver(()=>drawRouteMap(map,state)).observe(map);
  // Ikigai: four readings and the overlap between them. Money alone cannot fill it.

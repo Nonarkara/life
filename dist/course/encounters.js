@@ -128,6 +128,8 @@ useCategories(id=>byIdLate(id)?.category);
 for(const e of ENCOUNTERS){const i=e.options.findIndex(x=>!(x.cash<0)&&!x.requires);if(i>0)e.options=[e.options[i],...e.options.filter((x,k)=>k!==i)];}
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
 export const encounterById=id=>byId.get(id);
+// Scenes this device has met in earlier lives (scene-memory.js). Used only by freshly drawn lives (state.novelty).
+let familiar=new Set();export const setFamiliar=ids=>{familiar=new Set(ids);};
 const BANK_SHARE=Object.freeze({history:.18,quiet:.72,macro:.5});
 export function eligibleEncounters(state){
  if(state.stage!=='review'||state.age<10||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
@@ -135,7 +137,11 @@ export function eligibleEncounters(state){
  return ENCOUNTERS.filter(e=>(state.age>=15||e.child)&&state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
 }
 export function offerEncounter(state,roll,keep=()=>true){
- const eligible=eligibleEncounters(state).filter(keep).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
+ let eligible=eligibleEncounters(state).filter(keep).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
+ // An ordinary scene this device met in an earlier life steps aside while an unmet ordinary one, of a
+ // different kind from the last scene, is waiting. Story beats, class urgency, arc beats and dated
+ // history are never displaced, and replays, shared codes and the daily life are left alone.
+ if(state.novelty&&familiar.size){const ordinary=e=>(e.priority??2)===2&&!e.urgent&&!e.arcBeat,lastKind=byId.get(state.story.seen.at(-1)?.id)?.category,rest=eligible.filter(e=>!(ordinary(e)&&familiar.has(e.id)));if(rest.some(e=>ordinary(e)&&!familiar.has(e.id)&&e.category!==lastKind))eligible=rest;}
  // Urgency rule, one job: a birth-class pressure must get a hearing inside its
  // window even though thirty background encounters share its priority. It does
  // not displace authored story beats — it only wins a station that no story

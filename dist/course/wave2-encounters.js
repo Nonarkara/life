@@ -11,11 +11,11 @@ const old=s=>s.age>=60;
 
 export const WAVE2_ENCOUNTERS=[
  // School years
- scene('w2_uniform','school',10,14,all(POOR,withMother),'Your cousin\'s name on the shirt',
+ {...scene('w2_uniform','school',10,14,all(POOR,withMother),'Your cousin\'s name on the shirt',
   'Your school shirt was your cousin\'s. Their name is still stitched above the pocket in blue thread. The teacher reads it out at roll call.',[
   o('wear','Wear it as it is',{wellbeing:-1,skills:{eq:1}},'You answered to both names for a term. Then the teacher stopped noticing.'),
   o('unpick','Unpick the name at night',{skills:{craft:1}},'You unpicked it with your mother\'s needle. The holes stayed in the cloth all year.'),
-  o('new','Ask for a new shirt',{cash:-300,wellbeing:1},'Your mother bought one. She wore her own sandals another year.')]),
+  o('new','Ask for a new shirt',{cash:-300,wellbeing:1},'Your mother bought one. She wore her own sandals another year.')]),child:true},
  scene('w2_temple_boy','school',12,15,all(of('low_class'),at('isan-village','nakhon-sawan','pak-phanang'),s=>sex(s)==='male'),'A mat at the temple in town',
   'The secondary school is in town, too far to walk. The abbot there takes village boys who sweep the grounds and carry the monks\' bowls at dawn.',[
   o('go','Go and live at the temple',{wellbeing:-1,skills:{drive:1,eq:1},flag:'templeBoy'},'You slept on a mat under the eaves. You learned to wake before the bell.'),

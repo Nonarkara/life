@@ -22,7 +22,8 @@ export function drawBirth(options={}, {previous=null, varied=false, random=Math.
   if(!birthFits(life,options))continue;
   if(varied&&previous&&(seed===previous.seed||life.birth.home===previous.birth.home||life.birth.class===previous.birth.class))continue;
   if(previousRoute&&routeOf(life)===previousRoute)continue;
-  if(validate(life))return life;
+  // Only a freshly drawn life prefers scenes this device has not met; a replay, a shared code or the daily life does not.
+  if(validate(life))return {...life,novelty:true};
  }
  throw new Error('No birth matched the draw');
 }

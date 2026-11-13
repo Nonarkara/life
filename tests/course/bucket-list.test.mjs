@@ -2,7 +2,10 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {newLife,begin,live,validate,flagsOf} from '../../dist/course/sim.js';
 import {BUCKET_LIST,planBucket,addCustomBucket,bucketReason,bucketDue} from '../../dist/course/bucket-list.js';
 import {openFinance,netWorth} from '../../dist/course/finance.js';
-const teen=()=>openFinance({...begin(newLife(31)),age:15});
+import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
+// A scene met at ten is answered first, as a player would, so the fixture does not depend on the seed having none.
+const answered=s=>s.story?.pending?resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.5):s;
+const teen=()=>openFinance({...answered(begin(newLife(31))),age:15});
 test('booking reserves actual money once and yields one matching ledger receipt',()=>{
  const s=teen(),next=planBucket(s,'coffee',17);assert.notEqual(next,s);assert.equal(netWorth(next.finance),netWorth(s.finance)-120);assert.equal(next.finance.receipts.filter(r=>r.kind==='bucket').length,1);assert.equal(planBucket(next,'coffee',17),next);assert.ok(validate(next));assert.ok(validate(JSON.parse(JSON.stringify(next))));
 });
