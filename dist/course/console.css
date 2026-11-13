@@ -75,7 +75,7 @@ body.console-mode{height:100dvh;overflow:hidden}
  .player-console>.console-nav button[aria-pressed=true]{border-color:var(--deck-accent)}
  .reader-close{position:sticky;top:0;z-index:1;display:block;margin-left:auto;background:var(--paper);min-height:32px;padding:4px 12px;font-size:14px}
  .console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{position:absolute;top:52px;bottom:auto;right:12px;max-width:260px;background:var(--deck);color:var(--deck-text);padding:4px 8px}
- .console-mode:not(.birth-stage):not(.recap-stage) #age-track{position:absolute;top:43px;left:0;right:0;padding:0;height:3px}
+ .console-mode:not(.birth-stage):not(.recap-stage) #age-track{position:absolute;top:0;left:0;right:0;padding:0;height:3px}
 }
 /* A narrow screen is one strip of consoles: swipe sideways to the next one. */
 @media(max-width:1279px){
@@ -423,7 +423,7 @@ body.has-plan .plan-title{display:none}
  .plan-foot{grid-column:1;grid-row:3;justify-self:stretch;padding:0}
  .plan-foot #commit{min-height:44px!important;padding:4px 12px}
  body.console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{top:auto;bottom:10px;right:8px;padding:0;background:none}
- body #overview{min-height:44px!important;padding:0 8px;white-space:nowrap;background:#0a0e14;color:#f3efe3}
+ body #overview{min-height:32px!important;padding:0 8px;white-space:nowrap;background:#0a0e14;color:#f3efe3}
  .town-caption{bottom:10px;min-height:32px;display:flex;align-items:center;padding:0 8px;max-width:calc(100% - 112px)}
 }
 /* Reading tabs (You, Money, CV...) are for reading: about half a phone screen, the plan keeps its fitted panel. */
@@ -461,7 +461,7 @@ body.has-plan .plan-title{display:none}
 .world-tools{display:flex;align-items:center;gap:6px;flex:none;margin-inline-start:auto}
 .world-tools #world-view{min-height:32px;max-width:100%;font-size:calc(11px * var(--reading-scale,1));padding:2px 5px;background:var(--deck,#0a0e14);color:var(--deck-text,#f3efe3);border:0}
 .world-tools #world-view:focus-visible{outline-color:var(--deck-accent,#f59e0b)}
-@media(max-width:720px){.world-tools #world-view{min-height:44px}}
+/* A text control in a two-control group: label plus padding, 32px (MSH), not a 44px slab over the town. */
 @media(max-width:720px){
  .stage:has(#world-view:not([hidden])) .town-caption{bottom:58px;max-width:calc(100% - 16px)}
 }

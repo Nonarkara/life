@@ -32,3 +32,15 @@ test('no town builds on a road, a neighbour\'s lot or an institution\'s plot',()
  for(const region of thai)for(const when of [[1955,10],[1970,20],[1981,29]])faults.push(...clearanceFaults(region,when));
  assert.deepEqual(faults,[]);
 });
+// Phase-5 review: Nakhon Sawan drew the Isan village's stilt houses and paddy. No two Thai towns
+// may share most of their building footprints in the same year.
+test('no two towns share most of their buildings',()=>{
+ const foot=region=>{let s,seed=7;do s=begin(configureLife(newLife(seed++),{class:CLASS[region],sex:'male',birthYear:1975,region}));while(s.birth.moves);
+  const groups=[],scene=new T.Scene();createRegionScenery({scene,registerBuilding:g=>groups.push(g)}).update(townPlan({...s,age:35},35));
+  return new Set(groups.map(g=>new T.Box3().setFromObject(g)).filter(b=>!b.isEmpty()).map(b=>[b.min.x,b.min.z,b.max.x,b.max.z].map(v=>Math.round(v*2)).join()));};
+ const thai=Object.keys(REGIONS).filter(r=>REGIONS[r].country==='TH'),all=Object.fromEntries(thai.map(r=>[r,foot(r)])),same=[];
+ // Plots every town shares (school, clinic, market, workplace, wat) are the board, not the town.
+ const common=[...all[thai[0]]].filter(k=>thai.every(r=>all[r].has(k))),sets=Object.fromEntries(thai.map(r=>[r,new Set([...all[r]].filter(k=>!common.includes(k)))]));
+ for(const a of thai)for(const b of thai)if(a<b){const A=sets[a],B=sets[b],n=[...A].filter(k=>B.has(k)).length;if(n/Math.min(A.size,B.size)>.7)same.push(a+'~'+b+' '+n+'/'+Math.min(A.size,B.size));}
+ assert.deepEqual(same,[]);
+});

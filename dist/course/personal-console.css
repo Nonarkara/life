@@ -458,12 +458,12 @@
 /* Owner's law (MSH, 11.12): an isolated primary action or icon control gets a real
    44 px target. A dense row of text controls keeps label-plus-padding, at least 32 px. */
 @media(max-width:720px){
- #commit,.transport-key,.allocation-row button,.pivot-option,.encounter-choice,select{min-height:44px!important}
+ #commit,.transport-key,.allocation-row button,.pivot-option,.encounter-choice,select:not(#world-view){min-height:44px!important}
  .transport-key{min-width:44px!important}
  header button,header a,.tabs button,.console-nav button,.console-panel a[href]{min-height:32px!important}
   /* The folded menu key, the life card, the course toggle and the reader's exit
      are isolated actions, not a dense row: they carry a real 44 px target. */
-  .top-more,.top-slots,#overview,.reader-close,.decision-set-aside{min-height:44px!important}
+  .top-more,.top-slots,.reader-close,.decision-set-aside{min-height:44px!important}
   .top-more,.top-slots{min-width:44px!important}
  .method a,.fine a,.hint a{min-height:0!important}
  body>header{padding:2px 12px;display:flex;align-items:center}
