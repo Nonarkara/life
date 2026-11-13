@@ -35,6 +35,12 @@ const FOV=9,VIEW=new T.Vector3(.62,.86,.86).normalize();
 
 // A renderer change must hide the old surface without allocating a new GPU scene.
 const STREET_SURFACE=-.008, CROSS_STREET_SURFACE=-.006;
+// A portrait phone sees a narrow diagonal of the board, so the town view aims halfway between the
+// family's street and what makes this town itself; a desktop sees both from the centre.
+// The wat, mosque, sim or shrine stands at the right; a port, a sea, sheds or a river run along the back
+// and stay in view from that aim too. Udon's lake and Siam Center sit lower on the right.
+const LANDMARK={'udon-thani':[16.2,4.4],'pathum-wan':[16.2,4.9],faith:[15.6,.2]};
+export const townFrame=P=>{const [x,z]=LANDMARK[P.regionId]??LANDMARK.faith;return {kind:'town',x:(6.4+x)/2,z:(6.6+z)/2};};
 export function cameraSpan(age,phone=false){return age<1?3.5+age*2:phone?Math.min(9,5+age*.12):age<10?5.5+age*.3:age<20?8.5+(age-10)*.13:9.8+Math.min(40,age-20)*.03;}
 export function drawScene3D(original,state,age,time,mode,view={}){
  let entry=scenes.get(original);
@@ -277,7 +283,7 @@ function createScene(original){
   const still=!focus.moving&&age>=3;
   // Small children stay in the room; a person walking gets the town.
   const [homeX,homeZ]=context.residence.origin;
-  const stop=pick||cameraView==='district'?{kind:'town',x:6.4,z:6.6}
+  const stop=pick||cameraView==='district'?(!pick&&tall&&!P.abroad?townFrame(P):{kind:'town',x:6.4,z:6.6})
     :cameraView==='home'?{kind:'home',x:homeX,z:homeZ,rung:P.rung}
     :(tour||cameraView==='tour')&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad)tourLine.textContent=tr(P.place.place);tourLine.hidden=(!stop&&!P.abroad)||!!pick||cameraView==='home'||cameraView==='district';
   let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
