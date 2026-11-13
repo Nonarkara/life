@@ -11,6 +11,7 @@ import {furniture,townGrowth,taskDesks} from './layout.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
 import {createDistricts,floorAt,overlappingReaderWidth} from './district3d.js';
 import {createRegionScenery} from './region3d.js';
+import {createStudio} from './studio3d.js';
 import {regionAt,region,regionIdFor,household,appearance,childhoodAway,homeRegion} from './regions.js';
 import {dogAt} from './life-choices.js';
 import {rand} from './sim.js';
@@ -90,6 +91,7 @@ function createScene(original){
  // --- the world, rebuilt only when the plan's key changes
  let world=null,appliedKey='';const buildings=[];
  const scenery=createRegionScenery({scene,registerBuilding:register});
+ const studio=createStudio(scene),quietMotion=matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;let lastHere=null,lastSeed=null;
  function register(group){group.userData.building=true;buildings.push({group,surfaces:null});}
  function surfacesOf(entry){if(entry.surfaces)return entry.surfaces;const list=[];entry.group.traverse(o=>{if(o.material)list.push(o.material);});entry.surfaces=list;return list;}
  function buildWorld(plan){
@@ -233,6 +235,8 @@ function createScene(original){
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);post.setSize(w,h,renderer.getPixelRatio());camera.aspect=w/h;lastSignature='';}
   const plan=townPlan(state,age),here=plan.regionId,born=regionIdFor(state.birth),family=familyAt(state,age);
+  // A move glides across the studio floor; a new life, a reload or reduced motion cuts.
+  if(lastSeed===state.seed&&lastHere&&here!==lastHere&&!quietMotion)studio.leave(lastHere,here);else if(lastSeed!==state.seed)studio.cancel();lastHere=here;lastSeed=state.seed;
   if(!world||appliedKey!==plan.key){appliedKey=plan.key;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;}
   const looks=[appliedKey,state.seed,state.birth?.household,state.intake?.sex,Math.floor(age/5),family.partner,family.child,castReady].join('/');
   if(looks!==lastLooks){lastLooks=looks;applyLooks(state,age,here,born,plan,family,time);}
@@ -294,10 +298,11 @@ function createScene(original){
   // An arrival must be framed even while the life clock is held by a decision.
   const ease=camReady&&animating&&!changedView?1-Math.exp(-dt*2.6):1;camReady=true;
   cam.x+=(follow.x-cam.x)*ease;cam.z+=(follow.y-cam.z)*ease;cam.span+=(span-cam.span)*ease;
+  const glide=studio.step();if(glide){cam.x=follow.x+glide.dx;cam.z=follow.y+glide.dz;cam.span=span+glide.rise;}
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),(()=>{const reader=document.querySelector('.console-reader');return reader&&!reader.hidden&&getComputedStyle(reader).visibility!=='hidden'?reader.getBoundingClientRect():null;})()):0;
   focus3.set(cam.x,.45,cam.z);
   const fit=tall?1.05:1,dist=(cam.span*fit/2)/Math.tan(T.MathUtils.degToRad(FOV/2));
-  eye.copy(focus3).addScaledVector(VIEW,dist);camera.position.copy(eye);camera.near=Math.max(1,dist-40);camera.far=dist+60;camera.lookAt(focus3);
+  eye.copy(focus3).addScaledVector(VIEW,dist);camera.position.copy(eye);camera.near=Math.max(1,dist-40);camera.far=dist+(glide?glide.far:60);camera.lookAt(focus3);
   if(dock)camera.setViewOffset(w,h,dock/2,0,w,h);else camera.clearViewOffset();camera.updateProjectionMatrix();
   // Cutaways keep the protagonist readable through foreground buildings.
   scene.updateMatrixWorld();camera.updateMatrixWorld(true);
