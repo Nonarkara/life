@@ -30,7 +30,8 @@ const GLASS='#3e4e54',FRAME='#d9d4c6',DARK='#2c3436',WOOD='#6d5640',TIMBER='#8a6
 function windows(b,x,z,y,w,d,h,r,{rows=1,cols,pad=m(.5),win=m(1.1),side=true,glass=GLASS}={}){
  const per=S;
  for(let f=0;f<rows;f++){const yy=y+f*per+m(1);
-  const n=cols??Math.max(1,Math.floor((w-pad)/(win+m(.8))));for(let i=0;i<n;i++){const xx=x+(w-(n*win+(n-1)*m(.8)))/2+i*(win+m(.8));b.box(xx,z+d,yy,win,.012,m(1.2),glass,r()<.62?1:0);}
+  // Never more windows than the wall holds: an asked-for count beyond that put glass in the air.
+  const n=cols===undefined?Math.max(1,Math.floor((w-pad)/(win+m(.8)))):Math.max(1,Math.min(cols,Math.floor((w+m(.8))/(win+m(.8)))));for(let i=0;i<n;i++){const xx=x+(w-(n*win+(n-1)*m(.8)))/2+i*(win+m(.8));b.box(xx,z+d,yy,win,.012,m(1.2),glass,r()<.62?1:0);}
   if(side){const k=Math.max(1,Math.floor((d-pad)/(win+m(1.2))));for(let i=0;i<k;i++){const zz=z+(d-(k*win+(k-1)*m(1.2)))/2+i*(win+m(1.2));b.box(x+w,zz,yy,.012,win,m(1.2),glass,r()<.5?1:0);}}
  }
 }
@@ -160,7 +161,9 @@ export function createRegionScenery({scene,registerBuilding}){
     water(-5.4,-5.4,2,23.8);
     for(let z=-5;z<17;z+=1.35){const w=1+r()*.5;if(clearOfRoutes(-3.5,z,w,1.15)&&r()<.92)unit(b=>shack(b,-3.5,z,w,1.15,wall(),roof(),r,m(.9)),[-3.5,z,w,1.15]);}
     open.box(-3.72,-5.2,m(.75),.22,23,.03,WOOD);
-    const dense=(x0,x1,z0,z1)=>{for(let z=z0;z<z1;){const d=.95+r()*.45;for(let x=x0;x<x1;){const w=.9+r()*.55;if(r()<.86&&clearOfRoutes(x,z,w,d))unit(b=>shack(b,x,z,w,d,wall(),roof(),r),[x,z,w,d]);x+=w+.06+(r()<.2?.3:0);}z+=d+.34;}};
+    // A shack never stands on the clinic's or the school's plot.
+    const free=(x,z,w,d)=>clearOfRoutes(x,z,w,d)&&!['school','work','clinic','market'].some(k=>{const [a,b,c,e]=FOOTPRINTS[k];return x<a+c&&x+w>a&&z<b+e&&z+d>b;});
+    const dense=(x0,x1,z0,z1)=>{for(let z=z0;z<z1;){const d=.95+r()*.45;for(let x=x0;x<x1;){const w=.9+r()*.55;if(r()<.86&&free(x,z,w,d))unit(b=>shack(b,x,z,w,d,wall(),roof(),r),[x,z,w,d]);x+=w+.06+(r()<.2?.3:0);}z+=d+.34;}};
     dense(-2.3,2.2,3.3,6.9);dense(-2.3,.8,9.2,18);dense(14.3,18.2,-5.2,6.9);dense(-2.2,18.2,-5.2,-3.2);dense(9.2,18.2,12.6,18.2);dense(13.4,18.2,9,12.2);dense(1.2,8.2,14.6,18);
     if(marks.tower)for(const [x,z,w] of [[15,-3.7,2.6],[-2,14,2.4]])if(clearOfLots(x,z,w,1.9))unit(b=>tower(b,x,z,w,1.9,pick(['#cfd0c8','#dcd8cc']),r,12+Math.floor(r()*14),P.accent),[x,z,w,1.9]);
     scatterTrees(3,[[.2,10,.8,1],[6,11,2,1.6]],[1.2,1.8]);},
@@ -200,7 +203,7 @@ export function createRegionScenery({scene,registerBuilding}){
     for(let i=0;i<8;i++){const z=-5+i*3,w=1.5+r()*.5;if(r()<.75&&clearOfRoutes(-3.2,z+.3,w,1.2))unit(b=>stilt(b,-3.2,z+.3,w,1.2,wall(),roof(),r,marks,m(1.5)),[-3.2,z+.3,w,1.2]);if(r()<.6){open.box(-5,z+1.2,m(.7),2.2,.24,.03,WOOD);for(let a=0;a<4;a++)open.box(-5+a*.72,z+1.26,-.02,.05,.05,m(.72),WOOD);}}
     for(let i=0;i<5;i++)boat(-5.3,-4+i*4.6+r(),1.6+r()*.4,pick([P.accent,'#2f6f9a','#c0563f','#3f8a7a']));
     for(const [x,z,w,d] of [[-.9,3.4,2,1.7],[14.3,-.5,2.3,1.9],[14.2,3.2,2.3,1.8],[14.3,9.3,2.4,1.9],[10,13,2.3,1.9],[13.4,13.2,2.5,1.9],[3,15,2.2,1.9],[-1,14,2.2,1.9],[1.9,-3.4,2.2,1.6],[9.3,-4.4,2.4,1.8]])if(r()<.82&&clearOfRoutes(x,z,w,d))unit(b=>{const c=wall(),ro=roof();b.box(x,z,0,w,d,S,c);windows(b,x,z,0,w,d,S,r,{cols:2,win:m(1)});door(b,x+w*.42,z+d,0,'#4f6a6a');b.gable(x,z,S,w,d,m(1.4),ro,{along:'x',over:.16,gableColor:c});if(marks.aerial&&r()<.5)aerial(b,x+w*.75,z+d*.5,S+.5);},[x,z,w,d]);
-    if(marks.store)unit(b=>store(b,6.3,10.9,1.9,1.4,r),[6.3,10.9,1.9,1.4]);if(marks.mast)mast(open,-5.2,-5.2);
+    if(marks.store)unit(b=>store(b,4.9,10.9,1.9,1.4,r),[4.9,10.9,1.9,1.4]);if(marks.mast)mast(open,-5.2,-5.2);
     scatterTrees(12,[[-1.4,2.8,4,.4],[-1.4,9,4,1.8],[9,12.4,9,.5],[14,6.1,4,.8],[9,17,9,1],[-5,17.4,9,.8]],[1.6,2.6],palm);},
    villa(){institutions(true,'#ece6d8',roof());
     const estates=[[-5.2,2.9,7.5,4.1],[-5.2,9.1,6,4.4],[9.3,12.6,4.5,5.4],[14.1,12.6,4.1,5.4],[14.2,-4.8,4,5],[14.2,.5,4,6.2],[-5.2,-4.9,3,3.7],[3,-5.2,4,3.8],[9.2,-5.2,4.6,3.6],[-.8,13.8,8.9,4.2]];

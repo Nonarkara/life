@@ -11,7 +11,8 @@ import {createBatch} from '../../dist/course/diorama-kit.js';
 // The overhaul's first law: where you are born must be visible. Every Thai birthplace builds its
 // own scenery, and a village family lives up a stair, as rural Thai families did.
 const BIRTHS={'samut-prakan':'working_class','nakhon-sawan':'low_class','khlong-toei':'low_class','isan-village':'low_class','bang-na':'middle_class','pak-phanang':'middle_class','sukhumvit':'high_class','hua-hin':'bureaucratic_class','udon-thani':'working_class','pathum-wan':'middle_class'};
-const planAt=(region,cls,age=10,seed=7)=>{const s=begin(configureLife(newLife(seed),{class:cls,sex:'male',birthYear:1981,region}));return townPlan({...s,age},age);};
+// A family that stays put, so the board at ten is still the birthplace.
+const planAt=(region,cls,age=10,seed=7)=>{let s;do s=begin(configureLife(newLife(seed++),{class:cls,sex:'male',birthYear:1981,region}));while(s.birth.moves);return townPlan({...s,age},age);};
 function fingerprint(plan){const scene=new T.Scene();createRegionScenery({scene,registerBuilding(){}}).update(plan);let n=0,sum=0;scene.traverse(o=>{const p=o.geometry?.attributes.position;if(!p)return;n+=p.count;for(let i=0;i<p.count;i+=7)sum+=p.getX(i)*3+p.getZ(i)*5+p.getY(i);});return n+':'+sum.toFixed(1);}
 test('every Thai birthplace builds different scenery, Isan and Nakhon Sawan included',()=>{
  const prints=Object.entries(BIRTHS).map(([r,c])=>[r,fingerprint(planAt(r,c))]);
@@ -67,4 +68,31 @@ test('the unchosen life and same-birth fellows are born where you were',async()=
   const s=begin(configureLife(newLife(seed),{class:cls,sex:'female',birthYear:1981,region}));
   assert.equal(unchosenLife(s,{upTo:1}).birth.region,region);assert.equal(sameBirth(s,0).birth.region,region);
  }
+});
+// Phase 3: a family moves when work moves it, and the place it left stays on the route map.
+test('a family moves for a posting, the suburbs or work, and the old place stays on the map',async()=>{
+ const {regionAt,homeRegion}=await import('../../dist/course/regions.js');const {routeModel}=await import('../../dist/course/routemap.js');const {familyAt}=await import('../../dist/course/diorama-plan.js');
+ const {validate}=await import('../../dist/course/sim.js');const {childhoodChapter}=await import('../../dist/course/childhood.js');const {encodeBirth,decodeBirth}=await import('../../dist/course/birthcode.js');
+ const find=(cls,region,why)=>{for(let seed=1;seed<4000;seed++){const l=configureLife(newLife(seed),{class:cls,sex:'female',birthYear:1981,...(region?{region}:{})});if(l.birth.moves?.[0].why===why)return l;}};
+ for(const [cls,region,why] of [['middle_class','pathum-wan','suburb'],['bureaucratic_class',undefined,'transfer'],['low_class','isan-village','work']]){
+  const l=find(cls,region,why);assert.ok(l,why+' happens');const m=l.birth.moves[0],born=l.birth.region;
+  assert.ok(m.age>=2&&m.age<=9&&m.region!==born);assert.equal(regionAt(l,m.age-1),born);assert.equal(regionAt(l,m.age),m.region);
+  const s={...begin(l),age:20,history:[]};assert.equal(familyAt(s,20).awayFromParents,false,'the family lives where it moved');
+  const route=routeModel({...l,age:12,history:[]});assert.ok(route.lanes.includes(born)&&route.lanes.includes(m.region),'both places stay on the route map');
+  assert.ok(route.marks.some(k=>k.age===m.age&&k.labels.includes('Family moved')));
+  assert.ok(childhoodChapter(l,m.age).decision.includes(REGIONS_PLACE(m.region)),'the move is told as a chapter');
+  assert.equal(decodeBirth(encodeBirth(l))?.birth.moves?.[0].region,m.region,'a shared code moves the same way');
+  assert.equal(homeRegion(l.birth,30),l.birth.moves.at(-1).region);
+ }
+ const l=find('bureaucratic_class',undefined,'transfer');assert.equal(validate({...l,birth:{...l.birth,moves:[{region:'nowhere',age:3,why:'transfer'}]}}),false);
+ assert.equal(validate({...l,birth:{...l.birth,moves:[{region:'bang-na',age:14,why:'transfer'}]}}),false);
+});
+import {REGIONS} from '../../dist/course/regions.js';
+const REGIONS_PLACE=id=>REGIONS[id].place;
+test('a life saved before moves never gains one when it is replayed or compared',async()=>{
+ const {replay}=await import('../../dist/course/sim.js');const {unchosenLife}=await import('../../dist/course/baseline.js');const {sameBirth}=await import('../../dist/course/life-reading.js');
+ let seed=1,l;do l=configureLife(newLife(seed++),{class:'bureaucratic_class',sex:'female',birthYear:1981});while(!l.birth.moves);
+ const {moves,...birth}=l.birth,old=begin({...l,birth});
+ assert.equal(replay(old).birth.moves,undefined);assert.equal(unchosenLife(old,{upTo:1}).birth.moves,undefined);assert.equal(sameBirth(old,0).birth.moves,undefined);
+ assert.deepEqual(replay(begin(l)).birth.moves,moves,'a life that moved replays the same move');
 });

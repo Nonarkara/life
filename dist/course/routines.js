@@ -2,7 +2,7 @@
 // Paths use the same world coordinates as the room and its furniture.
 import {RESIDENCES,WORKPLACES,locationContext} from './locations.js';
 import {recordedCommute,commuteSchedule} from './biography.js';
-import {REGIONS,regionIdFor,childhoodAway} from './regions.js';
+import {REGIONS,regionIdFor,childhoodAway,homeRegion} from './regions.js';
 export const HOME={mother:[5,6.25],father:[6.4,6.25],player:[5.7,5.8]};
 export const HOME_FACING={mother:Math.PI/2,father:-Math.PI/2,player:0};
 const EXIT=[[6.75,6.8],[6.75,7.2],[8.5,7.2]];
@@ -89,7 +89,7 @@ export function routineCaption(age,time,goal,context){const actor=age<3?'mother'
 export function routeFixtures(){return Object.values(destinations).map(d=>d.path);}
 
 export function routineContext(state,age=state.age){
- const region=childhoodAway(state.birth,age)?state.birth.childhood.region:regionIdFor(state.birth);
+ const region=childhoodAway(state.birth,age)?state.birth.childhood.region:homeRegion(state.birth,age);
  const style=REGIONS[region]?.style;
  const householdWork=style==='market'?'stall':style==='village'?'fieldWork':'familyWork';
  const completed=state.history?.filter(row=>row.age<=age).at(-1),activity=state.history?.filter(row=>(row.from??row.age)<=age).at(-1);return {...locationContext(state,age),householdWork,commute:recordedCommute(state,age,activity?.pathway??(age===state.age?state.pathway:undefined)),pathway:activity?.pathway??(age===state.age?state.pathway:undefined),recovering:(completed?.health??100)<60&&/health setback/.test(completed?.event??'')};}

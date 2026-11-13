@@ -188,7 +188,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
   const commute=recordedCommute(s,s.age,s.history?.at(-1)?.pathway);if(commute!==null)record.append(element('p','Commute: {value} min / day. Longer journeys leave less time at home.'.replace('{value}',commute)));
   if(room.remembered)record.append(element('p','A small remembrance follows a recorded loss.'));
   record.append(element('p','Fictional soi-inspired architecture; possessions reflect recorded choices, not a surveyed household.','console-note'));p.append(record);
-  p.append(element('h2','Society'),element('p','Born into '+s.birth.home+' · '+s.birth.place));
+  p.append(element('h2','Society'),element('p','Born into '+s.birth.home+' · '+s.birth.place));for(const m of s.birth.moves??[])if(m.age<=s.age&&REGIONS[m.region])p.append(element('p','Moved to {place} at {n}'.replace('{place}',REGIONS[m.region].place).replace('{n}',m.age)));
   p.append(element('h2','Environment'));const flood=s.history.find(r=>eventsFor(r).some(e=>e.type==='flood'));p.append(element('p',flood?'Floodwater damages the family home. Repairs take money and time.':'No environmental event recorded yet.'));
  }
  function render(){const scroll=wide.matches?reader.scrollTop:panes[active].scrollTop,s=getState();

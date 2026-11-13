@@ -1,4 +1,4 @@
-import {regionIdFor} from './regions.js';
+import {regionIdFor,homeRegion} from './regions.js';
 // REBUILD-STRATEGY.md step 4: a five-year chapter with no event still had a life in it.
 // One small, undated moment is drawn per quiet chapter, by age and place. Nothing here
 // names a year or a technology, so it holds for a life born in 1949 or in 2000.
@@ -21,6 +21,6 @@ const pick=(seed,age,list)=>{let h=2166136261;for(const c of `${seed}/${age}/mom
 export const MOMENT_TEXTS=[...new Set([...BANDS.flatMap(b=>b[2]),...Object.values(PLACES).flat()])];
 export function momentFor(state,age){
  const band=BANDS.find(([lo,hi])=>age>=lo&&age<=hi)?.[2]??BANDS[0][2];
- const place=age>=18?PLACES[regionIdFor(state.birth)]??[]:[];
+ const place=age>=18?PLACES[homeRegion(state.birth,18)]??[]:[];
  return pick(state.seed,age,[...band,...place]);
 }

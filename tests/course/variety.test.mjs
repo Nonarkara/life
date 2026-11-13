@@ -39,7 +39,9 @@ test('a 1949 life meets its history, and each life meets a different one',()=>{
   seqs.add(q.join('>'));for(const id of new Set(q))count[id]=(count[id]??0)+1;total+=1;history+=q.filter(id=>id.startsWith('h_')).length;
  }
  assert.ok(seqs.size>=N*MIN_DISTINCT,'distinct '+seqs.size);
- assert.ok(history/total>=3.5,'history scenes per life '+history/total); // lives can now end early at zero, and a route takes some stations
+ // 2026-11-13: 3.50 before family moves; 3.48 with moves; 3.44 once the temple-boy and city-fork pivots follow the family's
+ // new home (a moved family no longer gets the provincial pivots). Re-based on those measurements, not loosened further.
+ assert.ok(history/total>=3.4,'history scenes per life '+history/total); // lives can now end early at zero, and a route takes some stations
  for(const id of ['m_kits','m_funds'])assert.equal(count[id]??0,0,id+' before its time');
  const worst=Object.entries(count).sort((a,b)=>b[1]-a[1])[0];assert.ok(worst[1]<=N*.9,worst[0]+' is in '+worst[1]+'/'+N);
 });
@@ -99,12 +101,14 @@ test('clothes belong to their year and their person',()=>{
   const kid=outfitFor(life(seed*7919,{sex:'female'},15),'player','female',15,1964);assert.equal(kid.top,'#f4f0e4');assert.equal(kid.skirt,'knee');
   for(const year of [1950,1965,1985,2000,2015])assert.notEqual(outfitFor(life(seed*7919,{sex:'male'},30),'player','male',30,year).legs,'flare');
  }
- const farmer=[...Array(60).keys()].map(i=>life((i+1)*7919,{sex:'male',class:'low_class',region:'isan-village'},30)).map(s=>outfitFor(s,'player','male',30,1979));
+ // A family that went to the city for work dresses for the city; the farmer test samples families that stayed.
+ const farmer=[...Array(60).keys()].map(i=>life((i+1)*7919,{sex:'male',class:'low_class',region:'isan-village'},30)).filter(s=>!s.birth.moves).map(s=>outfitFor(s,'player','male',30,1979));
+ assert.ok(farmer.length>=40,'enough farm families stay');
  assert.ok(farmer.every(o=>o.mohom&&o.scarf),'farmer wears mo hom');
  const lives=(opt,age)=>[...Array(40).keys()].map(i=>life((i+1)*7919,opt,age));
  assert.ok(lives({sex:'male',class:'low_class',region:'isan-village'},60).some(s=>outfitFor(s,'player','male',60,2009).mohom),'farmers still wear mo hom after 1995');
  assert.ok(lives({sex:'female',class:'middle_class',region:'bang-na'},60).every(s=>outfitFor(s,'player','female',60,2009).skirt!=='sin'),'no pha sin by default in 2009 Bangkok');
- assert.ok(lives({sex:'female',class:'low_class',region:'isan-village'},30).every(s=>outfitFor(s,'player','female',30,1979).skirt==='sin'),'pha sin in the 1979 village');
+ assert.ok(lives({sex:'female',class:'low_class',region:'isan-village'},30).filter(s=>!s.birth.moves).every(s=>outfitFor(s,'player','female',30,1979).skirt==='sin'),'pha sin in the 1979 village');
  assert.ok(lives({sex:'female',class:'working_class',region:'khlong-toei'},20).every(s=>outfitFor(s,'player','female',20,1969).skirt!=='sin'),'young city women wore blouse and skirt');
  assert.ok(lives({sex:'male',class:'middle_class',region:'bang-na'},30).every(s=>outfitFor(s,'n1','male',30,1979).feet==='shoes'),'a city clerk wears shoes');
 });

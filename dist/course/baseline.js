@@ -13,7 +13,7 @@ const worth=r=>r.finance?netWorth(r.finance):r.cash;
 
 // The unchosen life, carried as far as the player's life has been carried.
 export function unchosenLife(state,{upTo=state.age}={}){
-  let life=state.intake?configureLife(newLife(state.seed),{...state.intake,region:state.birth?.region}):newLife(state.seed);
+  let life=state.intake?configureLife(newLife(state.seed),{...state.intake,region:state.birth?.region,moves:state.birth?.moves??null}):newLife(state.seed);
   life={...life,...(state.lifeEventPolicy?{lifeEventPolicy:{...state.lifeEventPolicy}}:{}),economy:createEconomy(state.economy?.seed??state.seed),story:newStory(state.seed)};
   life=begin(life);
   let guard=0;

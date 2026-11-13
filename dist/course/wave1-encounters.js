@@ -1,18 +1,18 @@
-import {regionIdFor,regionAt} from './regions.js';
+import {regionIdFor,regionAt,homeRegion} from './regions.js';
 // Content wave 1 (REBUILD-STRATEGY.md step 3). Original scenes written to the grammar in
 // ERA-SCENARIO-BANK.md: one small object, a cost carried by a named person, no verdict.
 // None is tied to a calendar year, so none states a historical fact. Each is gated to the
 // lives it could happen to, so a life only meets the scenes its circumstances allow.
 const cls=s=>s.intake?.class??s.birth?.class;
 const of=(...k)=>s=>k.includes(cls(s));
-const at=(...r)=>s=>r.includes(regionIdFor(s.birth));
+const at=(...r)=>s=>r.includes(homeRegion(s.birth,s.age));
 const sex=s=>s.intake?.sex??s.birth?.sex;
 const happened=re=>s=>(s.history??[]).some(r=>re.test(r.event??''));
 // "grandmother dies" must not read as a mother's death.
 const motherGone=happened(/(?<!grand)mother dies/),fatherGone=happened(/(?<!grand)father dies/);
 const hh=s=>s.birth?.household??'parents';
 const withMother=s=>['parents','mothers'].includes(hh(s))&&!motherGone(s),withFather=s=>['parents','fathers'].includes(hh(s))&&!fatherGone(s);
-const away=s=>regionAt(s)!==regionIdFor(s.birth);
+const away=s=>regionAt(s)!==homeRegion(s.birth,s.age);
 const child=(lo,hi)=>s=>{const f=s.story?.flags??{};return f.parent!==undefined&&f.childLost===undefined&&s.age-f.parent>=lo&&s.age-f.parent<=hi;};
 const all=(...f)=>s=>f.every(g=>g(s));
 const o=(id,label,effects,outcome)=>({id,label,...effects,outcome});

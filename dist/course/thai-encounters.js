@@ -1,8 +1,8 @@
-import {region,regionAt,regionIdFor} from './regions.js';
+import {region,regionAt,regionIdFor,homeRegion} from './regions.js';
 // Researched circumstances, fictional people and authored game effects. These
 // are choices, not predictions of political events, harvests or class destiny.
 const thai=s=>region(regionAt(s)).country==='TH';
-const farm=s=>thai(s)&&['isan-village','nakhon-sawan'].includes(regionIdFor(s.birth));
+const farm=s=>thai(s)&&['isan-village','nakhon-sawan'].includes(homeRegion(s.birth,s.age));
 // Simple seeded hash for easter-egg rarity, kept local to avoid a circular
 // import (sim.js → encounters.js → this file).
 const easterRand=(seed,age,domain)=>{let h=2166136261;for(const c of `${seed}/${age}/${domain}`){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}h+=h<<13;h^=h>>>7;h+=h<<3;h^=h>>>17;h+=h<<5;return(h>>>0)/4294967296;};

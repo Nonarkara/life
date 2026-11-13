@@ -1,5 +1,5 @@
 import {rand} from './rand.js';
-import {regionIdFor} from './regions.js';
+import {regionIdFor,homeRegion} from './regions.js';
 import {THAI_ENCOUNTERS} from './thai-encounters.js';
 import {CLASS_ENCOUNTERS} from './class-encounters.js';
 import {recordedFundLoss,legacyMarketPrompt} from './market-evidence.js';
@@ -175,7 +175,7 @@ export function resolveEncounter(state,choiceId,roll){
  const flags={...state.story.flags};if(choice.flag)flags[choice.flag]=state.age;
  const seen=[...state.story.seen,{id:pending.id,age:state.age,choice:choice.id,outcome:storyText(outcome,state.story),effects}];
  const funded=state.finance?personalFlow(state,'encounter:'+state.age+':'+pending.id,Math.max(0,choice.cash??0)+(choice.uncertain&&roll<.5?4500:0),Math.max(0,-(choice.cash??0))):state;
- const destination=choice.moveTo==='home'?regionIdFor(state.birth):choice.moveTo;
+ const destination=choice.moveTo==='home'?homeRegion(state.birth,state.age):choice.moveTo;
  const finance=destination&&funded.finance?{...funded.finance,region:destination,regionSince:state.age}:funded.finance;
  const next={...state,...(choice.pathway?{pathway:choice.pathway}:{}),finance,cash:state.finance?state.cash:state.cash+cash,health:cap(state.health+effects.health),wellbeing:cap(state.wellbeing+effects.wellbeing),skills:{...state.skills},story:{...state.story,flags,seen,pending:null}};
  for(const[key,value]of Object.entries(effects.skills))next.skills[key]+=value;

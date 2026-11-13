@@ -13,6 +13,7 @@ export function routeModel(state){
  for(const row of state.history??[])for(const e of eventsFor(row))if(MARKS[e.type]&&!marks.some(m=>m.age===row.age&&m.label===MARKS[e.type]))marks.push({age:row.age,label:MARKS[e.type]});
  for(const m of moves)if(m.home)marks.push({age:m.age,label:'Back home'});
  if(state.birth?.childhood)marks.push({age:state.birth.childhood.from,label:'Grandparents'});
+ for(const m of state.birth?.moves??[])if(m.age<=end)marks.push({age:m.age,label:'Family moved'});
  const once=['Love','Project','Study'],seen=new Set(),byAge=new Map();
  for(const mk of marks.sort((a,b)=>a.age-b.age)){if(once.includes(mk.label)){if(seen.has(mk.label))continue;seen.add(mk.label);}if(!byAge.has(mk.age))byAge.set(mk.age,[]);byAge.get(mk.age).push(mk.label);}
  return {end,born,lanes,at,moves,marks:[...byAge].map(([age,labels])=>({age,labels}))};

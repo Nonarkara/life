@@ -1,4 +1,4 @@
-import {regionIdFor,region} from './regions.js';
+import {regionIdFor,region,homeRegion} from './regions.js';
 import {assetsOf} from './life-persona.js';
 import {choiceAvailable} from './finance.js';
 import {choiceSymbol,choiceSymbolKey,questionCategoryBadge} from './choice-symbols.js';
@@ -23,7 +23,7 @@ export function renderEncounterChoices(root,state,scene,{onChoose,extra=()=>[],f
   const button=document.createElement('button');button.type='button';button.className='encounter-choice';button.disabled=!choiceAvailable(state,choice);if(button.disabled)button.title=t('Not enough cash and reserve for this choice.');
   const label=document.createElement('span');label.textContent=choice.label;button.append(choiceSymbol(button.disabled?'unavailable':choiceSymbolKey(choice)),label);
   const terms=encounterTerms(choice,formatMoney);
-  if(choice.moveTo)terms.unshift(t(region(choice.moveTo==='home'?regionIdFor(state.birth):choice.moveTo).place));
+  if(choice.moveTo)terms.unshift(t(region(choice.moveTo==='home'?homeRegion(state.birth,state.age):choice.moveTo).place));
   if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}
   button.append(...extra(choice));button.onclick=()=>onChoose?.(choice);root.append(button);
  }

@@ -11,7 +11,7 @@ import {furniture,townGrowth,taskDesks} from './layout.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
 import {createDistricts,floorAt,overlappingReaderWidth} from './district3d.js';
 import {createRegionScenery} from './region3d.js';
-import {regionAt,region,regionIdFor,household,appearance,childhoodAway} from './regions.js';
+import {regionAt,region,regionIdFor,household,appearance,childhoodAway,homeRegion} from './regions.js';
 import {dogAt} from './life-choices.js';
 import {rand} from './sim.js';
 import {currentPalette} from './palettes.js';
@@ -238,7 +238,7 @@ function createScene(original){
   let shadowCount=0;
   const place=(a,act,opts,y)=>{a.root.visible=true;a.update(act,age,time,{...opts,world:FIGURE});const px=act.x,pz=act.y,fy=y??floorAt(px,pz);a.root.position.y=fy;if(shadowCount<MAX_SHADOWS){const sca=opts.scale??1,len=fy>.1?.55*sca:Math.min(2.2,.6/Math.max(.28,Math.tan(hour.el)))*sca+.25,sx=sunDir.x,sz=sunDir.z,L=Math.hypot(sx,sz)||1;shadowM.makeRotationY(Math.atan2(-sz,sx));shadowM.scale(shadowScale.set(len*1.3,1,.36*sca));shadowM.setPosition(px-sx/L*len*.5,fy+.012,pz-sz/L*len*.5);decals.setMatrixAt(shadowCount++,shadowM);}};
   const walkEnv=name=>routine(name,age,time,goal,context);
-  const parentsHere=here===born||childhoodAway(state.birth,age);
+  const parentsHere=here===homeRegion(state.birth,age)||childhoodAway(state.birth,age);
   for(const name of ['mother','father']){const a=actors[name];if(!(parentsHere&&family[name])){a.root.visible=false;continue;}place(a,relabel(walkEnv(name),P,name),{elder:age+28>=60||!!household(state.birth)[name]?.elder||childhoodAway(state.birth,age),scale:1});}
   if(age>=1)place(actors.player,relabel(activity,P,'player'),{elder:age>=60,scale:statureOf(age)});else actors.player.root.visible=false;
   // A partner shares the player's mornings and evenings at home; by day they are out.

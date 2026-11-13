@@ -2,7 +2,7 @@
 // Every date below was checked against a source before use; where sources disagree the
 // later, safer year is used, because an object appearing a little late is not a lie and
 // an object appearing early is.
-import {region,regionAt,regionIdFor,household,childhoodAway} from './regions.js';
+import {region,regionAt,regionIdFor,household,childhoodAway,homeRegion} from './regions.js';
 import {birthYearOf} from './thai-history.js';
 import {rand,flagsOf} from './sim.js';
 import {placeOf} from './stage2d.js';
@@ -108,7 +108,7 @@ export function parentGone(state,age,name){
  return !!row||age>=(name==='mother'?78:72);
 }
 export function familyAt(state,age){
- const flags=flagsOf(state),since=k=>typeof flags[k]==='number'&&flags[k]<=age,together=(since('married')||since('committed'))&&!since('separated'),hasChild=since('parent')&&!since('childLost'),childAge=hasChild?age-flags.parent:-1,place=regionAt(state,age),born=regionAt(state,0);
+ const flags=flagsOf(state),since=k=>typeof flags[k]==='number'&&flags[k]<=age,together=(since('married')||since('committed'))&&!since('separated'),hasChild=since('parent')&&!since('childLost'),childAge=hasChild?age-flags.parent:-1,place=regionAt(state,age),born=homeRegion(state.birth,age);
  return {mother:!parentGone(state,age,'mother'),father:!parentGone(state,age,'father'),partner:together,child:hasChild&&childAge<24,childAge,awayFromParents:age>=20&&place!==born&&!childhoodAway(state.birth,age)};
 }
 // ครอบครัว: ครอบ, to cover, and ครัว, the kitchen. Family is whoever one kitchen covers.

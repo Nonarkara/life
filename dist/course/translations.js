@@ -1129,6 +1129,14 @@ Sport science|วิทยาศาสตร์การกีฬา|运动科�
 Your grandparents’ home.|บ้านปู่ย่าตายาย|祖父母的家|祖父母の家|조부모님의 집
 Your parents keep working in the city. You grow up with your grandparents, among their neighbours, fields and routines.|พ่อแม่ยังคงทำงานในเมือง คุณเติบโตกับปู่ย่าตายาย ท่ามกลางเพื่อนบ้าน ทุ่งนา และกิจวัตรของท่าน|父母继续在城里工作。你在祖父母身边长大，周围是他们的邻居、田地和日常。|両親は都会で働き続ける。あなたは祖父母のもとで、近所の人や田畑、その暮らしのリズムの中で育つ。|부모님은 도시에서 계속 일한다. 당신은 조부모님의 이웃과 논밭, 일상 속에서 자란다.
 Back with your parents.|กลับมาอยู่กับพ่อแม่|回到父母身边|両親のもとへ戻る|부모님 곁으로
+Family moved|ย้ายบ้าน|举家搬迁|一家で引っ越し|가족 이사
+Moved to {place} at {n}|ย้ายไป{place} ตอนอายุ {n} ขวบ|{n}岁时搬到{place}|{n}歳で{place}へ引っ越し|{n}살에 {place} 쪽으로 이사
+The transfer letter.|หนังสือคำสั่งย้าย|调令|転勤の辞令|전근 발령장
+Your parent is posted to {place}. Within a month the house is in boxes, and you start again at a new school.|พ่อหรือแม่ของคุณถูกย้ายไปประจำที่{place} ไม่ถึงเดือนข้าวของในบ้านก็อยู่ในลังหมด และคุณต้องเริ่มใหม่ที่โรงเรียนใหม่|你的父母被调往{place}任职。不到一个月，家里的东西都装进了箱子，你又要在一所新学校从头开始。|親が{place}へ転勤になる。ひと月もしないうちに家の中は段ボールだらけになり、あなたは新しい学校でやり直す。|부모님이 {place} 근무로 발령을 받는다. 한 달도 안 되어 집 안은 상자로 가득 차고, 당신은 새 학교에서 다시 시작한다.
+Out to the suburbs.|ย้ายออกไปชานเมือง|搬到郊区|郊外へ|교외로
+Your family leaves the room in town for {place}, where land is cheaper and the houses have yards. Everything else gets further away.|ครอบครัวของคุณย้ายจากห้องในเมืองไปอยู่{place} ที่ดินถูกกว่าและบ้านมีลาน ทุกอย่างอื่นไกลออกไป|你家离开城里的房间，搬到{place}，那里地价便宜，房子有院子。别的一切都变远了。|家族は町なかの部屋を出て{place}へ移る。土地は安く、家には庭がある。ほかのものはみな遠くなる。|가족은 시내의 방을 떠나 {place} 쪽으로 옮긴다. 땅값이 싸고 집에는 마당이 있다. 다른 모든 것은 멀어진다.
+Where the work is.|ไปที่ที่มีงาน|去有活干的地方|仕事のあるところへ|일이 있는 곳으로
+There is no work at home after the harvest, so your family moves to {place}. Your parents find jobs; you find a new lane to play in.|หลังเกี่ยวข้าวแล้วที่บ้านไม่มีงาน ครอบครัวของคุณจึงย้ายไป{place} พ่อแม่ได้งานทำ ส่วนคุณได้ซอยใหม่ไว้เล่น|收割之后家里没活可干，你家搬到了{place}。父母找到了工作，你找到了新的巷子玩耍。|稲刈りのあと村に仕事はなく、家族は{place}へ移る。親は仕事を見つけ、あなたは新しい路地を遊び場にする。|추수가 끝나면 고향에는 일이 없어서 가족은 {place} 쪽으로 옮긴다. 부모님은 일자리를 찾고, 당신은 새 골목을 놀이터로 삼는다.
 You return to the city. The house is busier than the one you remember, and your grandparents feel far away.|คุณกลับเข้าเมือง บ้านวุ่นวายกว่าที่จำได้ และปู่ย่าตายายรู้สึกอยู่ไกลออกไป|你回到城里。家比记忆中更热闹，祖父母却显得很远。|あなたは都会に戻る。家は記憶よりにぎやかで、祖父母が遠く感じられる。|당신은 도시로 돌아온다. 집은 기억보다 북적이고, 조부모님은 멀게 느껴진다.
 Grandparents|ปู่ย่าตายาย|祖父母|祖父母|조부모님
 What you love|สิ่งที่คุณรัก|你热爱的|好きなこと|좋아하는 것

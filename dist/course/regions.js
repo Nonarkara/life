@@ -31,9 +31,12 @@ export const MOVE_TARGETS=Object.keys(REGIONS).filter(id=>id!=='nakhon-sawan'&&R
 export const regionIdFor=birth=>Object.hasOwn(REGIONS,birth?.region)?birth.region:birth?.place==='Nakhon Sawan'?'nakhon-sawan':'samut-prakan';
 // The one answer to "where is this life at this age": the birth region until the
 // latest recorded move whose effective age is at or before `age`.
+// Where the family lives at this age: the birthplace until a recorded family move.
+export const homeRegion=(birth,age)=>{let id=regionIdFor(birth);for(const m of birth?.moves??[])if(age>=m.age&&Object.hasOwn(REGIONS,m.region))id=m.region;return id;};
+export const validMoves=moves=>moves===undefined||Array.isArray(moves)&&moves.length<=2&&moves.every((m,i)=>m&&Object.hasOwn(REGIONS,m.region)&&Number.isInteger(m.age)&&m.age>=1&&m.age<=9&&(i===0||m.age>moves[i-1].age)&&['transfer','suburb','work'].includes(m.why));
 export const childhoodAway=(birth,age)=>{const c=birth?.childhood;return !!c&&Object.hasOwn(REGIONS,c.region)&&age>=c.from&&age<c.to;};
 export function regionAt(state,age=state.age){
- let id=childhoodAway(state.birth,age)?state.birth.childhood.region:regionIdFor(state.birth);
+ let id=childhoodAway(state.birth,age)?state.birth.childhood.region:homeRegion(state.birth,age);
  const moves=[...(state.history??[]).map(r=>r.finance),state.finance].filter(f=>f?.region&&Object.hasOwn(REGIONS,f.region)).map(f=>({region:f.region,since:f.regionSince??20}));
  for(const m of moves.sort((a,b)=>a.since-b.since))if(m.since<=age)id=m.region;
  return id;

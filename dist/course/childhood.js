@@ -1,3 +1,4 @@
+import {REGIONS} from './regions.js';
 import {CHILD_CHOICES} from './childhood-choices.js';
 import {backgroundBand} from './backgrounds.js';
 import {ERA_EVENTS} from './era-events.js';
@@ -26,6 +27,12 @@ export function childhoodChapter(state, age) {
  ];
  const away=state.birth?.childhood;
  if(away){chapters.push([away.from,'Your grandparents’ home.','Your parents keep working in the city. You grow up with your grandparents, among their neighbours, fields and routines.'],[away.to,'Back with your parents.','You return to the city. The house is busier than the one you remember, and your grandparents feel far away.']);chapters.sort((a,b)=>a[0]-b[0]);}
+ // A family move is a chapter of its own; the old place stays on the life's route map.
+ const MOVE={transfer:['The transfer letter.','Your parent is posted to {place}. Within a month the house is in boxes, and you start again at a new school.'],
+  suburb:['Out to the suburbs.','Your family leaves the room in town for {place}, where land is cheaper and the houses have yards. Everything else gets further away.'],
+  work:['Where the work is.','There is no work at home after the harvest, so your family moves to {place}. Your parents find jobs; you find a new lane to play in.']};
+ for(const m of state.birth?.moves??[])if(MOVE[m.why]&&REGIONS[m.region])chapters.push([m.age,MOVE[m.why][0],MOVE[m.why][1].replace('{place}',REGIONS[m.region].place)]);
+ chapters.sort((a,b)=>a[0]-b[0]);
  const chapter=chapters.filter(([start])=>age>=start).at(-1)??chapters[0];
  const record=state.childhood?.choices?.find(r=>r.age===Math.floor(age));
  const choice=record&&CHILD_CHOICES.filter(q=>q.age===record.age).flatMap(q=>q.options).find(o=>o.id===record.choice);

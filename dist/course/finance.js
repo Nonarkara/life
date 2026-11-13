@@ -2,7 +2,7 @@ import {scholarshipStudy} from './pathways.js';
 import {backgroundBand} from './backgrounds.js';
 // Personal accounts use whole game baht; prices/effects are authored, not estimates.
 import {WORKPLACES} from './locations.js';
-import {REGIONS,MOVE_TARGETS,regionIdFor} from './regions.js';
+import {REGIONS,MOVE_TARGETS,regionIdFor,homeRegion} from './regions.js';
 import {careerFactor} from './life-choices.js';
 import {holdingsValue,validHoldings,markHoldings,validInvestmentLedger} from './investments.js';
 import {periodEconomy} from './economy.js';
@@ -30,12 +30,12 @@ export function setBudget(state,budget){return state.finance&&state.stage==='rev
 export function setHousing(state,housing){return state.finance&&state.stage==='review'&&!state.story?.pending&&state.age>=20&&Object.hasOwn(HOUSING,housing)&&housing!==state.finance.housing?{...state,finance:{...state.finance,housing,locationSince:state.age}}:state;}
 export function setWorkplace(state,workplace){return state.finance&&state.stage==='review'&&!state.story?.pending&&state.age>=20&&Object.hasOwn(WORKPLACES,workplace)&&workplace!==(state.finance.workplace??'local')?{...state,finance:{...state.finance,workplace,locationSince:state.age}}:state;}
 // Moving is recorded with an effective age, like housing and work; the region sets pay and living costs.
-export const currentRegion=state=>state.finance?.region??regionIdFor(state.birth);
+export const currentRegion=state=>state.finance?.region??homeRegion(state.birth,state.age);
 export function setRegion(state,id){return state.finance&&state.stage==='review'&&!state.story?.pending&&state.age>=20&&MOVE_TARGETS.includes(id)&&id!==currentRegion(state)?{...state,finance:{...state.finance,region:id,regionSince:state.age}}:state;}
 export function monthlyFlow(state,row){
  const studying=state.age<20&&row?.pathway==='school'||row?.pathway==='college'&&(state.age<25||scholarshipStudy(state));
  const baseIncome=studying?allowance(state):state.age<20?(row?.pathway==='vocational'?5000:2500):Math.max(0,Math.round(row?.earnings??grossMonthlyPay(state)*(state.age>=60?1:({school:0,college:0,vocational:.6,independent:.2,work:1}[row?.pathway]??1))));
- const away=currentRegion(state)!==regionIdFor(state.birth),home=HOUSING[away&&(state.finance?.housing??'family')==='family'?'far':state.finance?.housing??'family'];
+ const away=currentRegion(state)!==homeRegion(state.birth,state.age),home=HOUSING[away&&(state.finance?.housing??'family')==='family'?'far':state.finance?.housing??'family'];
  const workplace=state.finance?.workplace??'local',housing=away&&(state.finance?.housing??'family')==='family'?'far':state.finance?.housing??'family';
  const cityTravel=workplace==='city'&&housing!=='near'&&state.age>=20&&!studying&&state.age<60;
  const place=REGIONS[currentRegion(state)],adultCosts=!studying&&state.age>=20;

@@ -6,12 +6,12 @@ import {ERA_ENCOUNTERS} from './era-scenarios.js';
 // Dilemmas drawn from the author's blog, nonharvard.wordpress.com (see
 // research/nonharvard-lessons.md). Effects are authored game design, not forecasts.
 // `later` consequences return years afterwards, on the timeline and the balance sheet.
-import {regionAt,regionIdFor} from './regions.js';
+import {regionAt,regionIdFor,homeRegion} from './regions.js';
 import {MONEY_LESSONS} from './money-lessons.js';
 const opt=(id,label,effects,outcome,later=[])=>({id,label,...effects,outcome,later});
 const L=(after,effects,text,when)=>({after,...effects,text,when});
 const At=(at,effects,text,when)=>({at,...effects,text,when});
-const abroad=s=>regionAt(s,s.age)!==regionIdFor(s.birth);
+const abroad=s=>regionAt(s,s.age)!==homeRegion(s.birth,s.age);
 const parentAlive=s=>s.age<55;
 const working=s=>['work','vocational'].includes(s.pathway??s.history.at(-1)?.pathway);
 const B='https://nonharvard.wordpress.com/';

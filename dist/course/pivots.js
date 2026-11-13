@@ -8,7 +8,7 @@
 //
 // These are authored game decisions, not advice about a real life.
 import {rand} from './sim.js';
-import {REGIONS,regionIdFor} from './regions.js';
+import {REGIONS,regionIdFor,homeRegion} from './regions.js';
 import {MARKET_PIVOTS,marketFits} from './market-moments.js';
 import {netWorth} from './finance.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
@@ -559,7 +559,7 @@ const STALL=['low_class','working_class','middle_class'],NOT_RICH=['low_class','
 const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'school-leave':STALL,'stall-paper':STALL,'stall-takeover':STALL,'father-tools':STALL,'nephew':STALL,'partner-business':STALL,'college-cost':NOT_RICH,'buy-house':NOT_RICH,'year-abroad':['working_class','middle_class','bureaucratic_class','high_class']};
 const MARKET_STALL = new Set(['child-roof','child-sponsor','stall-paper','stall-takeover','flood-move']);
 const PROVINCES=['nakhon-sawan','isan-village','pak-phanang','udon-thani','hua-hin'];
-const forkDue=state=>{const y=birthYearOf(state);return y!==null&&y<=1990&&PROVINCES.includes(state.birth?.region)&&['low_class','working_class','middle_class'].includes(state.intake?.class??state.birth?.class);};
+const forkDue=state=>{const y=birthYearOf(state);return y!==null&&y<=1990&&PROVINCES.includes(homeRegion(state.birth,state.age))&&['low_class','working_class','middle_class'].includes(state.intake?.class??state.birth?.class);};
 const savingsOf=s=>s.finance?netWorth(s.finance):s.cash;
 const during=(s,a,b)=>{const y=birthYearOf(s);return y!==null&&y>=a&&y<=b;},regionOf=s=>REGIONS[regionIdFor(s.birth)],sexOf=s=>s.intake?.sex??s.birth?.sex,bornClass=s=>s.intake?.class??s.birth?.class,notRich=s=>!['high_class'].includes(bornClass(s));
 const ADDED={
@@ -567,7 +567,7 @@ const ADDED={
  'coast-boat':s=>during(s,1930,1990)&&regionOf(s)?.style==='coast',
  'village-buffalo':s=>during(s,1930,1985)&&regionOf(s)?.style==='village',
  'girl-school':s=>during(s,1930,1975)&&sexOf(s)==='female'&&notRich(s),
- 'temple-boy':s=>during(s,1930,1975)&&sexOf(s)==='male'&&notRich(s)&&PROVINCES.includes(s.birth?.region),
+ 'temple-boy':s=>during(s,1930,1975)&&sexOf(s)==='male'&&notRich(s)&&PROVINCES.includes(homeRegion(s.birth,s.age)),
  'go-abroad':s=>during(s,1935,1985)&&(s.pathway==='college'||!!s.major)&&regionOf(s)?.country==='TH',
  'gifted-child':s=>(s.story?.flags?.parent??s.pivotFlags?.parent)!==undefined
 };

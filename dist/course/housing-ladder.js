@@ -4,7 +4,7 @@
 import {rand} from './rand.js';
 import {recordedFinance,residenceAt} from './locations.js';
 import {currentRegion} from './finance.js';
-import {region,regionIdFor} from './regions.js';
+import {region,regionIdFor,homeRegion} from './regions.js';
 export const RUNGS=[
  {id:'pavement',label:'No house · the pavement',rent:0,cls:'low_class',ends:58},
  {id:'squat',label:'A squat · land that is not yours',rent:400,cls:'low_class',ends:64},
@@ -27,7 +27,7 @@ export function setRung(state,to){
  return {...state,finance:{...f,rung:to,locationSince:state.age}};
 }
 // The ladder moves the family home only: not a studio elsewhere, and not after leaving the birthplace.
-export const ladderOpen=s=>!!s.finance&&s.age>=20&&residenceAt(s).id==='family'&&currentRegion(s)===regionIdFor(s.birth)&&region(currentRegion(s)).country==='TH';
+export const ladderOpen=s=>!!s.finance&&s.age>=20&&residenceAt(s).id==='family'&&currentRegion(s)===homeRegion(s.birth,s.age)&&region(currentRegion(s)).country==='TH';
 // Does this life match what was asked for on the form? Random class takes whatever the draw gives.
 export const birthFits=(life,{street,raised,class:cls})=>(!raised||life.birth.household===raised)&&(street?birthRung(life)===0:cls==='low_class'?birthRung(life)===1:true);
 // A landlord wants to see the rent is under 40% of what comes in.
