@@ -13,7 +13,7 @@ test('each region has its own scenes, met only by lives born there',()=>{
   const mine=REGION_ENCOUNTERS.filter(e=>e.id.startsWith(g+'_'));assert.ok(mine.length>=2,g);
   for(const e of mine){
    // A trade held by a share of families needs several lives to show up in.
-   const fits=Object.keys(REGIONS).filter(id=>regionGroup(id)===g).some(id=>REGIONS[id].class.some(cls=>['female','male'].some(sex=>[1,2,3,4,5,6,7,8,9,10,11,12].some(seed=>{const s=begin(configureLife(newLife(seed),{class:cls,sex,birthYear:1975,region:id}));if(s.birth.region!==id)return false;for(let age=e.min;age<=e.max;age++)if(e.eligible({...s,age}))return true;return false;}))));
+   const fits=Object.keys(REGIONS).filter(id=>regionGroup(id)===g).some(id=>REGIONS[id].class.some(cls=>['female','male'].some(sex=>Array.from({length:30},(_,i)=>i+1).some(seed=>{const s=begin(configureLife(newLife(seed),{class:cls,sex,birthYear:1975,region:id}));if(s.birth.region!==id)return false;for(let age=e.min;age<=e.max;age++)if(e.eligible({...s,age}))return true;return false;}))));
    assert.ok(fits,e.id+' reaches a life born in '+g);
    const elsewhere=birth('khlong-toei','low_class');for(let age=e.min;age<=e.max;age++)assert.ok(!e.eligible({...elsewhere,age}),e.id+' stays out of Bangkok');
   }
@@ -36,4 +36,11 @@ test('a province-specific scene stays in its province',()=>{
 test('the Rong Kluea scene waits for the market',()=>{
  const e=REGION_ENCOUNTERS.find(x=>x.id==='east_clothes'),at=(by,age)=>{const s=begin(configureLife(newLife(5),{class:'low_class',sex:'female',birthYear:by,region:'sa-kaeo'}));return e.eligible({...s,age});};
  assert.ok(!at(1975,15));assert.ok(at(1975,16));
+});
+
+// Damnoen Saduak's market began in 1981 and the Bang Sadet doll craft in 1976.
+test('the sampan and doll scenes wait for their era',()=>{
+ const ok=(id,region,cls,by,age)=>{const e=REGION_ENCOUNTERS.find(x=>x.id===id);return Array.from({length:30},(_,i)=>i+1).some(n=>{const s=begin(configureLife(newLife(n),{class:cls,sex:'female',birthYear:by,region}));return e.eligible({...s,age});});};
+ assert.ok(!ok('west_sampan','ratchaburi','low_class',1970,10));assert.ok(ok('west_sampan','ratchaburi','low_class',1970,11));
+ assert.ok(!ok('central_dolls','ang-thong','working_class',1955,18));assert.ok(ok('central_dolls','ang-thong','working_class',1970,12));
 });

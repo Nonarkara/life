@@ -158,7 +158,7 @@ The ceramics works takes on young hands to stack bowls on the racks for the kiln
 The pay is by the rack.|ค่าแรงคิดเป็นชั้น|工钱按架算。|給料は棚単位で払われる。|품삯은 선반 단위로 받는다.
 Your cousin, who works there, says the kiln room stays hot all night.|ลูกพี่ลูกน้องที่ทำงานอยู่ที่นั่นบอกว่าห้องเตาร้อนทั้งคืน|在那儿干活的表亲说，窑房整夜都很热。|そこで働くいとこは、窯の部屋は一晩じゅう暑いと言う。|거기서 일하는 사촌은 가마 방이 밤새 뜨겁다고 한다.
 You stayed at school.|คุณเรียนต่อ|你继续上了学。|学校に残った。|학교에 남았다.
-Your cousin stacked an extra rack on Saturdays to cover for you.|ลูกพี่ลูกน้องเรียงชามเพิ่มอีกชั้นทุกวันเสาร์แทนคุณ|表亲每个星期六多码一架，替你顶着。|いとこは毎週土曜に一棚多く並べて、あなたの分を埋めた。|사촌은 토요일마다 선반 하나를 더 쌓아 당신 몫을 메웠다.
+Your cousin took the rack that would have been yours.|ลูกพี่ลูกน้องได้งานชั้นวางที่ควรเป็นของคุณไป|本该是你的那一架活儿，表亲接了过去。|あなたが受け持つはずだった棚は、いとこが引き受けた。|당신 몫이었을 선반 일은 사촌이 맡았다.
 Take the job|รับงาน|接下这份活|仕事を引き受ける|일을 맡는다
 You stacked racks until your forearms were brown with glaze dust.|คุณเรียงชามจนแขนเปื้อนฝุ่นเคลือบเป็นสีน้ำตาล|你码架子码到前臂沾满了釉粉，变成了褐色。|腕が釉薬の粉で茶色くなるまで棚を積んだ。|팔뚝이 유약 가루로 갈색이 될 때까지 선반을 쌓았다.
 The money paid for a new stove at home.|เงินนั้นได้ซื้อเตาใหม่เข้าบ้าน|这笔钱给家里买了一个新灶。|そのお金で家に新しいかまどを買った。|그 돈으로 집에 새 화덕을 들였다.
@@ -177,7 +177,7 @@ Stay, and train in medical records|อยู่ต่อ แล้วเรี�
 You studied after every shift.|คุณอ่านหนังสือหลังเลิกเวรทุกครั้ง|每次下班后你都去学习。|勤務のあとは毎回勉強した。|근무가 끝날 때마다 공부했다.
 The head nurse on nights let you sit with her charts.|หัวหน้าพยาบาลเวรดึกให้คุณนั่งดูแฟ้มประวัติด้วย|值夜班的护士长让你坐在一旁看她的病历。|夜勤の看護師長は、カルテを一緒に見せてくれた。|야간 수간호사는 차트를 함께 보게 해 주었다.
 The elephant at the forest edge|ช้างที่ชายป่า|林边的大象|森の端の象|숲 가장자리의 코끼리
-Your family keeps an elephant, as Kuy families here have for generations.|ครอบครัวคุณเลี้ยงช้าง อย่างที่ครอบครัวชาวกูยที่นี่ทำกันมาหลายชั่วคน|你家养着一头大象，这里的库伊人家世世代代都这样。|あなたの家は象を飼っている。この土地のクイの家々が何代も続けてきたように。|당신 집은 코끼리를 기른다. 이곳 쿠이족 집안들이 대대로 해 온 것처럼.
+Your family keeps an elephant, as Kuy families in the north of Surin have for generations.|ครอบครัวคุณเลี้ยงช้าง อย่างที่ครอบครัวชาวกูยทางเหนือของสุรินทร์ทำกันมาหลายชั่วคน|你家养着一头大象，素林北部的库伊人家世世代代都这样。|あなたの家は象を飼っている。スリン北部のクイの家々が何代も続けてきたように。|당신 집은 코끼리를 기른다. 수린 북부의 쿠이족 집안들이 대대로 해 온 것처럼.
 Your father walks her to the forest edge to feed at dawn.|พ่อพาช้างไปกินอาหารที่ชายป่าตอนเช้ามืด|天一亮，爸爸就牵着她到林边去吃东西。|父は明け方、象を森の端まで連れて行って食べさせる。|아버지는 새벽마다 코끼리를 숲 가장자리로 데려가 먹인다.
 He asks you to learn her commands.|พ่อขอให้คุณหัดคำสั่งช้าง|他让你学会使唤她的口令。|父は、象への号令を覚えてほしいと言う。|아버지는 코끼리에게 내리는 구령을 배우라고 한다.
 Learn her commands|หัดคำสั่งช้าง|学口令|号令を覚える|구령을 배운다
@@ -188,8 +188,8 @@ Your father walked her to the forest alone.|พ่อพาช้างไปช
 Cut grass for her before school|ตัดหญ้าให้ช้างก่อนไปโรงเรียน|上学前给她割草|学校の前に象の草を刈る|학교 가기 전에 코끼리 먹일 풀을 벤다
 You cut grass before every school day.|คุณตัดหญ้าทุกเช้าก่อนไปโรงเรียน|每个上学日的早上你都去割草。|学校のある日は毎朝草を刈った。|학교 가는 날마다 풀을 벴다.
 Your arms grew before the rest of you.|แขนของคุณโตก่อนส่วนอื่นของร่างกาย|你的胳膊比身子其他地方长得都快。|腕だけが体のほかの部分より先に大きくなった。|팔이 몸의 다른 곳보다 먼저 자랐다.
-Six khene before the end of the rains|แคนหกเต้าก่อนสิ้นหน้าฝน|雨季结束前的六把老挝笙|雨季の終わりまでにケーンを六本|우기가 끝나기 전에 켄 여섯 대
-Your father makes khene, the bamboo mouth organs, by hand.|พ่อทำแคนด้วยมือ|爸爸亲手做老挝笙，一种竹制的笙。|父は竹の笙、ケーンを手で作っている。|아버지는 대나무 생황인 켄을 손으로 만든다.
+Six khene before the end of the rains|แคนหกเต้าก่อนสิ้นหน้าฝน|雨季结束前的六把伊善竹笙|雨季の終わりまでにケーンを六本|우기가 끝나기 전에 켄 여섯 대
+Your father makes khene, the bamboo mouth organs, by hand.|พ่อทำแคนด้วยมือ|爸爸亲手做伊善竹笙，一种竹制的笙。|父は竹の笙、ケーンを手で作っている。|아버지는 대나무 생황인 켄을 손으로 만든다.
 Each reed has to be tuned by ear against the one beside it.|ลิ้นแคนแต่ละลิ้นต้องตั้งเสียงด้วยหูเทียบกับลิ้นข้างๆ|每一根簧片都得凭耳朵对着旁边那根调音。|リードは一本ずつ、隣のリードと聞き比べて耳で調律しなければならない。|리드는 하나하나 옆의 것과 귀로 비교해 음을 맞춰야 한다.
 A band from town wants six by the end of the rains.|วงดนตรีจากในเมืองอยากได้หกเต้าก่อนสิ้นหน้าฝน|镇上的一个乐队要在雨季结束前拿到六把。|町の楽団が、雨季の終わりまでに六本ほしいと言っている。|읍내 악단이 우기가 끝나기 전에 여섯 대를 원한다.
 Tune the reeds with him|ตั้งเสียงลิ้นแคนกับพ่อ|跟他一起调簧片|父と一緒にリードを調律する|아버지와 함께 리드를 조율한다
@@ -203,7 +203,7 @@ You kept to your books.|คุณตั้งใจเรียน|你一心扑�
 Your father worked by lamp light to finish on time.|พ่อทำงานใต้แสงตะเกียงเพื่อให้เสร็จทันกำหนด|爸爸就着灯光赶工，按时做完了。|父は期限に間に合わせようと、ランプの明かりで働いた。|아버지는 기한을 맞추려고 등불 아래에서 일했다.
 The bale at Rong Kluea market|มัดเสื้อผ้าที่ตลาดโรงเกลือ|隆格鲁市场的那捆旧衣|ロンクルア市場の梱|롱끌르아 시장의 짐 꾸러미
 Your aunt's stall at Rong Kluea market sells second-hand clothes by the bale and by the piece.|แผงของน้าที่ตลาดโรงเกลือขายเสื้อผ้ามือสองทั้งแบบยกมัดและแบบชิ้น|阿姨在隆格鲁市场的摊子卖二手衣服，整捆卖，也论件卖。|ロンクルア市場にあるおばの店は、古着を梱ごとでも一枚ずつでも売っている。|롱끌르아 시장에 있는 이모의 노점은 헌 옷을 꾸러미로도, 한 벌씩도 판다.
-On market mornings the carts come through the border gate before light.|เช้าวันตลาด รถเข็นผ่านด่านชายแดนมาก่อนฟ้าสาง|赶集的早上，推车天不亮就从边境口岸过来了。|市の立つ朝、荷車は夜明け前に国境の門を通ってくる。|장날 아침이면 수레가 동트기 전에 국경 관문을 지나온다.
+On market mornings the carts come through the border gate as soon as it opens.|เช้าวันตลาด รถเข็นผ่านด่านชายแดนมาทันทีที่ด่านเปิด|赶集的早上，口岸一开，推车就从那边过来了。|市の立つ朝、国境の門が開くとすぐに荷車が通ってくる。|장날 아침이면 국경 관문이 열리자마자 수레가 지나온다.
 She asks you to sort a new bale before the buyers arrive.|น้าขอให้คุณช่วยคัดมัดใหม่ก่อนลูกค้ามา|她让你在买家来之前把一捆新货分拣好。|おばは、客が来る前に新しい梱を仕分けてほしいと言う。|이모는 손님이 오기 전에 새 꾸러미를 골라 달라고 한다.
 Sort the bale with her|คัดเสื้อผ้ากับน้า|跟她一起分拣|おばと一緒に仕分ける|이모와 함께 골라낸다
 You sorted shirts from trousers by torch light.|คุณคัดเสื้อออกจากกางเกงใต้แสงไฟฉาย|你打着手电把上衣和裤子分开。|懐中電灯の明かりで、シャツとズボンを分けた。|손전등 불빛 아래에서 셔츠와 바지를 갈랐다.
@@ -214,7 +214,7 @@ Price the pieces yourself|ตั้งราคาเอง|自己给衣服定�
 You priced every piece in a notebook.|คุณจดราคาทุกชิ้นลงสมุด|你把每一件的价钱都记在本子上。|一枚ずつ値段をノートに書いた。|한 벌 한 벌 값을 공책에 적었다.
 Your aunt changed half your prices and kept the notebook.|น้าแก้ราคาไปครึ่งหนึ่งแต่เก็บสมุดไว้ใช้|阿姨改了你一半的价钱，本子却留着用。|おばは値段の半分を書き直したが、ノートは手元に置いた。|이모는 값의 절반을 고쳤지만 공책은 그대로 썼다.
 The papers in the biscuit tin|เอกสารในกล่องขนมปังกรอบ|饼干盒里的文件|ビスケット缶の書類|비스킷 깡통 속 서류
-Your family's house is in Na Dan on Ko Samet, where no one holds a full title to the land.|บ้านของครอบครัวคุณอยู่ที่หน้าด่าน บนเกาะเสม็ด ซึ่งไม่มีใครมีโฉนดเต็มรูปแบบ|你家的房子在沙美岛的那丹，岛上没有人持有完整的地契。|あなたの家はサメット島のナーダーンにある。島では誰も土地の完全な権利証を持っていない。|당신 집은 사멧섬 나단에 있다. 섬에서는 아무도 온전한 토지 증서를 갖고 있지 않다.
+Your family's house is in Na Dan on Ko Samet, where many families have never held a full title to the land.|บ้านของครอบครัวคุณอยู่ที่หน้าด่าน บนเกาะเสม็ด ซึ่งหลายครอบครัวไม่เคยมีโฉนด|你家的房子在沙美岛的那丹，岛上很多人家从来没有拿到过正式地契。|あなたの家はサメット島のナーダーンにある。島では多くの家が正式な権利証を持ったことがない。|당신 집은 사멧섬 나단에 있다. 섬의 많은 집이 정식 토지 증서를 가져 본 적이 없다.
 A resort wants the plot beside yours.|รีสอร์ตแห่งหนึ่งอยากได้ที่ดินข้างบ้านคุณ|一家度假村看上了你家旁边那块地。|リゾートが、隣の土地をほしがっている。|한 리조트가 당신 집 옆 땅을 원한다.
 Your uncle keeps the old papers in a biscuit tin.|ลุงเก็บเอกสารเก่าไว้ในกล่องขนมปังกรอบ|伯伯把旧文件放在一个饼干盒里。|おじは古い書類をビスケットの缶にしまっている。|큰아버지는 옛 서류를 비스킷 깡통에 넣어 둔다.
 Wait and see|รอดูไปก่อน|先等等看|様子を見る|두고 본다
@@ -286,7 +286,7 @@ Sell at the boat landing|ไปขายที่ท่าเรือ|到码头
 You sold small pots to visitors off the boats.|คุณขายหม้อใบเล็กให้นักท่องเที่ยวที่ลงจากเรือ|你把小罐子卖给下船的游客。|船から降りてくる旅行者に小さな壺を売った。|배에서 내리는 관광객에게 작은 항아리를 팔았다.
 You learned to say the price in three languages.|คุณหัดบอกราคาได้สามภาษา|你学会了用三种语言报价。|三つの言葉で値段が言えるようになった。|세 가지 말로 값을 말하는 법을 배웠다.
 Two hundred dolls by the end of the month|ตุ๊กตาสองร้อยตัวภายในสิ้นเดือน|月底前的两百个娃娃|月末までに人形を二百体|월말까지 인형 이백 개
-Your aunt makes small moulded clay dolls of village life and paints them by hand.|น้าปั้นตุ๊กตาชาววังตัวเล็กๆ เป็นภาพชีวิตชาวบ้าน และระบายสีด้วยมือ|阿姨用模子做小泥偶，塑的是乡村生活，一个个手工上色。|おばは村の暮らしを写した小さな型抜きの土人形を作り、手で色を塗っている。|이모는 마을 살이를 본뜬 작은 흙 인형을 틀로 찍어 손으로 색을 칠한다.
+Your aunt makes small moulded clay dolls of village life and paints them by hand.|น้าทำตุ๊กตาดินตัวเล็กๆ จากแม่พิมพ์ เป็นภาพชีวิตชาวบ้าน และระบายสีด้วยมือ|阿姨用模子做小泥偶，塑的是乡村生活，一个个手工上色。|おばは村の暮らしを写した小さな型抜きの土人形を作り、手で色を塗っている。|이모는 마을 살이를 본뜬 작은 흙 인형을 틀로 찍어 손으로 색을 칠한다.
 An order has come in for two hundred by the end of the month.|มีออร์เดอร์เข้ามาสองร้อยตัว ต้องเสร็จภายในสิ้นเดือน|来了一笔订单，月底前要两百个。|月末までに二百体という注文が入った。|월말까지 이백 개라는 주문이 들어왔다.
 She asks you to paint the faces.|น้าขอให้คุณช่วยเขียนหน้าตุ๊กตา|她让你来画脸。|おばは、顔を描いてほしいと言う。|이모는 얼굴을 그려 달라고 한다.
 Paint the faces|เขียนหน้าตุ๊กตา|画脸|顔を描く|얼굴을 그린다

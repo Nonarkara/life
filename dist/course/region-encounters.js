@@ -37,7 +37,7 @@ export const REGION_ENCOUNTERS=[
   o('go','Go with your cousin until planting',{cash:15000,health:-1,flag:'seasonalWork'},'You slept six to a room and sent money home every month. You came back for planting.'),
   o('alone','Let your cousin go alone',{wellbeing:-1,skills:{eq:1}},'Your cousin went alone. Your father mended the roof with one hand on his back.')]),
  // East: shifts on the industrial coast, and the durian orchards.
- scene('east_shift','work',18,30,all(at('chonburi','rayong','prachinburi','chachoengsao'),of('working_class'),withMother),'The time card at the industrial park',
+ scene('east_shift','work',18,30,all(at('chonburi','rayong','prachinburi','chachoengsao'),of('working_class'),withMother,s=>!(at('rayong')(s)&&share('samet',.35)(s))),'The time card at the industrial park',
   'The plant runs three shifts and the supervisor asks if you want nights. Night pays more. Your mother\'s stall opens at six, and she counts on you to carry the crates.',[
   o('day','Keep the day shift',{wellbeing:1},'You kept days and carried the crates at six. Your time card filled with the same hours every week.'),
   o('night','Take the night shift',{cash:20000,health:-1},'You punched your card at ten every night. Your mother carried the crates alone, and the extra money went into a savings book.'),
@@ -81,9 +81,9 @@ export const REGION_ENCOUNTERS=[
   o('school','Go to school as usual',{skills:{iq:1},wellbeing:-1},'You went to school. Your father and uncle raked half the pans before the rain.'),
   o('help','Ask the neighbours to help, and cook for them',{skills:{eq:1},cash:-500},'Six neighbours came. Your mother cooked for all of them and nobody went home before it was in.')]),
  // Second set. North: Lampang's ceramics works and Nan's hospital.
- scene('north_kiln','work',16,22,all(at('lampang'),of('working_class'),share('kiln',.5)),'Bowls on the kiln racks',
+ scene('north_kiln','work',16,18,all(at('lampang'),of('working_class'),share('kiln',.5)),'Bowls on the kiln racks',
   'The ceramics works takes on young hands to stack bowls on the racks for the kiln. The pay is by the rack. Your cousin, who works there, says the kiln room stays hot all night.',[
-  o('school','Stay at school',{skills:{iq:1}},'You stayed at school. Your cousin stacked an extra rack on Saturdays to cover for you.'),
+  o('school','Stay at school',{skills:{iq:1}},'You stayed at school. Your cousin took the rack that would have been yours.'),
   o('stack','Take the job',{cash:12000,health:-1,skills:{physique:1}},'You stacked racks until your forearms were brown with glaze dust. The money paid for a new stove at home.'),
   o('glaze','Ask to learn the glazing',{skills:{craft:1,drive:1},wellbeing:-1},'The glazer let you dip the plain bowls first. By the end of the year you were trusted with the good ones.')]),
  scene('north_ward','work',22,35,all(at('nan'),of('bureaucratic_class'),withMother,from(2000)),'The ward register',
@@ -93,7 +93,7 @@ export const REGION_ENCOUNTERS=[
   o('course','Stay, and train in medical records',{skills:{iq:1,drive:1},health:-1},'You studied after every shift. The head nurse on nights let you sit with her charts.')]),
  // Isan: Surin's Kuy elephant families and Nakhon Phanom's khene makers.
  scene('isan_elephant','family',10,16,all(at('surin'),of('low_class'),withFather,share('elephant',.3)),'The elephant at the forest edge',
-  'Your family keeps an elephant, as Kuy families here have for generations. Your father walks her to the forest edge to feed at dawn. He asks you to learn her commands.',[
+  'Your family keeps an elephant, as Kuy families in the north of Surin have for generations. Your father walks her to the forest edge to feed at dawn. He asks you to learn her commands.',[
   o('learn','Learn her commands',{skills:{eq:1,physique:1}},'She listened to your father first and to you second. One morning she listened only to you.'),
   o('school','Go to school instead',{skills:{iq:1},wellbeing:-1},'You went to school. Your father walked her to the forest alone.'),
   o('grass','Cut grass for her before school',{health:-1,skills:{drive:1}},'You cut grass before every school day. Your arms grew before the rest of you.')]),
@@ -104,12 +104,12 @@ export const REGION_ENCOUNTERS=[
   o('study','Keep to your schoolwork',{skills:{iq:1}},'You kept to your books. Your father worked by lamp light to finish on time.')]),
  // East: the border market at Rong Kluea and a family on Ko Samet.
  scene('east_clothes','work',15,30,all(at('sa-kaeo'),of('low_class'),from(1991)),'The bale at Rong Kluea market',
-  'Your aunt\'s stall at Rong Kluea market sells second-hand clothes by the bale and by the piece. On market mornings the carts come through the border gate before light. She asks you to sort a new bale before the buyers arrive.',[
+  'Your aunt\'s stall at Rong Kluea market sells second-hand clothes by the bale and by the piece. On market mornings the carts come through the border gate as soon as it opens. She asks you to sort a new bale before the buyers arrive.',[
   o('sort','Sort the bale with her',{skills:{eq:1}},'You sorted shirts from trousers by torch light. Your aunt sold the best pieces by nine.'),
   o('sleep','Sleep until the market opens',{wellbeing:1},'You slept. Your aunt sorted the bale alone and opened late.'),
   o('price','Price the pieces yourself',{skills:{iq:1,drive:1},wellbeing:-1},'You priced every piece in a notebook. Your aunt changed half your prices and kept the notebook.')]),
  scene('east_samet','family',25,45,all(at('rayong'),of('working_class'),share('samet',.35),from(1985)),'The papers in the biscuit tin',
-  'Your family\'s house is in Na Dan on Ko Samet, where no one holds a full title to the land. A resort wants the plot beside yours. Your uncle keeps the old papers in a biscuit tin.',[
+  'Your family\'s house is in Na Dan on Ko Samet, where many families have never held a full title to the land. A resort wants the plot beside yours. Your uncle keeps the old papers in a biscuit tin.',[
   o('wait','Wait and see',{},'You waited. Your uncle kept the tin under his bed.'),
   o('lawyer','Pay someone to look at the papers',{cash:-15000,skills:{drive:1}},'A man from across the water read every page. He said they might count.'),
   o('rooms','Rent your spare rooms to visitors',{cash:8000,skills:{eq:1},wellbeing:-1},'You rented two rooms to visitors. Your uncle moved his tin to the kitchen.')]),
@@ -119,7 +119,7 @@ export const REGION_ENCOUNTERS=[
   o('day','Stay on the day crew',{wellbeing:1},'You stayed on days. Your mother stopped mentioning the dust.'),
   o('night','Join the night crew',{cash:18000,health:-1},'You worked nights until the last truck. Your mother boiled herbs for your cough.'),
   o('boiler','Ask to learn the boilers',{skills:{iq:1,drive:1}},'The boiler man taught you the gauges one season at a time.')]),
- scene('west_sampan','family',10,16,all(at('ratchaburi'),of('low_class'),withMother,share('sampan',.6)),'Paddling the sampan',
+ scene('west_sampan','family',10,16,all(at('ratchaburi'),of('low_class'),withMother,share('sampan',.6),from(1981)),'Paddling the sampan',
   'Your mother sells fruit from a small wooden sampan on the canals, in a blue shirt and a straw hat. The market is busiest from seven to nine. She asks you to paddle while she sells.',[
   o('paddle','Paddle for her',{skills:{physique:1}},'You learned to hold the boat still in a crowd of boats. Your mother sold out by nine.'),
   o('school','Go to school',{skills:{iq:1},wellbeing:-1},'You went to school. Your mother paddled and sold at once, and sold less.'),
@@ -141,7 +141,7 @@ export const REGION_ENCOUNTERS=[
   o('carve','Carve the pattern',{skills:{craft:1}},'Your first necks were crooked. Your mother sold them anyway, cheaper.'),
   o('river','Swim in the river with your friends',{wellbeing:1},'You swam until dark. Your mother carved every neck herself.'),
   o('landing','Sell at the boat landing',{skills:{eq:1},cash:400},'You sold small pots to visitors off the boats. You learned to say the price in three languages.')]),
- scene('central_dolls','family',12,18,all(at('ang-thong'),of('working_class')),'Two hundred dolls by the end of the month',
+ scene('central_dolls','family',12,18,all(at('ang-thong'),of('working_class'),share('dolls',.2),from(1976)),'Two hundred dolls by the end of the month',
   'Your aunt makes small moulded clay dolls of village life and paints them by hand. An order has come in for two hundred by the end of the month. She asks you to paint the faces.',[
   o('paint','Paint the faces',{skills:{craft:1,eq:1}},'Your first faces looked surprised. By the fortieth they looked calm.'),
   o('school','Keep to your schoolwork',{skills:{iq:1}},'You kept to your books. Your aunt painted until her eyes watered.'),
