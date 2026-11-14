@@ -11,7 +11,7 @@ const yearsAhead=s=>{const c=cal(s);return c===null?[]:[c,c+1,c+2,c+3,c+4];};
 const placeOf=s=>regionAt(s,s.age-1);
 const had=k=>s=>typeof F(s)[k]==='number'&&F(s)[k]<s.age;
 const at=(...ids)=>s=>ids.includes(placeOf(s));
-const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan','pathum-wan'];
+const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan','pathum-wan','yaowarat'];
 const city=s=>CITY.includes(placeOf(s))||F(s).wentBangkok<s.age,country=s=>!city(s);
 const cls=s=>s.intake?.class??s.birth?.class;
 const of=(...c)=>s=>c.includes(cls(s));

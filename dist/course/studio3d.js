@@ -4,7 +4,7 @@ import {REGIONS} from './regions.js';
 // off the set and glides across the floor to the next one; the old set is already under dust sheets.
 // Distance is a metaphor, not a map: a hop across Bangkok, a longer glide up-country, a painted sea
 // before anywhere overseas. Seen only while travelling; a life at home never sees the floor.
-const C=6.5,DIR=new T.Vector3(-Math.SQRT1_2,0,Math.SQRT1_2),BKK=['khlong-toei','bang-na','pathum-wan','sukhumvit','samut-prakan'];
+const C=6.5,DIR=new T.Vector3(-Math.SQRT1_2,0,Math.SQRT1_2),BKK=['khlong-toei','bang-na','pathum-wan','sukhumvit','samut-prakan','yaowarat'];
 export const hop=(a,b)=>REGIONS[a]?.country!==REGIONS[b]?.country?110:BKK.includes(a)&&BKK.includes(b)?34:62;
 export const GLIDE_MS=4200;
 const lambert=c=>new T.MeshLambertMaterial({color:c});

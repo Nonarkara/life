@@ -6,7 +6,7 @@ import {regionAt} from './regions.js';
 import {siblingsOf} from './birth-order.js';
 const O=(id,label,fx,outcome)=>({id,label,...fx,outcome});
 const F=s=>({...s.pivotFlags,...s.story?.flags}),had=(k,gap)=>s=>typeof F(s)[k]==='number'&&s.age-F(s)[k]>=gap,cal=s=>{const y=birthYearOf(s);return y===null?null:y+s.age;};
-const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan','pathum-wan'],country=s=>!CITY.includes(regionAt(s,s.age-1)),male=s=>s.intake?.sex==='male',during=(a,b)=>s=>{const c=cal(s);return c!==null&&c+4>=a&&c<=b;};
+const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan','pathum-wan','yaowarat'],country=s=>!CITY.includes(regionAt(s,s.age-1)),male=s=>s.intake?.sex==='male',during=(a,b)=>s=>{const c=cal(s);return c!==null&&c+4>=a&&c<=b;};
 const once=(id,p)=>s=>rand(s.seed,s.age,id)<p;
 const scene=(id,category,min,max,tests,title,prompt,options,extra={})=>({id,category,min,max,director:true,...extra,eligible:s=>!!s.intake?.class&&tests.every(t=>t(s)),title,prompt,options});
 const CHAIN=new Set(['g_bond','g_cell','g_home']);

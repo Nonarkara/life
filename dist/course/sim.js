@@ -10,7 +10,7 @@ import {consequencesDue} from './lessons.js';
 import {marketsDue} from './market-moments.js';
 import {PRIORITIES,priorityFx,prioritiesFor} from './priorities.js';
 import {MAJORS,majorOf,majorFit,mismatched,partnerNature,together,reconciled,ventureSwing,dogAt} from './life-choices.js';
-const CITY_BIRTHS=['khlong-toei','bang-na','sukhumvit','pathum-wan'];
+const CITY_BIRTHS=['khlong-toei','bang-na','sukhumvit','pathum-wan','yaowarat'];
 import {createEconomy,economyFor,validEconomy} from './economy.js';
 import {validHoldings,autoInvest} from './investments.js';
 import {FOCUSES} from './motivations.js';

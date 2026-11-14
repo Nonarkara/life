@@ -558,8 +558,8 @@ const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools'
 const STALL=['low_class','working_class','middle_class'],NOT_RICH=['low_class','working_class','middle_class','bureaucratic_class'];
 const FOR={'child-roof':STALL,'child-sponsor':STALL,'school-apprentice':STALL,'school-leave':STALL,'stall-paper':STALL,'stall-takeover':STALL,'father-tools':STALL,'nephew':STALL,'partner-business':STALL,'college-cost':NOT_RICH,'buy-house':NOT_RICH,'year-abroad':['working_class','middle_class','bureaucratic_class','high_class']};
 const MARKET_STALL = new Set(['child-roof','child-sponsor','stall-paper','stall-takeover','flood-move']);
-// Every up-country birthplace: the North, the Northeast, the East, the West and the South join the first five.
-const PROVINCES=['nakhon-sawan','isan-village','pak-phanang','udon-thani','hua-hin',...Object.keys(REGIONS).filter(id=>REGIONS[id].lanna||REGIONS[id].isan||REGIONS[id].east||REGIONS[id].west||REGIONS[id].south)];
+// Every up-country birthplace: the North, the Northeast, the East, the West, the South and Central join the first five.
+const PROVINCES=['nakhon-sawan','isan-village','pak-phanang','udon-thani','hua-hin',...Object.keys(REGIONS).filter(id=>REGIONS[id].lanna||REGIONS[id].isan||REGIONS[id].east||REGIONS[id].west||REGIONS[id].south||(REGIONS[id].central&&id!=='yaowarat'))];
 const forkDue=state=>{const y=birthYearOf(state);return y!==null&&y<=1990&&PROVINCES.includes(homeRegion(state.birth,state.age))&&['low_class','working_class','middle_class'].includes(state.intake?.class??state.birth?.class);};
 const savingsOf=s=>s.finance?netWorth(s.finance):s.cash;
 const during=(s,a,b)=>{const y=birthYearOf(s);return y!==null&&y>=a&&y<=b;},regionOf=s=>REGIONS[regionIdFor(s.birth)],sexOf=s=>s.intake?.sex??s.birth?.sex,bornClass=s=>s.intake?.class??s.birth?.class,notRich=s=>!['high_class'].includes(bornClass(s));
