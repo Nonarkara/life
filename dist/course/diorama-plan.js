@@ -70,12 +70,12 @@ const STYLE_SET={
 // Lanna teak and dark tile, Isan zinc and laterite, the South's pastel shophouses and clay tile, and so on.
 // ponytail: one dress per region, not per province; the province's own landmark does the rest.
 const DRESS={
- north:{walls:['#7a5a40','#8a6a4a','#d8c8a6','#6d5640'],roofs:['#7d3b2b','#6f3a2c','#86523c'],road:'#c4b08a',leaf:['#4f6c45','#5a7550'],ground:'#83966a',wood:.55,pickup:'#a8322a'},
- isan:{walls:['#9a8a72','#a89880','#c9bca0','#8f7f68'],roofs:['#8d9290','#9aa09c','#7f8482'],road:'#b8845a',leaf:['#6f8a4f','#7f9a58'],ground:'#a6a06a',wood:.6,pickup:'#c4c0b0'},
- east:{walls:['#d6e0d8','#e8e2c8','#c8d8d8','#e2d4c0'],roofs:['#a15f49','#4f7a8a','#b07a58'],road:'#c8bca0',leaf:['#4e7a58','#5f8d5f'],ground:'#8ea068',wood:.25,pickup:'#ece7da'},
- west:{walls:['#d8c49c','#c8b08a','#e4d4b0','#b8a07a'],roofs:['#5f7a6a','#8d9290','#a56a50'],road:'#c6b08c',leaf:['#55734a','#647f52'],ground:'#94a06a',wood:.4,pickup:'#7a8a6a'},
- south:{walls:['#e8b8a8','#a8d0c8','#e8d890','#f0c8a0','#ece6d8'],roofs:['#b0503a','#a0442f','#c0603f'],road:'#cfc2a2',leaf:['#3f7048','#4a7c52'],ground:'#7a9a62',wood:.2,pickup:'#2f6f9a'},
- central:{walls:['#ece4cc','#e4d8bd','#f0e8d4','#d8ccb0'],roofs:['#c07a48','#b06a40','#a56a50'],road:'#c6bea9',leaf:['#55734f','#66825a'],ground:'#9aa66a',wood:.3,pickup:'#c9a14a'}};
+ north:{accent:['#7d3b2b','#5f4a38'],walls:['#7a5a40','#8a6a4a','#d8c8a6','#6d5640'],roofs:['#7d3b2b','#6f3a2c','#86523c'],road:'#c4b08a',leaf:['#4f6c45','#5a7550'],ground:'#83966a',wood:.55,pickup:'#a8322a'},
+ isan:{accent:['#3f6f8a','#8a2f4a'],walls:['#9a8a72','#a89880','#c9bca0','#8f7f68'],roofs:['#8d9290','#9aa09c','#7f8482'],road:'#b8845a',leaf:['#6f8a4f','#7f9a58'],ground:'#a6a06a',wood:.6,pickup:'#c4c0b0'},
+ east:{accent:['#2f6f9a','#3f8a7a'],walls:['#d6e0d8','#e8e2c8','#c8d8d8','#e2d4c0'],roofs:['#a15f49','#4f7a8a','#b07a58'],road:'#c8bca0',leaf:['#4e7a58','#5f8d5f'],ground:'#8ea068',wood:.25,pickup:'#ece7da'},
+ west:{accent:['#5f7a6a','#8a6a3a'],walls:['#d8c49c','#c8b08a','#e4d4b0','#b8a07a'],roofs:['#5f7a6a','#8d9290','#a56a50'],road:'#c6b08c',leaf:['#55734a','#647f52'],ground:'#94a06a',wood:.4,pickup:'#7a8a6a'},
+ south:{accent:['#c0563f','#a0442f'],walls:['#e8b8a8','#a8d0c8','#e8d890','#f0c8a0','#ece6d8'],roofs:['#b0503a','#a0442f','#c0603f'],road:'#cfc2a2',leaf:['#3f7048','#4a7c52'],ground:'#7a9a62',wood:.2,pickup:'#2f6f9a'},
+ central:{accent:['#c9a14a','#b5553c'],walls:['#ece4cc','#e4d8bd','#f0e8d4','#d8ccb0'],roofs:['#c07a48','#b06a40','#a56a50'],road:'#c6bea9',leaf:['#55734f','#66825a'],ground:'#9aa66a',wood:.3,pickup:'#c9a14a'}};
 // The first ten birthplaces outside Bangkok take their region's dress too.
 const FIRST={'isan-village':'isan','udon-thani':'isan','nakhon-sawan':'central','samut-prakan':'central','pak-phanang':'south','hua-hin':'west'};
 const dressOf=place=>place.lanna?'north':place.isan?'isan':place.east?'east':place.west?'west':place.south?'south':place.central?'central':FIRST[Object.keys(REGIONS).find(id=>REGIONS[id]===place)]??null;

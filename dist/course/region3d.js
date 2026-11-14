@@ -104,10 +104,11 @@ function bigTeak(b,x,z){b.cylinder(x,z,0,.36,.24,3,'#5f4a38',8);for(const [a,e,y
 // Mountains behind the valley. They stand off the board on the table, as scenery behind a set:
 // broad cones rising from the table top, the cross street running out between them. `crown` stands
 // a hill chedi on the highest peak in view; `fall` runs a waterfall down one face onto the board.
-function ridge(b,r,{high=false,low=false,mesa=false,crown,fall=false}={}){const T0=-1.3,peaks=[],[h0,h1]=high?[6.6,2.4]:low?[2.6,1.2]:[4.2,1.6];for(let x=-6;x<17.6;x+=2+r()*1.2){if(x>6&&x<10)continue;peaks.push([x,2.3+r()*.7,h0+r()*h1]);}
+// round: the East's low rounded hills; forest: the West's wooded ranges; plateau: Isan's flat-topped edges.
+function ridge(b,r,{high=false,low=false,mesa=false,round=false,forest=false,plateau=false,crown,fall=false}={}){const T0=-1.3,peaks=[],[h0,h1]=high?[6.6,2.4]:low?[2.6,1.2]:[4.2,1.6];for(let x=-6;x<17.6;x+=2+r()*1.2){if(x>6&&x<10)continue;peaks.push([x,2.3+r()*.7,h0+r()*h1]);}
  const view=peaks.filter(p=>p[0]>10&&p[0]<16),top=view.reduce((a,p)=>p[2]>a[2]?p:a,view[0]??peaks[0]);
  for(const [x,R,h] of peaks)b.cylinder(x+1.1,-8.2,T0,R*1.1,0,h*1.15,'#5f7466',7,false);
- for(const p of peaks){const [x,R,h]=p,c=r()<.5?'#4f6b45':'#5a7550',z=-6.9;if(mesa&&p===top)b.cylinder(x,z,T0,R*1.15,R*.8,h*.72,'#6f6a52',7);else if(crown&&p===top){b.cylinder(x,z,T0,R,.45,h*.86,c,7);lannaChedi(b,x,z,.6,crown,T0+h*.86);}else b.cylinder(x,z,T0,R,0,h,c,7,false);}
+ for(const p of peaks){const [x,R,h]=p,c=r()<.5?'#4f6b45':'#5a7550',z=-6.9;if(round)b.ball(x,T0,z,R*1.25,h*.7,R*1.1,c,9);else if(plateau||mesa&&p===top)b.cylinder(x,z,T0,R*1.15,R*.8,h*.72,plateau?c:'#6f6a52',7);else if(crown&&p===top){b.cylinder(x,z,T0,R,.45,h*.86,c,7);lannaChedi(b,x,z,.6,crown,T0+h*.86);}else b.cylinder(x,z,T0,R,0,h,c,7,false);if(forest)for(let i=0;i<4;i++){const a=r()*6.28,k=.3+r()*.4;b.ball(x+Math.cos(a)*R*k,T0+h*(1-k)+.2,z+Math.abs(Math.sin(a))*R*k,.45,.4,.45,'#3f5a3a',6);}}
  if(fall){const [x,R,h]=view.find(p=>p!==top)??top,z=-6.9,edge=z+R*(1+T0/h);b.beam(x,T0+h*.55,z+R*.45,x,.03,edge,.24,.08,'#e8eef0');b.box(x-.45,edge,-.02,.9,.45,.02,'#6a95a0');}}
 // Crossed boards over the gable ends of a northern teak house: the kalae.
 function kalae(b,x,y,z){for(const s of [-1,1])b.beam(x,y-.06,z-s*.16,x,y+.28,z+s*.14,.035,.035,'#5a3f30');}
@@ -366,7 +367,7 @@ export function createRegionScenery({scene,registerBuilding}){
    isan(){const id=plan.regionId,town=style==='market',early=!marks.concrete;
     const mekong=['bueng-kan','mukdahan','nakhon-phanom','nong-khai','amnat-charoen','ubon-ratchathani'].includes(id),chi=['khon-kaen','maha-sarakham','loei','yasothon'].includes(id),side=chi&&!town;
     const hills={chaiyaphum:{fall:true},loei:{mesa:true},'nakhon-ratchasima':{low:true},'nong-bua-lamphu':{low:true},'sakon-nakhon':{low:true},sisaket:{low:true},surin:{low:true},'amnat-charoen':{low:true},mukdahan:{low:true}}[id];
-    if(hills)ridge(open,r,hills);
+    if(hills)ridge(open,r,{plateau:!hills.mesa&&!hills.fall,...hills});
     // Phu Thok, the lonely mountain, stands apart behind Bueng Kan.
     if(id==='bueng-kan'){open.cylinder(12.6,-8.4,-1.3,2,1.6,5.4,'#8a7a62',8);open.cylinder(12.6,-8.4,4.1,1.75,1.1,.8,'#4f6b45',8);}
     if(mekong||id==='sakon-nakhon')water(-5.4,-5.4,23.8,2.4);else if(chi&&town)water(-5.4,-5.4,23.8,1.7);
@@ -418,7 +419,7 @@ export function createRegionScenery({scene,registerBuilding}){
    // river runs along the back where the record names it; each province's landmark sits in its plot.
    east(){const id=plan.regionId,town=style==='market',early=!marks.concrete;
     const sea=['samut-sakhon','samut-songkhram','chonburi','rayong','trat','phetchaburi','prachuap-khiri-khan','chumphon','krabi','nakhon-si-thammarat','narathiwat','pattani','phang-nga','phuket','satun','songkhla','trang','ranong'].includes(id),river=['chachoengsao','chanthaburi','kanchanaburi','ratchaburi','tak','surat-thani','phatthalung','ang-thong','chai-nat','kamphaeng-phet','lopburi','nakhon-nayok','nakhon-pathom','nonthaburi','pathum-thani','phichit','phitsanulok','ayutthaya','sing-buri','sukhothai','suphan-buri','uthai-thani','yaowarat'].includes(id);
-    const hills={chachoengsao:{low:true},chonburi:{low:true},prachinburi:{},'sa-kaeo':{low:true},chanthaburi:{},kanchanaburi:{},phetchaburi:{},ratchaburi:{low:true},tak:{high:true},'nakhon-si-thammarat':{high:true},ranong:{},yala:{high:true},phatthalung:{low:true},songkhla:{low:true,crown:'#efe9da'},narathiwat:{low:true},chumphon:{low:true},trang:{low:true},'kamphaeng-phet':{low:true},'nakhon-nayok':{high:true},phetchabun:{high:true},saraburi:{low:true},sukhothai:{},'uthai-thani':{low:true},phitsanulok:{low:true}}[id];if(hills)ridge(open,r,hills);
+    const hills={chachoengsao:{low:true},chonburi:{low:true},prachinburi:{},'sa-kaeo':{low:true},chanthaburi:{},kanchanaburi:{},phetchaburi:{},ratchaburi:{low:true},tak:{high:true},'nakhon-si-thammarat':{high:true},ranong:{},yala:{high:true},phatthalung:{low:true},songkhla:{low:true,crown:'#efe9da'},narathiwat:{low:true},chumphon:{low:true},trang:{low:true},'kamphaeng-phet':{low:true},'nakhon-nayok':{high:true},phetchabun:{high:true},saraburi:{low:true},sukhothai:{},'uthai-thani':{low:true},phitsanulok:{low:true}}[id];if(hills)ridge(open,r,{...hills,round:!!plan.place.east,forest:!!plan.place.west});
     if(sea){water(-5.4,-5.4,23.8,2.3);open.box(-5.4,-3.1,-.016,23.8,.5,.014,'#ddd0a8');}else if(river)water(-5.4,-5.4,23.8,1.8);
     if(id==='rayong'){open.cylinder(3,-9.6,-1.3,4.4,4.4,.02,'#4f7f8c',20);for(const [x,z,a,c] of [[3,-9.6,2.6,.6],[3,-8.6,.6,2]])open.ball(x,-1.28,z,a,.9,c,'#5f7a52',10);}
     // Khao Sam Roi Yot: limestone peaks standing straight up from the shore.
@@ -575,7 +576,7 @@ export function createRegionScenery({scene,registerBuilding}){
    else if(layout==='lanna'){unit(b=>lannaChedi(b,15,-.35,1),[14.5,-.85,1,1]);if(!['nan','lampang'].includes(plan.regionId))unit(b=>lannaWat(b,15.7,-.9,1.9,2.6),[15.7,-.9,1.9,2.6]);}
    else if(layout==='isan'){unit(b=>plan.regionId==='kalasin'?octChedi(b,13.5,0):that(b,12.9,-.5,1.1),[12.9,-.6,1.2,1.2]);unit(b=>sim(b,15.5,-.75,2.6,1.6),[15.5,-.75,2.6,1.6]);}
    else if(plan.regionId==='udon-thani')unit(b=>sim(b,14.3,-.7,2.9,1.6),[14.3,-.7,2.9,1.6]);
-   else if(layout!=='village'){unit(b=>wat(b,14.3,-.7,2.9,1.6,r),[14.3,-.7,2.9,1.6]);unit(b=>chedi(b,17.4,-.1),[17.4,-.1,.8,.8]);}
+   else if(layout!=='village'){unit(b=>wat(b,14.3,-.7,2.9,1.6,r),[14.3,-.7,2.9,1.6]);if(plan.place.south)unit(b=>bellChedi(b,17.3,-.3,.95),[17.3,-.3,.95,.95]);else unit(b=>chedi(b,17.4,-.1),[17.4,-.1,.8,.8]);}
    // A spirit house on its post, as every Thai home and temple has.
    if(plan.faith!=='muslim'){open.box(15.06,1.1,0,.08,.08,.62,'#e4decd');open.box(14.94,.98,.62,.32,.32,.04,'#e4decd');open.box(14.98,1.02,.66,.24,.24,.2,'#e8c86a');open.gable(14.94,.98,.86,.32,.32,.16,'#a5312a',{along:'x',over:.03,gableColor:'#d9a92e'});}
    flag(open,14.1,1.1);flag(open,8.95,1.25);flag(open,2.2,6.75,S*1.4);
