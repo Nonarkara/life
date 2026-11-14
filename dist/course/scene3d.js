@@ -138,7 +138,7 @@ function createScene(original){
    garden.box(3.32,9.79,.20,1.42,.20,.04,'#795e47');
    garden.box(3.32,9.96,.24,1.42,.04,.18,'#795e47');
   }else{
-  const pond=batchOf(root);pond.box(3.1,8.87,-.024,2.4,1.5,.02,'#a59a84');pond.box(3.2,8.97,-.02,2.2,1.3,.018,plan.palette.water);pond.box(4.02,8.5,.02,.56,.62,.03,'#8a7050');for(let z=8.54;z<9.08;z+=.12)pond.box(4.04,z,.05,.52,.012,.004,'#6b5236');for(const x of [4.05,4.5])pond.box(x,9.05,-.02,.05,.05,.1,'#6b5236');
+  const pond=batchOf(root),dx=plan.pondDx??0;pond.box(3.1+dx,8.87,-.024,2.4,1.5,.02,'#a59a84');pond.box(3.2+dx,8.97,-.02,2.2,1.3,.018,plan.palette.water);pond.box(4.02+dx,8.5,.02,.56,.62,.03,'#8a7050');for(let z=8.54;z<9.08;z+=.12)pond.box(4.04+dx,z,.05,.52,.012,.004,'#6b5236');for(const x of [4.05+dx,4.5+dx])pond.box(x,9.05,-.02,.05,.05,.1,'#6b5236');
   }
   // A pitch is usable ground; its markings sit on the plane the players stand on.
   road.box(9,9,-.022,4,3,.012,plan.climate==='cold'?'#e8edee':'#7f9a6e');for(const [x,z,w,d] of [[9,9,4,.025],[9,12,4,.025],[9,9,.025,3],[13,9,.025,3],[11,9,.025,3]])road.box(x,z,-.008,w,d,.006,'#e6e4d6');for(const x of [9,13]){road.box(x,10,0,.03,.03,m(1.5),'#e6dfcc');road.box(x,11,0,.03,.03,m(1.5),'#e6dfcc');road.box(x,10,m(1.5),.03,1,.03,'#e6dfcc');}

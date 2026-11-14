@@ -51,3 +51,16 @@ test('childhood swimming takes place in the neighborhood canal pond and complete
  assert.ok(head.y>0.045,`swimmer head height ${head.y} is above water level`);
  assert.ok(torso.y>0.045,`swimmer torso height ${torso.y} is at/above water level`);
 });
+import {routineContext as ctxOf,routine as walk} from '../../dist/course/routines.js';
+import {pondDx as sideOf,REGIONS as RG} from '../../dist/course/regions.js';
+import {newLife as fresh,begin as start,configureLife as setUp} from '../../dist/course/sim.js';
+// The pond moves beyond the pitch in the North, the East and the South; the five-year-old still reaches it.
+test('the swimming lesson ends in the water wherever the region keeps its pond',()=>{
+ for(const region of ['chiang-mai','phuket','chanthaburi','nakhon-pathom','khon-kaen']){
+  const s=start(setUp(fresh(7),{class:RG[region].class[0],sex:'male',birthYear:1975,region})),c=ctxOf(s,5),dx=sideOf(region);
+  assert.equal(s.birth.region,region);assert.equal(c.pondDx,dx);
+  const poses=[];for(let t=8;t<20;t+=.25){const a=walk('player',5,t,'balance',c);if(a.pose==='swim')poses.push(a.x);}
+  assert.ok(poses.length,region+' swims');assert.ok(poses.every(x=>x>3.2+dx&&x<5.4+dx),region+' swims in its own pond');
+ }
+ assert.equal(sideOf('chiang-mai'),10.2);assert.equal(sideOf('nakhon-pathom'),0);
+});

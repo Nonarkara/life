@@ -2,6 +2,7 @@
 // Every date below was checked against a source before use; where sources disagree the
 // later, safer year is used, because an object appearing a little late is not a lie and
 // an object appearing early is.
+import {regionGroup,pondDx} from './regions.js';
 import {REGIONS,region,regionAt,regionIdFor,household,childhoodAway,homeRegion} from './regions.js';
 import {birthYearOf} from './thai-history.js';
 import {rand,flagsOf} from './sim.js';
@@ -77,8 +78,7 @@ const DRESS={
  south:{accent:['#c0563f','#a0442f'],walls:['#e8b8a8','#a8d0c8','#e8d890','#f0c8a0','#ece6d8'],roofs:['#b0503a','#a0442f','#c0603f'],road:'#cfc2a2',leaf:['#3f7048','#4a7c52'],ground:'#7a9a62',wood:.2,pickup:'#2f6f9a'},
  central:{accent:['#c9a14a','#b5553c'],walls:['#ece4cc','#e4d8bd','#f0e8d4','#d8ccb0'],roofs:['#c07a48','#b06a40','#a56a50'],road:'#c6bea9',leaf:['#55734f','#66825a'],ground:'#9aa66a',wood:.3,pickup:'#c9a14a'}};
 // The first ten birthplaces outside Bangkok take their region's dress too.
-const FIRST={'isan-village':'isan','udon-thani':'isan','nakhon-sawan':'central','samut-prakan':'central','pak-phanang':'south','hua-hin':'west'};
-const dressOf=place=>place.lanna?'north':place.isan?'isan':place.east?'east':place.west?'west':place.south?'south':place.central?'central':FIRST[Object.keys(REGIONS).find(id=>REGIONS[id]===place)]??null;
+const dressOf=place=>regionGroup(Object.keys(REGIONS).find(id=>REGIONS[id]===place));
 export function palette(style,place,seed){
  const d=DRESS[dressOf(place)],set={...(STYLE_SET[style]??STYLE_SET.market),...d},r=lifeRandom(seed,'palette'),shift=(r()-.5)*.045,tone=(r()-.5)*.05,pick=l=>l[Math.floor(r()*l.length)],rot=Math.floor(r()*set.walls.length);
  const walls=[...set.walls.slice(rot),...set.walls.slice(0,rot)].slice(0,3).map(c=>hsl(c,shift,-.05,tone));
@@ -142,5 +142,5 @@ export function townPlan(state,age){
  // Isan, the East and the South lay their towns out mirrored across the view: every route and seat
  // moves with the board, so the town's plan changes and nothing in it breaks.
  const mirror=!abroad&&['isan','east','south'].includes(dressOf(place));
- return {mirror,key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),faith:faithOf(state),rainy:!abroad&&rand(seed,growth,'rain-year')<.5,seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast',lift:abroad||homeKind==='shack'&&style!=='slum'?0:LIFT[homeKind]??0};
+ return {mirror,pondDx:abroad?0:pondDx(regionId),key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),faith:faithOf(state),rainy:!abroad&&rand(seed,growth,'rain-year')<.5,seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast',lift:abroad||homeKind==='shack'&&style!=='slum'?0:LIFT[homeKind]??0};
 }

@@ -144,3 +144,9 @@ export function appearance(rand,seed,key,regionId,{sex='female',elder=false}={})
  const hairStyles=sex==='female'?['long','bun','bob','ponytail']:sex==='male'?['short','crop','short','side']:['bob','crop','short'];
  return {sex,skin:pick(r.skin,'skin'),hair:elder?pick(['#b9b8b0','#8f8f88','#d4d2c8'],'grey'):pick(r.hair,'hair'),hairStyle:pick(hairStyles,'style'),build:.9+rand(seed,0,key+'build')*.25,height:(sex==='male'?1.02:.96)+rand(seed,0,key+'height')*.06-(elder?.04:0),elder};
 }
+
+// Which region a birthplace belongs to (the first ten outside Bangkok included), and which side of the
+// pitch its swimming pond lies: the North, the East and the South have it beyond the pitch.
+const FIRST={'isan-village':'isan','udon-thani':'isan','nakhon-sawan':'central','samut-prakan':'central','pak-phanang':'south','hua-hin':'west'};
+export const regionGroup=id=>{const r=REGIONS[id];return !r||r.country!=='TH'?null:r.lanna?'north':r.isan?'isan':r.east?'east':r.west?'west':r.south?'south':r.central?'central':FIRST[id]??null;};
+export const pondDx=id=>['north','east','south'].includes(regionGroup(id))?10.2:0;
