@@ -229,6 +229,8 @@ export function createRegionScenery({scene,registerBuilding}){
   const paddy=(x,z,w,d)=>{if(!clearOfRoutes(x,z,w,d))return;const c=year%2?'#7f9e86':'#8ea27a';open.box(x,z,-.02,w,d,.012,c);const n=Math.floor(w/.34),k=Math.floor(d/.34);for(let i=0;i<=n;i++)open.box(x+i*w/n-.005,z,-.012,.01,d,.018,'#a59a72');for(let j=0;j<=k;j++)open.box(x,z+j*d/k-.005,-.012,w,.01,.018,'#a59a72');for(let i=0;i<n;i++)for(let j=0;j<k;j+=1)open.box(x+(i+.5)*w/n-.015,z+(j+.5)*d/k-.015,-.01,.03,.03,.1,'#7fa05a');};
   const field=(x,z,w,d,kind)=>{if(kind==='paddy')return paddy(x,z,w,d);if(!clearOfRoutes(x,z,w,d))return;open.box(x,z,-.02,w,d,.012,'#7f8a5a');
    for(let a=.35;a<w-.2;a+=kind==='pineapple'||kind==='garlic'?.3:kind==='cane'?.4:.75)for(let e=.35;e<d-.2;e+=kind==='pineapple'||kind==='garlic'?.3:kind==='cane'?.4:.75){if(kind==='pineapple'||kind==='garlic'){open.cylinder(x+a,z+e,0,kind==='garlic'?.06:.09,0,kind==='garlic'?.14:.2,kind==='garlic'?'#9ab07a':'#6f8a5a',5,false);continue;}if(kind==='cane'){for(const o of [-.06,.06])open.cylinder(x+a+o,z+e,0,.025,.015,.8,'#8aa05a',4,false);continue;}if(kind==='coconut'){palm(open,x+a,z+e,1.4+((a*7+e*3)%1)*.6,['#6f9a4a','#5a8a3f'],()=>.5);continue;}if(kind==='rubber'){open.cylinder(x+a,z+e,0,.05,.04,1.1,'#7a6a58',5);open.ball(x+a,1.25,z+e,.32,.28,.32,'#4f6c45',6);continue;}const h=kind==='durian'?1.2:.8;open.cylinder(x+a,z+e,0,.04,.03,h*.5,'#5f4a38',5);open.ball(x+a,h*.72,z+e,h*.3,h*.26,h*.3,kind==='durian'?'#3f5a3a':'#4f6c45',6);}};
+  // Detached houses on their own plots, spaced along a frontage, for towns that are not terraces.
+  const detached=(x0,x1,z,d,wallC,roofC,lift)=>{for(let x=x0+r()*1.1;x<x1-1.4;x+=1.7+r()*.9){const w=1.3+r()*.3,D=Math.min(d,1.2+r()*.3);if(r()<.78&&clearOfRoutes(x,z,w,D))unit(b=>lift?stilt(b,x,z,w,D,wallC(),roofC(),r,marks,lift):woodShop(b,x,z,w,D,wallC(),r,1),[x,z,w,D]);}};
   const water=(x,z,w,d,rim='#a59a84')=>{open.box(x-.08,z-.08,-.03,w+.16,d+.16,.02,rim);open.box(x,z,-.02,w,d,.018,P.water);};
   const boat=(x,z,L,c)=>{open.box(x,z,-.02,L,.32,.14,c);open.box(x+.06,z+.05,.12,L-.12,.22,.02,'#d8c8a0');open.beam(x+L,.12,z+.16,x+L+.42,.04,z+.16,.03,.03,DARK);};
   const lamp=(x,z)=>{open.box(x,z,0,.04,.04,S*1.5,'#6d7566');open.box(x-.2,z-.02,S*1.5,.26,.08,.03,'#d9d4c6',1);};
@@ -381,10 +383,11 @@ export function createRegionScenery({scene,registerBuilding}){
     if(side){water(-5.5,-2.6,1.1,9.6);water(-5.5,8.9,1.1,9.5);}
     institutions(town?!early:marks.concrete&&year>=1990,town?wall():'#d8cda8',pick(P.roofs));
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
-    const shop=(b,x,z,w,d)=>{if(early||r()<P.wood)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
+    // An Isan town is low: one-storey shophouses along the road, and open yards behind.
+    const shop=(b,x,z,w,d)=>{if(early||r()<P.wood)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,1);else concreteShop(b,x,z,w,d,wall(),r,1,P.accent,marks);};
     // Each town's rows start and run to their own depth, so no two Isan towns share a street.
     const rw=(x0,x1,z,d)=>row(x0+r()*.6,x1,z,d-r()*.5,1.1,1.8,make(shop));
-    if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);rw(-5.2,-2.3,-.6,2.2);
+    if(town){rw(-5.2,2.4,4.7,2.2);open.box(2.9,-.5,-.015,4,2.8,.01,'#b8845a');detached(2.9,6.9,-.4,2.6,wall,()=>ZINC,m(1.6));detached(-5.2,.9,12.3,2.5,wall,()=>ZINC,m(1.6));detached(.9,8.4,15.1,2.5,wall,()=>ZINC,m(1.6));detached(-5.2,-2.2,-.6,2.2,wall,()=>ZINC,m(1.6));detached(-5.2,-.3,-2.9,1.6,wall,()=>ZINC,m(1.4));detached(9.3,14,-2.9,1.5,wall,()=>ZINC,m(1.4));
      // Chang Arena opened on 4 June 2011.
      if(id==='buriram'&&year>=2011)unit(b=>stadium(b,10.4,14.7,5.8,3.4),[10.15,14.65,6.3,3.5]);else rw(9.2,18.2,14.8,2.4);
      if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);else unit(b=>woodShop(b,13.8,9.2,2.2,1.8,'#8f6f4c',r,1),[13.8,9.2,2.2,1.8]);}
@@ -442,11 +445,16 @@ export function createRegionScenery({scene,registerBuilding}){
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
     // Phuket's and Songkhla's old towns are rows of narrow pastel Sino-Portuguese shophouses.
     const sino=['phuket','songkhla','yaowarat'].includes(id);
-    const shop=(b,x,z,w,d)=>{if(sino)concreteShop(b,x,z,w,d,pick(['#e8b8a8','#a8d0c8','#e8d890','#c8b8e0','#f0c8a0']),r,2,'#ece6d8',marks);else if(early||r()<P.wood)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,(plan.place.east?3:2)+Math.floor(r()*2)),P.accent,marks);};
+    // The South's shophouses keep a covered five-foot way along their front.
+    const arcade=(b,x,z,w,d)=>{if(!plan.place.south)return;for(let a=.08;a<w;a+=w/3)b.box(x+a,z+d,0,.07,.07,S*.85,'#ece6d8');b.box(x-.02,z+d,S*.85,w+.04,.45,.06,'#ece6d8');};
+    const shop=(b,x,z,w,d)=>{arcade(b,x,z,w,d-.4);if(sino)concreteShop(b,x,z,w,d-.4,pick(['#e8b8a8','#a8d0c8','#e8d890','#c8b8e0','#f0c8a0']),r,2,'#ece6d8',marks);else if(plan.place.south)concreteShop(b,x,z,w,d-.4,wall(),r,2,P.accent,marks);else if(early||r()<P.wood)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,(plan.place.east?3:2)+Math.floor(r()*2)),P.accent,marks);};
     // Each region builds its street to its own plot: narrow southern shophouses, broad eastern ones.
     const [w0,w1]=sino?[.9,1.3]:plan.place.south?[1,1.5]:plan.place.east?[1.5,2.3]:plan.place.west?[1.3,2]:[1.1,1.7];
     const rw=(x0,x1,z,d)=>row(x0+r()*.6,x1,z,d-r()*.5,w0,w1,make(shop));
-    if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);
+    // The West builds no terraces: detached houses on their own plots. Central's town fronts a khlong.
+    if(town&&plan.place.west){detached(-5.2,2.4,4.8,2.1,wall,roof);detached(2.9,6.9,-.4,2.6,wall,roof);detached(-5.2,.9,12.3,2.5,wall,roof);detached(.9,8.4,15.1,2.5,wall,roof);}
+    else if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);if(plan.place.central){rw(.9,8.4,15,1.5);water(.9,16.75,7.4,.95);open.box(3.4,16.5,0,1,.3,.05,WOOD);for(const x of [1.4,5.6])boat(x,16.95,1.2,'#6d5640');}else rw(.9,8.4,15,2.6);}
+    if(town){
      // Chachoengsao's e-waste recycling plants arrived after China's 2018 import ban.
      if(id==='chachoengsao'&&year>=2018)unit(b=>{factory(b,-5.2,-.7,2.6,1.6,'#c9c6ba',r);for(let i=0;i<4;i++)b.ball(-4.8+i*.6,.15,1.25,.3,.22,.25,['#6d7a76','#3f4a48','#8a7a6a','#5a6a72'][i],6);},[-5.2,-.7,2.6,2.3]);
      else if(id==='sa-kaeo'||id==='kanchanaburi')unit(b=>prang(b,-4.6,-.3,1,'#b8a283','#a89070'),[-4.8,-.5,1.4,1.6]);else rw(-5.2,-2.3,-.6,2.2);
