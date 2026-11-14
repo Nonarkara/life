@@ -177,12 +177,14 @@ function leaningChedi(b,x,z){const c='#efe9da';b.box(x,z,0,1.6,1.6,.3,'#d8d3c5')
 function mondop(b,x,z){b.box(x,z,0,2.6,2.6,.35,'#efe9da');b.box(x+.4,z+.4,.35,1.8,1.8,S*.9,'#d8c8a0');for(let i=0;i<5;i++){const w=2.2-i*.38,o=(2.6-w)/2;b.hip(x+o,z+o,.35+S*.9+i*.4,w,w,.36,i%2?'#d4a63a':'#3f7a5a',.1);}b.cylinder(x+1.3,z+1.3,.35+S*.9+2,.1,0,1.2,'#d4a63a',8,false);}
 // A Sukhothai lotus-bud chedi among laterite pillars.
 function lotusChedi(b,x,z){const c='#cfc7b4';b.box(x,z,0,1.6,1.6,.3,c);b.box(x+.2,z+.2,.3,1.2,1.2,.3,c);b.box(x+.4,z+.4,.6,.8,.8,1.2,c);b.ball(x+.8,2.15,z+.8,.36,.55,.36,c,10);b.cylinder(x+.8,z+.8,2.6,.06,0,.5,c,6,false);}
-function vehicle(b,kind,x,z,w,d,acc,marks){
+function vehicle(b,kind,x,z,w,d,acc,marks,pc){
  if(kind==='samlor'){b.box(x+.1,z+.12,.3,w*.42,d-.24,.05,WOOD);b.box(x+.1,z+.1,.5,w*.42,d-.2,.05,'#7a3f3a');b.beam(x+.5,.3,z+d/2,x+w-.05,.62,z+d/2,.03,.03,RUBBER);b.gable(x+.08,z+.08,.92,w*.46,d-.16,.04,'#3f4a48',{over:.03});for(const a of [.2,.2])b.ball(x+a,.14,z+.06,.14,.14,.02,RUBBER,8);b.ball(x+.2,.14,z+d-.06,.14,.14,.02,RUBBER,8);b.ball(x+w-.08,.14,z+d/2,.14,.14,.02,RUBBER,8);return;}
  if(kind==='tuktuk'){b.box(x,z,.14,w,d,.26,'#2f6f62');b.box(x+.05,z+.03,.72,w-.1,d-.06,.04,'#d9c27a');for(const[a,e]of[[.05,.05],[w-.1,.05],[.05,d-.1],[w-.1,d-.1]])b.box(x+a,z+e,.4,.035,.035,.33,STEEL);for(const[a,e]of[[w-.1,d/2-.04],[.12,-.01],[.12,d-.08]])b.box(x+a,z+e,0,.12,.08,.14,RUBBER);return;}
  if(kind==='motorbike'||kind==='rider'){b.box(x+.15,z+.11,.22,w-.3,.08,.12,kind==='rider'?'#b5553c':'#3f4a50');b.box(x+.18,z+.1,.34,.3,.1,.05,RUBBER);b.ball(x+.12,.14,z+.15,.14,.14,.025,RUBBER,8);b.ball(x+w-.12,.14,z+.15,.14,.14,.025,RUBBER,8);b.beam(x+w-.15,.15,z+.15,x+w-.25,.52,z+.15,.03,.03,STEEL);if(kind==='rider')b.box(x+.05,z+.03,.38,.28,.24,.26,'#e4dfd2');return;}
  if(kind==='bicycle'){b.ball(x+.14,.14,z+.1,.14,.14,.012,RUBBER,8);b.ball(x+w-.14,.14,z+.1,.14,.14,.012,RUBBER,8);b.beam(x+.14,.14,z+.1,x+w*.5,.34,z+.1,.02,.02,'#5a6a6a');b.beam(x+w-.14,.14,z+.1,x+w*.55,.36,z+.1,.02,.02,'#5a6a6a');b.beam(x+w*.35,.38,z+.1,x+w*.7,.42,z+.1,.02,.02,'#5a6a6a');return;}
- if(kind==='pickup'||kind==='car'){const body=kind==='car'?acc:'#c4c0b0';b.box(x,z,.1,w,d,.22,body);b.box(x+(kind==='car'?.32:.55),z+.04,.32,w*(kind==='car'?.5:.33),d-.08,.2,kind==='car'?'#55686e':'#5a6e72');b.box(x+(kind==='car'?.36:.58),z+.05,.52,w*(kind==='car'?.42:.28),d-.1,.02,body);for(const a of [.12,w-.34])for(const e of [-.008,d-.012])b.box(x+a,z+e,0,.22,.02,.22,RUBBER);return;}
+ if(kind==='pickup'||kind==='car'){const body=kind==='car'?acc:pc??'#c4c0b0';
+  // Chiang Mai's red songthaew: a pickup with a roof over two benches.
+  if(kind==='pickup'&&pc==='#a8322a'){b.box(x+.05,z+.05,.62,w*.5,d-.1,.04,body);for(const e of [.06,d-.1])b.box(x+.08,z+e,.32,w*.45,.04,.3,body);}b.box(x,z,.1,w,d,.22,body);b.box(x+(kind==='car'?.32:.55),z+.04,.32,w*(kind==='car'?.5:.33),d-.08,.2,kind==='car'?'#55686e':'#5a6e72');b.box(x+(kind==='car'?.36:.58),z+.05,.52,w*(kind==='car'?.42:.28),d-.1,.02,body);for(const a of [.12,w-.34])for(const e of [-.008,d-.012])b.box(x+a,z+e,0,.22,.02,.22,RUBBER);return;}
 }
 function prop([kind,x,z,w,d],b,plan,r){
  const leaf=plan.palette.leaf,acc=plan.palette.accent;
@@ -190,7 +192,7 @@ function prop([kind,x,z,w,d],b,plan,r){
  if(kind==='pole'){b.box(x,z,0,.07,.07,S*2.1,'#8a8880');b.box(x-.32,z,S*2.1-.14,.72,.04,.04,'#5a5a52');b.box(x-.08,z+.06,S*1.7,.2,.14,.22,'#8a8f88');return;}
  if(kind==='cart'){b.box(x,z,.32,w,d,.24,'#d9d2c0');b.box(x-.02,z-.02,.56,w+.04,d+.04,.03,'#8a7050');b.box(x+.02,z+d/2-.015,.1,.03,.03,.24,STEEL);b.ball(x+.14,.12,z-.015,.12,.12,.012,RUBBER,8);b.ball(x+.14,.12,z+d+.015,.12,.12,.012,RUBBER,8);b.box(x+w/2-.012,z+d/2-.012,.56,.024,.024,.75,'#6b5236');if(plan.marks.stools)b.cylinder(x+w/2,z+d/2,1.28,.62,.0,.2,acc,10,false);else b.gable(x-.1,z-.08,1.2,w+.2,d+.16,.2,'#8a7050',{over:.02});if(plan.marks.stools)for(const[a,e]of[[-.1,d+.3],[.4,d+.42],[.8,d+.26]])b.cylinder(x+a,z+e,0,.09,.075,.2,'#3f6f9a',8);return;}
  if(kind==='bananas')return bananas(b,x,z);
- if(['samlor','tuktuk','motorbike','rider','bicycle','pickup','car'].includes(kind))return vehicle(b,kind,x,z,w,d,acc,plan.marks);
+ if(['samlor','tuktuk','motorbike','rider','bicycle','pickup','car'].includes(kind))return vehicle(b,kind,x,z,w,d,acc,plan.marks,plan.palette.pickup);
  if(kind==='winstand'){for(const a of [0,w])b.box(x+a,z,0,.03,.03,.72,STEEL);b.box(x-.08,z-.1,.72,w+.16,.5,.03,'#c77d3a');b.box(x+.05,z+.05,.26,w-.1,.14,.03,WOOD);vehicle(b,'motorbike',x+.1,z+.5,.75,.28,acc,plan.marks);return;}
  if(kind==='laundry'){for(const a of [x,x+w])b.box(a,z,0,.035,.035,.92,WOOD);b.beam(x,.9,z+.018,x+w,.9,z+.018,.008,.008,DARK);[['#b5553c',.1],['#e6d9b8',.46],['#4f7a9a',.84],['#d8b25a',1.24]].forEach(([c,o])=>b.box(x+o,z,.55,.28,.012,.34,c));return;}
  if(kind==='drum'){b.cylinder(x+w/2,z+d/2,0,.15,.15,.34,'#4f7a8a',10);return;}
@@ -332,7 +334,7 @@ export function createRegionScenery({scene,registerBuilding}){
     if(river){water(-5.5,-2.6,1.1,9.6);water(-5.5,8.9,1.1,9.5);}
     institutions(town?!early:marks.concrete&&year>=1990,town?wall():'#d8cda8',pick(P.roofs));
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
-    const shop=(b,x,z,w,d)=>{if(early||r()<.3)woodShop(b,x,z,w,d,pick(['#6d5640','#7f6243','#5f4a38']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
+    const shop=(b,x,z,w,d)=>{if(early||r()<P.wood)woodShop(b,x,z,w,d,pick(['#6d5640','#7f6243','#5f4a38']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
     const rw=(x0,x1,z,d)=>row(x0,x1,z,d,1.1,1.8,make(shop));
     if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);rw(9.2,18.2,14.8,2.4);
      // Lampang's ceramic works are drawn from 1990, on the safe side of the record (no start year in it).
@@ -374,7 +376,7 @@ export function createRegionScenery({scene,registerBuilding}){
     if(side){water(-5.5,-2.6,1.1,9.6);water(-5.5,8.9,1.1,9.5);}
     institutions(town?!early:marks.concrete&&year>=1990,town?wall():'#d8cda8',pick(P.roofs));
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
-    const shop=(b,x,z,w,d)=>{if(early||r()<.3)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
+    const shop=(b,x,z,w,d)=>{if(early||r()<P.wood)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
     // Each town's rows start and run to their own depth, so no two Isan towns share a street.
     const rw=(x0,x1,z,d)=>row(x0+r()*.6,x1,z,d-r()*.5,1.1,1.8,make(shop));
     if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);rw(-5.2,-2.3,-.6,2.2);
@@ -435,8 +437,10 @@ export function createRegionScenery({scene,registerBuilding}){
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
     // Phuket's and Songkhla's old towns are rows of narrow pastel Sino-Portuguese shophouses.
     const sino=['phuket','songkhla','yaowarat'].includes(id);
-    const shop=(b,x,z,w,d)=>{if(sino)concreteShop(b,x,z,w,d,pick(['#e8b8a8','#a8d0c8','#e8d890','#c8b8e0','#f0c8a0']),r,2,'#ece6d8',marks);else if(early||r()<.3)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
-    const rw=(x0,x1,z,d)=>row(x0+r()*.6,x1,z,d-r()*.5,sino?.9:1.1,sino?1.3:1.8,make(shop));
+    const shop=(b,x,z,w,d)=>{if(sino)concreteShop(b,x,z,w,d,pick(['#e8b8a8','#a8d0c8','#e8d890','#c8b8e0','#f0c8a0']),r,2,'#ece6d8',marks);else if(early||r()<P.wood)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,(plan.place.east?3:2)+Math.floor(r()*2)),P.accent,marks);};
+    // Each region builds its street to its own plot: narrow southern shophouses, broad eastern ones.
+    const [w0,w1]=sino?[.9,1.3]:plan.place.south?[1,1.5]:plan.place.east?[1.5,2.3]:plan.place.west?[1.3,2]:[1.1,1.7];
+    const rw=(x0,x1,z,d)=>row(x0+r()*.6,x1,z,d-r()*.5,w0,w1,make(shop));
     if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);
      // Chachoengsao's e-waste recycling plants arrived after China's 2018 import ban.
      if(id==='chachoengsao'&&year>=2018)unit(b=>{factory(b,-5.2,-.7,2.6,1.6,'#c9c6ba',r);for(let i=0;i<4;i++)b.ball(-4.8+i*.6,.15,1.25,.3,.22,.25,['#6d7a76','#3f4a48','#8a7a6a','#5a6a72'][i],6);},[-5.2,-.7,2.6,2.3]);
@@ -447,7 +451,7 @@ export function createRegionScenery({scene,registerBuilding}){
      else rw(9.2,18.2,14.8,2.4);
      if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);else unit(b=>woodShop(b,13.8,9.2,2.2,1.8,'#8f6f4c',r,1),[13.8,9.2,2.2,1.8]);}
     else{[[-5,9.3,3,3.6],[9.3,13,4.2,3.2],[14.2,9.2,3.9,3],[14,13.2,4,3],[-1.7,12,2.5,2.4]].forEach(([x,z,w,d],i)=>{if(r()<.9)field(x,z,w,d,['prachuap-khiri-khan','narathiwat','pattani','samut-songkhram'].includes(id)?'coconut':plan.place.central?(id==='uthai-thani'&&i%2?'durian':'paddy'):['durian','rubber','longan'][i%3]);});
-     for(const [x,z] of [[-4.3,-.1],[-4.3,2.3],[-4.3,4.6],[3.7,10.9],[1.2,13.4],[4.2,14.9],[1.2,15.9],[-4.3,16.4],[9.2,16.4],[12.2,16.4],[15.2,16.4]]){const X=Math.max(-5.2,x+r()*.6),Z=z+r()*.3,w=1.8+r()*.5,d=1.5+r()*.3;if(r()<.82&&clearOfRoutes(X,Z,w,d))unit(b=>stilt(b,X,Z,w,d,pick(['#8f6f4c','#9a7c5a','#c9b48e']),marks.concrete?ZINC:pick(['#7a6a55','#8b7c68']),r,marks,m(1.2)),[X,Z,w,d]);}
+     for(const [x,z] of [[-4.3,-.1],[-4.3,2.3],[-4.3,4.6],[3.7,10.9],[1.2,13.4],[4.2,14.9],[1.2,15.9],[-4.3,16.4],[9.2,16.4],[12.2,16.4],[15.2,16.4]]){const X=Math.max(-5.2,x+r()*.6),Z=z+r()*.3,w=1.8+r()*.5,d=1.5+r()*.3;if(r()<.82&&clearOfRoutes(X,Z,w,d))unit(b=>stilt(b,X,Z,w,d,wall(),roof(),r,marks,m(1.2)),[X,Z,w,d]);}
      if(marks.store)unit(b=>store(b,-4.8,12.9,1.9,1.3,r),[-4.8,12.9,1.9,1.3]);}
     ({chachoengsao(){unit(b=>{b.box(14.2,2.5,0,4,3.2,.3,'#efe9da');wat(b,14.6,2.8,3.4,2.6,r);for(const [a,e] of [[-.2,-.2],[3.6,-.2],[-.2,2.9],[3.6,2.9]])b.cylinder(14.6+a+.2,2.8+e+.2,.3,.16,0,1.6,'#e2b450',6,false);},[14.2,2.5,4,3.2]);if(year>=1990)open.box(14.4,5.6,-.01,3.6,1,.02,'#b9b6aa');},
       chanthaburi(){unit(b=>cathedral(b,15.5,3),[15.2,3,2.4,3.3]);},
@@ -484,7 +488,7 @@ export function createRegionScenery({scene,registerBuilding}){
       nonthaburi(){unit(b=>leaningChedi(b,15,3),[15,3,2.6,1.6]);},
       'pathum-thani'(){water(14.3,4.3,3.8,.6);paddy(14.3,2.3,3.8,1.8);paddy(15.8,5.1,2.3,1.6);for(const x of [14.4,16.2])unit(b=>stilt(b,x,3.2,1.5,1.1,'#9a7c5a',ZINC,r,marks,m(1.4)),[x,3.2,1.5,1.1]);},
       phetchabun(){unit(b=>{b.cylinder(16.2,4.2,0,1.9,.7,1.8,'#7f9a5a',9);},[14.3,2.3,3.8,3.8]);for(let a=0;a<6.28;a+=.5)for(const R of [1.2,1.6])open.ball(16.2+Math.cos(a)*R,1.8*(1-R/1.9)+.3,4.2+Math.sin(a)*R,.12,.1,.12,'#b9d08a',5);unit(b=>shed(b,14.4,5.9,1.4,.8,ZINC,'#b9d08a',r),[14.4,5.9,1.4,.8]);},
-      phichit(){water(14.3,2.2,3.8,4.6);for(let i=0;i<14;i++)open.cylinder(14.5+r()*3.4,2.4+r()*4.2,0,.14,.14,.02,i%3?'#5a8a4a':'#e8a0b8',8);},
+      phichit(){water(14.3,2.2,3.8,3.8);unit(b=>{for(const a of [0,3.4])for(const e of [0,.7])b.box(14.4+a,6.1+e,0,.06,.06,S*.6,WOOD);b.gable(14.3,6.05,S*.6,3.7,.85,m(.6),ZINC,{along:'x',over:.05});b.box(14.5,6.3,.05,3.3,.3,.1,'#a5312a');},[14.3,6.05,3.7,.85]);for(let i=0;i<14;i++)open.cylinder(14.5+r()*3.4,2.4+r()*4.2,0,.14,.14,.02,i%3?'#5a8a4a':'#e8a0b8',8);},
       phitsanulok(){water(14.3,2.2,3.8,4.6);for(const x of [14.5,16.4])unit(b=>{b.box(x,3,-.02,1.6,1.3,.16,'#6d5640');b.box(x+.1,3.1,.14,1.4,1.1,S*.8,'#9a7c5a');b.gable(x,3,.14+S*.8,1.6,1.3,m(1.1),ZINC,{along:'x',over:.1});},[x,3,1.6,1.3]);boat(15,5.4,1.6,'#6d5640');},
       ayutthaya(){unit(b=>{b.box(14.3,2.4,0,3.8,3.6,.2,'#b9a07a');prang(b,15.6,3.6,1.3,'#a8704f','#9a6446',.2);for(const [a,e] of [[.2,.3],[3,.3],[.2,2.8],[3,2.8]])prang(b,14.3+a,2.4+e,.5,'#a8704f','#9a6446',.2);},[14.3,2.4,3.8,3.6]);},
       'samut-sakhon'(){unit(b=>saltPans(b,14.4,2.4),[14.4,2.4,3.6,2.9]);},

@@ -66,10 +66,21 @@ const STYLE_SET={
  newengland:{walls:['#d7dde0','#9fb2bf','#c9b8a0','#e8e4da','#a8b89f'],roofs:['#eef1f2','#e4e8ea'],accent:['#7a2f2a','#2f4a5a'],road:'#c8ccce',leaf:['#6a5f55']},
  brick:{walls:['#9a5a46','#8c5040','#a56a52','#7f4a3c'],roofs:['#4d5254','#5a5c5c'],accent:['#2f3a40','#3f5f7a','#8a2f2a'],road:'#8f9090',leaf:['#55704f','#62805a']}
 };
+// Each region dresses the shared board in its own materials, so a town reads as its region at a glance:
+// Lanna teak and dark tile, Isan zinc and laterite, the South's pastel shophouses and clay tile, and so on.
+// ponytail: one dress per region, not per province; the province's own landmark does the rest.
+const DRESS={
+ north:{walls:['#7a5a40','#8a6a4a','#d8c8a6','#6d5640'],roofs:['#7d3b2b','#6f3a2c','#86523c'],road:'#c4b08a',leaf:['#4f6c45','#5a7550'],ground:'#83966a',wood:.55,pickup:'#a8322a'},
+ isan:{walls:['#9a8a72','#a89880','#c9bca0','#8f7f68'],roofs:['#8d9290','#9aa09c','#7f8482'],road:'#b8845a',leaf:['#6f8a4f','#7f9a58'],ground:'#a6a06a',wood:.6,pickup:'#c4c0b0'},
+ east:{walls:['#d6e0d8','#e8e2c8','#c8d8d8','#e2d4c0'],roofs:['#a15f49','#4f7a8a','#b07a58'],road:'#c8bca0',leaf:['#4e7a58','#5f8d5f'],ground:'#8ea068',wood:.25,pickup:'#ece7da'},
+ west:{walls:['#d8c49c','#c8b08a','#e4d4b0','#b8a07a'],roofs:['#5f7a6a','#8d9290','#a56a50'],road:'#c6b08c',leaf:['#55734a','#647f52'],ground:'#94a06a',wood:.4,pickup:'#7a8a6a'},
+ south:{walls:['#e8b8a8','#a8d0c8','#e8d890','#f0c8a0','#ece6d8'],roofs:['#b0503a','#a0442f','#c0603f'],road:'#cfc2a2',leaf:['#3f7048','#4a7c52'],ground:'#7a9a62',wood:.2,pickup:'#2f6f9a'},
+ central:{walls:['#ece4cc','#e4d8bd','#f0e8d4','#d8ccb0'],roofs:['#c07a48','#b06a40','#a56a50'],road:'#c6bea9',leaf:['#55734f','#66825a'],ground:'#9aa66a',wood:.3,pickup:'#c9a14a'}};
+const dressOf=place=>place.lanna?'north':place.isan?'isan':place.east?'east':place.west?'west':place.south?'south':place.central?'central':null;
 export function palette(style,place,seed){
- const set=STYLE_SET[style]??STYLE_SET.market,r=lifeRandom(seed,'palette'),shift=(r()-.5)*.045,tone=(r()-.5)*.05,pick=l=>l[Math.floor(r()*l.length)],rot=Math.floor(r()*set.walls.length);
+ const d=DRESS[dressOf(place)],set={...(STYLE_SET[style]??STYLE_SET.market),...d},r=lifeRandom(seed,'palette'),shift=(r()-.5)*.045,tone=(r()-.5)*.05,pick=l=>l[Math.floor(r()*l.length)],rot=Math.floor(r()*set.walls.length);
  const walls=[...set.walls.slice(rot),...set.walls.slice(0,rot)].slice(0,3).map(c=>hsl(c,shift,-.05,tone));
- return {walls,roofs:set.roofs.map(c=>hsl(c,shift*.7,0,(r()-.5)*.05)),accent:hsl(pick(set.accent),0,-.12,.02),accents:set.accent,road:hsl(set.road,shift,0,tone*.5),leaf:set.leaf.map(c=>hsl(c,shift,0,(r()-.5)*.04)),ground:hsl(place.look.ground,shift,-.1,.05+tone*.4),water:place.look.water,floor:hsl(place.look.floor,shift,0,tone),wall:hsl(place.look.wall,shift,0,tone)};
+ return {walls,roofs:set.roofs.map(c=>hsl(c,shift*.7,0,(r()-.5)*.05)),accent:hsl(pick(set.accent),0,-.12,.02),accents:set.accent,road:hsl(set.road,shift,0,tone*.5),leaf:set.leaf.map(c=>hsl(c,shift,0,(r()-.5)*.04)),ground:hsl(d?.ground??place.look.ground,shift,-.1,.05+tone*.4),wood:d?.wood??.3,pickup:d?.pickup,water:place.look.water,floor:hsl(place.look.floor,shift,0,tone),wall:hsl(place.look.wall,shift,0,tone)};
 }
 const RUNG_TIER=[0,0,1,2,2,3];
 // Rural Thai houses stand on posts: the floor above the wet season, the shade below for work.
