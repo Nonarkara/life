@@ -41,7 +41,7 @@ const STREET_SURFACE=-.008, CROSS_STREET_SURFACE=-.006;
 // The wat, mosque, sim or shrine stands at the right; a port, a sea, sheds or a river run along the back
 // and stay in view from that aim too. Udon's lake and Siam Center sit lower on the right.
 const LANDMARK={'udon-thani':[16.2,4.4],'pathum-wan':[16.2,4.9],faith:[15.6,.2]};
-export const townFrame=P=>{const [x,z]=LANDMARK[P.regionId]??(P.place?.lanna||P.place?.isan||P.place?.east?LANDMARK['udon-thani']:LANDMARK.faith);return {kind:'town',x:(6.4+x)/2,z:(6.6+z)/2};};
+export const townFrame=P=>{const [x,z]=LANDMARK[P.regionId]??(P.place?.lanna||P.place?.isan||P.place?.east||P.place?.west?LANDMARK['udon-thani']:LANDMARK.faith);return {kind:'town',x:(6.4+x)/2,z:(6.6+z)/2};};
 export function cameraSpan(age,phone=false){return age<1?3.5+age*2:phone?Math.min(9,5+age*.12):age<10?5.5+age*.3:age<20?8.5+(age-10)*.13:9.8+Math.min(40,age-20)*.03;}
 export function drawScene3D(original,state,age,time,mode,view={}){
  let entry=scenes.get(original);

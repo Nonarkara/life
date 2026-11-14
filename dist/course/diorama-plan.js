@@ -13,7 +13,7 @@ import {rungAt,clearOfLots} from './housing-ladder.js';
 export {clearOfLots};
 
 const BANGKOK=new Set(['khlong-toei','bang-na','sukhumvit','pathum-wan']);
-const RURAL=new Set(['nakhon-sawan','isan-village','pak-phanang',...Object.keys(REGIONS).filter(id=>(REGIONS[id].lanna||REGIONS[id].isan||REGIONS[id].east)&&REGIONS[id].style==='village')]);
+const RURAL=new Set(['nakhon-sawan','isan-village','pak-phanang',...Object.keys(REGIONS).filter(id=>(REGIONS[id].lanna||REGIONS[id].isan||REGIONS[id].east||REGIONS[id].west)&&REGIONS[id].style==='village')]);
 // BTS Sukhumvit line: Mo Chit to On Nut opened 5 December 1999; On Nut to Bearing, the
 // stretch through Bang Na, 12 August 2011. Siam station, Pathum Wan, opened with the first line. It never ran through Khlong Toei's port slums.
 const VIADUCT={sukhumvit:1999,'bang-na':2011,'pathum-wan':1999};

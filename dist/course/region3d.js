@@ -144,6 +144,12 @@ function bodhi(b,x,z){b.box(x,z,0,3,3,.3,'#e4decd');b.box(x+.1,z+.1,.3,2.8,2.8,.
 function borderMarket(b,x,z){for(let i=0;i<3;i++){b.box(x+.1,z+.15+i*1.25,0,3.4,.7,S*.75,'#d8d3c5');b.gable(x,z+i*1.25,S*.75,3.6,1,m(.8),i%2?'#4f7a8a':'#a15f49',{along:'x',over:.05});}}
 // An island seen across the water from the set: a cone on the table in its own patch of sea.
 function island(b,x,z,R,h,c,sand){b.cylinder(x,z,-1.3,R+1.6,R+1.6,.02,'#4f7f8c',20);b.cylinder(x,z,-1.28,R*1.08,R*1.08,.02,sand,14);b.cylinder(x,z,-1.28,R,R*.25,h,c,9);}
+// The West. Erawan Falls: pools stepping down a forested hill, each spilling into the next.
+function erawan(b,x,z){b.cylinder(x+1.7,z-.3,0,1.9,.6,3,'#4f6c45',9);for(let i=0;i<4;i++){const y=(3-i)*.45,e=z+i*.85;b.box(x,e,0,3.4,.95,y+.3,i%2?'#6f8a5a':'#5f7a50');b.box(x+.2,e+.1,y+.3,3,.7,.04,'#7ac0b8');if(i<3)b.box(x+1.1+i*.3,e+.8,y-.1,.8,.12,.42,'#e8eef0');}b.ball(x+.4,1.9,z+.3,.6,.7,.5,'#4f6c45',7);b.ball(x+3,1.7,z+.6,.55,.6,.5,'#55734a',7);}
+// A tall waterfall over a cliff into its pool (Thi Lo Su).
+function cliffFall(b,x,z){b.cylinder(x+1.8,z+.2,0,2,1.4,2.6,'#6d6458',9);b.cylinder(x+1.8,z+.2,2.6,1.45,.9,.6,'#4f6c45',9);for(const [a,w] of [[.9,.3],[1.4,.5],[2.1,.35],[2.6,.25]])b.beam(x+a,2.5,z+1.4,x+a,.05,z+2.2,w,.06,'#e8eef0');b.box(x+.3,z+2,-.01,3,1.2,.03,'#7ac0b8');for(const a of [.4,3.2])b.ball(x+a,.6,z+2.4,.45,.5,.4,'#4f6c45',7);}
+// Phetchaburi's salt pans with heaps of salt, under a row of sugar palms.
+function saltPans(b,x,z){for(let i=0;i<4;i++)for(let j=0;j<2;j++){b.box(x+i*.9,z+j*1.1,-.01,.86,1.06,.015,'#8a7a60');b.box(x+i*.9+.04,z+j*1.1+.04,0,.78,.98,.008,j?'#eef0ec':'#dfe6e4');}for(const a of [.3,.9,1.6,2.3,3])b.cylinder(x+a,z+2.55,0,.26,0,.5,'#f8f8f4',8,false);}
 function vehicle(b,kind,x,z,w,d,acc,marks){
  if(kind==='samlor'){b.box(x+.1,z+.12,.3,w*.42,d-.24,.05,WOOD);b.box(x+.1,z+.1,.5,w*.42,d-.2,.05,'#7a3f3a');b.beam(x+.5,.3,z+d/2,x+w-.05,.62,z+d/2,.03,.03,RUBBER);b.gable(x+.08,z+.08,.92,w*.46,d-.16,.04,'#3f4a48',{over:.03});for(const a of [.2,.2])b.ball(x+a,.14,z+.06,.14,.14,.02,RUBBER,8);b.ball(x+.2,.14,z+d-.06,.14,.14,.02,RUBBER,8);b.ball(x+w-.08,.14,z+d/2,.14,.14,.02,RUBBER,8);return;}
  if(kind==='tuktuk'){b.box(x,z,.14,w,d,.26,'#2f6f62');b.box(x+.05,z+.03,.72,w-.1,d-.06,.04,'#d9c27a');for(const[a,e]of[[.05,.05],[w-.1,.05],[.05,d-.1],[w-.1,d-.1]])b.box(x+a,z+e,.4,.035,.035,.33,STEEL);for(const[a,e]of[[w-.1,d/2-.04],[.12,-.01],[.12,d-.08]])b.box(x+a,z+e,0,.12,.08,.14,RUBBER);return;}
@@ -176,7 +182,7 @@ export function createRegionScenery({scene,registerBuilding}){
  let root=null,built=[];
  function build(plan){
   root=new T.Group();scene.add(root);
-  const {palette:P,marks,style,seed,year,flood}=plan,r=lifeRandom(seed,'layout'+style+(plan.place.lanna||plan.place.isan||plan.place.east?plan.regionId:''));
+  const {palette:P,marks,style,seed,year,flood}=plan,r=lifeRandom(seed,'layout'+style+(plan.place.lanna||plan.place.isan||plan.place.east||plan.place.west?plan.regionId:''));
   const pick=l=>l[Math.floor(r()*l.length)],wall=()=>pick(P.walls),roof=()=>pick(P.roofs);
   // One batch per thing a cutaway may fade; loose ground things share one.
   const open=createBatch();
@@ -188,7 +194,7 @@ export function createRegionScenery({scene,registerBuilding}){
   const scatterTrees=(n,zones,h=[1.3,2.2],kind=tree)=>{for(let i=0;i<n;i++){const [a,b,c,e]=pick(zones),x=a+r()*c,z=b+r()*e;if(clearOfRoutes(x-.2,z-.2,.4,.4))kind(open,x,z,h[0]+r()*(h[1]-h[0]),P.leaf,r);}};
   const paddy=(x,z,w,d)=>{if(!clearOfRoutes(x,z,w,d))return;const c=year%2?'#7f9e86':'#8ea27a';open.box(x,z,-.02,w,d,.012,c);const n=Math.floor(w/.34),k=Math.floor(d/.34);for(let i=0;i<=n;i++)open.box(x+i*w/n-.005,z,-.012,.01,d,.018,'#a59a72');for(let j=0;j<=k;j++)open.box(x,z+j*d/k-.005,-.012,w,.01,.018,'#a59a72');for(let i=0;i<n;i++)for(let j=0;j<k;j+=1)open.box(x+(i+.5)*w/n-.015,z+(j+.5)*d/k-.015,-.01,.03,.03,.1,'#7fa05a');};
   const field=(x,z,w,d,kind)=>{if(kind==='paddy')return paddy(x,z,w,d);if(!clearOfRoutes(x,z,w,d))return;open.box(x,z,-.02,w,d,.012,'#7f8a5a');
-   for(let a=.35;a<w-.2;a+=kind==='pineapple'||kind==='garlic'?.3:kind==='cane'?.4:.75)for(let e=.35;e<d-.2;e+=kind==='pineapple'||kind==='garlic'?.3:kind==='cane'?.4:.75){if(kind==='pineapple'||kind==='garlic'){open.cylinder(x+a,z+e,0,kind==='garlic'?.06:.09,0,kind==='garlic'?.14:.2,kind==='garlic'?'#9ab07a':'#6f8a5a',5,false);continue;}if(kind==='cane'){for(const o of [-.06,.06])open.cylinder(x+a+o,z+e,0,.025,.015,.8,'#8aa05a',4,false);continue;}if(kind==='rubber'){open.cylinder(x+a,z+e,0,.05,.04,1.1,'#7a6a58',5);open.ball(x+a,1.25,z+e,.32,.28,.32,'#4f6c45',6);continue;}const h=kind==='durian'?1.2:.8;open.cylinder(x+a,z+e,0,.04,.03,h*.5,'#5f4a38',5);open.ball(x+a,h*.72,z+e,h*.3,h*.26,h*.3,kind==='durian'?'#3f5a3a':'#4f6c45',6);}};
+   for(let a=.35;a<w-.2;a+=kind==='pineapple'||kind==='garlic'?.3:kind==='cane'?.4:.75)for(let e=.35;e<d-.2;e+=kind==='pineapple'||kind==='garlic'?.3:kind==='cane'?.4:.75){if(kind==='pineapple'||kind==='garlic'){open.cylinder(x+a,z+e,0,kind==='garlic'?.06:.09,0,kind==='garlic'?.14:.2,kind==='garlic'?'#9ab07a':'#6f8a5a',5,false);continue;}if(kind==='cane'){for(const o of [-.06,.06])open.cylinder(x+a+o,z+e,0,.025,.015,.8,'#8aa05a',4,false);continue;}if(kind==='coconut'){palm(open,x+a,z+e,1.4+((a*7+e*3)%1)*.6,['#6f9a4a','#5a8a3f'],()=>.5);continue;}if(kind==='rubber'){open.cylinder(x+a,z+e,0,.05,.04,1.1,'#7a6a58',5);open.ball(x+a,1.25,z+e,.32,.28,.32,'#4f6c45',6);continue;}const h=kind==='durian'?1.2:.8;open.cylinder(x+a,z+e,0,.04,.03,h*.5,'#5f4a38',5);open.ball(x+a,h*.72,z+e,h*.3,h*.26,h*.3,kind==='durian'?'#3f5a3a':'#4f6c45',6);}};
   const water=(x,z,w,d,rim='#a59a84')=>{open.box(x-.08,z-.08,-.03,w+.16,d+.16,.02,rim);open.box(x,z,-.02,w,d,.018,P.water);};
   const boat=(x,z,L,c)=>{open.box(x,z,-.02,L,.32,.14,c);open.box(x+.06,z+.05,.12,L-.12,.22,.02,'#d8c8a0');open.beam(x+L,.12,z+.16,x+L+.42,.04,z+.16,.03,.03,DARK);};
   const lamp=(x,z)=>{open.box(x,z,0,.04,.04,S*1.5,'#6d7566');open.box(x-.2,z-.02,S*1.5,.26,.08,.03,'#d9d4c6',1);};
@@ -378,14 +384,18 @@ export function createRegionScenery({scene,registerBuilding}){
    // The East: the industrial coast, the orchard provinces and the border market. The sea or the
    // river runs along the back where the record names it; each province's landmark sits in its plot.
    east(){const id=plan.regionId,town=style==='market',early=!marks.concrete;
-    const sea=['chonburi','rayong','trat'].includes(id),river=['chachoengsao','chanthaburi'].includes(id);
-    const hills={chachoengsao:{low:true},chonburi:{low:true},prachinburi:{},'sa-kaeo':{low:true},chanthaburi:{}}[id];if(hills)ridge(open,r,hills);
+    const sea=['chonburi','rayong','trat','phetchaburi','prachuap-khiri-khan'].includes(id),river=['chachoengsao','chanthaburi','kanchanaburi','ratchaburi','tak'].includes(id);
+    const hills={chachoengsao:{low:true},chonburi:{low:true},prachinburi:{},'sa-kaeo':{low:true},chanthaburi:{},kanchanaburi:{},phetchaburi:{},ratchaburi:{low:true},tak:{high:true}}[id];if(hills)ridge(open,r,hills);
     if(sea){water(-5.4,-5.4,23.8,2.3);open.box(-5.4,-3.1,-.016,23.8,.5,.014,'#ddd0a8');}else if(river)water(-5.4,-5.4,23.8,1.8);
     if(id==='rayong'){open.cylinder(3,-9.6,-1.3,4.4,4.4,.02,'#4f7f8c',20);for(const [x,z,a,c] of [[3,-9.6,2.6,.6],[3,-8.6,.6,2]])open.ball(x,-1.28,z,a,.9,c,'#5f7a52',10);}
+    // Khao Sam Roi Yot: limestone peaks standing straight up from the shore.
+    if(id==='prachuap-khiri-khan')for(const [x,h] of [[-3,3.4],[-.6,4.6],[1.6,3],[11.2,4],[13.4,5.2],[15.6,3.6]]){open.cylinder(x,-7.6,-1.3,1.1,.45,h,'#8a8f80',6);open.cylinder(x,-7.6,h-1.3,.45,.2,.4,'#5a7550',6);}
     if(id==='trat')island(open,9.6,-10.4,3.2,4.6,'#4f6b45','#ddd0a8');
     // Laem Chabang's container port, completed 1991; before it the shore had fishing boats.
     if(id==='chonburi'&&year>=1991){open.box(-5.4,-3.3,-.01,12.4,.7,.03,'#b9b6aa');open.box(-4.6,-5.25,-.02,5.2,.9,.32,'#3f4a58');containers(open,-4.4,-5.2,14,2,r);for(const x of [-4.8,-2.8,-.8]){for(const a of [0,.9])for(const e of [-3.2,-2.7])open.box(x+a,e,0,.08,.08,2.2,'#c9a14a');open.box(x-.05,-5.4,2.2,1.05,3,.14,'#c9a14a');open.box(x+.2,-3.1,2.34,.6,.5,.3,'#ece7da');}for(const x of [2.2,4.4])if(clearOfRoutes(x,-2.6,2.2,1.2)&&clearOfLots(x,-2.6,2.2,1.2))containers(open,x,-2.6,6,3,r);}
-    else if(sea)for(const x of [-3.5,3,11,15.5])boat(x+r(),-5.1+r()*.8,1.5,pick([P.accent,'#2f6f9a','#c0563f']));
+    // The Thai-Myanmar Friendship Bridge over the Moei at Mae Sot opened in 1997.
+    if(id==='tak'&&year>=1997){open.beam(8.1,0,-2.2,8.1,.34,-3,1.6,.06,'#c7c3b6');open.box(7.3,-5.6,.28,1.6,2.6,.12,'#c7c3b6');for(const e of [0,1.52])open.box(7.3+e,-5.6,.4,.08,2.6,.12,'#b0ac9f');for(const e of [-.1,1.62])open.box(7.3+e-.04,-5.5,0,.12,.12,S*1.6,'#d9d4c6');open.box(7.2,-5.5,S*1.6,1.9,.12,.12,'#a51931');}
+    if(sea&&!(id==='chonburi'&&year>=1991))for(const x of [-3.5,3,11,15.5])boat(x+r(),-5.1+r()*.8,1.5,pick([P.accent,'#2f6f9a','#c0563f']));
     if(river)for(const x of [-4,3.2,12.6])boat(x+r()*.6,-5.1,1.4,pick(['#6d5640','#3f6f8a']));
     institutions(town?!early:marks.concrete&&year>=1990,town?wall():'#d8cda8',pick(P.roofs));
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
@@ -394,13 +404,13 @@ export function createRegionScenery({scene,registerBuilding}){
     if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);
      // Chachoengsao's e-waste recycling plants arrived after China's 2018 import ban.
      if(id==='chachoengsao'&&year>=2018)unit(b=>{factory(b,-5.2,-.7,2.6,1.6,'#c9c6ba',r);for(let i=0;i<4;i++)b.ball(-4.8+i*.6,.15,1.25,.3,.22,.25,['#6d7a76','#3f4a48','#8a7a6a','#5a6a72'][i],6);},[-5.2,-.7,2.6,2.3]);
-     else if(id==='sa-kaeo')unit(b=>prang(b,-4.6,-.3,1,'#b8a283','#a89070'),[-4.8,-.5,1.4,1.6]);else rw(-5.2,-2.3,-.6,2.2);
+     else if(id==='sa-kaeo'||id==='kanchanaburi')unit(b=>prang(b,-4.6,-.3,1,'#b8a283','#a89070'),[-4.8,-.5,1.4,1.6]);else rw(-5.2,-2.3,-.6,2.2);
      // Honda's Prachinburi plant opened in March 2016.
      if(id==='prachinburi'&&year>=2016)unit(b=>{factory(b,9.4,16.2,8.6,2.2,'#e8e4d8',r);b.box(9.4,18.4,0,8.6,.03,.6,'#a51931');},[9.4,16.2,8.6,2.25]);
      else if(id==='rayong'&&year>=1990)unit(b=>{factory(b,9.4,16.2,5,2.2,'#d9d6cc',r);stack(b,15.4,17.2,S*3.6);stack(b,16.6,17.4,S*3);},[9.4,16.2,7.4,2.2]);
      else rw(9.2,18.2,14.8,2.4);
      if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);else unit(b=>woodShop(b,13.8,9.2,2.2,1.8,'#8f6f4c',r,1),[13.8,9.2,2.2,1.8]);}
-    else{[[-5,9.3,3,3.6],[9.3,13,4.2,3.2],[14.2,9.2,3.9,3],[14,13.2,4,3],[-1.7,12,2.5,2.4]].forEach(([x,z,w,d],i)=>{if(r()<.9)field(x,z,w,d,['durian','rubber','longan'][i%3]);});
+    else{[[-5,9.3,3,3.6],[9.3,13,4.2,3.2],[14.2,9.2,3.9,3],[14,13.2,4,3],[-1.7,12,2.5,2.4]].forEach(([x,z,w,d],i)=>{if(r()<.9)field(x,z,w,d,id==='prachuap-khiri-khan'?'coconut':['durian','rubber','longan'][i%3]);});
      for(const [x,z] of [[-4.3,-.1],[-4.3,2.3],[-4.3,4.6],[3.7,10.9],[1.2,13.4],[4.2,14.9],[1.2,15.9],[-4.3,16.4],[9.2,16.4],[12.2,16.4],[15.2,16.4]]){const X=Math.max(-5.2,x+r()*.6),Z=z+r()*.3,w=1.8+r()*.5,d=1.5+r()*.3;if(r()<.82&&clearOfRoutes(X,Z,w,d))unit(b=>stilt(b,X,Z,w,d,pick(['#8f6f4c','#9a7c5a','#c9b48e']),marks.concrete?ZINC:pick(['#7a6a55','#8b7c68']),r,marks,m(1.2)),[X,Z,w,d]);}
      if(marks.store)unit(b=>store(b,-4.8,12.9,1.9,1.3,r),[-4.8,12.9,1.9,1.3]);}
     ({chachoengsao(){unit(b=>{b.box(14.2,2.5,0,4,3.2,.3,'#efe9da');wat(b,14.6,2.8,3.4,2.6,r);for(const [a,e] of [[-.2,-.2],[3.6,-.2],[-.2,2.9],[3.6,2.9]])b.cylinder(14.6+a+.2,2.8+e+.2,.3,.16,0,1.6,'#e2b450',6,false);},[14.2,2.5,4,3.2]);if(year>=1990)open.box(14.4,5.6,-.01,3.6,1,.02,'#b9b6aa');},
@@ -409,6 +419,11 @@ export function createRegionScenery({scene,registerBuilding}){
       prachinburi(){unit(b=>bodhi(b,14.8,2.6),[14.8,2.6,3,3]);},
       rayong(){if(year>=1990)unit(b=>petro(b,14.4,2.4),[14.4,2.4,3.6,3.6]);else field(14.4,2.4,3.6,4.2,'pineapple');},
       'sa-kaeo'(){if(year>=1991){unit(b=>borderMarket(b,14.4,2.5),[14.4,2.5,3.6,3.6]);for(const x of [14.4,17.6])open.box(x,6.4,0,.22,.22,S*2,'#e8e4d8');open.box(14.3,6.4,S*2,3.6,.22,.36,'#a51931');open.box(15.2,6.42,S*2+.36,1.8,.18,.3,'#e8e4d8');}else field(14.4,2.4,3.6,4.2,'paddy');},
+      kanchanaburi(){unit(b=>erawan(b,14.4,2.4),[14.4,2.4,3.4,3.4]);},
+      phetchaburi(){unit(b=>saltPans(b,14.4,2.4),[14.4,2.4,3.6,2.9]);for(const x of [14.6,15.7,16.8,17.8])palm(open,x,6.5,2.6,['#6f8a4a','#5f7a40'],()=>.5);},
+      'prachuap-khiri-khan'(){field(14.3,2.3,3.8,3.2,'coconut');unit(b=>{store(b,14.6,5.5,1.9,1.2,r);for(let i=0;i<5;i++)b.cylinder(14.8+i*.36,6.95,0,.13,.15,.26,i%2?'#f2efe6':'#2a2a28',8);},[14.6,5.5,1.9,1.6]);},
+      ratchaburi(){water(14.3,2.2,3.8,4.2);if(year>=1981)for(let i=0;i<8;i++){const x=14.4+(i%4)*.9,z=2.5+Math.floor(i/4)*1.9+r()*.6;open.box(x,z,-.01,.85,.26,.1,'#6d5640');for(let k=0;k<3;k++)open.ball(x+.2+k*.22,.16,z+.13,.09,.07,.09,['#d9a92e','#c0563f','#6f9a4a','#e8e2d4'][(i+k)%4],5);}else boat(15,3.8,1.4,'#6d5640');},
+      tak(){unit(b=>cliffFall(b,14.4,2.4),[14.4,2.4,3.6,2.7]);},
       trat(){water(14.3,4.4,3.8,2.4);for(const x of [14.5,16.3])unit(b=>stilt(b,x,4.6,1.6,1.3,'#9a7c5a',ZINC,r,marks,m(1.5)),[x,4.6,1.6,1.3]);boat(14.6,6.3,1.4,'#2f6f9a');field(14.4,2.3,3.6,1.8,'durian');}})[id]?.();
     scatterTrees(town?8:13,[[-5,2.7,7,.5],[8.9,12.4,9,.6],[-1,9,3.6,2],[14,7,4,1.6],[-5.2,17,23,1.2]],[1.4,2.4],sea?palm:tree);},
    fringe(){
@@ -465,7 +480,7 @@ export function createRegionScenery({scene,registerBuilding}){
     unit(b=>{for(let a=0;a<3;a++){const x=13.6+a*1.5;b.box(x,9.3,0,1.45,2,S*1.1,pick(P.accents));b.box(x+.08,11.3,.08,1.28,.012,S*.75,'#aab8ba',1);b.box(x-.01,11.3,S*.84,1.47,.012,S*.2,WHITE);}},[13.6,9.3,4.5,2]);
     for(const [x,z] of [[-4,6.5],[.7,9.1],[10.5,12.3],[15,8.95]])tree(open,x,z,2.4+r()*.8,P.leaf,r);}
   };
-  const layout=plan.regionId==='nakhon-sawan'?'river':plan.place.lanna?'lanna':plan.place.isan?'isan':plan.place.east?'east':style;
+  const layout=plan.regionId==='nakhon-sawan'?'river':plan.place.lanna?'lanna':plan.place.isan?'isan':plan.place.east||plan.place.west?'east':style;
   (LAYOUT[layout]??LAYOUT.market)();
   if(!plan.abroad){
    // What every Thai neighbourhood has: a wat or a mosque, flags at the gate, bananas in every gap.
