@@ -4,7 +4,7 @@
 // same code, so a hand-edited or mistyped code cannot start a different life than the link says.
 import {newLife,configureLife,validate,AXES,newLegacyLife,defaultRegion} from './sim.js';
 // A place letter is added only when the birthplace is not the one the seed resolves to, so every older code still opens.
-const PLACE={'samut-prakan':'s','nakhon-sawan':'n','khlong-toei':'k','isan-village':'i','bang-na':'b','pak-phanang':'p',sukhumvit:'v','hua-hin':'h','udon-thani':'u','pathum-wan':'w'};
+const PLACE={'samut-prakan':'s','nakhon-sawan':'n','khlong-toei':'k','isan-village':'i','bang-na':'b','pak-phanang':'p',sukhumvit:'v','hua-hin':'h','udon-thani':'u','pathum-wan':'w','chiang-mai':'cm','chiang-rai':'cr',lampang:'lp',lamphun:'lh','mae-hong-son':'mh',nan:'nn',phayao:'py',phrae:'pr',uttaradit:'ut'};
 const SEX={female:'f',male:'m',intersex:'i'},CLASS={high_class:'h',low_class:'l',middle_class:'m',working_class:'w',bureaucratic_class:'b'};
 const COHORT={1949:'49',1955:'55',1970:'70',1975:'75',1981:'81',1997:'97',1990:'90',2000:'00',2026:'26'};
 const BAND={constrained:'c',middle:'m',comfortable:'x'},COUNTRY={th:'t',jp:'j',sg:'s',gb:'g',us:'u'};
@@ -24,7 +24,7 @@ export function encodeBirth(life){
 export function decodeBirth(code){
  const legacy=/^([0-9a-z]{1,7})-([fmi])([cmx])([tjsgu])-([0-9a]{5})$/.exec(String(code??'').trim().toLowerCase());
  if(legacy){const seed=parseInt(legacy[1],36);if(seed<1||seed>2147483646)return null;const attributes=Object.fromEntries(AXES.map((a,k)=>[a.key,DIGITS.indexOf(legacy[5][k])]));const life=configureLife(newLegacyLife(seed),{sex:SEX_BY[legacy[2]],upbringing:invert(BAND)[legacy[3]],country:invert(COUNTRY)[legacy[4]],attributes});return validate(life)&&encodeBirth(life)===legacy[0]?life:null;}
- const m=/^([0-9a-z]{1,7})-([fmi])([hlmwbr])(49|55|70|75|81|90|97|00|26)?-([0-9a]{5})(?:-([a-z]))?$/.exec(String(code??'').trim().toLowerCase());
+ const m=/^([0-9a-z]{1,7})-([fmi])([hlmwbr])(49|55|70|75|81|90|97|00|26)?-([0-9a]{5})(?:-([a-z]{1,2}))?$/.exec(String(code??'').trim().toLowerCase());
  if(!m)return null;
  const seed=parseInt(m[1],36);if(!Number.isInteger(seed)||seed<1||seed>2147483646)return null;
  const attributes=Object.fromEntries(AXES.map((a,k)=>[a.key,DIGITS.indexOf(m[5][k])]));

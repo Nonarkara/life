@@ -16,7 +16,7 @@ const ROADS=[[-5.6,7.05,24.2,1.8],[7.2,-5.6,1.8,24.2]],INSTITUTIONS=['school','w
 const hit=([x,z,w,d],[a,b,c,e],m=.5)=>x+m<a+c&&x+w-m>a&&z+m<b+e&&z+d-m>b;
 export function clearanceFaults(region,[birthYear,age],seed=7){
  // A family that stays put, or the board would show where it moved, not this town.
- let s;do s=begin(configureLife(newLife(seed++),{class:CLASS[region],sex:'male',birthYear,region}));while(s.birth.moves);const plan=townPlan({...s,age},age),year=birthYear+age;
+ let s;do s=begin(configureLife(newLife(seed++),{class:CLASS[region]??REGIONS[region].class[0],sex:'male',birthYear,region}));while(s.birth.moves);const plan=townPlan({...s,age},age),year=birthYear+age;
  const groups=[],scene=new T.Scene();createRegionScenery({scene,registerBuilding:g=>groups.push(g)}).update(plan);
  const faults=[];
  for(const g of groups){const b=new T.Box3().setFromObject(g);if(b.isEmpty())continue;const r=[b.min.x,b.min.z,b.max.x-b.min.x,b.max.z-b.min.z];
@@ -35,7 +35,7 @@ test('no town builds on a road, a neighbour\'s lot or an institution\'s plot',()
 // Phase-5 review: Nakhon Sawan drew the Isan village's stilt houses and paddy. No two Thai towns
 // may share most of their building footprints in the same year.
 test('no two towns share most of their buildings',()=>{
- const foot=region=>{let s,seed=7;do s=begin(configureLife(newLife(seed++),{class:CLASS[region],sex:'male',birthYear:1975,region}));while(s.birth.moves);
+ const foot=region=>{let s,seed=7;do s=begin(configureLife(newLife(seed++),{class:CLASS[region]??REGIONS[region].class[0],sex:'male',birthYear:1975,region}));while(s.birth.moves);
   const groups=[],scene=new T.Scene();createRegionScenery({scene,registerBuilding:g=>groups.push(g)}).update(townPlan({...s,age:35},35));
   return new Set(groups.map(g=>new T.Box3().setFromObject(g)).filter(b=>!b.isEmpty()).map(b=>[b.min.x,b.min.z,b.max.x,b.max.z].map(v=>Math.round(v*2)).join()));};
  const thai=Object.keys(REGIONS).filter(r=>REGIONS[r].country==='TH'),all=Object.fromEntries(thai.map(r=>[r,foot(r)])),same=[];
