@@ -76,7 +76,9 @@ const DRESS={
  west:{walls:['#d8c49c','#c8b08a','#e4d4b0','#b8a07a'],roofs:['#5f7a6a','#8d9290','#a56a50'],road:'#c6b08c',leaf:['#55734a','#647f52'],ground:'#94a06a',wood:.4,pickup:'#7a8a6a'},
  south:{walls:['#e8b8a8','#a8d0c8','#e8d890','#f0c8a0','#ece6d8'],roofs:['#b0503a','#a0442f','#c0603f'],road:'#cfc2a2',leaf:['#3f7048','#4a7c52'],ground:'#7a9a62',wood:.2,pickup:'#2f6f9a'},
  central:{walls:['#ece4cc','#e4d8bd','#f0e8d4','#d8ccb0'],roofs:['#c07a48','#b06a40','#a56a50'],road:'#c6bea9',leaf:['#55734f','#66825a'],ground:'#9aa66a',wood:.3,pickup:'#c9a14a'}};
-const dressOf=place=>place.lanna?'north':place.isan?'isan':place.east?'east':place.west?'west':place.south?'south':place.central?'central':null;
+// The first ten birthplaces outside Bangkok take their region's dress too.
+const FIRST={'isan-village':'isan','udon-thani':'isan','nakhon-sawan':'central','samut-prakan':'central','pak-phanang':'south','hua-hin':'west'};
+const dressOf=place=>place.lanna?'north':place.isan?'isan':place.east?'east':place.west?'west':place.south?'south':place.central?'central':FIRST[Object.keys(REGIONS).find(id=>REGIONS[id]===place)]??null;
 export function palette(style,place,seed){
  const d=DRESS[dressOf(place)],set={...(STYLE_SET[style]??STYLE_SET.market),...d},r=lifeRandom(seed,'palette'),shift=(r()-.5)*.045,tone=(r()-.5)*.05,pick=l=>l[Math.floor(r()*l.length)],rot=Math.floor(r()*set.walls.length);
  const walls=[...set.walls.slice(rot),...set.walls.slice(0,rot)].slice(0,3).map(c=>hsl(c,shift,-.05,tone));

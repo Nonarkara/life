@@ -177,6 +177,10 @@ function leaningChedi(b,x,z){const c='#efe9da';b.box(x,z,0,1.6,1.6,.3,'#d8d3c5')
 function mondop(b,x,z){b.box(x,z,0,2.6,2.6,.35,'#efe9da');b.box(x+.4,z+.4,.35,1.8,1.8,S*.9,'#d8c8a0');for(let i=0;i<5;i++){const w=2.2-i*.38,o=(2.6-w)/2;b.hip(x+o,z+o,.35+S*.9+i*.4,w,w,.36,i%2?'#d4a63a':'#3f7a5a',.1);}b.cylinder(x+1.3,z+1.3,.35+S*.9+2,.1,0,1.2,'#d4a63a',8,false);}
 // A Sukhothai lotus-bud chedi among laterite pillars.
 function lotusChedi(b,x,z){const c='#cfc7b4';b.box(x,z,0,1.6,1.6,.3,c);b.box(x+.2,z+.2,.3,1.2,1.2,.3,c);b.box(x+.4,z+.4,.6,.8,.8,1.2,c);b.ball(x+.8,2.15,z+.8,.36,.55,.36,c,10);b.cylinder(x+.8,z+.8,2.6,.06,0,.5,c,6,false);}
+// Central Thailand's sugar palm: a tall bare trunk with a round head of fan leaves.
+function sugarPalm(b,x,z,h,leaf,r){b.cylinder(x,z,0,.06,.05,h,'#5f5248',6);b.ball(x,h+.1,z,.32,.3,.32,'#4f6c45',7);for(let i=0;i<6;i++){const a=i*1.05+r()*.3;b.beam(x,h,z,x+Math.cos(a)*.38,h+.18,z+Math.sin(a)*.38,.16,.02,'#5a7550');}}
+// A clump of bamboo, the West's border woods.
+function bamboo(b,x,z,h,leaf,r){for(let i=0;i<6;i++){const a=i*1.05+r()*.4,L=.25+r()*.15;b.beam(x+Math.cos(a)*.06,0,z+Math.sin(a)*.06,x+Math.cos(a)*L,h*(.8+r()*.3),z+Math.sin(a)*L,.035,.035,'#7f9a4a');b.ball(x+Math.cos(a)*L,h*(.85+r()*.25),z+Math.sin(a)*L,.16,.22,.16,'#6f8a45',5);}}
 function vehicle(b,kind,x,z,w,d,acc,marks,pc){
  if(kind==='samlor'){b.box(x+.1,z+.12,.3,w*.42,d-.24,.05,WOOD);b.box(x+.1,z+.1,.5,w*.42,d-.2,.05,'#7a3f3a');b.beam(x+.5,.3,z+d/2,x+w-.05,.62,z+d/2,.03,.03,RUBBER);b.gable(x+.08,z+.08,.92,w*.46,d-.16,.04,'#3f4a48',{over:.03});for(const a of [.2,.2])b.ball(x+a,.14,z+.06,.14,.14,.02,RUBBER,8);b.ball(x+.2,.14,z+d-.06,.14,.14,.02,RUBBER,8);b.ball(x+w-.08,.14,z+d/2,.14,.14,.02,RUBBER,8);return;}
  if(kind==='tuktuk'){b.box(x,z,.14,w,d,.26,'#2f6f62');b.box(x+.05,z+.03,.72,w-.1,d-.06,.04,'#d9c27a');for(const[a,e]of[[.05,.05],[w-.1,.05],[.05,d-.1],[w-.1,d-.1]])b.box(x+a,z+e,.4,.035,.035,.33,STEEL);for(const[a,e]of[[w-.1,d/2-.04],[.12,-.01],[.12,d-.08]])b.box(x+a,z+e,0,.12,.08,.14,RUBBER);return;}
@@ -450,8 +454,8 @@ export function createRegionScenery({scene,registerBuilding}){
      else if(id==='rayong'&&year>=1990)unit(b=>{factory(b,9.4,16.2,5,2.2,'#d9d6cc',r);stack(b,15.4,17.2,S*3.6);stack(b,16.6,17.4,S*3);},[9.4,16.2,7.4,2.2]);
      else rw(9.2,18.2,14.8,2.4);
      if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);else unit(b=>woodShop(b,13.8,9.2,2.2,1.8,'#8f6f4c',r,1),[13.8,9.2,2.2,1.8]);}
-    else{[[-5,9.3,3,3.6],[9.3,13,4.2,3.2],[14.2,9.2,3.9,3],[14,13.2,4,3],[-1.7,12,2.5,2.4]].forEach(([x,z,w,d],i)=>{if(r()<.9)field(x,z,w,d,['prachuap-khiri-khan','narathiwat','pattani','samut-songkhram'].includes(id)?'coconut':plan.place.central?(id==='uthai-thani'&&i%2?'durian':'paddy'):['durian','rubber','longan'][i%3]);});
-     for(const [x,z] of [[-4.3,-.1],[-4.3,2.3],[-4.3,4.6],[3.7,10.9],[1.2,13.4],[4.2,14.9],[1.2,15.9],[-4.3,16.4],[9.2,16.4],[12.2,16.4],[15.2,16.4]]){const X=Math.max(-5.2,x+r()*.6),Z=z+r()*.3,w=1.8+r()*.5,d=1.5+r()*.3;if(r()<.82&&clearOfRoutes(X,Z,w,d))unit(b=>stilt(b,X,Z,w,d,wall(),roof(),r,marks,m(1.2)),[X,Z,w,d]);}
+    else{[[-5,9.3,3,3.6],[9.3,13,4.2,3.2],[14.2,9.2,3.9,3],[14,13.2,4,3],[-1.7,12,2.5,2.4]].forEach(([x0,z,w0,d],i)=>{const k=plan.place.central&&x0<-4,x=k?-4.5:x0,w=k?w0-.5:w0;if(r()<.9)field(x,z,w,d,['prachuap-khiri-khan','narathiwat','pattani','samut-songkhram'].includes(id)?'coconut':plan.place.central?(id==='uthai-thani'&&i%2?'durian':'paddy'):['durian','rubber','longan'][i%3]);});
+     for(const [x,z] of [[-4.3,-.1],[-4.3,2.3],[-4.3,4.6],[3.7,10.9],[1.2,13.4],[4.2,14.9],[1.2,15.9],[-4.3,16.4],[9.2,16.4],[12.2,16.4],[15.2,16.4]]){const X=Math.max(plan.place.central?-4.5:-5.2,x+r()*.6),Z=z+r()*.3,w=1.8+r()*.5,d=1.5+r()*.3;if(r()<.82&&clearOfRoutes(X,Z,w,d))unit(b=>stilt(b,X,Z,w,d,wall(),roof(),r,marks,m(1.2)),[X,Z,w,d]);}
      if(marks.store)unit(b=>store(b,-4.8,12.9,1.9,1.3,r),[-4.8,12.9,1.9,1.3]);}
     ({chachoengsao(){unit(b=>{b.box(14.2,2.5,0,4,3.2,.3,'#efe9da');wat(b,14.6,2.8,3.4,2.6,r);for(const [a,e] of [[-.2,-.2],[3.6,-.2],[-.2,2.9],[3.6,2.9]])b.cylinder(14.6+a+.2,2.8+e+.2,.3,.16,0,1.6,'#e2b450',6,false);},[14.2,2.5,4,3.2]);if(year>=1990)open.box(14.4,5.6,-.01,3.6,1,.02,'#b9b6aa');},
       chanthaburi(){unit(b=>cathedral(b,15.5,3),[15.2,3,2.4,3.3]);},
@@ -501,7 +505,11 @@ export function createRegionScenery({scene,registerBuilding}){
       'uthai-thani'(){unit(b=>{b.cylinder(16.2,4.2,0,1.9,.7,2.4,'#6f8a5a',9);b.box(15.8,3.8,2.4,.8,.8,.5,'#efe9da');b.hip(15.7,3.7,2.9,1,1,.4,'#c8702f',.1);},[14.3,2.3,3.8,3.8]);unit(b=>{for(const [x,z] of [[14.6,6.1],[15.6,6]])cow(b,x,z);},[14.5,5.9,1.8,.5]);unit(b=>{for(let i=0;i<4;i++)b.box(16.7+i*.4,5.8,0,.05,.05,.5,WOOD);b.box(16.7,5.8,.35,1.25,.04,.04,WOOD);cow(b,16.9,6.1);},[16.7,5.8,1.3,.6]);},
       yaowarat(){for(let i=0;i<4;i++){const x=14.5+i*.9;open.box(x,4.6,0,.7,.45,.5,'#d8d3c5');open.box(x-.05,4.55,.5,.8,.55,.03,'#a51931');}for(let i=0;i<4;i++)open.box(14.4+i*.95,2.5,S*1.6,.8,.06,.5,i%2?'#a51931':'#d9a92e');},
       trat(){water(14.3,4.4,3.8,2.4);for(const x of [14.5,16.3])unit(b=>stilt(b,x,4.6,1.6,1.3,'#9a7c5a',ZINC,r,marks,m(1.5)),[x,4.6,1.6,1.3]);boat(14.6,6.3,1.4,'#2f6f9a');field(14.4,2.3,3.6,1.8,'durian');}})[id]?.();
-    scatterTrees(town?8:13,[[-5,2.7,7,.5],[8.9,12.4,9,.6],[-1,9,3.6,2],[14,7,4,1.6],[-5.2,17,23,1.2]],[1.4,2.4],sea?palm:tree);},
+    // Each region's own trees: the South's coconuts, Central's sugar palms, the West's bamboo.
+    const kind=plan.place.south||sea?palm:plan.place.central?sugarPalm:plan.place.west?bamboo:tree;
+    scatterTrees(plan.place.west?(town?14:20):town?8:13,[[-5,2.7,7,.5],[8.9,12.4,9,.6],[-1,9,3.6,2],[14,7,4,1.6],[-5.2,17,23,1.2]],plan.place.central?[2,2.8]:[1.4,2.4],kind);
+    // A central village lies along a khlong, its boats tied at the bank.
+    if(plan.place.central&&!town){water(-5.55,-2.6,.9,9.4);water(-5.55,8.9,.9,9.5);for(const z of [1.5,12])boat(-5.52,z,.8,'#6d5640');}},
    fringe(){
     water(-5.4,-5.4,2.6,23.8);institutions(false,'#d8cda8',pick(P.roofs));
     for(const [x,z,w,d] of [[-2.4,3.2,4.4,3.6],[-2.4,9.3,3.2,4.2],[9.3,12.9,8.8,5],[14.2,-5,4,7.4],[1,14.6,6.8,3.4],[14.2,9,4,3.4]])paddy(x,z,w,d);
