@@ -9,7 +9,8 @@ import {ikigai} from './ikigai.js';
 import {consequencesDue} from './lessons.js';
 import {marketsDue} from './market-moments.js';
 import {PRIORITIES,priorityFx,prioritiesFor} from './priorities.js';
-import {MAJORS,majorOf,majorFit,mismatched,partnerNature,together,reconciled,ventureSwing,dogAt} from './life-choices.js';
+import {routeOf} from './life-routes.js';
+import {fortuneShape,fortuneTurn,MAJORS,majorOf,majorFit,mismatched,partnerNature,together,reconciled,ventureSwing,dogAt} from './life-choices.js';
 const CITY_BIRTHS=['khlong-toei','bang-na','sukhumvit','pathum-wan','yaowarat'];
 import {createEconomy,economyFor,validEconomy} from './economy.js';
 import {validHoldings,autoInvest} from './investments.js';
@@ -84,6 +85,7 @@ if(flood){setback=0;event='Floodwater damages the family home. Repairs take mone
 // Background pressures use recorded encounters, never untracked story flags.
 if(age>=40&&rand(s.seed,age,'illness')<.12){healthShock+=12;event+=' A health setback interrupts your plans.';}
 const moments=periodLifeEvents(s,from,age,flagsOf(s),(year,key)=>rand(s.seed,year,key));setback-=moments.cash;healthShock-=moments.health;if(moments.records.length)event+=' '+moments.records.map(r=>r.text).join(' ');
+{const turn=fortuneTurn(s,from);if(turn)event+=' '+turn;}
 const era=eraAnnualEvents(s,from,age,(year,key)=>rand(s.seed,year,'era'));setback-=era.cash;healthShock-=era.health;if(era.records.length)event+=' '+era.records.map(r=>r.text).join(' ');
 const earnings=grossMonthlyPay(s);
 // Three pillars: body, mind and contentment. Contentment (Ikigai) acts on the other two:
@@ -110,7 +112,8 @@ const spending=adult?(retired?11000:14000):0;const habits=adult?((p.smoke==='yes
 if(pathway.route==='college'&&field){pathway.cash-=MAJORS[field].cost;pathway.description+=fieldFit<.35?' The field did not fit you yet; study was a struggle.':fieldFit>.7?' The work came naturally.':'';if(fieldFit<.35)moodAdj-=4;}event+=(pathway.description?' '+pathway.description:'');const cash=from>=15?s.cash-(flood?18000:0):Math.round(s.cash+Math.round(earnings*pathway.incomeFactor)-spending-habits-setback+pathway.cash);const aging=from<30?1:from<50?4:from<65?7:8;const health=clamp(s.health-aging+(from>=60?e.physique*.35:0)+e.physique*.5*eraWeight('physique',from)+s.attributes.physique*.15-(adult&&p.smoke==='yes'?6:0)-(adult&&p.drink==='social'?1.5:0)-healthShock+bodyAdj);
 const match={balance:Math.min(...Object.values(e))*.7,sport:e.physique*.6,art:e.craft*.6,security:e.drive*.4+e.iq*.2,connection:e.eq*.6}[p.aim];const social=adult&&p.drink==='social'?(e.eq>0?1:-1):0;const wellbeing=clamp(s.wellbeing+match+e.eq*.35+s.attributes.eq*.1+social-3-(cash<0?(s.birth.sensitivity==='Sensitive to pressure'?6:4):0)-(healthShock?4:0)+moodAdj+(from>=60?(health-45)*.07-(s.wellbeing>80?3:0):0));
 const hazard=(age<25?.003:age<45?.009:age<60?.025:age<75?.07:.15)*(1.25-content/200)*(adult&&p.smoke==='yes'?1.3:1);
-const deathCause=health<30?'A serious health event ended this life.':'An unexpected illness or accident ended this life.';
+// The death a life gets follows the life it led: habits, work and age, not one line for everyone.
+const shape=fortuneShape(s),deathCause=age>=75&&health>=50?'You died in your sleep, at home.':adult&&p.smoke==='yes'&&age>=45?'Smoking caught up with your lungs.':adult&&p.drink==='social'&&age>=40&&health<50?'Years of drinking wore out your liver.':shape==='labour'&&!['novice','taxi','win_motorsai'].includes(routeOf(s))&&age>=20&&age<60&&rand(s.seed,age,'work-accident')<.5?'An accident at work ended this life.':(age<40||['taxi','win_motorsai'].includes(routeOf(s))&&age<60)&&rand(s.seed,age,'road')<.6?'A road accident ended this life.':age>=50&&health<50?['A heart attack ended this life.','A stroke ended this life.','Cancer ended this life.','Diabetes wore out your kidneys.','A serious health event ended this life.'][Math.floor(rand(s.seed,age,'old-cause')*5)]:health<30?'A serious health event ended this life.':'An unexpected illness or accident ended this life.';
 const deathRoll=rand(s.seed,age,'mortality'+Math.floor(health/10));
 const deathOdds=hazard+Math.max(0,60-health)*.004;// Zero is the end, but you get a warning first: two bad stretches running, not one.
 // Durkheim's finding, as a rule: people with someone to answer to, or somewhere to belong, get through it.

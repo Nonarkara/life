@@ -2,7 +2,7 @@
 // Resources and obligations vary. Intrinsic abilities are drawn independently.
 // Contextual pressures are offered as choices by the encounter engine.
 export const CLASS_TIERS={
- high_class:{label:'High class',cash:500000,inheritance:1200000,privilege:'wealth',drama:'market',note:'A larger family buffer brings opportunities and requests for help.'},
+ high_class:{label:'High class',cash:500000,inheritance:8000000,privilege:'wealth',drama:'market',note:'A larger family buffer brings opportunities and requests for help.'},
  low_class:{label:'Low class',cash:2000,inheritance:0,privilege:'none',drama:'debt',note:'A small family buffer makes costs and access matter more.'},
  middle_class:{label:'Middle class',cash:100000,inheritance:200000,privilege:'stable',drama:'ambition',note:'Some family support, with limits on what it can cover.'},
  working_class:{label:'Working class',cash:20000,inheritance:50000,privilege:'labor',drama:'wage',note:'Wage income supports the household; time and rest still matter.'},

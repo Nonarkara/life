@@ -1,6 +1,7 @@
 // Life-forking decisions. Pay factors, fit thresholds and odds are authored game
 // tuning, not career, marriage or health statistics.
 import {rand,flagsOf} from './sim.js';
+import {routeOf} from './life-routes.js';
 export const MAJORS={
  medicine:{label:'Medicine',axes:['iq','eq'],pay:1.6,cost:30000},
  engineering:{label:'Engineering',axes:['iq','drive'],pay:1.4,cost:20000},
@@ -39,7 +40,40 @@ export function careerFactor(state){
  if(f.partnered!==undefined&&state.age>=f.partnered+5)k*=1.15;
  if(f.changedJob!==undefined)k*=.85+rand(state.seed,f.changedJob,'job-change')*.5;
  if(f.graduate!==undefined&&state.age>=f.graduate+5)k*=1.25;
- return k;
+ return k*fortune(state);
+}
+// A way of life has its own shape of fortune, so two lives of one class end far apart.
+// Stage work: most stay small, a few break out for a decade, then fall back. Service climbs a ladder.
+// Trade swings. Labour stays flat. Practice on the route's axes raises the odds; nothing guarantees them.
+// Authored tuning, not wage statistics.
+const SHAPE={luk_thung:'star',boxer:'star',actor:'star',painter:'star',writer:'star',
+ kharatchakan:'ladder',cadet:'ladder',scholar:'ladder',scholarship_kid:'ladder',dancer:'ladder',
+ trader:'trade',tycoon:'trade',
+ taxi:'labour',win_motorsai:'labour',rice_debt:'labour',no_buffer:'labour',isan_daughter:'labour',novice:'labour',abroad:'labour'};
+const AXIS={star:['craft','physique'],ladder:['iq','drive'],trade:['drive','eq'],labour:['physique','drive']};
+export const fortuneShape=state=>SHAPE[routeOf(state)??'']??'plain';
+// The turn a life takes is told in the five years it starts, so the player sees it, not just a bigger number.
+export function fortuneTurn(state,from){
+ const shape=fortuneShape(state);
+ if(shape==='star'&&rand(state.seed,0,'fortune-break')<.1+prep(state,shape)){const start=starStart(state);return from===start?'Your name started to sell tickets.':from===start+10?'The crowds moved on to someone younger.':null;}
+ if(shape==='trade'&&from===30&&bigTrade(state))return 'A deal came good, and then another, and then the money came faster than you could spend it.';
+ return null;
+}
+const prep=(state,shape)=>Math.min(.25,(AXIS[shape]??['iq','eq']).reduce((n,a)=>n+(state.skills?.[a]??0),0)*.004);
+const starStart=state=>25+Math.floor(rand(state.seed,0,'fortune-when')*3)*5;
+const bigTrade=state=>rand(state.seed,0,'fortune-big')<.08+prep(state,'trade')*.6;
+export function fortune(state){
+ if(state.age<20)return 1;
+ const shape=fortuneShape(state),pr=prep(state,shape);
+ const luck=Math.exp((rand(state.seed,0,'fortune-luck')-.5)*.9),yrs=state.age-20;
+ // A spike never reaches the pension: the last working years pay the ordinary rate.
+ if(state.age>=55)return luck*(shape==='ladder'?1.8:shape==='labour'?.9:1);
+ if(shape==='star'){const hit=rand(state.seed,0,'fortune-break')<.1+pr,start=starStart(state);
+  return luck*(hit&&state.age>=start&&state.age<start+10?3+rand(state.seed,0,'fortune-size')*4:hit&&state.age>=start+10?1.3:.85);}
+ if(shape==='ladder')return luck*Math.min(1.8,1+yrs*(.02+pr*.06));
+ if(shape==='trade'){const big=bigTrade(state);return luck*(big&&yrs>=10?4+rand(state.seed,0,'fortune-size')*6:.6+rand(state.seed,Math.floor(state.age/5),'fortune-swing')*1.6);}
+ if(shape==='labour')return luck*.9;
+ return luck*(1+Math.min(.4,yrs*.01));
 }
 // Your own venture swings: most periods cost money, some pay well; preparation shifts the odds.
 export function ventureSwing(state,age){const f=flagsOf(state).founder;if(f===undefined||age<=f)return 0;const prep=Math.min(.28,((state.skills?.drive??0)+(state.skills?.craft??0)+(state.skills?.iq??0))*.008);return rand(state.seed,age,'venture')<.3+prep?60000+Math.round(prep*50000):-15000;}
