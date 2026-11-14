@@ -12,7 +12,8 @@ test('each region has its own scenes, met only by lives born there',()=>{
  for(const [g,region] of Object.entries(sample)){
   const mine=REGION_ENCOUNTERS.filter(e=>e.id.startsWith(g+'_'));assert.ok(mine.length>=2,g);
   for(const e of mine){
-   const fits=Object.keys(REGIONS).filter(id=>regionGroup(id)===g).some(id=>REGIONS[id].class.some(cls=>['female','male'].some(sex=>{const s=birth(id,cls,sex);if(s.birth.region!==id)return false;for(let age=e.min;age<=e.max;age++)if(e.eligible({...s,age}))return true;return false;})));
+   // A trade held by a share of families needs several lives to show up in.
+   const fits=Object.keys(REGIONS).filter(id=>regionGroup(id)===g).some(id=>REGIONS[id].class.some(cls=>['female','male'].some(sex=>[1,2,3,4,5,6,7,8,9,10,11,12].some(seed=>{const s=begin(configureLife(newLife(seed),{class:cls,sex,birthYear:1975,region:id}));if(s.birth.region!==id)return false;for(let age=e.min;age<=e.max;age++)if(e.eligible({...s,age}))return true;return false;}))));
    assert.ok(fits,e.id+' reaches a life born in '+g);
    const elsewhere=birth('khlong-toei','low_class');for(let age=e.min;age<=e.max;age++)assert.ok(!e.eligible({...elsewhere,age}),e.id+' stays out of Bangkok');
   }
@@ -30,4 +31,9 @@ test('a province-specific scene stays in its province',()=>{
  assert.ok(!meets('south_kopi','yala'));assert.ok(!meets('south_kopi','narathiwat'));assert.ok(!meets('west_palm','tak'));assert.ok(!meets('north_silver','lampang'));
  assert.ok(meets('south_kopi','trang'));assert.ok(meets('west_palm','phetchaburi'));
  for(const e of REGION_ENCOUNTERS){const first=e.options[0];assert.ok(!(first.cash<0)&&!(first.health<0)&&!(first.wellbeing<0),e.id+' first choice costs nothing');}
+});
+// Rong Kluea market opened in its present form in 1991: its scene never comes earlier.
+test('the Rong Kluea scene waits for the market',()=>{
+ const e=REGION_ENCOUNTERS.find(x=>x.id==='east_clothes'),at=(by,age)=>{const s=begin(configureLife(newLife(5),{class:'low_class',sex:'female',birthYear:by,region:'sa-kaeo'}));return e.eligible({...s,age});};
+ assert.ok(!at(1975,15));assert.ok(at(1975,16));
 });

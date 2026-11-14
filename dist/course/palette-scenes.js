@@ -19,7 +19,7 @@ assign('th_spirit_offering th_stray_cat th_midnight_cart th_mitr_cameo th_vhs_mo
 assign('w1_nanny w1_inheritance w1_envelope w1_driver w1_grandma_raised w1_boat_engine w1_gold w1_tickets w1_daughter w1_chanting w1_ward_chair w1_loan',{sad:true});
 assign('w2_uniform w2_one_place w2_bullied w2_night_shift w2_checkup w2_soi_sold w2_grandchild_left w2_fall w2_teeth w2_single_old',{sad:true});
 assign('w2_temple_boy w2_tutor w2_car_block w2_letter w2_cows w2_ponies w2_lake_rice w2_siam_tutor w2_stall_shift w2_entrance w2_civil_exam w2_commute w2_sinsod w2_mother_in_law w2_alms w2_will w2_glasses w2_reunion');
-assign('north_silver north_longan isan_loom isan_bus east_shift east_durian west_palm west_rattan south_rubber south_kopi central_noodles central_salt');
+assign('north_silver north_longan isan_loom isan_bus east_shift east_durian west_palm west_rattan south_rubber south_kopi central_noodles central_salt north_kiln north_ward isan_elephant isan_khene east_clothes east_samet west_mill west_sampan south_harbour south_port central_pottery central_dolls');
 assign('w1_board w1_match w1_transfer w1_vest w1_scale w1_ordain w1_rice w1_fire w1_shoes w1_songkran w1_first_pay');
 assign('h_1973_leaflet h_1973_radio h_1973_truck h_1976_campus h_1976_names h_rice_at_night h_1997_closed h_2011_flood h_2020_glass',{sad:true});
 assign('h_film_van h_nang_talung h_transistor h_airbase h_1980_return h_saudi h_garment h_road h_1992 h_1996_boom h_2010_table three-roads');
