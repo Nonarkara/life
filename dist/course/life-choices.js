@@ -51,7 +51,8 @@ const SHAPE={luk_thung:'star',boxer:'star',actor:'star',painter:'star',writer:'s
  trader:'trade',tycoon:'trade',
  taxi:'labour',win_motorsai:'labour',rice_debt:'labour',no_buffer:'labour',isan_daughter:'labour',novice:'labour',abroad:'labour'};
 const AXIS={star:['craft','physique'],ladder:['iq','drive'],trade:['drive','eq'],labour:['physique','drive']};
-export const fortuneShape=state=>SHAPE[routeOf(state)??'']??'plain';
+// A calling counts once its second step is on the record: turning the first offer down keeps an ordinary life.
+export const fortuneShape=state=>{const r=routeOf(state);return r&&typeof flagsOf(state)['r_'+r+'_2']==='number'?SHAPE[r]??'plain':'plain';};
 // The turn a life takes is told in the five years it starts, so the player sees it, not just a bigger number.
 export function fortuneTurn(state,from){
  const shape=fortuneShape(state);
@@ -62,6 +63,8 @@ export function fortuneTurn(state,from){
 const prep=(state,shape)=>Math.min(.25,(AXIS[shape]??['iq','eq']).reduce((n,a)=>n+(state.skills?.[a]??0),0)*.004);
 const starStart=state=>25+Math.floor(rand(state.seed,0,'fortune-when')*3)*5;
 const bigTrade=state=>rand(state.seed,0,'fortune-big')<.08+prep(state,'trade')*.6;
+// Whether a stage break-out is running at this age, so the words never contradict the numbers.
+export const starOn=state=>fortuneShape(state)==='star'&&rand(state.seed,0,'fortune-break')<.1+prep(state,'star')&&state.age>=starStart(state)&&state.age<starStart(state)+10;
 export function fortune(state){
  if(state.age<20)return 1;
  const shape=fortuneShape(state),pr=prep(state,shape);

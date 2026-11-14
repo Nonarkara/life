@@ -67,7 +67,7 @@ CHILD_CHOICES.push(
   option('ball_stay','Stay and tell him','You swept up glass for a month. He gave you a sweet at the end of it.',{skills:{drive:1,eq:1}},'tools'),
   option('ball_run','Run anyway','He knew your father. It took two days.',{wellbeing:-1},'home'),
   option('ball_name','Tell him who kicked it','You got no sweet. Nobody picked you for a long time.',{wellbeing:-2,skills:{iq:1}},'people')]},
- {age:9,title:'Only one of you can go on',context:'There is money for one more year of school, and your cousin is cleverer than you. You heard them through the wall.',options:[
+ {age:9,classes:['low_class','working_class'],title:'Only one of you can go on',context:'There is money for one more year of school, and your cousin is cleverer than you. You heard them through the wall.',options:[
   option('school_say','Say your cousin should go','You were told you were a good child. You went to work in April.',{skills:{eq:2},wellbeing:-2},'people'),
   option('school_work','Study all night until they notice','You came first once. It was not enough, and then it was.',{skills:{iq:2},wellbeing:-1},'book'),
   option('school_none','Pretend you did not hear','You still do not know who decided.',{wellbeing:-1},'home')]},
@@ -80,7 +80,8 @@ export function pendingChildChoice(state,age){
  if(state.stage!=='birth')return;
  const first=CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&q.age<=age&&!(state.childhood?.choices??[]).some(r=>r.age===q.age));
  // Ten children, ten first questions. Each age has three, and the seed picks one; old lives keep the first.
- const same=first?CHILD_CHOICES.filter(q=>q.age===first.age):[],question=first&&state.intake?.class?same[Math.floor(rand(state.seed,first.age,'child-variant')*same.length)]:first;
+ // A question written for a poorer house never reaches a richer one: the variant is drawn from those that fit.
+ const cls=state.intake?.class??state.birth?.class,same=first?CHILD_CHOICES.filter(q=>q.age===first.age&&(!q.classes||!cls||q.classes.includes(cls))):[],question=first&&state.intake?.class?same[Math.floor(rand(state.seed,first.age,'child-variant')*same.length)]:first;
  if(question?.age!==6||question!==first)return question&&shaped(state,question);
  const home=state.birth.home;
  const work=home==='a market-stall household'?'help':home==='a rice-farming household'?'farm':'chores';

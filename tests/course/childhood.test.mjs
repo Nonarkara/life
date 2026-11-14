@@ -80,7 +80,7 @@ test('the seed picks the question; a place variant reshapes only the question it
  assert.equal(same.length,3,'age 9 should offer one base question and two dramas');
  for(let seed=1;seed<=40;seed++){
   // A home outside every place variant keeps ages 6-8 stable so the walk always reaches 9.
-  let state=configureLife(newLife(seed),{class:'middle_class',birthYear:1949});
+  let state=configureLife(newLife(seed),{class:'working_class',birthYear:1949});
   state={...state,birth:{...state.birth,home:'a household in an apartment block'}};
   for(let age=nextChildAge(state);age<9;age=nextChildAge(state)){
    const q=pendingChildChoice(state,age);
@@ -91,5 +91,14 @@ test('the seed picks the question; a place variant reshapes only the question it
   const expected=idx===0?(seed%2===0?'Before light':same[0].title):same[idx].title;
   assert.equal(q.title,expected,`seed ${seed}: the seed picked index ${idx} but the screen showed "${q.title}"`);
   assert.ok(q.options.length>0,`seed ${seed}: "${q.title}" has no options`);
+ }
+});
+
+// A question written for a poorer house never reaches a richer one.
+test('the one-more-year-of-school question reaches only poorer households',()=>{
+ for(let seed=1;seed<=60;seed++)for(const cls of ['middle_class','bureaucratic_class','high_class']){
+  let state=configureLife(newLife(seed),{class:cls,birthYear:1949});state={...state,birth:{...state.birth,home:'a household in an apartment block'}};
+  for(let age=nextChildAge(state);age<9;age=nextChildAge(state)){const q=pendingChildChoice(state,age);state=chooseChild(state,age,q.options[0].id);}
+  assert.notEqual(pendingChildChoice(state,9)?.title,'Only one of you can go on',cls+' seed '+seed);
  }
 });

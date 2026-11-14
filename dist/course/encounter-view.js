@@ -15,13 +15,15 @@ export function encounterTerms(choice,formatMoney=n=>'\u0e3f'+n.toLocaleString('
 }
 // The real encounter buttons are shared with the no-save study route. Layout
 // evidence should exercise the same cost, disabled state and action as the game.
+// A choice names the people in this life, never a placeholder.
+export const fillPeople=(text,state)=>{const people=state?.story?.people??{};return text.replaceAll('{friend}',people.friend??'your friend').replaceAll('{partner}',people.partner??'your partner');};
 export function renderEncounterChoices(root,state,scene,{onChoose,extra=()=>[],formatMoney=n=>'฿'+n.toLocaleString('en')}={}){
  root.replaceChildren();
  const badge=document.createElement('div');badge.className='question-badges';badge.append(questionCategoryBadge(scene.category==='family'?'relationships':scene.category));if(state.finance&&scene.options.some(o=>(o.cash??0)<0)){const wallet=document.createElement('span');wallet.className='decision-wallet';wallet.textContent=t('Cash + reserve: {value}').replace('{value}',formatMoney(state.finance.available+state.finance.reserve));badge.append(wallet);}
  root.append(badge);
  for(const choice of inWorldOrder(scene.options,state.seed,scene.id+state.age)){
   const button=document.createElement('button');button.type='button';button.className='encounter-choice';button.disabled=!choiceAvailable(state,choice);if(button.disabled)button.title=t('Not enough cash and reserve for this choice.');
-  const label=document.createElement('span');label.textContent=choice.label;button.append(choiceSymbol(button.disabled?'unavailable':choiceSymbolKey(choice)),label);
+  const label=document.createElement('span');label.textContent=fillPeople(choice.label,state);button.append(choiceSymbol(button.disabled?'unavailable':choiceSymbolKey(choice)),label);
   const terms=encounterTerms(choice,formatMoney);
   if(choice.moveTo)terms.unshift(t(region(choice.moveTo==='home'?homeRegion(state.birth,state.age):choice.moveTo).place));
   if(terms.length){const cost=document.createElement('small');for(const term of terms){const part=document.createElement('span');part.textContent=term;cost.append(part);}button.append(cost);}

@@ -186,7 +186,7 @@ function renderEncounter(){
  const scene=encounterById(pending.id);$('editor').hidden=true;$('commit').hidden=true;$('last-event').hidden=true;
  $('chapter').textContent='A TURN IN THE PATH';$('stage-count').textContent='';$('title').textContent=storyText(scene.title,state.story);
  $('narrative').hidden=false;$('narrative').textContent=storyText(scene.prompt,state.story);
- renderEncounterChoices(root,state,scene,{formatMoney:money,extra:choice=>popLine(scene.id,choice.id),onChoose:choice=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before)showResult(before,state,{label:choice.label});render();}});
+ renderEncounterChoices(root,state,scene,{formatMoney:money,extra:choice=>popLine(scene.id,choice.id),onChoose:choice=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before)showResult(before,state,{label:storyText(choice.label,before.story)});render();}});
 }
 // After every choice: one sentence of what happened, then which numbers moved and by how much.
 // What the pretend lives chose, on the button itself: you decide with the data in front of you.

@@ -567,12 +567,13 @@ const ADDED={
  'parent-language':s=>during(s,1930,1985)&&s.seed%2===0&&['market','slum','condo','villa'].includes(regionOf(s)?.style),
  'coast-boat':s=>during(s,1930,1990)&&regionOf(s)?.style==='coast',
  'village-buffalo':s=>during(s,1930,1985)&&regionOf(s)?.style==='village',
- 'girl-school':s=>during(s,1930,1975)&&sexOf(s)==='female'&&notRich(s),
+ 'girl-school':s=>during(s,1930,1975)&&sexOf(s)==='female'&&['low_class','working_class'].includes(bornClass(s)),
  'temple-boy':s=>during(s,1930,1975)&&sexOf(s)==='male'&&notRich(s)&&PROVINCES.includes(homeRegion(s.birth,s.age)),
  'go-abroad':s=>during(s,1935,1985)&&(s.pathway==='college'||!!s.major)&&regionOf(s)?.country==='TH',
  'gifted-child':s=>(s.story?.flags?.parent??s.pivotFlags?.parent)!==undefined
 };
-const SPINE={'flood-repair':.45,'child-water-bike':.5,'partner-business':.5,'city-pay':.55,'share-offer':.6,'parent-ill':.65,'stay-on':.65,leave:.65,'promotion-away':.7,'father-tools':.7,'buy-house':.7,'child-city':.75,'partner-choice':.75,'school-fall-climb':.75,'house-travel':.8,'year-abroad':.8,nephew:.85};
+// Each big question reaches under half of the lives it fits, fixed per life, so two lives seldom share their questions.
+const SPINE={'flood-repair':.45,'child-water-bike':.4,'partner-business':.45,'city-pay':.4,'share-offer':.35,'parent-ill':.45,'stay-on':.45,leave:.45,'promotion-away':.4,'father-tools':.5,'buy-house':.45,'child-city':.4,'partner-choice':.45,'school-fall-climb':.4,'house-travel':.5,'year-abroad':.4,nephew:.5};
 export function fits(pivot,state){
   if(pivot.market)return marketFits(pivot,savingsOf(state),birthYearOf(state));
   if(ADDED[pivot.id])return ADDED[pivot.id](state);

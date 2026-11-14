@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newLife,begin,configureLife} from '../../dist/course/sim.js';
 import {fortune,fortuneShape} from '../../dist/course/life-choices.js';
-const on=(seed,cls,route,birthYear,age,skills)=>{const s=begin(configureLife(newLife(seed),{class:cls,sex:'female',birthYear}));return {...s,age,...(skills?{skills:{...s.skills,...skills}}:{}),story:{...s.story,flags:{...s.story?.flags,['r_'+route+'_1']:15}}};};
+const on=(seed,cls,route,birthYear,age,skills)=>{const s=begin(configureLife(newLife(seed),{class:cls,sex:'female',birthYear}));return {...s,age,...(skills?{skills:{...s.skills,...skills}}:{}),story:{...s.story,flags:{...s.story?.flags,['r_'+route+'_1']:15,['r_'+route+'_2']:18}}};};
 // Stage work: most stay small, a few break out. Without the break-out, every dancer ends on one salary line.
 test('a few painters break out and most stay small',()=>{
  const f=Array.from({length:200},(_,i)=>fortune(on(i+1,'working_class','painter',1981,30)));
@@ -45,4 +45,8 @@ test('every death cause and turn line the game can write is translated',()=>{
  const lines=[...src.matchAll(/'((?:[A-Z][^']*?)(?:ended this life|reached zero|wore out your [a-z]+|caught up with your lungs|at home|sell tickets|someone younger|could spend it)\.)'/g)].map(m=>m[1]);
  assert.ok(lines.length>=12,'found '+lines.length);
  for(const l of lines)assert.ok(tr.split('\n').some(r=>r.startsWith(l+'|')&&r.split('|').length===5||r.includes("['"+l+"','")),'untranslated: '+l);
+});
+test('turning the calling down keeps an ordinary fortune',()=>{
+ const s=on(3,'working_class','painter',1981,30),{r_painter_2,...rest}=s.story.flags;
+ assert.equal(fortuneShape({...s,story:{...s.story,flags:rest}}),'plain');
 });
