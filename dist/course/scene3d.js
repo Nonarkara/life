@@ -87,17 +87,21 @@ function createScene(original){
  Object.assign(sun.shadow.camera,{left:-27,right:27,top:27,bottom:-27,near:1,far:150});
  // The table the model stands on: only the shadow is drawn, over the sky colour.
  const table=new T.Mesh(new T.PlaneGeometry(400,400),new T.ShadowMaterial({opacity:.28}));table.rotation.x=-Math.PI/2;table.position.y=-1.3;table.receiveShadow=true;scene.add(table);
- const glow=new T.PointLight('#ffc98a',0,m(9),1.5);scene.add(glow);
+ // The board: town, cast and weather in board coordinates. A mirrored region reflects it across the
+ // view diagonal (x and z swap), so everything on it moves together.
+ const board=new T.Group();board.matrixAutoUpdate=false;scene.add(board);let mirrored=false;
+ const W=(x,z)=>mirrored?[z,x]:[x,z],MIRROR=new T.Matrix4().set(0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,1);
+ const glow=new T.PointLight('#ffc98a',0,m(9),1.5);board.add(glow);
  // --- the world, rebuilt only when the plan's key changes
  let world=null,appliedKey='';const buildings=[];
- const scenery=createRegionScenery({scene,registerBuilding:register});
+ const scenery=createRegionScenery({scene:board,registerBuilding:register});
  const studio=createStudio(scene),quietMotion=matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;let lastHere=null,lastSeed=null;
  function register(group){group.userData.building=true;buildings.push({group,surfaces:null});}
  function surfacesOf(entry){if(entry.surfaces)return entry.surfaces;const list=[];entry.group.traverse(o=>{if(o.material)list.push(o.material);});entry.surfaces=list;return list;}
  function buildWorld(plan){
   disposeWorld();
   buildings.length=0;
-  const root=new T.Group();scene.add(root);
+  const root=new T.Group();board.add(root);
   const batches=new Map(),group=(parent=root)=>{const g=new T.Group();parent.add(g);return g;};
   const batchOf=p=>{if(!batches.has(p))batches.set(p,createBatch());return batches.get(p);};
   // The older builders (rooms, districts) call box/round with a parent group: each parent bakes once.
@@ -169,26 +173,26 @@ function createScene(original){
   dog.position.set(2.75,0,5.2);const d=batchOf(dog);d.box(-.14,-.06,.12,.28,.12,.13,'#a26a3c');d.ball(.18,.27,0,.075,.07,.07,'#945c30',6);d.box(.21,-.03,.28,.08,.06,.03,'#693e1e');for(const [x,z] of [[-.12,-.05],[.09,-.05],[-.12,.03],[.09,.03]])d.box(x,z,0,.04,.04,.13,'#784420');
   return {cradle,infant,toys,dog,bus,busBatch:batchOf(bus)};
  }
- function disposeWorld(){setHomeLift(0);if(!world)return;world.root.traverse(o=>{o.geometry?.dispose();o.material?.dispose?.();});scene.remove(world.root);world=null;}
+ function disposeWorld(){setHomeLift(0);if(!world)return;world.root.traverse(o=>{o.geometry?.dispose();o.material?.dispose?.();});board.remove(world.root);world=null;}
  // Weather: snow where the place is cold, rain in the flood years.
  const flakes=new Float32Array(600*3);for(let i=0;i<600;i++){flakes[i*3]=Math.random()*24-12;flakes[i*3+1]=Math.random()*9;flakes[i*3+2]=Math.random()*24-12;}
  const snowGeo=new T.BufferGeometry();snowGeo.setAttribute('position',new T.BufferAttribute(flakes,3));
- const snow=new T.Points(snowGeo,new T.PointsMaterial({color:'#ffffff',size:2.4,sizeAttenuation:false,transparent:true,opacity:.85,depthWrite:false}));snow.visible=false;snow.frustumCulled=false;scene.add(snow);
+ const snow=new T.Points(snowGeo,new T.PointsMaterial({color:'#ffffff',size:2.4,sizeAttenuation:false,transparent:true,opacity:.85,depthWrite:false}));snow.visible=false;snow.frustumCulled=false;board.add(snow);
  const drops=new Float32Array(400*6),dropY=new Float32Array(400);for(let i=0;i<400;i++){const x=Math.random()*24-12,z=Math.random()*24-12;dropY[i]=Math.random()*9;drops.set([x,dropY[i],z,x+.04,dropY[i]-.38,z+.04],i*6);}
  const rainGeo=new T.BufferGeometry();rainGeo.setAttribute('position',new T.BufferAttribute(drops,3));
- const rain=new T.LineSegments(rainGeo,new T.LineBasicMaterial({color:'#c9d8dc',transparent:true,opacity:.45,depthWrite:false}));rain.visible=false;rain.frustumCulled=false;scene.add(rain);
+ const rain=new T.LineSegments(rainGeo,new T.LineBasicMaterial({color:'#c9d8dc',transparent:true,opacity:.45,depthWrite:false}));rain.visible=false;rain.frustumCulled=false;board.add(rain);
  // Figures throw a drawn shadow, not a real one: a moving crowd must not re-render the shadow map.
  const shadowTex=(()=>{const c=document.createElement('canvas');c.width=c.height=64;const g=c.getContext('2d'),a=g.createRadialGradient(32,32,2,32,32,31);a.addColorStop(0,'rgba(0,0,0,.62)');a.addColorStop(.5,'rgba(0,0,0,.34)');a.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=a;g.fillRect(0,0,64,64);return new T.CanvasTexture(c);})();
  const MAX_SHADOWS=24,quad=new T.PlaneGeometry(1,1);quad.rotateX(-Math.PI/2);
- const decals=new T.InstancedMesh(quad,new T.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false,color:'#202428',toneMapped:false,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}),MAX_SHADOWS);decals.frustumCulled=false;decals.count=0;scene.add(decals);
+ const decals=new T.InstancedMesh(quad,new T.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false,color:'#202428',toneMapped:false,polygonOffset:true,polygonOffsetFactor:-2,polygonOffsetUnits:-2}),MAX_SHADOWS);decals.frustumCulled=false;decals.count=0;board.add(decals);
  // --- the cast
  const actors={mother:createCharacter({shirt:'#718979',sex:'female',plain:true}),father:createCharacter({shirt:'#87735c',plain:true}),player:createCharacter({shirt:'#bd914d',plain:true}),partner:createCharacter({shirt:'#8a7a6a',plain:true}),kid:createCharacter({shirt:'#b5553c',plain:true})};
- for(const actor of Object.values(actors)){scene.add(actor.root);actor.root.visible=false;}
+ for(const actor of Object.values(actors)){board.add(actor.root);actor.root.visible=false;}
  // Five open homes: two people each, and the villa's maid.
- const lots=Array.from({length:11},()=>{const a=createCharacter({shirt:'#93957b',plain:true});scene.add(a.root);a.root.visible=false;return a;});let lotRoster=[];
+ const lots=Array.from({length:11},()=>{const a=createCharacter({shirt:'#93957b',plain:true});board.add(a.root);a.root.visible=false;return a;});let lotRoster=[];
  const tourLine=document.createElement('p');tourLine.className='town-caption';tourLine.hidden=true;canvas.after(tourLine);
- const anchorAt=(x,z,y=.5)=>({getWorldPosition:v=>v.set(x,y,z)});
- const crowd=Array.from({length:12},()=>{const a=createCharacter({shirt:'#93957b',plain:true});scene.add(a.root);a.root.visible=false;return a;});
+ const anchorAt=(x,z,y=.5)=>({getWorldPosition:v=>{const [a,b]=W(x,z);return v.set(a,y,b);}});
+ const crowd=Array.from({length:12},()=>{const a=createCharacter({shirt:'#93957b',plain:true});board.add(a.root);a.root.visible=false;return a;});
  let gone=false,castReady=false;
  loadAnimeCast().then(c=>{if(!c||gone)return;castReady=true;for(const a of [...Object.values(actors),...crowd,...lots])try{attachAnime(a);}catch(error){console.warn('Anime figure skipped.',error);a.anime?.detach();}lastLooks='';});
  const STAND={x:0,y:0,dx:0,dy:0,moving:false,pose:'stand',facing:0,distance:0};
@@ -237,6 +241,7 @@ function createScene(original){
   const plan=townPlan(state,age),here=plan.regionId,born=regionIdFor(state.birth),family=familyAt(state,age);
   // A move glides across the studio floor; a new life, a reload or reduced motion cuts.
   if(lastSeed===state.seed&&lastHere&&here!==lastHere&&!quietMotion)studio.leave(lastHere,here);else if(lastSeed!==state.seed)studio.cancel();lastHere=here;lastSeed=state.seed;
+  if(mirrored!==!!plan.mirror){mirrored=!!plan.mirror;board.matrix.copy(mirrored?MIRROR:new T.Matrix4());board.matrixWorldNeedsUpdate=true;renderer.shadowMap.needsUpdate=true;shadowStep=null;lastSignature='';}
   if(!world||appliedKey!==plan.key){appliedKey=plan.key;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;}
   const looks=[appliedKey,state.seed,state.birth?.household,state.intake?.sex,Math.floor(age/5),family.partner,family.child,castReady].join('/');
   if(looks!==lastLooks){lastLooks=looks;applyLooks(state,age,here,born,plan,family,time);}
@@ -246,7 +251,7 @@ function createScene(original){
   // Cast placement ----------------------------------------------------------------
   const P=plan,manualWork=context.pathway==='vocational'&&age>=15&&age<60;
   let shadowCount=0;
-  const place=(a,act,opts,y)=>{a.root.visible=true;a.update(act,age,time,{...opts,world:FIGURE});const px=act.x,pz=act.y,fy=y??floorAt(px,pz);a.root.position.y=fy;if(shadowCount<MAX_SHADOWS){const sca=opts.scale??1,len=fy>.1?.55*sca:Math.min(2.2,.6/Math.max(.28,Math.tan(hour.el)))*sca+.25,sx=sunDir.x,sz=sunDir.z,L=Math.hypot(sx,sz)||1;shadowM.makeRotationY(Math.atan2(-sz,sx));shadowM.scale(shadowScale.set(len*1.3,1,.36*sca));shadowM.setPosition(px-sx/L*len*.5,fy+.012,pz-sz/L*len*.5);decals.setMatrixAt(shadowCount++,shadowM);}};
+  const place=(a,act,opts,y)=>{a.root.visible=true;a.update(act,age,time,{...opts,world:FIGURE});const px=act.x,pz=act.y,fy=y??floorAt(px,pz);a.root.position.y=fy;if(shadowCount<MAX_SHADOWS){const sca=opts.scale??1,len=fy>.1?.55*sca:Math.min(2.2,.6/Math.max(.28,Math.tan(hour.el)))*sca+.25,[sx,sz]=W(sunDir.x,sunDir.z),L=Math.hypot(sx,sz)||1;shadowM.makeRotationY(Math.atan2(-sz,sx));shadowM.scale(shadowScale.set(len*1.3,1,.36*sca));shadowM.setPosition(px-sx/L*len*.5,fy+.012,pz-sz/L*len*.5);decals.setMatrixAt(shadowCount++,shadowM);}};
   const walkEnv=name=>routine(name,age,time,goal,context);
   const parentsHere=here===homeRegion(state.birth,age)||childhoodAway(state.birth,age);
   for(const name of ['mother','father']){const a=actors[name];if(!(parentsHere&&family[name])){a.root.visible=false;continue;}place(a,relabel(walkEnv(name),P,name),{elder:age+28>=60||!!household(state.birth)[name]?.elder||childhoodAway(state.birth,age),scale:1});}
@@ -276,7 +281,7 @@ function createScene(original){
   const phase=Math.min(1,t/48),night=t>=48,az=night?1.9:phase*Math.PI;
   sunDir.set(Math.cos(az)*Math.cos(hour.el),Math.sin(hour.el),.62*Math.sin(az)*Math.cos(hour.el)+.28).normalize();
   // A step of the sun is the only thing that needs a new shadow map; a paused day costs nothing.
-  const step=Math.floor(t*2);if(step!==shadowStep){shadowStep=step;const cx=clampZone(focus.x),cz=5.5;sun.target.position.set(cx,0,cz);sun.position.copy(sun.target.position).addScaledVector(sunDir,70);sun.updateMatrixWorld();sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;}
+  const step=Math.floor(t*2);if(step!==shadowStep){shadowStep=step;const [cx,cz]=W(clampZone(focus.x),5.5);sun.target.position.set(cx,0,cz);sun.position.copy(sun.target.position).addScaledVector(sunDir,70);sun.updateMatrixWorld();sun.target.updateMatrixWorld();renderer.shadowMap.needsUpdate=true;}
   nightGlow.value=hour.lit*.85;glow.intensity=hour.lit*4.2;glow.position.set(context.residence.base[0]+1.4,1.3,context.residence.base[1]+2);if(mumAtStove){glow.position.set(3.45,1,5.8);glow.intensity=Math.max(glow.intensity,2.4+Math.sin(time*19)*.7);}
   // Weather is the place's, drawn around wherever the life is.
   snow.visible=plan.climate==='cold';rain.visible=(world.flood.visible||plan.rainy&&t>=28&&t<40)&&!snow.visible;
@@ -300,14 +305,14 @@ function createScene(original){
   cam.x+=(follow.x-cam.x)*ease;cam.z+=(follow.y-cam.z)*ease;cam.span+=(span-cam.span)*ease;
   const glide=studio.step();if(glide){cam.x=follow.x+glide.dx;cam.z=follow.y+glide.dz;cam.span=span+glide.rise;}
   const dock=!phone&&!document.body.classList.contains('birth-stage')&&!document.body.classList.contains('recap-stage')?overlappingReaderWidth(canvas.getBoundingClientRect(),(()=>{const reader=document.querySelector('.console-reader');return reader&&!reader.hidden&&getComputedStyle(reader).visibility!=='hidden'?reader.getBoundingClientRect():null;})()):0;
-  focus3.set(cam.x,.45,cam.z);
+  {const [fx,fz]=W(cam.x,cam.z);focus3.set(fx,.45,fz);}
   const fit=tall?1.05:1,dist=(cam.span*fit/2)/Math.tan(T.MathUtils.degToRad(FOV/2));
   eye.copy(focus3).addScaledVector(VIEW,dist);camera.position.copy(eye);camera.near=Math.max(1,dist-40);camera.far=dist+(glide?glide.far:60);camera.lookAt(focus3);
   if(dock)camera.setViewOffset(w,h,dock/2,0,w,h);else camera.clearViewOffset();camera.updateProjectionMatrix();
   // Cutaways keep the protagonist readable through foreground buildings.
   scene.updateMatrixWorld();camera.updateMatrixWorld(true);
   // Where each house sits on the screen, for the labels the birth form puts over them.
-  if(pick){const H=h;pick([{rung:P.rung,x:5,z:4.8},...othersOf(P.rung).map(({rung,lot})=>({rung,x:lot[0]+lot[2]/2,z:lot[1]+lot[3]/2}))].map(h=>{const v=pinAt.set(h.x,2.8,h.z).project(camera);return {rung:h.rung,x:(v.x+1)/2*w,y:(1-v.y)/2*H};}));}
+  if(pick){const H=h;pick([{rung:P.rung,x:5,z:4.8},...othersOf(P.rung).map(({rung,lot})=>({rung,x:lot[0]+lot[2]/2,z:lot[1]+lot[3]/2}))].map(h=>{const [px,pz]=W(h.x,h.z),v=pinAt.set(px,2.8,pz).project(camera);return {rung:h.rung,x:(v.x+1)/2*w,y:(1-v.y)/2*H};}));}
   if(age>=1&&(changedView||cutTick++%4===0||!hidden.size)){const open=stop?.kind==='town'?[...new Set(lotRoster.map(r=>r.lot))].map(([x,z,w,d])=>anchorAt(x+w/2,z+d/2)):(stop?.kind==='lot'||stop?.kind==='home')?[[-1.4,-1.3],[1.4,-1.3],[-1.4,1.3],[1.4,1.3],[0,0]].map(([a,e])=>anchorAt(stop.x+a,stop.z+e)):Object.values(actors.player.anchors);hidden=obscuringBuildings(camera,open,buildings.map(b=>b.group),ray);}
   const cutKey=[...hidden].map(g=>buildings.findIndex(b=>b.group===g)).sort().join();if(cutKey!==lastCut){lastCut=cutKey;renderer.shadowMap.needsUpdate=true;}
   // A building in the way is lifted off the board; its slab stays.

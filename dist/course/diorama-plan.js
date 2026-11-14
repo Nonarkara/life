@@ -139,5 +139,8 @@ export function townPlan(state,age){
  const finance=recordedFinance(state,age),worth=finance?netWorth(finance):0,tier=Math.max(RUNG_TIER[rung],worth>=3500000?3:worth>=800000?2:0),found=roomHas(year,tier,marks,abroad,rand(seed,0,'sewing')),room=homeKind==='pavement'?{...found,tv:false,flatTv:false,fan:false,fridge:false,aircon:false,computer:false,phone:false,sewing:false,bed:false,oilLamp:true,altar:false}:found,flood=floodAt(state,age);
  // The model is rebuilt in steps: a mark appearing, or a five-year growth stage.
  const growth=Math.floor(year/5)*5,bits=Object.entries(marks).filter(([,v])=>v).map(([k])=>k).join(','),things=Object.entries(room).filter(([,v])=>v).map(([k])=>k).join(',');
- return {key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),faith:faithOf(state),rainy:!abroad&&rand(seed,growth,'rain-year')<.5,seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast',lift:abroad||homeKind==='shack'&&style!=='slum'?0:LIFT[homeKind]??0};
+ // Isan, the East and the South lay their towns out mirrored across the view: every route and seat
+ // moves with the board, so the town's plan changes and nothing in it breaks.
+ const mirror=!abroad&&['isan','east','south'].includes(dressOf(place));
+ return {mirror,key:[seed,regionId,style,homeKind,tier,rung,growth,bits,things,flood.mark].join('|'),faith:faithOf(state),rainy:!abroad&&rand(seed,growth,'rain-year')<.5,seed,regionId,place,style,year,growth,abroad,marks,homeKind,rung,tier,room,flood,climate:place.climate,palette:palette(style,place,seed),crowd:crowdSize(style,year),keptShop:flagsOf(state).keptShop!==undefined,farm:style==='village'||style==='fringe'||style==='coast',lift:abroad||homeKind==='shack'&&style!=='slum'?0:LIFT[homeKind]??0};
 }
