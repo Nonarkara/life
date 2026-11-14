@@ -9,6 +9,7 @@ import {mismatched,partnerNature,together} from './life-choices.js';
 import {LESSONS} from './lessons.js';
 import {WAVE1_ENCOUNTERS} from './wave1-encounters.js';
 import {WAVE2_ENCOUNTERS} from './wave2-encounters.js';
+import {REGION_ENCOUNTERS} from './region-encounters.js';
 import {HISTORY_ENCOUNTERS} from './history-encounters.js';
 import {BANK_ENCOUNTERS} from './bank-encounters.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
@@ -115,7 +116,7 @@ ENCOUNTERS.push(
   option('again','Move again and see whether the next place holds',{cash:-6000,wellbeing:-1,flag:'geo_again'},'You moved again. It held for a while, the way the last one did.'),
   option('home','Come home and take a local wage',{cash:7000,wellbeing:1,skills:{iq:1}},'You came home. A local wage paid for the life you had been borrowing against.') ]});
 ENCOUNTERS.push(...LESSONS,...CLASS_ENCOUNTERS,...THAI_ENCOUNTERS);
-ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...HISTORY_ENCOUNTERS,...BANK_ENCOUNTERS);
+ENCOUNTERS.push(...WAVE1_ENCOUNTERS,...WAVE2_ENCOUNTERS,...REGION_ENCOUNTERS,...HISTORY_ENCOUNTERS,...BANK_ENCOUNTERS);
 // The literature-grounded scenario bank: situations written against Four
 // Reigns, Many Lives, Mom and Letters from Thailand, each tagged with the
 // source it was written from. They are offered only in the years they
