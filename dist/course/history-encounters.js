@@ -3,7 +3,7 @@
 // ERA-EVENTS-AND-BUDDHISM.md (bbc) or the source named beside the scene. Nobody royal, no named perpetrators.
 import {rand} from './rand.js';
 import {birthYearOf} from './thai-history.js';
-import {regionAt,regionIdFor} from './regions.js';
+import {REGIONS,regionAt,regionIdFor} from './regions.js';
 const F=s=>({...s.pivotFlags,...s.story?.flags});
 const cal=s=>{const y=birthYearOf(s);return y===null?null:y+s.age;};
 const ageIn=(s,y)=>birthYearOf(s)===null?-1:y-birthYearOf(s);
@@ -11,7 +11,7 @@ const inWindow=y=>s=>{const c=cal(s);return c!==null&&c<=y&&y<c+5;};
 const aged=(y,lo,hi)=>s=>{const a=ageIn(s,y);return a>=lo&&a<=hi;};
 const CITY=['khlong-toei','bang-na','sukhumvit','samut-prakan','pathum-wan'],region=s=>(F(s).emigrated===s.age?regionIdFor(s.birth):regionAt(s,s.age-1))??s.birth?.region;
 // A scene already on the table at this station stays valid: the move counts from the next one.
-const city=s=>CITY.includes(region(s))||F(s).wentBangkok<s.age,country=s=>!city(s),isan=s=>['isan-village','udon-thani'].includes(region(s));
+const city=s=>CITY.includes(region(s))||F(s).wentBangkok<s.age,country=s=>!city(s),isan=s=>['isan-village','udon-thani'].includes(region(s))||!!REGIONS[region(s)]?.isan;
 const cls=s=>s.intake?.class??s.birth?.class,rich=s=>['high_class'].includes(cls(s)),poor=s=>!rich(s);
 const male=s=>(s.intake?.sex??s.birth?.sex)==='male',female=s=>(s.intake?.sex??s.birth?.sex)==='female';
 const flag=k=>s=>F(s)[k]!==undefined,no=k=>s=>F(s)[k]===undefined;
