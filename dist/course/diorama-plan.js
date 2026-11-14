@@ -13,7 +13,7 @@ import {rungAt,clearOfLots} from './housing-ladder.js';
 export {clearOfLots};
 
 const BANGKOK=new Set(['khlong-toei','bang-na','sukhumvit','pathum-wan']);
-const RURAL=new Set(['nakhon-sawan','isan-village','pak-phanang',...Object.keys(REGIONS).filter(id=>(REGIONS[id].lanna||REGIONS[id].isan||REGIONS[id].east||REGIONS[id].west)&&REGIONS[id].style==='village')]);
+const RURAL=new Set(['nakhon-sawan','isan-village','pak-phanang',...Object.keys(REGIONS).filter(id=>(REGIONS[id].lanna||REGIONS[id].isan||REGIONS[id].east||REGIONS[id].west||REGIONS[id].south)&&REGIONS[id].style==='village')]);
 // BTS Sukhumvit line: Mo Chit to On Nut opened 5 December 1999; On Nut to Bearing, the
 // stretch through Bang Na, 12 August 2011. Siam station, Pathum Wan, opened with the first line. It never ran through Khlong Toei's port slums.
 const VIADUCT={sukhumvit:1999,'bang-na':2011,'pathum-wan':1999};
@@ -86,7 +86,8 @@ export function townStyle(base,year,where){
 }
 // Thai homes follow the rung you live on; the region still decides what a modest house looks like.
 // A Muslim family is a southern-coast life in this game; about three in ten there. Authored, not census.
-export const faithOf=state=>regionIdFor(state.birth)==='pak-phanang'&&rand(state.seed,0,'faith')<.3?'muslim':'buddhist';
+// A household's faith follows its province's recorded Muslim share (Pak Phanang keeps its earlier 0.3).
+export const faithOf=state=>{const id=regionIdFor(state.birth);return rand(state.seed,0,'faith')<(id==='pak-phanang'?.3:REGIONS[id]?.muslim??0)?'muslim':'buddhist';};
 export function homeKindFor(style,where,rung){
  if(where.place==='villa')return 'villa';if(where.place==='condo')return 'condo';
  if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return style==='village'||style==='fringe'?'stilt':style==='coast'?'plank':'row';if(rung===3)return style==='beach'?'bungalow':'shophouse';}

@@ -150,6 +150,17 @@ function erawan(b,x,z){b.cylinder(x+1.7,z-.3,0,1.9,.6,3,'#4f6c45',9);for(let i=0
 function cliffFall(b,x,z){b.cylinder(x+1.8,z+.2,0,2,1.4,2.6,'#6d6458',9);b.cylinder(x+1.8,z+.2,2.6,1.45,.9,.6,'#4f6c45',9);for(const [a,w] of [[.9,.3],[1.4,.5],[2.1,.35],[2.6,.25]])b.beam(x+a,2.5,z+1.4,x+a,.05,z+2.2,w,.06,'#e8eef0');b.box(x+.3,z+2,-.01,3,1.2,.03,'#7ac0b8');for(const a of [.4,3.2])b.ball(x+a,.6,z+2.4,.45,.5,.4,'#4f6c45',7);}
 // Phetchaburi's salt pans with heaps of salt, under a row of sugar palms.
 function saltPans(b,x,z){for(let i=0;i<4;i++)for(let j=0;j<2;j++){b.box(x+i*.9,z+j*1.1,-.01,.86,1.06,.015,'#8a7a60');b.box(x+i*.9+.04,z+j*1.1+.04,0,.78,.98,.008,j?'#eef0ec':'#dfe6e4');}for(const a of [.3,.9,1.6,2.3,3])b.cylinder(x+a,z+2.55,0,.26,0,.5,'#f8f8f4',8,false);}
+// The South. A southern bell chedi: a square base, a bell, a tall ringed spire with a gold tip.
+function bellChedi(b,x,z,k=1,c='#efe9da',gold='#d4a63a'){const s=v=>v*k,cx=x+s(.5),cz=z+s(.5);b.box(x,z,0,s(1),s(1),s(.3),c);b.box(x+s(.1),z+s(.1),s(.3),s(.8),s(.8),s(.2),c);b.cylinder(cx,cz,s(.5),s(.42),s(.32),s(.2),c,12);b.ball(cx,s(.85),cz,s(.38),s(.36),s(.38),c,12);b.box(cx-s(.15),cz-s(.15),s(1.15),s(.3),s(.3),s(.18),c);for(let i=0;i<5;i++)b.cylinder(cx,cz,s(1.33+i*.16),s(.13-i*.018),s(.11-i*.018),s(.12),c,10);b.cylinder(cx,cz,s(2.13),s(.06),0,s(1.2),gold,8,false);}
+// Wat Phra Borommathat Chaiya: a Srivijaya stupa of stepped brick tiers with small spires at each corner.
+function srivijaya(b,x,z){const c='#9a7a5a',c2='#8a6a4c';b.box(x,z,0,2.4,2.4,.3,c2);b.box(x+.4,z+.4,.3,1.6,1.6,1,c);b.box(x+.25,z+1,.3,1.9,.4,.8,c);b.box(x+1,z+.25,.3,.4,1.9,.8,c);for(let i=0;i<3;i++){const w=1.2-i*.3,o=(2.4-w)/2;b.box(x+o,z+o,1.3+i*.4,w,w,.4,i%2?c2:c);for(const [a,e] of [[0,0],[w,0],[0,w],[w,w]])b.cylinder(x+o+a,z+o+e,1.7+i*.4,.08,0,.35,c,6,false);}b.cylinder(x+1.2,z+1.2,2.5,.15,0,.9,'#d4a63a',8,false);}
+// The three central mosques of the deep south, each as its record describes it.
+function mosque(b,x,z,kind){const w='#f2efe6',g='#3f7a62';
+ if(kind==='pattani'){b.box(x,z,0,3.2,1.8,S*1.2,w);b.ball(x+1.6,S*1.2+.2,z+.9,.75,.8,.75,g,12);for(const [a,e] of [[.4,.3],[2.8,.3],[.4,1.5],[2.8,1.5]])b.ball(x+a,S*1.2+.12,z+e,.25,.28,.25,g,8);for(const a of [-.2,3.4]){b.cylinder(x+a,z+1.8,0,.14,.1,S*2.6,w,8);b.ball(x+a,S*2.6+.1,z+1.8,.14,.2,.14,g,8);}}
+ else if(kind==='narathiwat'){b.box(x,z,0,2.4,2,S*1.9,w);for(let f=0;f<3;f++)b.box(x+.2,z+2,.3+f*S*.6,2,.012,S*.35,'#3e4e54',1);b.cylinder(x+1.2,z+1,S*1.9,.62,.62,.3,w,14);b.ball(x+1.2,S*1.9+.3,z+1,.62,.85,.62,'#3f7a62',14);b.cylinder(x+1.2,z+1,S*1.9+1.1,.03,0,.35,'#c9a14a',6,false);b.box(x+2.6,z+.4,0,.5,.5,S*3.2,w);b.ball(x+2.85,S*3.2+.1,z+.65,.25,.4,.25,'#3f7a62',8);}
+ else{b.box(x,z,0,2.8,2,S*1.1,w);b.box(x+.9,z+.6,S*1.1,1,.8,S*.9,w);b.ball(x+1.4,S*2+.3,z+1,.55,.75,.55,'#dcdcd4',12);b.cylinder(x+1.4,z+1,S*2+1,.03,0,.35,'#c9a14a',6,false);for(let i=0;i<5;i++)b.box(x+.2+i*.5,z+2,.3,.3,.012,S*.6,'#3e4e54',1);}}
+// A limestone tower: sheer grey sides, forest on top and hanging down one face.
+function karst(b,x,z,h,R,y=0){b.cylinder(x,z,y,R,R*.7,h,'#8a8f80',7);b.cylinder(x,z,y+h,R*.75,R*.35,R*.5,'#5a7550',7);b.box(x-R*.3,z+R*.6,y+h*.3,R*.6,.05,h*.35,'#5a7550');}
 function vehicle(b,kind,x,z,w,d,acc,marks){
  if(kind==='samlor'){b.box(x+.1,z+.12,.3,w*.42,d-.24,.05,WOOD);b.box(x+.1,z+.1,.5,w*.42,d-.2,.05,'#7a3f3a');b.beam(x+.5,.3,z+d/2,x+w-.05,.62,z+d/2,.03,.03,RUBBER);b.gable(x+.08,z+.08,.92,w*.46,d-.16,.04,'#3f4a48',{over:.03});for(const a of [.2,.2])b.ball(x+a,.14,z+.06,.14,.14,.02,RUBBER,8);b.ball(x+.2,.14,z+d-.06,.14,.14,.02,RUBBER,8);b.ball(x+w-.08,.14,z+d/2,.14,.14,.02,RUBBER,8);return;}
  if(kind==='tuktuk'){b.box(x,z,.14,w,d,.26,'#2f6f62');b.box(x+.05,z+.03,.72,w-.1,d-.06,.04,'#d9c27a');for(const[a,e]of[[.05,.05],[w-.1,.05],[.05,d-.1],[w-.1,d-.1]])b.box(x+a,z+e,.4,.035,.035,.33,STEEL);for(const[a,e]of[[w-.1,d/2-.04],[.12,-.01],[.12,d-.08]])b.box(x+a,z+e,0,.12,.08,.14,RUBBER);return;}
@@ -182,7 +193,7 @@ export function createRegionScenery({scene,registerBuilding}){
  let root=null,built=[];
  function build(plan){
   root=new T.Group();scene.add(root);
-  const {palette:P,marks,style,seed,year,flood}=plan,r=lifeRandom(seed,'layout'+style+(plan.place.lanna||plan.place.isan||plan.place.east||plan.place.west?plan.regionId:''));
+  const {palette:P,marks,style,seed,year,flood}=plan,r=lifeRandom(seed,'layout'+style+(plan.place.lanna||plan.place.isan||plan.place.east||plan.place.west||plan.place.south?plan.regionId:''));
   const pick=l=>l[Math.floor(r()*l.length)],wall=()=>pick(P.walls),roof=()=>pick(P.roofs);
   // One batch per thing a cutaway may fade; loose ground things share one.
   const open=createBatch();
@@ -384,14 +395,21 @@ export function createRegionScenery({scene,registerBuilding}){
    // The East: the industrial coast, the orchard provinces and the border market. The sea or the
    // river runs along the back where the record names it; each province's landmark sits in its plot.
    east(){const id=plan.regionId,town=style==='market',early=!marks.concrete;
-    const sea=['chonburi','rayong','trat','phetchaburi','prachuap-khiri-khan'].includes(id),river=['chachoengsao','chanthaburi','kanchanaburi','ratchaburi','tak'].includes(id);
-    const hills={chachoengsao:{low:true},chonburi:{low:true},prachinburi:{},'sa-kaeo':{low:true},chanthaburi:{},kanchanaburi:{},phetchaburi:{},ratchaburi:{low:true},tak:{high:true}}[id];if(hills)ridge(open,r,hills);
+    const sea=['chonburi','rayong','trat','phetchaburi','prachuap-khiri-khan','chumphon','krabi','nakhon-si-thammarat','narathiwat','pattani','phang-nga','phuket','satun','songkhla','trang','ranong'].includes(id),river=['chachoengsao','chanthaburi','kanchanaburi','ratchaburi','tak','surat-thani','phatthalung'].includes(id);
+    const hills={chachoengsao:{low:true},chonburi:{low:true},prachinburi:{},'sa-kaeo':{low:true},chanthaburi:{},kanchanaburi:{},phetchaburi:{},ratchaburi:{low:true},tak:{high:true},'nakhon-si-thammarat':{high:true},ranong:{},yala:{high:true},phatthalung:{low:true},songkhla:{low:true,crown:'#efe9da'},narathiwat:{low:true},chumphon:{low:true},trang:{low:true}}[id];if(hills)ridge(open,r,hills);
     if(sea){water(-5.4,-5.4,23.8,2.3);open.box(-5.4,-3.1,-.016,23.8,.5,.014,'#ddd0a8');}else if(river)water(-5.4,-5.4,23.8,1.8);
     if(id==='rayong'){open.cylinder(3,-9.6,-1.3,4.4,4.4,.02,'#4f7f8c',20);for(const [x,z,a,c] of [[3,-9.6,2.6,.6],[3,-8.6,.6,2]])open.ball(x,-1.28,z,a,.9,c,'#5f7a52',10);}
     // Khao Sam Roi Yot: limestone peaks standing straight up from the shore.
     if(id==='prachuap-khiri-khan')for(const [x,h] of [[-3,3.4],[-.6,4.6],[1.6,3],[11.2,4],[13.4,5.2],[15.6,3.6]]){open.cylinder(x,-7.6,-1.3,1.1,.45,h,'#8a8f80',6);open.cylinder(x,-7.6,h-1.3,.45,.2,.4,'#5a7550',6);}
+    // Offshore: Chumphon's low islands, Tarutao off Satun, Ko Libong off Trang, Krabi's and Phang Nga's limestone towers in the sea, Khao Sok's inland.
+    if(id==='chumphon')for(const x of [1,12.6])island(open,x,-9.6,1.6,.9,'#5f7a52','#ddd0a8');
+    if(id==='satun')island(open,11,-10.6,3,3.6,'#4f6b45','#ddd0a8');if(id==='trang')island(open,4,-10,3.2,1.2,'#5f7a52','#ddd0a8');
+    if(id==='krabi'||id==='phang-nga'){open.cylinder(6,-9.6,-1.3,12,12,.02,'#3f8090',20);for(const [x,z,h,R] of [[-2.6,-8,3.6,.9],[.6,-9.4,4.6,1.1],[3,-7.8,2.6,.7],[11.4,-8.4,4.2,1],[14,-9.8,5,1.2],[16.2,-7.9,3,.8]])karst(open,x,z,h,R,-1.3);}
+    if(id==='surat-thani')for(const [x,h] of [[-2,4.2],[.6,5.4],[11.6,4.8],[14,6],[16.4,4]])karst(open,x,-7.8,h,1,-1.3);
     if(id==='trat')island(open,9.6,-10.4,3.2,4.6,'#4f6b45','#ddd0a8');
     // Laem Chabang's container port, completed 1991; before it the shore had fishing boats.
+    // The Tinsulanonda Bridge from Songkhla to Ko Yo opened in 1986.
+    if(id==='songkhla'&&year>=1986){open.beam(8.1,0,-2.2,8.1,.34,-3,1.6,.06,'#c7c3b6');open.box(7.3,-5.6,.28,1.6,2.6,.12,'#c7c3b6');for(const e of [0,1.52])open.box(7.3+e,-5.6,.4,.08,2.6,.12,'#b0ac9f');for(const z of [-4.2,-5.2])open.box(7.85,z,-.02,.5,.3,.3,'#bdb9ac');}
     if(id==='chonburi'&&year>=1991){open.box(-5.4,-3.3,-.01,12.4,.7,.03,'#b9b6aa');open.box(-4.6,-5.25,-.02,5.2,.9,.32,'#3f4a58');containers(open,-4.4,-5.2,14,2,r);for(const x of [-4.8,-2.8,-.8]){for(const a of [0,.9])for(const e of [-3.2,-2.7])open.box(x+a,e,0,.08,.08,2.2,'#c9a14a');open.box(x-.05,-5.4,2.2,1.05,3,.14,'#c9a14a');open.box(x+.2,-3.1,2.34,.6,.5,.3,'#ece7da');}for(const x of [2.2,4.4])if(clearOfRoutes(x,-2.6,2.2,1.2)&&clearOfLots(x,-2.6,2.2,1.2))containers(open,x,-2.6,6,3,r);}
     // The Thai-Myanmar Friendship Bridge over the Moei at Mae Sot opened in 1997.
     if(id==='tak'&&year>=1997){open.beam(8.1,0,-2.2,8.1,.34,-3,1.6,.06,'#c7c3b6');open.box(7.3,-5.6,.28,1.6,2.6,.12,'#c7c3b6');for(const e of [0,1.52])open.box(7.3+e,-5.6,.4,.08,2.6,.12,'#b0ac9f');for(const e of [-.1,1.62])open.box(7.3+e-.04,-5.5,0,.12,.12,S*1.6,'#d9d4c6');open.box(7.2,-5.5,S*1.6,1.9,.12,.12,'#a51931');}
@@ -399,8 +417,10 @@ export function createRegionScenery({scene,registerBuilding}){
     if(river)for(const x of [-4,3.2,12.6])boat(x+r()*.6,-5.1,1.4,pick(['#6d5640','#3f6f8a']));
     institutions(town?!early:marks.concrete&&year>=1990,town?wall():'#d8cda8',pick(P.roofs));
     const make=f=>(x,z,w,d)=>unit(b=>f(b,x,z,w,d),[x,z,w,d]);
-    const shop=(b,x,z,w,d)=>{if(early||r()<.3)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
-    const rw=(x0,x1,z,d)=>row(x0+r()*.6,x1,z,d-r()*.5,1.1,1.8,make(shop));
+    // Phuket's and Songkhla's old towns are rows of narrow pastel Sino-Portuguese shophouses.
+    const sino=['phuket','songkhla'].includes(id);
+    const shop=(b,x,z,w,d)=>{if(sino)concreteShop(b,x,z,w,d,pick(['#e8b8a8','#a8d0c8','#e8d890','#c8b8e0','#f0c8a0']),r,2,'#ece6d8',marks);else if(early||r()<.3)woodShop(b,x,z,w,d,pick(['#8f6f4c','#7f6243','#9a7c5a']),r,2);else concreteShop(b,x,z,w,d,wall(),r,cap(x,z,2+Math.floor(r()*2)),P.accent,marks);};
+    const rw=(x0,x1,z,d)=>row(x0+r()*.6,x1,z,d-r()*.5,sino?.9:1.1,sino?1.3:1.8,make(shop));
     if(town){rw(-5.2,2.4,4.7,2.2);rw(2.9,6.9,-.5,2.8);rw(-5.2,.9,12.2,2.6);rw(.9,8.4,15,2.6);
      // Chachoengsao's e-waste recycling plants arrived after China's 2018 import ban.
      if(id==='chachoengsao'&&year>=2018)unit(b=>{factory(b,-5.2,-.7,2.6,1.6,'#c9c6ba',r);for(let i=0;i<4;i++)b.ball(-4.8+i*.6,.15,1.25,.3,.22,.25,['#6d7a76','#3f4a48','#8a7a6a','#5a6a72'][i],6);},[-5.2,-.7,2.6,2.3]);
@@ -410,7 +430,7 @@ export function createRegionScenery({scene,registerBuilding}){
      else if(id==='rayong'&&year>=1990)unit(b=>{factory(b,9.4,16.2,5,2.2,'#d9d6cc',r);stack(b,15.4,17.2,S*3.6);stack(b,16.6,17.4,S*3);},[9.4,16.2,7.4,2.2]);
      else rw(9.2,18.2,14.8,2.4);
      if(marks.store)unit(b=>store(b,13.8,9.2,2.4,1.8,r),[13.8,9.2,2.4,1.8]);else unit(b=>woodShop(b,13.8,9.2,2.2,1.8,'#8f6f4c',r,1),[13.8,9.2,2.2,1.8]);}
-    else{[[-5,9.3,3,3.6],[9.3,13,4.2,3.2],[14.2,9.2,3.9,3],[14,13.2,4,3],[-1.7,12,2.5,2.4]].forEach(([x,z,w,d],i)=>{if(r()<.9)field(x,z,w,d,id==='prachuap-khiri-khan'?'coconut':['durian','rubber','longan'][i%3]);});
+    else{[[-5,9.3,3,3.6],[9.3,13,4.2,3.2],[14.2,9.2,3.9,3],[14,13.2,4,3],[-1.7,12,2.5,2.4]].forEach(([x,z,w,d],i)=>{if(r()<.9)field(x,z,w,d,id==='prachuap-khiri-khan'||id==='narathiwat'||id==='pattani'?'coconut':['durian','rubber','longan'][i%3]);});
      for(const [x,z] of [[-4.3,-.1],[-4.3,2.3],[-4.3,4.6],[3.7,10.9],[1.2,13.4],[4.2,14.9],[1.2,15.9],[-4.3,16.4],[9.2,16.4],[12.2,16.4],[15.2,16.4]]){const X=Math.max(-5.2,x+r()*.6),Z=z+r()*.3,w=1.8+r()*.5,d=1.5+r()*.3;if(r()<.82&&clearOfRoutes(X,Z,w,d))unit(b=>stilt(b,X,Z,w,d,pick(['#8f6f4c','#9a7c5a','#c9b48e']),marks.concrete?ZINC:pick(['#7a6a55','#8b7c68']),r,marks,m(1.2)),[X,Z,w,d]);}
      if(marks.store)unit(b=>store(b,-4.8,12.9,1.9,1.3,r),[-4.8,12.9,1.9,1.3]);}
     ({chachoengsao(){unit(b=>{b.box(14.2,2.5,0,4,3.2,.3,'#efe9da');wat(b,14.6,2.8,3.4,2.6,r);for(const [a,e] of [[-.2,-.2],[3.6,-.2],[-.2,2.9],[3.6,2.9]])b.cylinder(14.6+a+.2,2.8+e+.2,.3,.16,0,1.6,'#e2b450',6,false);},[14.2,2.5,4,3.2]);if(year>=1990)open.box(14.4,5.6,-.01,3.6,1,.02,'#b9b6aa');},
@@ -424,6 +444,20 @@ export function createRegionScenery({scene,registerBuilding}){
       'prachuap-khiri-khan'(){field(14.3,2.3,3.8,3.2,'coconut');unit(b=>{store(b,14.6,5.5,1.9,1.2,r);for(let i=0;i<5;i++)b.cylinder(14.8+i*.36,6.95,0,.13,.15,.26,i%2?'#f2efe6':'#2a2a28',8);},[14.6,5.5,1.9,1.6]);},
       ratchaburi(){water(14.3,2.2,3.8,4.2);if(year>=1981)for(let i=0;i<8;i++){const x=14.4+(i%4)*.9,z=2.5+Math.floor(i/4)*1.9+r()*.6;open.box(x,z,-.01,.85,.26,.1,'#6d5640');for(let k=0;k<3;k++)open.ball(x+.2+k*.22,.16,z+.13,.09,.07,.09,['#d9a92e','#c0563f','#6f9a4a','#e8e2d4'][(i+k)%4],5);}else boat(15,3.8,1.4,'#6d5640');},
       tak(){unit(b=>cliffFall(b,14.4,2.4),[14.4,2.4,3.6,2.7]);},
+      chumphon(){for(let i=0;i<12;i++)bananas(open,14.6+(i%4)*.95,2.6+Math.floor(i/4)*1.1);},
+      krabi(){unit(b=>karst(b,16.8,5,3.8,1.2),[15.6,3.8,2.4,2.4]);for(const x of [14.4,16.6])boat(x,6.3,1.4,pick(['#c0563f','#2f6f9a']));},
+      'nakhon-si-thammarat'(){unit(b=>{b.box(14.4,2.4,0,3.6,3.6,.2,'#e4decd');bellChedi(b,15.4,3.4,1.6);for(const [a,e] of [[.2,.2],[3,.2],[.2,3],[3,3],[1.6,.1],[.1,1.6],[3.1,1.6]])bellChedi(b,14.4+a,2.4+e,.35);},[14.4,2.4,3.6,3.6]);},
+      narathiwat(){if(year>=1981)unit(b=>mosque(b,14.6,2.8,'narathiwat'),[14.6,2.8,3.1,2.2]);else field(14.4,2.4,3.6,4.2,'coconut');},
+      pattani(){if(year>=1963){unit(b=>mosque(b,14.5,2.5,'pattani'),[14.3,2.5,3.6,1.9]);water(14.9,4.8,2.4,1.4);}else field(14.4,2.4,3.6,4.2,'coconut');},
+      'phang-nga'(){water(14.3,2.2,3.8,4.6);for(const [x,z,h,R] of [[15.4,3.4,2.6,.8],[17.2,5.2,1.8,.6]])unit(b=>karst(b,x,z,h,R),[x-R,z-R,2*R,2*R]);for(let i=0;i<6;i++)open.ball(14.4+i*.6,.2,6.5,.3,.25,.25,'#3f5a3a',6);},
+      phatthalung(){unit(b=>{b.cylinder(16.4,4.8,0,1.7,.75,2.6,'#6f7f55',8);b.box(16,5.85,1.5,.7,.6,.5,'#2a2520');bellChedi(b,16.2,4.6,.4,'#efe9da','#d4a63a');},[14.7,3.1,3.4,3.4]);},
+      phuket(){unit(b=>{b.cylinder(16.2,4.2,0,1.9,1.1,1.4,'#6f8a5a',8);if(year>=2014){const c='#f2efe6';b.box(15.3,3.5,1.4,1.8,1.4,.3,'#d8d3c5');b.box(15.4,3.7,1.7,1.6,1.1,.4,c);b.box(15.75,3.85,2.1,.9,.7,1.1,c);for(const a of [15.45,16.75])b.box(a,4.2,2.2,.2,.3,.6,c);b.ball(16.2,3.55,4.2,.36,.42,.34,c,10);b.cylinder(16.2,4.2,3.9,.12,0,.3,c,8,false);}},[14.3,2.3,3.8,3.8]);},
+      ranong(){water(14.3,4.6,3.8,2.2);open.box(15.6,3.8,.1,.6,2.6,.06,WOOD);for(const x of [14.4,16.6])boat(x,5.4+r()*.6,1.5,pick(['#2f6f9a','#c0563f','#3f8a7a']));unit(b=>store(b,14.4,2.4,2.4,1.3,r),[14.4,2.4,2.4,1.3]);},
+      satun(){if(year>=1979)unit(b=>mosque(b,14.6,2.6,'satun'),[14.6,2.6,2.8,2.4]);else field(14.4,2.4,3.6,4.2,'coconut');},
+      songkhla(){open.box(14.3,2.2,-.016,3.8,4.6,.014,'#ddd0a8');if(year>=1966)unit(b=>{for(const [a,e,R] of [[1.6,3.6,.5],[2.2,3.9,.35],[1.2,4.1,.3]])b.ball(14.3+a,R*.5,2.2+e,R,R*.7,R,'#6d6458',6);b.box(15.6,5.55,.35,.7,.5,.5,'#a07a3a');b.box(15.75,5.6,.85,.45,.4,.7,'#a07a3a');b.ball(15.97,1.8,5.8,.26,.3,.26,'#a07a3a',8);b.box(16.25,5.7,1.45,.08,.28,.28,'#e2b450');},[15.2,5.3,1.2,1.1]);},
+      'surat-thani'(){unit(b=>srivijaya(b,15,2.8),[15,2.8,2.4,2.4]);},
+      trang(){field(14.3,2.3,3.8,2.6,'rubber');for(let i=0;i<3;i++){const x=14.5+i*1.2;open.box(x,5.4,0,.05,.05,.8,WOOD);open.box(x+.9,5.4,0,.05,.05,.8,WOOD);for(let k=0;k<3;k++)open.box(x+.05,5.42,.25+k*.18,.85,.02,.14,'#e8e2c8');}},
+      yala(){unit(b=>{for(let i=0;i<3;i++)b.box(14.3+i*.15,2.3+i*.35,0,3.8-i*.3,1.6-i*.35,2.6-i*.5,i%2?'#8a8f80':'#9a9e90');b.box(15.6,3.85,0,.8,.04,.7,'#2a2520');for(let i=0;i<8;i++)b.box(14.6+(i%4)*.7,3.91,1.1+Math.floor(i/4)*.4,.3,.012,.2,'#a0402a');b.box(14.4,2.4,2.6,3.6,1.4,.12,'#5a7550');},[14.3,2.3,3.8,1.6]);},
       trat(){water(14.3,4.4,3.8,2.4);for(const x of [14.5,16.3])unit(b=>stilt(b,x,4.6,1.6,1.3,'#9a7c5a',ZINC,r,marks,m(1.5)),[x,4.6,1.6,1.3]);boat(14.6,6.3,1.4,'#2f6f9a');field(14.4,2.3,3.6,1.8,'durian');}})[id]?.();
     scatterTrees(town?8:13,[[-5,2.7,7,.5],[8.9,12.4,9,.6],[-1,9,3.6,2],[14,7,4,1.6],[-5.2,17,23,1.2]],[1.4,2.4],sea?palm:tree);},
    fringe(){
@@ -480,17 +514,18 @@ export function createRegionScenery({scene,registerBuilding}){
     unit(b=>{for(let a=0;a<3;a++){const x=13.6+a*1.5;b.box(x,9.3,0,1.45,2,S*1.1,pick(P.accents));b.box(x+.08,11.3,.08,1.28,.012,S*.75,'#aab8ba',1);b.box(x-.01,11.3,S*.84,1.47,.012,S*.2,WHITE);}},[13.6,9.3,4.5,2]);
     for(const [x,z] of [[-4,6.5],[.7,9.1],[10.5,12.3],[15,8.95]])tree(open,x,z,2.4+r()*.8,P.leaf,r);}
   };
-  const layout=plan.regionId==='nakhon-sawan'?'river':plan.place.lanna?'lanna':plan.place.isan?'isan':plan.place.east||plan.place.west?'east':style;
+  const layout=plan.regionId==='nakhon-sawan'?'river':plan.place.lanna?'lanna':plan.place.isan?'isan':plan.place.east||plan.place.west||plan.place.south?'east':style;
   (LAYOUT[layout]??LAYOUT.market)();
   if(!plan.abroad){
    // What every Thai neighbourhood has: a wat or a mosque, flags at the gate, bananas in every gap.
    const flag=(b,x,z,h=S*2.1)=>{b.box(x,z,0,.04,.04,h,'#d9d4c6');[['#a51931',0],['#f4f5f8',1],['#2d2a4a',2],['#f4f5f8',4],['#a51931',5]].forEach(([c,i])=>b.box(x+.04,z,h-.06*(i+1),.42,.01,i===2?.12:.06,c));};
-   if(plan.faith==='muslim')unit(b=>{b.box(14.5,-.7,0,2.4,1.5,S*1.1,'#eae3cf');b.ball(15.7,S*1.1+.32,.05,.62,.55,.62,'#3f7a62',12);b.cylinder(17.2,-.5,0,.13,.08,S*2.4,'#eae3cf',8);b.ball(17.2,S*2.45,-.5,.15,.2,.15,'#3f7a62',8);for(let i=0;i<4;i++)b.box(14.75+i*.55,.8,.3,.32,.012,S*.6,'#3e4e54',1);b.box(15,.803,S*.8,1.4,.012,.12,'#c9a14a');},[14.5,-.7,3,1.5]);
+   if(['chachoengsao','pattani','narathiwat','satun','nakhon-si-thammarat'].includes(plan.regionId));
+   else if(plan.faith==='muslim')unit(b=>{b.box(14.5,-.7,0,2.4,1.5,S*1.1,'#eae3cf');b.ball(15.7,S*1.1+.32,.05,.62,.55,.62,'#3f7a62',12);b.cylinder(17.2,-.5,0,.13,.08,S*2.4,'#eae3cf',8);b.ball(17.2,S*2.45,-.5,.15,.2,.15,'#3f7a62',8);for(let i=0;i<4;i++)b.box(14.75+i*.55,.8,.3,.32,.012,S*.6,'#3e4e54',1);b.box(15,.803,S*.8,1.4,.012,.12,'#c9a14a');},[14.5,-.7,3,1.5]);
    else if(layout==='river')unit(b=>shrine(b,14.5,-.6,2.4,1.4),[14.5,-.6,2.4,1.4]);
    else if(layout==='lanna'){unit(b=>lannaChedi(b,15,-.35,1),[14.5,-.85,1,1]);if(!['nan','lampang'].includes(plan.regionId))unit(b=>lannaWat(b,15.7,-.9,1.9,2.6),[15.7,-.9,1.9,2.6]);}
    else if(layout==='isan'){unit(b=>plan.regionId==='kalasin'?octChedi(b,13.5,0):that(b,12.9,-.5,1.1),[12.9,-.6,1.2,1.2]);unit(b=>sim(b,15.5,-.75,2.6,1.6),[15.5,-.75,2.6,1.6]);}
    else if(plan.regionId==='udon-thani')unit(b=>sim(b,14.3,-.7,2.9,1.6),[14.3,-.7,2.9,1.6]);
-   else if(layout!=='village'&&plan.regionId!=='chachoengsao'){unit(b=>wat(b,14.3,-.7,2.9,1.6,r),[14.3,-.7,2.9,1.6]);unit(b=>chedi(b,17.15,-.1),[17.15,-.1,.8,.8]);}
+   else if(layout!=='village'){unit(b=>wat(b,14.3,-.7,2.9,1.6,r),[14.3,-.7,2.9,1.6]);unit(b=>chedi(b,17.15,-.1),[17.15,-.1,.8,.8]);}
    if(plan.faith!=='muslim'){open.box(14.95,1.05,0,.34,.28,.2,'#e4decd');open.ball(15.12,.34,1.19,.13,.15,.11,'#d9a92e',8);open.ball(15.12,.54,1.19,.07,.08,.07,'#d9a92e',8);open.cylinder(15.12,1.19,.61,.03,.0,.09,'#d9a92e',6,false);}
    flag(open,14.1,1.1);flag(open,8.95,1.25);flag(open,2.2,6.75,S*1.4);
    for(let i=0;i<14;i++){const x=-5+r()*23,z=(['lanna','isan','east'].includes(layout)?-2.4:-5)+r()*22;if(clearOfRoutes(x-.3,z-.3,.6,.6)&&clearOfLots(x-.3,z-.3,.6,.6)&&!(x>12.6&&z<7.2)&&!Object.values(FOOTPRINTS).some(([a,b,c,e])=>x>a-.4&&x<a+c+.4&&z>b-.4&&z<b+e+.4))bananas(open,x,z);}
