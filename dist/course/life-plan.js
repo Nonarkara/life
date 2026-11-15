@@ -13,6 +13,7 @@ import {PRIORITIES,prioritiesFor} from './priorities.js';
 import {climateLines} from './world-voice.js';
 import {birthYearOf} from './thai-history.js';
 import {t} from './i18n.js';
+import {lifeWarning} from './period-ledger.js';
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
 const BUDGETS=[['thrift','Save hard',{save:35,fun:5,learn:5}],['even','Keep it even',{save:20,fun:10,learn:10}],['enjoy','Enjoy it',{save:10,fun:25,learn:5}],['grow','Spend on learning',{save:15,fun:5,learn:25}]];
 const axisName=a=>a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label;
@@ -56,6 +57,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
     const door=option(local.door?t('Yes. Leave everything.'):t('Leave the world for the temple'),!!local.door,()=>{if(!local.door){local.door=true;draw();return;}apply(leaveWorld(getState()));},local.door?t('You cannot come back from this.'):undefined);door.dataset.door='1';c.append(door);}cards.push(c);}
   // Home: a step up, stay, or a step down. Only the home the family lives in moves on the ladder.
   if(ladderOpen(s)){const c=card('Where you live'),i=cards.length,was=rungAt(s,s.age-.5),now=s.finance.rung??birthRung(s),income=monthlyFlow(s,s.history?.at(-1)).income;for(const[to,verb]of [[was+1,'Move up: '],[was,'Stay: '],[was-1,'Move down: ']]){if(to<0||to>TOP)continue;const can=to<=was||canAfford(to,income),b=option(t(verb)+t(RUNGS[to].label),to===now,()=>{apply(setRung(getState(),to));onChosen();after(i);},can?'฿'+RUNGS[to].rent.toLocaleString('en')+t(' a month'):t('Rent is too high for this income'));b.disabled=!can;c.append(b);}cards.push(c);}
+  {const warn=lifeWarning(s,t);if(warn&&cards[0])cards[0].append(el('p','plan-key plan-warning',warn));}
   foot.replaceChildren(el('p','plan-signal',t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)),commit);commit.hidden=false;
   const controls='button,select';
   const activeCard=strip.children[shown],focused=document.activeElement;

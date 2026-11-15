@@ -479,3 +479,5 @@ body.has-plan .plan-title{display:none}
 @media(max-width:720px){
  .stage:has(#world-view:not([hidden])) .town-caption{bottom:58px;max-width:calc(100% - 16px)}
 }
+/* A warning that the life is about to end is body text on its own line, never a faint aside. */
+body.has-plan .plan-card>.plan-key.plan-warning{flex:0 0 100%;max-width:none;opacity:1;font-size:13px;line-height:1.35;margin:4px 0 0}

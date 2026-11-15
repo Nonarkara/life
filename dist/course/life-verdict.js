@@ -14,11 +14,14 @@ export const VERDICT_TITLE={monk:'You left for the temple at {a}.',fun:'You had 
 export const verdictTitle=(s,t=x=>x)=>t(VERDICT_TITLE[pathOf(s)]).replace('{a}',s.death?.age??s.age);
 // A life told as a story: how far it climbed, the one thing that broke it, and whether it came back.
 // Read only from the record. A twist is the worst single five years, in mood, health and money together.
+// An answer given at a review is written into that review's row (resolveEncounter), so the scene that
+// broke a row is one met at that review or in the years just before it, never at the review before,
+// and only one that cost wellbeing. If none did, the years did it: name nothing.
 export function lifeArc(s,titleOf=()=>null){
  const rows=(s.history??[]).filter(r=>r.age>=10);if(rows.length<2)return null;
  const worth=r=>r.finance?netWorth(r.finance):r.cash??0,score=r=>r.wellbeing+r.health*.5+Math.sign(worth(r))*Math.log10(1+Math.abs(worth(r)))*3;
  let twist=null,drop=0;for(let i=1;i<rows.length;i++){const d=score(rows[i-1])-score(rows[i]);if(d>drop&&d>=6){drop=d;twist=i;}}
- const last=rows.at(-1),seenAt=a=>(s.story?.seen??[]).filter(e=>e.age>=a-5&&e.age<=a).sort((x,y)=>(y.effects?.wellbeing??0)<(x.effects?.wellbeing??0)?1:-1)[0],points=rows.map(r=>({age:r.age,v:r.wellbeing}));
+ const last=rows.at(-1),seenAt=a=>(s.story?.seen??[]).filter(e=>e.age>a-5&&e.age<=a&&(e.effects?.wellbeing??0)<=-4).sort((x,y)=>x.effects.wellbeing-y.effects.wellbeing)[0],points=rows.map(r=>({age:r.age,v:r.wellbeing}));
  if(twist===null)return {points,twist:null,peak:[...rows].sort((a,b)=>b.wellbeing-a.wellbeing)[0].age,end:last.age,back:null};
  const before=rows[twist-1],low=rows[twist],after=rows.slice(twist+1),best=after.length?Math.max(...after.map(score)):null,hit=seenAt(low.age);
  return {points,peak:before.age,twist:{age:low.age,what:hit?titleOf(hit.id):null},end:last.age,back:best===null?null:best>=score(before)};

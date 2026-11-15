@@ -127,7 +127,7 @@ export const PIVOTS=[
  {
   // The fork a provincial life of this age actually met. Nobody here is under twenty.
   id:'three-roads',station:20,
-  prompt:'You are twenty and still working for your family. The people who own the oil press in town have sent an aunt to speak to them about you. Under the rice tin there is a letter from a college in Bangkok.',
+  prompt:'You are twenty and the family still counts on you. The people who own the oil press in town have sent an aunt to speak to them about you. Under the rice tin there is a letter from a college in Bangkok.',
   context:'Nobody at home has said which they want. Someone has started wiping the same shelf.',
   options:[
    {id:'stay',label:'Stay and carry on the family’s work',cost:'The same road and the same people, for life.',
