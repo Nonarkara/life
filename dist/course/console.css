@@ -184,6 +184,8 @@ body.console-mode>header{flex:none}
  .console-mode .rpg-dock .console-actions #save-status{font-size:calc(11px * var(--reading-scale))}
  .console-mode .rpg-dock .console-nav{padding:0 8px;gap:10px}
  .console-mode .rpg-dock .console-nav button{padding:2px 4px;min-height:28px;font-size:calc(13px * var(--reading-scale))}
+ /* Phone: all eight tabs fit at 360 px in English; longer labels still scroll. */
+ @media(max-width:480px){.console-mode .rpg-dock .console-nav{padding:0 4px;gap:4px;justify-content:space-between}.console-mode .rpg-dock .console-nav button{padding:2px;min-width:28px}}
  .console-mode .rpg-dock .console-panel{padding:6px 10px}
  .console-mode.decision-open .rpg-dock{visibility:hidden}
  .console-mode.birth-stage .rpg-dock{display:none}
@@ -231,6 +233,8 @@ body.console-mode>header{flex:none}
  .console-mode .rpg-dock .player-console{width:clamp(130px,22vw,220px);height:100%;justify-content:center;border-left:1px solid var(--line)}
  .console-mode .rpg-dock .console-actions{display:flex;flex-direction:column;align-items:flex-end;gap:2px;padding:2px 8px}
  .console-mode .rpg-dock .console-actions #commit{max-width:100%;white-space:normal}
+ /* Between stations the action column is empty; a 17 px sliver of it read as a stray rule. */
+ .console-mode.between-stations .rpg-dock .player-console{display:none}
  .console-mode.birth-stage .rpg-dock #childhood-memory{height:100%}
 }
 
@@ -261,6 +265,9 @@ body.console-mode>header{flex:none}
 /* The dock owns a row, never a patch over the floor. This keeps one camera
    for scenery and cast; long reference reading remains an explicit overlay. */
 @media(min-width:1280px){
+ /* The moving card and the Latest event link had no gutter; put both on the review's 12 px edge. */
+ .console-mode.between-stations:not(.decision-open) #console-plan{padding:6px 12px}
+ body.has-plan.dashboard .latest-event:not([open]){margin:0 12px}
  .console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open) main{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
  .console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open) .stage{grid-row:1;min-height:0}
  .console-mode:not(.birth-stage):not(.recap-stage):not(.decision-open) .player-console{grid-row:2;position:relative;inset:auto;width:100%;max-height:36dvh;border-width:1px 0 0}
