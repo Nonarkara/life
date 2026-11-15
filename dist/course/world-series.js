@@ -10,3 +10,10 @@ export const WORLD_FIRST=WORLD_YEARS[0],WORLD_LAST=WORLD_YEARS.at(-1);
 export const worldAt=year=>WORLD_SERIES[year]??null;
 // Conditions a scene can ask about. Each is false when the data for it is missing.
 export function conditions(year){const w=worldAt(year),old=worldAt(year-5),before=worldAt(year-1);return {cheapCredit:w?.lending!=null&&old?.lending!=null&&w.lending<old.lending-1.5,dearCredit:w?.lending!=null&&old?.lending!=null&&w.lending>old.lending+1.5,inflation:w?.inflation!=null&&w.inflation>=8,slump:w?.growth!=null&&w.growth<0,boom:w?.growth!=null&&w.growth>=8,bahtFell:w?.baht!=null&&before?.baht!=null&&w.baht>before.baht*1.1};}
+// Pay and prices in this game do not rise with the years, so a bank rate is counted after that year's
+// price rise: 12.5% on savings in a year when prices rose 12.7% paid nothing. null where either figure is missing.
+export const realRate=(key,year)=>{const w=worldAt(year);return w?.[key]==null||w.inflation==null?null:Math.round((w[key]-w.inflation)*10)/10;};
+// What a rate did across the years from..to-1, as a share of the balance: the yearly rates after prices,
+// added up, and never below zero. null unless every one of those years has a figure: a stretch that is only
+// partly on record is not scaled up from the part that is. The caller keeps its own authored rule.
+export function periodRate(key,from,to){let sum=0;for(let y=from;y<to;y++){const v=realRate(key,y);if(v===null)return null;sum+=v;}return to>from?Math.max(0,sum/100):null;}

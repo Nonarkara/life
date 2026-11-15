@@ -481,3 +481,30 @@ body.has-plan .plan-title{display:none}
 }
 /* A warning that the life is about to end is body text on its own line, never a faint aside. */
 body.has-plan .plan-card>.plan-key.plan-warning{flex:0 0 100%;max-width:none;opacity:1;font-size:13px;line-height:1.35;margin:4px 0 0}
+/* The year beside the plan. It lives only where the rail has an empty half; below that width the
+   one sentence about the person's own money sits in the money card instead. */
+.plan-world{display:none}
+@media(min-width:1280px){
+ body.has-plan .life-plan{grid-template-columns:minmax(0,620px) auto minmax(0,1fr)}
+ /* The strip fills the two plan columns without widening them: its own content must not size the tracks. */
+ body.has-plan .plan-strip{grid-column:1/3;width:0;min-width:100%}
+ .plan-world:not([hidden]){display:flex;gap:16px;align-items:center;grid-column:3;grid-row:1/3;align-self:stretch;min-width:0;padding-left:16px;border-left:1px solid var(--line)}
+ .plan-outlook{display:none}
+ .year-rates{margin:0;flex:0 0 auto;display:flex;gap:8px;align-items:center}
+ .year-rates svg{display:block;width:150px;height:44px}
+ .year-zero{stroke:var(--line);stroke-width:1}
+ .year-span{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+ .year-loans{stroke:var(--ink);stroke-width:1.5}
+ .year-savings{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:3 2}
+ .year-key{display:grid;gap:2px;font-size:11px}
+ .year-k{display:flex;gap:4px;align-items:baseline;white-space:nowrap}
+ .year-k b{font-variant-numeric:tabular-nums}
+ .year-k::before{content:"";width:12px;border-top:1.5px solid var(--ink);align-self:center}
+ .year-k-savings::before{border-top:1.5px dashed var(--muted)}
+ .year-text{min-width:0;max-width:60ch}
+ .year-head{margin:0;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .year-line{margin:2px 0 0;font-size:13px;line-height:1.35}
+}
+/* Between 1280 and 1440 the empty half is too narrow for chart and sentence: the sentence stays. */
+@media(min-width:1280px) and (max-width:1439px){.year-rates{display:none}}
+@media(min-width:1440px){.year-note{color:var(--muted)}}
