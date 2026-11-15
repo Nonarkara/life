@@ -53,6 +53,7 @@ import {holdingsValue} from './investments.js';
 import {routine,routineContext,routineCaption} from './routines.js';
 import {thaiEraForState,HISTORICAL_COHORTS,birthYearOf} from './thai-history.js';
 import {headlinesFor} from './world-headlines.js';
+import {worldLine as worldLineParts} from './world-line.js';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let state,age=0,speed=2,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,mode='world',tab='priorities',travel=null,elapsed=0,lastTime=0,lastPaint=0,dirty=true,saveOK=true,lastCheckpoint=0,arrival=0,childView=null,lastVisibleYear=-1;
 // Device scene memory is set before the first scene is offered on load (journey restore included).
 setFamiliar(metScenes());
@@ -216,12 +217,16 @@ function renderChildGuide(n){let bar=$('childhood-guide-controls');if(!bar){bar=
 // The world must say where you are, what year it is, and what the papers said.
 // Without it the diorama is a picture with no year on it. A life with no birth
 // year has no calendar to read: it says so, and it does not borrow a year.
+// When the year's own event is already on the strip, the papers stay quiet:
+// one event is told once.
 function worldLine(viewAge){
  const head=$('world-headline');if(!head)return;
- const shown=travel?.to??state,by=birthYearOf(shown),year=by===null?null:by+Math.floor(viewAge);
- const place=region(regionAt(shown,viewAge)).place,lines=year===null?[]:headlinesFor(year);
- const parts=year===null?[t('Scenario calendar · timeless'),place]:[String(year),place,...lines.slice(0,1).map(line=>t(line))];
- head.textContent=parts.join(' · ');
+ if(state.stage!=='birth'){head.hidden=true;return;}
+ const shown=state,by=birthYearOf(shown),year=by===null?null:by+Math.floor(viewAge);
+ const place=region(regionAt(shown,viewAge)).place;
+ const told=!!childhoodChapter(shown,Math.floor(viewAge)).happening;
+ const lines=year===null?[]:headlinesFor(year);
+ head.textContent=topConsole&&year!==null?t(place):worldLineParts({year,place,headline:lines[0]??null,told,t});
  head.hidden=!head.textContent;
 }
 function setAge(){

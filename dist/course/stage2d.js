@@ -361,7 +361,7 @@ export function describePaintedScene(state,age,time){
   // A scene that says another child is in the room must show that child. The
   // picture and the sentence are the same statement; they cannot disagree.
   if(state.childhood?.choices?.length&&age<10&&set!=='travel'){
-   const record=state.childhood.choices.find(r=>r.age===Math.floor(age))??state.childhood.choices.at(-1);
+   const record=state.childhood.choices.find(r=>r.age===Math.floor(age));
    const who=COMPANY[record?.choice];
    if(who&&!actors.some(a=>a.id===who))actors.push({id:who,activity:{pose:'stand',x:4,moving:false}});
   }

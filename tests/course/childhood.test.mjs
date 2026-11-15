@@ -121,3 +121,15 @@ test('the one-more-year-of-school question reaches only poorer households',()=>{
   assert.notEqual(pendingChildChoice(state,9)?.title,'Only one of you can go on',cls+' seed '+seed);
  }
 });
+
+// The world line above the picture: the year, the place, and what the papers said.
+// It must never invent a year, and it must not tell one event twice.
+import {worldLine} from '../../dist/course/world-line.js';
+import {headlinesFor} from '../../dist/course/world-headlines.js';
+test('the world line names the year, the place and the papers, and says one thing once',()=>{
+ assert.equal(worldLine({year:1981,place:'Lampang',headline:headlinesFor(1981)[0]}),'1981 · Lampang · '+headlinesFor(1981)[0]);
+ assert.equal(worldLine({year:null,place:'Lampang',headline:headlinesFor(1981)[0]}),'Scenario calendar · timeless · Lampang','a life with no birth year is given no year');
+ assert.equal(worldLine({year:2026,place:'Lampang',headline:null}),'2026 · Lampang','a year the papers did not cover gets no headline');
+ assert.equal(worldLine({year:1981,place:'Lampang',headline:headlinesFor(1981)[0],told:true}),'1981 · Lampang','the year is not told twice');
+ assert.ok(headlinesFor(1981).length>0,'the papers have a record for 1981');
+});

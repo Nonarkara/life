@@ -213,9 +213,9 @@ body.console-mode>header{flex:none}
 .console-mode.birth-stage .rpg-dock.shown{display:flex;flex-direction:column;grid-row:2;max-height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper)}
 .console-mode.birth-stage .rpg-dock #childhood-memory{flex:1;min-height:0;max-height:none;overflow:auto;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;color:var(--ink);padding:3px 10px;border-top:1px solid var(--line)}
 .console-mode.birth-stage .rpg-dock #childhood-memory .childhood-navigation{margin:0;flex:none}
-.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-title{flex:none;font-size:calc(15px * var(--reading-scale));white-space:nowrap}
-.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-decision{flex:1 1 260px;min-width:0;font-size:calc(13px * var(--reading-scale));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-biology{flex:1 1 220px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-title{flex:none;max-width:100%;font-size:calc(15px * var(--reading-scale));overflow-wrap:anywhere}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-decision{flex:1 1 260px;min-width:0;font-size:calc(13px * var(--reading-scale));white-space:normal;overflow-wrap:anywhere}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-biology{flex:1 1 220px;min-width:0;white-space:normal;overflow-wrap:anywhere}
 .console-mode.birth-stage .rpg-dock #childhood-memory #family-income{flex:none;white-space:nowrap}
 .console-mode.birth-stage .rpg-dock #childhood-memory .childhood-guide-controls{flex:none;margin:0}
 .console-mode.birth-stage .rpg-dock #childhood-memory[hidden]{display:none}
