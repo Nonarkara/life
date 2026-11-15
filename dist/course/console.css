@@ -185,7 +185,7 @@ body.console-mode>header{flex:none}
  .console-mode .rpg-dock .console-nav{padding:0 8px;gap:10px}
  .console-mode .rpg-dock .console-nav button{padding:2px 4px;min-height:28px;font-size:calc(13px * var(--reading-scale))}
  /* Phone: all eight tabs fit at 360 px in English; longer labels still scroll. */
- @media(max-width:480px){.console-mode .rpg-dock .console-nav{padding:0 4px;gap:4px;justify-content:space-between}.console-mode .rpg-dock .console-nav button{padding:2px;min-width:28px}}
+ @media(max-width:480px){.console-mode .rpg-dock .console-nav{padding:0 4px;gap:4px;justify-content:space-between}.console-mode .rpg-dock .console-nav button{padding:2px 5px;min-width:32px}}
  .console-mode .rpg-dock .console-panel{padding:6px 10px}
  .console-mode.decision-open .rpg-dock{visibility:hidden}
  .console-mode.birth-stage .rpg-dock{display:none}
@@ -448,7 +448,7 @@ body.has-plan .plan-title{display:none}
  .plan-foot{grid-column:1;grid-row:3;justify-self:stretch;padding:0}
  .plan-foot #commit{min-height:44px!important;padding:4px 12px}
  body.console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{top:auto;bottom:10px;right:8px;padding:0;background:none}
- body #overview{min-height:32px!important;padding:0 8px;white-space:nowrap;background:#0a0e14;color:#f3efe3}
+ body #overview{min-height:44px!important;padding:0 10px;white-space:nowrap;background:#0a0e14;color:#f3efe3}
  .town-caption{bottom:10px;min-height:32px;display:flex;align-items:center;padding:0 8px;max-width:calc(100% - 112px)}
 }
 /* Reading tabs (You, Money, CV...) are for reading: about half a phone screen, the plan keeps its fitted panel. */
@@ -484,9 +484,38 @@ body.has-plan .plan-title{display:none}
 @media(min-width:960px) and (max-width:1099.98px){#recap{display:grid;grid-template-columns:minmax(0,65ch) minmax(0,1fr);grid-template-rows:auto 1fr;gap:0 24px;align-items:start}#recap>*{grid-column:1/-1}#recap>.ending-verdict{grid-column:1;grid-row:1/3}#recap>.ending-route{grid-column:2;grid-row:1;margin:0}#recap>.ending-score{grid-column:2;grid-row:2;margin:12px 0 0}}
 
 .world-tools{display:flex;align-items:center;gap:6px;flex:none;margin-inline-start:auto}
-.world-tools #world-view{min-height:32px;max-width:100%;font-size:calc(11px * var(--reading-scale,1));padding:2px 5px;background:var(--deck,#0a0e14);color:var(--deck-text,#f3efe3);border:0}
+.world-tools #world-view{min-height:44px;max-width:100%;font-size:calc(11px * var(--reading-scale,1));padding:2px 8px;background:var(--deck,#0a0e14);color:var(--deck-text,#f3efe3);border:0}
 .world-tools #world-view:focus-visible{outline-color:var(--deck-accent,#f59e0b)}
 /* A text control in a two-control group: label plus padding, 32px (MSH), not a 44px slab over the town. */
 @media(max-width:720px){
  .stage:has(#world-view:not([hidden])) .town-caption{bottom:58px;max-width:calc(100% - 16px)}
 }
+/* A warning that the life is about to end is body text on its own line, never a faint aside. */
+body.has-plan .plan-card>.plan-key.plan-warning{flex:0 0 100%;max-width:none;opacity:1;font-size:13px;line-height:1.35;margin:4px 0 0}
+/* The year beside the plan. It lives only where the rail has an empty half; below that width the
+   one sentence about the person's own money sits in the money card instead. */
+.plan-world{display:none}
+@media(min-width:1280px){
+ body.has-plan .life-plan{grid-template-columns:minmax(0,620px) auto minmax(0,1fr)}
+ /* The strip fills the two plan columns without widening them: its own content must not size the tracks. */
+ body.has-plan .plan-strip{grid-column:1/3;width:0;min-width:100%}
+ .plan-world:not([hidden]){display:flex;gap:16px;align-items:center;grid-column:3;grid-row:1/3;align-self:stretch;min-width:0;padding-left:16px;border-left:1px solid var(--line)}
+ .plan-outlook{display:none}
+ .year-rates{margin:0;flex:0 0 auto;display:flex;gap:8px;align-items:center}
+ .year-rates svg{display:block;width:150px;height:44px}
+ .year-zero{stroke:var(--line);stroke-width:1}
+ .year-span{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+ .year-loans{stroke:var(--ink);stroke-width:1.5}
+ .year-savings{stroke:var(--muted);stroke-width:1.5;stroke-dasharray:3 2}
+ .year-key{display:grid;gap:2px;font-size:11px}
+ .year-k{display:flex;gap:4px;align-items:baseline;white-space:nowrap}
+ .year-k b{font-variant-numeric:tabular-nums}
+ .year-k::before{content:"";width:12px;border-top:1.5px solid var(--ink);align-self:center}
+ .year-k-savings::before{border-top:1.5px dashed var(--muted)}
+ .year-text{min-width:0;max-width:60ch}
+ .year-head{margin:0;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .year-line{margin:2px 0 0;font-size:13px;line-height:1.35}
+}
+/* Between 1280 and 1440 the empty half is too narrow for chart and sentence: the sentence stays. */
+@media(min-width:1280px) and (max-width:1439px){.year-rates{display:none}}
+@media(min-width:1440px){.year-note{color:var(--muted)}}

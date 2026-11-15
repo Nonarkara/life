@@ -13,6 +13,8 @@ import {PRIORITIES,prioritiesFor} from './priorities.js';
 import {climateLines} from './world-voice.js';
 import {birthYearOf} from './thai-history.js';
 import {t} from './i18n.js';
+import {lifeWarning} from './period-ledger.js';
+import {renderYearPanel,outlookLine} from './year-panel.js';
 const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
 const BUDGETS=[['thrift','Save hard',{save:35,fun:5,learn:5}],['even','Keep it even',{save:20,fun:10,learn:10}],['enjoy','Enjoy it',{save:10,fun:25,learn:5}],['grow','Spend on learning',{save:15,fun:5,learn:25}]];
 const axisName=a=>a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label;
@@ -26,7 +28,7 @@ export function effortFrom(main,second,locks={}){
 }
 export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()=>{}}){
  const root=el('section','life-plan');root.id='life-plan';root.setAttribute('aria-label','The next five years');root.hidden=true;mount.prepend(root);
- const steps=el('div','plan-steps');steps.setAttribute('role','group');steps.setAttribute('aria-label',t('The next five years'));const strip=el('div','plan-strip');const foot=el('div','plan-foot');root.append(steps,strip,foot);
+ const steps=el('div','plan-steps');steps.setAttribute('role','group');steps.setAttribute('aria-label',t('The next five years'));const strip=el('div','plan-strip');const foot=el('div','plan-foot');const world=el('aside','plan-world');world.setAttribute('aria-label',t('The year around you'));root.append(steps,strip,foot,world);
  let local={},stationKey='',shown=-1;
  const go=i=>{const card=strip.children[i];if(!card)return;strip.scrollTo({left:card.offsetLeft-strip.offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});};
  const after=i=>requestAnimationFrame(()=>{if(strip.scrollWidth>strip.clientWidth+4)go(i+1);});
@@ -45,9 +47,9 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
   // What you are secretly after: dealt three, keep two.
   if(canChooseGoals(s)){const c=card('What you are secretly after'),now=s.lifeGoals??[];for(const id of dealtGoals(s.seed))c.append(option(t(GOALS[id].label),now.includes(id),()=>{const cur=getState().lifeGoals??[],next=cur.includes(id)?cur.filter(x=>x!==id):[...cur,id].slice(-2);apply(setGoals(getState(),next));onChosen();},GOALS[id].pts+' pts'));c.append(el('p','plan-key',t('Keep two. Nobody sees them until the end.')));cards.push(c);}
   // One stop on the road, if the budget leaves room for it.
-  if(s.age>=15){const c=card('A stop on the road'),here=(s.stops??[]).find(x=>x.age===s.age)?.id,ok=canStop(s);if(ok)for(const id of dealtStops(s))c.append(option(t(STOPS[id].label),here===id,()=>{apply(setStop(getState(),id));onChosen();}));else c.append(el('p','plan-key',t('Nothing left over for the road. Spend more on fun to stop.')));cards.push(c);}
+  if(s.age>=15){const c=card('A stop on the road'),here=(s.stops??[]).find(x=>x.age===s.age)?.id,ok=canStop(s);if(ok)for(const id of dealtStops(s))c.append(option(t(STOPS[id].label),here===id,()=>{apply(setStop(getState(),id));onChosen();}));else c.append(el('p','plan-key',t('Nothing left over for the road. Spend more on fun to stop.')));c.append(el('p','plan-key',t('{n} stops taken · unspent cash evaporates at death').replace('{n}',(s.stops??[]).length)));cards.push(c);}
   // Money
-  if(s.finance&&s.age>=15){const c=card('Your money'),i=cards.length,b=s.finance.budget;for(const[,label,v]of BUDGETS)c.append(option(label,b&&b.save===v.save&&b.fun===v.fun&&b.learn===v.learn,()=>{apply(setBudget(getState(),v));onChosen();after(i);},`${v.save} / ${v.fun} / ${v.learn}`));c.append(el('p','plan-key','Save / fun / learn, % of income'));
+  if(s.finance&&s.age>=15){const c=card('Your money'),i=cards.length,b=s.finance.budget;for(const[,label,v]of BUDGETS)c.append(option(label,b&&b.save===v.save&&b.fun===v.fun&&b.learn===v.learn,()=>{apply(setBudget(getState(),v));onChosen();after(i);},`${v.save} / ${v.fun} / ${v.learn}`));c.append(el('p','plan-key','Save / fun / learn, % of income'));{const out=outlookLine(s,t);if(out)c.append(el('p','plan-key plan-outlook',out));}
    if(s.age>=20){const pct=s.finance.goldPct??0,g=el('div','plan-row');g.append(el('span','plan-row-label',t('Gold')));const seg=el('div','plan-seg');for(const v of GOLD_PCTS){const b=el('button','plan-seg-btn',v+'%');b.type='button';b.setAttribute('aria-pressed',pct===v?'true':'false');b.onclick=()=>{apply(setGoldPct(getState(),v));onChosen();};seg.append(b);}g.append(seg);c.append(g);if(pct){const y=(birthYearOf(s)??1981)+s.age,income=monthlyFlow(s,s.history?.at(-1)).income,baht=Math.round(income*60*pct/100);c.append(el('p','plan-key',t('Next 5 years: ฿{a} into gold, at ฿{p} a baht-weight today').replace('{a}',baht.toLocaleString('en')).replace('{p}',goldPrice(y).toLocaleString('en'))));}}
    cards.push(c);}
   // Habits
@@ -56,6 +58,8 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,onChosen=()
     const door=option(local.door?t('Yes. Leave everything.'):t('Leave the world for the temple'),!!local.door,()=>{if(!local.door){local.door=true;draw();return;}apply(leaveWorld(getState()));},local.door?t('You cannot come back from this.'):undefined);door.dataset.door='1';c.append(door);}cards.push(c);}
   // Home: a step up, stay, or a step down. Only the home the family lives in moves on the ladder.
   if(ladderOpen(s)){const c=card('Where you live'),i=cards.length,was=rungAt(s,s.age-.5),now=s.finance.rung??birthRung(s),income=monthlyFlow(s,s.history?.at(-1)).income;for(const[to,verb]of [[was+1,'Move up: '],[was,'Stay: '],[was-1,'Move down: ']]){if(to<0||to>TOP)continue;const can=to<=was||canAfford(to,income),b=option(t(verb)+t(RUNGS[to].label),to===now,()=>{apply(setRung(getState(),to));onChosen();after(i);},can?'฿'+RUNGS[to].rent.toLocaleString('en')+t(' a month'):t('Rent is too high for this income'));b.disabled=!can;c.append(b);}cards.push(c);}
+  renderYearPanel(world,s,t);
+  {const warn=lifeWarning(s,t);if(warn&&cards[0])cards[0].append(el('p','plan-key plan-warning',warn));}
   foot.replaceChildren(el('p','plan-signal',t('Ages {a} to {b}').replace('{a}',s.age).replace('{b}',s.age+5)),commit);commit.hidden=false;
   const controls='button,select';
   const activeCard=strip.children[shown],focused=document.activeElement;

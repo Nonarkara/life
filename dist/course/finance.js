@@ -8,6 +8,14 @@ import {holdingsValue,validHoldings,markHoldings,validInvestmentLedger} from './
 import {periodEconomy} from './economy.js';
 import {validRung,rungRent} from './housing-ladder.js';
 import {mortgageDue} from './life-persona.js';
+import {birthYearOf} from './thai-history.js';
+import {periodRate} from './world-series.js';
+// What the bank did to a balance over these years: debt at the Thai lending rate, money set aside at
+// the Thai deposit rate, both counted after that year's price rise (world-series.js realRate). A stretch not wholly on record (before 1976, after 2025), a timeless
+// life, or one lived in another country keeps the authored rule: debt costs 35%, savings earn nothing.
+// ponytail: simple interest on the opening balance, not compounding.
+export const inThailand=(state,age=state.age)=>REGIONS[state.finance?.region??homeRegion(state.birth,age)]?.country==='TH';
+export function bankYears(state,from,to){const by=birthYearOf(state),here=inThailand(state,from),loan=by===null||!here?null:periodRate('lending',by+from,by+to),save=by===null||!here?null:periodRate('deposit',by+from,by+to);return {loan:loan??.35,save:save??0,real:loan!==null};}
 export {WORKPLACES};
 export const CITY_TRAVEL={expense:1000,minutes:50};
 export const validFinanceLocation=(f,age=80)=>f===undefined||!!f&&(f.housing===undefined||Object.hasOwn(HOUSING,f.housing))&&(f.workplace===undefined||Object.hasOwn(WORKPLACES,f.workplace))&&(f.locationSince===undefined||Number.isInteger(f.locationSince)&&f.locationSince>=20&&f.locationSince<=age)&&(f.region===undefined||Object.hasOwn(REGIONS,f.region))&&(f.regionSince===undefined||Number.isInteger(f.regionSince)&&f.regionSince>=20&&f.regionSince<=age+5)&&validRung(f.rung);
@@ -57,14 +65,17 @@ export function advanceFinance(before,next){
  const economic=before.economy?periodEconomy(before.economy,before.age,next.age):{rows:[],contractions:[],meanWageFactor:1};
  const incomeAdjustment=flow.source==='Work income'?Math.round(flow.income*remainingMonths*(economic.meanWageFactor-1)):0;
  const lostIncome=flow.source==='Work income'?flow.income*Math.min(remainingMonths,row.unemployedMonths??0):0;
- const income=flow.income*remainingMonths+incomeAdjustment-lostIncome+Math.max(0,adjustment)+Math.max(0,-shock),essential=flow.essential*remainingMonths+Math.max(0,-adjustment)+Math.max(0,shock)+habits+Math.round(f.debt*.35);
- let available=f.available,reserve=f.reserve,debt=f.debt,free=income-essential;
+ const bank=bankYears(before,before.age,next.age),debtCost=Math.round(f.debt*bank.loan),interest=Math.round(f.reserve*bank.save);
+ const income=flow.income*remainingMonths+incomeAdjustment-lostIncome+Math.max(0,adjustment)+Math.max(0,-shock),essential=flow.essential*remainingMonths+Math.max(0,-adjustment)+Math.max(0,shock)+habits+debtCost;
+ // Interest is earned on what was set aside going in, and is there to be drawn on if the years run short.
+ let available=f.available,reserve=f.reserve+interest,debt=f.debt,free=income-essential;
  if(free<0){let need=-free;const wallet=Math.min(available,need);available-=wallet;need-=wallet;const buffer=Math.min(reserve,need);reserve-=buffer;need-=buffer;debt+=need;free=0;}
  else{const repaid=Math.min(debt,free);debt-=repaid;free-=repaid;}
  const fun=Math.floor(free*f.budget.fun/100),learn=Math.floor(free*f.budget.learn/100),saved=Math.floor(free*f.budget.save/100);
  // The spendable remainder pays for everyday living; a small part is left over. What you
  // choose to save is what builds a runway (authored tuning, not a household survey).
  const remainder=free-fun-learn-saved,lifestyle=Math.floor(remainder*.85);
+ // Interest is not pay: it never passes through the budget, so it buys neither fun nor learning.
  reserve+=saved;available+=remainder-lifestyle;
  const effort=row.effort??before.effort,focus=(effort.iq+effort.craft)/10,travel=Math.max(.4,1-flow.commute/240);
  const learning=Math.min(6,Math.floor(learn/3000*focus*travel));
@@ -73,7 +84,7 @@ export function advanceFinance(before,next){
  const since=f.locationSince??(before.age>=20?before.age:undefined),locationRecord=since===undefined?{}:{locationSince:since};
  if(f.region)Object.assign(locationRecord,{region:f.region,regionSince:f.regionSince??20});
  if(f.rung!==undefined)locationRecord.rung=f.rung;
- const finance={...f,...locationRecord,available,reserve,debt,receipts:[...f.receipts,{id,age:next.age,kind:'period',months,income,essential,fun,learn,lifestyle,saved,expense:essential+fun+learn+lifestyle,change:income-essential-fun-learn-lifestyle,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord}]};
+ const finance={...f,...locationRecord,available,reserve,debt,receipts:[...f.receipts,{id,age:next.age,kind:'period',months,income:income+interest,essential,fun,learn,lifestyle,saved,expense:essential+fun+learn+lifestyle,change:income+interest-essential-fun-learn-lifestyle,source:flow.source,incomeAdjustment,interest,debtCost,housing:f.housing,workplace:f.workplace??'local',...locationRecord}]};
  const snapshot={available,reserve,debt,income,essential,fun,learn,lifestyle,months,source:flow.source,incomeAdjustment,housing:f.housing,workplace:f.workplace??'local',...locationRecord};
  if(![available,reserve,debt,income,essential].every(integer)||!Number.isSafeInteger(netWorth(finance)))return before;
  return {...next,finance,wellbeing,skills,history:[...next.history.slice(0,-1),{...row,wellbeing,finance:{...snapshot,...(f.holdings?{holdings:structuredClone(f.holdings),realizedGain:f.realizedGain??0}:{})},...(before.economy?{economy:{from:before.age,to:next.age,incomeAdjustment,contractions:economic.contractions.map(r=>r.age),marketChange:f.receipts.filter(r=>r.kind==='market'&&r.age>before.age&&r.age<=next.age).reduce((n,r)=>n+r.change,0)}}:{}),financeSkills:{iq:learning}}]};

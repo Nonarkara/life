@@ -146,11 +146,17 @@ export function renderEnding(root,state,{storage}={}){
  // The collection, re-read. What you were after, what you passed over, and the number to beat.
  {const r=scoreLife(state),box=document.createElement('section');box.className='ending-score';const add=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;n.textContent=text;box.append(n);return n;};let best=0;try{best=Number(storage?.getItem('life-best-score'))||0;if(r.total>best)storage?.setItem('life-best-score',String(r.total));}catch{}
   add('p','score-total',String(r.total));add('p','score-of',best&&r.total<=best?t('Your best is {n}. You could do this differently.').replace('{n}',best):t('Your best life so far.'));
+  const goalPts=r.goals.reduce((n,g)=>n+(g.met?g.pts:0),0),titlePts=Math.max(0,r.total-r.cards-r.road-goalPts);
+  add('p','score-breakdown',t('Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles}').replace('{cards}',r.cards).replace('{road}',r.road).replace('{goals}',goalPts).replace('{titles}',titlePts));
+  const finalCash=state.finance?netWorth(state.finance):state.cash;
+  if(finalCash>0)add('p','score-evaporate',t('Unspent cash ({cash}) evaporates at death — spend on experiences while you live.').replace('{cash}',money(finalCash)));
   const ul=document.createElement('ul');ul.className='score-goals';for(const g of r.goals){const li=document.createElement('li');li.textContent=(g.met?'✓ ':'✗ ')+t(g.label)+(g.met?' +'+g.pts:'');ul.append(li);}box.append(ul);
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
   add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));numbers.before(box);}
- {const said=document.createElement('details');said.className='full-life-record ending-said';const sum=document.createElement('summary');sum.textContent=t('What this life said');said.append(sum);renderReading(said,state);numbers.before(said);}
+ {const said=document.createElement('details');said.className='full-life-record ending-said';const sum=document.createElement('summary');sum.textContent=t('What this life said');said.append(sum);renderReading(said,state);numbers.before(said);
+  const roads=said.querySelector('.reading-roads');
+  if(roads){const btn=document.createElement('button');btn.type='button';btn.className='ending-rewind';btn.textContent=t('Try another turning point →');btn.onclick=()=>{said.open=true;roads.scrollIntoView({behavior:'smooth',block:'nearest'});};said.before(btn);}}
 }
 
 export {lifeCard} from './life-card.js';

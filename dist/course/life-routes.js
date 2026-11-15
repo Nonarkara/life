@@ -22,7 +22,9 @@ export const DOORS={
  rice_debt:[['temple-boy','stay']],
  cadet:[['school-fall-climb','rise'],['school-apprentice','both']],
  tycoon:[['school-leave','send'],['school-apprentice','both']],
- far_scholar:[['school-apprentice','school'],['school-fall-climb','retrain']]
+ far_scholar:[['school-apprentice','school'],['school-fall-climb','retrain']],
+ border_pm:[['parent-language','learn'],['school-apprentice','apprentice'],['school-leave','go']],
+ singer_office:[['school-apprentice','school'],['college-cost','merit'],['college-cost','loan'],['college-cost','half']]
 };
 const answers=s=>[...(s.history??[]).flatMap(row=>row.pivots??[]),...(s.pivots??[])];
 const fits=(r,cls,sex,y)=>(!r.fit?.classes||r.fit.classes.includes(cls))&&(!r.fit?.sex||r.fit.sex===sex)&&(!r.fit?.years||(y>=r.fit.years[0]&&y<=r.fit.years[1]));

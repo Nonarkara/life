@@ -47,7 +47,7 @@ export function initChildhoodView({onChoose,onContinue,getState}){
   const body=el('div',undefined,'child-body');
   const left=el('div',undefined,'child-left');
   if(result){left.append(el('p',result.note,'decision-context'),el('p',changes(result.effects),'pivot-cost'));const next=el('button','Continue →');next.type='button';next.id='child-continue';next.onclick=onContinue;left.append(next);}
-  else{left.append(el('p',question.context,'decision-context'));const options=el('div',undefined,'pivot-options');for(const o of question.options){const b=el('button',undefined,'pivot-option');b.type='button';b.append(choiceSymbol(o.symbol),el('span',o.label,'pivot-label'),el('small',changes(o.effects),'pivot-cost'));b.onclick=()=>onChoose(question,o);options.append(b);}left.append(options);}
+  else{left.append(el('p',question.context,'decision-context'));const options=el('div',undefined,'pivot-options');for(const o of question.options){const b=el('button',undefined,'pivot-option');b.type='button';b.append(choiceSymbol(o.symbol),el('span',o.label,'pivot-label'));b.onclick=()=>onChoose(question,o);options.append(b);}left.append(options);}
   body.append(left);
   if(state&&!result)body.append(snapshot(state));
   root.append(body);
