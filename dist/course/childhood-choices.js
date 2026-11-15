@@ -31,9 +31,9 @@ export const CHILD_CHOICES=[
 ];
 // A historical childhood asks about the place it is lived in. Options stay on their year's
 // question so old saves and records keep their lookups.
-const RURAL=['a rice-farming household','a fishing household'],TOWN=['a market-stall household','a household in a riverside community'];
+const TOWN=['a market-stall household','a household in a riverside community'];
 const ALT={
- 7:{when:s=>RURAL.includes(s.birth.home),title:'Frogs after the rain',context:'The field is full of frogs tonight, and the torch is yours if you want it.',ids:['torch','story']},
+ 7:{when:s=>/^a (rice-farming|fishing) household/.test(s.birth.home??''),title:'Frogs after the rain',context:'The field is full of frogs tonight, and the torch is yours if you want it.',ids:['torch','story']},
  8:{when:s=>TOWN.includes(s.birth.home),title:'The bell on the soi',context:'The ice-cream cart is coming down the soi. You have one coin, and a younger cousin is looking at it.',ids:['share','keep','coin']},
  9:{when:s=>s.seed%2===0,title:'Before light',context:'Your grandmother wants someone to carry the food to the monks before it is light.',ids:['carry','bed']}
 };
@@ -84,7 +84,7 @@ export function pendingChildChoice(state,age){
  const cls=state.intake?.class??state.birth?.class,same=first?CHILD_CHOICES.filter(q=>q.age===first.age&&(!q.classes||!cls||q.classes.includes(cls))):[],question=first&&state.intake?.class?same[Math.floor(rand(state.seed,first.age,'child-variant')*same.length)]:first;
  if(question?.age!==6||question!==first)return question&&shaped(state,question);
  const home=state.birth.home;
- const work=home==='a market-stall household'?'help':home==='a rice-farming household'?'farm':'chores';
+ const work=home==='a market-stall household'?'help':/^a rice-farming household/.test(home??'')?'farm':'chores';
  return {...question,options:question.options.filter(option=>['school',work,'ask'].includes(option.id))};
 }
 export function nextChildAge(state){return CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&!(state.childhood?.choices??[]).some(r=>r.age===q.age))?.age??10;}

@@ -79,4 +79,18 @@ export const ROUTE_ENCOUNTERS=ROUTE_DATA.flatMap(r=>r.scenes.map(({stage,years,e
   const prev=reached(s,r,stage-1);return prev!==null&&prev<s.age;
  }
 })));
-export const BLOG_ENCOUNTERS=BLOG_SCENES.map(({years,...scene})=>({...scene,bank:true,eligible:s=>!!s.intake?.class&&inStation(s,years)&&rand(s.seed,s.age,scene.id)<.4}));
+// These scenes come from one writer's life: a degree, an office, years abroad. Each now reaches only the
+// lives that share its ground, so a farm child is not handed a thesis, a client or a flight home.
+const NEEDS={
+ abroad:'n1_grandparent n3_message n2_twelve_hours n2_island_farm n2_window_smoke',
+ rich:'n1_tech',
+ college:'n1_expert n1_project n1_quotes n1_scholarship n1_grading n1_panel n1_topic n1_eldercare n2_false_word n2_fast_track n2_unpaid_hall n2_gets_to_point n2_tenure n3_recorder n3_letters n3_stage n3_goodenough n1_walkout n1_dream n1_checkup n3_facade n3_redpen n2_lost_pen n2_busy_year',
+ office:'n1_poll n2_first_trip n2_no_children n2_fast_walker n1_no_time n3_sevenkilo n1_flight n1_envelope n2_bad_boss n2_off_record n2_twentyfour n3_sideline n3_slips n3_deadline n3_promoted n3_whisper n3_oldmessage n1_last_post n1_wfh n3_homedesk n2_ribbon'};
+const NEED=Object.fromEntries(Object.entries(NEEDS).flatMap(([k,ids])=>ids.split(' ').map(id=>[id,k])));
+const answered=s=>[...(s.pivots??[]),...(s.history??[]).flatMap(r=>r.pivots??[])];
+// Only facts that cannot change later count: a saved life is re-checked against its own record.
+const begun=(s,...routes)=>routes.some(r=>typeof flags(s)['r_'+r+'_1']==='number');
+const studied=s=>(s.history??[]).some(r=>r.pathway==='college')||typeof flags(s).r_scholarship_kid_2==='number'||begun(s,'far_scholar');
+const travelled=s=>s.intake?.class==='high_class'||answered(s).some(p=>p.pivot==='year-abroad'&&p.choice!=='stay')||typeof flags(s).r_far_scholar_2==='number'||typeof flags(s).r_scholarship_kid_2==='number';
+export const blogFits=(s,id)=>({rich:x=>x.intake?.class==='high_class',abroad:travelled,college:studied,office:x=>studied(x)||['middle_class','bureaucratic_class','high_class'].includes(x.intake?.class)}[NEED[id]]??(()=>true))(s);
+export const BLOG_ENCOUNTERS=BLOG_SCENES.map(({years,...scene})=>({...scene,bank:true,eligible:s=>!!s.intake?.class&&inStation(s,years)&&rand(s.seed,s.age,scene.id)<.4&&blogFits(s,scene.id)}));

@@ -162,7 +162,8 @@ export function configureLife(s,options={}){
   const cash=t.cash;
   // Where you are born follows your class; place and household text agree with it.
   const regionId=options.region&&(CLASS_REGIONS[cls]??[]).includes(options.region)?options.region:defaultRegion(s.seed,cls);
-  const {place,home}=REGIONS[regionId];
+  // A home that did not exist yet is replaced by the household that stood there: no 1949 birth beside a 1980s estate.
+ const {place,homeBefore}=REGIONS[regionId],home=homeBefore&&(birthYear??1981)<homeBefore[0]?homeBefore[1]:REGIONS[regionId].home;
   // Some city children grow up with grandparents in the provinces while parents work.
   const away=CITY_BIRTHS.includes(regionId)&&rand(s.seed,0,'grandparents')<(regionId==='sukhumvit'?.12:.3);
   const childhood=away?{region:rand(s.seed,0,'grandparents-place')<.6?'isan-village':'pak-phanang',from:3,to:9}:undefined;

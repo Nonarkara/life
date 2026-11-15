@@ -1185,6 +1185,13 @@ Walthamstow, London|วอลแธมสโตว์ ลอนดอน|伦敦�
 a household in a riverside community|ครอบครัวในชุมชนริมน้ำ|河畔社区的家庭|川沿いのコミュニティの家庭|강변 공동체의 가정
 a rice-farming household|ครอบครัวชาวนา|种稻的农家|米作りの農家|벼농사를 짓는 가정
 a household in an apartment block|ครอบครัวในอพาร์ตเมนต์|公寓楼里的家庭|集合住宅の家庭|아파트 단지의 가정
+a fishing household on the Rayong coast|ครอบครัวชาวประมงริมชายฝั่งระยอง|罗勇海边的渔民家庭|ラヨーンの海辺の漁師の家庭|라용 해안의 어부 가정
+a fishing household on the Chonburi coast|ครอบครัวชาวประมงริมชายฝั่งชลบุรี|春武里海边的渔民家庭|チョンブリーの海辺の漁師の家庭|촌부리 해안의 어부 가정
+a rice-farming household near Si Maha Phot|ครอบครัวชาวนาใกล้ศรีมหาโพธิ|诗玛哈坡附近的稻农家庭|シーマハーポート近くの稲作農家|시마하폿 근처의 벼농사 가정
+a rice-farming household by the Rangsit canals|ครอบครัวชาวนาริมคลองรังสิต|兰实运河边的稻农家庭|ランシット運河沿いの稲作農家|랑싯 운하 옆의 벼농사 가정
+a rice-farming household near Khorat|ครอบครัวชาวนาใกล้โคราช|呵叻附近的稻农家庭|コラート近くの稲作農家|코랏 근처의 벼농사 가정
+a household in a wooden house by the Bang Na canals|ครอบครัวในบ้านไม้ริมคลองบางนา|挽那运河边木屋里的家庭|バンナーの運河沿いの木造家屋の家庭|방나 운하 옆 나무집의 가정
+a civil servant household in Khon Kaen town|ครอบครัวข้าราชการในตัวเมืองขอนแก่น|孔敬城里的公务员家庭|コーンケン市街の公務員の家庭|콘깬 시내의 공무원 가정
 a fishing household|ครอบครัวชาวประมง|渔民家庭|漁師の家庭|어부 가정
 a household in a wooden bungalow by the sea|ครอบครัวในบังกะโลไม้ริมทะเล|海边木屋里的家庭|海辺の木造バンガローの家庭|바닷가 목조 방갈로의 가정
 a household in a town shophouse row|ครอบครัวในตึกแถวกลางเมือง|城里一排骑楼店屋中的家庭|町のショップハウス長屋の家庭|시내 상가주택 줄집의 가정

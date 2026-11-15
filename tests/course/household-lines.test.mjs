@@ -53,3 +53,23 @@ test('a painter is told as a maker, a novice as a monk, never as a stage or a wa
   const d=pathwayPeriod(p,.5).description;assert.ok(d===''||WORK_LINES.painter.includes(d),d);
  }
 });
+// A 1949 child is not born beside a 1980s industrial estate or a 1970s apartment block.
+test('an early birth gets the household that stood there',()=>{
+ const home=(region,cls,y)=>configureLife(newLife(5),{class:cls,birthYear:y,region}).birth.home;
+ assert.equal(home('rayong','working_class',1949),'a fishing household on the Rayong coast');
+ assert.equal(home('rayong','working_class',1981),'a household near the industrial estate');
+ assert.equal(home('bang-na','middle_class',1955),'a household in a wooden house by the Bang Na canals');
+ assert.equal(home('bang-na','middle_class',1975),'a household in a wooden house by the Bang Na canals');
+ assert.equal(home('bang-na','middle_class',1981),'a household in an apartment block');
+ assert.equal(home('rayong','working_class',1975),'a fishing household on the Rayong coast');
+});
+import {blogFits} from '../../dist/course/life-routes.js';
+// A farm child is not handed a thesis, a client or a flight home: writer-life scenes need the ground they stand on.
+test('scenes from a degree, an office or abroad reach only lives that have them',()=>{
+ const at=cls=>({...life(9,cls,'female',1981),age:30});
+ assert.ok(!blogFits(at('low_class'),'n1_grandparent'));assert.ok(!blogFits(at('low_class'),'n1_project'));assert.ok(!blogFits(at('low_class'),'n2_bad_boss'));
+ const local=at('working_class');local.story={...local.story,flags:{...local.story.flags,r_far_scholar_1:20}};assert.ok(!blogFits(local,'n1_grandparent'),'a local university is not abroad');
+ assert.ok(blogFits(at('middle_class'),'n2_bad_boss'));assert.ok(blogFits(at('high_class'),'n1_grandparent'));
+ const grad=at('low_class');grad.history=[...grad.history,{age:25,pathway:'college'}];assert.ok(blogFits(grad,'n1_project'));
+ assert.ok(blogFits(at('low_class'),'n1_horn'));
+});
