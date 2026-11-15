@@ -13,8 +13,12 @@ test('the default first five years take50seconds; skipping leads to a real age-s
  assert.equal([0,1,2,3,4].reduce((n,a)=>n+childYearSeconds(a),0),50);const s=skipChildIntro(newLife(31));assert.equal(nextChildAge(s),6);assert.equal(pendingChildChoice(s,6).age,6);assert.equal(decisionTempo({stage:'birth',childhood:true,speed:20}).held,true);
 });
 test('childhood answers apply once and keep the newborn record distinct from later learning',()=>{
- let s=newLife(31),origin=s.cash;for(const age of [6,7,8,9]){const q=pendingChildChoice(s,age),before=s;s=chooseChild(s,q.age,q.options[0].id);assert.notEqual(s,before);assert.equal(chooseChild(s,q.age,q.options[0].id),s);assert.ok(validate(s));}
- const grown=begin(s);assert.ok(validate(grown));assert.equal(grown.history[0].cash,origin);assert.equal(grown.childhood.choices.length,4);assert.ok(grown.skills.iq>0);
+ // The childhood is drawn, not fixed: the first beat and the last one are every life's,
+ // the middle ones are the seed's. So the walk follows the spine, not the calendar.
+ let s=newLife(31),origin=s.cash,beats=[];
+ for(let age=nextChildAge(s);age<10;age=nextChildAge(s)){const q=pendingChildChoice(s,age),before=s;s=chooseChild(s,q.age,q.options[0].id);beats.push(q.age);assert.notEqual(s,before);assert.equal(chooseChild(s,q.age,q.options[0].id),s);assert.ok(validate(s));}
+ assert.ok(beats.length>=2,'a childhood keeps its first and its last beat');assert.equal(beats[0],6);assert.equal(beats.at(-1),9);
+ const grown=begin(s);assert.ok(validate(grown));assert.equal(grown.history[0].cash,origin);assert.equal(grown.childhood.choices.length,beats.length);assert.ok(grown.skills.iq>0);
 });
 test('a figure is sized by the plate it stands in, and a seated pose keeps its own height',()=>{
  // The figure fraction is the adult's height in that painting. No blanket

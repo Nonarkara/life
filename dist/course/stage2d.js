@@ -42,6 +42,10 @@ const SETS={
   travel:{plate:'street-day',night:'street-dusk',ground:.88,figure:.42,span:[0,1]},
 };
 
+// A childhood answer that puts another person in the room. The picture has to
+// show who the sentence names, or the scene and the diorama tell different stories.
+const COMPANY={invite:'friend',play:'friend',friend:'friend',rules:'friend',share:'friend',story:'elder',carry:'elder'};
+
 // Every cycle is two drawings played on twos: the way limited animation works.
 const ROLES={
   player:{
@@ -148,6 +152,9 @@ function sheetFor(actor,age){
   if(actor==='friend')return 'friend';
   if(actor==='partner')return 'partner';
   if(actor==='rival')return 'rival';
+  // A grandmother is a grandmother at every age. Only the life itself grows into
+  // the child and elder sheets; the people around it keep their own.
+  if(actor==='elder')return 'elder';
   return age<13?'child':age>=60?'elder':'player';
 }
 
@@ -233,12 +240,14 @@ const BEATS={
   // The classroom, and the boy who does not let up.
   bully:{plate:'beat-classroom',ground:.86,figure:.40,effect:'shadow',
     actors:[{id:'player',pose:'crouch',x:.40},{id:'rival',pose:'guard',x:.62}]},
-  // The report card, good or bad.
+  // The report card, good or bad. The classroom is painted with desks and
+  // chairs, so the student sits without bringing her own furniture: a desk
+  // inside a room full of desks is how a figure ends up in two chairs.
   grades:{plate:'beat-classroom',ground:.86,figure:.36,effect:'sun',
-    actors:[{id:'player',pose:'write',x:.46}]},
+    actors:[{id:'player',pose:'sit',x:.46}]},
   // The report card that did not come back well.
   'grades-bad':{plate:'beat-classroom',ground:.86,figure:.36,
-    actors:[{id:'player',pose:'write',x:.46}]},
+    actors:[{id:'player',pose:'sit',x:.46}]},
   // The bed, and the body that is being repaired.
   bed:{plate:'beat-room',ground:.74,figure:.34,
     actors:[{id:'player',pose:'lie',x:.26,anchor:{x:.26,y:.55}}]},
@@ -349,6 +358,13 @@ export function describePaintedScene(state,age,time){
  else{
   actors=set==='home'?homeCast(state,age,time,goal,life,player):[{id:'player',activity:player}];
   const flags=Object.fromEntries(Object.entries(flagsOf(state)).filter(([,value])=>typeof value!=='number'||value<=age));
+  // A scene that says another child is in the room must show that child. The
+  // picture and the sentence are the same statement; they cannot disagree.
+  if(state.childhood?.choices?.length&&age<10&&set!=='travel'){
+   const record=state.childhood.choices.find(r=>r.age===Math.floor(age))??state.childhood.choices.at(-1);
+   const who=COMPANY[record?.choice];
+   if(who&&!actors.some(a=>a.id===who))actors.push({id:who,activity:{pose:'stand',x:4,moving:false}});
+  }
   if((flags.married!==undefined||flags.committed!==undefined)&&flags.separated===undefined&&['home','bedroom'].includes(set))actors.push({id:'partner',activity:{pose:'stand',x:7,moving:false}});
   if(flags.friend!==undefined&&flags.friendDied===undefined&&(flags.friendLost===undefined||(flags.friendRepaired??-1)>flags.friendLost)&&['street','court'].includes(set))actors.push({id:'friend',activity:{pose:'stand',x:13,moving:false}});
   actors.sort((a,b)=>(a.activity.x??0)-(b.activity.x??0));const slots=slotsFor(set,actors.length);actors=actors.map((a,i)=>({...a,slot:slots[i]}));
@@ -404,8 +420,9 @@ export function liftGround(y,_reach){return {y,k:1};}
 
 // The figure is sized by the plate it stands in: `figure` is the height a
 // standing adult occupies in that painting, measured against the objects the
-// painter put there. One number per set, so every pose obeys it.
-export function figureHeightPx(plateHeight,figure,sourceHeight,actor,age){return plateHeight*figure*(sourceHeight/400)*(actor==='player'?(age<13?.78:age<18?.9:age>=60?.95:1):.95);}
+// painter put there. One number per set, so every pose obeys it. A classmate
+// before the thirteenth year is a child, and is drawn as one.
+export function figureHeightPx(plateHeight,figure,sourceHeight,actor,age){return plateHeight*figure*(sourceHeight/400)*(actor==='player'?(age<13?.78:age<18?.9:age>=60?.95:1):actor==='friend'&&age<13?.78:.95);}
 
 function createStage(canvas){
   const buffer=document.createElement('canvas');

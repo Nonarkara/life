@@ -76,9 +76,21 @@ CHILD_CHOICES.push(
   option('radio_listen','Sit by it and listen when it is on','You learned the names of cities you would never see.',{skills:{iq:1},wellbeing:1},'book'),
   option('radio_ask','Ask him how it works','He talked for an hour. It was the longest he ever talked to you.',{skills:{eq:1},wellbeing:1},'people')]}
 );
+// The shape of a childhood is drawn, not fixed. Every life gets the first beat
+// and the last one, and the middle is the seed's: two or three beats instead of
+// four, at different ages, so two lives are not the same questions in the same order.
+export function childSpine(state){
+ const seed=state.seed??0,start=state.childhood?.startsAt??6;
+ const pool=[6,7,8,9].filter(a=>a>start&&a<9);
+ const want=Math.floor(rand(seed,0,'child-spine')*(pool.length+1));
+ const picked=[];
+ for(let i=0;i<want;i++){const index=Math.floor(rand(seed,i,'child-spine-'+i)*pool.length);picked.push(pool.splice(index,1)[0]);}
+ return [...new Set([start,...picked.sort((a,b)=>a-b),9])];
+}
 export function pendingChildChoice(state,age){
  if(state.stage!=='birth')return;
- const first=CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&q.age<=age&&!(state.childhood?.choices??[]).some(r=>r.age===q.age));
+ const spine=childSpine(state),answered=state.childhood?.choices??[];
+ const first=CHILD_CHOICES.find(q=>spine.includes(q.age)&&q.age>=(state.childhood?.startsAt??6)&&q.age<=age&&!answered.some(r=>r.age===q.age));
  // Ten children, ten first questions. Each age has three, and the seed picks one; old lives keep the first.
  // A question written for a poorer house never reaches a richer one: the variant is drawn from those that fit.
  const cls=state.intake?.class??state.birth?.class,same=first?CHILD_CHOICES.filter(q=>q.age===first.age&&(!q.classes||!cls||q.classes.includes(cls))):[],question=first&&state.intake?.class?same[Math.floor(rand(state.seed,first.age,'child-variant')*same.length)]:first;
@@ -87,7 +99,7 @@ export function pendingChildChoice(state,age){
  const work=home==='a market-stall household'?'help':/^a rice-farming household/.test(home??'')?'farm':'chores';
  return {...question,options:question.options.filter(option=>['school',work,'ask'].includes(option.id))};
 }
-export function nextChildAge(state){return CHILD_CHOICES.find(q=>q.age>=(state.childhood?.startsAt??6)&&!(state.childhood?.choices??[]).some(r=>r.age===q.age))?.age??10;}
+export function nextChildAge(state){const spine=childSpine(state);return CHILD_CHOICES.find(q=>spine.includes(q.age)&&q.age>=(state.childhood?.startsAt??6)&&!(state.childhood?.choices??[]).some(r=>r.age===q.age))?.age??10;}
 export function chooseChild(state,age,id){
  const q=pendingChildChoice(state,age);if(!q||q.age!==age)return state;const o=q.options.find(o=>o.id===id);if(!o)return state;
  const childhood=state.childhood??{origin:{cash:state.cash,health:state.health,wellbeing:state.wellbeing},choices:[]},skills={...state.skills},e=o.effects;

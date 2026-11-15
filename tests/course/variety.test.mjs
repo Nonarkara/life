@@ -232,17 +232,18 @@ test('the same school-day clock takes different families to their recorded kind 
 
 test('fresh births expose different playable openings through age twenty',async()=>{
  const {drawBirth}=await import('../../dist/course/birth-draw.js');
- const {pendingChildChoice,chooseChild}=await import('../../dist/course/childhood-choices.js');
+ const {pendingChildChoice,chooseChild,nextChildAge}=await import('../../dist/course/childhood-choices.js');
  const openings=new Set(),scenes=new Set(),ordinaryBesideDirected=new Set();let contested=0,ordinaryWins=0;
  let previous;
  for(let seed=1;seed<=400;seed++){
   let draw=0,s=drawBirth({},{previous,varied:true,random:()=>rand(seed,++draw,'opening')});
   previous=s;
   const path=[];
-  for(let age=6;age<=9;age++){
+  // The childhood is drawn per life, so the walk follows the seed's spine of beats.
+  for(let age=nextChildAge(s);age<10;age=nextChildAge(s)){
    const question=pendingChildChoice(s,age);
    path.push(question.title);
-   s=chooseChild(s,age,question.options[0].id);
+   s=chooseChild(s,question.age,question.options[0].id);
   }
   s=begin(s);
   while(s.age<=20&&s.stage==='review'){

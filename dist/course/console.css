@@ -204,9 +204,20 @@ body.console-mode>header{flex:none}
 .bucket-custom{display:grid;grid-template-columns:1fr 1fr;gap:7px}.bucket-custom label{font-size:12px}.bucket-custom input,.bucket-custom select{display:block;max-width:100%;width:100%;font:inherit;padding:4px;background:var(--paper);color:var(--ink);border:1px solid var(--line)}.bucket-custom p{grid-column:1/-1}.bucket-custom button{font-size:13px;min-height:30px}.bucket-record{margin:6px 0;font-size:13px}.bucket-record small{display:block;font-size:12px;color:var(--muted)}
 /* The first five carriages teach from the same fixed console as the later game. */
 .console-mode.birth-stage{--rpg-height:calc(100dvh / 3)}
+/* The childhood strip is one line of text, not a third of the screen.
+   It was 180px on a desktop and a third of the phone screen; the owner asked
+   for a third of that: one line of facts, with the world line above it. */
+.console-mode.birth-stage[data-console-view="plan"]{--rpg-height:60px}
+@media(max-width:899px){.console-mode.birth-stage[data-console-view="plan"]{--rpg-height:93px}}
 .console-mode.birth-stage main{display:grid;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) var(--rpg-height)}
 .console-mode.birth-stage .rpg-dock.shown{display:flex;flex-direction:column;grid-row:2;max-height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper)}
-.console-mode.birth-stage .rpg-dock #childhood-memory{flex:1;min-height:0;max-height:none;overflow:auto;display:block;color:var(--ink);padding:4px 10px;border-top:1px solid var(--line)}
+.console-mode.birth-stage .rpg-dock #childhood-memory{flex:1;min-height:0;max-height:none;overflow:auto;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;color:var(--ink);padding:3px 10px;border-top:1px solid var(--line)}
+.console-mode.birth-stage .rpg-dock #childhood-memory .childhood-navigation{margin:0;flex:none}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-title{flex:none;font-size:calc(15px * var(--reading-scale));white-space:nowrap}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-decision{flex:1 1 260px;min-width:0;font-size:calc(13px * var(--reading-scale));white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-biology{flex:1 1 220px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.console-mode.birth-stage .rpg-dock #childhood-memory #family-income{flex:none;white-space:nowrap}
+.console-mode.birth-stage .rpg-dock #childhood-memory .childhood-guide-controls{flex:none;margin:0}
 .console-mode.birth-stage .rpg-dock #childhood-memory[hidden]{display:none}
 .console-mode.birth-stage #childhood-memory strong{font-size:calc(18px * var(--reading-scale));line-height:1.25;display:block}
 .console-mode.birth-stage #childhood-memory p{font-size:calc(13px * var(--reading-scale));line-height:1.4;margin:4px 0;color:var(--ink);text-align:left}

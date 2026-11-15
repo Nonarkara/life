@@ -47,11 +47,30 @@ test('the annual reading follows a recorded child choice rather than inventing a
 // the variant's option ids. A drama question carries none of them, so ages 7-9 could render
 // a decision with no buttons while time stayed paused. These walks play every class, home
 // and cohort through ages 6-9 and fail on any question without a clickable option.
-import {pendingChildChoice,chooseChild,nextChildAge,validChildhood,CHILD_CHOICES} from '../../dist/course/childhood-choices.js';
+import {pendingChildChoice,chooseChild,nextChildAge,validChildhood,CHILD_CHOICES,childSpine} from '../../dist/course/childhood-choices.js';
 import {CLASS_KEYS} from '../../dist/course/backgrounds.js';
 import {REGIONS} from '../../dist/course/regions.js';
 import {COHORT_YEARS} from '../../dist/course/thai-history.js';
 import {rand} from '../../dist/course/rand.js';
+
+// The law: no two lives alike. A childhood used to be the same four beats at ages 6, 7, 8
+// and 9 for every seed, in the same panel. Now the first beat and the last one are every
+// life's — the bridge into the five-year review needs both — and the middle is the seed's.
+test('the childhood is drawn: every life keeps its first and last beat, and the middle is the seed\'s',()=>{
+ const shapes=new Map();const seeds=600;
+ for(let seed=1;seed<=seeds;seed++){
+  const state=configureLife(newLife(seed),{class:'working_class',birthYear:1949});
+  const spine=childSpine(state);
+  assert.equal(spine[0],6,`seed ${seed}: a childhood must open on its first beat`);
+  assert.equal(spine.at(-1),9,`seed ${seed}: a childhood must close on its last beat`);
+  assert.ok(spine.length>=2&&spine.length<=4,`seed ${seed}: a spine of ${spine.length} beats`);
+  assert.deepEqual([...spine].sort((a,b)=>a-b),spine,`seed ${seed}: the spine is out of order`);
+  const key=spine.join('-');shapes.set(key,(shapes.get(key)??0)+1);
+ }
+ assert.ok(shapes.size>=3,'the childhood drew only '+shapes.size+' shape(s): '+[...shapes.keys()].join(' | '));
+ const full=[...shapes.entries()].find(([k])=>k.split('-').length===4)?.[1]??0;
+ assert.ok(full/seeds<=.5,'the four-beat childhood still covers '+(full/seeds).toFixed(2)+' of lives');
+});
 test('every childhood question from age 6 to 9 keeps at least one clickable option',()=>{
  const homes=[...new Set(Object.values(REGIONS).map(r=>r.home))],age9Titles=new Set();let walks=0;
  for(const cls of CLASS_KEYS)for(const home of homes)for(const birthYear of COHORT_YEARS)for(let seed=1;seed<=20;seed++){
