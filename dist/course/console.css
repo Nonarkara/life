@@ -74,7 +74,9 @@ body.console-mode{height:100dvh;overflow:hidden}
  .player-console>.console-nav button{font-size:calc(13px * var(--reading-scale));min-height:30px;color:inherit}
  .player-console>.console-nav button[aria-pressed=true]{border-color:var(--deck-accent)}
  .reader-close{position:sticky;top:0;z-index:1;display:block;margin-left:auto;background:var(--paper);min-height:32px;padding:4px 12px;font-size:14px}
- .console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{position:absolute;top:52px;bottom:auto;right:12px;max-width:260px;background:var(--deck);color:var(--deck-text);padding:4px 8px}
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{position:absolute;top:52px;bottom:auto;right:12px;max-width:min(560px,calc(100% - 24px));background:var(--deck);color:var(--deck-text);padding:4px 8px}
+ /* The caption is one short line: a box as wide as its words, never four lines squeezed beside a menu. */
+ .console-mode:not(.birth-stage):not(.recap-stage) .world-bottom #scene-caption{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;max-width:none}
  .console-mode:not(.birth-stage):not(.recap-stage) #age-track{position:absolute;top:0;left:0;right:0;padding:0;height:3px}
 }
 /* A narrow screen is one strip of consoles: swipe sideways to the next one. */
@@ -170,6 +172,11 @@ body.console-mode>header{flex:none}
  .console-mode{--rpg-height:calc(100dvh / 3)}
  .console-mode:not(.birth-stage):not(.recap-stage) main{grid-template-rows:minmax(0,1fr) var(--rpg-height)}
  .console-mode .rpg-dock{grid-column:1;grid-row:2;display:flex;flex-direction:column;height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper);border-top:1px solid var(--line)}
+ /* Between stations the dock holds one sentence: it shrinks to it and the world takes the space back. */
+ .console-mode:not(.birth-stage):not(.recap-stage) main{transition:grid-template-rows .2s ease-out}
+ .console-mode.between-stations.plan-active:not(.decision-open):not(.birth-stage):not(.recap-stage) main{grid-template-rows:minmax(0,1fr) auto}
+ .console-mode.between-stations.plan-active:not(.decision-open):not(.birth-stage):not(.recap-stage) .rpg-dock{height:auto;max-height:var(--rpg-height)}
+ .console-mode.between-stations.plan-active:not(.decision-open):not(.birth-stage):not(.recap-stage) .console-cards>.console-card:not(#console-plan){display:none}
  .console-mode .rpg-dock .console-reader{flex:1;min-height:0;border:0}
  .console-mode .rpg-dock .player-console{flex:none;min-height:0;max-height:none;border:0}
  .console-mode .rpg-dock .console-actions{min-height:30px;padding:2px 12px}
