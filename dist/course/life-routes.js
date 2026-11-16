@@ -1,4 +1,4 @@
-// Branches: one calling per life, each step opened only by the answer before it.
+// Scenes advance through a calling or follow an alternate answer recorded in the life.
 import {rand} from './rand.js';
 import {birthYearOf} from './thai-history.js';
 import {ROUTE_DATA,BLOG_SCENES} from './route-data.js';
@@ -45,7 +45,7 @@ export function routeOf(s){
  const band=(s.profiles??[]).some(p=>p.age===15&&p.profile?.priority==='band');
  if(band&&s.age>=20&&open.some(r=>r.route==='singer_office')&&(s.history??[]).some(r=>r.from===15&&['school','college'].includes(r.pathway)))return 'singer_office';
  if((s.skills?.physique??0)>=16&&(s.skills?.drive??0)>=14&&s.age>=15&&s.age<=25&&open.some(r=>r.route==='olympian_pm'))return 'olympian_pm';
- for(let i=given.length-1;i>=0;i--){const a=given[i],doors=open.filter(r=>(DOORS[r.route]??[]).some(([q,c])=>q===a.pivot&&c===a.choice)&&a.station<s.age&&a.station<(OPENS_AT[r.route]??Math.min(...r.scenes.map(x=>x.min))));
+ for(let i=given.length-1;i>=0;i--){const a=given[i],doors=open.filter(r=>(DOORS[r.route]??[]).some(([q,c])=>q===a.pivot&&c===a.choice)&&a.station<s.age&&a.station<(OPENS_AT[r.route]??Math.min(...r.scenes.filter(x=>!x.after).map(x=>x.min))));
   if(band&&doors.some(r=>r.route==='singer_office'))return 'singer_office';
   // The summer on the building site is where the labourer's road begins, for a birth it is open to.
   if(a.pivot==='school-leave'&&a.choice==='go'&&doors.some(r=>r.route==='border_pm'))return 'border_pm';
@@ -68,6 +68,9 @@ function earnedScholarship(s,r){
   (s.history??[]).some(row=>row.age<=s.age&&row.from>=20&&row.pathway==='college');
 }
 const ROUTE_CHOICES={
+ r_olympian_pm_2:{coach:{pathway:'independent'},politics:{pathway:'work',moveTo:'bang-na'}},
+ r_border_pm_2:{leave:{pathway:'vocational'}},
+ r_singer_office_1:{sing:{pathway:'independent'}},
  r_scholarship_kid_1:{study:{pathway:'school'},believe:{pathway:'vocational'}},
  r_scholarship_kid_2:{bond:{moveTo:'london',pathway:'college'},free:{moveTo:'boston',pathway:'college'}},
  r_scholarship_kid_4:{go:{moveTo:'bang-na',pathway:'work'},stay:{pathway:'work'}},
@@ -80,11 +83,12 @@ const ROUTE_CHOICES={
  r_far_scholar_4:{build:{moveTo:'home',pathway:'independent'},leave:{moveTo:'london',pathway:'work'}},
  r_tycoon_2:{sell:{pathway:'independent'}},
 };
-export const ROUTE_ENCOUNTERS=ROUTE_DATA.flatMap(r=>r.scenes.map(({stage,years,era,...scene})=>({
- ...scene,priority:-1,
+export const ROUTE_ENCOUNTERS=ROUTE_DATA.flatMap(r=>r.scenes.map(({stage,years,era,after,...scene})=>({
+ ...scene,priority:after?-2:-1,
  options:scene.options.map(option=>({...option,...ROUTE_CHOICES[scene.id]?.[option.id]})),
  eligible:s=>{
   if(!inYears(s,years)||!inStation(s,era))return false;
+  if(after)return (s.story?.seen??[]).some(e=>e.age<s.age&&e.id===after[0]&&e.choice===after[1]);
   // The earned scholarship does not cut into a calling that has already begun.
   if(r.route==='scholarship_kid'&&stage===2&&s.age===25&&earnedScholarship(s,r)&&!Object.keys(flags(s)).some(k=>/^r_.+_1$/.test(k)&&k!=='r_scholarship_kid_1'))return true;
   const startedScholarship=r.route==='scholarship_kid'&&stage>2&&typeof flags(s).r_scholarship_kid_2==='number'&&flags(s).r_scholarship_kid_2<s.age;

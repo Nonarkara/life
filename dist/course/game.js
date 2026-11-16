@@ -44,6 +44,7 @@ import {eventsFor,eventsForAccount,lifeMood} from './events.js';
 import {lifeMoodAt} from './events.js';
 import {symbolPaths,symbolMarkup} from './event-graphics.js';
 import {AXES,balanced,begin,transfer,live,replay,validate,sanitiseProfile,goals,rand,lockedEffort,projectedSkillGains} from './sim.js';
+import {choiceIllustration} from './choice-illustration.js';
 import {drawWorld} from './world.js';
 import {bangkokDeparture,createDeparture,DEPARTURE_WINDOW} from './departure.js';
 import {drawDeck,arrangeDeck} from './life-deck.js';
@@ -250,7 +251,13 @@ function showResult(before,after,details={}){
  d('Wellbeing',before.wellbeing,after.wellbeing);d('Health',before.health,after.health);if(before.finance){d('Personal net worth',worth(before),worth(after),'฿');d('Household buffer',before.cash,after.cash,'฿');}else d('Household buffer',before.cash,after.cash,'฿');
  for(const a of AXES)d(a.label,before.skills[a.key],after.skills[a.key]);
  box.replaceChildren();const p=document.createElement('p');p.textContent=details.text??storyText(seen.outcome,after.story);const m=document.createElement('p');m.className='moved';m.textContent=moved.length?moved.join(' · '):'Nothing measurable changed yet. Some choices return later.';box.append(p,m);
- const rehearse=encounterById(seen?.id)?.rehearse;if(rehearse&&!details.record){const note=document.createElement('p');note.className='decision-rehearse';note.textContent=t(rehearse);box.append(note);}
+ const scene=details.record?null:encounterById(seen?.id);
+ if(scene?.art&&preferences.stage!=='isometric'){
+  const motion=!preferences.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const illustration=choiceIllustration(scene.art,after.seed,seen,motion);
+  if(illustration)p.after(illustration);
+ }
+ const rehearse=scene?.rehearse;if(rehearse&&!details.record){const note=document.createElement('p');note.className='decision-rehearse';note.textContent=t(rehearse);box.append(note);}
  const record=details.record;
  if(record?.luck){const luck=document.createElement('p');luck.className='decision-luck';luck.textContent=record.luck.won?'This gamble paid off.':'This gamble did not pay off.';box.append(luck);}
  const locks=Object.entries(record?.locks??{});

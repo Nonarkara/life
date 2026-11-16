@@ -160,7 +160,7 @@ export function offerEncounter(state,roll,keep=()=>true){
   // Preserve scheduled beats. An incidental directed scene gets a turn
   // without making all the other eligible scenes unreachable.
   if(anchor.length)pool=anchor;
-  else if(!state.intake?.class||rand(state.seed,state.age,'scene-group')<.5)pool=directed;
+  else if(!state.intake?.class||rand(state.seed,state.age,'scene-group')<.4)pool=directed;
   else pool=pool.filter(e=>!e.director);
   if(!pool.length)pool=directed;
  }

@@ -1,5 +1,4 @@
-// What the last five years did, in the life's own numbers, and whether one more stretch like
-// it ends the life. Read from the record; nothing here is estimated.
+// What the last five years did, and which resources are under pressure now.
 import {anchoredOf,brokeNow} from './sim.js';
 import {netWorth} from './finance.js';
 const baht=n=>(n<0?'−':'')+'฿'+Math.abs(Math.round(n)).toLocaleString('en');
@@ -19,9 +18,9 @@ export function periodLine(before,after,t=x=>x){
   f.debt>0?t('Debt is now {x}.').replace('{x}',baht(f.debt)):null,
   f.own===null?null:t('From fifteen the money shown is your own: {x}.').replace('{x}',baht(f.own)),move('Wellbeing {x} → {y}.',f.wellbeing),move('Health {x} → {y}.',f.health)].filter(Boolean).join(' ')||null;
 }
-// The same two rules sim.js ends a life by, said one review early. Both can be true at once.
+// Both pressures can be true at once.
 export function lifeWarning(s,t=x=>x){
  if(s.stage!=='review'||!s.intake?.class)return null;
- return [s.age>=10&&(s.history?.at(-1)?.wellbeing??100)<=2&&!anchoredOf(s)?t('Your wellbeing is almost at zero. Five more years like this can end this life.'):null,
-  s.age>=15&&brokeNow(s.finance)?t('You owe {x} and have nothing set aside. If that is still true in five years, this life ends.').replace('{x}',baht(s.finance.debt)):null].filter(Boolean).join(' ')||null;
+ return [s.age>=10&&(s.history?.at(-1)?.wellbeing??100)<=2&&!anchoredOf(s)?t('Your wellbeing is almost at zero. Give the next five years more room for care.'):null,
+  s.age>=15&&brokeNow(s.finance)?t('You owe {x} and have nothing set aside. Check what you can afford before you commit.').replace('{x}',baht(s.finance.debt)):null].filter(Boolean).join(' ')||null;
 }

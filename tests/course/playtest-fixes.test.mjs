@@ -1,5 +1,5 @@
 // Guards from the 15 Nov 2026 playtest: the ending names the scene that really broke the life,
-// money ends a life only after pay is counted, and the five years say what they did.
+// hardship stays playable, and the five years say what they did.
 import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
 import {newLife,begin,live,configureLife,rand,brokeNow,CLASS_KEYS} from '../../dist/course/sim.js';
 import {pendingPivots,applyPivot,openOptions} from '../../dist/course/pivots.js';
@@ -42,29 +42,19 @@ test('in played lives the named twist is always a costly scene from the low revi
  assert.ok(named>20,'named '+named);
 });
 
-test('money ends a life only when it was broke going in and is still broke after the pay',()=>{
- let money=0,spared=0;
+test('low wellbeing and no money are warnings with a playable next chapter',()=>{
+ let broke=0,low=0;
  for(const {steps} of lives)for(const [before,after] of steps){
-  if(after.death?.cause==='Your money reached zero, and then went below it.'){money++;assert.ok(brokeNow(before.finance),'broke going in');assert.ok(brokeNow(after.finance),'still broke after');}
-  else if(brokeNow(before.finance)&&!after.death&&!brokeNow(after.finance))spared++;
+  assert.doesNotMatch(after.death?.cause??'',/money reached zero|mind reached zero/);
+  const warning=lifeWarning(before)??'';
+  if(!after.death&&after.stage==='review'&&brokeNow(before.finance)&&brokeNow(after.finance)){
+   assert.match(warning,/owe ฿[\d,]+ and have nothing set aside/);
+   broke++;
+  }
+  if(!after.death&&after.stage==='review'&&after.wellbeing===0&&/wellbeing is almost at zero/.test(warning))low++;
  }
- assert.ok(money>0,'some lives still end by money');assert.ok(spared>0,'some lives climb out and live');
-});
-
-test('a life that money will end is told one review early',()=>{
- let told=0;
- for(const {steps} of lives)for(const [before,after] of steps)if(after.death?.cause==='Your money reached zero, and then went below it.'){told++;assert.match(lifeWarning({...before,story:{...before.story,pending:null}})??'',/owe ฿[\d,]+ and have nothing set aside/);}
- assert.ok(told>0);
- const owing=lives.flatMap(l=>l.steps).map(x=>x[0]).find(x=>brokeNow(x.finance));
- assert.equal(lifeWarning({...owing,story:{...owing.story,pending:null},finance:{...owing.finance,reserve:1}}),null,'one baht set aside is not broke');
-});
-
-test('a life that its mind will end is told one review early, and most such warnings come true',()=>{
- let told=0,warned=0,died=0;
- for(const {steps} of lives)for(const [before,after] of steps){const w=lifeWarning({...before,story:{...before.story,pending:null}})??'';
-  if(after.death?.cause==='Your mind reached zero.'){told++;assert.match(w,/wellbeing is almost at zero/);}
-  if(/wellbeing is almost at zero/.test(w)){warned++;if(after.death?.cause==='Your mind reached zero.')died++;}}
- assert.ok(told>0,'some lives end this way');assert.ok(died/warned>=.5,'most warnings come true: '+died+'/'+warned);
+ assert.ok(broke>0,'played through sustained debt');
+ assert.ok(low>0,'played through sustained low wellbeing');
 });
 
 test('the warning and the ledger are wired to the screen',()=>{

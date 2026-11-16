@@ -1,3 +1,4 @@
+import {ROUTE_BRANCH_PHRASES} from './route-branch-copy.js';
 import {THAI_PHRASES} from './thai-copy.js';
 import {WAVE1_PHRASES} from './wave1-copy.js';
 import {WAVE2_PHRASES} from './wave2-copy.js';
@@ -2968,3 +2969,5 @@ phrases.push(['The mortgage finished on schedule. Sometimes you turned the radio
 // The literature-grounded scenario bank: its own copy file, kept apart so the
 // scenes can be reviewed and re-translated as one block.
 phrases.push(...ERA_SCENARIO_PHRASES);
+
+phrases.push(...ROUTE_BRANCH_PHRASES);

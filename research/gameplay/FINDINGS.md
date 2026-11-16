@@ -67,3 +67,35 @@ feedback: the prior choice creates possibilities and constraints rather than
 merely changing a score. Life's existing station/encounter and affordability
 systems provide that foundation; this pass makes their decisions and outcomes
 legible rather than copying the original's catalog.
+
+## Same-birth fork audit · 16 November 2026
+
+The official [1 in 8 Billion guide](https://1in8b.life/en/about/) now describes an
+immediate birth, an annual focus, optional Auto mode and five fixed reflection
+pauses alongside situational decisions. The observation above already covers
+a consequential school choice in a played life. We have enough to test the
+structure in Life2.0. We still have no evidence about what drives the other
+game's retention.
+
+Life2.0 has 26 calling records and 113 scenes attached to them. The 99 scenes
+in the personal-essay bank supply individual moments from a writer’s life.
+They do not represent 99 separate biographies. For a new biography, record
+the source and documented turning point, then author at least two plausible
+paths past it. Historical facts belong in the field note. Fictional choices and
+outcomes belong in the game. Count a biography as playable when an ordinary
+birth can reach both paths through real choices and the results survive reload.
+
+Three roots now lead to distinct later scenes through explicit scene-and-answer
+requirements. The allowed answer is read from the saved history, so a later
+scene can itself become a prerequisite. The singer can keep playing, the
+labourer can go back to bricklaying, and the boxer can coach. Debt and low
+wellbeing remain pressures a player can play through. The Olympic training
+option trades health and wellbeing for practice and no longer requires cash.
+
+The new illustrations are abstract line drawings recomposed from the seed and
+recorded answer. The ring, wall and cassette carry the consequences. This is a
+local procedural renderer. A future model can propose compositions in a
+small validated vocabulary, or draft scenes against supplied source notes for
+review. It should not determine historical facts, movement, or game effects at
+play time. The release keeps the simulation and ordinary playback independent
+of model availability.

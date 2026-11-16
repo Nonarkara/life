@@ -18,8 +18,8 @@ test('the diorama (hybrid) is the default, and an old stored painted was the def
   assert.equal((await fresh(JSON.stringify({stage:'painted',v:2}))).module.preferences.stage,'hybrid','v:2 painted was the shipped default too');
 });
 
-test('a player who chooses Painted, Hybrid or Isometric keeps it',async()=>{
-  assert.equal((await fresh(JSON.stringify({stage:'painted',v:3}))).module.preferences.stage,'painted');
+test('painted saves migrate and the two diorama settings remain distinct',async()=>{
+  assert.equal((await fresh(JSON.stringify({stage:'painted',v:3}))).module.preferences.stage,'hybrid');
   assert.equal((await fresh(JSON.stringify({stage:'hybrid',v:2}))).module.preferences.stage,'hybrid');
   assert.equal((await fresh(JSON.stringify({stage:'isometric'}))).module.preferences.stage,'isometric');
 });
@@ -27,10 +27,10 @@ test('a player who chooses Painted, Hybrid or Isometric keeps it',async()=>{
 test('choosing a world in Settings is stored with the mark, so it survives the next load',async()=>{
   const {module,saved}=await fresh(null);
   globalThis.localStorage={getItem:()=>null,setItem:(_k,v)=>{globalThis.__stored=v;}};
-  try{module.applyPreferences({stage:'painted'});}catch{/* localise() needs a page; the preference is stored before it runs */}
+  try{module.applyPreferences({stage:'isometric'});}catch{/* localise() needs a page; the preference is stored before it runs */}
   delete globalThis.localStorage;
   const stored=JSON.parse(globalThis.__stored);
-  assert.equal(stored.stage,'painted');assert.equal(stored.v,3);
-  assert.equal(module.preferences.stage,'painted','Painted is a real choice once it carries the mark');
+  assert.equal(stored.stage,'isometric');assert.equal(stored.v,3);
+  assert.equal(module.preferences.stage,'isometric');
   void saved;
 });

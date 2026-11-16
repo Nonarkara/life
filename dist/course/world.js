@@ -2,9 +2,7 @@ import {drawRouteMap} from './routemap.js';
 import {showPaintedCanvas} from './scene-registry.js';
 import {createRendererLoader} from './renderer-loader.js';
 const renderer=createRendererLoader(()=>import('./scene3d.js'),()=>window.dispatchEvent(new Event('life-stage-art')));
-import {drawStage2D,stageCaption,paintedCovers,paintedDay,stageArtFailed,describePaintedScene} from './stage2d.js';
-import {animeManifest} from './anime-assets.js';
-import {t,preferences} from './i18n.js';
+import {t} from './i18n.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
 import {canvasWorld} from './palettes.js';
 import {AXES} from './sim.js';
@@ -24,20 +22,6 @@ export function drawWorld(canvas,state,age,time,mode='world',view={}){
  return result;
 }
 function paintWorld(canvas,state,age,time,mode='world',view={}){
- // Explicit 'painted' preference uses cel plates; default keeps the cohesive illustrative 3D diorama throughout.
- if(preferences.stage==='painted'&&(!view.camera||view.camera==='follow')){
-  if(drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
-  // The painting may cover this scene but has not finished decoding. Holding
-  // the surface is better than showing a different world for a moment.
-  if(mode==='world'&&!stageArtFailed(canvas)){
-   // Until the art manifest is in, nothing says whether this life is painted: hold the surface
-   // rather than flash the 3D world and then change it. If the art cannot be fetched, go on in 3D.
-   if(!animeManifest()){return {held:true};}
-   // Hybrid holds only for a recorded beat; ordinary life goes straight to the diorama.
-   const scene=describePaintedScene(state,age,time);
-   if((preferences.stage==='painted'?paintedDay(state,age):scene.beat)&&paintedCovers(state,age,time,scene))return {held:true};
-  }
-}
  if(mode==='course'){showPaintedCanvas(canvas);drawRouteMap(canvas,state);return;}
  const scene3d=renderer.request();
  if(renderer.pending)return {held:true};
