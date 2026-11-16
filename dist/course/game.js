@@ -1,3 +1,5 @@
+import {createBirthMap} from './birth-opening.js';
+import {keepTurningPoint,loadTurningPoint,readTurningPoints,turningPointURL} from './turning-points.js';
 import {drawBirth} from './birth-draw.js';
 import {familyRecord} from './family-record.js';
 import {renderEncounterChoices} from './encounter-view.js';
@@ -29,10 +31,10 @@ import {initConsole} from './console.js';
 import {openFinance,choiceAvailable,netWorth,monthlyFlow,setBudget} from './finance.js';
 import {renderEnding} from './ending.js';
 import {rememberedMoments} from './recap.js';
-import {newStory,encounterById,storyText,resolveEncounter,setFamiliar,familiarIds} from './encounters.js';
+import {newStory,encounterById,storyContext,storyText,resolveEncounter,setFamiliar,familiarIds} from './encounters.js';
 import {metScenes,rememberScenes} from './scene-memory.js';
 import {availablePathways,PATHWAYS} from './pathways.js';
-import {pendingPivots,applyPivot,locksFor,openOptions,ERAS} from './pivots.js';
+import {pendingPivots,pivotById,applyPivot,locksFor,openOptions,ERAS} from './pivots.js';
 import {verdictTitle} from './life-verdict.js';
 import {periodLine} from './period-ledger.js';
 import {keepPoint,forgetAfter,metFor,pointAges,goBack,timesBack} from './checkpoints.js';
@@ -60,12 +62,58 @@ import {worldLine as worldLineParts} from './world-line.js';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let state,age=0,speed=2,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,mode='world',tab='priorities',travel=null,elapsed=0,lastTime=0,lastPaint=0,dirty=true,saveOK=true,lastCheckpoint=0,arrival=0,childView=null,lastVisibleYear=-1;
 // Device scene memory is set before the first scene is offered on load (journey restore included).
 setFamiliar(metScenes());
-let store=null;try{store=localStorage;}catch{}const saved=readSave(store,validate);saveOK=saved.storage;const unreadable=saved.unreadable;state=saved.life??drawBirth({},{varied:true});age=state.stage==='birth'?(state.progressAge??state.age):state.age;
+let store=null;try{store=localStorage;}catch{}const saved=readSave(store,validate);saveOK=saved.storage;const unreadable=saved.unreadable;const requested=new URL(location.href);
+const turningId=requested.searchParams.get('turning');
+let restored=turningId?loadTurningPoint(store,turningId,validate):null;
+if(restored){
+ try{store.setItem('life-course-v2',JSON.stringify(restored.state));}catch{restored=null;}
+}
+if(turningId){requested.searchParams.delete('turning');history.replaceState(null,'',requested);}
+state=restored?.state??saved.life??drawBirth({},{varied:true});
+age=state.stage==='birth'?(state.progressAge??state.age):state.age;
+if(restored){
+ setFamiliar(restored.met);
+ keepPoint(store,state,true,restored.met);
+ paused=true;tab='questions';
+}
 // A life that keeps its reviews also keeps the scene memory it began with, so going back after a reload meets the same scenes.
 {const met=metFor(store,state.seed);if(met)setFamiliar(met);}
-if(state.stage==='birth'){speed=1;if(age>=6&&!state.childhood)state={...state,childhood:{origin:{cash:state.cash,health:state.health,wellbeing:state.wellbeing},choices:[],startsAt:Math.min(10,Math.ceil(age))}};}
+if(state.stage==='birth'){speed=1;paused=false;if(age>=6&&!state.childhood)state={...state,childhood:{origin:{cash:state.cash,health:state.health,wellbeing:state.wellbeing},choices:[],startsAt:Math.min(10,Math.ceil(age))}};}
 const recordedDay=dailyDateFor(state);if(recordedDay&&state.dailyDay===undefined)state={...state,dailyDay:recordedDay};state=enableLifeEvents(state);state=refreshMarketPrompt({...state,story:state.story??newStory(state.seed)});state=openFinance(state);if(state.journey){const next=live(state);if(next!==state){travel={from:state.age,to:next,handled:[...state.journey.handled]};age=state.journey.progress;}}let consoleUI,personalUI;const music=initMusic({getMood:()=>lifeMood(state)});
-mode=state.stage==='recap'?'course':'world';arrival=state.stage==='birth'&&age<.1?3:0;$('womb').innerHTML=wombMarkup;
+const TUTORIAL_KEY='life-tutorial-v1';
+const OPENING_SECONDS=5;
+const hasTutorial=()=>{try{return store?.getItem(TUTORIAL_KEY)==='seen';}catch{return false;}};
+const rememberTutorial=()=>{try{store?.setItem(TUTORIAL_KEY,'seen');}catch{}};
+const mapHolder=$('birth-map');
+let drawBirthMap;
+const startOpening=()=>{
+ arrival=OPENING_SECONDS;
+ drawBirthMap=undefined;
+ $('arrival-choice').hidden=hasTutorial();
+};
+mode=state.stage==='recap'?'course':'world';
+$('womb').innerHTML=wombMarkup;
+if(state.stage==='birth'&&age<.1)startOpening();
+$('arrival-choice').onclick=()=>{arrival=0;skipTutorial();};
+function skipTutorial(){
+ rememberTutorial();
+ state=skipChildIntro(state);age=6;childView=null;dismissedDecision=null;paused=false;render();
+}
+function showBirthOpening(dt){
+ const mapPhase=arrival<=3;
+ $('arrival').dataset.phase=mapPhase?'map':'womb';
+ $('womb').hidden=mapPhase;
+ mapHolder.hidden=!mapPhase;
+ $('arrival-count').hidden=mapPhase;
+ $('arrival-caption').textContent=mapPhase?t(state.birth.place):t('Before your first breath.');
+ $('map-credit').hidden=!mapPhase;
+ if(mapPhase){
+  drawBirthMap??=createBirthMap(mapHolder,state);
+  drawBirthMap((3-arrival)/2.4,preferences.motion||matchMedia('(prefers-reduced-motion: reduce)').matches);
+ }else $('arrival-count').textContent=String(Math.ceil(arrival-3)||1);
+ arrival=Math.max(0,arrival-dt);
+ if(arrival===0&&hasTutorial()&&!state.childhood?.choices.length)skipTutorial();
+}
 const money=v=>'฿'+v.toLocaleString('en');function svgEl(tag,attrs={},text){const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}
 function save(){rememberScenes(state);try{localStorage.setItem('life-course-v2',JSON.stringify({...state,journey:journeySnapshot(state,travel,age),progressAge:state.stage==='birth'?age:state.age}));}catch{saveOK=false;}$('save-status').hidden=saveOK&&!unreadable;$('save-status').textContent='Fictional life · '+(!saveOK?'browser save unavailable':unreadable?'your earlier life could not be opened; a copy is kept in this browser':'saved in this browser');}
 function radar(){const el=$('radar');el.replaceChildren();const point=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/5;return[150+Math.cos(a)*75*v/10,112+Math.sin(a)*75*v/10]};const poly=v=>AXES.map((a,i)=>point(i,typeof v==='number'?v:v[a.key]).join(',')).join(' ');for(const ring of [2,5,10])el.append(svgEl('polygon',{points:poly(ring),fill:'none',stroke:'var(--line)','stroke-width':.7}));AXES.forEach((a,i)=>{const q=point(i,10);el.append(svgEl('line',{x1:150,y1:112,x2:q[0],y2:q[1],stroke:'var(--line)','stroke-width':.7}));const t=point(i,13);el.append(svgEl('text',{x:t[0],y:t[1]+4,'text-anchor':'middle'},a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label));});if(state.original)el.append(svgEl('polygon',{points:poly(state.original),fill:'none',stroke:'#52635b','stroke-width':1,'stroke-dasharray':'3 3'}));el.append(svgEl('polygon',{points:poly(state.effort),fill:'var(--amber)','fill-opacity':.25,stroke:'var(--accent-ink)','stroke-width':2}));el.setAttribute('aria-label','Ten-point allocation: '+AXES.map(a=>a.label+' '+state.effort[a.key]).join(', '));}
@@ -163,11 +211,20 @@ function charts(){
 
 function replayBirth(){
  state=enableLifeEvents(replay(state));
- age=0;speed=1;childResult=null;travelEvent=null;arrival=3;childView=null;mode='world';paused=false;tab='priorities';
+ age=0;speed=1;childResult=null;travelEvent=null;startOpening();childView=null;mode='world';paused=false;tab='priorities';
  render();
 }
 // Rewind controls sit at the exit from the route map.
 function renderRewind(root){
+ const savedTurn=readTurningPoints(store).find(point=>point.state.seed===state.seed);
+ if(savedTurn){
+  const link=document.createElement('a');
+  link.className='saved-turn-link';
+  link.href=turningPointURL(savedTurn.id);
+  link.textContent=t('Revisit “{answer}”').replace('{answer}',t(savedTurn.answer));
+  const route=root.querySelector('.ending-route');
+  (route??root.lastElementChild).after(link);
+ }
  const ages=pointAges(store,state);
  if(!ages.length)return;
  const rewind=document.createElement('div');
@@ -236,9 +293,12 @@ function syncDecisionStage(){
 function renderEncounter(){
  const pending=state.story?.pending,root=$('encounter');document.body.classList.toggle('has-encounter',!!pending);root.replaceChildren();root.hidden=!pending;
  if(!pending)return;
- const scene=encounterById(pending.id);$('editor').hidden=true;$('commit').hidden=true;$('last-event').hidden=true;
- $('chapter').textContent='A TURN IN THE PATH';$('stage-count').textContent='';$('title').textContent=storyText(scene.title,state.story);
- $('narrative').hidden=false;$('narrative').textContent=storyText(scene.prompt,state.story);
+ const scene=encounterById(pending.id),dialogText=storyContext(state,scene.id);$('editor').hidden=true;$('commit').hidden=true;$('last-event').hidden=true;
+ $('chapter').textContent='A TURN IN THE PATH';$('stage-count').textContent='';$('title').textContent=storyText(scene.title,dialogText);
+ $('narrative').hidden=false;const context=scene.id==='teen_parenthood'?t(state.intake?.sex==='female'
+  ?'You are recovering from the birth. Your classes have already started.'
+  :'Your partner is recovering from the birth. Your next shift starts tomorrow.'):'';
+ $('narrative').textContent=[t(storyText(scene.prompt,dialogText)),context].filter(Boolean).join(' ');
  renderEncounterChoices(root,state,scene,{formatMoney:money,extra:choice=>popLine(scene.id,choice.id),onChoose:choice=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before)showResult(before,state,{label:storyText(choice.label,before.story)});render();}});
 }
 // After every choice: one sentence of what happened, then which numbers moved and by how much.
@@ -246,6 +306,13 @@ function renderEncounter(){
 let population=null;import('./population.js').then(m=>{population=m.POPULATION;dirty=true;try{render();}catch{}}).catch(()=>{});
 function popLine(scene,option){const row=population?.scenes[scene]?.[option];if(!row)return [];const n=document.createElement('small');n.className='pop-line';n.textContent=t('{p}% of 20,000 simulated lives chose this · {d}% died by 60').replace('{p}',row[0]).replace('{d}',row[2]);return [n];}
 function showResult(before,after,details={}){
+ const answer=details.record??after.story.seen.at(-1);
+ const sceneId=answer?.pivot??answer?.id;
+ if(sceneId&&(details.record||sceneId.startsWith('r_')||sceneId.startsWith('family_exam')||sceneId.startsWith('teen_')||sceneId.startsWith('proposal_')||['care_returns','commitment'].includes(sceneId)||sceneId.startsWith('s_'))){
+  const pivot=details.record?pivotById(sceneId):null;
+  const title=pivot?(pivot.heading??pivot.prompt):encounterById(sceneId)?.title;
+  keepTurningPoint(store,before,{scene:sceneId,title,answer:details.label,met:familiarIds()});
+ }
  let box=$('choice-result');if(!box){box=document.createElement('section');box.id='choice-result';box.setAttribute('role','status');$('editor').before(box);}
  const seen=after.story.seen.at(-1),moved=[],worth=s=>s.finance?netWorth(s.finance):s.cash;
  const d=(label,a,b,unit='')=>{const x=Math.round(b-a);if(x)moved.push(label+' '+(x>0?'+':'−')+unit+Math.abs(x).toLocaleString('en'));};
@@ -259,6 +326,13 @@ function showResult(before,after,details={}){
   if(illustration)p.after(illustration);
  }
  const rehearse=scene?.rehearse;if(rehearse&&!details.record){const note=document.createElement('p');note.className='decision-rehearse';note.textContent=t(rehearse);box.append(note);}
+ if(restored?.state.seed===before.seed&&restored.state.age===before.age){
+  const original=document.createElement('p');
+  original.className='decision-rehearse';
+  original.textContent=t('Last time you chose “{answer}”.').replace('{answer}',t(restored.answer));
+  box.append(original);
+  restored=null;
+ }
  const record=details.record;
  if(record?.luck){const luck=document.createElement('p');luck.className='decision-luck';luck.textContent=record.luck.won?'This gamble paid off.':'This gamble did not pay off.';box.append(luck);}
  const locks=Object.entries(record?.locks??{});
@@ -268,8 +342,8 @@ function showResult(before,after,details={}){
  box.hidden=false;localise(box);
 }
 function render(){queueMicrotask(syncPlan);setPalette(paletteFor(state,state.age,lifeMoodAt(state,state.age),{scenario:tab==='questions'?pendingPivots(state)[0]?.id:undefined}));const birth=state.stage==='birth';document.body.classList.toggle('birth-stage',birth);const end=state.stage==='recap',moving=!!travel,review=state.stage==='review'&&!moving;document.body.classList.toggle('recap-stage',end);document.body.classList.toggle('between-stations',moving);if(!end)document.body.classList.remove('show-ending-world','show-ending-details');const first=state.profiles.length===0&&!state.intake;$('editor').hidden=!review;$('recap').hidden=!end;$('birth-info').hidden=!birth;$('commit').hidden=birth||moving;$('overview').hidden=birth;$('overview').textContent=mode==='world'?'Life course':'Growing world';$('childhood-memory').hidden=!(birth);const dock=document.querySelector('.rpg-dock');const main=document.querySelector('main');if(dock){dock.classList.toggle('shown',birth);main.style.gridTemplateRows=(birth)?'minmax(0,1fr) var(--rpg-height)':'1fr';}$('title').textContent=birth?'Before you choose.':moving?'Life keeps moving.':end?verdictTitle(state,t):first?'Your starting attributes':'Your next five years';$('chapter').textContent=birth?'THE BEGINNING':end?'YOUR LIFE, REPLAYED':moving?'BETWEEN THE STATIONS':'FIVE-YEAR REVIEW';$('stage-count').textContent=birth?'0 → 10':end?'0 → '+state.age:state.age+' → '+Math.min(80,state.age+5);$('narrative').hidden=review||end;$('narrative').textContent=birth?`Born into ${state.birth.home} in ${state.birth.place}. Raised by ${household(state.birth).text}. Live one life: from ten, spend ten points every five years and face its decisions; at the end, see where you went, what it cost and what it taught, then live again in the same world.`:moving?(periodLine(state,travel.to,t)??'Time carries your choices forward. The world keeps going around you.'):end?(state.death?.cause??'Your choices made a shape. Some plans held; others changed. Follow the amber course to see where you went.'):first?'Ten points. Choose a starting shape; revise your priorities every five years.':`Set your effort for ages ${state.age}–${Math.min(80,state.age+5)}.`;
-if(birth){$('birth-info').replaceChildren();const dl=document.createElement('dl');const cohort=HISTORICAL_COHORTS[state.intake?.birthYear??state.birth?.birthYear];const fam=familyRecord(state);for(const[label,value]of [['Your household',state.birth.home],...(fam?[['Family',fam.guardians],['Siblings',fam.siblingsText]]:[]),['Starting condition',state.birth.body],['Temperament',state.birth.sensitivity],...(cohort?[['Historical era',cohort.label]]:[]),...(state.intake?[['Sex-related body profile',{female:'Female',male:'Male',intersex:'Intersex variation'}[state.intake.sex]],...(state.intake.upbringing?[['Upbringing range',{constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[state.intake.upbringing]]]:[])]:[])]){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;dl.append(dt,dd);}$('birth-info').append(dl);}if(review){allocations();profiles();questions();const waiting=pendingPivots(state).length;$('priorities').hidden=tab!=='priorities';$('questions').hidden=tab!=='questions';$('profile').hidden=tab!=='profile';$('tab-priorities').setAttribute('aria-pressed',String(tab==='priorities'));$('tab-questions').setAttribute('aria-pressed',String(tab==='questions'));$('tab-profile').setAttribute('aria-pressed',String(tab==='profile'));$('tab-questions').textContent=waiting?`Questions · ${waiting}`:'Questions';$('effect-preview').hidden=tab==='priorities';$('points-note').textContent='10 / 10 points';{let g=$('gain-note');if(!g){g=document.createElement('span');g.id='gain-note';$('points-note').after(g);}g.hidden=first||$('life-deck')?.hidden===false;g.textContent='gain by age '+(state.age+5);}document.querySelector('.allocation-heading strong').textContent=first?'Your starting attributes':'Effort';$('shape-comparison').querySelector('summary').textContent=first?'View your starting shape':'Compare with your starting shape';document.querySelector('.starting-key').hidden=first;$('effect-preview').textContent=tab==='profile'?'Your direction affects wellbeing in this model. A chapter priority records what you value.':(state.age>=20&&state.profile.smoke==='yes'?'Smoking costs money and physical health in this model.':'Priorities change your skills, resources and wellbeing.');}if(end)recap();const waitingQuestions=review?pendingPivots(state).length:0;$('commit').textContent=end?'Start a different life →':waitingQuestions?`Answer ${waitingQuestions} question${waitingQuestions>1?'s':''} →`:first?'Begin your path →':'Live 5 years →';$('commit').disabled=false;const last=state.history.at(-1);$('last-event').hidden=end;$('last-event').textContent=last&&state.age>10&&!moving?(state.story?.seen.at(-1)?.age===state.age?state.story.seen.at(-1).outcome:last.event):'';$('age-track').replaceChildren();for(let i=0;i<80;i++){const el=document.createElement('span');el.className=i+1<=age?'past':i===Math.floor(age)?'current':'';$('age-track').append(el);}renderEncounter();let feedback=$('focus-feedback');if(!feedback){feedback=document.createElement('section');feedback.id='focus-feedback';feedback.className='focus-feedback';$('editor').before(feedback);}feedback.replaceChildren();const evidence=focusEvidence(state);feedback.hidden=!evidence||birth||end||moving||!!state.story?.pending;if(!feedback.hidden){const label=document.createElement('h2');label.textContent='Last chapter'+' · '+evidence.from+'–'+evidence.to;const focus=document.createElement('p');focus.textContent='Chapter focus'+': '+FOCUSES[evidence.focus];const result=document.createElement('p');result.textContent=evidence.text;feedback.append(label,focus,result);}charts();consoleUI?.render();personalUI?.render();music?.updateMood();save();placeDeckAction();syncDecisionStage();transport?.render();dirty=true;}
-function renderChildGuide(n){let bar=$('childhood-guide-controls');if(!bar){bar=document.createElement('div');bar.id='childhood-guide-controls';bar.className='childhood-guide-controls';for(const[label,key]of [['You','you'],['World','world']]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{paused=true;consoleUI?.select(key);dirty=true;};bar.append(b);}const skip=document.createElement('button');skip.type='button';skip.id='skip-child-tutorial';skip.textContent='Skip tutorial';skip.onclick=()=>{state=skipChildIntro(state);age=Math.max(age,6);childView=null;dismissedDecision=null;render();};bar.append(skip);const decide=document.createElement('button');decide.type='button';decide.id='childhood-decide';decide.textContent='Make your choice';decide.onclick=()=>{dismissedDecision=null;render();};bar.append(decide);$('childhood-memory').prepend(bar);}$('skip-child-tutorial').hidden=n>=6;$('childhood-decide').hidden=!pendingChildChoice(state,age);}
+if(birth){$('birth-info').replaceChildren();const dl=document.createElement('dl');const cohort=HISTORICAL_COHORTS[state.intake?.birthYear??state.birth?.birthYear];const fam=familyRecord(state);for(const[label,value]of [['Your household',state.birth.home],...(fam?[['Family',fam.guardians],['Siblings in childhood',fam.siblingsText]]:[]),['Starting condition',state.birth.body],['Temperament',state.birth.sensitivity],...(cohort?[['Historical era',cohort.label]]:[]),...(state.intake?[['Sex-related body profile',{female:'Female',male:'Male',intersex:'Intersex variation'}[state.intake.sex]],...(state.intake.upbringing?[['Upbringing range',{constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[state.intake.upbringing]]]:[])]:[])]){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;dl.append(dt,dd);}$('birth-info').append(dl);}if(review){allocations();profiles();questions();const waiting=pendingPivots(state).length;$('priorities').hidden=tab!=='priorities';$('questions').hidden=tab!=='questions';$('profile').hidden=tab!=='profile';$('tab-priorities').setAttribute('aria-pressed',String(tab==='priorities'));$('tab-questions').setAttribute('aria-pressed',String(tab==='questions'));$('tab-profile').setAttribute('aria-pressed',String(tab==='profile'));$('tab-questions').textContent=waiting?`Questions · ${waiting}`:'Questions';$('effect-preview').hidden=tab==='priorities';$('points-note').textContent='10 / 10 points';{let g=$('gain-note');if(!g){g=document.createElement('span');g.id='gain-note';$('points-note').after(g);}g.hidden=first||$('life-deck')?.hidden===false;g.textContent='gain by age '+(state.age+5);}document.querySelector('.allocation-heading strong').textContent=first?'Your starting attributes':'Effort';$('shape-comparison').querySelector('summary').textContent=first?'View your starting shape':'Compare with your starting shape';document.querySelector('.starting-key').hidden=first;$('effect-preview').textContent=tab==='profile'?'Your direction affects wellbeing in this model. A chapter priority records what you value.':(state.age>=20&&state.profile.smoke==='yes'?'Smoking costs money and physical health in this model.':'Priorities change your skills, resources and wellbeing.');}if(end)recap();const waitingQuestions=review?pendingPivots(state).length:0;$('commit').textContent=end?'Start a different life →':waitingQuestions?`Answer ${waitingQuestions} question${waitingQuestions>1?'s':''} →`:first?'Begin your path →':'Live 5 years →';$('commit').disabled=false;const last=state.history.at(-1);$('last-event').hidden=end;$('last-event').textContent=last&&state.age>10&&!moving?(state.story?.seen.at(-1)?.age===state.age?state.story.seen.at(-1).outcome:last.event):'';$('age-track').replaceChildren();for(let i=0;i<80;i++){const el=document.createElement('span');el.className=i+1<=age?'past':i===Math.floor(age)?'current':'';$('age-track').append(el);}renderEncounter();let feedback=$('focus-feedback');if(!feedback){feedback=document.createElement('section');feedback.id='focus-feedback';feedback.className='focus-feedback';$('editor').before(feedback);}feedback.replaceChildren();const evidence=focusEvidence(state);feedback.hidden=!evidence||birth||end||moving||!!state.story?.pending;if(!feedback.hidden){const label=document.createElement('h2');label.textContent='Last chapter'+' · '+evidence.from+'–'+evidence.to;const focus=document.createElement('p');focus.textContent='Chapter focus'+': '+FOCUSES[evidence.focus];const result=document.createElement('p');result.textContent=evidence.text;feedback.append(label,focus,result);}charts();consoleUI?.render();personalUI?.render();music?.updateMood();save();placeDeckAction();syncDecisionStage();transport?.render();dirty=true;}
+function renderChildGuide(n){let bar=$('childhood-guide-controls');if(!bar){bar=document.createElement('div');bar.id='childhood-guide-controls';bar.className='childhood-guide-controls';for(const[label,key]of [['You','you'],['World','world']]){const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=()=>{paused=true;consoleUI?.select(key);dirty=true;};bar.append(b);}const skip=document.createElement('button');skip.type='button';skip.id='skip-child-tutorial';skip.textContent='Skip tutorial';skip.onclick=skipTutorial;bar.append(skip);const decide=document.createElement('button');decide.type='button';decide.id='childhood-decide';decide.textContent='Make your choice';decide.onclick=()=>{dismissedDecision=null;render();};bar.append(decide);$('childhood-memory').prepend(bar);}$('skip-child-tutorial').hidden=n>=6;$('childhood-decide').hidden=!pendingChildChoice(state,age);}
 // The world must say where you are, what year it is, and what the papers said.
 // Without it the diorama is a picture with no year on it. A life with no birth
 // year has no calendar to read: it says so, and it does not borrow a year.
@@ -312,7 +386,8 @@ $('childhood-back').onclick=()=>{childView=Math.max(0,Math.floor(childView??age)
 function tick(now){
  const dt=lastTime?Math.min((now-lastTime)/1000,.1):0;lastTime=now;
  const arriving=arrival>0;document.body.classList.toggle('arriving',arriving);$('arrival').hidden=!arriving;
- if(arriving){arrival=Math.max(0,arrival-dt);$('arrival-count').textContent=String(Math.ceil(arrival)||1);requestAnimationFrame(tick);return;}
+ if(arriving){showBirthOpening(dt);requestAnimationFrame(tick);return;}
+ const tutorialAge=state.stage==='birth'?age:null;
  const automatic=state.stage==='birth'||!!travel,motionAllowed=!preferences.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches,rhythm=tempo();
  const move=travel&&bangkokDeparture(travel.to,travel.from,travel.to.death?.age??travel.to.age);
  const start=move?move.since-DEPARTURE_WINDOW:Infinity;
@@ -324,6 +399,7 @@ function tick(now){
  const arrive=()=>{if(travel){const event=travel.to.history.at(-1)?.events?.find(e=>e.origin==='life'&&e.age<=age&&!(travel.handled??[]).includes(e.age+':'+e.id));if(event){age=event.age;travelEvent=event;render();return;}}if(state.stage==='birth'){const stop=nextChildAge(state);if(age>=stop&&stop<10){age=stop;render();return;}if(age>=10){state=begin(state);age=10;speed=Math.max(2,speed);tab='questions';render();keepPoint(store,state,true,familiarIds());focusChapter();}}else if(travel&&age>=travel.to.age){state={...travel.to,journey:undefined};travel=null;age=state.age;tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';if(state.stage==='recap')mode='course';render();keepPoint(store,state);focusChapter();}};
  if(animating){elapsed+=dt*rhythm.sceneSpeed;if(automatic&&childView===null){const rate=move&&age>=start?Math.min(rhythm.yearSpeed,.8):rhythm.yearSpeed;age+=dt*rate/(state.stage==='birth'?childYearSeconds(age):4);arrive();}}
  else if(!paused&&!rhythm.held&&automatic&&!motionAllowed){if(state.stage==='birth'&&age<5)age=Math.min(5,age+dt*rhythm.yearSpeed/childYearSeconds(age));else if(move&&age<move.since)age=Math.min(move.since,Math.max(start,age)+dt*DEPARTURE_WINDOW/3);else age=state.stage==='birth'?nextChildAge(state):travel.to.age;arrive();}
+ if(tutorialAge!==null&&tutorialAge<5&&age>=5)rememberTutorial();
  if(dirty||(state.stage==='birth'&&Math.floor(age)!==lastVisibleYear)||((animating||move&&!paused&&!rhythm.held)&&now-lastPaint>=40)){lastPaint=now;lastVisibleYear=Math.floor(age);setAge();setPalette(paletteFor(travel?.to??state,childView??age,undefined,{scenario:!travel&&tab==='questions'?pendingPivots(state)[0]?.id:undefined}));const camera=$('world-view').hidden?'follow':$('world-view').value;
  const progress=departureReplay?.progress??(move&&age>=start&&age<move.since?(age-start)/DEPARTURE_WINDOW:null);
  const showing=progress!==null&&mode==='world'&&camera==='follow'&&!rhythm.held;

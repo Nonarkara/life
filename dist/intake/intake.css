@@ -81,3 +81,6 @@
  .intake-page .point-editor{margin:0 0 6px}
  .intake-page #intake-radar{max-height:200px;min-height:0}
 }
+.intake-page .july-link{display:inline-flex;align-items:center;min-height:44px;color:inherit;text-underline-offset:3px}
+.intake-page #turning-list a{display:flex;align-items:center;min-height:44px}
+.intake-page #turning-points summary{min-height:44px}

@@ -1,3 +1,4 @@
+import {readTurningPoints,turningPointURL} from '../course/turning-points.js';
 import {AXES,balanced,transfer,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
 import {CLASS_WEIGHTS} from '../course/backgrounds.js';
 import {HISTORICAL_COHORTS} from '../course/thai-history.js';
@@ -34,7 +35,7 @@ const showBirthOdds=()=>!varied&&lastOptions.birthYear!=='historical';
 function card(life){
  const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class],cohort=HISTORICAL_COHORTS[life.intake.birthYear];
  const fam=familyRecord(life);
- const facts=[['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],...(fam?[['Family',fam.guardians],['Siblings',fam.siblingsText]]:[['Raised by',t(household(b).text)]]),['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
+ const facts=[['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],...(fam?[['Family',fam.guardians],['Siblings in childhood',fam.siblingsText]]:[['Raised by',t(household(b).text)]]),['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
  if(cohort?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cohort.note);$('birth-facts').append(note);}
@@ -78,6 +79,16 @@ function classNote(){const v=$('birth-class').value==='street'?'low_class':$('bi
 $('birth-class').addEventListener('change',classNote);$('birth-era')?.addEventListener('change',eraNote);
 // The lives already lived, each with a way to live the same birth again.
 function archive(){
+ const turns=readTurningPoints(localStorage),shelf=$('turning-points');
+ shelf.hidden=!turns.length;
+ $('turning-list').replaceChildren(...turns.map(entry=>{
+  const li=document.createElement('li'),title=document.createElement('b'),meta=document.createElement('span'),link=document.createElement('a');
+  title.textContent=t(entry.title);
+  meta.textContent=t('Age {n}').replace('{n}',entry.state.age)+' · '+t(entry.state.birth.place)+' · '+t(entry.answer);
+  link.href=turningPointURL(entry.id);link.textContent=t('Choose again');
+  li.append(title,meta,link);
+  return li;
+ }));
  const lives=readLives(localStorage),box=$('lives'),list=$('lives-list');
  box.hidden=!lives.length;if(!lives.length)return;
  $('lives-summary').textContent=t('Lives you have lived')+' · '+lives.length;

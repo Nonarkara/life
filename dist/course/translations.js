@@ -1,3 +1,5 @@
+import {FAMILY_FORK_PHRASES} from './family-forks-copy.js';
+import {JULY_PHRASES} from './july-copy.js';
 import {ROUTE_BRANCH_PHRASES} from './route-branch-copy.js';
 import {THAI_PHRASES} from './thai-copy.js';
 import {WAVE1_PHRASES} from './wave1-copy.js';
@@ -3011,3 +3013,5 @@ phrases.push(['The mortgage finished on schedule. Sometimes you turned the radio
 phrases.push(...ERA_SCENARIO_PHRASES);
 
 phrases.push(...ROUTE_BRANCH_PHRASES);
+
+for(const row of [...JULY_PHRASES,...FAMILY_FORK_PHRASES])if(!phrases.some(existing=>existing[0]===row[0]))phrases.push(row);

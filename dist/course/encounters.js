@@ -1,3 +1,5 @@
+import {RELATIONSHIP_FORKS,proposesFirst,encounterChoice} from './relationship-forks.js';
+import {familyGuardians} from './family-record.js';
 import {rand} from './rand.js';
 import {regionIdFor,homeRegion} from './regions.js';
 import {THAI_ENCOUNTERS} from './thai-encounters.js';
@@ -24,10 +26,28 @@ export const newStory=seed=>({people:{friend:seed%2?'Mali':'Niran',partner:seed%
 const option=(id,label,effects,outcome)=>({id,label,...effects,outcome});
 const byIdLate=id=>ENCOUNTERS.find(e=>e.id===id);
 export const ENCOUNTERS=[
+ ...RELATIONSHIP_FORKS,
+ {id:'family_exam',category:'family',min:15,max:15,priority:0,
+  title:'Miss the entrance exam to help at home?',
+  prompt:'{friend} took an extra shift. They ask you to stay with a sick relative on the morning of your entrance exam.',
+  eligible:s=>!!s.intake?.class&&rand(s.seed,0,'family-exam')<.24,
+  options:[
+   option('exam','Sit the exam and ask a neighbour to help',{wellbeing:-1,skills:{iq:1}},'{friend} did not speak to you that evening. In the morning they asked how the exam went.'),
+   option('home','Stay and care for your relative',{wellbeing:1,skills:{eq:1},flag:'familyExamMissed',pathway:'vocational'},'{friend} brought dinner home. You put the unused admission slip under your plate.')
+  ]},
+
  {id:'after_hospital',category:'health',min:10,max:80,priority:0,title:'Making room to recover',prompt:'An illness or accident has interrupted your plans. Recovery still needs time, money and other people. What will you make room for now?',eligible:s=>!!s.lifeEventPolicy&&s.history?.at(-1)?.events?.some(e=>e.origin==='life'&&e.health<0&&['illness','dengue','accident'].includes(e.type)),options:[
   option('slow','Make the next weeks lighter',{cash:-600,health:2,wellbeing:1},'You used some money to make daily life easier while recovering. Other plans waited.'),
   option('help','Ask someone to share the daily tasks',{health:1,wellbeing:2,skills:{eq:1}},'You asked for help with ordinary tasks. Accepting support became part of recovery.'),
   option('plans','Keep your existing commitments',{health:-1,wellbeing:-1,skills:{drive:1}},'You kept the commitments. There was less room to recover. This did not erase the illness.') ]},
+ {id:'family_exam_return',category:'family',min:20,max:25,priority:-2,
+  title:'Is there room to study now?',
+  prompt:'{friend} saved the old admission slip. They ask whether you want to try again, now that you have a regular wage.',
+  eligible:s=>typeof s.story.flags.familyExamMissed==='number'&&s.story.flags.familyExamMissed<s.age,
+  options:[
+   option('apply','Apply again and make time for classes',{pathway:'college',skills:{drive:2}},'{friend} covered dinner on class nights. You sat the exam this time.'),
+   option('stay','Keep the work you know',{pathway:'vocational',cash:7000},'{friend} put the slip away. You taught your first apprentice to do the work you once took on.')
+  ]},
  {id:'friend',category:'connection',min:15,max:20,title:'An invitation after school',prompt:'{friend} asks you to spend the afternoon together. The work at home can wait, but not disappear.',options:[
   option('join','Make time for a new friend',{cash:-300,wellbeing:3,flag:'friend'},'You and {friend} found time for each other. A friendship began.'),
   option('home','Go home and finish your project',{skills:{craft:1}},'You stayed home and finished something that had been waiting.'),
@@ -44,10 +64,11 @@ export const ENCOUNTERS=[
  {id:'love',category:'connection',min:20,max:40,title:'Someone you want to know',prompt:'You and {partner} keep finding reasons to talk. They ask whether you would like to go on a date.',options:[
   option('date','Say yes to a date',{cash:-500,wellbeing:3,flag:'dating'},'You and {partner} began seeing each other.'),
   option('single','Keep this part of life open',{wellbeing:1},'You chose to stay single for now. Other parts of life still mattered.') ]},
- {id:'commitment',category:'connection',min:30,max:50,priority:1,title:'A shared future',prompt:'You and {partner} have been together for years. Both of you are ready to talk about marriage.',eligible:s=>s.story.flags.dating!==undefined&&s.age-s.story.flags.dating>=5,options:[
+ {id:'commitment',category:'connection',min:30,max:50,priority:1,title:'Will you marry {partner}?',prompt:'{partner} asks you to marry them. Later tonight you still have to talk about rent, work and whose family will need help.',eligible:s=>s.story.flags.dating!==undefined&&s.age-s.story.flags.dating>=5,options:[
   option('marry','Hold a small wedding',{cash:-6000,wellbeing:4,flag:'married',marker:'married'},'You and {partner} married, with a small gathering of people close to you.'),
   option('together','Keep your commitment without a wedding',{wellbeing:3,flag:'committed'},'You and {partner} chose a shared life without a wedding.'),
-  option('apart','Stay together, each caring for your own parents',{wellbeing:2,flag:'apart'},'You and {partner} stayed committed while each of you looked after your own parents, in two homes.') ]},
+  option('apart','Stay together, each caring for your own parents',{wellbeing:2,flag:'apart'},'You and {partner} stayed committed while each of you looked after your own parents, in two homes.'),
+  option('decline','Say no to the proposal',{wellbeing:-2,flag:'proposalTurnedDown'},'You said no. {partner} asked for time to think about what that meant for both of you.') ]},
  {id:'parenthood',category:'family',min:35,max:50,title:'Room for another person',prompt:'You and {partner} have talked about raising a child. Parenthood would change your household and commitments.',eligible:s=>s.story.flags.married!==undefined||s.story.flags.committed!==undefined,options:[
   option('raise','Begin the path to parenthood',{cash:-4000,wellbeing:3,flag:'parent'},'You and {partner} began raising a child together. Daily routines changed around the child.'),
   option('two','Keep the family as it is',{wellbeing:2},'You chose a life without children of your own. Your home was still a family.') ]},
@@ -140,7 +161,7 @@ export function eligibleEncounters(state){
 export function offerEncounter(state,roll,keep=()=>true){
  // Offer-time gates. They are not eligibility rules, so a save that already met the scene stays valid.
  // The labourer's road opens at twenty, after the answers at fifteen that lead to it; a classroom bully is not met by someone who has left school.
- const OFFER={r_border_pm_1:s=>s.age>=20,bully:s=>s.age<20||['school','college'].includes(s.history?.at(-1)?.pathway)};
+ const OFFER={commitment:s=>!proposesFirst(s),proposal_first:s=>!s.story.seen.some(e=>e.id==='commitment'),r_border_pm_1:s=>s.age>=20,bully:s=>s.age<20||['school','college'].includes(s.history?.at(-1)?.pathway)};
  let eligible=eligibleEncounters(state).filter(keep).filter(e=>!OFFER[e.id]||OFFER[e.id](state)).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
  // An ordinary scene this device met in an earlier life steps aside while an unmet ordinary one, of a
  // different kind from the last scene, is waiting. Story beats, class urgency, arc beats and dated
@@ -174,16 +195,22 @@ export function offerEncounter(state,roll,keep=()=>true){
  const selected=pool[Math.min(pool.length-1,Math.floor(roll*pool.length))];
  return {...state,story:{...state.story,pending:{id:selected.id,age:state.age,candidates:eligible.map(e=>e.id)}}};
 }
+export function storyContext(state,id){
+ if(!['family_exam','family_exam_return'].includes(id))return state.story;
+ const guardians=familyGuardians(state);
+ const guardian=guardians.find(p=>!p.elder)??guardians[0];
+ return guardian?{...state.story,people:{...state.story.people,friend:guardian.name}}:state.story;
+}
 export function storyText(text,story){return text.replaceAll('{friend}',story.people.friend).replaceAll('{partner}',story.people.partner);}
 export function resolveEncounter(state,choiceId,roll){
- const pending=state.story?.pending,encounter=byId.get(pending?.id),choice=encounter?.options.find(o=>o.id===choiceId);
+ const pending=state.story?.pending,encounter=byId.get(pending?.id),choice=encounterChoice(encounter?.options.find(o=>o.id===choiceId),state);
  if(!choice||!choiceAvailable(state,choice)||state.stage!=='review'||pending.age!==state.age||state.story.seen.some(e=>e.id===pending.id))return state;
  let cash=choice.cash??0;let outcome=choice.outcome;
  if(choice.uncertain){if(roll<.5){cash+=4500;outcome+=' Someone bought a piece of your work.';}else outcome+=' There were no sales this time.';}
  const cap=n=>Math.max(0,Math.min(100,n));
  const effects={cash,health:cap(state.health+(choice.health??0))-state.health,wellbeing:cap(state.wellbeing+(choice.wellbeing??0))-state.wellbeing,skills:choice.skills??{}};
  const flags={...state.story.flags};if(choice.flag)flags[choice.flag]=state.age;
- const seen=[...state.story.seen,{id:pending.id,age:state.age,choice:choice.id,outcome:storyText(outcome,state.story),effects}];
+ const seen=[...state.story.seen,{id:pending.id,age:state.age,choice:choice.id,outcome:storyText(outcome,storyContext(state,encounter.id)),effects}];
  const funded=state.finance?personalFlow(state,'encounter:'+state.age+':'+pending.id,Math.max(0,choice.cash??0)+(choice.uncertain&&roll<.5?4500:0),Math.max(0,-(choice.cash??0))):state;
  const destination=choice.moveTo==='home'?homeRegion(state.birth,state.age):choice.moveTo;
  const finance=destination&&funded.finance?{...funded.finance,region:destination,regionSince:state.age}:funded.finance;
@@ -214,10 +241,10 @@ export function validStory(story,age,state){
    const row=state.history.find(r=>r.age===seen.age);if(!row)return false;
    const prior={...state,age:seen.age,health:row.health-(seen.effects.health||0),wellbeing:row.wellbeing-(seen.effects.wellbeing||0),cash:(row.cash??state.cash)-(seen.effects.cash||0),effort:row.effort,pathway:row.pathway,history:state.history.filter(r=>r.age<=seen.age),story:{...story,flags,pending:null},...(beforeStation(state,seen.age)?{pivotFlags:beforeStation(state,seen.age).pivotFlags}:{})};
    const entry=byId.get(seen.id);if(entry.id==='m_crash'){if(!recordedFundLoss(state,seen.age)&&!legacyMarketPrompt(prior))return false;}else if(!['flood_help','remember','remember_mother','th_unpaid_placement'].includes(entry.id)&&entry.eligible&&!entry.eligible(prior)&&!entry.eligible({...prior,health:row.health,wellbeing:row.wellbeing,cash:row.cash??state.cash})&&!(beforeStation(state,seen.age)&&entry.eligible({...prior,...beforeStation(state,seen.age)}))&&!moneyThen(state,seen.age).some(finance=>entry.eligible({...prior,finance})))return false;
-   const flag=entry.options.find(o=>o.id===seen.choice).flag;if(flag)flags[flag]=seen.age;
+   const flag=encounterChoice(entry.options.find(o=>o.id===seen.choice),state).flag;if(flag)flags[flag]=seen.age;
   }
  }
- const expectedFlags=Object.fromEntries(story.seen.flatMap(e=>{const flag=byId.get(e.id).options.find(o=>o.id===e.choice).flag;return flag?[[flag,e.age]]:[]}));
+ const expectedFlags=Object.fromEntries(story.seen.flatMap(e=>{const flag=encounterChoice(byId.get(e.id).options.find(o=>o.id===e.choice),state).flag;return flag?[[flag,e.age]]:[]}));
  if(Object.keys(expectedFlags).length!==Object.keys(story.flags).length||Object.entries(expectedFlags).some(([key,value])=>story.flags[key]!==value))return false;
  if(story.pending===null)return true;
  const pending=story.pending;

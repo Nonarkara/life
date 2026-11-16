@@ -1,0 +1,38 @@
+// A small, device-only shelf of pre-answer snapshots independent of the active life.
+const KEY='life-turning-points-v1';
+const LIMIT=18;
+
+export function readTurningPoints(storage){
+ try{
+  const entries=JSON.parse(storage?.getItem(KEY));
+  return Array.isArray(entries)?entries.filter(e=>typeof e?.id==='string'&&typeof e.title==='string'&&
+    typeof e.answer==='string'&&e.state?.stage==='review'&&Number.isInteger(e.state.age)&&
+    typeof e.state.birth?.place==='string'&&Array.isArray(e.met)).slice(0,LIMIT):[];
+ }catch{return [];}
+}
+
+export function keepTurningPoint(storage,state,{scene,title,answer,met}){
+ if(!storage||state?.stage!=='review'||!scene||!title||!answer)return null;
+ // Keep the first fork in this scene for a birth. Replaying it must not replace the original answer.
+ const id=[state.seed.toString(36),state.age,scene].join('.');
+ const earlier=readTurningPoints(storage);
+ if(earlier.some(e=>e.id===id))return id;
+ const entry={id,title,answer,met:[...met],state:{...state,previous:null}};
+ let sameBirth=0;
+ const retained=earlier.filter(point=>point.state.seed!==state.seed||++sameBirth<5);
+ const entries=[entry,...retained].slice(0,LIMIT);
+ while(entries.length){
+  try{storage.setItem(KEY,JSON.stringify(entries));return id;}
+  catch{entries.pop();}
+ }
+ return null;
+}
+
+export function loadTurningPoint(storage,id,valid){
+ const entry=readTurningPoints(storage).find(e=>e.id===id);
+ return entry&&valid(entry.state)?entry:null;
+}
+
+export function turningPointURL(id){
+ return '/course/?turning='+encodeURIComponent(id);
+}

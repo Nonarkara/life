@@ -23,6 +23,7 @@ assign('north_silver north_longan isan_loom isan_bus east_shift east_durian west
 assign('w1_board w1_match w1_transfer w1_vest w1_scale w1_ordain w1_rice w1_fire w1_shoes w1_songkran w1_first_pay');
 assign('h_1973_leaflet h_1973_radio h_1973_truck h_1976_campus h_1976_names h_rice_at_night h_1997_closed h_2011_flood h_2020_glass',{sad:true});
 assign('h_film_van h_nang_talung h_transistor h_airbase h_1980_return h_saudi h_garment h_road h_1992 h_1996_boom h_2010_table three-roads');
+assign('family_exam family_exam_return teen_boundaries teen_parenthood care_returns proposal_first proposal_wedding');
 assign('friend love commitment parenthood project_return child_school mentor friend_late dog l_friends l_kind m_pet',{joy:true});
 assign('after_hospital bully flood_help remember remember_mother hard_marriage l_funeral l_injury l_bottom m_crash m_vanished m_grandparent',{sad:true});
 assign('geo_arbitrage gap_year geo_expiry health_rest project friend_care mismatch crossroads l_pension l_raise l_parent_trip l_carpet l_early_family l_shortcut l_borrow l_bond l_phd l_habits l_basket l_boss l_defined l_compare l_less l_plan l_fail l_luck l_shop m_runway m_kits m_funds m_leverage m_house m_debt m_offer m_insure m_unfair m_flat m_child m_passive');

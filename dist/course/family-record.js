@@ -2,6 +2,7 @@
 // and siblings) derived from a life's seed, class, and household without mutating save state.
 import {rand} from './rand.js';
 import {t} from './i18n.js';
+import {household} from './regions.js';
 
 const FATHER_NAMES=['Somchai','Prasert','Wichai','Somsak','Narong','Boonmee','Anan','Kittisak','Thaworn','Preecha'];
 const MOTHER_NAMES=['Malee','Suda','Wilai','Ratana','Nonglak','Chanthira','Yupin','Sunee','Kanya','Somporn'];
@@ -15,25 +16,29 @@ const OCCUPATIONS={
  high_class:['rice-mill owner','textile exporter','clinic director','timber merchant','property developer','shipping partner']
 };
 
+export function familyGuardians(life){
+ if(!life?.birth)return [];
+ const seed=life.seed||1;
+ const cls=life.intake?.class??life.birth.class??'working_class';
+ const jobs=OCCUPATIONS[cls]??OCCUPATIONS.working_class;
+ const {father,mother}=household(life.birth);
+ const pick=(list,salt)=>list[Math.floor(rand(seed,0,salt)*list.length)];
+ const usedNames=new Set(),usedJobs=new Set();
+ return [father,mother].map((person,index)=>{
+  const slot=index?'m':'f';
+  const names=person.sex==='male'?FATHER_NAMES:MOTHER_NAMES;
+  const name=pick(names.filter(name=>!usedNames.has(name)),'fam-'+slot+'-name');
+  const job=pick(jobs.filter(job=>!usedJobs.has(job)),'fam-'+slot+'-job');
+  usedNames.add(name);usedJobs.add(job);
+  return {name,job,role:person.role,elder:!!person.elder};
+ });
+}
+
 export function familyRecord(life){
  if(!life?.birth)return null;
  const seed=life.seed||1;
- const cls=life.intake?.class??life.birth?.class??'working_class';
- const hh=life.birth.household??'parents';
- const jobs=OCCUPATIONS[cls]??OCCUPATIONS.working_class;
- const pick=(arr,salt)=>arr[Math.floor(rand(seed,0,salt)*arr.length)];
-
- const fatherName=pick(FATHER_NAMES,'fam-f-name');
- const motherName=pick(MOTHER_NAMES,'fam-m-name');
- const fatherJob=pick(jobs,'fam-f-job');
- const motherJob=pick(jobs.filter(j=>j!==fatherJob),'fam-m-job')||jobs[0];
-
- let guardians;
- if(hh==='grandmother')guardians=`${t('Grandmother')} ${motherName} (${t(motherJob)})`;
- else if(hh==='grandfather')guardians=`${t('Grandfather')} ${fatherName} (${t(fatherJob)})`;
- else if(hh==='mothers')guardians=`${t('Mother')} ${motherName} (${t(motherJob)})`;
- else if(hh==='fathers')guardians=`${t('Father')} ${fatherName} (${t(fatherJob)})`;
- else guardians=`${fatherName} (${t(fatherJob)}) · ${motherName} (${t(motherJob)})`;
+ const guardians=familyGuardians(life).map(({name,job,role})=>
+  `${name} · ${t(role[0].toUpperCase()+role.slice(1))} · ${t(job)}`).join(' / ');
 
  const sibCount=Math.floor(rand(seed,0,'fam-sib-n')*4);
  let siblingsText;
@@ -54,5 +59,5 @@ export function familyRecord(life){
   siblingsText=list.join(' · ');
  }
 
- return {fatherName,motherName,fatherJob,motherJob,guardians,siblingsText,sibCount};
+ return {guardians,siblingsText,sibCount};
 }
