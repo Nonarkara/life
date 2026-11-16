@@ -149,6 +149,24 @@ test('the Director gives each life its own few blows, and every blow can be met 
  for(const e of [...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS]){assert.ok(e.rehearse,e.id);assert.ok(e.options.some(o=>!(o.cash<0)),e.id);assert.ok(!(e.options[0].cash<0),e.id);}
  for(const e of SAD_ENCOUNTERS)assert.match(e.rehearse,/\(.+, \d{4}\)$/,e.id+' names its source');
 });
+test('a scholarship bond is a reported pattern, with no named person and a practical note',async()=>{
+ const {translate}=await import('../../dist/course/i18n.js');
+ const e=SAD_ENCOUNTERS.find(x=>x.id==='s_surety');
+ assert.ok(e,'the bond scene is in the reported-life bank');
+ const text=[e.title,e.prompt,e.rehearse,...e.options.flatMap(o=>[o.label,o.outcome])].join('\n');
+ assert.match(text,/young dental lecturer/);
+ assert.match(text,/as reported in Thai media/i);
+ assert.match(e.rehearse,/Before you sign/);
+ assert.match(e.rehearse,/Since 2015/);
+ assert.match(e.rehearse,/\(Thai media reports, 2017\)$/);
+ assert.doesNotMatch(text,/Mahidol|Harvard|MIT|Oxford|@|https?:|ดลฤดี|มหิดล/);
+ assert.equal(e.options[0].id,'no');
+ assert.ok(!(e.options[0].cash<0));
+ const th=[e.title,e.prompt,e.rehearse,...e.options.flatMap(o=>[o.label,o.outcome])].map(s=>translate(s,'th')).join('\n');
+ assert.match(th,/อาจารย์ทันตแพทย์ท่านหนึ่ง/);
+ assert.doesNotMatch(th,/ดลฤดี|มหิดล|จำลองราษฎร์/);
+ assert.notEqual(translate(e.rehearse,'th'),e.rehearse);
+});
 test('the door: leaving for the temple ends the life, saves, and is the only third verdict',()=>{
  const born=begin(configureLife(newLife(7919),{birthYear:1949,class:'middle_class'})),s={...born,story:{...born.story,pending:null},age:30};
  assert.equal(validate(born),true);assert.equal(leaveWorld({...s,age:15}).stage,'review','not before twenty');

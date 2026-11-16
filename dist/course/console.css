@@ -359,7 +359,7 @@ body.console-mode>header{flex:none}
 
 .town-caption{position:absolute;left:8px;bottom:12px;margin:0;padding:3px 8px;max-width:calc(100% - 16px);background:#0a0e14;color:#f3efe3;font-size:12px;line-height:1.35;pointer-events:none}.town-caption[hidden]{display:none}
 
-.pop-line{display:block;margin-top:2px;font-size:12px;line-height:1.3;color:var(--muted)}.decision-rehearse{margin:8px 0 0;padding-left:8px;border-left:2px solid #f59e0b}
+.pop-line{display:block;margin-top:2px;font-size:12px;line-height:1.3;color:var(--muted)}.decision-rehearse{margin:8px 0 0;padding-left:8px;border-left:2px solid #f59e0b;white-space:pre-line;max-width:62ch}
 .ending-verdict{max-width:65ch;margin:0 0 18px}.ending-verdict h2{margin:6px 0}.verdict-lead{margin:0;color:var(--muted)}
 
 /* Choices are rows on one left edge, one line each where the words allow. The world keeps the screen. */
