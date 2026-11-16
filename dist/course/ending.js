@@ -14,6 +14,7 @@ import {replayComparison} from './replay-compare.js';
 import {renderReading,themCode} from './life-reading.js';
 import {pathOf,lifeArc} from './life-verdict.js';
 import {scoreLife} from './life-collection.js';
+import {recordAlmanac} from './almanac.js';
 import {encounterById,storyText,ENCOUNTERS} from './encounters.js';
 import {metScenes} from './scene-memory.js';
 import {kitchenFeeds} from './diorama-plan.js';
@@ -153,7 +154,12 @@ export function renderEnding(root,state,{storage}={}){
   const ul=document.createElement('ul');ul.className='score-goals';for(const g of r.goals){const li=document.createElement('li');li.textContent=(g.met?'✓ ':'✗ ')+t(g.label)+(g.met?' +'+g.pts:'');ul.append(li);}box.append(ul);
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
-  add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));numbers.before(box);}
+  const learned=[],seenNote=new Set();
+  for(const e of (state.story?.seen??[])){if(!e?.id||seenNote.has(e.id))continue;const sc=encounterById(e.id);if(sc?.rehearse){seenNote.add(e.id);learned.push({id:e.id,age:e.age,title:sc.title,text:sc.rehearse});}}
+  const alm=recordAlmanac(storage,state,{score:r.total,noteIds:learned.map(x=>x.id)});
+  add('p','score-almanac',t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes').replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length));
+  add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));numbers.before(box);
+  if(learned.length){const boxL=document.createElement('details');boxL.className='full-life-record ending-learned';const sumL=document.createElement('summary');sumL.textContent=t('What this life taught · {n} field notes').replace('{n}',learned.length);boxL.append(sumL);const ulL=document.createElement('ul');for(const item of learned){const li=document.createElement('li');li.textContent=t('Age {n}').replace('{n}',item.age)+' · '+t(item.title)+': '+t(item.text);ulL.append(li);}boxL.append(ulL);numbers.before(boxL);}}
  {const said=document.createElement('details');said.className='full-life-record ending-said';const sum=document.createElement('summary');sum.textContent=t('What this life said');said.append(sum);renderReading(said,state);numbers.before(said);
   const roads=said.querySelector('.reading-roads');
   if(roads){const btn=document.createElement('button');btn.type='button';btn.className='ending-rewind';btn.textContent=t('Try another turning point →');btn.onclick=()=>{said.open=true;roads.scrollIntoView({behavior:'smooth',block:'nearest'});};said.before(btn);}}

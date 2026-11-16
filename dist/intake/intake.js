@@ -8,6 +8,7 @@ import {RUNGS,birthRung} from '../course/housing-ladder.js';
 import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../course/birthcode.js';
 import {drawBirth} from '../course/birth-draw.js';
 import {readLives} from '../course/lives.js';
+import {almanacSummary} from '../course/almanac.js';
 import {deliverShare,copyShare} from '../course/share-result.js';
 let points=balanced(),selected='physique',shareRevision=0;const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 function node(tag,attrs,text){const el=document.createElementNS(NS,tag);for(const[key,value]of Object.entries(attrs))el.setAttribute(key,value);if(text!==undefined)el.textContent=text;return el;}
@@ -78,6 +79,8 @@ function archive(){
  const lives=readLives(localStorage),box=$('lives'),list=$('lives-list');
  box.hidden=!lives.length;if(!lives.length)return;
  $('lives-summary').textContent=t('Lives you have lived')+' · '+lives.length;
+ const alm=almanacSummary(localStorage);
+ if(alm.routes.length||alm.stops.length||alm.notes.length){$('lives-summary').textContent+=' · '+t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes').replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length);}
  list.replaceChildren(...lives.slice(0,6).map(e=>{
   const li=document.createElement('li'),place=document.createElement('b'),meta=document.createElement('span'),again=document.createElement('a');
   place.textContent=t(e.place);meta.textContent=t('Age {n}').replace('{n}',e.age)+(e.words?' · “'+e.words+'”':'');
