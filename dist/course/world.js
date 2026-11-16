@@ -24,9 +24,8 @@ export function drawWorld(canvas,state,age,time,mode='world',view={}){
  return result;
 }
 function paintWorld(canvas,state,age,time,mode='world',view={}){
- // Hybrid, the default, keeps ordinary routines in the diorama and paints recorded moments.
- // Explicit world preferences remain available; drawing never changes the life.
- if(preferences.stage!=='isometric'&&(!view.camera||view.camera==='follow')){
+ // Explicit 'painted' preference uses cel plates; default keeps the cohesive illustrative 3D diorama throughout.
+ if(preferences.stage==='painted'&&(!view.camera||view.camera==='follow')){
   if(drawStage2D(canvas,state,age,time,mode,view)){showPaintedCanvas(canvas);return {caption:stageCaption(canvas)};}
   // The painting may cover this scene but has not finished decoding. Holding
   // the surface is better than showing a different world for a moment.

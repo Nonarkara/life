@@ -26,7 +26,8 @@ export const DOORS={
  tycoon:[['school-leave','send'],['school-apprentice','both']],
  far_scholar:[['school-apprentice','school'],['school-fall-climb','retrain']],
  border_pm:[['parent-language','learn'],['school-apprentice','apprentice'],['school-leave','go']],
- singer_office:[['school-apprentice','school'],['college-cost','merit'],['college-cost','loan'],['college-cost','half']]
+ singer_office:[['school-apprentice','school'],['college-cost','merit'],['college-cost','loan'],['college-cost','half']],
+ olympian_pm:[['child-water-bike','dive'],['school-apprentice','both'],['school-fall-climb','rise']]
 };
 const answers=s=>[...(s.history??[]).flatMap(row=>row.pivots??[]),...(s.pivots??[])];
 const fits=(r,cls,sex,y)=>(!r.fit?.classes||r.fit.classes.includes(cls))&&(!r.fit?.sex||r.fit.sex===sex)&&(!r.fit?.years||(y>=r.fit.years[0]&&y<=r.fit.years[1]));
@@ -43,6 +44,7 @@ export function routeOf(s){
  // became an office worker. Both are the player's own recorded choices, so this road needs no dealt question.
  const band=(s.profiles??[]).some(p=>p.age===15&&p.profile?.priority==='band');
  if(band&&s.age>=20&&open.some(r=>r.route==='singer_office')&&(s.history??[]).some(r=>r.from===15&&['school','college'].includes(r.pathway)))return 'singer_office';
+ if((s.skills?.physique??0)>=16&&(s.skills?.drive??0)>=14&&s.age>=15&&s.age<=25&&open.some(r=>r.route==='olympian_pm'))return 'olympian_pm';
  for(let i=given.length-1;i>=0;i--){const a=given[i],doors=open.filter(r=>(DOORS[r.route]??[]).some(([q,c])=>q===a.pivot&&c===a.choice)&&a.station<s.age&&a.station<(OPENS_AT[r.route]??Math.min(...r.scenes.map(x=>x.min))));
   if(band&&doors.some(r=>r.route==='singer_office'))return 'singer_office';
   // The summer on the building site is where the labourer's road begins, for a birth it is open to.
