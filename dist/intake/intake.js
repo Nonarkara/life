@@ -9,6 +9,7 @@ import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../
 import {drawBirth} from '../course/birth-draw.js';
 import {readLives} from '../course/lives.js';
 import {almanacSummary} from '../course/almanac.js';
+import {familyRecord} from '../course/family-record.js';
 import {deliverShare,copyShare} from '../course/share-result.js';
 let points=balanced(),selected='physique',shareRevision=0;const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 function node(tag,attrs,text){const el=document.createElementNS(NS,tag);for(const[key,value]of Object.entries(attrs))el.setAttribute(key,value);if(text!==undefined)el.textContent=text;return el;}
@@ -32,7 +33,8 @@ function savedLife(){
 const showBirthOdds=()=>!varied&&lastOptions.birthYear!=='historical';
 function card(life){
  const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class],cohort=HISTORICAL_COHORTS[life.intake.birthYear];
- const facts=[['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],['Raised by',t(household(b).text)],['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
+ const fam=familyRecord(life);
+ const facts=[['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],...(fam?[['Family',fam.guardians],['Siblings',fam.siblingsText]]:[['Raised by',t(household(b).text)]]),['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
  if(cohort?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cohort.note);$('birth-facts').append(note);}
