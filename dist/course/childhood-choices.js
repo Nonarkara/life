@@ -109,7 +109,7 @@ export function chooseChild(state,age,id){
 export function skipChildIntro(state){return {...state,childhood:{...(state.childhood??{origin:{cash:state.cash,health:state.health,wellbeing:state.wellbeing},choices:[]}),skipped:true}};}
 export function validChildhood(state){const c=state.childhood;if(c===undefined)return true;if(!c||!c.origin||!['cash','health','wellbeing'].every(k=>Number.isFinite(c.origin[k]))||!Array.isArray(c.choices)||c.choices.length>4||c.skipped!==undefined&&typeof c.skipped!=='boolean'||c.startsAt!==undefined&&(!Number.isInteger(c.startsAt)||c.startsAt<6||c.startsAt>10))return false;if(c.awaiting!==undefined&&!c.choices.some(r=>r.age===c.awaiting))return false;return new Set(c.choices.map(r=>r?.age)).size===c.choices.length&&c.choices.every(r=>{const q=CHILD_CHOICES.find(q=>q.age===r?.age&&q.options.some(o=>o.id===r.choice))??CHILD_CHOICES.find(q=>q.age===r?.age),o=q?.options.find(o=>o.id===r.choice);return o&&r.note===o.note&&r.age<=Math.max(state.age,state.progressAge??0);});}
 export const CHILD_TUTORIAL=[
- ['One year, one carriage','Your family carries the first years. Watch how the world grows around you. The terminal is not promised.'],
+ ['Learn the controls','Pause to read, or use fast-forward to move ahead. Try You and World as the years pass. You can skip straight to your first choice.'],
  ['Get to know yourself','You holds your body, mood, skills and personality. These are game values, not test results.'],
  ['Money and time are different resources','Money pays for things. Free days make experiences possible. The bucket list spends both.'],
  ['Read the world around you','World shows the economy and the places that shape your choices. A crisis affects people differently.'],

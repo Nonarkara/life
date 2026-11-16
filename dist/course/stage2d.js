@@ -138,6 +138,8 @@ export function castSheet(state,actor,sheet){
 export function paintedCovers(state,age=state?.age??0,time=1,description=null){
  const manifest=animeManifest();if(!manifest||age<5)return false;
  const scene=description??describePaintedScene(state,age,time);
+ // The painted desks have no occlusion masks or verified seating anchors.
+ if(scene.basePlate==='beat-classroom'||scene.plate==='beat-classroom')return false;
  const region=REGIONS[regionAt(state,age)],style=region?.style;
  const domestic=!scene.beat&&['home','bedroom'].includes(scene.set);
  if(region?.country!=='TH'&&!manifest.plates?.[`${scene.basePlate}@${style}`])return false;

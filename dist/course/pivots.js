@@ -126,7 +126,7 @@ export const PIVOTS=[
  // ---- station 20: building --------------------------------------------------
  {
   // The fork a provincial life of this age actually met. Nobody here is under twenty.
-  id:'three-roads',station:20,
+  id:'three-roads',station:20,heading:'College, family work, or marriage?',
   prompt:'You are twenty and the family still counts on you. The people who own the oil press in town have sent an aunt to speak to them about you. Under the rice tin there is a letter from a college in Bangkok.',
   context:'Nobody at home has said which they want. Someone has started wiping the same shelf.',
   options:[
@@ -137,7 +137,7 @@ export const PIVOTS=[
     effects:{cash:40000,wellbeing:2},flags:{married:20,oilPress:true},pathway:'work',
     note:'You said yes. The wedding took three days and you learned the price of everything in that house.'},
    {id:'go',label:'Take the letter and go to Bangkok',cost:'The fare, the fees, and the faces at the bus.',
-    effects:{cash:-12000,wellbeing:3,skills:{iq:2}},locks:{iq:3},flags:{wentBangkok:20},pathway:'college',
+    effects:{cash:-12000,wellbeing:3,skills:{iq:2}},locks:{iq:3},flags:{wentBangkok:20},pathway:'college',moveTo:'bang-na',
     note:'You left on the morning bus. The aunt from the oil press was at the stop and looked the other way.'}
   ]
  },
@@ -211,7 +211,7 @@ export const PIVOTS=[
  },
  // ---- station 30: the flood year --------------------------------------------
  {
-  id:'flood-repair',station:30,
+  id:'flood-repair',station:30,heading:'Spend your savings on flood repairs?',
   prompt:'The flood has taken the roof, the wiring and half the furniture. Repairs cost everything you have.',
   context:'The house is your mother’s and your father’s. It is also where you sleep.',
   options:[

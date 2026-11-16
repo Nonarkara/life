@@ -519,3 +519,8 @@ body.has-plan .plan-card>.plan-key.plan-warning{flex:0 0 100%;max-width:none;opa
 /* Between 1280 and 1440 the empty half is too narrow for chart and sentence: the sentence stays. */
 @media(min-width:1280px) and (max-width:1439px){.year-rates{display:none}}
 @media(min-width:1440px){.year-note{color:var(--muted)}}
+
+@media(max-width:720px) and (orientation:portrait){
+ .console-mode.birth-stage.learning-controls[data-console-view="plan"]{--rpg-height:136px}
+ .learning-controls .childhood-guide-controls button{min-height:44px}
+}

@@ -61,7 +61,7 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  if(!bare)b.box(5.3,3.1,FLOOR,.62,.22,m(.7),'#8c795e');
  if(R.flatTv)b.box(5.32,3.14,backShelf-.02,.58,.02,.34,'#2c3436');else if(R.tv){b.box(5.42,3.12,backShelf-.04,.38,.28,.3,'#5f4a38');b.box(5.46,3.4,backShelf,.3,.008,.22,'#46555a');}else if(R.radio)b.box(5.46,3.14,backShelf-.04,.3,.14,.17,'#7a5a42');
  if(R.phone&&!R.flatTv)b.box(5.82,3.16,backShelf-.04,.13,.12,.06,'#d8d2c2');
- if(R.fridge)b.box(3.12,4.82,FLOOR,.4,.42,m(1.55),'#ded9cc');
+ if(R.fridge)b.box(5,3.52,FLOOR,.4,.42,m(1.55),'#ded9cc');
  if(R.fan){b.box(6.67,4.95,FLOOR,.03,.03,m(1.15),'#71766f');b.ball(6.68,FLOOR+m(1.15),4.97,.11,.11,.02,'#9aa8a2',8);}
  if(R.aircon)b.box(4.4,3.09,FLOOR+m(2.3),.64,.1,.16,'#ece8dc');
  if(R.sewing){b.box(6.45,3.15,FLOOR,.42,.26,m(.66),'#6a5642');b.box(6.5,3.2,FLOOR+m(.66),.28,.12,.14,'#2f3436');}

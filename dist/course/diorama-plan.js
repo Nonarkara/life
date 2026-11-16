@@ -103,7 +103,7 @@ export function townStyle(base,year,where){
 export const faithOf=state=>{const id=regionIdFor(state.birth);return rand(state.seed,0,'faith')<(id==='pak-phanang'?.3:REGIONS[id]?.muslim??0)?'muslim':'buddhist';};
 export function homeKindFor(style,where,rung){
  if(where.place==='villa')return 'villa';if(where.place==='condo')return 'condo';
- if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return style==='village'||style==='fringe'?'stilt':style==='coast'?'plank':'row';if(rung===3)return style==='beach'?'bungalow':'shophouse';}
+ if(rung!==undefined){if(rung===0)return 'pavement';if(rung===4)return 'bungalow';if(rung===5)return 'villa';if(rung===1&&style==='market')return 'shack';if(rung===2)return style==='village'||style==='fringe'?'stilt':style==='coast'?'plank':'row';if(rung===3)return style==='beach'?'bungalow':style==='coast'?'plank':style==='village'||style==='fringe'?'stilt':'shophouse';}
  return {slum:'shack',village:'stilt',fringe:'stilt',coast:'plank',beach:'bungalow',market:'shophouse',condo:'flat',villa:'villa',tower:'hdb',tokyo:'tatami',newengland:'triple',brick:'terrace'}[style]??'shophouse';
 }
 // Things a room holds at this year and this income. Income shifts the year a thing arrives.

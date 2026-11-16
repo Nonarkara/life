@@ -16,6 +16,13 @@ import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Learn the controls|ทำความรู้จักปุ่มควบคุม|熟悉操作|操作を覚える|조작법 익히기
+Pause to read, or use fast-forward to move ahead. Try You and World as the years pass. You can skip straight to your first choice.|กดหยุดเพื่ออ่าน หรือกดเร่งเวลาเพื่อไปต่อ ลองเปิดแท็บตัวคุณและโลก คุณข้ามไปยังทางเลือกแรกได้|想读说明就暂停，想继续就快进。随着年龄增长，试着打开「你」和「世界」。也可以直接跳到第一次选择。|読むときは一時停止、先に進むには早送り。年を重ねながら「自分」と「世界」を開いてみよう。最初の選択までスキップすることもできます。|읽을 때는 일시 정지하고, 빨리 가려면 빨리 감기를 누르세요. 시간이 흐르는 동안 ‘나’와 ‘세계’를 열어 보세요. 첫 선택으로 바로 건너뛸 수도 있습니다.
+College, family work, or marriage?|เรียนต่อ ทำงานให้ครอบครัว หรือแต่งงาน?|上大学、帮家里干活，还是结婚？|進学する、家業を継ぐ、それとも結婚する？|대학에 갈까, 가업을 도울까, 결혼할까?
+Spend your savings on flood repairs?|ใช้เงินเก็บซ่อมบ้านหลังน้ำท่วมไหม?|要用积蓄修缮被洪水损坏的房子吗？|貯金を使って水害で壊れた家を直す？|저축을 써서 침수된 집을 고칠까?
+Your grandparent has died. Going home costs a month of savings. Your family asks you to stay and meet your deadline.|ปู่ย่าตายายของคุณเสียชีวิต การกลับบ้านจะใช้เงินเก็บหนึ่งเดือน ครอบครัวขอให้คุณอยู่ส่งงานให้ทัน|你的祖父母中有一位去世了。回家要花掉一个月的积蓄。家人请你留下，按时完成工作。|祖父母の一人が亡くなった。帰省にはひと月分の貯金がかかる。家族は残って締め切りを守るように言う。|조부모 한 분이 돌아가셨다. 고향에 가려면 한 달 치 저축이 든다. 가족은 남아서 마감을 지키라고 한다.
+Go home for the funeral|กลับบ้านไปร่วมงานศพ|回家参加葬礼|葬儀のために帰省する|장례식에 참석하러 고향에 간다
+You went home for the funeral and returned to work. The deadline slipped.|คุณกลับบ้านไปร่วมงานศพแล้วกลับไปทำงาน งานส่งไม่ทันกำหนด|你回家参加葬礼后回去工作，错过了截止日期。|葬儀のために帰省し、仕事に戻った。締め切りには間に合わなかった。|고향에서 장례를 치르고 일터로 돌아왔다. 마감은 놓쳤다.
 World camera|มุมมองโลก|世界视角|世界の視点|세계 시점
 Follow life|ตามตัวละคร|跟随角色|人物を追う|인물 따라가기
 Home view|ดูบ้าน|查看住处|住まいを見る|집 보기

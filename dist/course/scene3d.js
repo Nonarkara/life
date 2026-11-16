@@ -295,11 +295,11 @@ function createScene(original){
   const stop=pick||cameraView==='district'?(!pick&&tall&&!P.abroad?townFrame(P):{kind:'town',x:6.4,z:6.6})
     :cameraView==='home'?{kind:'home',x:homeX,z:homeZ,rung:P.rung}
     :(tour||cameraView==='tour')&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad)tourLine.textContent=tr(P.place.place);tourLine.hidden=(!stop&&!P.abroad)||!!pick||cameraView==='home'||cameraView==='district';
-  let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4:6.6):still?(phone?5.6:7.4):(phone?7.8:10.5);
+  let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4+age*.55:6.6+age*.65):still?(phone?5.6:7.4):(phone?7.8:10.5);
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const changedView=cam.view!==cameraView;cam.view=cameraView;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;
-  const follow=stop?{x:stop.x,y:stop.z}:age<5?{x:5.2,y:5.2}:focus;
+  const follow=stop?{x:stop.x,y:stop.z}:age<4?{x:5.2,y:5.2}:focus;
   // An arrival must be framed even while the life clock is held by a decision.
   const ease=camReady&&animating&&!changedView?1-Math.exp(-dt*2.6):1;camReady=true;
   cam.x+=(follow.x-cam.x)*ease;cam.z+=(follow.y-cam.z)*ease;cam.span+=(span-cam.span)*ease;

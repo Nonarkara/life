@@ -5,6 +5,7 @@ import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {routeOf} from '../../dist/course/life-routes.js';
 import {regionAt} from '../../dist/course/regions.js';
 import {townPlan} from '../../dist/course/diorama-plan.js';
+import {pendingPivots,applyPivot} from '../../dist/course/pivots.js';
 import {routeModel} from '../../dist/course/routemap.js';
 
 const settle=s=>s.story.pending?resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.5):s;
@@ -36,4 +37,24 @@ test('choosing college can earn a scholarship and different answers move the act
  assert.ok(validate(returned));
  assert.equal(regionAt(returned,s.age),'bang-na');
  assert.equal(regionAt(returned,s.age-1),'boston');
+});
+
+
+test('the Bangkok college answer moves the life from the coast at the next station',()=>{
+ let life=begin(configureLife(newLife(1),{class:'working_class',birthYear:1975,region:'pak-phanang'}));
+ while(life.age<20&&life.stage==='review')life=live(settle(life));
+ const offer=pendingPivots(life).find(p=>p.id==='three-roads');
+ assert.ok(offer);
+ const next=applyPivot(life,offer,'go');
+ assert.notEqual(next,life);
+ assert.equal(regionAt(next,20),'pak-phanang');
+ assert.equal(townPlan(next,25).regionId,'bang-na');
+});
+
+test('early homes at the same income rung retain the province’s house type',()=>{
+ const coast=configureLife(newLife(23),{class:'middle_class',birthYear:1981,region:'pak-phanang'});
+ const city=configureLife(newLife(23),{class:'middle_class',birthYear:1981,region:'bang-na'});
+ assert.equal(townPlan(coast,0).rung,townPlan(city,0).rung);
+ assert.equal(townPlan(coast,0).homeKind,'plank');
+ assert.notEqual(townPlan(coast,0).homeKind,townPlan(city,0).homeKind);
 });

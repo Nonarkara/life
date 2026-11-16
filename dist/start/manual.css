@@ -194,11 +194,22 @@ html[lang=th] .pamphlet{--micro:12.5px}
 @media (prefers-reduced-motion:reduce){.pamphlet .reel .rule em{transition:none}}
 .pamphlet .reel #reel-play{font:inherit;font-size:12px;line-height:1.3;border:0;border-bottom:1px solid var(--ink);padding:3px 0;min-height:28px;background:none;color:var(--ink);white-space:nowrap}
 
-/* Overview: the cover already says the name and offers the one action, so the bar does not say them twice. */
-body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar .brand,
+/* The overview has its session action in the spread. */
 body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar-actions .begin{display:none}
 @media (max-width:720px){
  body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar{flex-wrap:nowrap;padding:0 16px;gap:12px}
  body:has(.menu button[data-sheet=overview][aria-pressed=true]) .menu{order:0;flex:1 1 0;padding:0}
  body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar-actions{margin-left:0}
+}
+
+/* Two-page cover: the playable scene opens the spread; the question and entry share its exit. */
+.pamphlet .sheet.cover{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.pamphlet .cover .reel{border-left:0}
+.pamphlet .cover .say{justify-content:center;overflow:auto;padding:clamp(16px,3vw,40px)}
+.pamphlet .cover .reel figcaption{gap:12px;padding:6px 12px}
+.pamphlet .cover .reel .age{font-size:clamp(22px,3vw,36px)}
+.pamphlet:has(.cover:not([hidden])) .bar-actions .begin{display:none}
+@media(max-width:720px){
+ .pamphlet .cover .reel{flex:0 0 auto;height:clamp(190px,46dvh,390px)}
+ .pamphlet .cover .say{justify-content:flex-start;overflow:visible;padding:14px 16px}
 }

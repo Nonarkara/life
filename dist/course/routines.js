@@ -53,6 +53,7 @@ export function routine(actor,age,time,goal='balance',context={}){
  let key=actor==='mother'?(age<1?'care':age<3?'floorCare':context.householdWork??'stall'):actor==='father'?'work':age<6?'home':age<18?'school':age>=60?'garden':goal==='sport'?'sport':goal==='art'?'art':'work';
  if(actor==='player'){
   if(age>=3&&age<4)key='fall';
+  else if(age>=4&&age<5)key='play';
   else if(age>=5&&age<6)key='swim';
   else if(age>=8&&age<9&&t>=36&&t<48)key='bike';
   if(age>=15&&age<60){
