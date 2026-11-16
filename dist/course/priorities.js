@@ -8,7 +8,8 @@ export const PRIORITIES={
  exams:{label:'Exams',aim:'balance',focus:'growth',mood:-2},
  love:{label:'Love',aim:'connection',focus:'connection',mood:1},
  earn:{label:'Earning early',aim:'security',focus:'security',pay:.08,mood:-1},
- sport:{label:'A sport or a band',aim:'sport',focus:'recognition',mood:1,body:1},
+ sport:{label:'A sport',aim:'sport',focus:'recognition',mood:1,body:1},
+ band:{label:'Playing in a band',aim:'art',focus:'recognition',mood:1},
  career:{label:'Career',aim:'security',focus:'recognition',pay:.08,mood:-1},
  money:{label:'Money',aim:'security',focus:'security',pay:.05,body:-1},
  study:{label:'New skills',aim:'balance',focus:'growth',pay:-.04},
@@ -25,6 +26,6 @@ export const PRIORITIES={
  travel:{label:'Seeing places',aim:'art',focus:'variety',pay:-.03,mood:2},
  legacy:{label:'What you leave behind',aim:'security',focus:'contribution',duty:1}
 };
-const BANDS=[[10,15,['school','friends','play','help']],[15,20,['exams','friends','love','earn','sport']],[20,30,['career','money','love','study','adventure']],[30,45,['family','career','money','home','balance']],[45,60,['children','parents','money','health','community']],[60,200,['health','grandchildren','merit','travel','legacy']]];
+const BANDS=[[10,15,['school','friends','play','help']],[15,20,['exams','friends','love','earn','sport','band']],[20,30,['career','money','love','study','adventure']],[30,45,['family','career','money','home','balance']],[45,60,['children','parents','money','health','community']],[60,200,['health','grandchildren','merit','travel','legacy']]];
 export const prioritiesFor=age=>BANDS.find(([a,b])=>age>=a&&age<b)?.[2]??[];
 export const priorityFx=id=>Object.hasOwn(PRIORITIES,id)?PRIORITIES[id]:null;

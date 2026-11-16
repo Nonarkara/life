@@ -28,12 +28,13 @@ import {initConsole} from './console.js';
 import {openFinance,choiceAvailable,netWorth,monthlyFlow,setBudget} from './finance.js';
 import {renderEnding} from './ending.js';
 import {rememberedMoments} from './recap.js';
-import {newStory,encounterById,storyText,resolveEncounter,setFamiliar} from './encounters.js';
+import {newStory,encounterById,storyText,resolveEncounter,setFamiliar,familiarIds} from './encounters.js';
 import {metScenes,rememberScenes} from './scene-memory.js';
 import {availablePathways,PATHWAYS} from './pathways.js';
 import {pendingPivots,applyPivot,locksFor,openOptions,ERAS} from './pivots.js';
 import {verdictTitle} from './life-verdict.js';
 import {periodLine} from './period-ledger.js';
+import {keepPoint,forgetAfter,metFor,pointAges,goBack,timesBack} from './checkpoints.js';
 import {inWorldOrder} from './option-order.js';
 import {stationAlternatives} from './alternatives.js';
 import {childhoodChapter,wombMarkup} from './childhood.js';
@@ -58,6 +59,8 @@ const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let stat
 // Device scene memory is set before the first scene is offered on load (journey restore included).
 setFamiliar(metScenes());
 let store=null;try{store=localStorage;}catch{}const saved=readSave(store,validate);saveOK=saved.storage;const unreadable=saved.unreadable;state=saved.life??drawBirth({},{varied:true});age=state.stage==='birth'?(state.progressAge??state.age):state.age;
+// A life that keeps its reviews also keeps the scene memory it began with, so going back after a reload meets the same scenes.
+{const met=metFor(store,state.seed);if(met)setFamiliar(met);}
 if(state.stage==='birth'){speed=1;if(age>=6&&!state.childhood)state={...state,childhood:{origin:{cash:state.cash,health:state.health,wellbeing:state.wellbeing},choices:[],startsAt:Math.min(10,Math.ceil(age))}};}
 const recordedDay=dailyDateFor(state);if(recordedDay&&state.dailyDay===undefined)state={...state,dailyDay:recordedDay};state=enableLifeEvents(state);state=refreshMarketPrompt({...state,story:state.story??newStory(state.seed)});state=openFinance(state);if(state.journey){const next=live(state);if(next!==state){travel={from:state.age,to:next,handled:[...state.journey.handled]};age=state.journey.progress;}}let consoleUI,personalUI;const music=initMusic({getMood:()=>lifeMood(state)});
 mode=state.stage==='recap'?'course':'world';arrival=state.stage==='birth'&&age<.1?3:0;$('womb').innerHTML=wombMarkup;
@@ -161,10 +164,55 @@ function replayBirth(){
  age=0;speed=1;childResult=null;travelEvent=null;arrival=3;childView=null;mode='world';paused=false;tab='priorities';
  render();
 }
-function recap(){const root=$('recap');root.replaceChildren();const text=document.createElement('p');text.className='recap-title';text.textContent=state.death?'The rest was never promised.':'Eighty years. No straight line.';root.append(text);text.hidden=true;renderEnding(root,state);const tools=document.createElement('div');tools.className='ending-tools';for(const[label,cls]of [['Growing world','show-ending-world'],['Detailed comparisons','show-ending-details']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-expanded','false');button.onclick=()=>{if(cls==='show-ending-details'&&consoleUI){consoleUI.select('history');return;}const open=document.body.classList.toggle(cls);button.setAttribute('aria-expanded',String(open));button.textContent=open?(cls==='show-ending-world'?'Hide growing world':'Hide detailed comparisons'):label;if(cls==='show-ending-world'){mode='world';$('overview').textContent='Life course';setAge();dirty=true;}};tools.append(button);}
+// Rewind controls sit at the exit from the route map.
+function renderRewind(root){
+ const ages=pointAges(store,state);
+ if(!ages.length)return;
+ const rewind=document.createElement('div');
+ rewind.className='ending-tools ending-rewind-controls';
+ const pick=document.createElement('select');
+ pick.className='ending-back-age';
+ pick.setAttribute('aria-label',t('Go back to another age'));
+ pick.dataset.native='';
+ for(const a of ages){
+  const option=document.createElement('option');
+  option.value=a;
+  option.textContent=t('Age {n}').replace('{n}',a);
+  pick.append(option);
+ }
+ const back=document.createElement('button');
+ back.type='button';
+ back.className='ending-back';
+ const label=()=>{
+  back.disabled=false;
+  back.textContent=t('Go back to age {n} and choose again →').replace('{n}',pick.value);
+ };
+ label();
+ pick.onchange=label;
+ back.onclick=()=>{
+  const point=goBack(store,state,Number(pick.value),validate);
+  if(point)document.dispatchEvent(new CustomEvent('life-branch',{detail:point}));
+  else{
+   back.disabled=true;
+   back.textContent=t('That review is no longer kept on this device.');
+  }
+ };
+ rewind.append(pick,back);
+ const route=root.querySelector('.ending-route');
+ (route??root.lastElementChild).after(rewind);
+ const n=timesBack(store,state);
+ if(n>0){
+  const count=document.createElement('p');
+  count.className='ending-backs';
+  count.textContent=t(n===1?'You went back once in this life.':'You went back {n} times in this life.').replace('{n}',n);
+  rewind.after(count);
+ }
+}
+function recap(){const root=$('recap');root.replaceChildren();const text=document.createElement('p');text.className='recap-title';text.textContent=state.death?'The rest was never promised.':'Eighty years. No straight line.';root.append(text);text.hidden=true;renderEnding(root,state);renderRewind(root);const tools=document.createElement('div');tools.className='ending-tools';for(const[label,cls]of [['Growing world','show-ending-world'],['Detailed comparisons','show-ending-details']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-expanded','false');button.onclick=()=>{if(cls==='show-ending-details'&&consoleUI){consoleUI.select('history');return;}const open=document.body.classList.toggle(cls);button.setAttribute('aria-expanded',String(open));button.textContent=open?(cls==='show-ending-world'?'Hide growing world':'Hide detailed comparisons'):label;if(cls==='show-ending-world'){mode='world';$('overview').textContent='Life course';setAge();dirty=true;}};tools.append(button);}
  const sameBirth=document.createElement('button');
  sameBirth.type='button';sameBirth.textContent=t('Live this birth again');sameBirth.onclick=replayBirth;
- tools.append(sameBirth);root.append(tools);const details=document.createElement('details');details.className='full-life-record';const summary=document.createElement('summary');summary.textContent='Every five-year decision';details.append(summary);const list=document.createElement('ol');for(const r of state.history.filter(r=>r.age>=15)){const li=document.createElement('li');const strongest=AXES.reduce((a,b)=>r.effort[a.key]>=r.effort[b.key]?a:b);li.textContent=`${r.from}–${r.age}: ${goals[r.profile.aim]}. ${r.profile.focus&&FOCUSES[r.profile.focus]?'Chapter focus'+': '+FOCUSES[r.profile.focus]+'. ':''}Most effort: ${strongest.label} (${r.effort[strongest.key]}/10). ${r.pathway?PATHWAYS[r.pathway].label+'. ':''}${r.event} ${r.profile.smoke==='yes'?'Smoking was part of your routine. ':''}${r.profile.drink==='social'?'You drank socially. ':''}${r.profile.religion==='practice'?'You made space for spiritual practice. ':''}${r.profile.intimacy==='together'?'You wanted love and sex together.':r.profile.intimacy==='separate'?'You saw love and sex as separable.':''}`;list.append(li);}details.append(list);root.append(details);if(state.previous){const p=document.createElement('p');p.className='previous';p.textContent=`Your previous life in this scenario reached ${state.previous.age}, with ${money(state.previous.finance?netWorth(state.previous.finance):state.previous.cash)} remaining. Comparing different lengths of life does not measure success.`;root.prepend(p);}}
+ tools.append(sameBirth);
+ root.append(tools);const details=document.createElement('details');details.className='full-life-record';const summary=document.createElement('summary');summary.textContent='Every five-year decision';details.append(summary);const list=document.createElement('ol');for(const r of state.history.filter(r=>r.age>=15)){const li=document.createElement('li');const strongest=AXES.reduce((a,b)=>r.effort[a.key]>=r.effort[b.key]?a:b);li.textContent=`${r.from}–${r.age}: ${goals[r.profile.aim]}. ${r.profile.focus&&FOCUSES[r.profile.focus]?'Chapter focus'+': '+FOCUSES[r.profile.focus]+'. ':''}Most effort: ${strongest.label} (${r.effort[strongest.key]}/10). ${r.pathway?PATHWAYS[r.pathway].label+'. ':''}${r.event} ${r.profile.smoke==='yes'?'Smoking was part of your routine. ':''}${r.profile.drink==='social'?'You drank socially. ':''}${r.profile.religion==='practice'?'You made space for spiritual practice. ':''}${r.profile.intimacy==='together'?'You wanted love and sex together.':r.profile.intimacy==='separate'?'You saw love and sex as separable.':''}`;list.append(li);}details.append(list);root.append(details);if(state.previous){const p=document.createElement('p');p.className='previous';p.textContent=`Your previous life in this scenario reached ${state.previous.age}, with ${money(state.previous.finance?netWorth(state.previous.finance):state.previous.cash)} remaining. Comparing different lengths of life does not measure success.`;root.prepend(p);}}
 function focusChapter(){$('title').setAttribute('tabindex','-1');$('title').focus({preventScroll:true});document.querySelector('header').scrollIntoView({block:'start',behavior:'instant'});}
 let decisionOutcome=null,dismissedDecision=null,childResult=childReceipt(state),travelEvent=null;
 const acknowledgeTravel=()=>{if(travel&&travelEvent)travel.handled=[...(travel.handled??[]),travelEvent.age+':'+travelEvent.id];travelEvent=null;};
@@ -265,7 +313,7 @@ function tick(now){
   if(departureReplay.progress>=1)closeDepartureReplay();
  }
  const animating=!paused&&!rhythm.held&&motionAllowed&&(state.stage!=='recap'||document.body.classList.contains('show-ending-world'));
- const arrive=()=>{if(travel){const event=travel.to.history.at(-1)?.events?.find(e=>e.origin==='life'&&e.age<=age&&!(travel.handled??[]).includes(e.age+':'+e.id));if(event){age=event.age;travelEvent=event;render();return;}}if(state.stage==='birth'){const stop=nextChildAge(state);if(age>=stop&&stop<10){age=stop;render();return;}if(age>=10){state=begin(state);age=10;speed=Math.max(2,speed);tab='questions';render();focusChapter();}}else if(travel&&age>=travel.to.age){state={...travel.to,journey:undefined};travel=null;age=state.age;tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';if(state.stage==='recap')mode='course';render();focusChapter();}};
+ const arrive=()=>{if(travel){const event=travel.to.history.at(-1)?.events?.find(e=>e.origin==='life'&&e.age<=age&&!(travel.handled??[]).includes(e.age+':'+e.id));if(event){age=event.age;travelEvent=event;render();return;}}if(state.stage==='birth'){const stop=nextChildAge(state);if(age>=stop&&stop<10){age=stop;render();return;}if(age>=10){state=begin(state);age=10;speed=Math.max(2,speed);tab='questions';render();keepPoint(store,state,true,familiarIds());focusChapter();}}else if(travel&&age>=travel.to.age){state={...travel.to,journey:undefined};travel=null;age=state.age;tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';if(state.stage==='recap')mode='course';render();keepPoint(store,state);focusChapter();}};
  if(animating){elapsed+=dt*rhythm.sceneSpeed;if(automatic&&childView===null){const rate=move&&age>=start?Math.min(rhythm.yearSpeed,.8):rhythm.yearSpeed;age+=dt*rate/(state.stage==='birth'?childYearSeconds(age):4);arrive();}}
  else if(!paused&&!rhythm.held&&automatic&&!motionAllowed){if(state.stage==='birth'&&age<5)age=Math.min(5,age+dt*rhythm.yearSpeed/childYearSeconds(age));else if(move&&age<move.since)age=Math.min(move.since,Math.max(start,age)+dt*DEPARTURE_WINDOW/3);else age=state.stage==='birth'?nextChildAge(state):travel.to.age;arrive();}
  if(dirty||(state.stage==='birth'&&Math.floor(age)!==lastVisibleYear)||((animating||move&&!paused&&!rhythm.held)&&now-lastPaint>=40)){lastPaint=now;lastVisibleYear=Math.floor(age);setAge();setPalette(paletteFor(travel?.to??state,childView??age,undefined,{scenario:!travel&&tab==='questions'?pendingPivots(state)[0]?.id:undefined}));const camera=$('world-view').hidden?'follow':$('world-view').value;
@@ -283,7 +331,7 @@ window.addEventListener('life-open-you',()=>consoleUI?.select?.('you'));window.a
 
 // The record up to the year being lived, and not one year further.
 function setChart(year){const ys=Object.keys(SET_CLOSE).map(Number).filter(y=>y<=year),max=Math.max(...ys.map(y=>SET_CLOSE[y])),pts=ys.map((y,i)=>`${(i/(ys.length-1)*296+2).toFixed(1)},${(66-SET_CLOSE[y]/max*62).toFixed(1)}`).join(' '),fig=document.createElement('figure');fig.className='market-chart';const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg'),line=document.createElementNS(svgNS,'polyline');svg.setAttribute('viewBox','0 0 300 68');svg.setAttribute('role','img');svg.setAttribute('aria-label',`SET ${ys[0]}–${year}`);line.setAttribute('points',pts);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','2');line.setAttribute('vector-effect','non-scaling-stroke');svg.append(line);const cap=document.createElement('figcaption'),n=y=>Math.round(SET_CLOSE[y]).toLocaleString('en');cap.textContent=`${ys[0]}: ${n(ys[0])} · ${year}: ${n(year)}. `+t('SET Index, December close (Wikipedia table).');fig.append(svg,cap);return fig;}
-document.addEventListener('life-branch',e=>{if(!e.detail||e.detail.stage!=='review'||!validate(e.detail))return;state=enableLifeEvents(e.detail);decisionOutcome=null;dismissedDecision=null;age=state.age;speed=1;childResult=null;travelEvent=null;arrival=0;childView=null;mode='world';paused=true;tab='questions';render();window.scrollTo(0,0);});
+document.addEventListener('life-branch',e=>{if(!e.detail||e.detail.stage!=='review'||!validate(e.detail))return;state=enableLifeEvents(e.detail);forgetAfter(store,state);travel=null;decisionOutcome=null;dismissedDecision=null;age=state.age;speed=1;childResult=null;travelEvent=null;arrival=0;childView=null;mode='world';paused=true;tab='questions';render();focusChapter();window.scrollTo(0,0);});
 
 // The planner and the top console.
 let lifePlan,topConsole;

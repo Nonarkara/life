@@ -7,7 +7,7 @@
 // some of them are gambles where the same luck is shared with every branch.
 //
 // These are authored game decisions, not advice about a real life.
-import {rand} from './sim.js';
+import {flagsOf,rand} from './sim.js';
 import {REGIONS,regionIdFor,homeRegion} from './regions.js';
 import {MARKET_PIVOTS,marketFits} from './market-moments.js';
 import {netWorth} from './finance.js';
@@ -563,6 +563,16 @@ const PROVINCES=['nakhon-sawan','isan-village','pak-phanang','udon-thani','hua-h
 const forkDue=state=>{const y=birthYearOf(state);return y!==null&&y<=1990&&PROVINCES.includes(homeRegion(state.birth,state.age))&&['low_class','working_class','middle_class'].includes(state.intake?.class??state.birth?.class);};
 const savingsOf=s=>s.finance?netWorth(s.finance):s.cash;
 const during=(s,a,b)=>{const y=birthYearOf(s);return y!==null&&y>=a&&y<=b;},regionOf=s=>REGIONS[regionIdFor(s.birth)],sexOf=s=>s.intake?.sex??s.birth?.sex,bornClass=s=>s.intake?.class??s.birth?.class,notRich=s=>!['high_class'].includes(bornClass(s));
+const hasSchoolAgeChild=s=>{
+ const flags=flagsOf(s);
+ const childAge=s.age-flags.parent;
+ return flags.childLost===undefined&&childAge>=6&&childAge<=20;
+};
+const leftSchool=s=>{
+ const buildingSite=(s.pivots??[]).some(r=>r.station===15&&r.pivot==='school-leave'&&r.choice==='go');
+ const workedAsChild=s.childhood?.choices.some(c=>c.age===9&&c.choice==='school_say');
+ return (buildingSite||workedAsChild)&&!['school','college'].includes(s.history?.at(-1)?.pathway);
+};
 const ADDED={
  'parent-language':s=>during(s,1930,1985)&&s.seed%2===0&&['market','slum','condo','villa'].includes(regionOf(s)?.style),
  'coast-boat':s=>during(s,1930,1990)&&regionOf(s)?.style==='coast',
@@ -570,7 +580,8 @@ const ADDED={
  'girl-school':s=>during(s,1930,1975)&&sexOf(s)==='female'&&['low_class','working_class'].includes(bornClass(s)),
  'temple-boy':s=>during(s,1930,1975)&&sexOf(s)==='male'&&notRich(s)&&PROVINCES.includes(homeRegion(s.birth,s.age)),
  'go-abroad':s=>during(s,1935,1985)&&(s.pathway==='college'||!!s.major)&&regionOf(s)?.country==='TH',
- 'gifted-child':s=>(s.story?.flags?.parent??s.pivotFlags?.parent)!==undefined
+ 'child-city':hasSchoolAgeChild,
+ 'gifted-child':s=>hasSchoolAgeChild(s)&&s.age-flagsOf(s).parent>=15
 };
 // Each big question reaches under half of the lives it fits, fixed per life, so two lives seldom share their questions.
 const SPINE={'flood-repair':.45,'child-water-bike':.4,'partner-business':.45,'city-pay':.4,'share-offer':.35,'parent-ill':.45,'stay-on':.45,leave:.45,'promotion-away':.4,'father-tools':.5,'buy-house':.45,'child-city':.4,'partner-choice':.45,'school-fall-climb':.4,'house-travel':.5,'year-abroad':.4,nephew:.5};
@@ -578,9 +589,9 @@ export function fits(pivot,state){
   if(pivot.market)return marketFits(pivot,savingsOf(state),birthYearOf(state));
   if(ADDED[pivot.id])return ADDED[pivot.id](state);
   if(MARKET_STALL.has(pivot.id)&&state.birth?.home!=='a market-stall household')return false;
-  if(pivot.id==='college-cost'&&state.cash>=18000)return false;
-  if(pivot.id==='three-roads')return forkDue(state);
-  if(pivot.id==='college-cost'&&forkDue(state))return false;
+  const collegeOnOffer=!leftSchool(state);
+  if(pivot.id==='three-roads')return collegeOnOffer&&forkDue(state);
+  if(pivot.id==='college-cost'&&(!collegeOnOffer||state.cash>=18000||forkDue(state)))return false;
   if(pivot.id==='partner-choice'&&state.pivotFlags?.married!==undefined)return false;
   const birthClass=state.intake?.class??state.birth?.class;
   return !FOR[pivot.id]||birthClass===undefined||FOR[pivot.id].includes(birthClass);
@@ -670,7 +681,7 @@ export function pendingPivots(state){
   const answered = new Set((state.pivots??[]).filter(record=>record.station===state.age).map(record=>record.pivot));
   const markets = MARKET_PIVOTS.filter(pivot=>pivot.station===state.age&&!answered.has(pivot.id)&&marketFits(pivot,savingsOf(state),birthYearOf(state)));
   // The old spine appeared in most lives. Each big question now reaches only some of them, fixed per life.
-  const open = pivotsForStation(state.age).filter(pivot=>(SPINE[pivot.id]===undefined||!state.intake?.class||rand(state.seed,0,'spine:'+pivot.id)<SPINE[pivot.id])&&occurred(pivot,state)&&fits(pivot,state)&&sceneFits(pivot.id,state));
+  const open = pivotsForStation(state.age).filter(pivot=>(SPINE[pivot.id]===undefined||(!state.intake?.class&&pivot.id!=='leave')||rand(state.seed,0,'spine:'+pivot.id)<SPINE[pivot.id])&&occurred(pivot,state)&&fits(pivot,state)&&sceneFits(pivot.id,state));
   const free = [...answered].some(id=>!WHEN[id]&&!id.startsWith('mkt-'))?[]:open.filter(pivot=>!WHEN[pivot.id]);
   const pick = free.find(pivot=>pivot.id==='three-roads')??free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
   return [...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets];

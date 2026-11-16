@@ -8,6 +8,8 @@ const inYears=(s,y)=>{if(!y)return true;if(Array.isArray(y[0]))return y.some(r=>
 const inStation=(s,y)=>{if(!y)return true;if(Array.isArray(y[0]))return y.some(r=>inStation(s,r));const b=birthYearOf(s);return b!==null&&b+s.age+4>=y[0]&&b+s.age<=y[1];};
 // Doors: the answers that open a calling. An answer given before the calling's first scene beats the birth
 // lottery, so a different answer at ten or fifteen sends the same birth down a different life.
+// A calling whose first scene is offered later than its data says (encounters.js OFFER): its doors stay open until then.
+const OPENS_AT={border_pm:20};
 export const DOORS={
  trader:[['child-roof','stall']],
  scholarship_kid:[['child-roof','scholarship'],['village-buffalo','ask'],['coast-boat','school']],
@@ -37,7 +39,14 @@ export function routeOf(s){
  // An answer at this station waits for the next one: the scene here was chosen when the station opened.
  // The oldest cohorts keep their history: an answer opens a calling for fewer of them, as the lottery does.
  const given=y<1960&&rand(s.seed,0,'door-any')>.45?[]:answers(s);
- for(let i=given.length-1;i>=0;i--){const a=given[i],doors=open.filter(r=>(DOORS[r.route]??[]).some(([q,c])=>q===a.pivot&&c===a.choice)&&a.station<s.age&&a.station<Math.min(...r.scenes.map(x=>x.min)));
+ // What a fifteen-year-old put first: the one who chose a band and then stayed in school is the singer who
+ // became an office worker. Both are the player's own recorded choices, so this road needs no dealt question.
+ const band=(s.profiles??[]).some(p=>p.age===15&&p.profile?.priority==='band');
+ if(band&&s.age>=20&&open.some(r=>r.route==='singer_office')&&(s.history??[]).some(r=>r.from===15&&['school','college'].includes(r.pathway)))return 'singer_office';
+ for(let i=given.length-1;i>=0;i--){const a=given[i],doors=open.filter(r=>(DOORS[r.route]??[]).some(([q,c])=>q===a.pivot&&c===a.choice)&&a.station<s.age&&a.station<(OPENS_AT[r.route]??Math.min(...r.scenes.map(x=>x.min))));
+  if(band&&doors.some(r=>r.route==='singer_office'))return 'singer_office';
+  // The summer on the building site is where the labourer's road begins, for a birth it is open to.
+  if(a.pivot==='school-leave'&&a.choice==='go'&&doors.some(r=>r.route==='border_pm'))return 'border_pm';
   if(doors.length)return doors[Math.floor(rand(s.seed,a.station,'door-'+a.pivot)*doors.length)].route;}
  // No door yet: the birth lottery. The oldest cohorts live through the most history, so fewer of them are pulled onto a route.
  if(rand(s.seed,0,'route-any')>(y<1960?.45:.85))return null;

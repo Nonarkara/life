@@ -130,7 +130,7 @@ for(const e of ENCOUNTERS){const i=e.options.findIndex(x=>!(x.cash<0)&&!x.requir
 const byId=new Map(ENCOUNTERS.map(e=>[e.id,e]));
 export const encounterById=id=>byId.get(id);
 // Scenes this device has met in earlier lives (scene-memory.js). Used only by freshly drawn lives (state.novelty).
-let familiar=new Set();export const setFamiliar=ids=>{familiar=new Set(ids);};
+let familiar=new Set();export const setFamiliar=ids=>{familiar=new Set(ids);};export const familiarIds=()=>[...familiar];
 const BANK_SHARE=Object.freeze({history:.18,quiet:.72,macro:.5});
 export function eligibleEncounters(state){
  if(state.stage!=='review'||state.age<10||!state.story||state.story.pending||state.story.seen.some(e=>e.age===state.age))return [];
@@ -138,7 +138,10 @@ export function eligibleEncounters(state){
  return ENCOUNTERS.filter(e=>(state.age>=15||e.child)&&state.age>=e.min&&state.age<=e.max&&!seen.has(e.id)&&sceneFits(e.id,state)&&(!e.eligible||e.eligible(state)));
 }
 export function offerEncounter(state,roll,keep=()=>true){
- let eligible=eligibleEncounters(state).filter(keep).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
+ // Offer-time gates. They are not eligibility rules, so a save that already met the scene stays valid.
+ // The labourer's road opens at twenty, after the answers at fifteen that lead to it; a classroom bully is not met by someone who has left school.
+ const OFFER={r_border_pm_1:s=>s.age>=20,bully:s=>s.age<20||['school','college'].includes(s.history?.at(-1)?.pathway)};
+ let eligible=eligibleEncounters(state).filter(keep).filter(e=>!OFFER[e.id]||OFFER[e.id](state)).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
  // An ordinary scene this device met in an earlier life steps aside while an unmet ordinary one, of a
  // different kind from the last scene, is waiting. Story beats, class urgency, arc beats and dated
  // history are never displaced, and replays, shared codes and the daily life are left alone.
