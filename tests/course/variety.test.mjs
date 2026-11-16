@@ -149,23 +149,36 @@ test('the Director gives each life its own few blows, and every blow can be met 
  for(const e of [...DIRECTOR_ENCOUNTERS,...SAD_ENCOUNTERS]){assert.ok(e.rehearse,e.id);assert.ok(e.options.some(o=>!(o.cash<0)),e.id);assert.ok(!(e.options[0].cash<0),e.id);}
  for(const e of SAD_ENCOUNTERS)assert.match(e.rehearse,/\(.+, \d{4}\)$/,e.id+' names its source');
 });
-test('a scholarship bond is a reported pattern, with no named person and a practical note',async()=>{
+test('the scholarship bond is a composite, gated to Thailand and its years',async()=>{
  const {translate}=await import('../../dist/course/i18n.js');
+ const {configureLife,newLife,begin}=await import('../../dist/course/sim.js');
  const e=SAD_ENCOUNTERS.find(x=>x.id==='s_surety');
- assert.ok(e,'the bond scene is in the reported-life bank');
- const text=[e.title,e.prompt,e.rehearse,...e.options.flatMap(o=>[o.label,o.outcome])].join('\n');
- assert.match(text,/young dental lecturer/);
- assert.match(text,/as reported in Thai media/i);
- assert.match(e.rehearse,/Before you sign/);
- assert.match(e.rehearse,/Since 2015/);
- assert.match(e.rehearse,/\(Thai media reports, 2017\)$/);
- assert.doesNotMatch(text,/Mahidol|Harvard|MIT|Oxford|@|https?:|ดลฤดี|มหิดล/);
+ assert.ok(e);
+ const texts=[e.title,e.prompt,e.rehearse,...e.options.flatMap(o=>[o.label,o.outcome])];
+ const banned=/dental|dentist|council|doctorate|master'?s|early 1990s|thirty million|eight to ten|8\s*[-–]\s*10|bankrupt|citizenship|resigned by email|Mahidol|Harvard|fourth name|United States|ทันต|สภา|ผู้กู้|สามสิบล้าน|ล้มละลาย|สัญชาติ|อีเมล|ชื่อที่สี่|保证书|牙科|破产|歯科|保証書|破産|치과|보증서|파산|2017|2026|1992|1995|1989/i;
+ for(const lang of ['en','th','zh-CN','ja','ko']){
+  const blob=texts.map(s=>lang==='en'?s:translate(s,lang)).join('\n');
+  assert.doesNotMatch(blob,banned,lang);
+  if(lang!=='en')assert.notEqual(translate(e.rehearse,lang),e.rehearse,lang);
+ }
+ assert.match(e.prompt,/young lecturer at a public university/);
+ assert.match(e.rehearse,/several cases/);
+ assert.match(e.rehearse,/joint debtor is void/);
+ assert.match(e.rehearse,/Not legal advice/);
+ assert.doesNotMatch(e.rehearse,/makes you the debtor|scholarship bonds, as reported/i);
+ assert.match(translate(e.title,'th'),/สัญญาทุน/);
+ assert.match(translate(e.prompt,'th'),/ผู้รับทุน|สัญญาทุน/);
+ assert.match(translate(e.title,'zh-CN'),/合同/);
+ assert.match(translate(e.title,'ja'),/契約/);
+ assert.match(translate(e.title,'ko'),/계약/);
  assert.equal(e.options[0].id,'no');
  assert.ok(!(e.options[0].cash<0));
- const th=[e.title,e.prompt,e.rehearse,...e.options.flatMap(o=>[o.label,o.outcome])].map(s=>translate(s,'th')).join('\n');
- assert.match(th,/อาจารย์ทันตแพทย์ท่านหนึ่ง/);
- assert.doesNotMatch(th,/ดลฤดี|มหิดล|จำลองราษฎร์/);
- assert.notEqual(translate(e.rehearse,'th'),e.rehearse);
+ assert.doesNotMatch(texts.join('\n'),/฿|baht|ล้าน/);
+ const at=(birthYear,age,region)=>{const s=begin(configureLife(newLife(3),{birthYear,class:'middle_class',region:'bang-na'}));return {...s,age,seed:s.seed,finance:{...s.finance,region,regionSince:20}};};
+ for(let seed=1;seed<=40;seed++)assert.equal(e.eligible({...at(1949,40,'boston'),seed}),false,'abroad '+seed);
+ for(let seed=1;seed<=40;seed++)assert.equal(e.eligible({...at(2026,40,'bang-na'),seed}),false,'after the window '+seed);
+ for(let seed=1;seed<=40;seed++)assert.equal(e.eligible({...at(1949,20,'bang-na'),seed}),false,'before the window '+seed);
+ assert.ok([...Array(800).keys()].some(i=>e.eligible({...at(1949,40,'bang-na'),seed:i+1})),'a life in Thailand inside the years can meet it');
 });
 test('the door: leaving for the temple ends the life, saves, and is the only third verdict',()=>{
  const born=begin(configureLife(newLife(7919),{birthYear:1949,class:'middle_class'})),s={...born,story:{...born.story,pending:null},age:30};
