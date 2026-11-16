@@ -16,6 +16,10 @@ import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Leaving for college in Bangkok|ออกเดินทางไปเรียนต่อที่กรุงเทพฯ|出发去曼谷上大学|進学のためバンコクへ出発|대학에 가기 위해 방콕으로 출발
+Replay departure|ดูฉากออกเดินทางอีกครั้ง|重播出发场景|出発の場面をもう一度見る|출발 장면 다시 보기
+Close departure|ปิดฉากออกเดินทาง|关闭出发场景|出発の場面を閉じる|출발 장면 닫기
+A traveller walks from a house and boards a bus.|ผู้เดินทางเดินจากบ้านไปขึ้นรถโดยสาร|旅客走出家门并登上巴士。|旅人が家から歩いてバスに乗る。|여행자가 집에서 걸어 나와 버스에 탄다.
 Learn the controls|ทำความรู้จักปุ่มควบคุม|熟悉操作|操作を覚える|조작법 익히기
 Pause to read, or use fast-forward to move ahead. Try You and World as the years pass. You can skip straight to your first choice.|กดหยุดเพื่ออ่าน หรือกดเร่งเวลาเพื่อไปต่อ ลองเปิดแท็บตัวคุณและโลก คุณข้ามไปยังทางเลือกแรกได้|想读说明就暂停，想继续就快进。随着年龄增长，试着打开「你」和「世界」。也可以直接跳到第一次选择。|読むときは一時停止、先に進むには早送り。年を重ねながら「自分」と「世界」を開いてみよう。最初の選択までスキップすることもできます。|읽을 때는 일시 정지하고, 빨리 가려면 빨리 감기를 누르세요. 시간이 흐르는 동안 ‘나’와 ‘세계’를 열어 보세요. 첫 선택으로 바로 건너뛸 수도 있습니다.
 College, family work, or marriage?|เรียนต่อ ทำงานให้ครอบครัว หรือแต่งงาน?|上大学、帮家里干活，还是结婚？|進学する、家業を継ぐ、それとも結婚する？|대학에 갈까, 가업을 도울까, 결혼할까?

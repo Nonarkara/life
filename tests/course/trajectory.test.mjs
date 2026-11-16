@@ -6,6 +6,7 @@ import {routeOf} from '../../dist/course/life-routes.js';
 import {regionAt} from '../../dist/course/regions.js';
 import {townPlan} from '../../dist/course/diorama-plan.js';
 import {pendingPivots,applyPivot} from '../../dist/course/pivots.js';
+import {bangkokDeparture} from '../../dist/course/departure.js';
 import {routeModel} from '../../dist/course/routemap.js';
 
 const settle=s=>s.story.pending?resolveEncounter(s,encounterById(s.story.pending.id).options[0].id,.5):s;
@@ -49,6 +50,11 @@ test('the Bangkok college answer moves the life from the coast at the next stati
  assert.notEqual(next,life);
  assert.equal(regionAt(next,20),'pak-phanang');
  assert.equal(townPlan(next,25).regionId,'bang-na');
+ assert.equal(bangkokDeparture(life,20,25),null);
+ assert.equal(bangkokDeparture(next,20,24),null);
+ assert.equal(bangkokDeparture(next,20,25)?.since,25);
+ assert.equal(bangkokDeparture(live(next),24,25)?.since,25);
+ assert.equal(bangkokDeparture(live(next),25,30),null);
 });
 
 test('early homes at the same income rung retain the province’s house type',()=>{
