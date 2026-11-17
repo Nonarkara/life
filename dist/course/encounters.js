@@ -1,6 +1,7 @@
 import {RELATIONSHIP_FORKS,proposesFirst,encounterChoice} from './relationship-forks.js';
 import {familyGuardians} from './family-record.js';
 import {rand} from './rand.js';
+import {kinGated} from './kin.js';
 import {regionIdFor,homeRegion} from './regions.js';
 import {THAI_ENCOUNTERS} from './thai-encounters.js';
 import {CLASS_ENCOUNTERS} from './class-encounters.js';
@@ -162,7 +163,7 @@ export function offerEncounter(state,roll,keep=()=>true){
  // Offer-time gates. They are not eligibility rules, so a save that already met the scene stays valid.
  // The labourer's road opens at twenty, after the answers at fifteen that lead to it; a classroom bully is not met by someone who has left school.
  const OFFER={commitment:s=>!proposesFirst(s),proposal_first:s=>!s.story.seen.some(e=>e.id==='commitment'),r_border_pm_1:s=>s.age>=20,bully:s=>s.age<20||['school','college'].includes(s.history?.at(-1)?.pathway)};
- let eligible=eligibleEncounters(state).filter(keep).filter(e=>!OFFER[e.id]||OFFER[e.id](state)).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
+ let eligible=eligibleEncounters(state).filter(keep).filter(e=>!OFFER[e.id]||OFFER[e.id](state)).filter(e=>!kinGated(e.id,state.birth?.household)).filter(e=>e.id!=='flood_help'||!state.intake?.class||rand(state.seed,0,'spine:flood_help')<.55);if(!eligible.length)return state;
  // An ordinary scene this device met in an earlier life steps aside while an unmet ordinary one, of a
  // different kind from the last scene, is waiting. Story beats, class urgency, arc beats and dated
  // history are never displaced, and replays, shared codes and the daily life are left alone.
