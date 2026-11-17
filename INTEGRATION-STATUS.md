@@ -5,6 +5,14 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
+## 17 November 2026 · character pipeline skeleton landed
+
+Character pipeline spec schema created at `src/characters/spec.schema.json`. Generation script `scripts/generate-character.mjs` and verification script `scripts/verify-character.mjs` added with MSH-compliant asset output, 3D guide → render → style redraw → fit-verify → anchor/shadow bake steps. Skeleton is build-time, audited, no live UI removal. Commits signed Co-Authored-By. Baseline remains `2d81fcc`, live build `d62046457aef`. Tests 545/545 pass, geometry 7/7 PASS. Audit still 0 high,1 medium (payload). No maps/canvas/charts/HUDs removed; surgical additions only.
+
+## 17 November 2026 · inline research link targets resolved
+
+Verified Gemini's report against live bytes. `origin/main` is now `2d81fcc`, live build `d62046457aef` matches `https://life.nonarkara.org/build.json`. `dist/course/personal-console.css` was changed to make `.console-panel a[href]` and `.focus-source a[href]` `display:inline-flex;align-items:center;min-height:24px!important` inside the 720px media query, which makes the four inline research citations meet the ≥24 px floor. Audit-product now reports 0 high, 1 medium, 8 low; the sole medium remains the ~12 MB bundled 5-language copy/history payload. 545/545 tests pass, 7/7 class geometry gates pass. No maps, canvas, charts, HUDs or earned content were removed; change is surgical, one line added, file collapse <1%.
+
 ## 17 November 2026 · classroom truth shipped
 
 Audited the multi-agent report against live bytes before accepting it. Live
