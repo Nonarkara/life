@@ -1,6 +1,6 @@
-import {phrases} from './translations.js';
 import {cacheTranslations} from './translation-cache.js';
 export const languages={en:'English',th:'ไทย','zh-CN':'简体中文',ja:'日本語',ko:'한국어'};
+const {phrases}=await import('./translations.js');
 export const dictionary=new Map(phrases.map(row=>[row[0],row.slice(1)]));
 const order=['th','zh-CN','ja','ko'];
 const cachedTranslation=cacheTranslations(translateUncached);
