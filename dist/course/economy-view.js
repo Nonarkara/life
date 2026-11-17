@@ -1,5 +1,5 @@
 import {GDP_OBSERVATIONS} from './economy-data.js';
-import {economyFor,economyYears,periodEconomy} from './economy.js';
+import {economyFor,economyYears,periodEconomy,recordAt} from './economy.js';
 import {thaiEraForState,THAI_ERAS,renderEraArtworkSVG} from './thai-history.js';
 export const ECONOMY_COPY=[
  'Shared economy','Sampled GDP growth · % per year','Scenario years {from}–{to}',
@@ -26,9 +26,11 @@ const NS='http://www.w3.org/2000/svg',money=n=>(n<0?'−':'+')+'฿'+Math.abs(Ma
 const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
 const svg=(tag,attrs,text)=>{const node=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))node.setAttribute(k,v);if(text!==undefined)node.textContent=text;return node;};
 // The chart of the years: one line, one zero, contraction years marked.
-function growthChart(rows){
- const figure=el('figure'),caption=el('figcaption','Sampled GDP growth · % per year'),chart=document.createElementNS(NS,'svg');
- chart.classList.add('economy-chart');chart.setAttribute('viewBox','0 0 300 112');chart.setAttribute('role','img');chart.setAttribute('aria-label','Sampled GDP growth · % per year');
+function growthChart(all){
+ // A real-record life is drawn from its first recorded year: the years before 1961 have no figure to draw.
+ const from=all.findIndex(r=>r.real),rows=from>0&&all.length-from>1?all.slice(from):all;
+ const title=!rows.some(r=>r.real)?'Sampled GDP growth · % per year':rows.every(r=>r.real)?'GDP growth · % per year · the real record':'GDP growth · % per year · real to 2025, sampled after',figure=el('figure'),caption=el('figcaption',title),chart=document.createElementNS(NS,'svg');
+ chart.classList.add('economy-chart');chart.setAttribute('viewBox','0 0 300 112');chart.setAttribute('role','img');chart.setAttribute('aria-label',title);
  const first=rows[0].age,last=rows.at(-1).age,min=Math.min(0,...rows.map(r=>r.growth)),max=Math.max(0,...rows.map(r=>r.growth)),span=max-min||1,x=a=>34+(a-first)/(last-first)*250,y=v=>86-(v-min)/span*58;
  chart.append(svg('line',{x1:34,x2:284,y1:y(0),y2:y(0),stroke:'#b4b9a9'}));
  // The zero line is the reference the metres are measured from, so it is always
@@ -52,7 +54,7 @@ export function renderWorldNow(root,s){
  if(eraInfo)root.append(el('p',eraInfo.era.summary,'world-now-note'));
  if(!last)return;
  if(rows.length>1)root.append(growthChart(rows));
- const metrics=[['GDP growth',last.growth],['Bond fund return',last.bond*100],['Equity fund return',last.equity*100]];
+ const metrics=[['GDP growth',last.growth],['Bond fund return',last.bond*100],[last.noMarket?'Equity fund · no exchange yet':'Equity fund return',last.equity*100]];
  const scale=Math.max(5,...metrics.map(m=>Math.abs(m[1])));
  const meters=el('div',undefined,'world-meters');
  for(const[label,value]of metrics){
@@ -90,16 +92,16 @@ export function renderEconomy(root,s){
  section.append(el('h2','Shared economy'));
  if(!s.economy||world.activeFrom>0)section.append(el('p','Economic record begins at age '+world.activeFrom+'.','console-note'));
  if(rows.length<2)section.append(el('p','The economy unfolds as you live. Future years are hidden.','console-note'));
- section.append(el('p','Historical GDP · game fund returns','console-note'));
- const details=el('details');details.append(el('summary','Annual scenario record'));const list=el('ol',undefined,'economy-years');
+ section.append(el('p',{real:'Thailand’s real record: GDP growth and the SET index, after prices. The bond fund is a game rule.',after:'There is no record after 2025. From here the years are sampled from the past, as a game rule.',scenario:'Historical GDP · game fund returns'}[recordAt(world,s.age)],'console-note'));
+ const details=el('details');details.append(el('summary',world.version===3?'Annual record':'Annual scenario record'));const list=el('ol',undefined,'economy-years');
  for(const r of rows.slice().reverse()){
-  const item=el('li'),head=el('strong','Age '+r.age),facts=el('dl');head.append(el('small','Historical sample'+': '+r.sourceYear));item.append(head);
+  const item=el('li'),head=el('strong','Age '+r.age),facts=el('dl');head.append(el('small',r.real?String(r.year):'Historical sample'+': '+r.sourceYear));item.append(head);
   for(const[key,value]of [['GDP growth',r.growth],['Bond fund return',r.bond*100],['Equity fund return',r.equity*100]])facts.append(el('dt',key),el('dd',(value>=0?'+':'')+value.toFixed(1)+'%'));
   item.append(facts);list.append(item);
  }details.append(list);section.append(details);
  const last=s.history.at(-1);const recent=last?.from!==undefined?periodEconomy(world,last.from,last.age).contractions:[];
  const parallel=historicalParallel(recent.length?recent:rows);if(parallel){const fact=el('details');fact.open=recent.length>0;fact.append(el('summary','A historical parallel'),el('p',parallel.text));const a=el('a',parallel.label);a.href=parallel.href;a.target='_blank';a.rel='noopener';fact.append(a);section.append(fact);}
- const method=el('details');method.append(el('summary','About this economy'));const spells=GDP_OBSERVATIONS.filter((r,i)=>r.growth<0&&(i===0||GDP_OBSERVATIONS[i-1].growth>=0)).length;method.append(el('p','Source: '+GDP_OBSERVATIONS.length+' annual observations; '+spells+' contraction spells. This does not establish a cycle.'));if(world.activeFrom>0)method.append(el('p','This saved life joins the economy at age '+world.activeFrom+'. Earlier records stay unchanged.'));for(const text of [...ECONOMY_COPY.slice(19,22),ECONOMY_COPY[25],ECONOMY_COPY[4]])method.append(el('p',text));
- method.append(el('p','Lesson reference funds start half in each scenario fund and are held without fees or new contributions. They describe a price path, not your personal return.'));
+ const method=el('details');method.append(el('summary','About this economy'));const spells=GDP_OBSERVATIONS.filter((r,i)=>r.growth<0&&(i===0||GDP_OBSERVATIONS[i-1].growth>=0)).length;if(world.version!==3)method.append(el('p','Source: '+GDP_OBSERVATIONS.length+' annual observations; '+spells+' contraction spells. This does not establish a cycle.'));if(world.activeFrom>0)method.append(el('p','This saved life joins the economy at age '+world.activeFrom+'. Earlier records stay unchanged.'));for(const text of world.version===3?['Growth is the World Bank figure for each year from 1961 to 2025. The equity fund is the SET index between December closes, after that year’s price rise and before dividends. The bond fund, and how growth moves pay, are game rules. After 2025 there is no record, and the years are sampled from the past.']:[...ECONOMY_COPY.slice(19,22),ECONOMY_COPY[25],ECONOMY_COPY[4]])method.append(el('p',text));
+ method.append(el('p',world.version===3?'Lesson reference funds start half in each fund and are held without fees or new contributions. They describe a price path, not your personal return.':'Lesson reference funds start half in each scenario fund and are held without fees or new contributions. They describe a price path, not your personal return.'));
  for(const[text,url]of [['World Bank · GDP growth','https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=TH'],['SEC · Asset allocation','https://www.investor.gov/introduction-investing/getting-started/asset-allocation']]){const a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener';method.append(a);}section.append(method);root.append(section);
 }

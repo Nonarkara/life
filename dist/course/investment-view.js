@@ -1,4 +1,5 @@
-import {ASSETS,holdingsOf,holdingsValue,trade,tradeFee} from './investments.js';
+import {ASSETS,holdingsOf,holdingsValue,trade,tradeFee,marketClosed} from './investments.js';
+import {economyFor,recordAt} from './economy.js';
 export const INVESTMENT_COPY=[
  'Investments','Fund','Value','Cost basis','Unrealized: {value}','Realized after fees: {value}',
  'No investments yet. Buying a fund moves spendable cash into a holding; it does not create wealth.',
@@ -35,10 +36,11 @@ export function renderInvestments(root,s,{getState,change,draft,locked=false}){
  function previewOrder(){
   const n=Number(amount.value),valid=Number.isSafeInteger(n)&&n>0,fee=tradeFee(n),live=getState(),account=live.finance,position=holdingsOf(account)[assetSelect.value];
   const blocked=locked||live.stage!=='review'||!!live.story?.pending||live.age<15||account.receipts.length>=900;
-  buy.disabled=blocked||!valid||n+fee>account.available;sell.disabled=blocked||!valid||n>position.value||n<=fee;
+  const shut=assetSelect.value==='equity'&&marketClosed(live);
+  buy.disabled=blocked||shut||!valid||n+fee>account.available;sell.disabled=blocked||!valid||n>position.value||n<=fee;
   assetSelect.disabled=amount.disabled=blocked;
   feeLine.textContent=valid?'Fee: '+money(fee)+' per trade.':'';
-  preview.textContent=!valid?'Enter a positive whole-baht amount.':live.story?.pending?'Resolve the current moment before trading.':locked?'':live.stage!=='review'?'Trading is closed for this life.':buy.disabled&&sell.disabled?'Not enough cash to buy, or holdings to sell this amount.':'Buy needs '+money(n+fee)+'; sell returns '+money(Math.max(0,n-fee))+'.';
+  preview.textContent=shut?'The stock exchange has not opened yet. It opens in 1975.':!valid?'Enter a positive whole-baht amount.':live.story?.pending?'Resolve the current moment before trading.':locked?'':live.stage!=='review'?'Trading is closed for this life.':buy.disabled&&sell.disabled?'Not enough cash to buy, or holdings to sell this amount.':'Buy needs '+money(n+fee)+'; sell returns '+money(Math.max(0,n-fee))+'.';
  }
  amount.oninput=()=>{draft.amount=amount.value;previewOrder();};assetSelect.onchange=()=>{draft.asset=assetSelect.value;previewOrder();};
  for(const[button,side]of [[buy,'buy'],[sell,'sell']])button.onclick=()=>{
@@ -48,6 +50,7 @@ export function renderInvestments(root,s,{getState,change,draft,locked=false}){
   change(next);document.getElementById('investment-'+side)?.focus({preventScroll:true});
  };
  form.append(assetLabel,assetSelect,amountLabel,amount,actions,feeLine,preview,feedback);section.append(form);
+ {const live=getState(),where=recordAt(economyFor(live),live.age);if(where!=='scenario')section.append(el('p',where==='real'?'In this life the equity fund follows the real SET index, year by year, after prices. What you remember of those years is yours to use.':'There is no record after 2025. From here the funds follow the game’s own sampled years, and nobody knows them in advance.','console-note'));}
  const lesson=el('details');lesson.append(el('summary','What these funds mean'));
  for(const text of INVESTMENT_COPY.slice(21,25))lesson.append(el('p',text));section.append(lesson);
  const records=f.receipts.filter(r=>r.kind==='trade'||r.kind==='market');if(records.length){

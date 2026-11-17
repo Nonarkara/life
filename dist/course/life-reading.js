@@ -29,7 +29,7 @@ function drift(start,upTo=80){
 const policy=state=>state.lifeEventPolicy?{lifeEventPolicy:{...state.lifeEventPolicy}}:{};
 export const sameBirth=(state,k)=>{
  const base=state.intake?configureLife(newLife(state.seed),{...state.intake,region:state.birth?.region,moves:state.birth?.moves??null}):state.birth.class?newLife(state.seed):newLegacyLife(state.seed),seed=Math.floor(rand(state.seed,k,'fellow')*2**31);
- return {...base,...policy(state),seed,story:newStory(seed),economy:createEconomy(seed)};
+ return {...base,...policy(state),seed,story:newStory(seed),economy:createEconomy(seed,0,state.economy)};
 };
 // ponytail: 160 short simulations, under 100 ms; memoised because render can run twice.
 let memo={};
@@ -41,7 +41,7 @@ function others(state){
  const cls=state.birth.class;let classGap=null;
  if(CLASS_KEYS.includes(cls)){
   const other=['high_class'].includes(cls)?'low_class':'high_class',at=Math.min(state.age,60);
-  const typical=c=>{const v=Array.from({length:PER_CLASS},(_,k)=>drift({...configureLife(newLife(state.seed+k*97+1),{...(state.intake??{}),class:c}),...policy(state)},at).history.find(r=>r.age===at)).filter(Boolean).map(worth);return v.length?median(v):null;};
+  const typical=c=>{const v=Array.from({length:PER_CLASS},(_,k)=>drift({...configureLife(newLife(state.seed+k*97+1),{...(state.intake??{}),class:c}),...(state.economy?{economy:createEconomy(state.seed+k*97+1,0,state.economy)}:{}),...policy(state)},at).history.find(r=>r.age===at)).filter(Boolean).map(worth);return v.length?median(v):null;};
   const a=typical(cls),b=typical(other);if(a!==null&&b!==null)classGap={at,cls,other,mine:a,theirs:b};
  }
  const measure=f=>{const v=f(state);return lives.filter(l=>f(l)<v).length;},last=l=>{const r=l.history.at(-1);return r?worth(r):0;};

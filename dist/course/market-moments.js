@@ -20,7 +20,7 @@ export const MARKET_PIVOTS=M.flatMap(m=>MARKET_STATIONS.map(station=>({id:`mkt-$
  {id:'out',label:OUT,cost:OUT_COST,effects:{},note:outNote(m)},
  {id:'in',label:IN_LABEL,cost:IN_COST,effects:{},flags:{['set'+m.year]:station},halfStake:'set'+m.year+'a',note:inNote(m)}]})));
 export const marketFits=(pivot,savings,birthYear)=>{const m=M.find(x=>x.year===pivot.market);return !!m&&birthYear!==null&&birthYear+pivot.station<=m.year&&m.year<birthYear+pivot.station+5&&savings>=MIN_SAVINGS;};
-export const marketsDue=(flags,from)=>M.filter(m=>flags?.['set'+m.year]+5===from).map(m=>({gain:Math.round((flags['set'+m.year+'a']??0)*(m.per100-100)/100),text:afterLine(m)}));
+export const marketsDue=(flags,from)=>M.filter(m=>flags?.['set'+m.year]+5===from).map(m=>({gain:Math.round((flags['set'+m.year+'a']??0)*(m.per100-100)/100),stake:flags['set'+m.year+'a']??0,per100:m.per100,year:m.year,text:afterLine(m)}));
 export const marketMoment=year=>M.find(m=>m.year===year);
 const thY=y=>y+543;
 export const MARKET_PHRASES=[

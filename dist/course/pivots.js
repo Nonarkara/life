@@ -637,7 +637,8 @@ export function applyPivot(state,pivot,optionId){
   const effects={...(option.effects??{})};
   const skills={...(option.effects?.skills??{})};
   const flags={...(option.flags??{})};
-  if(option.halfStake)flags[option.halfStake]=Math.max(0,Math.round(savingsOf(state)/2));
+  // In a real-record life the equity fund is the same index, so what is already in it is not staked again.
+  if(option.halfStake)flags[option.halfStake]=Math.max(0,Math.round((savingsOf(state)-(state.economy?.version===3?state.finance?.holdings?.equity?.value??0:0))/2));
   if(luck.roll!==null){
     const outcome=luck.won?option.luck.success:option.luck.failure;
     for(const[key,value]of Object.entries(outcome??{})){

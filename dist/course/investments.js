@@ -5,9 +5,12 @@ const integer=n=>Number.isSafeInteger(n)&&n>=0;
 export const holdingsOf=f=>f?.holdings??{bond:{value:0,basis:0},equity:{value:0,basis:0}};
 export const holdingsValue=f=>Object.values(holdingsOf(f)).reduce((s,h)=>s+h.value,0);
 export const validHoldings=h=>h===undefined||!!h&&Object.keys(h).length===2&&Object.keys(ASSETS).every(k=>h[k]&&Object.keys(h[k]).length===2&&integer(h[k].value)&&integer(h[k].basis));
+export const marketClosed=state=>!!economyYears(economyFor(state),state.age).at(-1)?.noMarket;
 export const tradeFee=amount=>integer(amount)&&amount>0?Math.max(1,Math.round(amount*.005)):0;
 export function trade(state,asset,side,amount){
  const f=state.finance;if(!f||!validHoldings(f.holdings)||!integer(f.available)||!Array.isArray(f.receipts)||state.stage!=='review'||state.age<15||state.story?.pending||!Object.hasOwn(ASSETS,asset)||!['buy','sell'].includes(side)||!integer(amount)||amount===0||f.receipts.length>=900)return state;
+ // The exchange had not opened: there is nothing to buy yet.
+ if(asset==='equity'&&side==='buy'&&marketClosed(state))return state;
  const fee=tradeFee(amount),holdings=structuredClone(holdingsOf(f)),position=holdings[asset];
  let available=f.available,basis=0,realizedGain=f.realizedGain??0;
  if(side==='buy'){
@@ -70,6 +73,8 @@ export function sellAll(state){
 export function autoInvest(state){
  const f=state.finance,flags=state.story?.flags??{};if(!f||state.stage!=='review'||flags.invests===undefined)return state;
  if(state.age>=60||f.debt>0||flags.panicSold!==undefined)return holdingsValue(f)>0||f.debt>0&&f.available>0?sellAll(state):state;
+ // Before the exchange opens the habit waits: half a purchase would leave bonds alone.
+ if(marketClosed(state))return state;
  const budget=Math.floor(f.reserve+f.available/4);
  // Both fees belong inside the authorized budget. A reserve-only wallet must
  // not silently end up holding bonds alone after the first purchase spends fees.
