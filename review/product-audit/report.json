@@ -1,10 +1,10 @@
 {
  "summary": {
-  "base": "http://127.0.0.1:4222",
-  "when": "2026-11-17T10:11:55.699Z",
+  "base": "http://127.0.0.1:4219",
+  "when": "2026-11-17T18:45:23.957Z",
   "counts": {
    "high": 0,
-   "medium": 1,
+   "medium": 2,
    "low": 8
   }
  },
@@ -12,20 +12,26 @@
   {
    "area": "performance",
    "severity": "medium",
-   "what": "one view costs 23 requests and 12182 kB",
-   "evidence": "{\"nodes\":1178,\"buttons\":110}"
+   "what": "one view costs 27 requests and 7294 kB",
+   "evidence": "{\"nodes\":1150,\"buttons\":107}"
+  },
+  {
+   "area": "book",
+   "severity": "medium",
+   "what": "10 font sizes (cap 8)",
+   "evidence": ""
   },
   {
    "area": "performance",
    "severity": "low",
    "what": "frame pacing could not be measured in this browser",
-   "evidence": "{\"frames\":0,\"ms\":3002}"
+   "evidence": "{\"frames\":0,\"ms\":3001}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B1 first-screen task passes",
-   "evidence": "[{\"label\":\"Play\",\"top\":4},{\"label\":\"Answer 1 question →\",\"top\":732}]"
+   "evidence": "[{\"label\":\"Play\",\"top\":4}]"
   },
   {
    "area": "book",
@@ -37,19 +43,19 @@
    "area": "book",
    "severity": "low",
    "what": "B3 box fit passes",
-   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.12,\"boxH\":167,\"textH\":1365}"
+   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.08,\"boxH\":105,\"textH\":1363}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B4 void passes",
-   "evidence": "{\"from\":876,\"to\":888}"
+   "evidence": "null"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B7 hierarchy passes",
-   "evidence": "[11,12,14,15,16,24,64]"
+   "evidence": "[11,12,13,14,15,16,18,24,32,64]"
   },
   {
    "area": "book",
@@ -61,7 +67,7 @@
    "area": "book",
    "severity": "low",
    "what": "B13 ship basics passes",
-   "evidence": "{\"noAlt\":0,\"unlabelled\":0,\"lang\":\"en\",\"viewport\":\"width=device-width,initial-scale=1\",\"title\":\"Life choices\"}"
+   "evidence": "{\"noAlt\":0,\"unlabelled\":0,\"lang\":\"en\",\"viewport\":\"width=device-width,initial-scale=1\",\"title\":\"Practice\"}"
   }
  ]
 }

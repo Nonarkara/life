@@ -1,1 +1,27 @@
-{"id": "visitor-a", "name": "Visitor A", "species": "human", "style": "anime"}
+{
+  "id": "visitor-a",
+  "name": "Visitor A",
+  "species": "human",
+  "style": "anime",
+  "description": "A Thai visitor figure in the painted isometric diorama. Standing pose, facing the viewer, arms at the sides, feet on the ground line. The figure wears everyday clothes appropriate to its life stage and household.",
+  "design": "../../dist/course/anime/cast/a-original.webp",
+  "rig_glb": "../../dist/course/anime/cast/visitor-a.glb",
+  "kind": "person",
+  "facings": 8,
+  "draw": false,
+  "shadow": "3d",
+  "anchor": "ground",
+  "pitch": 30,
+  "light": "right",
+  "render_px": 512,
+  "frame_px": 256,
+  "frames": 8,
+  "redo_below": 0.75,
+  "actions": [],
+  "msh": {
+    "fitThreshold": 0.75,
+    "anchorPoint": "between-feet",
+    "shadowPerFrame": true,
+    "spatialHonesty": "drawn-frames-fit-3d-renders"
+  }
+}

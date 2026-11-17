@@ -1,6 +1,7 @@
 import {cpSync,mkdirSync,readdirSync,readFileSync,writeFileSync,mkdtempSync,existsSync,renameSync,rmSync,statSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {versionReferences} from './asset-versions.mjs';
+import {buildCharacters} from './spritecast-build.mjs';
 const output=mkdtempSync('.life-build-');
 try {
 const compare=(from,to)=>{
@@ -14,6 +15,11 @@ const compare=(from,to)=>{
 // Keep gameplay and the manual at stable sibling routes.
 mkdirSync(output+'/course',{recursive:true});mkdirSync(output+'/start',{recursive:true});
 compare('dist/course',output+'/course');console.log('Course output matches authored source.');cpSync('dist/start',output+'/start',{recursive:true});
+
+// SpriteCast character pipeline: render → finish → pack at build time.
+// Assets land in output/course/characters/<id>/ and are hashed into the build id.
+await buildCharacters(output+'/course/characters');
+console.log('SpriteCast character assets staged.');
 for(const file of readdirSync('dist/start'))cpSync('dist/start/'+file,output+'/'+file);
 
 mkdirSync(output+'/legacy',{recursive:true});

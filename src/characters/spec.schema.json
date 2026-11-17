@@ -1,1 +1,53 @@
-{"$schema": "http://json-schema.org/draft-07/schema#", "title": "CharacterSpec", "type": "object", "required": ["id", "name"], "properties": {"id": {"type": "string"}, "name": {"type": "string"}}}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CharacterSpec",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {"type": "string"},
+    "name": {"type": "string"},
+    "species": {"type": "string"},
+    "style": {"type": "string"},
+    "description": {"type": "string"},
+    "design": {"type": "string"},
+    "rig_glb": {"type": "string"},
+    "kind": {"type": "string", "enum": ["person", "animal"]},
+    "facings": {"type": "integer", "enum": [4, 8]},
+    "draw": {"type": "boolean"},
+    "shadow": {"type": "string", "enum": ["3d", "drawn", "guide"]},
+    "anchor": {"type": "string", "enum": ["ground", "soles"]},
+    "pitch": {"type": "number"},
+    "light": {"type": "string"},
+    "render_px": {"type": "integer"},
+    "frame_px": {"type": "integer"},
+    "frames": {"type": "integer"},
+    "redo_below": {"type": "number"},
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "clip": {"type": "string"},
+          "t0": {"type": "number"},
+          "t1": {"type": "number"},
+          "frames": {"type": "integer"},
+          "loop": {"type": "boolean"},
+          "words": {"type": "string"},
+          "hold": {"type": ["string", "object"]},
+          "trail": {"type": ["string", "object"]}
+        },
+        "required": ["name"]
+      }
+    },
+    "msh": {
+      "type": "object",
+      "properties": {
+        "fitThreshold": {"type": "number"},
+        "anchorPoint": {"type": "string"},
+        "shadowPerFrame": {"type": "boolean"},
+        "spatialHonesty": {"type": "string"}
+      }
+    }
+  }
+}

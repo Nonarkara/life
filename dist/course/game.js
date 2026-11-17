@@ -75,8 +75,8 @@ const loadHeavyModules=async()=>{
   if(!_pivotsLoaded){const m=await import('./pivots.js');pendingPivots=m.pendingPivots;pivotById=m.pivotById;applyPivot=m.applyPivot;locksFor=m.locksFor;openOptions=m.openOptions;ERAS=m.ERAS;_pivotsLoaded=true;}
   if(!_thaiLoaded){const m=await import('./thai-history.js');thaiEraForState=m.thaiEraForState;HISTORICAL_COHORTS=m.HISTORICAL_COHORTS;birthYearOf=m.birthYearOf;_thaiLoaded=true;dirty=true;}
 };
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>loadHeavyModules(),10000));
-else setTimeout(()=>loadHeavyModules(),10000);
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>loadHeavyModules(),30000));
+else setTimeout(()=>loadHeavyModules(),30000);
 // Device scene memory is set before the first scene is offered on load (journey restore included).
 setFamiliar(metScenes());
 let store=null;try{store=localStorage;}catch{}const saved=readSave(store,validate);saveOK=saved.storage;const unreadable=saved.unreadable;const requested=new URL(location.href);

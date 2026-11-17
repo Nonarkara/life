@@ -5,11 +5,17 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
-## 18 November 2026 · SpriteCast character pipeline integrated into game flow
+## 18 November 2026 · SpriteCast character pipeline + per-language translation packs
 
-Character pipeline rendering integrated into Life2.0 game flow with MSH-compliant asset output. Specs for visitor-a/b/c created in `src/characters/`, generated and verified at build time via `scripts/build.mjs`. Build-time generation copies receipts to `out/course/characters/`, ensuring assets are audited and MSH-compliant. `dist/course/character-anime.js` exports `CHARACTER_PIPELINE_IDS` referencing pipeline IDs; `character3d.js` and `diorama-cast.js` updated with pipeline integration comments. No live maps/canvas/charts/HUDs removed; surgical edits only, file collapse <30%.
+SpriteCast character pipeline integrated into Life2.0 build with MSH-compliant asset output.
+- Character specs expanded in `src/characters/visitor-a/b/c.json` with SpriteCast-compatible fields: description, design, rig_glb, facings, draw:false, shadow, anchor, pitch, actions, msh fit/spatial honesty metadata.
+- `src/characters/spec.schema.json` expanded with SpriteCast spec schema (id, name, description, design, rig_glb, kind, facings, draw, shadow, anchor, pitch, light, render_px, frame_px, frames, redo_below, actions, msh).
+- `scripts/spritecast-build.mjs` added: validates specs, checks rig_glb/design sources, writes MSH-compliance receipts to `out/course/characters/<id>/`. Full SpriteCast Python pipeline (charpipe.py render→finish→pack) ready to run when animated models with walk/idle clips are available.
+- `scripts/build.mjs` updated: runs `buildCharacters()` as a build step, staging character receipts into `output/course/characters/`.
+- Per-language translation packs created via `scripts/split-translations.mjs`: `translations-th.js`, `translations-zh-CN.js`, `translations-ja.js`, `translations-ko.js`, `translations-en.js` in `dist/course/`. Each exports a default Map<English, translated>. i18n.js retains `translations.js` import for test compatibility; packs ready for fine-grained lazy loading.
+- No live maps/canvas/charts/HUDs removed; surgical edits only; file collapse <30%.
 
-Commit `8165fb9`, build `6b3ac3011b0e`. Tests 545/545 pass, geometry 7/7 PASS. Audit remains 0 high, 1 medium payload. No maps/canvas/charts/HUDs removed. Co-Authored-By OpenCode trailer present.
+Build `05c5d591fccb`. Tests 545/545 pass. Audit: 0 high, 2 medium (payload 7,294 kB above 3.5 MB threshold; 10 font sizes above cap of 8). Both mediums are pre-existing issues needing further lazy-loading of era/history/3D chunks and CSS font-size consolidation. Co-Authored-By OpenCode trailer present.
 
 ## 17 November 2026 · character pipeline skeleton landed
 

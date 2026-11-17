@@ -1,8 +1,8 @@
 # Product audit · the Book's ship gate
 
-Base: http://127.0.0.1:4222 · 2026-11-17T10:11:55.700Z
+Base: http://127.0.0.1:4219 · 2026-11-17T18:45:23.970Z
 
-Verdict: **REVISE** (0 high, 1 medium)
+Verdict: **REVISE** (0 high, 2 medium)
 
 Auditor: the automated product audit (`scripts/audit-product.mjs`), run against the built page.
 Builder ≠ auditor: the page was built by other agents; this gate walks it, and a human walk is still required.
@@ -17,23 +17,24 @@ Builder ≠ auditor: the page was built by other agents; this gate walks it, and
 
 ## Findings
 
-- **medium** · performance · one view costs 23 requests and 12182 kB  
-  {"nodes":1178,"buttons":110}
+- **medium** · performance · one view costs 27 requests and 7294 kB  
+  {"nodes":1150,"buttons":107}
+- **medium** · book · 10 font sizes (cap 8)
 - **low** · performance · frame pacing could not be measured in this browser  
-  {"frames":0,"ms":3002}
+  {"frames":0,"ms":3001}
 - **low** · book · B1 first-screen task passes  
-  [{"label":"Play","top":4},{"label":"Answer 1 question →","top":732}]
+  [{"label":"Play","top":4}]
 - **low** · book · B2 chrome cost passes  
   [{"sel":"header","h":37},{"sel":".world-bottom","h":40},{"sel":".console-nav","h":35}]
 - **low** · book · B3 box fit passes  
-  {"sel":"console-panel console-card","ratio":0.12,"boxH":167,"textH":1365}
+  {"sel":"console-panel console-card","ratio":0.08,"boxH":105,"textH":1363}
 - **low** · book · B4 void passes  
-  {"from":876,"to":888}
+  null
 - **low** · book · B7 hierarchy passes  
-  [11,12,14,15,16,24,64]
+  [11,12,13,14,15,16,18,24,32,64]
 - **low** · book · B10 logos unboxed passes
 - **low** · book · B13 ship basics passes  
-  {"noAlt":0,"unlabelled":0,"lang":"en","viewport":"width=device-width,initial-scale=1","title":"Life choices"}
+  {"noAlt":0,"unlabelled":0,"lang":"en","viewport":"width=device-width,initial-scale=1","title":"Practice"}
 
 ## Unverified
 
