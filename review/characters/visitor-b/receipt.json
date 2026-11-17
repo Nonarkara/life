@@ -1,0 +1,13 @@
+{
+  "id": "visitor-b",
+  "generatedAt": "2026-11-17T17:22:43.181Z",
+  "steps": [
+    "3d-guide",
+    "render",
+    "style-redraw",
+    "fit-verify",
+    "anchor-shadow-bake"
+  ],
+  "status": "completed",
+  "mshCompliant": true
+}
