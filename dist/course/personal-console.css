@@ -461,6 +461,7 @@
  #commit,.transport-key,.allocation-row button,.pivot-option,.encounter-choice,select:not(#world-view){min-height:44px!important}
  .transport-key{min-width:44px!important}
  header button,header a,.tabs button,.console-nav button,.console-panel a[href]{min-height:32px!important}
+ .console-panel a[href],.focus-source a[href]{display:inline-flex;align-items:center;min-height:24px!important}
   /* The folded menu key, the life card, the course toggle and the reader's exit
      are isolated actions, not a dense row: they carry a real 44 px target. */
   .top-more,.top-slots,.reader-close,.decision-set-aside{min-height:44px!important}
