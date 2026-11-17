@@ -25,7 +25,7 @@ body.console-mode{height:100dvh;overflow:hidden}
 .console-panel .decision,.console-panel .resources{padding:0;border:0;margin:0}
 .console-panel .method{margin:16px 0 0}
 .console-panel h1{font-size:calc(18px * var(--reading-scale));margin:0 0 4px}
-.console-panel h2{font-size:calc(13px * var(--reading-scale));margin:10px 0 4px}
+.console-panel h2{font-size:calc(12px * var(--reading-scale));margin:10px 0 4px}
 .console-note{font-size:calc(12px * var(--reading-scale));line-height:1.5;max-width:60ch;color:var(--muted)}
 /* Save state and the action share one compact row; full event prose stays in Plan. */
 .console-actions{flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:3px 12px;background:var(--paper);border-top:1px solid var(--line)}
@@ -71,7 +71,7 @@ body.console-mode{height:100dvh;overflow:hidden}
  .console-mode:not(.birth-stage):not(.recap-stage) #console-plan{flex:1;min-height:0;overflow:auto}
  .console-nav>[aria-controls=console-plan]{display:block}
  .player-console>.console-nav{padding:2px 12px;background:var(--deck);color:var(--deck-text);gap:18px}
- .player-console>.console-nav button{font-size:calc(13px * var(--reading-scale));min-height:30px;color:inherit}
+ .player-console>.console-nav button{font-size:calc(12px * var(--reading-scale));min-height:30px;color:inherit}
  .player-console>.console-nav button[aria-pressed=true]{border-color:var(--deck-accent)}
  .reader-close{position:sticky;top:0;z-index:1;display:block;margin-left:auto;background:var(--paper);min-height:32px;padding:4px 12px;font-size:14px}
  .console-mode:not(.birth-stage):not(.recap-stage) .world-bottom{position:absolute;top:52px;bottom:auto;right:12px;max-width:min(560px,calc(100% - 24px));background:var(--deck);color:var(--deck-text);padding:4px 8px}
@@ -180,10 +180,10 @@ body.console-mode>header{flex:none}
  .console-mode .rpg-dock .console-reader{flex:1;min-height:0;border:0}
  .console-mode .rpg-dock .player-console{flex:none;min-height:0;max-height:none;border:0}
  .console-mode .rpg-dock .console-actions{min-height:30px;padding:2px 12px}
- .console-mode .rpg-dock .console-actions #commit{font-size:calc(13px * var(--reading-scale));padding:2px 0;min-height:28px}
+ .console-mode .rpg-dock .console-actions #commit{font-size:calc(12px * var(--reading-scale));padding:2px 0;min-height:28px}
  .console-mode .rpg-dock .console-actions #save-status{font-size:calc(11px * var(--reading-scale))}
  .console-mode .rpg-dock .console-nav{padding:0 8px;gap:10px}
- .console-mode .rpg-dock .console-nav button{padding:2px 4px;min-height:28px;font-size:calc(13px * var(--reading-scale))}
+ .console-mode .rpg-dock .console-nav button{padding:2px 4px;min-height:28px;font-size:calc(12px * var(--reading-scale))}
  /* Phone: all eight tabs fit at 360 px in English; longer labels still scroll. */
  @media(max-width:480px){.console-mode .rpg-dock .console-nav{padding:0 4px;gap:4px;justify-content:space-between}.console-mode .rpg-dock .console-nav button{padding:2px 5px;min-width:32px}}
  .console-mode .rpg-dock .console-panel{padding:6px 10px}
@@ -198,10 +198,10 @@ body.console-mode>header{flex:none}
  .decision-dialog .pivot-option,.personal-console .decision-dialog .encounter-choice{padding:7px 0}
 }
 @media(max-width:1279px) and (orientation:landscape){.console-mode{--rpg-height:20dvh}}
-.bucket-tools{display:flex;gap:6px;align-items:center}.bucket-tools input{flex:1;min-width:0;font:inherit;font-size:14px;padding:4px 6px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:0}.bucket-tools select{font-size:13px;max-width:110px;padding:4px}
+.bucket-tools{display:flex;gap:6px;align-items:center}.bucket-tools input{flex:1;min-width:0;font:inherit;font-size:14px;padding:4px 6px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:0}.bucket-tools select{font-size:12px;max-width:110px;padding:4px}
 .bucket-tabs{display:flex;gap:10px;margin:3px 0}.bucket-tabs button{font-size:12px;min-height:26px;padding:2px 0;border:0;border-bottom:2px solid transparent}.bucket-tabs button[aria-pressed=true]{border-bottom-color:var(--accent-ink)}
 .bucket-budget,.bucket-notice{font-size:12px;line-height:1.4;margin:4px 0}.bucket-action{display:grid;grid-template-columns:30px 1fr;gap:2px 8px;text-align:left;border:0;border-top:1px solid var(--line);padding:7px 0;width:100%;min-height:44px}.bucket-action svg{grid-row:1/3;width:26px;height:26px;align-self:center}.bucket-action span{font-size:14px;font-weight:600}.bucket-action small{grid-column:2;font-size:12px;line-height:1.4;color:var(--muted)}.bucket-action:disabled{opacity:.65}
-.bucket-custom{display:grid;grid-template-columns:1fr 1fr;gap:7px}.bucket-custom label{font-size:12px}.bucket-custom input,.bucket-custom select{display:block;max-width:100%;width:100%;font:inherit;padding:4px;background:var(--paper);color:var(--ink);border:1px solid var(--line)}.bucket-custom p{grid-column:1/-1}.bucket-custom button{font-size:13px;min-height:30px}.bucket-record{margin:6px 0;font-size:13px}.bucket-record small{display:block;font-size:12px;color:var(--muted)}
+.bucket-custom{display:grid;grid-template-columns:1fr 1fr;gap:7px}.bucket-custom label{font-size:12px}.bucket-custom input,.bucket-custom select{display:block;max-width:100%;width:100%;font:inherit;padding:4px;background:var(--paper);color:var(--ink);border:1px solid var(--line)}.bucket-custom p{grid-column:1/-1}.bucket-custom button{font-size:12px;min-height:30px}.bucket-record{margin:6px 0;font-size:12px}.bucket-record small{display:block;font-size:12px;color:var(--muted)}
 /* The first five carriages teach from the same fixed console as the later game. */
 .console-mode.birth-stage{--rpg-height:calc(100dvh / 3)}
 /* The childhood strip is one line of text, not a third of the screen.
@@ -213,14 +213,14 @@ body.console-mode>header{flex:none}
 .console-mode.birth-stage .rpg-dock.shown{display:flex;flex-direction:column;grid-row:2;max-height:var(--rpg-height);min-height:0;overflow:hidden;background:var(--paper)}
 .console-mode.birth-stage .rpg-dock #childhood-memory{flex:1;min-height:0;max-height:none;overflow:auto;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 14px;color:var(--ink);padding:3px 10px;border-top:1px solid var(--line)}
 .console-mode.birth-stage .rpg-dock #childhood-memory .childhood-navigation{margin:0;flex:none}
-.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-title{flex:none;max-width:100%;font-size:calc(15px * var(--reading-scale));overflow-wrap:anywhere}
-.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-decision{flex:1 1 260px;min-width:0;font-size:calc(13px * var(--reading-scale));white-space:normal;overflow-wrap:anywhere}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-title{flex:none;max-width:100%;font-size:calc(14px * var(--reading-scale));overflow-wrap:anywhere}
+.console-mode.birth-stage .rpg-dock #childhood-memory #childhood-decision{flex:1 1 260px;min-width:0;font-size:calc(12px * var(--reading-scale));white-space:normal;overflow-wrap:anywhere}
 .console-mode.birth-stage .rpg-dock #childhood-memory #childhood-biology{flex:1 1 220px;min-width:0;white-space:normal;overflow-wrap:anywhere}
 .console-mode.birth-stage .rpg-dock #childhood-memory #family-income{flex:none;white-space:nowrap}
 .console-mode.birth-stage .rpg-dock #childhood-memory .childhood-guide-controls{flex:none;margin:0}
 .console-mode.birth-stage .rpg-dock #childhood-memory[hidden]{display:none}
 .console-mode.birth-stage #childhood-memory strong{font-size:calc(18px * var(--reading-scale));line-height:1.25;display:block}
-.console-mode.birth-stage #childhood-memory p{font-size:calc(13px * var(--reading-scale));line-height:1.4;margin:4px 0;color:var(--ink);text-align:left}
+.console-mode.birth-stage #childhood-memory p{font-size:calc(12px * var(--reading-scale));line-height:1.4;margin:4px 0;color:var(--ink);text-align:left}
 .console-mode.birth-stage #childhood-memory #childhood-biology{font-size:calc(12px * var(--reading-scale));color:var(--muted);padding-left:7px}
 .console-mode.birth-stage #childhood-memory #family-income{font-size:calc(12px * var(--reading-scale));color:var(--muted);text-align:left}
 .childhood-guide-controls{display:flex;gap:12px;align-items:center;margin-top:3px}.childhood-guide-controls button{font-size:12px;padding:2px 0;border:0;border-bottom:1px solid var(--line);min-height:26px}
@@ -262,9 +262,9 @@ body.console-mode>header{flex:none}
 .child-body{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start}
 .child-left{flex:1;min-width:0}
 .child-snapshot{flex:0 1 auto;min-width:0;max-width:40ch}.child-snapshot summary{cursor:pointer;padding:3px 0}
-.snapshot-head{font-size:calc(13px * var(--reading-scale));font-weight:600;margin:0 0 4px}
+.snapshot-head{font-size:calc(12px * var(--reading-scale));font-weight:600;margin:0 0 4px}
 .snapshot-stats{display:flex;gap:10px;flex-wrap:wrap;margin:2px 0}
-.snapshot-stat{font-size:calc(13px * var(--reading-scale));font-weight:600}
+.snapshot-stat{font-size:calc(12px * var(--reading-scale));font-weight:600}
 .snapshot-stat+small{font-size:calc(11px * var(--reading-scale));color:var(--muted);display:block}
 .snapshot-sub{font-size:calc(12px * var(--reading-scale));font-weight:600;margin:5px 0 2px}
 .snapshot-skills{display:flex;flex-direction:column;gap:2px}
@@ -320,7 +320,7 @@ body.console-mode>header{flex:none}
  html[data-text-size=extra] .decision-dialog[open][data-has-choices=true]{display:flex;flex-direction:column;overflow:hidden}
  html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-head{flex:none}
  html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-content{flex:1;min-height:0;overflow:auto}
- html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-pager{display:block;flex:none;align-self:flex-start;font:inherit;font-size:calc(13px * var(--reading-scale));min-height:30px;margin-top:3px;padding:2px 0;border:0;border-bottom:1px solid var(--ink);color:var(--ink);background:none}
+ html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-pager{display:block;flex:none;align-self:flex-start;font:inherit;font-size:calc(12px * var(--reading-scale));min-height:30px;margin-top:3px;padding:2px 0;border:0;border-bottom:1px solid var(--ink);color:var(--ink);background:none}
  html[data-text-size=extra] .decision-dialog[data-reading-stage=context][data-has-choices=true] .decision-actions,
  html[data-text-size=extra] .decision-dialog[data-reading-stage=context][data-has-choices=true] .pivot-options{display:none}
  html[data-text-size=extra] .decision-dialog[data-reading-stage=choices][data-has-choices=true] #narrative,
@@ -334,9 +334,9 @@ body.console-mode>header{flex:none}
  .decision-dialog .pivot-reading .decision-progress,.decision-dialog .pivot-reading .question-badges{display:inline-flex;vertical-align:middle;margin:0 8px 2px 0}
  .decision-dialog .question-badges{margin:2px 0 4px}
  .decision-dialog[data-tone] h2,.decision-dialog[data-tone] #title{font-size:calc(16px * var(--reading-scale));line-height:1.18;margin:0 0 3px}
- .decision-dialog .decision-context,.decision-dialog #narrative{font-size:calc(13px * var(--reading-scale));line-height:1.3;margin:0 0 4px}
+ .decision-dialog .decision-context,.decision-dialog #narrative{font-size:calc(12px * var(--reading-scale));line-height:1.3;margin:0 0 4px}
  .decision-dialog .pivot-option,.personal-console .decision-dialog .encounter-choice{padding:4px 0;min-height:44px}
- .decision-dialog .pivot-label,.decision-dialog .encounter-choice>span{font-size:calc(13px * var(--reading-scale));line-height:1.22}
+ .decision-dialog .pivot-label,.decision-dialog .encounter-choice>span{font-size:calc(12px * var(--reading-scale));line-height:1.22}
  .decision-dialog .pivot-cost,.decision-dialog .encounter-choice>small{font-size:calc(12px * var(--reading-scale));line-height:1.22}
  .decision-dialog .child-body{display:block}
  .decision-dialog .child-snapshot{margin-top:8px;max-width:none}
@@ -352,7 +352,7 @@ body.console-mode>header{flex:none}
  .decision-dialog #child-choice .pivot-options{display:flex;flex-wrap:wrap;gap:4px 8px;margin:0;align-content:flex-start}
  .decision-dialog #child-choice .pivot-option{display:inline-flex;align-items:center;gap:7px;width:auto;max-width:100%;min-height:32px;padding:4px 8px;border:1px solid var(--line);border-radius:0;text-align:left}
  .decision-dialog #child-choice .pivot-option .choice-symbol{width:18px;height:18px;margin:0}
- .decision-dialog #child-choice .pivot-label{font-size:calc(13px * var(--reading-scale));line-height:1.2;max-width:none}
+ .decision-dialog #child-choice .pivot-label{font-size:calc(12px * var(--reading-scale));line-height:1.2;max-width:none}
  .decision-dialog #child-choice .pivot-cost{font-size:calc(11px * var(--reading-scale));line-height:1.2;white-space:nowrap}
  .decision-dialog #child-choice .child-snapshot{display:none}
 }
@@ -371,7 +371,7 @@ body.console-mode>header{flex:none}
 #child-choice .pivot-option,.decision-dialog #child-choice .pivot-option{grid-template-columns:18px minmax(0,1fr) auto}
 #child-choice .pivot-cost,.decision-dialog #child-choice .pivot-cost{grid-column:3;grid-row:1;white-space:nowrap;font-size:calc(12px * var(--reading-scale))}
 #child-choice h2,.decision-dialog #child-choice h2{font-size:calc(16px * var(--reading-scale));line-height:1.2;margin:0 0 2px}
-#child-choice .decision-context,.decision-dialog #child-choice .decision-context{font-size:calc(13px * var(--reading-scale));line-height:1.3;margin:0 0 4px}
+#child-choice .decision-context,.decision-dialog #child-choice .decision-context{font-size:calc(12px * var(--reading-scale));line-height:1.3;margin:0 0 4px}
 @media(max-width:560px){#child-choice .pivot-cost,.decision-dialog #child-choice .pivot-cost{grid-column:2;grid-row:2;white-space:normal}}
 
 /* The ending: the title is the verdict and the only large thing on the first screen. */
@@ -391,7 +391,7 @@ body.has-plan .plan-card>.plan-title,body.has-plan .plan-card>.plan-key,body.has
 body.has-plan .plan-option{width:auto;flex:0 0 auto;max-width:100%;min-height:32px;padding:2px 8px;justify-content:flex-start}
 body.has-plan .plan-option[aria-pressed=true],body.has-plan .plan-seg-btn[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper,#f4f0e6)}
 body.has-plan .plan-seg{flex-wrap:wrap}body.has-plan .plan-seg-btn{flex:0 0 auto;padding:2px 8px;min-height:32px}
-.plan-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}.plan-foot .plan-signal{min-width:0;flex:1 1 auto;font-size:13px;line-height:1.25}
+.plan-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:4px}.plan-foot .plan-signal{min-width:0;flex:1 1 auto;font-size:12px;line-height:1.25}
 .plan-foot #commit{flex:0 0 auto;width:max-content;max-width:none;min-height:44px;padding:4px 16px;background:#f59e0b;border:0;color:#17110a;font-weight:600;white-space:nowrap}
 body.has-plan .latest-event>summary{color:var(--ink)}
 .decision-set-aside,.decision-dialog .decision-set-aside{min-height:32px}
@@ -422,12 +422,12 @@ body.has-plan .plan-title{display:none}
 .persona-name{font:600 24px/1.1 inherit;font-family:inherit;width:100%;border:0;border-bottom:1px dashed transparent;background:none;color:inherit;padding:0}.persona-name:focus{border-bottom-color:var(--ink);outline:none}
 .persona-meta{margin:2px 0 0;font-size:12px;color:var(--muted)}.persona-worth{text-align:right;flex:none}.persona-worth b{display:block;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}.persona-worth span{font-size:12px;color:var(--muted)}
 .persona-stats{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin:8px 0;border-block:1px solid var(--line);padding:4px 0}.persona-stats dt{grid-row:1;font-size:11px;color:var(--muted);text-align:center}.persona-stats dd{grid-row:2;margin:0;font-size:14px;text-align:center;font-variant-numeric:tabular-nums}
-.persona-gear{list-style:none;margin:0;padding:0;display:grid;gap:2px}.persona-gear li{display:flex;align-items:center;gap:8px;font-size:13px}
-.persona-owed{display:flex;align-items:center;gap:10px;margin-top:6px}.persona-owed p{margin:0;font-size:13px;line-height:1.3}
+.persona-gear{list-style:none;margin:0;padding:0;display:grid;gap:2px}.persona-gear li{display:flex;align-items:center;gap:8px;font-size:12px}
+.persona-owed{display:flex;align-items:center;gap:10px;margin-top:6px}.persona-owed p{margin:0;font-size:12px;line-height:1.3}
 .slot-glyph{width:16px;height:16px;display:block}.top-slots{display:inline-flex;align-items:center;gap:6px;border:0;padding:0;background:none;color:inherit;min-height:0;margin-left:8px;vertical-align:middle;cursor:pointer}.slot-pie{color:var(--ink)}
 
-.persona-gear li{display:grid;grid-template-columns:16px minmax(0,1fr) 40px minmax(72px,auto) auto;gap:6px;align-items:center;min-height:32px}.asset-name{overflow-wrap:anywhere}.asset-value{text-align:right;font-weight:600;font-size:13px;font-variant-numeric:tabular-nums}.asset-spark{width:40px;height:14px}.asset-sell{min-height:32px;padding:2px 8px;font-size:12px;border:1px solid var(--line);background:none;color:inherit}
-.persona-shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px;margin-top:8px}.shop-card{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:6px;align-items:center;min-height:36px;padding:3px 6px;border:1px solid var(--line);background:none;color:inherit;font-size:12px;text-align:left}.shop-card:disabled{opacity:.45}.shop-card small{font-variant-numeric:tabular-nums}.encounter-sell{min-height:32px;margin-top:6px;padding:2px 8px;font-size:13px;background:none;border:1px solid var(--ink);color:inherit}.verdict-death{font-style:normal;margin:0 0 8px}
+.persona-gear li{display:grid;grid-template-columns:16px minmax(0,1fr) 40px minmax(72px,auto) auto;gap:6px;align-items:center;min-height:32px}.asset-name{overflow-wrap:anywhere}.asset-value{text-align:right;font-weight:600;font-size:12px;font-variant-numeric:tabular-nums}.asset-spark{width:40px;height:14px}.asset-sell{min-height:32px;padding:2px 8px;font-size:12px;border:1px solid var(--line);background:none;color:inherit}
+.persona-shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:4px;margin-top:8px}.shop-card{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:6px;align-items:center;min-height:36px;padding:3px 6px;border:1px solid var(--line);background:none;color:inherit;font-size:12px;text-align:left}.shop-card:disabled{opacity:.45}.shop-card small{font-variant-numeric:tabular-nums}.encounter-sell{min-height:32px;margin-top:6px;padding:2px 8px;font-size:12px;background:none;border:1px solid var(--ink);color:inherit}.verdict-death{font-style:normal;margin:0 0 8px}
 
 .place-plate{position:absolute;z-index:3;margin:0;overflow:hidden;background:#f4f0e6;cursor:pointer}.place-plate img{display:block;width:100%;height:100%;object-fit:cover}.place-plate figcaption{position:absolute;left:8px;bottom:12px;padding:3px 8px;background:#0a0e14;color:#f3efe3;font-size:12px;line-height:1.35}
 /* MSH, phone and tablet: one header block, one panel that fits its card, overlays on one edge. */
@@ -491,7 +491,7 @@ body.has-plan .plan-title{display:none}
  .stage:has(#world-view:not([hidden])) .town-caption{bottom:58px;max-width:calc(100% - 16px)}
 }
 /* A warning that the life is about to end is body text on its own line, never a faint aside. */
-body.has-plan .plan-card>.plan-key.plan-warning{flex:0 0 100%;max-width:none;opacity:1;font-size:13px;line-height:1.35;margin:4px 0 0}
+body.has-plan .plan-card>.plan-key.plan-warning{flex:0 0 100%;max-width:none;opacity:1;font-size:12px;line-height:1.35;margin:4px 0 0}
 /* The year beside the plan. It lives only where the rail has an empty half; below that width the
    one sentence about the person's own money sits in the money card instead. */
 .plan-world{display:none}
@@ -514,7 +514,7 @@ body.has-plan .plan-card>.plan-key.plan-warning{flex:0 0 100%;max-width:none;opa
  .year-k-savings::before{border-top:1.5px dashed var(--muted)}
  .year-text{min-width:0;max-width:60ch}
  .year-head{margin:0;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
- .year-line{margin:2px 0 0;font-size:13px;line-height:1.35}
+ .year-line{margin:2px 0 0;font-size:12px;line-height:1.35}
 }
 /* Between 1280 and 1440 the empty half is too narrow for chart and sentence: the sentence stays. */
 @media(min-width:1280px) and (max-width:1439px){.year-rates{display:none}}

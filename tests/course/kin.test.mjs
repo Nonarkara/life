@@ -124,7 +124,8 @@ test('the page, the render loop and the language loader are wired to it',()=>{
  assert.ok(src('i18n.js').includes('next=record.source.replace(src,t(src))'),'every text node goes through t');
  assert.ok(src('i18n.js').includes("export const t=text=>kinLine(text,translate(text,preferences.language)"));
  assert.ok(src('game.js').includes('function render(){setKin(state.birth?.household);'));
- // A visitor who returns with a saved language gets the dictionary at load, and no English miss is cached before it arrives.
- assert.ok(src('i18n.js').includes("if(typeof window!=='undefined'&&preferences.language!=='en')ensureDictionary().then("));
- assert.ok(src('i18n.js').includes('||!input||!phrasesLoaded)return input;'));
+ // A visitor who returns with a saved language gets the pack at load, and no English miss is cached before it arrives.
+ assert.ok(src('i18n.js').includes("if(typeof window!=='undefined'&&preferences.language!=='en')"),'the saved language loads at boot');
+ assert.ok(src('i18n.js').includes('loadPack(preferences.language).then(()=>{if(document.body)localise();})'),'the boot loader localises once the pack lands');
+ assert.ok(src('i18n.js').includes('input&&!packs.has(language)?translateUncached(input,language)'),'a pre-pack miss is never cached as the answer');
 });

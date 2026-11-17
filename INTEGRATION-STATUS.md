@@ -5,6 +5,16 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
+## 18 November 2026 · per-language packs wired, cache poison removed, type scale at cap
+
+Verified and completed the 18 November pack work (leads verified against the actual diff, not on trust).
+- **Claim confirmed, then made real:** the per-language packs shipped for nothing — `i18n.js` still imported the full five-language table. Measured cost: 2,791 kB (translations.js + 19 copy modules) for every non-English player. Now one pack loads: th 1,440 kB, zh 870 kB, ja 1,001 kB, ko 989 kB (48–69% less).
+- **Worse than reported, now fixed:** on a plain reload with a stored Thai/Japanese preference the dictionary never loaded at all (`ensureDictionary` was unreachable from the browser path) — the player got an English UI. The stored language now loads its pack at boot and localises once it lands (Playwright probe: `lang=th`, title and nav in Thai; one pack fetched, versioned `?v=`).
+- **Cache poison (predates this work, now removed):** `cacheTranslations` memoised the English passthroughs returned before the dictionary arrived, so a later `localise()` kept reading English out of the cache. Pre-pack lookups now bypass the cache (`prePack` wrapper), so they can never be memoised. Fable's 2287bcb guard (`!phrasesLoaded`) is subsumed by the per-language check.
+- **Merged 2287bcb (Fable)** by rebase: kept the kinLine household retelling in `t()`, the `document.body` boot guard and the localise trim fix; my pack machinery replaced the full-dictionary loader; `kin.test.mjs` boot/no-cache assertions updated from Fable's mechanism strings to the combined mechanism (same intent: pack at boot, nothing cached before it arrives). 545/545 tests pass.
+- **Font sizes:** 13px folded into 12px (43 declarations) and 15px into 14px (7) across console/course/economy/personal-console CSS. Product audit: 10 sizes → 8 (`[11,12,14,16,18,24,32,64]`, B7 passes); the font medium is cleared. 1 px moves only; no layout or hierarchy change.
+- Build `0f643dc0afc3`, audit 0 high / 1 medium (the pre-existing 7.5 MB stage-art payload, unchanged scope). Co-Authored-By trailer on the commit.
+
 ## 18 November 2026 · SpriteCast character pipeline + per-language translation packs
 
 SpriteCast character pipeline integrated into Life2.0 build with MSH-compliant asset output.
