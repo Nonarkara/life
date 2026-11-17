@@ -1,7 +1,7 @@
 {
  "summary": {
   "base": "http://127.0.0.1:4219",
-  "when": "2026-11-10T07:45:07.300Z",
+  "when": "2026-11-17T04:12:22.217Z",
   "counts": {
    "high": 0,
    "medium": 2,
@@ -12,8 +12,8 @@
   {
    "area": "performance",
    "severity": "medium",
-   "what": "one view costs 28 requests and 11948 kB",
-   "evidence": "{\"nodes\":1127,\"buttons\":108}"
+   "what": "one view costs 24 requests and 12266 kB",
+   "evidence": "{\"nodes\":1178,\"buttons\":110}"
   },
   {
    "area": "a11y",
@@ -25,37 +25,37 @@
    "area": "performance",
    "severity": "low",
    "what": "frame pacing could not be measured in this browser",
-   "evidence": "{\"frames\":0,\"ms\":3003}"
+   "evidence": "{\"frames\":0,\"ms\":3002}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B1 first-screen task passes",
-   "evidence": "[{\"label\":\"Play\",\"top\":19},{\"label\":\"Answer 1 question →\",\"top\":612}]"
+   "evidence": "[{\"label\":\"Play\",\"top\":4},{\"label\":\"Answer 1 question →\",\"top\":732}]"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B2 chrome cost passes",
-   "evidence": "[{\"sel\":\"header\",\"h\":68},{\"sel\":\".world-bottom\",\"h\":40},{\"sel\":\".console-nav\",\"h\":35}]"
+   "evidence": "[{\"sel\":\"header\",\"h\":37},{\"sel\":\".world-bottom\",\"h\":40},{\"sel\":\".console-nav\",\"h\":35}]"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B3 box fit passes",
-   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.21,\"boxH\":287,\"textH\":1342}"
+   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.12,\"boxH\":167,\"textH\":1365}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B4 void passes",
-   "evidence": "null"
+   "evidence": "{\"from\":876,\"to\":888}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B7 hierarchy passes",
-   "evidence": "[11,12,14,16,17,24,64]"
+   "evidence": "[11,12,14,15,16,24,64]"
   },
   {
    "area": "book",

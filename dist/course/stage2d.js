@@ -193,6 +193,9 @@ function roleFor(actor,age,pose,moving,set){
   if(pose==='work')return set==='work'?'stand':'desk';
   if(pose==='eat')return 'stand';
   if(pose==='rest'||pose==='recover')return 'sit';
+  // A pose that says sit must never draw a standing body. Without this the
+  // fall-through below returned 'stand' and the student stood in the classroom.
+  if(pose==='sit')return 'sit';
   if(pose==='play'||pose==='swim')return age<13?'crouch':'sit';
   return 'stand';
 }
@@ -242,14 +245,17 @@ const BEATS={
   // The classroom, and the boy who does not let up.
   bully:{plate:'beat-classroom',ground:.86,figure:.40,effect:'shadow',
     actors:[{id:'player',pose:'crouch',x:.40},{id:'rival',pose:'guard',x:.62}]},
-  // The report card, good or bad. The classroom is painted with desks and
-  // chairs, so the student sits without bringing her own furniture: a desk
-  // inside a room full of desks is how a figure ends up in two chairs.
-  grades:{plate:'beat-classroom',ground:.86,figure:.36,effect:'sun',
-    actors:[{id:'player',pose:'sit',x:.46}]},
+  // The report card, good or bad. The classroom interior is painted with desks
+  // and chairs in perspective, so a cut-out student at her own desk can never
+  // line up with them: the desk floats, the legs cross a painted desk leg, and
+  // the figure ends up in two chairs. The schoolyard has no furniture painted
+  // into it, so the student sits in her own chair, at her own desk, on flat
+  // ground — the composition the class audit already approved.
+  grades:{plate:'school',ground:.86,figure:.38,effect:'sun',
+    actors:[{id:'player',pose:'study',x:.40}]},
   // The report card that did not come back well.
-  'grades-bad':{plate:'beat-classroom',ground:.86,figure:.36,
-    actors:[{id:'player',pose:'sit',x:.46}]},
+  'grades-bad':{plate:'school',ground:.86,figure:.38,
+    actors:[{id:'player',pose:'study',x:.40}]},
   // The bed, and the body that is being repaired.
   bed:{plate:'beat-room',ground:.74,figure:.34,
     actors:[{id:'player',pose:'lie',x:.26,anchor:{x:.26,y:.55}}]},
