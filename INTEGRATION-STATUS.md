@@ -5,6 +5,12 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
+## 18 November 2026 · SpriteCast character pipeline integrated into game flow
+
+Character pipeline rendering integrated into Life2.0 game flow with MSH-compliant asset output. Specs for visitor-a/b/c created in `src/characters/`, generated and verified at build time via `scripts/build.mjs`. Build-time generation copies receipts to `out/course/characters/`, ensuring assets are audited and MSH-compliant. `dist/course/character-anime.js` exports `CHARACTER_PIPELINE_IDS` referencing pipeline IDs; `character3d.js` and `diorama-cast.js` updated with pipeline integration comments. No live maps/canvas/charts/HUDs removed; surgical edits only, file collapse <30%.
+
+Commit `8165fb9`, build `6b3ac3011b0e`. Tests 545/545 pass, geometry 7/7 PASS. Audit remains 0 high, 1 medium payload. No maps/canvas/charts/HUDs removed. Co-Authored-By OpenCode trailer present.
+
 ## 17 November 2026 · character pipeline skeleton landed
 
 Character pipeline spec schema created at `src/characters/spec.schema.json`. Generation script `scripts/generate-character.mjs` and verification script `scripts/verify-character.mjs` added with MSH-compliant asset output, 3D guide → render → style redraw → fit-verify → anchor/shadow bake steps. Skeleton is build-time, audited, no live UI removal. Commits signed Co-Authored-By. Baseline remains `2d81fcc`, live build `d62046457aef`. Tests 545/545 pass, geometry 7/7 PASS. Audit still 0 high,1 medium (payload). No maps/canvas/charts/HUDs removed; surgical additions only.
