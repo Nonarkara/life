@@ -81,6 +81,9 @@ export function kinLang(text,lang,entry,h){
  for(const [i,n,rep] of spans){if(i+n>last)continue;out=out.slice(0,i)+rep+out.slice(i+n);last=i;}
  return out;
 }
+// The page sometimes copies a line it has already shown into another element. A line already retold in
+// English is recognised by what it now says, so it can still be translated, or left alone.
+const told=new Map(),toldFor=h=>{if(!told.has(h)){const m=new Map();for(const e of INDEX.values()){const now=fillKin(e,h);if(now!==e.src)m.set(now,e);}told.set(h,m);}return told.get(h);};
 let current=null;export const setKin=household=>{current=HOUSE[household]??null;};export const kinNow=()=>current;
 const done=new Map();
 // One displayed line: the authored English and what the game was about to show for it (the same
@@ -88,6 +91,7 @@ const done=new Map();
 export function kinLine(src,said,lang,translate=(x)=>x,h=current){
  if(!h||!src)return said;const key=h+'|'+lang+'|'+src+'|'+said;if(done.has(key))return done.get(key);
  // A line the dictionary has not translated (or not yet) is still English: retell it in English.
+ {const back=toldFor(h).get(src);if(back&&!INDEX.has(src)){if(lang==='en')return src;const was=translate(back.src);return was===back.src?src:back.customLang?.[h]?.[lang]??kinLang(was,lang,back,h);}}
  if(lang!=='en'&&said===src)lang='en';
  let out=said;const one=(entry,shown)=>lang==='en'?fillKin(entry,h):entry.customLang?.[h]?.[lang]??kinLang(shown,lang,entry,h);
  const exact=INDEX.get(src);

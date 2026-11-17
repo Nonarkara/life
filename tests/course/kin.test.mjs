@@ -122,10 +122,18 @@ test('a line the dictionary has not translated is still retold, in English',()=>
 test('the page, the render loop and the language loader are wired to it',()=>{
  const src=f=>readFileSync(new URL('../../dist/course/'+f,import.meta.url),'utf8');
  assert.ok(src('i18n.js').includes('next=record.source.replace(src,t(src))'),'every text node goes through t');
- assert.ok(src('i18n.js').includes("export const t=text=>kinLine(text,translate(text,preferences.language)"));
  assert.ok(src('game.js').includes('function render(){setKin(state.birth?.household);'));
  // A visitor who returns with a saved language gets the pack at load, and no English miss is cached before it arrives.
  assert.ok(src('i18n.js').includes("if(typeof window!=='undefined'&&preferences.language!=='en')"),'the saved language loads at boot');
  assert.ok(src('i18n.js').includes('loadPack(preferences.language).then(()=>{if(document.body)localise();})'),'the boot loader localises once the pack lands');
  assert.ok(src('i18n.js').includes('input&&!packs.has(language)?translateUncached(input,language)'),'a pre-pack miss is never cached as the answer');
+});
+
+test('a line already retold in English and copied elsewhere on the page is left alone, or translated from its original',()=>{
+ const src='Your mother wants you ordained',now='Your grandmother wants you ordained',th=x=>translate(x,'th');
+ assert.equal(kinLine(now,now,'en',x=>x,'GF'),now,'not retold twice');
+ const shown=kinLine(now,translate(now,'th'),'th',th,'GF');
+ assert.equal(shown,kinLine(src,translate(src,'th'),'th',th,'GF'));assert.ok(!/[A-Za-z]{4,}/.test(shown),'no English left: '+shown);
+ const file=readFileSync(new URL('../../dist/course/i18n.js',import.meta.url),'utf8');
+ assert.ok(file.includes("language!=='en'&&order.includes(language)&&!packs.has(language)?text:kinLine("),'nothing is retold before the language pack has arrived');
 });

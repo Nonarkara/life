@@ -43,7 +43,9 @@ export let preferences={language:'en',size:'standard',motion:false,stage:'hybrid
 if(typeof localStorage!=='undefined')try{const p=JSON.parse(localStorage.getItem('life-preferences-v1'));if(p){if(languages[p.language])preferences.language=p.language;if(['standard','large','extra'].includes(p.size))preferences.size=p.size;preferences.motion=p.motion===true;if(p.stage==='isometric')preferences.stage='isometric';}}catch{}
 // What a caller is about to show: the translation, retold for this life's household. Text that is
 // translated before it reaches the page (the ending, the share card) is covered here, not only in localise.
-export const t=text=>kinLine(text,translate(text,preferences.language),preferences.language,x=>translate(x,preferences.language));
+// While a language's pack is still on its way the authored line is left exactly as written: the page copies
+// shown text into dialogs, and a line retold in English could not be translated once the pack lands.
+export const t=text=>{const language=preferences.language;return language!=='en'&&order.includes(language)&&!packs.has(language)?text:kinLine(text,translate(text,language),language,x=>translate(x,language));};
 // A visitor who comes back with a saved language gets it at load, not only after changing Settings.
 if(typeof window!=='undefined'&&preferences.language!=='en'){
   loadPack(preferences.language).then(()=>{if(document.body)localise();}).catch(()=>{});
