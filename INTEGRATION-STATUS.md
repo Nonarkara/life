@@ -5,7 +5,27 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
-## Current shipped state
+## 17 November 2026 · classroom truth shipped
+
+Audited the multi-agent report against live bytes before accepting it. Live
+matched origin/main 0d8fb23 code-identically (429/432 files; the three
+differences were the SPA fallback for _headers, a renamed esbuild chunk and
+the chunk reference in game.bundle.js — chunk names vary per build directory
+while chunk content stays byte-identical, so build ids are only comparable
+from the same tree). The stage2d fix sat uncommitted on codex/grounded-opening
+and was NOT live. Verified it on origin/main: 545 tests pass, 7/7 class
+geometry gates pass, product audit 0 high 2 medium 8 low, and
+scripts/verify-truth.mjs renders the sitting student and the invited
+companion at 390 and 1440. Shipped as 9e3397e (build 0861e6b1d2df) and
+re-proved against https://life.nonarkara.org itself: the student sits at her
+own desk, console errors none. The report's 545-test claim was true for this
+tree; its build id 3b21e5d4b1ed is not reproducible (directory-dependent chunk
+names) and its "local build matches live" claim was false — live carried no
+fix. Still open: native-reader review of Thai/Chinese/Japanese/Korean lines;
+page weight (~12 MB) and 4 small research-page links remain the audit's two
+mediums.
+
+## Previous shipped state
 
 Source a036c2f, build5b11e4b3887b, Pages 303074a8 (12 November2026).
 The week's agent work is merged into one tip: a new life now starts from a
