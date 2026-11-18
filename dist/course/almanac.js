@@ -1,7 +1,7 @@
 // Cross-life discovery journal stored locally in the browser: tracks which
 // callings, Tokaido road stops, and real-world field notes a player has unlocked.
 import {lifeId,readLives,reconcileEndingIds} from './lives.js';
-import {STOPS} from './life-collection.js';
+import {STOPS} from './journey-stops.js';
 import {ROUTE_DATA} from './route-data.js';
 
 export const ALMANAC_KEY='life-almanac-v1',TOTAL_STOPS=Object.keys(STOPS).length;

@@ -17,7 +17,7 @@ export function keepTurningPoint(storage,state,{scene,title,answer,met}){
  const id=[state.seed.toString(36),state.age,scene].join('.');
  const earlier=readTurningPoints(storage);
  if(earlier.some(e=>e.id===id))return id;
- const entry={id,title,answer,met:[...met],state:{...state,previous:null}};
+ const entry={id,scene,title,answer,met:[...met],state:{...state,previous:null}};
  let sameBirth=0;
  const retained=earlier.filter(point=>point.state.seed!==state.seed||++sameBirth<5);
  const entries=[entry,...retained].slice(0,LIMIT);
@@ -35,4 +35,11 @@ export function loadTurningPoint(storage,id,valid){
 
 export function turningPointURL(id){
  return '/course/?turning='+encodeURIComponent(id);
+}
+
+export function turningPointScene(entry){
+ if(typeof entry?.scene==='string')return entry.scene;
+ const state=entry?.state;if(!Number.isInteger(state?.seed)||!Number.isInteger(state?.age))return null;
+ const prefix=state.seed.toString(36)+'.'+state.age+'.';
+ return entry.id?.startsWith(prefix)?entry.id.slice(prefix.length):null;
 }

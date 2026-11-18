@@ -1,5 +1,5 @@
 import {createBirthMap} from './birth-opening.js';
-import {keepTurningPoint,loadTurningPoint,readTurningPoints,turningPointURL} from './turning-points.js';
+import {keepTurningPoint,loadTurningPoint,readTurningPoints,turningPointURL,turningPointScene} from './turning-points.js';
 import {drawBirth} from './birth-draw.js';
 import {familyRecord} from './family-record.js';
 import {renderEncounterChoices} from './encounter-view.js';
@@ -287,7 +287,10 @@ function syncDecisionStage(){
  if(state.stage!=='review'||travel){decisionStage.hide();return;}
  const pending=state.story?.pending;
  if(decisionOutcome){$('title').textContent=decisionOutcome.label;decisionStage.show([$ ('title'),$('choice-result')],{key:decisionOutcome.key,label:'title',scenario:encounterById(decisionOutcome.scenario)??{id:decisionOutcome.scenario},result:true});return;}
- if(pending){const key='incident:'+state.age+':'+pending.id;if(dismissedDecision!==key){decisionStage.show([$('title'),$('narrative'),$('encounter')],{key,label:'title',scenario:encounterById(pending.id)});return;}}
+ // A pivot bookmarked after dismissing an incident restores that visible choice.
+ // The unresolved incident remains recorded and returns after the replayed choice.
+ const restoredPivot=tab==='questions'&&pendingPivots(state)[0]?.id===turningPointScene(restored);
+ if(pending&&!restoredPivot){const key='incident:'+state.age+':'+pending.id;if(dismissedDecision!==key){decisionStage.show([$('title'),$('narrative'),$('encounter')],{key,label:'title',scenario:encounterById(pending.id)});return;}}
  if(tab==='questions'&&pendingPivots(state).length){decisionStage.show([$('questions')],{key:'question:'+state.age+':'+pendingPivots(state)[0].id,label:'pivot-title',scenario:pendingPivots(state)[0]});return;}
  decisionStage.hide();
 }

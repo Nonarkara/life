@@ -3116,3 +3116,43 @@ phrases.push(['Experiences +{cards} · Road stops +{road} · Goals +{goals} · T
 phrases.push(['Decision themes: {k}/5 · Most: {max} · Least: {min}','ประเด็นการตัดสินใจ: {k}/5 · มากที่สุด: {max} · น้อยที่สุด: {min}','决策主题：{k}/5 · 最多：{max} · 最少：{min}','決断のテーマ：{k}/5・最多：{max}・最少：{min}','결정 주제: {k}/5 · 가장 많음: {max} · 가장 적음: {min}']);
 phrases.push(['Across five themes','ผ่านเรื่องราวทั้งห้าด้าน','跨越五个主题','五つのテーマを経験','다섯 주제를 두루 경험']);
 phrases.push(['This older life has no saved album.','ชีวิตเก่านี้ยังไม่มีอัลบั้มที่บันทึกไว้','这段旧人生没有保存的相册。','この過去の人生には保存されたアルバムがありません。','이전 삶에는 저장된 앨범이 없습니다.']);
+
+phrases.push(["Draw a household and a year. You choose what happens next.","สุ่มครอบครัวและปีเกิด แล้วคุณเลือกสิ่งที่จะเกิดขึ้นต่อไป","抽取一个家庭和出生年份。接下来由你选择。","家族と生まれ年を引く。その先は、あなたが選ぶ。","가정과 출생 연도를 뽑으세요. 그다음은 당신이 선택합니다."]);
+
+phrases.push(["Draw a life →","สุ่มชีวิต →","抽取一段人生 →","人生を引く →","삶을 뽑기 →"]);
+
+phrases.push(["Where you begin","จุดเริ่มต้นของคุณ","你的起点","あなたの出発点","당신의 출발점"]);
+
+phrases.push(["Your birthplace is drawn next.","สถานที่เกิดของคุณจะถูกสุ่มในขั้นต่อไป","接下来抽取你的出生地。","次に、あなたの出生地が決まる。","다음에는 출생지를 뽑습니다."]);
+
+phrases.push(["Your last life","ชีวิตที่แล้วของคุณ","你的上一段人生","前の人生","지난 삶"]);
+
+phrases.push(["You chose","คุณเลือก","你选择了","あなたが選んだこと","당신의 선택"]);
+
+phrases.push(["A field note from this life","เกร็ดความรู้จากชีวิตนี้","这段人生的一则札记","この人生からの覚え書き","이 삶에서 남긴 기록"]);
+
+phrases.push(["Collected along the way","สิ่งที่เก็บเกี่ยวระหว่างทาง","沿途积累","道のりで集めたもの","살아가며 모은 것"]);
+
+phrases.push(["Full life record","บันทึกชีวิตฉบับเต็ม","完整人生记录","人生の全記録","삶의 전체 기록"]);
+
+phrases.push(["Earlier lives","ชีวิตก่อนหน้านี้","更早的人生","それ以前の人生","이전의 삶들"]);
+
+phrases.push(["×{n} · {days} d","×{n} · {days} วัน","×{n} · {days}天","×{n}・{days}日","×{n} · {days}일"]);
+
+phrases.push(["{n} stops along the way","แวะระหว่างทาง {n} แห่ง","沿途{n}次停留","道のりの寄り道{n}か所","살아가며 들른 곳 {n}곳"]);
+
+phrases.push(["Read field note","อ่านเกร็ดความรู้","阅读札记","覚え書きを読む","기록 읽기"]);
+
+phrases.push(['Present-day · Natural Earth','ปัจจุบัน · Natural Earth','现今 · Natural Earth','現在 · Natural Earth','현재 · Natural Earth']);
+
+phrases.push(['Continue: age {n} · {place}','เล่นต่อ: อายุ {n} · {place}','继续：{n}岁 · {place}','続きから：{n}歳・{place}','이어하기: {n}세 · {place}']);
+
+phrases.push(["Your last life began in","ชีวิตที่แล้วของคุณเริ่มต้นที่","你的上一段人生始于","前の人生が始まった場所","지난 삶이 시작된 곳"]);
+
+phrases.push(["Saved for this birth","บันทึกไว้สำหรับชาติกำเนิดนี้","为这个出身保存","この生まれについての記録","이 출생 조건에서 저장한 순간"]);
+
+phrases.push(["First saved choice","ทางเลือกแรกที่บันทึกไว้","首次保存的选择","最初に保存した選択","처음 저장한 선택"]);
+
+phrases.push(["{n} moments along the way","{n} ช่วงเวลาระหว่างทาง","沿途{n}个片刻","道のりの{n}のひととき","살아가며 남긴 {n}개의 순간"]);
+
+phrases.push(["Library days","วันในห้องสมุด","图书馆时光","図書館での日々","도서관에서 보낸 날들"]);

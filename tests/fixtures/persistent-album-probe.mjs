@@ -33,28 +33,29 @@ try{
   const before=await page.evaluate(()=>({active:localStorage.getItem('life-course-v2'),archive:localStorage.getItem('life-lives-v1'),taste:localStorage.getItem('life-taste-v1'),almanac:localStorage.getItem('life-almanac-v1')}));
   await page.goto(base+'/intake/',{waitUntil:'networkidle'});
   await page.locator('#lives-summary').waitFor({state:'visible'});await page.locator('#lives-summary').click();
-  if(language==='th')assert.match(await page.locator('#lives-summary').innerText(),/สมุดบันทึกชีวิต/);
-  const rows=page.locator('#lives-list > li');assert.equal(await rows.count(),7,'older seventh life remains reachable');
-  const album=rows.first().locator('.life-album'),summary=album.locator('summary');await summary.focus();await page.keyboard.press('Enter');
+  if(language==='th')assert.match(await page.locator('#collection-summary').innerText(),/สมุดบันทึกชีวิต/);
+  const rows=page.locator('#lives-list > li');assert.equal(await rows.count(),6,'six earlier lives plus the visible latest life remain reachable');
+  const album=page.locator('#recent-life .life-album'),summary=album.locator('summary');await summary.focus();await page.keyboard.press('Enter');
   assert.equal(await album.getAttribute('open'),'');
   const albumText=await album.innerText();assert.ok(albumText.includes(language==='th'?'ห้องสมุด':'Spend a day at the library'));
   assert.ok(albumText.includes(language==='th'?'ใช้เงิน':'Spent:'),albumText);assert.ok(!albumText.includes('NaN'));
   assert.ok(await album.locator('h3').isVisible(),'actual field notes kept');
-  const replay=new URL(await rows.first().locator(':scope > a').getAttribute('href'),page.url());assert.equal(replay.searchParams.get('birth'),encodeBirth(ended));
-  const oldAlbum=rows.nth(6).locator('.life-album');await oldAlbum.locator('summary').click();assert.match(await oldAlbum.innerText(),language==='th'?/ไม่มีอัลบั้ม/:/no saved album/);
+  const replay=new URL(await page.locator('#recent-life .fork-again').getAttribute('href'),page.url());assert.equal(replay.searchParams.get('birth'),encodeBirth(ended));
+  const oldAlbum=rows.nth(5).locator('.life-album');await oldAlbum.locator('summary').click();assert.match(await oldAlbum.innerText(),language==='th'?/ไม่มีอัลบั้ม/:/no saved album/);
   await summary.scrollIntoViewIfNeeded();await page.screenshot({path:`/tmp/persistent-album-${language}-${width}${enlarged?'-extra':''}.png`});
   const after=await page.evaluate(()=>({active:localStorage.getItem('life-course-v2'),archive:localStorage.getItem('life-lives-v1'),taste:localStorage.getItem('life-taste-v1'),almanac:localStorage.getItem('life-almanac-v1')}));assert.deepEqual(after,before,'reading old albums never replaces the active life or mints rewards');
-  const metrics=await page.evaluate(()=>{const album=document.querySelector('.life-album'),panel=album.closest('.panel'),last=album.lastElementChild,scrollable=['auto','scroll'].includes(getComputedStyle(panel).overflowY);return {overflow:document.documentElement.scrollWidth>innerWidth,summaryHeight:album.querySelector('summary').getBoundingClientRect().height,uncontained:innerWidth>=721&&((last.getBoundingClientRect().bottom>panel.getBoundingClientRect().bottom+1&&!scrollable)||(panel.getBoundingClientRect().bottom>panel.closest('.sheet').getBoundingClientRect().bottom+1&&!['auto','scroll','hidden','clip'].includes(getComputedStyle(panel.closest('.sheet')).overflowY))),inaccessiblePanels:innerWidth>=721?[...document.querySelectorAll('.overview.intake > .panel')].filter(p=>p.scrollHeight>p.clientHeight+1&&!['auto','scroll'].includes(getComputedStyle(p).overflowY)).length:0,panelScroll:scrollable,panelHeight:panel.clientHeight,sheetHeight:panel.closest('.sheet').clientHeight,panelBottom:panel.getBoundingClientRect().bottom,sheetBottom:panel.closest('.sheet').getBoundingClientRect().bottom};});assert.equal(metrics.overflow,false);assert.equal(metrics.inaccessiblePanels,0,'opening archives must not clip sibling form controls');assert.equal(metrics.uncontained,false,'expanded album must remain on its paper or inside its scrollable panel');assert.ok(metrics.summaryHeight>=44&&metrics.summaryHeight<=64);
+  const metrics=await page.evaluate(()=>{const album=document.querySelector('#recent-life .life-album'),form=document.querySelector('#intake-form');return {overflow:document.documentElement.scrollWidth>innerWidth,summaryHeight:album.querySelector('summary').getBoundingClientRect().height,uncontained:album.lastElementChild.getBoundingClientRect().bottom>form.getBoundingClientRect().bottom+1};});assert.equal(metrics.overflow,false);assert.equal(metrics.uncontained,false,'expanded chronology remains inside the natural page');assert.ok(metrics.summaryHeight>=44&&metrics.summaryHeight<=64);
   if(width>=721){
+   await page.locator('#starting-conditions > summary').click();
    for(const selector of ['#birth-era','.starting-shape button[type=submit]']){
     const control=page.locator(selector);await control.scrollIntoViewIfNeeded();
     const inside=await control.evaluate(el=>{const r=el.getBoundingClientRect(),p=el.closest('.panel').getBoundingClientRect();return r.top>=p.top-1&&r.bottom<=p.bottom+1;});assert.ok(inside,'condition and Begin controls stay reachable while album is open');
    }
    await page.screenshot({path:`/tmp/persistent-album-${language}-${width}-actions.png`});
   }
-  await page.locator('[data-settings]').click();await page.locator('#setting-size').selectOption(enlarged?'large':'extra');await page.locator('#settings-dialog button[type=submit]').click();assert.equal(await rows.first().locator('.life-album').getAttribute('open'),'','preference rerender keeps the album open');
+  await page.locator('[data-settings]').click();await page.locator('#setting-size').selectOption(enlarged?'large':'extra');await page.locator('#settings-dialog button[type=submit]').click();assert.equal(await page.locator('#recent-life .life-album').getAttribute('open'),'','preference rerender keeps the album open');
   assert.deepEqual(errors,[]);console.log(JSON.stringify({width,enlarged,language,records:7,entries:saved[0].album.entries.length,notes:saved[0].album.notes.length,errors,...metrics}));
-  await page.reload({waitUntil:'networkidle'});assert.equal(await page.locator('#lives-list > li').count(),7);assert.equal(await page.evaluate(()=>localStorage.getItem('life-course-v2')),before.active);
+  await page.reload({waitUntil:'networkidle'});assert.equal(await page.locator('#lives-list > li').count(),6);assert.equal(await page.evaluate(()=>localStorage.getItem('life-course-v2')),before.active);
   await page.close();
  }
 }finally{await browser.close();}

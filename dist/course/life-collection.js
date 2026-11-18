@@ -1,3 +1,4 @@
+import {STOPS} from './journey-stops.js';
 // What a life collects, and how the end re-reads it. Mechanics inspired by two board games:
 // CV (Filip Miluński, Piotr Socha): secret goals, cards stacking in columns.
 // Tokaido (Antoine Bauza): stops on the road, one dish once, titles at the end.
@@ -23,14 +24,8 @@ export const GOALS={
  table_tour:{label:'Eat your way across the country',pts:7,test:s=>stopOf(s,'meal').length>=4},
  survive:{label:'Come back from the worst of it',pts:9,test:s=>{const r=(s.history??[]).filter(x=>x.age>=15);let low=null;for(let i=1;i<r.length;i++)if(r[i-1].wellbeing-r[i].wellbeing>=20)low=i;return low!==null&&r.slice(low+1).some(x=>x.wellbeing>=r[low-1].wellbeing);}}
 };
-export const STOPS={
- s_huahin:{kind:'sea',label:'The sea at Hua Hin'},s_samui:{kind:'sea',label:'The sea at Ko Samui'},s_krabi:{kind:'sea',label:'The cliffs at Krabi'},
- h_inthanon:{kind:'hills',label:'The cold at Doi Inthanon'},h_maehong:{kind:'hills',label:'The mist at Mae Hong Son'},h_khaoyai:{kind:'hills',label:'The forest at Khao Yai'},
- t_suthep:{kind:'holy',label:'The steps at Doi Suthep'},t_phanom:{kind:'holy',label:'The chedi at That Phanom'},t_mahathat:{kind:'holy',label:'The chedi at Nakhon Si Thammarat'},
- m_soi:{kind:'meal',label:'Khao soi in Chiang Mai'},m_somtam:{kind:'meal',label:'Som tam by the road in Isan'},m_taipla:{kind:'meal',label:'Gaeng tai pla in the south'},m_boat:{kind:'meal',label:'Boat noodles in Ayutthaya'},m_mango:{kind:'meal',label:'Mango and sticky rice at the market'},m_hoi:{kind:'meal',label:'Oyster omelette on Yaowarat'},
- r_ranong:{kind:'rest',label:'The hot springs at Ranong'},r_sankam:{kind:'rest',label:'The hot springs at San Kamphaeng'},
- g_alms:{kind:'give',label:'Give at dawn to the alms bowl'},g_school:{kind:'give',label:'Pay a stranger’s school fees'},g_temple:{kind:'give',label:'Give to rebuild a village temple'}
-};
+export {STOPS} from './journey-stops.js';
+
 const shuffle=(list,seed,salt)=>[...list].map((x,i)=>[rand(seed,i,salt+x),x]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]);
 export const dealtGoals=seed=>shuffle(Object.keys(GOALS),seed,'goal').slice(0,3);
 export const canChooseGoals=s=>s.stage==='review'&&s.age>=15&&s.age<20;

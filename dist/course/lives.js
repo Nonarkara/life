@@ -3,7 +3,7 @@
 // choices. Nothing here leaves the device.
 import {encodeBirth,dailyDateFor} from './birthcode.js';
 import {buildCV} from './cv.js';
-import {STOPS} from './life-collection.js';
+import {STOPS} from './journey-stops.js';
 export const LIVES_KEY='life-lives-v1',LIVES_MAX=40;
 const valid=e=>!!e&&typeof e.id==='string'&&typeof e.code==='string'&&typeof e.place==='string'&&Number.isInteger(e.age)&&Number.isFinite(e.at)&&(e.ikigai===null||Number.isFinite(e.ikigai))&&typeof e.words==='string';
 const age=n=>Number.isInteger(n)&&n>=0&&n<=80;
