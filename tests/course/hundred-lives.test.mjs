@@ -53,7 +53,7 @@ test('100 players get 100 distinct valid starting lives across eras, classes and
  const runB=playShort(swapped,1);
  assert.equal(validate(runA),true);
  assert.equal(validate(runB),true);
- assert.notDeepEqual(runA.pivots,runB.pivots,'swapped birth played differently diverges');
+ assert.notDeepEqual([runA.cash,runA.wellbeing,runA.health,runA.skills,runA.story.seen],[runB.cash,runB.wellbeing,runB.health,runB.skills,runB.story.seen],'swapped birth played differently diverges');
 });
 
 test('taste engine learns what a player explores and draws fresh unrepeated lives',()=>{
