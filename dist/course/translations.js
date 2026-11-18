@@ -3037,6 +3037,14 @@ phrases.push(['Five years on, you had coffee together for twenty minutes and wis
 phrases.push(['Hire a lawyer and fight for every baht and every dish','จ้างทนายสู้ทุกบาททุกจาน','请律师争抢每一铢每一只碗','弁護士を雇い一バーツも皿一枚も争う','변호사를 선임해 한 푼과 접시 하나까지 다툰다']);
 phrases.push(['You won the television and the car. Neither of you could bear to look at the other in the corridor.','คุณชนะได้ทีวีและรถยนต์ แต่ไม่มีใครทนมองหน้าอีกฝ่ายในโถงทางเดินศาลได้เลย','你赢下了电视机和汽车。但你们谁也没法在走廊里正视对方。','テレビと車を勝ち取った。だが廊下で互いの顔を見ることもできなかった。','텔레비전과 자동차를 얻어냈습니다. 하지만 복도에서 서로 얼굴조차 마주 볼 수 없었습니다.']);
 phrases.push(['You kept the furniture and lost five years of your middle age to the court calendar.','คุณเก็บเฟอร์นิเจอร์ไว้ได้ แต่เสียวัยกลางคนไปห้าปีให้กับตารางนัดของศาล','你保住了家具，却把中年的五年光阴搭进了法院排期表。','家具は手元に残ったが、中年の五年を裁判日程に費やした。','가구는 지켰지만 중년의 5년을 법원 기일표에 바쳤습니다.']);
+// Taste engine & 100-player exchange
+phrases.push(['Taste engine: learned from {n} lives ({style}) — next life tuned to what you explore.','ระบบเรียนรู้รสนิยม: เรียนรู้จาก {n} ชีวิต ({style}) — ชีวิตถัดไปปรับตามแนวที่คุณชอบสำรวจ','品味引擎：已从 {n} 段人生中学习（{style}）——下一段人生将按你的探索偏好定制。','テイストエンジン: {n} 回の人生から学習（{style}）—— 次の人生はあなたの好みに合わせて調整されます。','취향 엔진: {n}번의 삶에서 학습함({style}) — 다음 삶은 당신의 탐험 성향에 맞춰집니다.']);
+phrases.push(['Balanced explorer','นักสำรวจสมดุล','均衡探索者','バランス型エクスプローラー','균형 잡힌 탐험가']);
+phrases.push(['High-stakes risk & timing','กล้าเสี่ยงและจับจังหวะใหญ่','高风险博弈与时机','ハイリスク・勝負師','고위험 승부와 타이밍']);
+phrases.push(['Craft, music & invention','งานฝีมือ ดนตรี และการสร้างสรรค์','匠心、音乐与创造','工芸・音楽・発明','장인정신, 음악과 발명']);
+phrases.push(['Ambition, politics & leadership','ความทะเยอทะยาน การเมือง และผู้นำ','野心、政治与领导力','野心・政治・リーダーシップ','야망, 정치와 리더십']);
+phrases.push(['Family, care & connection','ครอบครัว ความผูกพัน และการดูแล','家庭、关怀与羁绊','家族・ケア・つながり','가족, 돌봄과 유대']);
+phrases.push(['Road stops & bucket-list collector','นักสะสมจุดแวะและประสบการณ์ชีวิต','驿站与人生清单收藏家','道中の駅・体験コレクター','여정의 쉼터와 버킷리스트 수집가']);
 phrases.push(['Water for the table','น้ำแข็งที่โต๊ะนาย','给官员端水送冰','役人の席へ氷を運ぶ','상석에 얼음물 나르기']);
 phrases.push(['You lay bricks on a site near the border, speaking mostly your village tongue while district officials drink at the site shed. The foreman tells you to carry their ice and keep your ears shut.','คุณก่ออิฐอยู่แถวชายแดน พูดภาษาบ้านเกิดเป็นหลัก ขณะที่ข้าราชการท้องถิ่นตั้งวงดื่มในเพิงงาน หัวหน้าคนงานสั่งให้คุณยกน้ำแข็งและอย่าสอดรู้','你在边境工地砌砖，平日只说家乡话，地方官员则在工棚里喝酒。工头叫你去送冰块，闭紧耳朵。','国境近くの現場で煉瓦を積み、村の言葉しか話せないあなた。現場小屋で飲む役人たちに氷を運び、口を閉ざせと親方に言われる。','국경 근처 공사장에서 벽돌을 쌓으며 고향 말만 겨우 쓰는 당신. 가건물에서 술 마시는 관리들에게 얼음을 나르며 입을 다물라는 반장의 지시를 받습니다.']);
 phrases.push(['Carry the ice and learn their names','ยกน้ำแข็งและจำชื่อทุกคน','端冰块并记住他们的名字','氷を運び、名前を覚える','얼음을 나르며 이름을 익히기']);

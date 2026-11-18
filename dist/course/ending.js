@@ -15,6 +15,7 @@ import {renderReading,themCode} from './life-reading.js';
 import {pathOf,lifeArc} from './life-verdict.js';
 import {scoreLife} from './life-collection.js';
 import {recordAlmanac} from './almanac.js';
+import {recordTaste,dominantTaste} from './taste-engine.js';
 import {encounterById,storyText,ENCOUNTERS} from './encounters.js';
 import {metScenes} from './scene-memory.js';
 import {kitchenFeeds} from './diorama-plan.js';
@@ -170,6 +171,8 @@ export function renderEnding(root,state,{storage}={}){
   for(const e of (state.story?.seen??[])){if(!e?.id||seenNote.has(e.id))continue;const sc=encounterById(e.id);if(sc?.rehearse){seenNote.add(e.id);learned.push({id:e.id,age:e.age,title:sc.title,text:sc.rehearse});}}
   const alm=recordAlmanac(storage,state,{score:r.total,noteIds:learned.map(x=>x.id)});
   add('p','score-almanac',t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes').replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length));
+  const taste=recordTaste(storage,state),dom=dominantTaste(taste);
+  add('p','score-taste',t('Taste engine: learned from {n} lives ({style}) — next life tuned to what you explore.').replace('{n}',taste.lives).replace('{style}',t(dom.label)));
   add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));numbers.before(box);
   if(learned.length){const boxL=document.createElement('details');boxL.className='full-life-record ending-learned';const sumL=document.createElement('summary');sumL.textContent=t('What this life taught · {n} field notes').replace('{n}',learned.length);boxL.append(sumL);const ulL=document.createElement('ul');for(const item of learned){const li=document.createElement('li');li.textContent=t('Age {n}').replace('{n}',item.age)+' · '+t(item.title)+': '+t(item.text);ulL.append(li);}boxL.append(ulL);numbers.before(boxL);}}
  {const said=document.createElement('details');said.className='full-life-record ending-said';const sum=document.createElement('summary');sum.textContent=t('What this life said');said.append(sum);renderReading(said,state);numbers.before(said);

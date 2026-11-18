@@ -11,6 +11,7 @@ import {drawBirth} from '../course/birth-draw.js';
 import {readLives} from '../course/lives.js';
 import {almanacSummary} from '../course/almanac.js';
 import {familyRecord} from '../course/family-record.js';
+import {readTaste,dominantTaste,playerSlotBirth} from '../course/taste-engine.js';
 import {deliverShare,copyShare} from '../course/share-result.js';
 let points=balanced(),selected='physique',shareRevision=0;const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 function node(tag,attrs,text){const el=document.createElementNS(NS,tag);for(const[key,value]of Object.entries(attrs))el.setAttribute(key,value);if(text!==undefined)el.textContent=text;return el;}
@@ -101,7 +102,10 @@ function archive(){
 }
 // A link someone sent, or today's shared birth, opens straight onto its card.
 function invited(){
- const asked=new URLSearchParams(location.search).get('birth');if(!asked){if(new URLSearchParams(location.search).get('next')==='1')enter({},true);return;}
+ const params=new URLSearchParams(location.search);
+ const slot=params.get('player');
+ if(slot&&Number(slot)>=1&&Number(slot)<=100){lastOptions={};drawn=playerSlotBirth(Number(slot));card(drawn);$('birth-card').showModal();return;}
+ const asked=params.get('birth');if(!asked){if(params.get('next')==='1')enter({},true);return;}
  const daily=asked==='daily',day=dayOf(),life=daily?{...dailyLife(day),dailyDay:day}:decodeBirth(asked);
  if(life&&!daily){const claimed=new URLSearchParams(location.search).get('day');if(claimed&&dailyDateFor({...life,dailyDay:claimed}))life.dailyDay=claimed;}
  if(!life){$('intake-error').textContent=t('That birth link could not be read. Start a new life below.');return;}
