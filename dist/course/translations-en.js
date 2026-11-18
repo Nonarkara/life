@@ -7571,4 +7571,10 @@ export default new Map([
   ["family", "family"],
   ["health", "health"],
   ["connection", "connection"],
+  ["What you kept from this life", "What you kept from this life"],
+  ["Time: {days} d · Spent: {cash}", "Time: {days} d · Spent: {cash}"],
+  ["Journey sets +{n}", "Journey sets +{n}"],
+  ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}"],
+  ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "Decision themes: {k}/5 · Most: {max} · Least: {min}"],
+  ["Across five themes", "Across five themes"],
 ]);

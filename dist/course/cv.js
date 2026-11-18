@@ -1,3 +1,4 @@
+import {bucketItem} from './bucket-list.js';
 import {PURCHASES} from './finance.js';
 // A projection of completed game records, never an invented qualification.
 const routes={school:['education','School education'],college:['education','College studies'],vocational:['work','Paid apprenticeship'],independent:['work','Independent work'],work:['work','Salaried work']};
@@ -11,7 +12,7 @@ export function buildCV(state){
  }
  for(const event of state.story?.seen??[]){
   const labels={project:'Creative project begun',project_return:'Work shared publicly',commitment:event.choice==='marry'?'Marriage':'Partnership commitment',parenthood:'Parenthood',mentor:'Mentoring'};
-  const accepted=event.id==='project'&&event.choice==='start'||event.id==='project_return'&&event.choice==='show'||event.id==='commitment'||event.id==='parenthood'&&event.choice==='raise'||event.id==='mentor'&&event.choice==='teach';
+  const accepted=event.id==='project'&&event.choice==='start'||event.id==='project_return'&&event.choice==='show'||event.id==='commitment'&&['marry','together','apart'].includes(event.choice)||event.id==='parenthood'&&event.choice==='raise'||event.id==='mentor'&&event.choice==='teach';
   if(accepted)entries.push({id:'event:'+event.id,kind:['project','project_return'].includes(event.id)?'projects':'milestones',label:labels[event.id],from:event.age,to:event.age,evidence:[{type:'encounter',id:event.id,age:event.age,choice:event.choice}]});
  }
  const seenMilestones=new Set(entries.filter(e=>e.kind==='milestones').map(e=>e.label));
@@ -37,5 +38,10 @@ export function buildCV(state){
   }
  }
  for(const purchase of state.finance?.purchases??[])if(purchase.key==='class'&&state.finance.receipts?.some(r=>r.id==='purchase:'+purchase.age+':class'&&r.kind==='purchase'&&r.age===purchase.age&&r.expense===PURCHASES.class.cost&&r.income===0&&r.change===-PURCHASES.class.cost))entries.push({id:'class:'+purchase.age,kind:'education',label:'Short class attended',from:purchase.age,to:purchase.age,evidence:[{type:'purchase',key:'class',age:purchase.age}]});
+ for(const record of state.bucket?.done??[]){
+  const activity=bucketItem(state,record.key);
+  if(!activity)continue;
+  entries.push({id:record.id,kind:'experiences',label:record.label,from:record.age,to:record.age,days:record.days,cost:record.cost,evidence:[{type:'bucket',id:record.id,age:record.age,key:record.key}]});
+ }
  return entries.sort((a,b)=>a.from-b.from||a.to-b.to);
 }

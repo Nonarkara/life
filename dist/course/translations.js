@@ -3107,3 +3107,11 @@ phrases.push(['money','การเงิน','金钱','お金','돈']);
 phrases.push(['family','ครอบครัว','家庭','家族','가족']);
 phrases.push(['health','สุขภาพ','健康','健康','건강']);
 phrases.push(['connection','ผู้คนและความสัมพันธ์','人际关系','つながり','관계']);
+
+phrases.push(['What you kept from this life','สิ่งที่เก็บไว้จากชีวิตนี้','这一生留下的点滴','この人生から持ち帰ったもの','이 삶에서 간직한 것']);
+phrases.push(['Time: {days} d · Spent: {cash}','เวลา: {days} วัน · ใช้เงิน: {cash}','用时：{days}天 · 花费：{cash}','時間：{days}日・支出：{cash}','시간: {days}일 · 지출: {cash}']);
+phrases.push(['Journey sets +{n}','ชุดประสบการณ์เดินทาง +{n}','旅途组合 +{n}','旅の組み合わせ +{n}','여행 모음 +{n}']);
+phrases.push(['Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}','ประสบการณ์ +{cards} · จุดแวะ +{road} · เป้าหมาย +{goals} · สมญา +{titles} · สมดุล +{balance}','经历 +{cards} · 旅途停留 +{road} · 目标 +{goals} · 称号 +{titles} · 平衡 +{balance}','経験 +{cards}・寄り道 +{road}・目標 +{goals}・称号 +{titles}・バランス +{balance}','경험 +{cards} · 여정 +{road} · 목표 +{goals} · 칭호 +{titles} · 균형 +{balance}']);
+
+phrases.push(['Decision themes: {k}/5 · Most: {max} · Least: {min}','ประเด็นการตัดสินใจ: {k}/5 · มากที่สุด: {max} · น้อยที่สุด: {min}','决策主题：{k}/5 · 最多：{max} · 最少：{min}','決断のテーマ：{k}/5・最多：{max}・最少：{min}','결정 주제: {k}/5 · 가장 많음: {max} · 가장 적음: {min}']);
+phrases.push(['Across five themes','ผ่านเรื่องราวทั้งห้าด้าน','跨越五个主题','五つのテーマを経験','다섯 주제를 두루 경험']);

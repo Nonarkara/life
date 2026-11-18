@@ -7547,4 +7547,10 @@ export default new Map([
   ["family", "家族"],
   ["health", "健康"],
   ["connection", "つながり"],
+  ["What you kept from this life", "この人生から持ち帰ったもの"],
+  ["Time: {days} d · Spent: {cash}", "時間：{days}日・支出：{cash}"],
+  ["Journey sets +{n}", "旅の組み合わせ +{n}"],
+  ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "経験 +{cards}・寄り道 +{road}・目標 +{goals}・称号 +{titles}・バランス +{balance}"],
+  ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "決断のテーマ：{k}/5・最多：{max}・最少：{min}"],
+  ["Across five themes", "五つのテーマを経験"],
 ]);

@@ -7547,4 +7547,10 @@ export default new Map([
   ["family", "가족"],
   ["health", "건강"],
   ["connection", "관계"],
+  ["What you kept from this life", "이 삶에서 간직한 것"],
+  ["Time: {days} d · Spent: {cash}", "시간: {days}일 · 지출: {cash}"],
+  ["Journey sets +{n}", "여행 모음 +{n}"],
+  ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "경험 +{cards} · 여정 +{road} · 목표 +{goals} · 칭호 +{titles} · 균형 +{balance}"],
+  ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "결정 주제: {k}/5 · 가장 많음: {max} · 가장 적음: {min}"],
+  ["Across five themes", "다섯 주제를 두루 경험"],
 ]);

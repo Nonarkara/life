@@ -216,9 +216,9 @@ test('Tokaido 4-kind set bonus, 5-pillar Balance Meter, and Resilience title sco
   story:{seen:[{id:'w1',choice:'a'},{id:'m1',choice:'a'},{id:'f1',choice:'a'},{id:'h1',choice:'a'},{id:'c1',choice:'a'},{id:'d_illness',choice:'rest'},{id:'b_drunk_keys',choice:'walk'}]}
  };
  const r=scoreLife(s);
- assert.equal(r.setBonus,7,'Tokaido 4-kind journey set awards +7');
+ assert.equal(r.setBonus,16,'Four distinct journey kinds score 1+3+5+7');
  assert.equal(r.balance.active,5,'all 5 CV pillars active');
  assert.equal(r.balance.bonus,4,'5-pillar balance awards +4');
- assert.ok(r.titles.includes('The balanced life'));
+ assert.ok(r.titles.includes('Across five themes'));
  assert.ok(r.titles.includes('The resilient'));
 });

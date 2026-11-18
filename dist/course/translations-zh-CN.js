@@ -7547,4 +7547,10 @@ export default new Map([
   ["family", "家庭"],
   ["health", "健康"],
   ["connection", "人际关系"],
+  ["What you kept from this life", "这一生留下的点滴"],
+  ["Time: {days} d · Spent: {cash}", "用时：{days}天 · 花费：{cash}"],
+  ["Journey sets +{n}", "旅途组合 +{n}"],
+  ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "经历 +{cards} · 旅途停留 +{road} · 目标 +{goals} · 称号 +{titles} · 平衡 +{balance}"],
+  ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "决策主题：{k}/5 · 最多：{max} · 最少：{min}"],
+  ["Across five themes", "跨越五个主题"],
 ]);

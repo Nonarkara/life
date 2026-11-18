@@ -7547,4 +7547,10 @@ export default new Map([
   ["family", "ครอบครัว"],
   ["health", "สุขภาพ"],
   ["connection", "ผู้คนและความสัมพันธ์"],
+  ["What you kept from this life", "สิ่งที่เก็บไว้จากชีวิตนี้"],
+  ["Time: {days} d · Spent: {cash}", "เวลา: {days} วัน · ใช้เงิน: {cash}"],
+  ["Journey sets +{n}", "ชุดประสบการณ์เดินทาง +{n}"],
+  ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "ประสบการณ์ +{cards} · จุดแวะ +{road} · เป้าหมาย +{goals} · สมญา +{titles} · สมดุล +{balance}"],
+  ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "ประเด็นการตัดสินใจ: {k}/5 · มากที่สุด: {max} · น้อยที่สุด: {min}"],
+  ["Across five themes", "ผ่านเรื่องราวทั้งห้าด้าน"],
 ]);

@@ -45,16 +45,18 @@ export function scoreLife(s){
  const cards=COLUMNS.reduce((n,c)=>n+STEP[Math.min(STEP.length-1,counts[c])],0),goal=id=>({id,label:GOALS[id].label,pts:GOALS[id].pts,met:!!GOALS[id].test(s)}),mine=(s.lifeGoals??[]).filter(id=>GOALS[id]).map(goal),passed=dealtGoals(s.seed).filter(id=>!(s.lifeGoals??[]).includes(id)).map(goal);
  const n=k=>stopOf(s,k).length;
  // Tokaido-inspired souvenir-set bonus (1/3/5/7) across the four Thailand road categories.
- const setKinds=['sea','hills','holy','meal'].filter(k=>n(k)>=1).length,setBonus=[0,1,3,5,7][setKinds];
+ const journeyCounts=['sea','hills','holy','meal'].map(n);
+ // Each layer is a separate set: 1, then 3, then 5, then 7 (16 total).
+ let setBonus=0;for(let layer=1;layer<=Math.max(0,...journeyCounts);layer++)setBonus+=journeyCounts.filter(count=>count>=layer).length**2;
  const road=['sea','hills','holy'].reduce((a,k)=>a+[0,1,3,6][Math.min(3,n(k))],0)+n('meal')*3+n('rest')*2+n('give')*2+setBonus;
- // Life's Journey Balance Meter: reward nurturing all 5 CV pillars instead of one-dimensional min-maxing.
+ // Authored breadth reward for encountering five decision themes; not a wellbeing assessment.
  const colEntries=COLUMNS.map(c=>[c,counts[c]]);
  const activeCols=colEntries.filter(([,v])=>v>=1).length;
  const minCount=Math.min(...colEntries.map(([,v])=>v));
  const balanceBonus=activeCols===5?(minCount>=2?9:4):0;
  const strongest=colEntries.reduce((a,b)=>b[1]>a[1]?b:a)[0],thinnest=colEntries.reduce((a,b)=>b[1]<a[1]?b:a)[0];
  const shocks=seen(s).filter(e=>/^(d_|s_)|drunk_keys|divorce_papers/.test(e.id)).length;
- const titles=[['The gourmet',n('meal')>=3],['The pilgrim',n('holy')>=2],['The bather',n('rest')>=2],['The giver',n('give')>=2],['The traveller',n('sea')+n('hills')>=4],['The one with stories',seen(s).length>=14],['The balanced life',activeCols===5],['The resilient',shocks>=2&&(s.wellbeing??0)>=50]].filter(([,on])=>on).map(([t])=>t);
+ const titles=[['The gourmet',n('meal')>=3],['The pilgrim',n('holy')>=2],['The bather',n('rest')>=2],['The giver',n('give')>=2],['The traveller',n('sea')+n('hills')>=4],['The one with stories',seen(s).length>=14],['Across five themes',activeCols===5],['The resilient',shocks>=2&&(s.wellbeing??0)>=50]].filter(([,on])=>on).map(([t])=>t);
  const goalPts=mine.filter(g=>g.met).reduce((a,g)=>a+g.pts,0);
  return {counts,cards,road,setBonus,balance:{active:activeCols,strongest,thinnest,bonus:balanceBonus},goals:mine,passed,titles,total:cards+road+balanceBonus+goalPts+titles.length*3,missed:passed.filter(g=>g.met).reduce((a,g)=>a+g.pts,0)};
 }
