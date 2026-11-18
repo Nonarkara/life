@@ -449,5 +449,22 @@ export const BANK_ENCOUNTERS=[
   "Your niece nursed you and has no paper for it. Your brother's son lives in Chon Buri and has the family name and a loan. The land office closes at half past three. You can still write your own name.",[
   o('leave','Leave it and let them settle it',{wellbeing:-3,later:[{after:5,wellbeing:-2,text:"They settled it at the funeral, in the car park."}]},"You went home and did not go back."),
   o('niece','Put it in your niece\'s name',{wellbeing:2,skills:{drive:1}},"The clerk read it out twice. She was outside, minding the bicycle."),
-  o('half','Divide it evenly and tell them both',{wellbeing:1,skills:{eq:1}},"He rang from Chon Buri. She said nothing and cut your toenails.")])
+  o('half','Divide it evenly and tell them both',{wellbeing:1,skills:{eq:1}},"He rang from Chon Buri. She said nothing and cut your toenails.")]),
+ scene('b_bitcoin_2014','money',20,45,[year(2014)],'Ten coins on a thumb drive',
+  "At a coffee shop near Silom in 2014, a programmer friend slides a thumb drive across the table: ten Bitcoin for a hundred thousand baht. Everyone else at the table laughs and orders iced tea.",[
+  o('laugh','Laugh with the table and pay for the tea',{wellbeing:1,later:[{after:5,wellbeing:-4,text:"You checked the price of ten coins on your phone and closed the tab without speaking."}]},"You kept your savings in the bank. It earned one percent."),
+  o('one','Buy one coin for ten thousand baht',{cash:-10000,wellbeing:1,later:[{after:5,cash:250000,wellbeing:4,text:"That single coin paid off your debt when the market climbed."}]},"You wrote the twelve words on the back of a receipt and taped it inside your wardrobe."),
+  o('all','Buy all ten and hold the drive',{cash:-100000,wellbeing:-2,skills:{drive:1},later:[{after:5,cash:2400000,wellbeing:8,text:"Ten coins turned a rented room into a house paid in cash."}]},"Your partner asked why the savings account was empty. You did not sleep well for three years.")],{year:2014}),
+ scene('b_gut_or_boss','work',25,45,[],'Your gut or your boss',
+  "You found a flaw in the shipment before it left the warehouse. Your boss tells you to sign the sheet anyway or find another desk by Monday.",[
+  o('sign','Sign the sheet and keep your job',{wellbeing:-4,cash:15000,later:[{after:5,wellbeing:-3,text:"The buyer eventually found the flaw. Your signature was the only one on the page."}]},"Your boss nodded once. You stared at the ceiling fan until midnight."),
+  o('gut','Refuse to sign and walk out with your name clean',{wellbeing:3,cash:-10000,skills:{drive:2,iq:1},later:[{after:5,cash:95000,wellbeing:5,text:"The supplier who heard why you walked out hired you to run his floor."}]},"You packed your mug in a paper bag. For two months the rent was terrifying, and then your phone rang.")]),
+ scene('b_marry_later','family',25,35,[],'Wait five years, or marry now',
+  "Both families have picked the auspicious month and priced the hotel tables. In the car park after dinner, you realise you like the person beside you, and do not yet know who you are.",[
+  o('wait','Ask to wait five years until you stand on your own feet',{wellbeing:2,skills:{eq:2,drive:1},later:[{after:5,cash:60000,wellbeing:6,text:"Those five years built your career first. When you finally married, it was your own choice."}]},"Your parents did not speak to you on the drive home. You breathed out for the first time in a year."),
+  o('now','Go through with the wedding next month',{cash:-45000,wellbeing:1,later:[{after:5,wellbeing:-3,text:"The photographs looked happy on the wall, even in the years when the house was quiet."}]},"Four hundred guests clapped. You paid off the banquet tables over two winters.")]),
+ scene('b_parents_or_passion','work',20,30,[],'What they planned, or what keeps you awake',
+  "Your parents framed the application for the safe post they have talked about since you were ten. In your drawer is the prototype you have been building every night after midnight.",[
+  o('safe','Take the safe post and make them proud',{cash:20000,wellbeing:-3,later:[{after:10,wellbeing:-4,text:"Ten years in, you still opened the drawer on Sundays to look at what you never built."}]},"Your mother cried happy tears at the gate. Every Monday felt like the one before."),
+  o('passion','Give the prototype five years of your life',{cash:-8000,wellbeing:4,skills:{craft:2,drive:2},later:[{after:5,cash:140000,wellbeing:6,text:"The third version worked. Your parents came to the workshop and asked how the machine ran."}]},"The first two years were instant noodles and solder smoke. You never once looked at the clock.")])
 ];

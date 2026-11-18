@@ -1,6 +1,6 @@
 # Product audit · the Book's ship gate
 
-Base: http://127.0.0.1:4219 · 2026-11-18T05:36:59.702Z
+Base: http://127.0.0.1:4222 · 2026-11-18T08:16:02.983Z
 
 Verdict: **REVISE** (0 high, 1 medium)
 
@@ -17,16 +17,16 @@ Builder ≠ auditor: the page was built by other agents; this gate walks it, and
 
 ## Findings
 
-- **medium** · performance · one view costs 26 requests and 7518 kB  
-  {"nodes":1150,"buttons":107}
+- **medium** · performance · one view costs 27 requests and 7610 kB  
+  {"nodes":1151,"buttons":107}
 - **low** · performance · frame pacing could not be measured in this browser  
-  {"frames":0,"ms":3001}
+  {"frames":0,"ms":3003}
 - **low** · book · B1 first-screen task passes  
   [{"label":"Play","top":4}]
 - **low** · book · B2 chrome cost passes  
   [{"sel":"header","h":37},{"sel":".world-bottom","h":40},{"sel":".console-nav","h":35}]
 - **low** · book · B3 box fit passes  
-  {"sel":"console-panel console-card","ratio":0.08,"boxH":105,"textH":1358}
+  {"sel":"console-panel console-card","ratio":0.08,"boxH":105,"textH":1374}
 - **low** · book · B4 void passes  
   null
 - **low** · book · B7 hierarchy passes  

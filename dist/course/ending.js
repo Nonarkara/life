@@ -149,8 +149,17 @@ export function renderEnding(root,state,{storage}={}){
   add('p','score-total',String(r.total));add('p','score-of',best&&r.total<=best?t('Your best is {n}. You could do this differently.').replace('{n}',best):t('Your best life so far.'));
   const goalPts=r.goals.reduce((n,g)=>n+(g.met?g.pts:0),0),titlePts=Math.max(0,r.total-r.cards-r.road-goalPts);
   add('p','score-breakdown',t('Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles}').replace('{cards}',r.cards).replace('{road}',r.road).replace('{goals}',goalPts).replace('{titles}',titlePts));
+  {const sc=svg('svg',{viewBox:'0 0 280 58',class:'score-scurve',role:'img','aria-label':t('S-curve of life: infancy, growth, maturity')});
+   sc.append(svg('path',{d:'M16 44 C72 44, 104 14, 184 14 L264 14',fill:'none',stroke:'#b4b9a9','stroke-width':1.2,'stroke-dasharray':'3 3'}));
+   const sx=a=>16+Math.min(80,Math.max(0,a))/80*248,sy=a=>44-30/(1+Math.exp(-(a-28)/9));
+   const livedPts=rows.map(rw=>`${sx(rw.age).toFixed(1)},${(44-(Math.min(100,Math.max(0,(rw.wellbeing+rw.health)/2))/100)*30).toFixed(1)}`).join(' ');
+   if(rows.length>1)sc.append(svg('polyline',{points:livedPts,fill:'none',stroke:'#a35d00','stroke-width':2}));
+   sc.append(svg('circle',{cx:sx(state.age),cy:sy(state.age),r:3.5,fill:'#a35d00'}));
+   for(const [ax,lbl] of [[16,'Infancy'],[96,'Growth'],[196,'Maturity']])sc.append(svg('text',{x:ax,y:55,class:'ending-tick'},t(lbl)));
+   box.append(sc);}
   const finalCash=state.finance?netWorth(state.finance):state.cash;
-  if(finalCash>0)add('p','score-evaporate',t('Unspent cash ({cash}) evaporates at death — spend on experiences while you live.').replace('{cash}',money(finalCash)));
+  const hasLovedOnes=Boolean(state.pivotFlags?.married||state.story?.flags?.married||state.story?.flags?.child||(state.pivots??[]).some(p=>['legacy','empty-house','take-in'].includes(p.pivot)));
+  if(finalCash>0)add('p','score-evaporate',hasLovedOnes?t('Legacy for loved ones: {cash} · Time + labor converted into +{cards} experience pts.').replace('{cash}',money(finalCash)).replace('{cards}',r.cards+r.road):t('Unspent cash ({cash}) evaporates at death — spend on experiences while you live.').replace('{cash}',money(finalCash)));
   const ul=document.createElement('ul');ul.className='score-goals';for(const g of r.goals){const li=document.createElement('li');li.textContent=(g.met?'✓ ':'✗ ')+t(g.label)+(g.met?' +'+g.pts:'');ul.append(li);}box.append(ul);
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
