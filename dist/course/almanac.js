@@ -1,6 +1,6 @@
 // Cross-life discovery journal stored locally in the browser: tracks which
 // callings, Tokaido road stops, and real-world field notes a player has unlocked.
-import {lifeId} from './lives.js';
+import {lifeId,readLives} from './lives.js';
 import {ROUTE_DATA} from './route-data.js';
 
 export const ALMANAC_KEY='life-almanac-v1',TOTAL_STOPS=18;
@@ -9,14 +9,23 @@ export function readAlmanac(storage){
  try{
   const raw=JSON.parse(storage?.getItem(ALMANAC_KEY));
   if(!raw||typeof raw!=='object')return {routes:[],stops:[],notes:[],endings:[],bestScore:0,lives:0};
-  return {
-   routes:Array.isArray(raw.routes)?raw.routes.filter(x=>typeof x==='string'):[],
-   stops:Array.isArray(raw.stops)?raw.stops.filter(x=>typeof x==='string'):[],
-   notes:Array.isArray(raw.notes)?raw.notes.filter(x=>typeof x==='string'):[],
-   endings:Array.isArray(raw.endings)?raw.endings.filter(x=>typeof x==='string').slice(-1000):[],
-   bestScore:Number.isFinite(raw.bestScore)?raw.bestScore:0,
-   lives:Number.isInteger(raw.lives)?raw.lives:0
-  };
+  const routes=Array.isArray(raw.routes)?raw.routes.filter(x=>typeof x==='string'):[];
+  const stops=Array.isArray(raw.stops)?raw.stops.filter(x=>typeof x==='string'):[];
+  const notes=Array.isArray(raw.notes)?raw.notes.filter(x=>typeof x==='string'):[];
+  let endings=Array.isArray(raw.endings)?raw.endings.filter(x=>typeof x==='string').slice(-1000):[];
+  const bestScore=Number.isFinite(raw.bestScore)?raw.bestScore:0;
+  let lives=Number.isInteger(raw.lives)&&raw.lives>=0?raw.lives:0;
+  if(!Array.isArray(raw.endings)&&lives>0){
+   const recorded=readLives(storage);
+   if(recorded.length>0){
+    endings=[...new Set(recorded.map(e=>e.id))].slice(-1000);
+    lives=Math.min(lives,endings.length);
+   }else if(routes.length>0){
+    lives=Math.min(lives,Math.max(1,routes.length));
+   }
+   try{storage?.setItem(ALMANAC_KEY,JSON.stringify({routes,stops,notes,endings,bestScore,lives}));}catch{}
+  }
+  return {routes,stops,notes,endings,bestScore,lives};
  }catch{return {routes:[],stops:[],notes:[],endings:[],bestScore:0,lives:0};}
 }
 

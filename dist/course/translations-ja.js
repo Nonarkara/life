@@ -7536,4 +7536,7 @@ export default new Map([
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "相手は出産から回復する途中。あなたの次の仕事は明日からだ。"],
   ["Last time you chose “{answer}”.", "前回は「{answer}」を選んだ。"],
   ["Money remaining: {cash}", "残ったお金：{cash}"],
+  ["Player #{n} of 100", "100人中 #{n}人目のプレイヤー"],
+  ["Canonical life", "正典ライフ"],
+  ["Play next tuned life →", "あなた向けに調整された次の人生へ →"],
 ]);

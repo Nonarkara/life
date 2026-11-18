@@ -7536,4 +7536,7 @@ export default new Map([
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "伴侣还在产后恢复，你明天就要上下一班。"],
   ["Last time you chose “{answer}”.", "上次你选择了“{answer}”。"],
   ["Money remaining: {cash}", "剩余资金：{cash}"],
+  ["Player #{n} of 100", "第 #{n} / 100 位玩家"],
+  ["Canonical life", "典范人生档案"],
+  ["Play next tuned life →", "开启下一段为你定制的人生 →"],
 ]);

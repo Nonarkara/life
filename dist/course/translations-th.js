@@ -7536,4 +7536,7 @@ export default new Map([
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "คนรักกำลังพักฟื้นหลังคลอด คุณต้องเข้ากะอีกทีพรุ่งนี้"],
   ["Last time you chose “{answer}”.", "ครั้งก่อนคุณเลือก “{answer}”"],
   ["Money remaining: {cash}", "เงินที่เหลืออยู่: {cash}"],
+  ["Player #{n} of 100", "ผู้เล่นคนที่ #{n} จาก 100"],
+  ["Canonical life", "ประวัติชีวิตต้นแบบ"],
+  ["Play next tuned life →", "เล่นชีวิตถัดไปที่ปรับให้เหมาะกับคุณ →"],
 ]);

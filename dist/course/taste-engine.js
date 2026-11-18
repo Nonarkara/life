@@ -7,7 +7,8 @@ import {newLife,configureLife,validate,CLASS_KEYS} from './sim.js';
 import {CLASS_REGIONS} from './regions.js';
 import {COHORT_YEARS} from './thai-history.js';
 import {routeOf} from './life-routes.js';
-import {lifeId} from './lives.js';
+import {lifeId,readLives} from './lives.js';
+import {canonicalLifeForSlot} from './canonical-lives.js';
 
 export const TASTE_KEY='life-taste-v1';
 const ERAS=COHORT_YEARS.filter(y=>y<2026);
@@ -21,21 +22,33 @@ export function readTaste(storage){
   const raw=JSON.parse(storage?.getItem(TASTE_KEY));
   if(!raw||typeof raw!=='object')return empty();
   const w=raw.weights??{};
-  return {
-   weights:{
-    risk:Number.isFinite(w.risk)?Math.max(0,w.risk):0,
-    craft:Number.isFinite(w.craft)?Math.max(0,w.craft):0,
-    power:Number.isFinite(w.power)?Math.max(0,w.power):0,
-    heart:Number.isFinite(w.heart)?Math.max(0,w.heart):0,
-    wander:Number.isFinite(w.wander)?Math.max(0,w.wander):0
-   },
-   seeds:list(raw.seeds,Number.isSafeInteger),
-   routes:Array.isArray(raw.routes)?raw.routes.filter(x=>typeof x==='string'):[],
-   eras:list(raw.eras,Number.isInteger),
-   regions:list(raw.regions,x=>typeof x==='string'),
-   endings:list(raw.endings,x=>typeof x==='string',1000),
-   lives:natural(raw.lives)
+  let weights={
+   risk:Number.isFinite(w.risk)?Math.max(0,w.risk):0,
+   craft:Number.isFinite(w.craft)?Math.max(0,w.craft):0,
+   power:Number.isFinite(w.power)?Math.max(0,w.power):0,
+   heart:Number.isFinite(w.heart)?Math.max(0,w.heart):0,
+   wander:Number.isFinite(w.wander)?Math.max(0,w.wander):0
   };
+  const seeds=list(raw.seeds,Number.isSafeInteger);
+  const routes=Array.isArray(raw.routes)?raw.routes.filter(x=>typeof x==='string'):[];
+  const eras=list(raw.eras,Number.isInteger);
+  const regions=list(raw.regions,x=>typeof x==='string');
+  let endings=list(raw.endings,x=>typeof x==='string',1000);
+  let lives=natural(raw.lives);
+  // Reconcile pre-deduplication profiles once: scale down inflated weights and
+  // cap lives to distinct recorded endings/seeds so legacy reload inflation clears.
+  if(!Array.isArray(raw.endings)&&lives>0){
+   const recorded=readLives(storage);
+   if(recorded.length>0)endings=[...new Set(recorded.map(e=>e.id))].slice(-1000);
+   const cap=recorded.length>0?Math.max(recorded.length,seeds.length):seeds.length;
+   if(cap>0&&lives>cap){
+    const scale=cap/lives;
+    weights=Object.fromEntries(Object.entries(weights).map(([k,v])=>[k,Math.round(v*scale)]));
+    lives=cap;
+   }
+   try{storage?.setItem(TASTE_KEY,JSON.stringify({weights,seeds,routes,eras,regions,endings,lives}));}catch{}
+  }
+  return {weights,seeds,routes,eras,regions,endings,lives};
  }catch{return empty();}
 }
 
@@ -84,10 +97,17 @@ export function dominantTaste(taste){
  return {key:top,label:labels[top]??'Balanced explorer'};
 }
 
-// Deterministic 100-player table: slot 1..100 maps to a unique (era, class, region, sex, seed)
-// so 100 players each get a genuinely different starting life and can swap slot numbers (#1..#100).
+// Deterministic 100-player table: slots 1..16 map to individually sourced canonical
+// Thai starting lives; slots 17..100 cover unique (era, class, region, sex, seed) combos
+// so 100 players each get a genuinely different life and can swap slot numbers (#1..#100).
 export function playerSlotBirth(slot){
- const n=Math.max(1,Math.min(100,Math.floor(Number(slot)||1)))-1;
+ const slotNum=Math.max(1,Math.min(100,Math.floor(Number(slot)||1)));
+ const canonical=canonicalLifeForSlot(slotNum);
+ if(canonical){
+  const life=configureLife(newLife(canonical.seed),{birthYear:canonical.birthYear,class:canonical.class,region:canonical.region,sex:canonical.sex,attributes:canonical.attributes});
+  if(validate(life))return {...life,playerSlot:slotNum,canonical:{title:canonical.title,summary:canonical.summary,sourceLabel:canonical.sourceLabel,sourceHref:canonical.sourceHref}};
+ }
+ const n=slotNum-1;
  const birthYear=ERAS[n%ERAS.length];
  const cls=CLASS_KEYS[(Math.floor(n/ERAS.length)+n)%CLASS_KEYS.length];
  const regions=CLASS_REGIONS[cls]??['bangkok'];
@@ -95,7 +115,7 @@ export function playerSlotBirth(slot){
  const sex=SEXES[n%2];
  const seed=100003+n*7919+birthYear*17;
  const life=configureLife(newLife(seed),{birthYear,class:cls,region,sex});
- return validate(life)?{...life,playerSlot:n+1}:configureLife(newLife(seed+1),{birthYear,class:cls,sex});
+ return validate(life)?{...life,playerSlot:slotNum}:configureLife(newLife(seed+1),{birthYear,class:cls,sex});
 }
 
 // Use the ordinary birth draw so era, place, class and household selections keep

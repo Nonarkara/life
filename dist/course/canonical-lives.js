@@ -1,0 +1,217 @@
+// Sixteen individually sourced canonical Thai starting lives across all eight
+// historical cohorts (1949–2000) and all five socioeconomic classes.
+export const CANONICAL_LIVES=Object.freeze([
+ {
+  slot:1,
+  title:'1949 · Canal-side post-war daughter',
+  birthYear:1949,
+  class:'low_class',
+  region:'khlong-toei',
+  sex:'female',
+  seed:104901,
+  attributes:{physique:3,iq:2,eq:2,craft:2,drive:1},
+  summary:'Born beside Bangkok’s working canals when rice barges carried the city and 16mm cinema drew whole neighbourhoods.',
+  sourceLabel:'NESDC · National Development Plan History',
+  sourceHref:'https://www.nesdc.go.th/nesdb_en/ewt_w3c/main.php?filename=develop_issue'
+ },
+ {
+  slot:2,
+  title:'1955 · Chiang Mai silver-craft apprentice',
+  birthYear:1955,
+  class:'working_class',
+  region:'chiang-mai',
+  sex:'male',
+  seed:105502,
+  attributes:{physique:2,iq:2,eq:1,craft:3,drive:2},
+  summary:'Turns eighteen as students topple military rule in October 1973 while northern craft workshops adapt to paved highways.',
+  sourceLabel:'World Bank · Thailand Data',
+  sourceHref:'https://data.worldbank.org/country/thailand'
+ },
+ {
+  slot:3,
+  title:'1970 · Khon Kaen civil-service household',
+  birthYear:1970,
+  class:'bureaucratic_class',
+  region:'khon-kaen',
+  sex:'female',
+  seed:107003,
+  attributes:{physique:1,iq:3,eq:2,craft:1,drive:3},
+  summary:'Grows up in Isan’s expanding regional hub as Friendship Highway buses and university quotas reshape provincial mobility.',
+  sourceLabel:'NESDC · Regional Development Record',
+  sourceHref:'https://www.nesdc.go.th/nesdb_en/ewt_w3c/main.php?filename=develop_issue'
+ },
+ {
+  slot:4,
+  title:'1975 · Yaowarat shophouse ledger keeper',
+  birthYear:1975,
+  class:'middle_class',
+  region:'yaowarat',
+  sex:'male',
+  seed:107504,
+  attributes:{physique:1,iq:3,eq:2,craft:2,drive:2},
+  summary:'Comes of age during the double-digit export boom and faces the 1997 baht float at twenty-two.',
+  sourceLabel:'Bank of Thailand · 1997 Crisis Archive',
+  sourceHref:'https://www.bot.or.th/en/our-roles/monetary-policy/monet-policy-knowledge/1997-crisis.html'
+ },
+ {
+  slot:5,
+  title:'1981 · Samut Prakan factory-belt daughter',
+  birthYear:1981,
+  class:'working_class',
+  region:'samut-prakan',
+  sex:'female',
+  seed:108105,
+  attributes:{physique:2,iq:2,eq:2,craft:2,drive:2},
+  summary:'Childhood of cassette tapes, shared landlines, and parents commuting along industrial ring roads.',
+  sourceLabel:'ILO · Thailand Labour & Industry Profile',
+  sourceHref:'https://www.ilo.org/regions-and-countries/asia-and-pacific/thailand'
+ },
+ {
+  slot:6,
+  title:'1990 · Pak Phanang coastal boatman’s son',
+  birthYear:1990,
+  class:'working_class',
+  region:'pak-phanang',
+  sex:'male',
+  seed:109006,
+  attributes:{physique:3,iq:2,eq:2,craft:1,drive:2},
+  summary:'Raised where southern tides meet aquaculture ponds, bridging analog childhoods and mobile-first adulthood.',
+  sourceLabel:'World Bank · Thailand Data',
+  sourceHref:'https://data.worldbank.org/country/thailand'
+ },
+ {
+  slot:7,
+  title:'1997 · Sukhumvit crisis-year daughter',
+  birthYear:1997,
+  class:'high_class',
+  region:'sukhumvit',
+  sex:'female',
+  seed:109707,
+  attributes:{physique:1,iq:3,eq:3,craft:1,drive:2},
+  summary:'Born the year the baht floated and the IMF arrived; family balance sheets decide every school and career turn.',
+  sourceLabel:'Bank of Thailand · 1997 Crisis Archive',
+  sourceHref:'https://www.bot.or.th/en/our-roles/monetary-policy/monet-policy-knowledge/1997-crisis.html'
+ },
+ {
+  slot:8,
+  title:'2000 · Rayong Eastern Seaboard son',
+  birthYear:2000,
+  class:'working_class',
+  region:'rayong',
+  sex:'male',
+  seed:110008,
+  attributes:{physique:2,iq:2,eq:2,craft:2,drive:2},
+  summary:'Reaches twenty in 2020 amid Eastern Economic Corridor factories, gig work, and cashless QR streets.',
+  sourceLabel:'TDRI · Thailand Economic & Social Research',
+  sourceHref:'https://tdri.or.th/en/'
+ },
+ {
+  slot:9,
+  title:'1981 · Buriram boxing-camp youth',
+  birthYear:1981,
+  class:'low_class',
+  region:'buriram',
+  sex:'male',
+  seed:108109,
+  attributes:{physique:4,iq:1,eq:1,craft:1,drive:3},
+  summary:'Trains on red-clay fields in lower Isan where provincial rings offer a steep, costly ladder toward Bangkok.',
+  sourceLabel:'TDRI · Rural Mobility & Labour',
+  sourceHref:'https://tdri.or.th/en/'
+ },
+ {
+  slot:10,
+  title:'1970 · Hua Hin railway-town clerk’s daughter',
+  birthYear:1970,
+  class:'bureaucratic_class',
+  region:'hua-hin',
+  sex:'female',
+  seed:107010,
+  attributes:{physique:1,iq:3,eq:2,craft:2,drive:2},
+  summary:'Grows up beside southern rail lines as coastal towns shift from quiet fishing piers to tourism and state posts.',
+  sourceLabel:'NESDC · National Development Plan History',
+  sourceHref:'https://www.nesdc.go.th/nesdb_en/ewt_w3c/main.php?filename=develop_issue'
+ },
+ {
+  slot:11,
+  title:'1955 · Ubon Ratchathani paddy-field son',
+  birthYear:1955,
+  class:'low_class',
+  region:'ubon-ratchathani',
+  sex:'male',
+  seed:105511,
+  attributes:{physique:3,iq:2,eq:2,craft:1,drive:2},
+  summary:'Monsoon rice harvests and seasonal migration south shape a generation that built Bangkok’s 1970s–80s skyline.',
+  sourceLabel:'ILO · Thailand Labour & Industry Profile',
+  sourceHref:'https://www.ilo.org/regions-and-countries/asia-and-pacific/thailand'
+ },
+ {
+  slot:12,
+  title:'1990 · Phuket post-tin merchant’s daughter',
+  birthYear:1990,
+  class:'middle_class',
+  region:'phuket',
+  sex:'female',
+  seed:109012,
+  attributes:{physique:2,iq:2,eq:3,craft:1,drive:2},
+  summary:'Island shophouses pivot from tin mining to global tourism, testing family savings against boom-and-bust shocks.',
+  sourceLabel:'World Bank · Thailand Data',
+  sourceHref:'https://data.worldbank.org/country/thailand'
+ },
+ {
+  slot:13,
+  title:'1975 · Chonburi port-town mechanic',
+  birthYear:1975,
+  class:'working_class',
+  region:'chonburi',
+  sex:'male',
+  seed:107513,
+  attributes:{physique:2,iq:2,eq:1,craft:3,drive:2},
+  summary:'Eastern seaboard deep-sea ports and auto plants turn coastal workshops into industrial supply chains.',
+  sourceLabel:'ILO · Thailand Labour & Industry Profile',
+  sourceHref:'https://www.ilo.org/regions-and-countries/asia-and-pacific/thailand'
+ },
+ {
+  slot:14,
+  title:'1949 · Ayutthaya river-trade daughter',
+  birthYear:1949,
+  class:'middle_class',
+  region:'ayutthaya',
+  sex:'female',
+  seed:104914,
+  attributes:{physique:2,iq:2,eq:3,craft:2,drive:1},
+  summary:'River barges and provincial rice mills anchor family credit decades before expressways reach the central plains.',
+  sourceLabel:'NESDC · National Development Plan History',
+  sourceHref:'https://www.nesdc.go.th/nesdb_en/ewt_w3c/main.php?filename=develop_issue'
+ },
+ {
+  slot:15,
+  title:'1997 · Nan northern-valley teacher’s son',
+  birthYear:1997,
+  class:'bureaucratic_class',
+  region:'nan',
+  sex:'male',
+  seed:109715,
+  attributes:{physique:2,iq:3,eq:2,craft:1,drive:2},
+  summary:'A mountain-valley civil-service home balances modest steady pay against the pull of Bangkok tech and remote work.',
+  sourceLabel:'TDRI · Thailand Economic & Social Research',
+  sourceHref:'https://tdri.or.th/en/'
+ },
+ {
+  slot:16,
+  title:'2000 · Nakhon Si Thammarat merchant’s daughter',
+  birthYear:2000,
+  class:'middle_class',
+  region:'nakhon-si-thammarat',
+  sex:'female',
+  seed:110016,
+  attributes:{physique:1,iq:3,eq:2,craft:2,drive:2},
+  summary:'Southern market town life meets online commerce, flood years, and the choice between home roots and the capital.',
+  sourceLabel:'World Bank · Thailand Data',
+  sourceHref:'https://data.worldbank.org/country/thailand'
+ }
+]);
+
+export function canonicalLifeForSlot(slot){
+ const n=Math.floor(Number(slot)||0);
+ return CANONICAL_LIVES.find(entry=>entry.slot===n)??null;
+}

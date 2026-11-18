@@ -7560,4 +7560,7 @@ export default new Map([
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "Your partner is recovering from the birth. Your next shift starts tomorrow."],
   ["Last time you chose “{answer}”.", "Last time you chose “{answer}”."],
   ["Money remaining: {cash}", "Money remaining: {cash}"],
+  ["Player #{n} of 100", "Player #{n} of 100"],
+  ["Canonical life", "Canonical life"],
+  ["Play next tuned life →", "Play next tuned life →"],
 ]);

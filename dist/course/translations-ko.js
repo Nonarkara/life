@@ -7536,4 +7536,7 @@ export default new Map([
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "상대는 출산 후 회복 중입니다. 당신의 다음 근무는 내일 시작됩니다."],
   ["Last time you chose “{answer}”.", "지난번에는 “{answer}”을 선택했습니다."],
   ["Money remaining: {cash}", "남은 돈: {cash}"],
+  ["Player #{n} of 100", "100명 중 #{n}번째 플레이어"],
+  ["Canonical life", "정전 생애"],
+  ["Play next tuned life →", "나에게 맞춰진 다음 생애 플레이 →"],
 ]);

@@ -161,3 +161,45 @@ test('divorce is offered to an existing couple and changes household state witho
  }
  assert.ok(found,'normally played married life reached the divorce');
 });
+
+test('legacy duplicate taste and almanac profiles reconcile down to recorded distinct lives on read',async()=>{
+ const {readAlmanac}=await import('../../dist/course/almanac.js');
+ const {recordLife}=await import('../../dist/course/lives.js');
+ const store=new Map(),storage={getItem:k=>store.get(k)??null,setItem:(k,v)=>store.set(k,v)};
+ const l1={...playerSlotBirth(1),stage:'recap',age:40,health:70,wellbeing:60};
+ const l2={...playerSlotBirth(2),stage:'recap',age:55,health:60,wellbeing:50};
+ recordLife(storage,l1);
+ recordLife(storage,l2);
+ store.set('life-taste-v1',JSON.stringify({weights:{risk:48,craft:12,power:0,heart:0,wander:6},seeds:[l1.seed,l2.seed],routes:['border_pm'],eras:[1949,1955],regions:['khlong-toei','chiang-mai'],lives:12}));
+ store.set('life-almanac-v1',JSON.stringify({routes:['border_pm'],stops:['sea_hua_hin'],notes:['b_bitcoin_2014'],bestScore:42,lives:12}));
+
+ const taste=readTaste(storage);
+ assert.equal(taste.lives,2);
+ assert.equal(taste.weights.risk,8);
+ assert.equal(taste.weights.craft,2);
+ assert.equal(taste.endings.length,2);
+ // Idempotent on subsequent read:
+ assert.deepEqual(readTaste(storage),taste);
+
+ const alm=readAlmanac(storage);
+ assert.equal(alm.lives,2);
+ assert.equal(alm.endings.length,2);
+ assert.deepEqual(readAlmanac(storage),alm);
+});
+
+test('slots 1..16 resolve to individually sourced canonical Thai biographies with valid round-trip birth codes',async()=>{
+ const {CANONICAL_LIVES,canonicalLifeForSlot}=await import('../../dist/course/canonical-lives.js');
+ assert.equal(CANONICAL_LIVES.length,16);
+ for(let slot=1;slot<=16;slot++){
+  const canon=canonicalLifeForSlot(slot);
+  assert.ok(canon,'canonical slot '+slot);
+  assert.ok(canon.sourceLabel&&canon.sourceHref.startsWith('https://'),'slot '+slot+' has source');
+  const life=playerSlotBirth(slot);
+  assert.equal(validate(life),true,'canonical slot '+slot+' valid');
+  assert.equal(life.canonical.title,canon.title);
+  const code=encodeBirth(life);
+  const decoded=decodeBirth(code);
+  assert.equal(decoded.seed,life.seed,'canonical slot '+slot+' round-trips');
+  assert.equal(decoded.birth.region,canon.region,'canonical slot '+slot+' keeps region');
+ }
+});

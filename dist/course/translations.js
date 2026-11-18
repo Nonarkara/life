@@ -3096,3 +3096,6 @@ phrases.push(...ROUTE_BRANCH_PHRASES);
 for(const row of [...JULY_PHRASES,...FAMILY_FORK_PHRASES])if(!phrases.some(existing=>existing[0]===row[0]))phrases.push(row);
 
 phrases.push(['Money remaining: {cash}','เงินที่เหลืออยู่: {cash}','剩余资金：{cash}','残ったお金：{cash}','남은 돈: {cash}']);
+phrases.push(['Player #{n} of 100','ผู้เล่นคนที่ #{n} จาก 100','第 #{n} / 100 位玩家','100人中 #{n}人目のプレイヤー','100명 중 #{n}번째 플레이어']);
+phrases.push(['Canonical life','ประวัติชีวิตต้นแบบ','典范人生档案','正典ライフ','정전 생애']);
+phrases.push(['Play next tuned life →','เล่นชีวิตถัดไปที่ปรับให้เหมาะกับคุณ →','开启下一段为你定制的人生 →','あなた向けに調整された次の人生へ →','나에게 맞춰진 다음 생애 플레이 →']);
