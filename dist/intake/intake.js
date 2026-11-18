@@ -35,20 +35,21 @@ function savedLife(){
  catch{return null;}
 }
 const showBirthOdds=()=>!varied&&lastOptions.birthYear!=='historical';
+const birthCanonical=document.createElement('p');birthCanonical.className='fine';birthCanonical.hidden=true;
 function card(life){
  const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class],cohort=HISTORICAL_COHORTS[life.intake.birthYear];
  const fam=familyRecord(life);
  $('birth-title').textContent=life.playerSlot?t('Player #{n} of 100').replace('{n}',life.playerSlot):t('You are born');
  const facts=[...(life.canonical?[['Canonical life',life.canonical.title]]:[]),['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],...(fam?[['Family',fam.guardians],['Siblings in childhood',fam.siblingsText]]:[['Raised by',t(household(b).text)]]),['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
- if(life.canonical?.summary){const note=document.createElement('dd');note.className='fine';note.textContent=life.canonical.summary;if(life.canonical.sourceHref){const src=document.createElement('a');src.href=life.canonical.sourceHref;src.target='_blank';src.rel='noopener noreferrer';src.textContent=' ('+life.canonical.sourceLabel+')';note.append(src);}$('birth-facts').append(note);}
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
  if(cohort?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cohort.note);$('birth-facts').append(note);}
+ if(life.canonical?.summary){birthCanonical.hidden=false;birthCanonical.textContent=life.canonical.summary;if(life.canonical.sourceHref){const src=document.createElement('a');src.href=life.canonical.sourceHref;src.target='_blank';src.rel='noopener noreferrer';src.textContent=' ('+life.canonical.sourceLabel+')';birthCanonical.append(src);}$('birth-shared').after(birthCanonical);}else{birthCanonical.hidden=true;birthCanonical.replaceChildren();}
  $('birth-odds').hidden=!showBirthOdds();
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }
-function enter(options,fresh=false){try{lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=fresh?drawAdaptiveBirth(localStorage,()=>drawBirth(options,{previous,varied})):drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;}catch{$('intake-error').textContent=t('Try again');}}
+function enter(options,fresh=false){try{lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=fresh?drawAdaptiveBirth(localStorage,()=>drawBirth(options,{previous,varied})):drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});}catch{$('intake-error').textContent=t('Try again');}}
 $('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/';}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
 $('birth-edit').onclick=()=>{$('birth-card').close();$('starting-conditions').open=true;$('birth-era').focus();};
 $('birth-again').onclick=()=>{try{drawn=varied?drawAdaptiveBirth(localStorage,()=>drawBirth(lastOptions,{previous,varied})):drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
@@ -113,7 +114,7 @@ function archive(){
 function invited(){
  const params=new URLSearchParams(location.search);
  const slot=params.get('player');
- if(!params.has('birth')&&/^(?:[1-9]|[1-9][0-9]|100)$/.test(slot??'')){lastOptions={};varied=true;drawn=playerSlotBirth(Number(slot));card(drawn);$('birth-again').hidden=true;$('birth-card').showModal();return;}
+ if(!params.has('birth')&&/^(?:[1-9]|[1-9][0-9]|100)$/.test(slot??'')){lastOptions={};varied=true;drawn=playerSlotBirth(Number(slot));card(drawn);$('birth-again').hidden=true;$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});return;}
  const asked=params.get('birth');if(!asked){if(params.get('next')==='1')enter({},true);return;}
  const daily=asked==='daily',day=dayOf(),life=daily?{...dailyLife(day),dailyDay:day}:decodeBirth(asked);
  if(life&&!daily){const claimed=new URLSearchParams(location.search).get('day');if(claimed&&dailyDateFor({...life,dailyDay:claimed}))life.dailyDay=claimed;}
@@ -121,6 +122,6 @@ function invited(){
  try{const them=new URLSearchParams(location.search).get('them');if(them&&/^[0-9a-z.:,-]{1,1500}$/.test(them))localStorage.setItem('life-them',JSON.stringify({code:encodeBirth(life),them}));}catch{}
  lastOptions={};drawn=life;card(life);
  $('birth-title').textContent=t(daily?'Today’s life':'A life was sent to you');
- $('birth-again').hidden=true;$('birth-card').showModal();
+ $('birth-again').hidden=true;$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});
 }
 window.addEventListener('life-preferences',()=>{draw();classNote();eraNote();archive();});initSettings();draw();classNote();eraNote();archive();invited();
