@@ -160,6 +160,9 @@ export function renderEnding(root,state,{storage}={}){
   const finalCash=state.finance?netWorth(state.finance):state.cash;
   const hasLovedOnes=Boolean(state.pivotFlags?.married||state.story?.flags?.married||state.story?.flags?.child||(state.pivots??[]).some(p=>['legacy','empty-house','take-in'].includes(p.pivot)));
   if(finalCash>0)add('p','score-evaporate',hasLovedOnes?t('Legacy for loved ones: {cash} · Time + labor converted into +{cards} experience pts.').replace('{cash}',money(finalCash)).replace('{cards}',r.cards+r.road):t('Unspent cash ({cash}) evaporates at death — spend on experiences while you live.').replace('{cash}',money(finalCash)));
+  const shocks=(state.story?.seen??[]).filter(e=>/^(d_|s_)|drunk_keys|divorce_papers/.test(e.id)).length;
+  const impulses=(state.stops??[]).length+(state.bucket?.done??[]).length+(state.story?.seen??[]).filter(e=>['all','drive','fight','passion','politics','seize','sing'].includes(e.choice)).length;
+  add('p','score-impulse',shocks<=1&&impulses===0&&r.cards<=10?t('Human impulse gauge: Ultra-safe · You dodged every crash, court, and heartbreak — and lived the most boring life possible.'):t('Human impulse gauge: {s} shocks weathered · {i} bold or foolish leaps — you survived the hard parts and lived for real.').replace('{s}',shocks).replace('{i}',impulses));
   const ul=document.createElement('ul');ul.className='score-goals';for(const g of r.goals){const li=document.createElement('li');li.textContent=(g.met?'✓ ':'✗ ')+t(g.label)+(g.met?' +'+g.pts:'');ul.append(li);}box.append(ul);
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
