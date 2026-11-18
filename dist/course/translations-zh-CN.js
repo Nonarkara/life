@@ -7539,4 +7539,12 @@ export default new Map([
   ["Player #{n} of 100", "第 #{n} / 100 位玩家"],
   ["Canonical life", "典范人生档案"],
   ["Play next tuned life →", "开启下一段为你定制的人生 →"],
+  ["The balanced life", "平衡的人生"],
+  ["The resilient", "坚韧不拔者"],
+  ["Balance across 5 pillars: {k}/5 · Strongest: {max} · Thin: {min}", "人生五维平衡：{k}/5 · 最强：{max} · 较薄弱：{min}"],
+  ["work", "工作"],
+  ["money", "金钱"],
+  ["family", "家庭"],
+  ["health", "健康"],
+  ["connection", "人际关系"],
 ]);

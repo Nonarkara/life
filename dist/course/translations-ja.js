@@ -7539,4 +7539,12 @@ export default new Map([
   ["Player #{n} of 100", "100人中 #{n}人目のプレイヤー"],
   ["Canonical life", "正典ライフ"],
   ["Play next tuned life →", "あなた向けに調整された次の人生へ →"],
+  ["The balanced life", "バランスの取れた人生"],
+  ["The resilient", "しなやかに立ち直る人"],
+  ["Balance across 5 pillars: {k}/5 · Strongest: {max} · Thin: {min}", "人生5軸のバランス：{k}/5・最も強い：{max}・手薄：{min}"],
+  ["work", "仕事"],
+  ["money", "お金"],
+  ["family", "家族"],
+  ["health", "健康"],
+  ["connection", "つながり"],
 ]);

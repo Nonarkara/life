@@ -7539,4 +7539,12 @@ export default new Map([
   ["Player #{n} of 100", "100명 중 #{n}번째 플레이어"],
   ["Canonical life", "정전 생애"],
   ["Play next tuned life →", "나에게 맞춰진 다음 생애 플레이 →"],
+  ["The balanced life", "균형 잡힌 삶"],
+  ["The resilient", "역경을 이겨낸 사람"],
+  ["Balance across 5 pillars: {k}/5 · Strongest: {max} · Thin: {min}", "삶의 5가지 균형: {k}/5 · 가장 강함: {max} · 부족함: {min}"],
+  ["work", "일"],
+  ["money", "돈"],
+  ["family", "가족"],
+  ["health", "건강"],
+  ["connection", "관계"],
 ]);

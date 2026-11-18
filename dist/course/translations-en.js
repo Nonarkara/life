@@ -7563,4 +7563,12 @@ export default new Map([
   ["Player #{n} of 100", "Player #{n} of 100"],
   ["Canonical life", "Canonical life"],
   ["Play next tuned life →", "Play next tuned life →"],
+  ["The balanced life", "The balanced life"],
+  ["The resilient", "The resilient"],
+  ["Balance across 5 pillars: {k}/5 · Strongest: {max} · Thin: {min}", "Balance across 5 pillars: {k}/5 · Strongest: {max} · Thin: {min}"],
+  ["work", "work"],
+  ["money", "money"],
+  ["family", "family"],
+  ["health", "health"],
+  ["connection", "connection"],
 ]);

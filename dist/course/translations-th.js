@@ -7539,4 +7539,12 @@ export default new Map([
   ["Player #{n} of 100", "ผู้เล่นคนที่ #{n} จาก 100"],
   ["Canonical life", "ประวัติชีวิตต้นแบบ"],
   ["Play next tuned life →", "เล่นชีวิตถัดไปที่ปรับให้เหมาะกับคุณ →"],
+  ["The balanced life", "ชีวิตที่สมดุล"],
+  ["The resilient", "ผู้ยืนหยัดฝ่ามรสุม"],
+  ["Balance across 5 pillars: {k}/5 · Strongest: {max} · Thin: {min}", "สมดุล 5 ด้านของชีวิต: {k}/5 · เด่นที่สุด: {max} · ที่ยังบาง: {min}"],
+  ["work", "การงาน"],
+  ["money", "การเงิน"],
+  ["family", "ครอบครัว"],
+  ["health", "สุขภาพ"],
+  ["connection", "ผู้คนและความสัมพันธ์"],
 ]);

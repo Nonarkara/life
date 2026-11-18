@@ -203,3 +203,22 @@ test('slots 1..16 resolve to individually sourced canonical Thai biographies wit
   assert.equal(decoded.birth.region,canon.region,'canonical slot '+slot+' keeps region');
  }
 });
+
+test('Tokaido 4-kind set bonus, 5-pillar Balance Meter, and Resilience title score cleanly',async()=>{
+ const {scoreLife,useCategories}=await import('../../dist/course/life-collection.js');
+ const cats={w1:'work',m1:'money',f1:'family',h1:'health',c1:'connection'};
+ useCategories(id=>cats[id]??null);
+ const base=playerSlotBirth(1);
+ const s={
+  ...base,
+  wellbeing:65,
+  stops:[{id:'s_huahin',age:20},{id:'h_inthanon',age:25},{id:'t_suthep',age:30},{id:'m_soi',age:35}],
+  story:{seen:[{id:'w1',choice:'a'},{id:'m1',choice:'a'},{id:'f1',choice:'a'},{id:'h1',choice:'a'},{id:'c1',choice:'a'},{id:'d_illness',choice:'rest'},{id:'b_drunk_keys',choice:'walk'}]}
+ };
+ const r=scoreLife(s);
+ assert.equal(r.setBonus,7,'Tokaido 4-kind journey set awards +7');
+ assert.equal(r.balance.active,5,'all 5 CV pillars active');
+ assert.equal(r.balance.bonus,4,'5-pillar balance awards +4');
+ assert.ok(r.titles.includes('The balanced life'));
+ assert.ok(r.titles.includes('The resilient'));
+});

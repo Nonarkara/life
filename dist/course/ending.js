@@ -163,6 +163,7 @@ export function renderEnding(root,state,{storage}={}){
   const shocks=(state.story?.seen??[]).filter(e=>/^(d_|s_)|drunk_keys|divorce_papers/.test(e.id)).length;
   const impulses=(state.stops??[]).length+(state.bucket?.done??[]).length+(state.story?.seen??[]).filter(e=>['all','drive','fight','passion','politics','seize','sing'].includes(e.choice)).length;
   add('p','score-impulse',shocks<=1&&impulses===0&&r.cards<=10?t('Human impulse gauge: Ultra-safe · You dodged every crash, court, and heartbreak — and lived the most boring life possible.'):t('Human impulse gauge: {s} shocks weathered · {i} bold or foolish leaps — you survived the hard parts and lived for real.').replace('{s}',shocks).replace('{i}',impulses));
+  if(r.balance)add('p','score-balance',t('Balance across 5 pillars: {k}/5 · Strongest: {max} · Thin: {min}').replace('{k}',r.balance.active).replace('{max}',t(r.balance.strongest)).replace('{min}',t(r.balance.thinnest)));
   const ul=document.createElement('ul');ul.className='score-goals';for(const g of r.goals){const li=document.createElement('li');li.textContent=(g.met?'✓ ':'✗ ')+t(g.label)+(g.met?' +'+g.pts:'');ul.append(li);}box.append(ul);
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
