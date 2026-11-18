@@ -7553,4 +7553,5 @@ export default new Map([
   ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "经历 +{cards} · 旅途停留 +{road} · 目标 +{goals} · 称号 +{titles} · 平衡 +{balance}"],
   ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "决策主题：{k}/5 · 最多：{max} · 最少：{min}"],
   ["Across five themes", "跨越五个主题"],
+  ["This older life has no saved album.", "这段旧人生没有保存的相册。"],
 ]);

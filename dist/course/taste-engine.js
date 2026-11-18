@@ -7,7 +7,7 @@ import {newLife,configureLife,validate,CLASS_KEYS} from './sim.js';
 import {CLASS_REGIONS} from './regions.js';
 import {COHORT_YEARS} from './thai-history.js';
 import {routeOf} from './life-routes.js';
-import {lifeId,readLives} from './lives.js';
+import {lifeId,readLives,reconcileEndingIds} from './lives.js';
 import {canonicalLifeForSlot} from './canonical-lives.js';
 
 export const TASTE_KEY='life-taste-v1';
@@ -55,6 +55,8 @@ export function readTaste(storage){
 export function recordTaste(storage,state){
  const cur=readTaste(storage);
  if(state?.stage!=='recap')return cur;
+ const endings=reconcileEndingIds(cur.endings,state);
+ if(endings!==cur.endings){cur.endings=endings;try{storage?.setItem(TASTE_KEY,JSON.stringify(cur));}catch{}}
  const id=lifeId(state);
  if(cur.endings.includes(id))return cur;
  const w={...cur.weights};

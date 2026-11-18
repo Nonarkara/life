@@ -7553,4 +7553,5 @@ export default new Map([
   ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "経験 +{cards}・寄り道 +{road}・目標 +{goals}・称号 +{titles}・バランス +{balance}"],
   ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "決断のテーマ：{k}/5・最多：{max}・最少：{min}"],
   ["Across five themes", "五つのテーマを経験"],
+  ["This older life has no saved album.", "この過去の人生には保存されたアルバムがありません。"],
 ]);

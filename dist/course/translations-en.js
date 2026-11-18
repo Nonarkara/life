@@ -7577,4 +7577,5 @@ export default new Map([
   ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}"],
   ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "Decision themes: {k}/5 · Most: {max} · Least: {min}"],
   ["Across five themes", "Across five themes"],
+  ["This older life has no saved album.", "This older life has no saved album."],
 ]);

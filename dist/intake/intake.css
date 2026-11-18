@@ -53,6 +53,13 @@
 .intake-page .lives li{display:grid;grid-template-columns:1fr auto;gap:0 12px;align-items:baseline;padding:6px 0;border-bottom:1px solid var(--rule)}
 .intake-page .lives li span{grid-column:1;color:var(--muted);font-size:var(--body)}
 .intake-page .lives li a{grid-column:2;grid-row:1/3;align-self:center;color:var(--ink);text-underline-offset:3px;font-size:var(--body)}
+.intake-page .life-album{grid-column:1/-1;min-width:0}
+.intake-page .life-album summary{display:list-item;list-style-position:inside;min-height:44px;align-content:center;font-weight:400}
+.intake-page .life-album p{font-size:var(--body);margin:4px 0;overflow-wrap:anywhere}
+.intake-page .life-album h3{font-size:var(--body);margin:8px 0 4px}
+.intake-page .life-album p span{color:inherit;font-size:inherit}
+.intake-page #lives-summary{display:block;min-height:44px;align-content:center}
+@media (min-width:721px){.intake-page .overview.intake:has(#lives[open]){height:100%}.intake-page .overview.intake:has(#lives[open]) .panel{overflow-y:auto}.intake-page .overview.intake .panel:first-child{overflow-y:auto}}
 #birth-card textarea{box-sizing:border-box;width:100%;font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:4px}#birth-card textarea:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
 /* The town at birth: the dialog is as tall as the town, the labels sit on the houses. */

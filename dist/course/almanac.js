@@ -1,9 +1,10 @@
 // Cross-life discovery journal stored locally in the browser: tracks which
 // callings, Tokaido road stops, and real-world field notes a player has unlocked.
-import {lifeId,readLives} from './lives.js';
+import {lifeId,readLives,reconcileEndingIds} from './lives.js';
+import {STOPS} from './life-collection.js';
 import {ROUTE_DATA} from './route-data.js';
 
-export const ALMANAC_KEY='life-almanac-v1',TOTAL_STOPS=18;
+export const ALMANAC_KEY='life-almanac-v1',TOTAL_STOPS=Object.keys(STOPS).length;
 
 export function readAlmanac(storage){
  try{
@@ -31,6 +32,8 @@ export function readAlmanac(storage){
 
 export function recordAlmanac(storage,state,{routeId=null,score=0,noteIds=[]}={}){
  const cur=readAlmanac(storage);
+ if(state?.stage!=='recap')return {...cur,totalRoutes:ROUTE_DATA.length,totalStops:TOTAL_STOPS};
+ cur.endings=reconcileEndingIds(cur.endings,state);
  const id=state?.stage==='recap'?lifeId(state):null;
  const counted=id&&!cur.endings.includes(id);
  const routes=new Set(cur.routes);

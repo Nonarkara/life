@@ -9,6 +9,7 @@ import {RUNGS,birthRung} from '../course/housing-ladder.js';
 import {encodeBirth,decodeBirth,dailyLife,dayOf,birthURL,dailyDateFor} from '../course/birthcode.js';
 import {drawBirth} from '../course/birth-draw.js';
 import {readLives} from '../course/lives.js';
+import {archivedAlbumView} from '../course/album-view.js';
 import {almanacSummary} from '../course/almanac.js';
 import {familyRecord} from '../course/family-record.js';
 import {drawAdaptiveBirth,playerSlotBirth} from '../course/taste-engine.js';
@@ -94,13 +95,14 @@ function archive(){
  }));
  const lives=readLives(localStorage),box=$('lives'),list=$('lives-list');
  box.hidden=!lives.length;if(!lives.length)return;
- $('lives-summary').textContent=t('Lives you have lived')+' · '+lives.length;
+ const summary=$('lives-summary'),title=document.createElement('span');title.textContent=t('Lives you have lived');summary.replaceChildren(title,document.createTextNode(' · '+lives.length));
  const alm=almanacSummary(localStorage);
- if(alm.routes.length||alm.stops.length||alm.notes.length){$('lives-summary').textContent+=' · '+t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes').replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length);}
- list.replaceChildren(...lives.slice(0,6).map(e=>{
+ if(alm.routes.length||alm.stops.length||alm.notes.length){const stats=document.createElement('span');stats.textContent=t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes').replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length);summary.append(document.createTextNode(' · '),stats);}
+ const openAlbums=new Set([...list.querySelectorAll('.life-album[open]')].map(el=>el.dataset.lifeId));
+ list.replaceChildren(...lives.map(e=>{
   const li=document.createElement('li'),place=document.createElement('b'),meta=document.createElement('span'),again=document.createElement('a');
   place.textContent=t(e.place);meta.textContent=t('Age {n}').replace('{n}',e.age)+(e.words?' · “'+e.words+'”':'');
-  const replayBirth=decodeBirth(e.code);again.href=replayBirth?birthURL({...replayBirth,...(e.dailyDay?{dailyDay:e.dailyDay}:{})}):'?birth='+encodeURIComponent(e.code);again.textContent=t('Live this birth again');li.append(place,meta,again);return li;}));
+  const replayBirth=decodeBirth(e.code);again.href=replayBirth?birthURL({...replayBirth,...(e.dailyDay?{dailyDay:e.dailyDay}:{})}):'?birth='+encodeURIComponent(e.code);again.textContent=t('Live this birth again');const album=archivedAlbumView(e.album);album.dataset.lifeId=e.id;album.open=openAlbums.has(e.id);li.append(place,meta,again,album);return li;}));
 }
 // A link someone sent, or today's shared birth, opens straight onto its card.
 function invited(){

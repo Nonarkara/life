@@ -3115,3 +3115,4 @@ phrases.push(['Experiences +{cards} · Road stops +{road} · Goals +{goals} · T
 
 phrases.push(['Decision themes: {k}/5 · Most: {max} · Least: {min}','ประเด็นการตัดสินใจ: {k}/5 · มากที่สุด: {max} · น้อยที่สุด: {min}','决策主题：{k}/5 · 最多：{max} · 最少：{min}','決断のテーマ：{k}/5・最多：{max}・最少：{min}','결정 주제: {k}/5 · 가장 많음: {max} · 가장 적음: {min}']);
 phrases.push(['Across five themes','ผ่านเรื่องราวทั้งห้าด้าน','跨越五个主题','五つのテーマを経験','다섯 주제를 두루 경험']);
+phrases.push(['This older life has no saved album.','ชีวิตเก่านี้ยังไม่มีอัลบั้มที่บันทึกไว้','这段旧人生没有保存的相册。','この過去の人生には保存されたアルバムがありません。','이전 삶에는 저장된 앨범이 없습니다.']);

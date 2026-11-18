@@ -7553,4 +7553,5 @@ export default new Map([
   ["Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}", "경험 +{cards} · 여정 +{road} · 목표 +{goals} · 칭호 +{titles} · 균형 +{balance}"],
   ["Decision themes: {k}/5 · Most: {max} · Least: {min}", "결정 주제: {k}/5 · 가장 많음: {max} · 가장 적음: {min}"],
   ["Across five themes", "다섯 주제를 두루 경험"],
+  ["This older life has no saved album.", "이전 삶에는 저장된 앨범이 없습니다."],
 ]);

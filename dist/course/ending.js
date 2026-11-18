@@ -25,6 +25,11 @@ import {POPULATION} from './population.js';
 const NS='http://www.w3.org/2000/svg';let resizeObserver,releaseCard;
 const baseMetrics=[['health','Physical health','#192e2c'],['wellbeing','Wellbeing','#a35d00'],['cash','Household buffer','#a32750']];
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
+function lifeNotes(state){
+ const notes=[],seen=new Set();
+ for(const e of state.story?.seen??[]){if(seen.has(e.id))continue;const sc=encounterById(e.id);if(sc?.rehearse){seen.add(e.id);notes.push({id:e.id,age:e.age,title:sc.title,text:sc.rehearse});}}
+ return notes;
+}
 export function growthWindows(history){
  const periods=history.slice(1).map((row,i)=>({from:history[i].age,to:row.age,cash:row.cash-history[i].cash,health:row.health-history[i].health,wellbeing:row.wellbeing-history[i].wellbeing,rate:(row.cash-history[i].cash)/(row.age-history[i].age)})).filter(r=>Number.isFinite(r.rate));
  const fastest=periods.filter(r=>r.cash>0).sort((a,b)=>b.rate-a.rate||a.from-b.from)[0]??null;
@@ -78,7 +83,7 @@ export function renderEnding(root,state,{storage}={}){
   if(cmp.split){const p=document.createElement('p');p.textContent=t('The two lives first parted at age {n}. Then: {a}. Now: {b}.').replace('{n}',cmp.split.age).replace('{a}',t(cmp.split.before)).replace('{b}',t(cmp.split.now));box.append(p);}
   const note=document.createElement('p');note.className='fine';note.textContent=t('Two lives are two stories, not an experiment. The gap is not proof that one choice caused it.');box.append(note);root.append(box);}}
  // A card to keep or send: where you went, what you were, one line in your own words.
- try{recordLife(storage,state,{ikigai:reading?.score});}catch{}
+ try{recordLife(storage,state,{ikigai:reading?.score,notes:lifeNotes(state)});}catch{}
  // The way to hand this life on: the same birth, for someone else to live their own way.
  const link=birthURL(state);
  const share=document.createElement('section');share.className='ending-share';const status=document.createElement('p');status.className='fine';status.setAttribute('role','status');status.hidden=true;const send=document.createElement('button');send.type='button';send.className='primary';const copy=document.createElement('button');copy.type='button';copy.textContent=t('Copy result');copy.className='quiet';
@@ -174,8 +179,7 @@ export function renderEnding(root,state,{storage}={}){
   const ul=document.createElement('ul');ul.className='score-goals';for(const g of r.goals){const li=document.createElement('li');li.textContent=(g.met?'✓ ':'✗ ')+t(g.label)+(g.met?' +'+g.pts:'');ul.append(li);}box.append(ul);
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
-  const learned=[],seenNote=new Set();
-  for(const e of (state.story?.seen??[])){if(!e?.id||seenNote.has(e.id))continue;const sc=encounterById(e.id);if(sc?.rehearse){seenNote.add(e.id);learned.push({id:e.id,age:e.age,title:sc.title,text:sc.rehearse});}}
+  const learned=lifeNotes(state);
   const alm=recordAlmanac(storage,state,{score:r.total,noteIds:learned.map(x=>x.id)});
   add('p','score-almanac',t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes').replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length));
   const taste=recordTaste(storage,state),dom=dominantTaste(taste);
