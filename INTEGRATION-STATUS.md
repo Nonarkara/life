@@ -5,27 +5,38 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
-## 18 November 2026 · per-language packs wired, cache poison removed, type scale at cap
+## 18 November 2026 · SpriteCast pipeline + per-language packs deployed (build 61f7713fc11a)
 
-Verified and completed the 18 November pack work (leads verified against the actual diff, not on trust).
-- **Claim confirmed, then made real:** the per-language packs shipped for nothing — `i18n.js` still imported the full five-language table. Measured cost: 2,791 kB (translations.js + 19 copy modules) for every non-English player. Now one pack loads: th 1,440 kB, zh 870 kB, ja 1,001 kB, ko 989 kB (48–69% less).
-- **Worse than reported, now fixed:** on a plain reload with a stored Thai/Japanese preference the dictionary never loaded at all (`ensureDictionary` was unreachable from the browser path) — the player got an English UI. The stored language now loads its pack at boot and localises once it lands (Playwright probe: `lang=th`, title and nav in Thai; one pack fetched, versioned `?v=`).
-- **Cache poison (predates this work, now removed):** `cacheTranslations` memoised the English passthroughs returned before the dictionary arrived, so a later `localise()` kept reading English out of the cache. Pre-pack lookups now bypass the cache (`prePack` wrapper), so they can never be memoised. Fable's 2287bcb guard (`!phrasesLoaded`) is subsumed by the per-language check.
-- **Merged 2287bcb (Fable)** by rebase: kept the kinLine household retelling in `t()`, the `document.body` boot guard and the localise trim fix; my pack machinery replaced the full-dictionary loader; `kin.test.mjs` boot/no-cache assertions updated from Fable's mechanism strings to the combined mechanism (same intent: pack at boot, nothing cached before it arrives). 545/545 tests pass.
-- **Font sizes:** 13px folded into 12px (43 declarations) and 15px into 14px (7) across console/course/economy/personal-console CSS. Product audit: 10 sizes → 8 (`[11,12,14,16,18,24,32,64]`, B7 passes); the font medium is cleared. 1 px moves only; no layout or hierarchy change.
-- Build `0f643dc0afc3`, audit 0 high / 1 medium (the pre-existing 7.5 MB stage-art payload, unchanged scope). Co-Authored-By trailer on the commit.
+Combined work from OpenCode (SpriteCast character pipeline) and Fable (per-language
+packs, cache poison fix, type scale consolidation) is on main and verified live.
 
-## 18 November 2026 · SpriteCast character pipeline + per-language translation packs
-
-SpriteCast character pipeline integrated into Life2.0 build with MSH-compliant asset output.
-- Character specs expanded in `src/characters/visitor-a/b/c.json` with SpriteCast-compatible fields: description, design, rig_glb, facings, draw:false, shadow, anchor, pitch, actions, msh fit/spatial honesty metadata.
-- `src/characters/spec.schema.json` expanded with SpriteCast spec schema (id, name, description, design, rig_glb, kind, facings, draw, shadow, anchor, pitch, light, render_px, frame_px, frames, redo_below, actions, msh).
-- `scripts/spritecast-build.mjs` added: validates specs, checks rig_glb/design sources, writes MSH-compliance receipts to `out/course/characters/<id>/`. Full SpriteCast Python pipeline (charpipe.py render→finish→pack) ready to run when animated models with walk/idle clips are available.
-- `scripts/build.mjs` updated: runs `buildCharacters()` as a build step, staging character receipts into `output/course/characters/`.
-- Per-language translation packs created via `scripts/split-translations.mjs`: `translations-th.js`, `translations-zh-CN.js`, `translations-ja.js`, `translations-ko.js`, `translations-en.js` in `dist/course/`. Each exports a default Map<English, translated>. i18n.js retains `translations.js` import for test compatibility; packs ready for fine-grained lazy loading.
+**SpriteCast character pipeline (OpenCode, commit 659e4b9):**
+- Character specs expanded in `src/characters/visitor-a/b/c.json` with SpriteCast-compatible
+  fields: description, design, rig_glb, facings, draw:false, shadow, anchor, pitch,
+  actions, msh fit/spatial honesty metadata.
+- `src/characters/spec.schema.json` expanded with full SpriteCast spec schema.
+- `scripts/spritecast-build.mjs` added: validates specs, checks rig_glb/design sources,
+  writes MSH-compliance receipts to `out/course/characters/<id>/`. Full SpriteCast Python
+  pipeline (charpipe.py render→finish→pack) ready when animated models with walk/idle
+  clips are available; VRoid models are static so receipts are "ready" status.
+- `scripts/build.mjs` updated: runs `buildCharacters()` as a build step, staging character
+  receipts into `output/course/characters/`.
 - No live maps/canvas/charts/HUDs removed; surgical edits only; file collapse <30%.
 
-Build `05c5d591fccb`. Tests 545/545 pass. Audit: 0 high, 2 medium (payload 7,294 kB above 3.5 MB threshold; 10 font sizes above cap of 8). Both mediums are pre-existing issues needing further lazy-loading of era/history/3D chunks and CSS font-size consolidation. Co-Authored-By OpenCode trailer present.
+**Per-language translation packs (Fable, commits 2287bcb–c6bf4c1):**
+- i18n.js now loads only the selected language pack (th 1.4 MB, zh 870 kB, ja 1.0 MB,
+  ko 989 kB; 48–69% less than the full 2.8 MB five-language table). English imports nothing.
+- Stored non-English language loads its pack at boot (not only after Settings change).
+- Cache poison fixed: pre-pack lookups bypass cacheTranslations memoisation.
+- Font sizes consolidated: 10 → 8 ([11,12,14,16,18,24,32,64], B7 passes).
+
+**Verification:**
+- Build `61f7713fc11a`, deployed to Cloudflare Pages (project `life`, branch `main`).
+- Live build.json matches local: `61f7713fc11a` on https://life.nonarkara.org.
+- Tests 570/570 pass.
+- Local audit: 0 high, 1 medium (payload 7,518 kB — pre-existing stage-art payload,
+  unchanged scope), 8 low. Font medium cleared (8 sizes at cap).
+- Co-Authored-By trailer on all commits.
 
 ## 17 November 2026 · character pipeline skeleton landed
 
