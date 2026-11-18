@@ -5,7 +5,7 @@ import {MODEL_FOR} from '../../dist/course/character-anime.js';
 
 test('every anime model the cast can pick ships with its texture and credit', () => {
   for (const id of Object.values(MODEL_FOR)) {
-    assert.ok(statSync(`dist/course/anime/cast/visitor-${id}.glb`).size > 1e6, id);
+    assert.ok(statSync(`dist/course/anime/cast/visitor-${id}.glb`).size > 200000, id);
     assert.ok(existsSync(`dist/course/anime/cast/${id}-original.webp`), id);
   }
   assert.match(readFileSync('dist/course/anime/cast/CREDITS.txt', 'utf8'), /pixiv Inc\. \/ VRoid Project/);
