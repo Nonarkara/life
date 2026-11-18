@@ -7559,4 +7559,5 @@ export default new Map([
   ["You are recovering from the birth. Your classes have already started.", "You are recovering from the birth. Your classes have already started."],
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "Your partner is recovering from the birth. Your next shift starts tomorrow."],
   ["Last time you chose “{answer}”.", "Last time you chose “{answer}”."],
+  ["Money remaining: {cash}", "Money remaining: {cash}"],
 ]);

@@ -152,15 +152,14 @@ export function renderEnding(root,state,{storage}={}){
   add('p','score-breakdown',t('Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles}').replace('{cards}',r.cards).replace('{road}',r.road).replace('{goals}',goalPts).replace('{titles}',titlePts));
   {const sc=svg('svg',{viewBox:'0 0 280 58',class:'score-scurve',role:'img','aria-label':t('S-curve of life: infancy, growth, maturity')});
    sc.append(svg('path',{d:'M16 44 C72 44, 104 14, 184 14 L264 14',fill:'none',stroke:'#b4b9a9','stroke-width':1.2,'stroke-dasharray':'3 3'}));
-   const sx=a=>16+Math.min(80,Math.max(0,a))/80*248,sy=a=>44-30/(1+Math.exp(-(a-28)/9));
-   const livedPts=rows.map(rw=>`${sx(rw.age).toFixed(1)},${(44-(Math.min(100,Math.max(0,(rw.wellbeing+rw.health)/2))/100)*30).toFixed(1)}`).join(' ');
+   const sx=a=>16+Math.min(80,Math.max(0,a))/80*248,sy=rw=>44-Math.min(100,Math.max(0,(rw.wellbeing+rw.health)/2))/100*30;
+   const livedPts=rows.map(rw=>`${sx(rw.age).toFixed(1)},${sy(rw).toFixed(1)}`).join(' ');
    if(rows.length>1)sc.append(svg('polyline',{points:livedPts,fill:'none',stroke:'#a35d00','stroke-width':2}));
-   sc.append(svg('circle',{cx:sx(state.age),cy:sy(state.age),r:3.5,fill:'#a35d00'}));
+   if(rows.length){const last=rows.at(-1);sc.append(svg('circle',{cx:sx(last.age),cy:sy(last),r:3.5,fill:'#a35d00'}));}
    for(const [ax,lbl] of [[16,'Infancy'],[96,'Growth'],[196,'Maturity']])sc.append(svg('text',{x:ax,y:55,class:'ending-tick'},t(lbl)));
    box.append(sc);}
   const finalCash=state.finance?netWorth(state.finance):state.cash;
-  const hasLovedOnes=Boolean(state.pivotFlags?.married||state.story?.flags?.married||state.story?.flags?.child||(state.pivots??[]).some(p=>['legacy','empty-house','take-in'].includes(p.pivot)));
-  if(finalCash>0)add('p','score-evaporate',hasLovedOnes?t('Legacy for loved ones: {cash} · Time + labor converted into +{cards} experience pts.').replace('{cash}',money(finalCash)).replace('{cards}',r.cards+r.road):t('Unspent cash ({cash}) evaporates at death — spend on experiences while you live.').replace('{cash}',money(finalCash)));
+  if(finalCash>0)add('p','score-evaporate',t('Money remaining: {cash}').replace('{cash}',money(finalCash)));
   const shocks=(state.story?.seen??[]).filter(e=>/^(d_|s_)|drunk_keys|divorce_papers/.test(e.id)).length;
   const impulses=(state.stops??[]).length+(state.bucket?.done??[]).length+(state.story?.seen??[]).filter(e=>['all','drive','fight','passion','politics','seize','sing'].includes(e.choice)).length;
   add('p','score-impulse',shocks<=1&&impulses===0&&r.cards<=10?t('Human impulse gauge: Ultra-safe · You dodged every crash, court, and heartbreak — and lived the most boring life possible.'):t('Human impulse gauge: {s} shocks weathered · {i} bold or foolish leaps — you survived the hard parts and lived for real.').replace('{s}',shocks).replace('{i}',impulses));

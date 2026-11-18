@@ -34,13 +34,7 @@ import {rememberedMoments} from './recap.js';
 import {newStory,encounterById,storyContext,storyText,resolveEncounter,setFamiliar,familiarIds} from './encounters.js';
 import {metScenes,rememberScenes} from './scene-memory.js';
 import {availablePathways,PATHWAYS} from './pathways.js';
-// Lazy-loaded pivots module
-let pendingPivots = () => [];
-let pivotById = () => null;
-let applyPivot = (s) => s;
-let locksFor = () => ({});
-let openOptions = () => [];
-let ERAS = {};
+import {pendingPivots,pivotById,applyPivot,locksFor,openOptions,ERAS} from './pivots.js';
 import {verdictTitle} from './life-verdict.js';
 import {periodLine} from './period-ledger.js';
 import {keepPoint,forgetAfter,metFor,pointAges,goBack,timesBack} from './checkpoints.js';
@@ -63,21 +57,10 @@ import {paletteFor,setPalette} from './palettes.js';
 import {ikigai} from './ikigai.js';
 import {holdingsValue} from './investments.js';
 import {routine,routineContext,routineCaption} from './routines.js';
-// Lazy-loaded thai-history module
-let thaiEraForState = () => null;
-let HISTORICAL_COHORTS = {};
-let birthYearOf = () => null;
+import {thaiEraForState,HISTORICAL_COHORTS,birthYearOf} from './thai-history.js';
 import {headlinesFor} from './world-headlines.js';
 import {worldLine as worldLineParts} from './world-line.js';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let state,age=0,speed=2,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,mode='world',tab='priorities',travel=null,elapsed=0,lastTime=0,lastPaint=0,dirty=true,saveOK=true,lastCheckpoint=0,arrival=0,childView=null,lastVisibleYear=-1;
-// Lazy-load heavy modules after first paint
-let _pivotsLoaded=false,_thaiLoaded=false;
-const loadHeavyModules=async()=>{
-  if(!_pivotsLoaded){const m=await import('./pivots.js');pendingPivots=m.pendingPivots;pivotById=m.pivotById;applyPivot=m.applyPivot;locksFor=m.locksFor;openOptions=m.openOptions;ERAS=m.ERAS;_pivotsLoaded=true;}
-  if(!_thaiLoaded){const m=await import('./thai-history.js');thaiEraForState=m.thaiEraForState;HISTORICAL_COHORTS=m.HISTORICAL_COHORTS;birthYearOf=m.birthYearOf;_thaiLoaded=true;dirty=true;}
-};
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(()=>loadHeavyModules(),30000));
-else setTimeout(()=>loadHeavyModules(),30000);
 // Device scene memory is set before the first scene is offered on load (journey restore included).
 setFamiliar(metScenes());
 let store=null;try{store=localStorage;}catch{}const saved=readSave(store,validate);saveOK=saved.storage;const unreadable=saved.unreadable;const requested=new URL(location.href);

@@ -7535,4 +7535,5 @@ export default new Map([
   ["You are recovering from the birth. Your classes have already started.", "คุณกำลังพักฟื้นหลังคลอด แต่ชั้นเรียนเริ่มไปแล้ว"],
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "คนรักกำลังพักฟื้นหลังคลอด คุณต้องเข้ากะอีกทีพรุ่งนี้"],
   ["Last time you chose “{answer}”.", "ครั้งก่อนคุณเลือก “{answer}”"],
+  ["Money remaining: {cash}", "เงินที่เหลืออยู่: {cash}"],
 ]);

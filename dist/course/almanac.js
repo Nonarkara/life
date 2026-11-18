@@ -1,5 +1,6 @@
 // Cross-life discovery journal stored locally in the browser: tracks which
 // callings, Tokaido road stops, and real-world field notes a player has unlocked.
+import {lifeId} from './lives.js';
 import {ROUTE_DATA} from './route-data.js';
 
 export const ALMANAC_KEY='life-almanac-v1',TOTAL_STOPS=18;
@@ -7,19 +8,22 @@ export const ALMANAC_KEY='life-almanac-v1',TOTAL_STOPS=18;
 export function readAlmanac(storage){
  try{
   const raw=JSON.parse(storage?.getItem(ALMANAC_KEY));
-  if(!raw||typeof raw!=='object')return {routes:[],stops:[],notes:[],bestScore:0,lives:0};
+  if(!raw||typeof raw!=='object')return {routes:[],stops:[],notes:[],endings:[],bestScore:0,lives:0};
   return {
    routes:Array.isArray(raw.routes)?raw.routes.filter(x=>typeof x==='string'):[],
    stops:Array.isArray(raw.stops)?raw.stops.filter(x=>typeof x==='string'):[],
    notes:Array.isArray(raw.notes)?raw.notes.filter(x=>typeof x==='string'):[],
+   endings:Array.isArray(raw.endings)?raw.endings.filter(x=>typeof x==='string').slice(-1000):[],
    bestScore:Number.isFinite(raw.bestScore)?raw.bestScore:0,
    lives:Number.isInteger(raw.lives)?raw.lives:0
   };
- }catch{return {routes:[],stops:[],notes:[],bestScore:0,lives:0};}
+ }catch{return {routes:[],stops:[],notes:[],endings:[],bestScore:0,lives:0};}
 }
 
 export function recordAlmanac(storage,state,{routeId=null,score=0,noteIds=[]}={}){
  const cur=readAlmanac(storage);
+ const id=state?.stage==='recap'?lifeId(state):null;
+ const counted=id&&!cur.endings.includes(id);
  const routes=new Set(cur.routes);
  if(routeId)routes.add(routeId);
  // Also record any route whose scenes were played in this life.
@@ -36,7 +40,8 @@ export function recordAlmanac(storage,state,{routeId=null,score=0,noteIds=[]}={}
   stops:[...stops],
   notes:[...notes],
   bestScore:Math.max(cur.bestScore,Number.isFinite(score)?score:0),
-  lives:cur.lives+1
+  endings:counted?[...cur.endings,id].slice(-1000):cur.endings,
+  lives:cur.lives+(counted?1:0)
  };
  try{storage?.setItem(ALMANAC_KEY,JSON.stringify(next));}catch{}
  return {...next,totalRoutes:ROUTE_DATA.length,totalStops:TOTAL_STOPS};

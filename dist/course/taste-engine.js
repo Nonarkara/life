@@ -7,36 +7,43 @@ import {newLife,configureLife,validate,CLASS_KEYS} from './sim.js';
 import {CLASS_REGIONS} from './regions.js';
 import {COHORT_YEARS} from './thai-history.js';
 import {routeOf} from './life-routes.js';
-import {rand} from './rand.js';
+import {lifeId} from './lives.js';
 
 export const TASTE_KEY='life-taste-v1';
 const ERAS=COHORT_YEARS.filter(y=>y<2026);
 const SEXES=['female','male'];
+const list=(value,check,limit=200)=>Array.isArray(value)?[...new Set(value.filter(check))].slice(-limit):[];
+const natural=value=>Number.isSafeInteger(value)&&value>=0?value:0;
+const empty=()=>({weights:{risk:0,craft:0,power:0,heart:0,wander:0},seeds:[],routes:[],eras:[],regions:[],endings:[],lives:0});
 
 export function readTaste(storage){
  try{
   const raw=JSON.parse(storage?.getItem(TASTE_KEY));
-  if(!raw||typeof raw!=='object')return {weights:{risk:0,craft:0,power:0,heart:0,wander:0},seeds:[],routes:[],eras:[],lives:0};
+  if(!raw||typeof raw!=='object')return empty();
   const w=raw.weights??{};
   return {
    weights:{
-    risk:Number(w.risk)||0,
-    craft:Number(w.craft)||0,
-    power:Number(w.power)||0,
-    heart:Number(w.heart)||0,
-    wander:Number(w.wander)||0
+    risk:Number.isFinite(w.risk)?Math.max(0,w.risk):0,
+    craft:Number.isFinite(w.craft)?Math.max(0,w.craft):0,
+    power:Number.isFinite(w.power)?Math.max(0,w.power):0,
+    heart:Number.isFinite(w.heart)?Math.max(0,w.heart):0,
+    wander:Number.isFinite(w.wander)?Math.max(0,w.wander):0
    },
-   seeds:Array.isArray(raw.seeds)?raw.seeds.filter(Number.isInteger).slice(-200):[],
+   seeds:list(raw.seeds,Number.isSafeInteger),
    routes:Array.isArray(raw.routes)?raw.routes.filter(x=>typeof x==='string'):[],
-   eras:Array.isArray(raw.eras)?raw.eras.filter(Number.isInteger):[],
-   lives:Number.isInteger(raw.lives)?raw.lives:0
+   eras:list(raw.eras,Number.isInteger),
+   regions:list(raw.regions,x=>typeof x==='string'),
+   endings:list(raw.endings,x=>typeof x==='string',1000),
+   lives:natural(raw.lives)
   };
- }catch{return {weights:{risk:0,craft:0,power:0,heart:0,wander:0},seeds:[],routes:[],eras:[],lives:0};}
+ }catch{return empty();}
 }
 
 export function recordTaste(storage,state){
  const cur=readTaste(storage);
- if(!state)return cur;
+ if(state?.stage!=='recap')return cur;
+ const id=lifeId(state);
+ if(cur.endings.includes(id))return cur;
  const w={...cur.weights};
  const seen=state.story?.seen??[];
  for(const e of seen){
@@ -56,7 +63,8 @@ export function recordTaste(storage,state){
  const routes=r?[...new Set([...cur.routes,r])]:cur.routes;
  const by=state.intake?.birthYear;
  const eras=Number.isInteger(by)?[...new Set([...cur.eras,by])]:cur.eras;
- const next={weights:w,seeds,routes,eras,lives:cur.lives+1};
+ const regions=[...new Set([...cur.regions,state.birth?.region].filter(Boolean))];
+ const next={weights:w,seeds,routes,eras,regions,endings:[...cur.endings,id].slice(-1000),lives:cur.lives+1};
  try{storage?.setItem(TASTE_KEY,JSON.stringify(next));}catch{}
  return next;
 }
@@ -90,8 +98,8 @@ export function playerSlotBirth(slot){
  return validate(life)?{...life,playerSlot:n+1}:configureLife(newLife(seed+1),{birthYear,class:cls,sex});
 }
 
-// Adaptive next birth: avoids already-played seeds, eras, and routes while leaning toward
-// classes/eras that open callings matching the player's learned taste.
+// Use the ordinary birth draw so era, place, class and household selections keep
+// their existing meaning. Rank a small pool by discovered interests and novelty.
 export function drawAdaptiveBirth(storage,fallbackDraw){
  const taste=readTaste(storage);
  if(!taste.lives)return fallbackDraw();
@@ -103,19 +111,20 @@ export function drawAdaptiveBirth(storage,fallbackDraw){
   heart:['low_class','working_class','middle_class'],
   wander:['middle_class','bureaucratic_class','high_class']
  }[dom]??CLASS_KEYS;
- const unseenEras=ERAS.filter(y=>!taste.eras.includes(y));
- const poolEras=unseenEras.length?unseenEras:ERAS;
- const birthYear=poolEras[(taste.lives*3)%poolEras.length];
- const cls=preferredClasses[taste.lives%preferredClasses.length];
- const regions=CLASS_REGIONS[cls]??['bangkok'];
- const region=regions[(taste.lives*5)%regions.length];
- for(let i=0;i<60;i++){
-  const seed=200009+(taste.lives*9973)+(i*7919);
-  if(taste.seeds.includes(seed))continue;
-  const life=configureLife(newLife(seed),{birthYear,class:cls,region,sex:SEXES[(taste.lives+i)%2]});
-  const r=routeOf(life);
-  if(r&&taste.routes.includes(r)&&i<40)continue;
-  if(validate(life))return {...life,novelty:true};
+ let best=null,bestScore=-Infinity;
+ for(let i=0;i<24;i++){
+  const life=fallbackDraw();
+  if(!validate(life)||taste.seeds.includes(life.seed))continue;
+  const route=routeOf(life);
+  const score=(!taste.eras.includes(life.intake?.birthYear)?4:0)+
+   (!taste.regions.includes(life.birth?.region)?3:0)+
+   (route&&!taste.routes.includes(route)?2:0)+
+   (preferredClasses.includes(life.intake?.class)?1:0);
+  if(score>bestScore){best=life;bestScore=score;}
  }
- return fallbackDraw();
+ if(!best)best=fallbackDraw();
+ // Reserve the draw independently of the finished-life count. A reroll or a
+ // reload before the next ending must not deal the same recorded seed again.
+ try{storage?.setItem(TASTE_KEY,JSON.stringify({...taste,seeds:[...new Set([...taste.seeds,best.seed])].slice(-200)}));}catch{}
+ return {...best,novelty:true};
 }

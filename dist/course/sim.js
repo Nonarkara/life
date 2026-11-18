@@ -42,7 +42,17 @@ export function transfer(p,key,delta,minima={}){
 export const defaultProfile=()=>({drink:'no',smoke:'no',religion:'explore',intimacy:'unsure',aim:'balance'});
 // One view of what a life has decided: the encounters write the story's flags,
 // the questions write their own, and the world reads them together.
-export const flagsOf=state=>{const flags={};for(const source of [state?.story?.flags,state?.pivotFlags,bucketFlags(state),lifeEventFlags(state)])for(const[k,v]of Object.entries(source??{}))flags[k]=typeof v==='number'&&typeof flags[k]==='number'?Math.max(flags[k],v):v;return flags;};
+export const flagsOf=state=>{
+ const flags={};
+ const sources=[state?.story?.flags,state?.pivotFlags,bucketFlags(state),lifeEventFlags(state)];
+ for(const source of sources)for(const[key,value]of Object.entries(source??{})){
+  flags[key]=typeof value==='number'&&typeof flags[key]==='number'?Math.max(flags[key],value):value;
+ }
+ // Read the recorded decision so older saves gain the same household meaning.
+ const divorce=state?.story?.seen?.find(event=>event.id==='b_divorce_papers'&&event.age<=state.age);
+ if(divorce)flags.separated=Math.max(flags.separated??0,divorce.age);
+ return flags;
+};
 // A commitment made at a question holds for the five years that follow: the
 // axis cannot be spent below the number the answer promised.
 export function lockedEffort(s){

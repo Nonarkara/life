@@ -3094,3 +3094,5 @@ phrases.push(...ERA_SCENARIO_PHRASES);
 phrases.push(...ROUTE_BRANCH_PHRASES);
 
 for(const row of [...JULY_PHRASES,...FAMILY_FORK_PHRASES])if(!phrases.some(existing=>existing[0]===row[0]))phrases.push(row);
+
+phrases.push(['Money remaining: {cash}','เงินที่เหลืออยู่: {cash}','剩余资金：{cash}','残ったお金：{cash}','남은 돈: {cash}']);

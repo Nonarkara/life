@@ -11,7 +11,7 @@ import {drawBirth} from '../course/birth-draw.js';
 import {readLives} from '../course/lives.js';
 import {almanacSummary} from '../course/almanac.js';
 import {familyRecord} from '../course/family-record.js';
-import {readTaste,dominantTaste,playerSlotBirth} from '../course/taste-engine.js';
+import {drawAdaptiveBirth,playerSlotBirth} from '../course/taste-engine.js';
 import {deliverShare,copyShare} from '../course/share-result.js';
 let points=balanced(),selected='physique',shareRevision=0;const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 function node(tag,attrs,text){const el=document.createElementNS(NS,tag);for(const[key,value]of Object.entries(attrs))el.setAttribute(key,value);if(text!==undefined)el.textContent=text;return el;}
@@ -44,10 +44,10 @@ function card(life){
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }
-function enter(options,fresh=false){try{lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;}catch{$('intake-error').textContent=t('Try again');}}
+function enter(options,fresh=false){try{lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=fresh?drawAdaptiveBirth(localStorage,()=>drawBirth(options,{previous,varied})):drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;}catch{$('intake-error').textContent=t('Try again');}}
 $('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/';}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
 $('birth-edit').onclick=()=>{$('birth-card').close();$('birth-era').focus();};
-$('birth-again').onclick=()=>{try{drawn=drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
+$('birth-again').onclick=()=>{try{drawn=varied?drawAdaptiveBirth(localStorage,()=>drawBirth(lastOptions,{previous,varied})):drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
 // family and place with the same luck, and chooses for themselves.
 export const birthLink=life=>birthURL(life);
@@ -104,7 +104,7 @@ function archive(){
 function invited(){
  const params=new URLSearchParams(location.search);
  const slot=params.get('player');
- if(slot&&Number(slot)>=1&&Number(slot)<=100){lastOptions={};drawn=playerSlotBirth(Number(slot));card(drawn);$('birth-card').showModal();return;}
+ if(!params.has('birth')&&/^(?:[1-9]|[1-9][0-9]|100)$/.test(slot??'')){lastOptions={};varied=true;drawn=playerSlotBirth(Number(slot));card(drawn);$('birth-again').hidden=true;$('birth-card').showModal();return;}
  const asked=params.get('birth');if(!asked){if(params.get('next')==='1')enter({},true);return;}
  const daily=asked==='daily',day=dayOf(),life=daily?{...dailyLife(day),dailyDay:day}:decodeBirth(asked);
  if(life&&!daily){const claimed=new URLSearchParams(location.search).get('day');if(claimed&&dailyDateFor({...life,dailyDay:claimed}))life.dailyDay=claimed;}

@@ -7535,4 +7535,5 @@ export default new Map([
   ["You are recovering from the birth. Your classes have already started.", "출산 후 회복 중인데 수업은 이미 시작됐습니다."],
   ["Your partner is recovering from the birth. Your next shift starts tomorrow.", "상대는 출산 후 회복 중입니다. 당신의 다음 근무는 내일 시작됩니다."],
   ["Last time you chose “{answer}”.", "지난번에는 “{answer}”을 선택했습니다."],
+  ["Money remaining: {cash}", "남은 돈: {cash}"],
 ]);

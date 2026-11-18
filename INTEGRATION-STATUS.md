@@ -291,3 +291,28 @@ checks the contrast alone. The gate's first hard find: 34 phone controls under
 44×44 (§21). Fixed with 44px touch targets on a phone, the visuals unchanged.
 The contrast engine was reading the wrong surface and the year check ran while a
 decision held the screen; both repaired. 358 tests pass.
+
+## 18 November 2026 · repeat play and startup stabilization
+
+The roster has 100 distinct starting seeds across eight historical cohorts
+(1949–2000). These are deterministic births. Each slot keeps its birth code
+and does not represent a separately researched canonical biography.
+
+The 30-second delayed stubs in game.js allowed a resumed review to advance
+without its questions or calendar year. Pivot and history imports now exist
+before the first render. The browser regression is
+ tests/fixtures/startup-question-probe.mjs, with BASE and PLAYWRIGHT_MODULE.
+
+Finished endings now teach taste and count in the Almanac once per ending
+identity. Fresh random intake and rerolls use adaptive draws, with the normal
+birth drawer enforcing selected conditions. Birth links take precedence over
+player-slot queries. Existing taste totals are retained; earlier duplicate
+contributions cannot be reconstructed from the stored aggregate weights.
+
+Divorce is offered to couples and the recorded answer changes the household
+thereafter, including older saves. The ending endpoint uses its actual last
+metric; remaining money is labelled as a balance.
+
+Validation includes 577 tests, the 5,400-life full-life fuzz, the startup browser
+regression, and independent phone/desktop browser checks of ending reloads,
+adaptive intake, player slots and exact birth-code precedence.
