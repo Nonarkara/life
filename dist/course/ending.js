@@ -18,6 +18,17 @@ import {STOPS} from './life-collection.js';
 import {scoreLife} from './life-collection.js';
 import {recordAlmanac} from './almanac.js';
 import {recordTaste,dominantTaste} from './taste-engine.js';
+// A row that says zero is a row that takes space and says nothing. Sentences are
+// written as clauses joined by ' · '; a clause whose own count is zero is dropped
+// from the line, in whatever language the reader chose.
+export function withoutZeroClauses(template,counts){
+ const clauses=String(template).split(' · ');
+ const kept=clauses.filter(clause=>{
+  const hit=counts.find(([key])=>clause.includes('{'+key+'}'));
+  return !hit||hit[1]!==0;
+ });
+ return kept.join(' · ');
+}
 import {encounterById,storyText,ENCOUNTERS} from './encounters.js';
 import {metScenes} from './scene-memory.js';
 import {kitchenFeeds} from './diorama-plan.js';
@@ -156,7 +167,8 @@ export function renderEnding(root,state,{storage}={}){
  {const r=scoreLife(state),box=document.createElement('section');box.className='ending-score';const add=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;n.textContent=text;box.append(n);return n;};let best=0;try{best=Number(storage?.getItem('life-best-score'))||0;if(r.total>best)storage?.setItem('life-best-score',String(r.total));}catch{}
   add('p','score-total',String(r.total));add('p','score-of',best&&r.total<=best?t('Your best is {n}. You could do this differently.').replace('{n}',best):t('Your best life so far.'));
   const goalPts=r.goals.reduce((n,g)=>n+(g.met?g.pts:0),0),titlePts=r.titles.length*3;
-  add('p','score-breakdown',t('Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}').replace('{cards}',r.cards).replace('{road}',r.road).replace('{goals}',goalPts).replace('{titles}',titlePts).replace('{balance}',r.balance.bonus));
+  const breakdown=withoutZeroClauses(t('Experiences +{cards} · Road stops +{road} · Goals +{goals} · Titles +{titles} · Balance +{balance}'),[['cards',r.cards],['road',r.road],['goals',goalPts],['titles',titlePts],['balance',r.balance.bonus]]);
+  if(breakdown)add('p','score-breakdown',breakdown.replace('{cards}',r.cards).replace('{road}',r.road).replace('{goals}',goalPts).replace('{titles}',titlePts).replace('{balance}',r.balance.bonus));
   {const sc=svg('svg',{viewBox:'0 0 280 58',class:'score-scurve',role:'img','aria-label':t('S-curve of life: infancy, growth, maturity')});
    sc.append(svg('path',{d:'M16 44 C72 44, 104 14, 184 14 L264 14',fill:'none',stroke:'#b4b9a9','stroke-width':1.2,'stroke-dasharray':'3 3'}));
    const sx=a=>16+Math.min(80,Math.max(0,a))/80*248,sy=rw=>44-Math.min(100,Math.max(0,(rw.wellbeing+rw.health)/2))/100*30;
@@ -169,19 +181,21 @@ export function renderEnding(root,state,{storage}={}){
   if(finalCash>0)add('p','score-evaporate',t('Money remaining: {cash}').replace('{cash}',money(finalCash)));
   const shocks=(state.story?.seen??[]).filter(e=>/^(d_|s_)|drunk_keys|divorce_papers/.test(e.id)).length;
   const impulses=(state.stops??[]).length+(state.bucket?.done??[]).length+(state.story?.seen??[]).filter(e=>['all','drive','fight','passion','politics','seize','sing'].includes(e.choice)).length;
-  add('p','score-impulse',shocks<=1&&impulses===0&&r.cards<=10?t('Human impulse gauge: Ultra-safe · You dodged every crash, court, and heartbreak — and lived the most boring life possible.'):t('Human impulse gauge: {s} shocks weathered · {i} bold or foolish leaps — you survived the hard parts and lived for real.').replace('{s}',shocks).replace('{i}',impulses));
+  const gauge=shocks<=1&&impulses===0&&r.cards<=10?t('Human impulse gauge: Ultra-safe · You dodged every crash, court, and heartbreak — and lived the most boring life possible.'):withoutZeroClauses(t('Human impulse gauge: {s} shocks weathered · {i} bold or foolish leaps — you survived the hard parts and lived for real.'),[['s',shocks],['i',impulses]]).replace('{s}',shocks).replace('{i}',impulses);
+  if(gauge)add('p','score-impulse',gauge);
   if(r.balance)add('p','score-balance',t('Decision themes: {k}/5 · Most: {max} · Least: {min}').replace('{k}',r.balance.active).replace('{max}',t(r.balance.strongest)).replace('{min}',t(r.balance.thinnest)));
   {const album=document.createElement('details'),summary=document.createElement('summary');summary.textContent=t('What you kept from this life');album.append(summary);
    const entries=buildCV(state);for(const entry of entries){const line=document.createElement('p');line.textContent=(entry.from===entry.to?t('Age')+' '+entry.from:entry.from+'–'+entry.to)+' · '+t(entry.label)+(entry.days!==undefined?' · '+t('Time: {days} d · Spent: {cash}').replace('{days}',entry.days).replace('{cash}',money(entry.cost)):'');album.append(line);}
    for(const stop of state.stops??[]){if(!STOPS[stop.id])continue;const line=document.createElement('p');line.textContent=t('Age')+' '+stop.age+' · '+t(STOPS[stop.id].label);album.append(line);}
    if(!entries.length&&!(state.stops??[]).length){const line=document.createElement('p');line.textContent=t('Nothing recorded yet.');album.append(line);}
-   const sets=document.createElement('p');sets.textContent=t('Journey sets +{n}').replace('{n}',r.setBonus);album.append(sets);box.append(album);}
+   const sets=document.createElement('p');if(r.setBonus)sets.textContent=t('Journey sets +{n}').replace('{n}',r.setBonus);album.append(sets);box.append(album);}
   const ul=document.createElement('ul');ul.className='score-goals';for(const g of r.goals){const li=document.createElement('li');li.textContent=(g.met?'✓ ':'✗ ')+t(g.label)+(g.met?' +'+g.pts:'');ul.append(li);}box.append(ul);
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
   const learned=lifeNotes(state);
   const alm=recordAlmanac(storage,state,{score:r.total,noteIds:learned.map(x=>x.id)});
-  add('p','score-almanac',t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes').replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length));
+  const almanac=withoutZeroClauses(t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes'),[['r',alm.routes.length],['s',alm.stops.length],['n',alm.notes.length]]);
+  if(almanac)add('p','score-almanac',almanac.replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length));
   const taste=recordTaste(storage,state),dom=dominantTaste(taste);
   add('p','score-taste',t('Taste engine: learned from {n} lives ({style}) — next life tuned to what you explore.').replace('{n}',taste.lives).replace('{style}',t(dom.label)));
   {const nextLink=document.createElement('a');nextLink.className='ending-rewind';nextLink.href='../intake/?next=1';nextLink.textContent=t('Play next tuned life →');box.append(nextLink);}

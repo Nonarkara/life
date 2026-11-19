@@ -22,6 +22,10 @@
 .personal-console.is-review .allocation-heading{margin:3px 0 5px}
 .personal-console.is-review .tabs{margin:0 0 3px}
 .latest-event{margin:5px 0}.latest-event>summary{font-size:calc(11px * var(--reading-scale));cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+/* The disclosure is a label, not a band. It must hug its own words: a row that
+   spans the screen to hold fifty-three pixels of text is a spatial
+   hallucination, and it was measured at 37.8x its text on a 1024px screen. */
+.latest-event>summary{width:max-content;max-width:100%;justify-content:flex-start}
 .personal-console .latest-event #last-event{margin:5px 0}
 .personal-console .encounter-choice{max-width:min(100%,30ch);overflow-wrap:anywhere}
 

@@ -5,6 +5,71 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
+## 19 November 2026 · Pooled audit of six days of agent work, then what measurement could prove (build ecd5511e8cf8)
+
+One integration writer audited the pooled work on `origin/main` (`cc6d266`, 146 files,
++44,945/−349) and then changed only what was measured on the served tree. Live build
+`ecd5511e8cf8` on https://life.nonarkara.org (deployment `f48151db`). Tests 598/598 pass.
+
+**Corrected — three reports that were wrong, and the code that made them wrong**
+
+- *The classroom proof was false.* `scripts/verify-truth.mjs` waited for a caption the
+  live app never prints (`Daytime · at school.`) and then printed success without ever
+  asserting its own regex. It now asserts and fails loudly; the classroom case fails
+  today (`FAIL the student sits in the classroom 1440`, caption `Daytime · at school.`).
+  The upstream seated-student fix (`9e3397e`) landed in `dist/course/stage2d.js`, which
+  the served app does not execute: the only import of that module is `{placeOf}` in
+  `diorama-plan.js:9`, and `roleFor`, `drawStage2D`, `paintedCovers`, `describePaintedScene`
+  and `MOMENT_CAPTIONS` are referenced nowhere else in `dist/`. The live classroom is the
+  3D diorama, where students are seated at desks (`review/truth/truth-classroom-1440.png`).
+- *SpriteCast receipts asserted work nobody did.* `scripts/generate-character.mjs` wrote
+  `status: "completed"`, `mshCompliant: true` and five finished pipeline steps without
+  running any of them; `scripts/verify-character.mjs` validated that fiction in
+  `review/characters/` instead of the receipt the build writes into
+  `out/course/characters/<id>/`. The generator now stages the spec and says plainly that
+  no sprite assets were produced; the verifier reads the built receipt and fails when a
+  receipt claims more than the files on disk prove. The fictional `test-char-01`
+  character is removed.
+- *The MSH instrument was blind below the fold.* `scripts/msh-audit.mjs` only measured
+  controls above the fold, so a 370×32 disclosure at y=848 in an 844 px viewport was
+  invisible to the gate. Geometry is now measured on every laid-out control.
+
+**Fixed and measured on the served tree**
+
+- *Intake entry view: 7,602 kB → 1,078 kB (−86%).* The intake bundle carried all four
+  language packs because bundling flattens dynamic imports into one file.
+  `scripts/build.mjs` now builds it with `splitting:true`, so the packs are lazy chunks.
+  Measured: `/intake/` 19 files, 1,078 kB (was 12 files, 7,602 kB).
+- *Study benches: 35 MB → 10 MB published.* Four benches now share one split chunk set
+  instead of four flat 20 MB bundles. `town-pick.js` 8.42 MB → 1.75 MB. `out/` 85 MB → 54 MB.
+- *"Latest event" was a band pretending to be a label.* The gate's 37.8× reading was a
+  metric artefact (transparent, borderless element), but the defect underneath was real:
+  the disclosure spanned 1004 px to hold 53 px of text and changed geometry 17× across
+  the 1280 breakpoint. The summary now hugs its words (`dist/course/personal-console.css`).
+  Same rule applied to the ending's full-width summaries (`dist/course/settings.css`).
+- *Ending rows of zeros removed.* `Experiences +26 · Road stops +0 · Goals +0 · Titles +0 ·
+  Balance +0`, `Human impulse gauge: 0 shocks weathered` and `Almanac: 0/26 callings ·
+  0/20 road stops · 0 field notes` are gone. A clause whose own count is zero is dropped
+  from the line in every language (`withoutZeroClauses` in `dist/course/ending.js`,
+  covered by `tests/course/ending-zero-rows.test.mjs`).
+- *Preview server dropped module imports.* `scripts/serve.py` ran a `ThreadingHTTPServer`
+  with the stock 5-slot listen backlog; Chrome's parallel module connections overflowed it
+  and the kernel reset the excess (`ERR_CONNECTION_RESET` on `boot.js` and `fonts.js`, so
+  every browser import failed). HTTP/1.1, backlog 128, broken-pipe tolerance. Zero resets
+  after the fix.
+
+**Open, with the next step named**
+
+- *Dead rectangle in the childhood stage (CLOSED — SwiftShader compositor artifact).*
+  At 1440×900 under `--use-gl=swiftshader`, Chromium's software compositor Y-flips
+  occlusion culling for the top-layer modal `<dialog class="decision-dialog">`
+  (`x 964–1424, y 679–884`), leaving an unblitted `#243436` rect at `x 964–1423, y 37–207`.
+  Verified live in hardware-accelerated Chrome: the schoolhouse, Thai flag, and canal bank
+  render cleanly with zero dead block. There is no rogue quad in `scene3d.js`.
+- *Five Playwright probes in `tests/fixtures/` run in no script and are in no `npm test`.*
+- *`ending.js` still has no DOM test* — only its pure functions are covered.
+- *`?player=N` and the 16 canonical lives have no entry point in the product.*
+
 ## 18 November 2026 · SpriteCast pipeline + per-language packs deployed (build 61f7713fc11a)
 
 Combined work from OpenCode (SpriteCast character pipeline) and Fable (per-language

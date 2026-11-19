@@ -1,13 +1,22 @@
 {
   "id": "visitor-a",
-  "generatedAt": "2026-11-17T17:22:43.177Z",
+  "generatedAt": "2026-11-19T09:04:39.044Z",
+  "pipeline": "spritecast",
   "steps": [
-    "3d-guide",
-    "render",
-    "style-redraw",
-    "fit-verify",
-    "anchor-shadow-bake"
+    "spec-validate"
   ],
-  "status": "completed",
-  "mshCompliant": true
+  "status": "spec-only",
+  "mshCompliant": false,
+  "msh": {
+    "fitThreshold": 0.75,
+    "anchorPoint": "between-feet",
+    "shadowPerFrame": true,
+    "spatialHonesty": "drawn-frames-fit-3d-renders"
+  },
+  "sources": {
+    "rig_glb": true,
+    "design": true
+  },
+  "note": "Spec staged. No sprite assets were produced: the rigs are static, so the game poses the 3D models procedurally at runtime. Run charpipe.py render → finish → pack to generate sprite strips, per-frame shadows and character.json.",
+  "outputDir": "review/characters/visitor-a"
 }

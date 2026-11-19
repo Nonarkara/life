@@ -9,6 +9,30 @@ Current audit evidence: [integration review](review/integration-oct28/REVIEW.md)
 
 ---
 
+# Current state — 19 November 2026
+
+Build `ecd5511e8cf8` is live at https://life.nonarkara.org (Cloudflare Pages project
+`life`, branch `main`, deployment `f48151db`). 598 tests pass.
+
+This release is the audit of six days of pooled agent work, followed by the fixes that
+measurement could prove. It carries: the intake entry view down from 7,602 kB to
+1,078 kB and the published output from 85 MB to 54 MB; the ending panel no longer
+prints rows of zeros; the "Latest event" disclosure hugs its words instead of spanning
+1,004 px; the preview server no longer drops module imports under parallel browser
+connections; the SpriteCast receipts and the classroom proof now tell the truth
+instead of asserting work that never ran.
+
+Not certified, and carried forward as open work: the dead rectangle in the childhood
+stage at wide viewports (6.1% of the viewport at 1440×900, geometry cause not yet
+identified); touch input on a real phone; frame rate on M3 hardware; human playtesting;
+the five Playwright probes in `tests/fixtures/` that run in no script.
+
+Evidence for this release is in [INTEGRATION-STATUS.md](INTEGRATION-STATUS.md), the
+19 November 2026 section, with rendered pixels under `review/msh-nov20b/` (local build)
+and `review/msh-live/` (live site).
+
+---
+
 # Release — 12 November 2026: a different life, a camera you can move
 
 Published source a036c2f, build 5b11e4b3887b, Cloudflare Pages deployment

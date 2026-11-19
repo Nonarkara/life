@@ -42,9 +42,13 @@ const build=async(page,stage)=>page.evaluate(async stage=>{
 },stage);
 const measure=()=>{
  const vis=e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>0&&r.height>0&&c.visibility!=='hidden'&&c.display!=='none'&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth;};
+ // A control below the fold is still a control the reader will reach by scrolling.
+ // The fold test above is for chrome and scrollers; geometry is measured on
+ // everything that is laid out, or the audit is blind to what is just off-screen.
+ const laid=e=>{const r=e.getBoundingClientRect(),c=getComputedStyle(e);return r.width>0&&r.height>0&&c.visibility!=='hidden'&&c.display!=='none';};
  const R=r=>[Math.round(r.left),Math.round(r.top),Math.round(r.width),Math.round(r.height)];
  const textRect=e=>{const g=document.createRange();g.selectNodeContents(e);const r=g.getBoundingClientRect();return r;};
- const controls=[...document.querySelectorAll('button,a,select,summary,input[type=number],[role=button]')].filter(vis).filter(e=>!e.closest('svg'));
+ const controls=[...document.querySelectorAll('button,a,select,summary,input[type=number],[role=button]')].filter(laid).filter(e=>!e.closest('svg'));
  const fat=controls.map(e=>{const b=e.getBoundingClientRect(),t=textRect(e);if(!t.width||!(e.innerText||'').trim())return null;return {t:(e.innerText||'').trim().slice(0,28),box:[Math.round(b.width),Math.round(b.height)],text:[Math.round(t.width),Math.round(t.height)],ax:+((b.width*b.height)/(t.width*t.height)).toFixed(1)};}).filter(Boolean).sort((a,b)=>b.ax-a.ax).slice(0,8);
  const small=controls.map(e=>({t:(e.innerText||e.getAttribute('aria-label')||'').trim().slice(0,20),h:Math.round(e.getBoundingClientRect().height),w:Math.round(e.getBoundingClientRect().width)})).filter(c=>c.h<32||c.w<24).slice(0,8);
  const scrollers=[document.scrollingElement,...document.querySelectorAll('*')].filter(e=>{const c=getComputedStyle(e);return e===document.scrollingElement||(/(auto|scroll)/.test(c.overflowY)&&vis(e));}).filter(e=>e.scrollHeight>e.clientHeight+2).map(e=>({e:e.id||e.className||e.tagName,client:e.clientHeight,scroll:e.scrollHeight,screens:+(e.scrollHeight/e.clientHeight).toFixed(2)})).slice(0,5);

@@ -29,13 +29,19 @@ mkdirSync(output+'/intake',{recursive:true});cpSync('dist/intake',output+'/intak
 
 mkdirSync(output+'/study',{recursive:true});cpSync('dist/study',output+'/study',{recursive:true});
 const {build}=await import('esbuild');
-await build({entryPoints:['dist/intake/intake.js'],bundle:true,minify:true,format:'esm',outfile:output+'/intake/intake.js'});
-await build({entryPoints:['dist/intake/town-pick.js'],bundle:true,minify:true,format:'esm',outfile:output+'/intake/town-pick.js'});
-await build({entryPoints:['dist/study/deck-edge.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/deck-edge.bundle.js'});
-await build({entryPoints:['dist/course/scene-study.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/scene-study.bundle.js'});
+// The intake entry is a module graph with per-language packs behind dynamic
+// imports. Bundled into one file those packs ship in the entry view; split, the
+// visitor downloads the entry and only the pack they actually read.
+await build({entryPoints:['dist/intake/intake.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/intake',entryNames:'intake',chunkNames:'chunk-[hash]'});
+// The town picker pulls in the 3D world and, through it, the language packs.
+// Bundled flat it carried all four packs (6.7 MB) into a file the visitor only
+// opens on request; split, it carries the world and fetches a pack if needed.
+await build({entryPoints:['dist/intake/town-pick.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/intake',entryNames:'town-pick',chunkNames:'chunk-[hash]'});
+// The four study benches share one world, one renderer and one set of language
+// packs. Built flat, each carried its own copy: 35 MB of published files for
+// four pages. Built together and split, the shared parts are fetched once.
+await build({entryPoints:['dist/study/deck-edge.js','dist/course/scene-study.js','dist/study/control-bench.js','dist/study/thai-life.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/study',entryNames:'[name].bundle',chunkNames:'chunk-[hash]'});
 await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',splitting:true,entryNames:'game.bundle',chunkNames:'chunk-[hash]',outdir:output+'/course'});
-await build({entryPoints:['dist/study/control-bench.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/control-bench.bundle.js'});
-await build({entryPoints:['dist/study/thai-life.js'],bundle:true,minify:true,format:'esm',outfile:output+'/study/thai-life.bundle.js'});
 writeBenchFixture();
 function writeBenchFixture(){
  const html=readFileSync('dist/course/index.html','utf8').replace(/(href|src)="(course|settings|console|personal-console|economy)\.css"/g,'$1="../course/$2.css"').replace('src="boot.js"','src="control-bench.bundle.js"').replace('src="fonts.js"','src="../course/fonts.js"');

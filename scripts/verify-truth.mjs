@@ -136,6 +136,7 @@ try {
     { life: student, file: 'classroom', width: 390, height: 844, want: /study path|tension/i, name: 'the student sits in the classroom' },
   ];
 
+  const failures = [];
   for (const plan of plans) {
     await client.send('Emulation.setDeviceMetricsOverride', { width: plan.width, height: plan.height, deviceScaleFactor: 1, mobile: plan.width < 500 });
     await client.send('Page.navigate', { url: BASE + '/build.json' });
@@ -144,9 +145,10 @@ try {
     await client.send('Page.navigate', { url: BASE + '/course/' });
     await wait(2500);
     // The life must be the one we built: a fresh birth means the save was not read.
+    let ageSeen = '';
     for (let tries = 0; tries < 4; tries++) {
-      const age = await client.evaluate(`document.getElementById('age')?.textContent ?? ''`);
-      if (age.includes('Age ' + plan.life.age)) break;
+      ageSeen = await client.evaluate(`document.getElementById('age')?.textContent ?? ''`);
+      if (ageSeen.includes('Age ' + plan.life.age)) break;
       await client.evaluate(`localStorage.setItem('life-course-v2', ${JSON.stringify(JSON.stringify(plan.life))}); true`);
       await client.send('Page.reload');
       await wait(2500);
@@ -160,10 +162,19 @@ try {
     const info = await client.evaluate(`(()=>({caption:document.getElementById('scene-caption')?.textContent?.trim()??'',headline:document.getElementById('world-headline')?.textContent?.trim()??'',age:document.getElementById('age')?.textContent??'',bar:Math.round(document.getElementById('childhood-memory')?.getBoundingClientRect().height??0)}))()`);
     const file = join(reviewDir, `truth-${plan.file}-${plan.width}.png`);
     await client.shot(file);
-    console.log(plan.name, plan.width, JSON.stringify(info), '->', file);
+    // A proof that cannot fail is not a proof. The caption must say the thing.
+    const ok = plan.want.test(caption) && ageSeen.includes('Age ' + plan.life.age);
+    if (!ok) failures.push(`${plan.name} @${plan.width}: caption "${caption}" age "${ageSeen}"`);
+    console.log(ok ? 'PASS' : 'FAIL', plan.name, plan.width, JSON.stringify(info), '->', file);
   }
   const errors = client.logs.filter(l => /EXCEPTION|error/i.test(l));
   console.log('console errors:', errors.length ? errors.slice(0, 8) : 'none');
+  if (failures.length) {
+    console.error('TRUTH FAILED:\n' + failures.join('\n'));
+    process.exitCode = 1;
+  } else {
+    console.log('TRUTH PASSED');
+  }
 } finally {
   chrome.kill();
   server?.kill();
