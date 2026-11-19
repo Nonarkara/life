@@ -21,7 +21,7 @@ export const DOORS={
  abroad:[['school-leave','go']],actor:[['school-leave','go']],
  taxi:[['school-apprentice','apprentice']],
  win_motorsai:[['school-apprentice','apprentice'],['school-fall-climb','rest-work']],
- rice_debt:[['temple-boy','stay']],
+ rice_debt:[['temple-boy','stay'],['village-buffalo','stay'],['school-apprentice','apprentice']],
  cadet:[['school-fall-climb','rise'],['school-apprentice','both']],
  tycoon:[['school-leave','send'],['school-apprentice','both']],
  far_scholar:[['school-apprentice','school'],['school-fall-climb','retrain']],

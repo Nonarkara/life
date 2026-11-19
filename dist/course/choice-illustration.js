@@ -1,4 +1,5 @@
 import {rand} from './rand.js';
+import {gait,spring,thaiRigSVG} from './ink-gait.js';
 
 const PAPER='#f2e8d1',INK='#253e36',CLAY='#a35439';
 const art={
@@ -17,7 +18,8 @@ const art={
    <path d="M71 38Q71 30 80 30h158q9 0 9 9v59q0 9-9 9H80q-9 0-9-9Z" fill="${sold?'#d99d73':'#a6b39e'}"/>
    <path d="M91 44h135v40H91Zm23 49h89l9 14H105Z" fill="${PAPER}"/>
    <circle cx="121" cy="63" r="11"/><circle cx="199" cy="63" r="11"/><path d="M132 60h56v6h-56m-11-14v22m78-22v22"/>
-   ${sold?'<path d="M72 78H54l-16 9 16 9h18" fill="'+CLAY+'"/><path d="M263 37v38m8-34v31m6-31v31m7-35v38m7-31v24"/>':'<path d="M247 75q27-15 48 0t31 0m-79 11q27-15 48 0t31 0" stroke="'+CLAY+'"/>'}`
+   ${sold?'<path d="M72 78H54l-16 9 16 9h18" fill="'+CLAY+'"/><path d="M263 37v38m8-34v31m6-31v31m7-35v38m7-31v24"/>':'<path d="M247 75q27-15 48 0t31 0m-79 11q27-15 48 0t31 0" stroke="'+CLAY+'"/>'}`,
+ walk:()=>`<path d="M24 108h292M64 108V56h62v52M60 56l35-20 35 20M86 108V82h18v26M238 108V42m0 0 24 6-24 8" fill="none"/>`
 };
 const outcomeAccent={fight:true,sign:true,sell:true};
 
@@ -34,5 +36,34 @@ export function choiceIllustration(motif,seed,answer,animate){
   return `M${x.toFixed(1)} ${y.toFixed(1)}h${7+i}`;
  }).join(' ');
  svg.innerHTML=`<rect width="340" height="130" fill="${PAPER}"/><path d="${lines}" stroke="#b8a88b"/><g fill="none" stroke="${INK}" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">${art[motif](outcomeAccent[answer.choice]===true)}</g>`;
+ if(motif==='walk'){
+  const actor=document.createElementNS('http://www.w3.org/2000/svg','g');
+  const age=answer?.age<15?'child':answer?.age>=60?'elder':'adult';
+  const sex=(seed%2)?'female':'male';
+  const walker=gait({kind:age==='elder'?'shuffle':'walk'});
+  const bag=spring(35,5,0);
+  const scale=0.82;
+  const drawFrame=(phase,x,go,wave,bagX)=>{
+   actor.setAttribute('transform',`translate(${x.toFixed(1)} 10) scale(${scale})`);
+   actor.innerHTML=thaiRigSVG(walker.pose(phase,go),{age,sex,accent:outcomeAccent[answer?.choice]?CLAY:'#a35d00',paper:PAPER,ink:INK,wave,bagSwing:bagX});
+  };
+  drawFrame(0.18,130,1,0,0);
+  svg.append(actor);
+  const reduced=typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(animate&&!reduced&&typeof requestAnimationFrame==='function'){
+   let phase=0,x=90,last=0,elapsed=0;
+   const tick=now=>{
+    if(!svg.isConnected)return;
+    const dt=last?Math.min(0.05,(now-last)/1000):0.016;last=now;elapsed+=dt;
+    const waving=elapsed>2.6&&elapsed<3.8;
+    const go=waving?0:1;
+    if(!waving){phase+=dt/walker.period;x+=walker.speed*scale*dt;if(x>255)x=85;}
+    const bagX=bag.step(waving?0:Math.sin(phase*Math.PI*2)*1.6,dt);
+    drawFrame(phase,x,go,waving?(elapsed-2.6)/1.2:0,bagX);
+    requestAnimationFrame(tick);
+   };
+   requestAnimationFrame(tick);
+  }
+ }
  return svg;
 }
