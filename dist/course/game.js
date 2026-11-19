@@ -22,7 +22,8 @@ import {resetProfileFields} from './profile-editor.js';
 import {deckFinance,deckBaht} from './deck-model.js';
 import {refreshMarketPrompt} from './market-evidence.js';
 import {MAJORS} from './life-choices.js';
-import {household,region,regionAt} from './regions.js';
+import {household,region,regionAt,appearance,regionIdFor} from './regions.js';
+import {outfitFor} from './moment-plan.js';
 import {initPersonalConsole} from './personal-console.js';
 import {initMusic} from './music.js';
 import {DISTRICTS} from './locations.js';
@@ -48,7 +49,7 @@ import {eventsFor,eventsForAccount,lifeMood} from './events.js';
 import {lifeMoodAt} from './events.js';
 import {symbolPaths,symbolMarkup} from './event-graphics.js';
 import {AXES,balanced,begin,transfer,live,replay,validate,sanitiseProfile,goals,rand,lockedEffort,projectedSkillGains} from './sim.js';
-import {choiceIllustration} from './choice-illustration.js';
+import {choiceIllustration,updateChoiceIllustrations} from './choice-illustration.js';
 import {drawWorld} from './world.js';
 import {bangkokDeparture,createDeparture,DEPARTURE_WINDOW} from './departure.js';
 import {drawDeck,arrangeDeck} from './life-deck.js';
@@ -326,7 +327,8 @@ function showResult(before,after,details={}){
  const scene=details.record?null:encounterById(seen?.id);
  if(scene?.art&&preferences.stage!=='isometric'){
   const motion=!preferences.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const illustration=choiceIllustration(scene.art,after.seed,seen,motion);
+  const sex=after.intake?.sex??after.birth?.sex??'female',look=appearance(rand,after.seed,'player',regionIdFor(after.birth),{sex}),dress=outfitFor(after,'player',sex,after.age,(birthYearOf(after)??1981)+after.age);
+  const illustration=choiceIllustration(scene.art,after.seed,seen,motion,{sex,look:{...look,shirt:dress.top,bottom:dress.bottom,skirt:!!dress.skirt,feet:dress.feet}});
   if(illustration)p.after(illustration);
  }
  const rehearse=scene?.rehearse;if(rehearse&&!details.record){const note=document.createElement('p');note.className='decision-rehearse';note.textContent=t(rehearse);box.append(note);}
@@ -403,6 +405,7 @@ function tick(now){
  const arrive=()=>{if(travel){const event=travel.to.history.at(-1)?.events?.find(e=>e.origin==='life'&&e.age<=age&&!(travel.handled??[]).includes(e.age+':'+e.id));if(event){age=event.age;travelEvent=event;render();return;}}if(state.stage==='birth'){const stop=nextChildAge(state);if(age>=stop&&stop<10){age=stop;render();return;}if(age>=10){state=begin(state);age=10;speed=Math.max(2,speed);tab='questions';render();keepPoint(store,state,true,familiarIds());focusChapter();}}else if(travel&&age>=travel.to.age){state={...travel.to,journey:undefined};travel=null;age=state.age;tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';if(state.stage==='recap')mode='course';render();keepPoint(store,state);focusChapter();}};
  if(animating){elapsed+=dt*rhythm.sceneSpeed;if(automatic&&childView===null){const rate=move&&age>=start?Math.min(rhythm.yearSpeed,.8):rhythm.yearSpeed;age+=dt*rate/(state.stage==='birth'?childYearSeconds(age):4);arrive();}}
  else if(!paused&&!rhythm.held&&automatic&&!motionAllowed){if(state.stage==='birth'&&age<5)age=Math.min(5,age+dt*rhythm.yearSpeed/childYearSeconds(age));else if(move&&age<move.since)age=Math.min(move.since,Math.max(start,age)+dt*DEPARTURE_WINDOW/3);else age=state.stage==='birth'?nextChildAge(state):travel.to.age;arrive();}
+ updateChoiceIllustrations(elapsed,animating&&!document.hidden);
  if(tutorialAge!==null&&tutorialAge<5&&age>=5)rememberTutorial();
  if(dirty||(state.stage==='birth'&&Math.floor(age)!==lastVisibleYear)||((animating||move&&!paused&&!rhythm.held)&&now-lastPaint>=40)){lastPaint=now;lastVisibleYear=Math.floor(age);setAge();setPalette(paletteFor(travel?.to??state,childView??age,undefined,{scenario:!travel&&tab==='questions'?pendingPivots(state)[0]?.id:undefined}));const camera=$('world-view').hidden?'follow':$('world-view').value;
  const progress=departureReplay?.progress??(move&&age>=start&&age<move.since?(age-start)/DEPARTURE_WINDOW:null);

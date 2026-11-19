@@ -1,72 +1,10 @@
 // Procedural skeletal gait, spring physics, and parametric Thai ink-rig renderer.
 // Analytic 2-bone IK gait and spring/pendulum primitives adapted from
 // JDhruv14/line-art-animation (MIT License).
-const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-const smooth=(e0,e1,x)=>{const t=clamp((x-e0)/(e1-e0),0,1);return t*t*(3-2*t);};
-const minJerk=s=>s*s*s*(10-15*s+6*s*s);
 const f=n=>n.toFixed(1);
 
-export const GAIT_PRESETS=Object.freeze({
- walk:{period:1.0,duty:.62,stride:24,lift:3.4,heelOff:15,heelKick:0,thigh:23,shin:23,ankleY:118.4,ground:120,toe:4.2},
- shuffle:{period:.9,duty:.64,stride:18,lift:2.4,heelOff:12,heelKick:0,thigh:23,shin:23,ankleY:116.5,ground:120,toe:4.2},
- run:{period:.5,duty:.36,stride:16,lift:12,heelOff:10,heelKick:3.5,thigh:13,shin:13,ankleY:118,ground:120,toe:3}
-});
-
-function solveKnee(hip,ankle,l1,l2){
- const dx=ankle[0]-hip[0],dy=ankle[1]-hip[1];
- const d=Math.max(1e-3,Math.min(Math.hypot(dx,dy),l1+l2-0.01));
- const th=Math.atan2(dy,dx);
- const al=Math.acos(clamp((l1*l1+d*d-l2*l2)/(2*l1*d),-1,1));
- const c1=[hip[0]+l1*Math.cos(th-al),hip[1]+l1*Math.sin(th-al)];
- const c2=[hip[0]+l1*Math.cos(th+al),hip[1]+l1*Math.sin(th+al)];
- return c1[0]>c2[0]?c1:c2;
-}
-
-export function gait(opts={}){
- const kind=opts.kind??'walk';
- const o={...GAIT_PRESETS[kind]??GAIT_PRESETS.walk,...opts,kind};
- const {period,duty,stride:S,lift,heelOff,heelKick,thigh,shin,ankleY,ground,toe}=o;
- const reach=(thigh+shin)*0.983;
- const restHip=ankleY-reach;
- const speed=S/(duty*period);
-
- function footAt(u){
-  u=((u%1)+1)%1;
-  if(u<duty){
-   const x=40+S/2-(S*u)/duty;
-   const peel=smooth(duty-0.14,duty,u);
-   const th=(heelOff*peel*Math.PI)/180;
-   const ankle=[x-toe*(1-Math.cos(th)),ankleY-toe*Math.sin(th)];
-   return {ankle,pitch:heelOff*peel,stance:true};
-  }
-  const s=(u-duty)/(1-duty);
-  const x=40-S/2+S*minJerk(s)-heelKick*Math.sin(Math.PI*s)*(1-s);
-  const y=ankleY-lift*Math.sin(Math.PI*s);
-  const pitch=heelOff*(1-smooth(0,0.45,s))-6*Math.sin(Math.PI*s);
-  return {ankle:[x,y],pitch,stance:false};
- }
-
- return {
-  ...o,speed,
-  pose(phase,go=1){
-   const g=clamp(go,0,1);
-   const raw=[footAt(phase),footAt(phase+0.5)];
-   const feet=raw.map((ft,i)=>{
-    const restX=40+(i===0?3:-3);
-    const ankle=[restX+(ft.ankle[0]-restX)*g,ankleY+(ft.ankle[1]-ankleY)*g];
-    return {ankle,pitch:ft.pitch*g,stance:g<0.05?true:ft.stance};
-   });
-   const stanceY=feet.filter(ft=>ft.stance).map(ft=>{
-    const dx=ft.ankle[0]-40;
-    return ft.ankle[1]-Math.sqrt(Math.max(4,reach*reach-dx*dx));
-   });
-   const hipY=stanceY.length?Math.max(...stanceY):restHip-lift*0.25*g;
-   const hip=[40,hipY];
-   const solved=feet.map(ft=>({...ft,knee:solveKnee(hip,ft.ankle,thigh,shin)}));
-   return {hip,feet:solved,front:solved[0].ankle[0]>=solved[1].ankle[0]?0:1,bob:hipY-restHip};
-  }
- };
-}
+// Keep one upstream solver; the MIT notice is in line-art/LICENSE.
+export {gait,GAIT_PRESETS} from './line-art/gait.js';
 
 export function spring(stiffness=40,damping=6,x=0){
  return {x,v:0,step(target,dt){this.v+=(stiffness*(target-this.x)-damping*this.v)*dt;this.x+=this.v*dt;return this.x;},kick(v){this.v+=v;}};
@@ -116,4 +54,47 @@ export function thaiRigSVG(pose,{age='adult',sex='female',accent='#a35439',paper
  const bag=age==='child'?`<path d="M${f(shoulder[0]-7+bagSwing)} ${f(shoulder[1]+4)}h6v10h-6Z" fill="#d99d73" stroke="${ink}" stroke-width="1.3"/>`:'';
  const cane=age==='elder'?`<path d="M${f(armFront[0])} ${f(armFront[1])}L${f(armFront[0]+6)} 120" fill="none" stroke="${ink}" stroke-width="1.6" stroke-linecap="round"/>`:'';
  return `<g>${leg(pose.feet[backIdx])}<path d="${abFill}" fill="${paper}"/><path d="${abStroke}" fill="none" stroke="${ink}" stroke-width="1.4" stroke-linecap="round"/>${bag}${leg(pose.feet[frontIdx])}<path d="${torso}" fill="${accent}" stroke="${ink}" stroke-width="1.5" stroke-linejoin="round"/><circle cx="${f(head[0])}" cy="${f(head[1])}" r="${f(headR)}" fill="${paper}" stroke="${ink}" stroke-width="1.5"/>${hair}<circle cx="${f(head[0]+2.5)}" cy="${f(head[1]-0.5)}" r="0.9" fill="${ink}"/><path d="${afFill}" fill="${paper}"/><path d="${afStroke}" fill="none" stroke="${ink}" stroke-width="1.5" stroke-linecap="round"/>${cane}</g>`;
+}
+
+
+// Create once; update attributes, never innerHTML or one RAF per person.
+export function createInkActor(profile){
+ const ns='http://www.w3.org/2000/svg',root=document.createElementNS(ns,'g'),nodes={};root.dataset.person=profile.id;
+ const make=(key,tag='path',parent=root)=>{const n=document.createElementNS(ns,tag);parent.append(n);nodes[key]=n;return n;};
+ const set=(node,attrs)=>{for(const[k,v]of Object.entries(attrs)){const value=String(v);if(node.getAttribute(k)!==value)node.setAttribute(k,value);}};
+ for(const side of ['back','front']){const group=make(side+'Leg','g');make(side+'LegFill','path',group);make(side+'LegInk','path',group);make(side+'Shoe','path',group);}
+ const backArm=make('backArm'),bag=make('bag'),torso=make('torso'),bottom=make('bottom'),strap=make('strap'),backHair=make('backHair'),neck=make('neck'),head=make('head','circle'),hair=make('hair'),nose=make('nose'),eye=make('eye','circle'),otherEye=make('otherEye','circle'),mouth=make('mouth'),frontArm=make('frontArm'),hand=make('hand','circle');
+ const ink='#253e36';for(const n of Object.values(nodes))set(n,{'stroke-linejoin':'round','stroke-linecap':'round'});
+ let frame=null;
+ function update(next){
+  frame=next;const {pose,shape,age,turn,wave}=next,hip=pose.hip,shoulder=[hip[0]+1.5*(1-turn),hip[1]-shape.torso],H=[shoulder[0]+.5*(1-turn),shoulder[1]-12],R=shape.head;
+  const front=pose.front,order=front===0?[1,0]:[0,1];
+  for(const [i,side]of ['back','front'].entries()){
+   const foot=pose.feet[order[i]],limb=openLimbPaths([hip,foot.knee,foot.ankle],(age<13?3.8:4.8)*profile.build);
+   set(nodes[side+'LegFill'],{d:limb.fill,fill:age<13||profile.skirt?profile.skin:profile.bottom});
+   set(nodes[side+'LegInk'],{d:limb.stroke,fill:'none',stroke:ink,'stroke-width':1.2});
+   const sole=next.ground-next.ankleY,toe=next.toe;
+   set(nodes[side+'Shoe'],{d:`M-2 -2L${f(toe-1)} -1.4Q${f(toe)} -.5 ${f(toe)} ${f(sole)}H-2Z`,transform:`translate(${foot.ankle.join(' ')}) rotate(${foot.pitch})`,fill:profile.shoes?ink:profile.skin,stroke:profile.shoes?'none':ink,'stroke-width':.7});
+  }
+  const sway=Math.sin(next.phase*Math.PI*2)*3*(1-turn),wide=(5.5+turn*2.5)*profile.build;
+  const backHand=[shoulder[0]-4-sway,shoulder[1]+18],wrist=[shoulder[0]+5+sway+wave*(8+Math.sin(next.time*14)*2),shoulder[1]+18-wave*34];
+  set(backArm,{d:openLimbPaths([[shoulder[0]-wide,shoulder[1]+3],[shoulder[0]-6,shoulder[1]+11],backHand],3).fill,fill:profile.skin,stroke:ink,'stroke-width':1.2});
+  set(bag,{d:`M${f(shoulder[0]-10+next.bagSwing)} ${f(shoulder[1]+4)}h8v13h-8Z`,fill:profile.bag,stroke:ink,'stroke-width':1.2});
+  set(torso,{d:`M${f(shoulder[0]-wide)} ${f(shoulder[1]+1)}Q${f(shoulder[0])} ${f(shoulder[1]-1)} ${f(shoulder[0]+wide)} ${f(shoulder[1]+1)}L${f(hip[0]+7)} ${f(hip[1]+5)}Q${f(hip[0])} ${f(hip[1]+7)} ${f(hip[0]-7)} ${f(hip[1]+5)}Z`,fill:profile.shirt,stroke:ink,'stroke-width':1.3});
+  const hem=age<13?12:25;const shorts=profile.skirt?`M${f(hip[0]-7)} ${f(hip[1]+3)}h14l3 ${hem}h-20Z`:`M${f(hip[0]-7)} ${f(hip[1]+3)}h14l1 10h-7v-4h-2v4h-7Z`;
+  set(bottom,{d:shorts,fill:profile.bottom,stroke:ink,'stroke-width':1.2,visibility:age<13||profile.skirt?'visible':'hidden'});
+  set(strap,{d:`M${f(shoulder[0]-3)} ${f(shoulder[1]+3)}l-3 14`,fill:'none',stroke:profile.bag,'stroke-width':2});
+  const trailing=profile.hairStyle==='long'||profile.hairStyle==='ponytail',bun=profile.hairStyle==='bun';
+  set(backHair,{d:bun?`M${f(H[0]-R)} ${f(H[1])}a3 3 0 1 0 0 .1Z`:`M${f(H[0]-R+1)} ${f(H[1]-1)}l-3 16h7l-1-16Z`,fill:profile.hair,stroke:ink,'stroke-width':.8,visibility:trailing||bun?'visible':'hidden'});
+  set(neck,{d:`M${f(H[0]-2)} ${f(H[1]+R-1)}h4v${f(shoulder[1]-H[1]-R+3)}h-4Z`,fill:profile.skin,stroke:ink,'stroke-width':.8});
+  set(head,{cx:H[0],cy:H[1],r:R,fill:profile.skin,stroke:ink,'stroke-width':1.2});
+  const bob=!['short','crop','side'].includes(profile.hairStyle);
+  set(hair,{d:`M${f(H[0]-R)} ${f(H[1]+(bob?4:0))}Q${f(H[0]-R-2)} ${f(H[1]-R-2)} ${f(H[0]+1)} ${f(H[1]-R-1)}Q${f(H[0]+R)} ${f(H[1]-R)} ${f(H[0]+R)} ${f(H[1]-1)}L${f(H[0]+R-2)} ${f(H[1]-3)}Q${f(H[0]-2)} ${f(H[1]-7)} ${f(H[0]-R+2)} ${f(H[1]+(bob?6:0))}Z`,fill:profile.hair,stroke:ink,'stroke-width':.8});
+  set(eye,{cx:H[0]+2.8,cy:H[1]-.6,r:.8,fill:ink});set(otherEye,{cx:H[0]-2.8,cy:H[1]-.6,r:.8,fill:ink,opacity:turn});
+  set(nose,{d:`M${f(H[0]+(R-1)*(1-turn))} ${f(H[1]-1)}l${f(1.5*(1-turn))} 2h-1.5`,fill:'none',stroke:ink,'stroke-width':.8});
+  set(mouth,{d:`M${f(H[0]+1-2*turn)} ${f(H[1]+3)}q2 1 4 0`,fill:'none',stroke:ink,'stroke-width':.8});
+  set(frontArm,{d:openLimbPaths([[shoulder[0]+wide,shoulder[1]+3],[shoulder[0]+8+wave*4,shoulder[1]+10-wave*15],wrist],3.2).fill,fill:profile.skin,stroke:ink,'stroke-width':1.2});set(hand,{cx:wrist[0],cy:wrist[1],r:1.8,fill:profile.skin,stroke:ink,'stroke-width':1});
+  set(root,{'data-action':next.action,'data-age':age});
+ }
+ return {root,update,get frame(){return frame;},nodes};
 }

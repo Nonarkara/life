@@ -381,3 +381,22 @@ metric; remaining money is labelled as a balance.
 Validation includes 577 tests, the 5,400-life full-life fuzz, the startup browser
 regression, and independent phone/desktop browser checks of ending reloads,
 adaptive intake, player slots and exact birth-code precedence.
+
+## 19 November 2026 · ink motion review
+
+Reviewed Neon's de15187 and upstream line-art-animation c43d698. The new
+`/course/ink-study.html` is a separate flat schoolyard comparison, not the
+default world or an approved replacement cast. It reuses one stable identity
+at ages 10/35 and offers explicit walk/turn/wave playback and seeking. Existing
+painted assets and the 3D diorama remain. No authored encounter currently uses
+the `walk` illustration motif; do not advertise that prototype as ordinary
+play. Optional live illustrations now receive recorded identity and the Life
+clock rather than a private looping RAF.
+
+Consolidated duplicate gait code onto the vendored MIT solver and corrected
+its swing-entry toe pivot. Actual sole outline/transform checks, stable DOM,
+deterministic seeking, lifecycle controls and multilingual viewport evidence
+are in `review/ink-schoolyard/` and `tests/fixtures/ink-study-probe.mjs`.
+603 unit/simulation tests pass. Full-game product audit still reports one
+medium finding (3.7MB initial view); frame pacing was unmeasured. Neither the
+trial nor those tests prove 3D prop contact, finished art, or low-end-phone FPS.

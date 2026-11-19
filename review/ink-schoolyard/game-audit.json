@@ -1,0 +1,67 @@
+{
+ "summary": {
+  "base": "http://127.0.0.1:4319",
+  "when": "2026-11-19T10:41:01.865Z",
+  "counts": {
+   "high": 0,
+   "medium": 1,
+   "low": 8
+  }
+ },
+ "findings": [
+  {
+   "area": "performance",
+   "severity": "medium",
+   "what": "one view costs 24 requests and 3703 kB",
+   "evidence": "{\"nodes\":1179,\"buttons\":110}"
+  },
+  {
+   "area": "performance",
+   "severity": "low",
+   "what": "frame pacing could not be measured in this browser",
+   "evidence": "{\"frames\":0,\"ms\":3002}"
+  },
+  {
+   "area": "book",
+   "severity": "low",
+   "what": "B1 first-screen task passes",
+   "evidence": "[{\"label\":\"Play\",\"top\":4},{\"label\":\"Answer 1 question →\",\"top\":710}]"
+  },
+  {
+   "area": "book",
+   "severity": "low",
+   "what": "B2 chrome cost passes",
+   "evidence": "[{\"sel\":\"header\",\"h\":37},{\"sel\":\".world-bottom\",\"h\":40},{\"sel\":\".console-nav\",\"h\":35}]"
+  },
+  {
+   "area": "book",
+   "severity": "low",
+   "what": "B3 box fit passes",
+   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.14,\"boxH\":189,\"textH\":1362}"
+  },
+  {
+   "area": "book",
+   "severity": "low",
+   "what": "B4 void passes",
+   "evidence": "{\"from\":876,\"to\":888}"
+  },
+  {
+   "area": "book",
+   "severity": "low",
+   "what": "B7 hierarchy passes",
+   "evidence": "[11,12,14,16,24,64]"
+  },
+  {
+   "area": "book",
+   "severity": "low",
+   "what": "B10 logos unboxed passes",
+   "evidence": ""
+  },
+  {
+   "area": "book",
+   "severity": "low",
+   "what": "B13 ship basics passes",
+   "evidence": "{\"noAlt\":0,\"unlabelled\":0,\"lang\":\"en\",\"viewport\":\"width=device-width,initial-scale=1\",\"title\":\"Life choices\"}"
+  }
+ ]
+}

@@ -3156,3 +3156,47 @@ phrases.push(["First saved choice","ทางเลือกแรกที่�
 phrases.push(["{n} moments along the way","{n} ช่วงเวลาระหว่างทาง","沿途{n}个片刻","道のりの{n}のひととき","살아가며 남긴 {n}개의 순간"]);
 
 phrases.push(["Library days","วันในห้องสมุด","图书馆时光","図書館での日々","도서관에서 보낸 날들"]);
+
+phrases.push(["Schoolyard comparison","เปรียบเทียบในลานโรงเรียน","校园对比","校庭での比較","학교 운동장 비교"]);
+
+phrases.push(["Ink actor in the schoolyard","ตัวละครเส้นหมึกในลานโรงเรียน","校园中的墨线角色","校庭の線画の人物","운동장의 잉크 캐릭터"]);
+
+phrases.push(["Existing painted art sample","ตัวอย่างภาพวาดที่ใช้อยู่","现有绘画样本","既存の絵の見本","기존 그림 예시"]);
+
+phrases.push(["Ink rig · one person across actions","โครงร่างเส้นหมึก · คนเดิมในทุกท่าทาง","墨线骨架 · 不同动作中的同一个人","線画の骨格・動作が変わっても同じ人物","잉크 리그 · 동작이 달라도 같은 사람"]);
+
+phrases.push(["Existing painted pose cuts","สลับภาพท่าทางเดิม","现有姿态图片切换","既存のポーズ画像の切り替え","기존 포즈 이미지 전환"]);
+
+phrases.push(["One person, three actions","คนเดียว สามท่าทาง","一个人，三个动作","一人、三つの動作","한 사람, 세 가지 동작"]);
+
+phrases.push(["Walk in","เดินเข้ามา","走进来","歩いて入る","걸어 들어오기"]);
+
+phrases.push(["Turn toward the reader","หันมาหาผู้ดู","转向观看者","見る人の方を向く","보는 사람 쪽으로 돌기"]);
+
+phrases.push(["Wave","โบกมือ","挥手","手を振る","손 흔들기"]);
+
+phrases.push(["Finished","จบแล้ว","结束","終了","끝"]);
+
+phrases.push(["10 · child","10 · เด็ก","10 · 儿童","10・子ども","10 · 어린이"]);
+
+phrases.push(["35 · adult","35 · ผู้ใหญ่","35 · 成人","35・大人","35 · 성인"]);
+
+phrases.push(["Compare painted art","เทียบกับภาพวาด","对比绘画","絵と比較する","기존 그림과 비교"]);
+
+phrases.push(["Show foot contacts","แสดงจุดที่เท้าสัมผัสพื้น","显示脚部接地点","足の接地点を表示","발 접촉점 표시"]);
+
+phrases.push(["Reduced motion is on. Use the time control to inspect each pose.","เปิดโหมดลดการเคลื่อนไหวอยู่ ใช้ตัวเลื่อนเวลาเพื่อดูแต่ละท่าทาง","已开启减少动态效果。使用时间控件查看各个姿态。","動きを減らす設定です。時間の操作で各ポーズを確認できます。","동작 줄이기가 켜져 있습니다. 시간 조절로 각 포즈를 살펴보세요."]);
+
+phrases.push(["About this trial","เกี่ยวกับการทดลองนี้","关于这项试验","この試作について","이 시험에 관하여"]);
+
+phrases.push(["One schoolyard, one person: walk in, turn toward the reader, wave, then stop. Change age to inspect the same identity later in life.","หนึ่งลานโรงเรียน หนึ่งคน เดินเข้ามา หันหาผู้ดู โบกมือ แล้วหยุด เปลี่ยนอายุเพื่อดูคนเดิมเมื่อโตขึ้น","同一个校园、同一个人：走进来、转向观看者、挥手，然后停下。切换年龄，观察同一个人长大后的样子。","一つの校庭で、一人が歩いて入り、こちらを向き、手を振って止まります。年齢を変えて、同じ人物の成長後を確認できます。","한 운동장에서 한 사람이 걸어 들어와 보는 쪽으로 돌고 손을 흔든 뒤 멈춥니다. 나이를 바꿔 같은 사람이 자란 모습을 살펴보세요."]);
+
+phrases.push(["This is a flat-stage trial. The 3D diorama remains in use. Turning corners, seated poses and furniture contact need separate tests.","นี่คือการทดลองบนฉากแบน เกมยังใช้ไดโอรามา 3 มิติ การเลี้ยวมุม ท่านั่ง และการสัมผัสเฟอร์นิเจอร์ต้องทดสอบแยกต่างหาก","这是一项平面场景试验。游戏仍使用3D立体场景。转弯、坐姿和家具接触需要另行测试。","平面の舞台での試作です。3Dジオラマは引き続き使います。角を曲がる動き、座る姿勢、家具との接触は別の検証が必要です。","평면 무대 시험입니다. 게임은 3D 디오라마를 계속 사용합니다. 모퉁이 돌기, 앉는 자세, 가구 접촉은 별도 시험이 필요합니다."]);
+
+phrases.push(["The painted sample uses existing stand/run images on the same authored schoolyard floor. It is an art comparison, not a reproduction of the full painted renderer.","ตัวอย่างภาพวาดใช้ภาพยืนและวิ่งเดิมบนพื้นลานโรงเรียนเดียวกัน ใช้เทียบลักษณะภาพ ไม่ได้จำลองระบบแสดงฉากวาดทั้งหมด","绘画样本使用现有站立和奔跑图片，放置在同一校园地面上。这用于比较画面，并未复现完整的绘画渲染系统。","既存の立ち姿・走る姿の画像を同じ校庭の地面に置いています。絵の比較用であり、描画システム全体の再現ではありません。","같은 운동장 바닥에 기존 서기와 달리기 이미지를 놓았습니다. 그림을 비교하는 것으로 전체 기존 렌더러를 재현한 것은 아닙니다."]);
+
+phrases.push(["Motion source: line-art-animation","แหล่งที่มาของการเคลื่อนไหว: line-art-animation","动作来源：line-art-animation","動作の出典：line-art-animation","동작 출처: line-art-animation"]);
+
+phrases.push(["The schoolyard image could not load.","โหลดภาพลานโรงเรียนไม่ได้","校园图片未能加载。","校庭の画像を読み込めませんでした。","운동장 이미지를 불러오지 못했습니다."]);
+
+phrases.push(["Replay","เล่นซ้ำ","重播","もう一度再生","다시 재생"]);

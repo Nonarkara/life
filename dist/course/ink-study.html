@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Life2.0 · Ink schoolyard study</title><link rel="stylesheet" href="settings.css"><link rel="stylesheet" href="ink-study.css"><script type="module" src="ink-study.js"></script><script async src="fonts.js"></script></head><body class="ink-study">
+<header><a href="../">Life2.0</a><nav><a href="./">Return to life</a><button type="button" data-settings>Settings</button></nav></header>
+<main>
+ <section class="school-comparison" aria-label="Schoolyard comparison">
+  <figure id="ink-panel"><svg id="ink-yard" viewBox="400 250 600 480" role="img" aria-label="Ink actor in the schoolyard"></svg><figcaption>Ink rig · one person across actions</figcaption></figure>
+  <figure id="painted-panel" hidden><svg id="painted-yard" viewBox="400 250 600 480" role="img" aria-label="Existing painted art sample"></svg><figcaption>Existing painted pose cuts</figcaption></figure>
+ </section>
+ <h1>One person, three actions</h1>
+ <p id="study-phase" aria-live="polite">Walk in</p>
+ <div class="study-controls">
+  <button type="button" id="study-play">Play</button><button type="button" id="study-reset">Replay</button>
+  <label>Age<select id="study-age"><option value="10">10 · child</option><option value="35">35 · adult</option></select></label>
+  <label class="study-seek">Time<input type="range" id="study-time" min="0" max="6" value="0" step="0.01"></label><span id="study-seconds" aria-hidden="true">0.0 s</span>
+ </div>
+ <div class="study-options"><label><input type="checkbox" id="study-compare"> Compare painted art</label><label><input type="checkbox" id="study-contacts"> Show foot contacts</label></div>
+ <p id="study-reduced" hidden>Reduced motion is on. Use the time control to inspect each pose.</p>
+ <p id="study-error" role="alert"></p>
+ <details><summary>About this trial</summary><p>One schoolyard, one person: walk in, turn toward the reader, wave, then stop. Change age to inspect the same identity later in life.</p><p>This is a flat-stage trial. The 3D diorama remains in use. Turning corners, seated poses and furniture contact need separate tests.</p><p>The painted sample uses existing stand/run images on the same authored schoolyard floor. It is an art comparison, not a reproduction of the full painted renderer.</p><p><a href="https://github.com/JDhruv14/line-art-animation">Motion source: line-art-animation</a> · <a href="line-art/LICENSE">MIT license</a></p></details>
+</main></body></html>

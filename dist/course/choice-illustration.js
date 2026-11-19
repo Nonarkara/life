@@ -1,5 +1,11 @@
 import {rand} from './rand.js';
-import {gait,spring,thaiRigSVG} from './ink-gait.js';
+import {createInkActor,gait,thaiRigSVG} from './ink-gait.js';
+import {createInkSequence,inkIdentity} from './ink-sequence.js';
+const animatedInk=new Set();
+export function updateChoiceIllustrations(seconds,playing){
+ for(const item of animatedInk){if(!item.svg.isConnected){animatedInk.delete(item);continue;}if(playing&&item.last!==null)item.time=Math.min(item.sequence.duration,item.time+Math.max(0,Math.min(.1,seconds-item.last)));item.last=seconds;if(playing){item.draw(item.sequence.sample(item.time));if(item.time>=item.sequence.duration)animatedInk.delete(item);}}
+}
+
 
 const PAPER='#f2e8d1',INK='#253e36',CLAY='#a35439';
 const art={
@@ -25,7 +31,7 @@ const outcomeAccent={fight:true,sign:true,sell:true};
 
 // The illustration is a projection of the saved answer. Reloading or replaying
 // that answer uses the same lines, without requesting assets or saving a movie.
-export function choiceIllustration(motif,seed,answer,animate){
+export function choiceIllustration(motif,seed,answer,animate,{sex='female',look={}}={}){
  if(!Object.hasOwn(art,motif))return null;
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
  svg.setAttribute('viewBox','0 0 340 130');
@@ -37,33 +43,15 @@ export function choiceIllustration(motif,seed,answer,animate){
  }).join(' ');
  svg.innerHTML=`<rect width="340" height="130" fill="${PAPER}"/><path d="${lines}" stroke="#b8a88b"/><g fill="none" stroke="${INK}" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">${art[motif](outcomeAccent[answer.choice]===true)}</g>`;
  if(motif==='walk'){
-  const actor=document.createElementNS('http://www.w3.org/2000/svg','g');
-  const age=answer?.age<15?'child':answer?.age>=60?'elder':'adult';
-  const sex=(seed%2)?'female':'male';
-  const walker=gait({kind:age==='elder'?'shuffle':'walk'});
-  const bag=spring(35,5,0);
-  const scale=0.82;
-  const drawFrame=(phase,x,go,wave,bagX)=>{
-   actor.setAttribute('transform',`translate(${x.toFixed(1)} 10) scale(${scale})`);
-   actor.innerHTML=thaiRigSVG(walker.pose(phase,go),{age,sex,accent:outcomeAccent[answer?.choice]?CLAY:'#a35d00',paper:PAPER,ink:INK,wave,bagSwing:bagX});
-  };
-  drawFrame(0.18,130,1,0,0);
-  svg.append(actor);
+  const years=Number.isFinite(answer?.age)?answer.age:25;
+  // Elders keep their existing cane snapshot until prop contact is separately solved.
+  if(years>=60){const held=document.createElementNS(svg.namespaceURI,'g');held.setAttribute('transform','translate(110 10) scale(.82)');held.innerHTML=thaiRigSVG(gait({kind:'shuffle'}).pose(0),{age:'elder',sex,paper:PAPER,ink:INK,accent:look.shirt??CLAY});svg.append(held);return svg;}
+  const profile=inkIdentity({seed,sex,look}),sequence=createInkSequence({age:years,profile}),actor=createInkActor(profile),scale=.82*profile.height;
+  const draw=frame=>{actor.root.setAttribute('transform',`translate(${90+frame.x*scale-40*scale} ${108-frame.ground*scale}) scale(${scale})`);actor.update(frame);};
+  draw(sequence.sample(0));svg.append(actor.root);
   const reduced=typeof matchMedia==='function'&&matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(animate&&!reduced&&typeof requestAnimationFrame==='function'){
-   let phase=0,x=90,last=0,elapsed=0;
-   const tick=now=>{
-    if(!svg.isConnected)return;
-    const dt=last?Math.min(0.05,(now-last)/1000):0.016;last=now;elapsed+=dt;
-    const waving=elapsed>2.6&&elapsed<3.8;
-    const go=waving?0:1;
-    if(!waving){phase+=dt/walker.period;x+=walker.speed*scale*dt;if(x>255)x=85;}
-    const bagX=bag.step(waving?0:Math.sin(phase*Math.PI*2)*1.6,dt);
-    drawFrame(phase,x,go,waving?(elapsed-2.6)/1.2:0,bagX);
-    requestAnimationFrame(tick);
-   };
-   requestAnimationFrame(tick);
-  }
+  if(animate&&!reduced)animatedInk.add({svg,sequence,draw,last:null,time:0});
  }
+
  return svg;
 }

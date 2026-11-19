@@ -1,4 +1,5 @@
 // JDhruv14, line-art-animation c43d698. MIT, see LICENSE beside this file.
+// Life modification: preserve the toe pivot through swing entry (no ankle jump or buried shoe).
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const smooth = (e0, e1, x) => {
   const t = clamp((x - e0) / (e1 - e0), 0, 1);
@@ -41,7 +42,8 @@ function gait(opts = {}) {
     const s = (u - duty) / (1 - duty);
     const x = 40 - S / 2 + S * minJerk(s) - heelKick * Math.sin(Math.PI * Math.min(1, s * 1.6));
     const y = ankleY - lift * Math.pow(Math.sin(Math.PI * Math.pow(s, heelKick ? 0.7 : 1)), 1.2);
-    return { ankle: [x, y], pitch: heelOff * Math.pow(1 - smooth(0, 0.55, s), 1.4), stance: false };
+    const pitch = heelOff * Math.pow(1 - smooth(0, 0.55, s), 1.4), th = pitch * Math.PI / 180, sole = ground - ankleY;
+    return { ankle: [x + toe * (1 - Math.cos(th)) + sole * Math.sin(th), y - toe * Math.sin(th) + sole * (1 - Math.cos(th))], pitch, stance: false };
   };
   return {
     ...o,
