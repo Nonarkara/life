@@ -52,7 +52,7 @@ try{
    await page.locator('#study-play').click();await page.evaluate(()=>window.dispatchEvent(new Event('pagehide')));assert.equal(await page.evaluate(()=>inkStudy.playing),false);
    await page.evaluate(()=>inkStudy.seek(inkStudy.sequence.duration-.15));await page.locator('#study-play').click();await page.waitForTimeout(450);assert.equal(await page.evaluate(()=>inkStudy.playing),false);
    const done=await page.evaluate(()=>inkStudy.actor.root.outerHTML);await page.waitForTimeout(200);assert.equal(await page.evaluate(()=>inkStudy.actor.root.outerHTML),done);
-   await page.emulateMedia({reducedMotion:'reduce'});assert.equal(await page.locator('#study-play').isDisabled(),true);await page.evaluate(()=>inkStudy.seek(1.5));assert.equal(await page.evaluate(()=>inkStudy.time),1.5);
+   await page.emulateMedia({reducedMotion:'reduce'});await page.waitForFunction(()=>document.querySelector('#study-play').disabled);assert.equal(await page.locator('#study-play').isDisabled(),true);await page.evaluate(()=>inkStudy.seek(1.5));assert.equal(await page.evaluate(()=>inkStudy.time),1.5);
   }
   assert.deepEqual(errors,[]);console.log(JSON.stringify({width,enlarged,language,errors,layout,geometry}));await page.close();
  }
