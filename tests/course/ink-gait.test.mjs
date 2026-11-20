@@ -39,3 +39,13 @@ test('spring, pendulum, openLimbPaths, and parametric Thai rig render valid fini
   }
  }
 });
+
+test('eventMotifFor maps important life events to grounded Thai ink-rig scenes while preserving explicit art',async()=>{
+ const {eventMotifFor}=await import('../../dist/course/choice-illustration.js');
+ assert.equal(eventMotifFor({id:'r_olympian_pm_coach',art:'ring'}),'ring');
+ assert.equal(eventMotifFor({id:'b_venice_east',category:'family'}),'canal');
+ assert.equal(eventMotifFor({id:'b_bitcoin_2014',category:'money'}),'street');
+ assert.equal(eventMotifFor({id:'d_illness',category:'health'}),'temple');
+ assert.equal(eventMotifFor({id:'r_scholar_1',category:'connection'}),'walk');
+ assert.equal(eventMotifFor({id:'ordinary_small_talk',category:'work'}),null);
+});

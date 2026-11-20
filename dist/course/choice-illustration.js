@@ -25,9 +25,27 @@ const art={
    <path d="M91 44h135v40H91Zm23 49h89l9 14H105Z" fill="${PAPER}"/>
    <circle cx="121" cy="63" r="11"/><circle cx="199" cy="63" r="11"/><path d="M132 60h56v6h-56m-11-14v22m78-22v22"/>
    ${sold?'<path d="M72 78H54l-16 9 16 9h18" fill="'+CLAY+'"/><path d="M263 37v38m8-34v31m6-31v31m7-35v38m7-31v24"/>':'<path d="M247 75q27-15 48 0t31 0m-79 11q27-15 48 0t31 0" stroke="'+CLAY+'"/>'}`,
- walk:()=>`<path d="M24 108h292M64 108V56h62v52M60 56l35-20 35 20M86 108V82h18v26M238 108V42m0 0 24 6-24 8" fill="none"/>`
+ walk:()=>`<path d="M24 108h292M64 108V56h62v52M60 56l35-20 35 20M86 108V82h18v26M238 108V42m0 0 24 6-24 8" fill="none"/>`,
+ street:()=>`<path d="M20 108h300M44 108V44h54v64M98 108V52h58v56M44 66h54M98 72h58M56 108V82h16v26M118 108V84h18v24M268 108V26m-8 8h16M44 36q112 18 224-4" fill="none"/>`,
+ canal:()=>`<path d="M20 108h300M34 116q24-4 48 0t48 0 48 0 48 0 48 0M54 108V78m48 30V78M44 78h68V48H44ZM38 48l40-20 40 20M226 108q18-10 52-4l-6 6h-42Z" fill="none"/>`,
+ temple:()=>`<path d="M20 108h300M52 108V66h68v42M42 66l44-24 44 24M48 58l38-22 38 22M248 108l-14-30 14-42 14 42-14 30M234 78h28" fill="none"/>`
 };
+const RIG_MOTIFS=new Set(['walk','street','canal','temple']);
 const outcomeAccent={fight:true,sign:true,sell:true};
+
+// Map important life events (callings, turning points, shocks, historical beats)
+// to a grounded Thai ink-rig backdrop so the player's own character projects the moment.
+export function eventMotifFor(scene){
+ if(!scene?.id)return null;
+ if(scene.art&&Object.hasOwn(art,scene.art))return scene.art;
+ const id=scene.id;
+ const important=id.startsWith('r_')||id.startsWith('b_')||id.startsWith('s_')||id.startsWith('d_')||id.startsWith('h_')||id.startsWith('family_exam')||['commitment','parenthood','mentor'].includes(id);
+ if(!important)return null;
+ if(id==='b_venice_east'||scene.category==='family'||['commitment','parenthood'].includes(id))return 'canal';
+ if(id.startsWith('r_novice_')||id.startsWith('d_')||id.startsWith('s_')||scene.category==='health')return 'temple';
+ if(scene.category==='work'||scene.category==='money')return 'street';
+ return 'walk';
+}
 
 // The illustration is a projection of the saved answer. Reloading or replaying
 // that answer uses the same lines, without requesting assets or saving a movie.
@@ -42,7 +60,7 @@ export function choiceIllustration(motif,seed,answer,animate,{sex='female',look=
   return `M${x.toFixed(1)} ${y.toFixed(1)}h${7+i}`;
  }).join(' ');
  svg.innerHTML=`<rect width="340" height="130" fill="${PAPER}"/><path d="${lines}" stroke="#b8a88b"/><g fill="none" stroke="${INK}" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round">${art[motif](outcomeAccent[answer.choice]===true)}</g>`;
- if(motif==='walk'){
+ if(RIG_MOTIFS.has(motif)){
   const years=Number.isFinite(answer?.age)?answer.age:25;
   // Elders keep their existing cane snapshot until prop contact is separately solved.
   if(years>=60){const held=document.createElementNS(svg.namespaceURI,'g');held.setAttribute('transform','translate(110 10) scale(.82)');held.innerHTML=thaiRigSVG(gait({kind:'shuffle'}).pose(0),{age:'elder',sex,paper:PAPER,ink:INK,accent:look.shirt??CLAY});svg.append(held);return svg;}

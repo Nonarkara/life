@@ -49,7 +49,7 @@ import {eventsFor,eventsForAccount,lifeMood} from './events.js';
 import {lifeMoodAt} from './events.js';
 import {symbolPaths,symbolMarkup} from './event-graphics.js';
 import {AXES,balanced,begin,transfer,live,replay,validate,sanitiseProfile,goals,rand,lockedEffort,projectedSkillGains} from './sim.js';
-import {choiceIllustration,updateChoiceIllustrations} from './choice-illustration.js';
+import {choiceIllustration,eventMotifFor,updateChoiceIllustrations} from './choice-illustration.js';
 import {drawWorld} from './world.js';
 import {bangkokDeparture,createDeparture,DEPARTURE_WINDOW} from './departure.js';
 import {drawDeck,arrangeDeck} from './life-deck.js';
@@ -325,10 +325,11 @@ function showResult(before,after,details={}){
  for(const a of AXES)d(a.label,before.skills[a.key],after.skills[a.key]);
  box.replaceChildren();const p=document.createElement('p');p.textContent=details.text??storyText(seen.outcome,after.story);const m=document.createElement('p');m.className='moved';m.textContent=moved.length?moved.join(' · '):'Nothing measurable changed yet. Some choices return later.';box.append(p,m);
  const scene=details.record?null:encounterById(seen?.id);
- if(scene?.art&&preferences.stage!=='isometric'){
+ const motif=scene?eventMotifFor(scene):null;
+ if(motif&&preferences.stage!=='isometric'){
   const motion=!preferences.motion&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
   const sex=after.intake?.sex??after.birth?.sex??'female',look=appearance(rand,after.seed,'player',regionIdFor(after.birth),{sex}),dress=outfitFor(after,'player',sex,after.age,(birthYearOf(after)??1981)+after.age);
-  const illustration=choiceIllustration(scene.art,after.seed,seen,motion,{sex,look:{...look,shirt:dress.top,bottom:dress.bottom,skirt:!!dress.skirt,feet:dress.feet}});
+  const illustration=choiceIllustration(motif,after.seed,seen,motion,{sex,look:{...look,shirt:dress.top,bottom:dress.bottom,skirt:!!dress.skirt,feet:dress.feet}});
   if(illustration)p.after(illustration);
  }
  const rehearse=scene?.rehearse;if(rehearse&&!details.record){const note=document.createElement('p');note.className='decision-rehearse';note.textContent=t(rehearse);box.append(note);}
