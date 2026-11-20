@@ -50,7 +50,7 @@ export function renderEnding(root,state,{storage}={}){
  if(storage===undefined){try{storage=localStorage;}catch{storage=null;}}
  releaseCard?.();resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
  // One page, one path for the eye: the verdict is the title, then the arc of the life, then what it comes to.
- {const path=pathOf(state),stats=POPULATION.paths[path],v=document.createElement('section');v.className='ending-verdict';const say=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;n.textContent=text;return n;};
+ {const v=document.createElement('section');v.className='ending-verdict';const say=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;n.textContent=text;return n;};
   const arc=lifeArc(state,id=>encounterById(id)?.title??null);
   if(arc){const fig=document.createElement('figure');fig.className='arc';const NSs='http://www.w3.org/2000/svg',svgEl=document.createElementNS(NSs,'svg'),lo=Math.min(...arc.points.map(p=>p.v)),hi=Math.max(...arc.points.map(p=>p.v)),a0=arc.points[0].age,span=Math.max(1,arc.end-a0),X=p=>(p.age-a0)/span*100,Y=p=>30-(p.v-lo)/Math.max(1,hi-lo)*26-2;svgEl.setAttribute('viewBox','0 0 100 30');svgEl.setAttribute('preserveAspectRatio','none');svgEl.setAttribute('role','img');svgEl.setAttribute('aria-label',t('Wellbeing across this life'));const line=document.createElementNS(NSs,'polyline');line.setAttribute('points',arc.points.map(p=>X(p)+','+Y(p)).join(' '));line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','1.5');line.setAttribute('vector-effect','non-scaling-stroke');svgEl.append(line);const plot=document.createElement('div');plot.className='arc-plot';plot.append(svgEl);fig.append(plot);
    if(arc.twist){const p=arc.points.find(q=>q.age===arc.twist.age),dot=document.createElement('span');dot.className='arc-dot';dot.style.left=X(p)+'%';dot.style.top=Y(p)/30*100+'%';plot.append(dot);}
@@ -67,10 +67,16 @@ export function renderEnding(root,state,{storage}={}){
    const did=(state.story?.seen??[]).filter(e=>e.outcome).sort((a,b)=>weight(b)-weight(a)).slice(0,3).sort((a,b)=>a.age-b.age);
    if(did.length){const ol=document.createElement('ol');ol.className='verdict-did';for(const e of did){const li=document.createElement("li"),enc=encounterById(e.id),o=enc?.options.find(x=>x.id===e.choice),line=say('span',null,o?.outcome&&!o.uncertain?storyText(t(o.outcome),state.story):e.outcome);if(enc?.title)line.prepend(say('span','did-what',storyText(t(enc.title),state.story)+' · '));li.append(say('b',null,String(e.age)),line);ol.append(li);}v.append(ol);}}
   if(state.death&&!state.death.ordained){v.append(say('p','verdict-cause',t(state.death.cause)));const sex=state.intake?.sex;v.append(say('p','verdict-death',t(sex==='female'?'“Do you still have the dream, girl?” Death asked, and picked you up.':sex==='male'?'“Do you still have the dream, boy?” Death asked, and picked you up.':'“Do you still have the dream, child?” Death asked, and picked you up.')));if(/mind/.test(state.death.cause))v.append(say('p','score-credit',t('If this is close to home, the Mental Health Hotline is 1323.')));}
-  v.append(say('p',null,t({monk:'You walked out through the door in the set. About {s}% of the pretend lives did. Nobody can tell you whether it was enough.',fun:'About {s}% of the pretend lives went this way, and {d}% of those were dead before sixty. You can say what you lived for. You paid for it.',safe:'About {s}% of the pretend lives went this way, and only {d}% of those were dead before sixty. It held. You still do not know why you were born.'}[path]).replace('{s}',Math.round(stats.share)).replace('{d}',stats.early)));
   const fed=Array.from({length:state.age+1},(_,a)=>kitchenFeeds(state,a));v.append(say('p',null,t('The Thai word for family, ครอบครัว, has the kitchen, ครัว, inside it. At its fullest yours fed {a}. At the end, {b}.').replace('{a}',Math.max(...fed)).replace('{b}',fed.at(-1))));
-  v.append(say('p','verdict-lead',t('Unless you become a monk, there are only two lives on offer: a fun one that is insanely risky, or a safe one where you never find out why you were born.')));root.append(v);}
+  root.append(v);}
  const numbers=document.createElement('details');numbers.className='full-life-record ending-numbers';{const s=document.createElement('summary');s.textContent='The numbers';numbers.append(s);}
+ const population=POPULATION.paths[pathOf(state)];
+ if(population){
+  const p=document.createElement('p');p.className='fine';
+  p.textContent=t('In the simulated sample, {share}% fell into the same risk group. Of that group, {early}% died before 60.')
+   .replace('{share}',population.share).replace('{early}',population.early);
+  numbers.append(p);
+ }
  // How much of the bank this device has met, across lives.
  {const met=new Set([...metScenes()].filter(id=>encounterById(id)));if(met.size){const p=document.createElement('p');p.className='fine';p.textContent=t('Across your lives on this device you have met {a} of {b} scenes.').replace('{a}',met.size).replace('{b}',ENCOUNTERS.length);numbers.append(p);}}
  // Where the life went leads the ending; the resource tracks follow it.
@@ -91,6 +97,15 @@ export function renderEnding(root,state,{storage}={}){
  // This life beside the last one, when there was one.
  {const cmp=replayComparison(state);if(cmp){const box=document.createElement('section');box.className='ending-compare';box.setAttribute('aria-label',t('Compared with your last life'));const h=document.createElement('h2');h.textContent=t('Compared with your last life');box.append(h);
   const fmt=(v,k)=>k==='baht'?'฿'+Math.round(v).toLocaleString('en'):String(v);const table=document.createElement('dl');for(const [label,before,now,kind] of cmp.rows){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(label);dd.textContent=fmt(before,kind)+' → '+fmt(now,kind);table.append(dt,dd);}box.append(table);
+  if(cmp.restartedAt!==undefined){
+   const p=document.createElement('p');
+   p.textContent=t('You went back to age {n}.').replace('{n}',cmp.restartedAt);box.append(p);
+  }
+  if(cmp.earlyRoad&&cmp.earlyRoad.age!==cmp.split?.age){
+   const p=document.createElement('p');
+   p.textContent=t('At age {n} your study or work changed from {a} to {b}.')
+    .replace('{n}',cmp.earlyRoad.age).replace('{a}',t(cmp.earlyRoad.before)).replace('{b}',t(cmp.earlyRoad.now));box.append(p);
+  }
   if(cmp.split){const p=document.createElement('p');p.textContent=t('The two lives first parted at age {n}. Then: {a}. Now: {b}.').replace('{n}',cmp.split.age).replace('{a}',t(cmp.split.before)).replace('{b}',t(cmp.split.now));box.append(p);}
   const note=document.createElement('p');note.className='fine';note.textContent=t('Two lives are two stories, not an experiment. The gap is not proof that one choice caused it.');box.append(note);root.append(box);}}
  // A card to keep or send: where you went, what you were, one line in your own words.

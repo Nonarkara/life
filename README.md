@@ -22,12 +22,12 @@ The fiction gives the game its one question. Your first life happened to you. Gi
 1. **Settle in.** A two-page illustrated manual explains the session. Choose a language, a text size, and whether motion is allowed.
 2. **Starting conditions.** Let chance decide, or choose a body profile, an upbringing band and how ten starting points are spread across five attributes. Random is the default because that is how birth works.
 3. **The womb.** A dark screen, a small illustrated figure, a count of 3, 2, 1.
-4. **Childhood: no choices.** From 0 to 10 the family decides. One year passes every ten seconds at 2×, and faster at 3×, 10× or 20×. Each year is a short chapter about care, school and the household's income. You can look back at an earlier year without changing anything, then return.
-5. **Ten: the first allocation.** You spread ten effort points across what you will practise. This is the first thing that is yours.
+4. **Childhood.** The family decides the earliest years. From six the child gets a few decisions about school, play and help at home. Skip the opening to go straight to the first choice.
+5. **Ten: the first chapter plan.** Choose an age-appropriate commitment. Each spends ten effort points and honours promises you already made. Adjust the full plan if you want finer control.
 6. **Fifteen: money and routes.** You get your own small account, separate from the family's savings, with a budget you can edit, plus choices about school, vocational work and later college. You meet people, start projects, and fall for someone after school.
 7. **Every five years after that: review.** Rebalance effort, choose habits (smoking and drinking unlock at 20), housing and commute, relationships and values. Encounters carry named people and commitments forward: a friendship at 15, an exhibition at 35, a flood you face together at 30, care for a friend at 40, marriage, children, remembrance.
 8. **The end.** It may come early. Nothing guarantees 80. The ending shows three honest tracks over your age: physical health, wellbeing and money, each in its own units. It marks where money grew fastest and what happened to health at the same time. Every five-year record is kept.
-9. **Again.** Replay starts a new life in the same world, with the previous ledger kept so the two can be compared.
+9. **Again.** Return to childhood with a record of the choices you made. You can also replay a recorded review and compare the two lives without living every year again.
 
 ## The ideas underneath
 
@@ -43,7 +43,7 @@ A newborn inherits a context: household security, location, obligations, the car
 
 ### Choice, circumstance and chance are different things
 
-External events in a world run on a fixed seed. Replaying a life keeps the same flood and the same lucky meeting, so the only thing that differs is what you did. This is the closest a game can get to an honest counterfactual. It still isn't a causal proof, and the ending says so.
+A replay retains the birth and its seeded world. The same historical years can confront two versions of a life. Condition, resources and relationships change which events apply and which options become available. The ending compares the two recorded paths.
 
 ### No score for a good life
 

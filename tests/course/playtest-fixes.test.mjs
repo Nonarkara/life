@@ -60,7 +60,8 @@ test('low wellbeing and no money are warnings with a playable next chapter',()=>
 test('the warning and the ledger are wired to the screen',()=>{
  const src=f=>readFileSync(new URL('../../dist/course/'+f,import.meta.url),'utf8');
  assert.ok(src('life-plan.js').includes("el('p','plan-key plan-warning',warn)"));
- assert.ok(src('game.js').includes("moving?(periodLine(state,travel.to,t)??"));
+ assert.ok(src('life-plan.js').includes("r.kind==='period'&&r.age===s.age"));
+ assert.ok(!src('game.js').includes('periodLine(state,travel.to'), 'travel cannot reveal financial results early');
  assert.ok(src('console.css').includes('.plan-key.plan-warning{'));
 });
 

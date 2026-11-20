@@ -1,4 +1,5 @@
 import {choiceSymbol} from './choice-symbols.js';
+import {PATHWAYS} from './pathways.js';
 import {CHILD_CHOICES} from './childhood-choices.js';
 import {localise,t} from './i18n.js';
 export function initChildhoodView({onChoose,onContinue,getState}){
@@ -47,7 +48,26 @@ export function initChildhoodView({onChoose,onContinue,getState}){
   const body=el('div',undefined,'child-body');
   const left=el('div',undefined,'child-left');
   if(result){left.append(el('p',result.note,'decision-context'),el('p',changes(result.effects),'pivot-cost'));const next=el('button','Continue →');next.type='button';next.id='child-continue';next.onclick=onContinue;left.append(next);}
-  else{left.append(el('p',question.context,'decision-context'));const options=el('div',undefined,'pivot-options');for(const o of question.options){const b=el('button',undefined,'pivot-option');b.type='button';b.append(choiceSymbol(o.symbol),el('span',o.label,'pivot-label'));b.onclick=()=>onChoose(question,o);options.append(b);}left.append(options);}
+  else{left.append(el('p',question.context,'decision-context'));
+   const before=state?.previous?.childhood?.choices?.find(choice=>choice.age===question.age);
+   const remembered=question.options.find(option=>option.id===before?.choice);
+   if(remembered){
+    const memory=el('p',t('Last time you chose “{answer}”.').replace('{answer}',t(remembered.label)),'decision-rehearse');
+    left.append(memory);
+   }
+   if(question.age===9&&remembered){
+    const history=state.previous.history;
+    const education=history.find(r=>r.from===20&&PATHWAYS[r.pathway])??history.find(r=>r.from===15&&PATHWAYS[r.pathway]);
+    if(education){
+     const memory=el('details',undefined,'child-replay-memory');
+     memory.append(el('summary',t('What happened afterward')));
+     const decision=education.pivots?.find(p=>p.pivot==='college-cost'||p.pivot==='three-roads');
+     memory.append(el('p',decision?.note??t('At age {n}, your path was “{path}”.')
+      .replace('{n}',education.from).replace('{path}',t(PATHWAYS[education.pathway].label))));
+     left.append(memory);
+    }
+   }
+   const options=el('div',undefined,'pivot-options');for(const o of question.options){const b=el('button',undefined,'pivot-option');b.type='button';b.append(choiceSymbol(o.symbol),el('span',o.label,'pivot-label'));b.onclick=()=>onChoose(question,o);options.append(b);}left.append(options);}
   body.append(left);
   if(state&&!result)body.append(snapshot(state));
   root.append(body);

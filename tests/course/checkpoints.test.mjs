@@ -83,6 +83,6 @@ test('the scene memory a life began with is kept, so going back after a reload m
 
 test('the ending offers the way back, in every language',()=>{
  const game=readFileSync(new URL('../../dist/course/game.js',import.meta.url),'utf8');
- for(const part of ["render();keepPoint(store,state,true,familiarIds());","render();keepPoint(store,state);focusChapter();","forgetAfter(store,state);","goBack(store,state,Number(pick.value),validate)","new CustomEvent('life-branch',{detail:point})","const met=metFor(store,state.seed);if(met)setFamiliar(met);"])assert.ok(game.includes(part),part);
+ for(const part of ["render();keepPoint(store,state,true,familiarIds());","render();keepPoint(store,state);focusChapter();","forgetAfter(store,state);","goBack(store,state,age,validate)","new CustomEvent('life-branch',{detail:{...point,previous}})","const met=metFor(store,state.seed);if(met)setFamiliar(met);"])assert.ok(game.includes(part),part);
  for(const lang of ['th','zh-CN','ja','ko'])for(const key of ['Go back to age {n} and choose again →','Go back to another age','That review is no longer kept on this device.','You went back once in this life.','You went back {n} times in this life.']){const said=translate(key,lang);assert.notEqual(said,key);if(key.includes('{n}'))assert.ok(said.includes('{n}'));}
 });

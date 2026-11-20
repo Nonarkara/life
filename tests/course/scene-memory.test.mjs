@@ -21,7 +21,7 @@ test('an ordinary scene met in an earlier life steps aside for one not met yet',
  }finally{setFamiliar([]);}
 });
 test('the cousin\'s shirt is a childhood scene, so it can be met at ten',()=>{assert.equal(encounterById('w2_uniform').child,true);});
-test('a freshly drawn life carries the novelty mark; a replay does not',async()=>{
+test('replaying a drawn birth keeps its original scene selection rules',async()=>{
  const {drawBirth}=await import('../../dist/course/birth-draw.js');const {replay}=await import('../../dist/course/sim.js');
- const l=drawBirth({birthYear:'historical'},{random:()=>.37});assert.equal(l.novelty,true);assert.equal(replay(begin(l)).novelty,undefined);
+ const l=drawBirth({birthYear:'historical'},{random:()=>.37});assert.equal(l.novelty,true);assert.equal(replay(begin(l)).novelty,true);
 });

@@ -19,6 +19,31 @@ import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+What happened afterward|เกิดอะไรขึ้นต่อจากนั้น|后来发生了什么|その後に起きたこと|그 뒤에 일어난 일
+At age {n}, your path was “{path}”.|เมื่ออายุ {n} ปี คุณเลือกทาง “{path}”|{n}岁时，你走上了「{path}」这条路。|{n}歳のとき、「{path}」という道を選びました。|{n}세에 ‘{path}’의 길을 택했습니다.
+Replay this childhood →|ย้อนกลับไปวัยเด็ก →|重过这段童年 →|この子ども時代をやり直す →|이 어린 시절 다시 살기 →
+Replay from age {n} →|ย้อนกลับไปอายุ {n} ปี →|从{n}岁重来 →|{n}歳からやり直す →|{n}세부터 다시 살기 →
+Before the replay|ก่อนย้อนกลับ|重来之前|やり直す前|다시 살기 전
+Your life turned at age {n}.|ชีวิตเปลี่ยนทางเมื่ออายุ {n} ปี|你的人生在{n}岁转了个弯。|{n}歳で人生が転機を迎えました。|{n}세에 삶의 방향이 바뀌었습니다.
+You lived to age {n}.|คุณใช้ชีวิตถึงอายุ {n} ปี|你活到了{n}岁。|{n}歳まで生きました。|{n}세까지 살았습니다.
+You went back to age {n}.|คุณย้อนกลับไปตอนอายุ {n} ปี|你回到了{n}岁。|{n}歳に戻りました。|{n}세로 돌아갔습니다.
+At age {n} your study or work changed from {a} to {b}.|เมื่ออายุ {n} ปี เส้นทางเรียนหรือทำงานเปลี่ยนจาก {a} เป็น {b}|{n}岁时，你的学习或工作从「{a}」变成了「{b}」。|{n}歳で、進学や仕事の選択が「{a}」から「{b}」へ変わりました。|{n}세에 학업이나 일의 선택이 ‘{a}’에서 ‘{b}’로 바뀌었습니다.
+In the simulated sample, {share}% fell into the same risk group. Of that group, {early}% died before 60.|ในกลุ่มจำลอง {share}% อยู่ในกลุ่มความเสี่ยงเดียวกัน ในกลุ่มนั้น {early}% เสียชีวิตก่อนอายุ 60 ปี|模拟样本中，{share}%属于同一风险组。该组中有{early}%在60岁前去世。|シミュレーションでは{share}%が同じリスク群に入り、そのうち{early}%が60歳未満で亡くなりました。|시뮬레이션 표본에서 {share}%가 같은 위험군에 속했고, 그중 {early}%가 60세 전에 사망했습니다.
+Ask a teacher what other ways there are|ถามครูว่ามีทางอื่นไหม|问老师还有什么办法|ほかに方法がないか先生に聞く|다른 방법이 있는지 선생님께 물어보기
+The teacher told you about a scholarship. The family still had to decide what it could afford.|ครูเล่าให้ฟังว่ามีทุนการศึกษา แต่ที่บ้านยังต้องคิดว่าจะจ่ายไหวแค่ไหน|老师告诉你有奖学金，家里仍得盘算负担得起多少。|先生が奨学金のことを教えてくれました。家で出せるお金については、家族で決める必要がありました。|선생님이 장학금 이야기를 해 주었습니다. 가족은 여전히 얼마를 감당할 수 있을지 결정해야 했습니다.
+Friends|เพื่อน|朋友|友達|친구
+Family|ครอบครัว|家人|家族|가족
+How will you spend the next five years?|ห้าปีข้างหน้าจะทุ่มเทให้กับอะไร?|接下来的五年，你要把精力放在哪里？|次の5年間、何に力を注ぎますか？|앞으로 5년, 어디에 힘을 쏟을까요?
+Spend 10 effort points. Pick one.|เลือกว่าจะใช้แต้มความทุ่มเททั้ง 10 แต้มอย่างไร|10点精力，选一种分配方式。|10点の努力をどう配分するか、ひとつ選びます。|노력 점수 10점을 어떻게 쓸지 하나를 고르세요.
+Live to age {n} →|ใช้ชีวิตต่อถึงอายุ {n} ปี →|活到{n}岁 →|{n}歳まで進む →|{n}세까지 살아보기 →
+Watch these years|ดูช่วงชีวิตนี้|观看这几年|この数年を見届ける|이 시기 지켜보기
+Next moment →|ไปยังเหตุการณ์ถัดไป →|下一刻 →|次の出来事へ →|다음 순간 →
+Adjust the plan|ปรับแผน|调整计划|計画を調整する|계획 조정
+Back to chapter choices|กลับไปเลือกสิ่งที่จะทุ่มเท|返回本阶段选项|この時期の選択に戻る|이 시기의 선택으로 돌아가기
+Return to the decision →|กลับไปตัดสินใจ →|回到抉择 →|決断に戻る →|결정으로 돌아가기 →
+Your plan is set. See what these years bring.|วางแผนแล้ว มาดูกันว่าจะเกิดอะไรขึ้นในช่วงนี้|计划已定，看看这几年会发生什么。|計画が決まりました。この数年で何が起きるでしょうか。|계획을 정했습니다. 앞으로 몇 년 동안 무슨 일이 일어날지 지켜보세요.
+{p}% chose this in the simulation|ผู้เล่นจำลอง {p}% เลือกข้อนี้|模拟中有{p}%选择了这个选项|シミュレーションでは{p}%がこの選択をした|시뮬레이션에서 {p}%가 이 선택을 했습니다
+Earlier promises already use {n} of your 10 points.|คำมั่นที่ให้ไว้ใช้ไปแล้ว {n} จาก 10 แต้ม|此前的承诺已占用10点中的{n}点。|以前の約束に10点中{n}点を使います。|이전에 한 약속에 10점 중 {n}점이 들어갑니다.
 Leaving for college in Bangkok|ออกเดินทางไปเรียนต่อที่กรุงเทพฯ|出发去曼谷上大学|進学のためバンコクへ出発|대학에 가기 위해 방콕으로 출발
 Replay departure|ดูฉากออกเดินทางอีกครั้ง|重播出发场景|出発の場面をもう一度見る|출발 장면 다시 보기
 Close departure|ปิดฉากออกเดินทาง|关闭出发场景|出発の場面を閉じる|출발 장면 닫기
