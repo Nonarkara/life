@@ -1,19 +1,19 @@
 {
  "summary": {
-  "base": "http://127.0.0.1:4222",
-  "when": "2026-11-18T08:16:02.982Z",
+  "base": "https://life.nonarkara.org",
+  "when": "2026-11-21T03:27:56.762Z",
   "counts": {
    "high": 0,
-   "medium": 1,
-   "low": 8
+   "medium": 0,
+   "low": 9
   }
  },
  "findings": [
   {
    "area": "performance",
-   "severity": "medium",
-   "what": "one view costs 27 requests and 7610 kB",
-   "evidence": "{\"nodes\":1151,\"buttons\":107}"
+   "severity": "low",
+   "what": "one view costs 24 requests and 2045 kB",
+   "evidence": "{\"nodes\":1200,\"buttons\":116}"
   },
   {
    "area": "performance",
@@ -25,7 +25,7 @@
    "area": "book",
    "severity": "low",
    "what": "B1 first-screen task passes",
-   "evidence": "[{\"label\":\"Play\",\"top\":4}]"
+   "evidence": "[{\"label\":\"Play\",\"top\":4},{\"label\":\"Answer 1 question →\",\"top\":799}]"
   },
   {
    "area": "book",
@@ -37,19 +37,19 @@
    "area": "book",
    "severity": "low",
    "what": "B3 box fit passes",
-   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.08,\"boxH\":105,\"textH\":1374}"
+   "evidence": "{\"sel\":\"console-panel console-card\",\"ratio\":0.84,\"boxH\":108,\"textH\":129}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B4 void passes",
-   "evidence": "null"
+   "evidence": "{\"from\":876,\"to\":888}"
   },
   {
    "area": "book",
    "severity": "low",
    "what": "B7 hierarchy passes",
-   "evidence": "[11,12,14,16,18,24,32,64]"
+   "evidence": "[11,12,14,16,24,64]"
   },
   {
    "area": "book",
@@ -61,7 +61,7 @@
    "area": "book",
    "severity": "low",
    "what": "B13 ship basics passes",
-   "evidence": "{\"noAlt\":0,\"unlabelled\":0,\"lang\":\"en\",\"viewport\":\"width=device-width,initial-scale=1\",\"title\":\"Practice\"}"
+   "evidence": "{\"noAlt\":0,\"unlabelled\":0,\"lang\":\"en\",\"viewport\":\"width=device-width,initial-scale=1\",\"title\":\"Life choices\"}"
   }
  ]
 }
