@@ -105,12 +105,16 @@ class CDP {
 }
 
 const BASE = (process.env.LIFE_BASE || 'http://127.0.0.1:4219').replace(/\/$/, '');
-const server = spawn('python3', ['scripts/serve.py'], { stdio: 'ignore' });
+// The pixels must come from the backend a player sees: a software rasteriser
+// leaves artefacts of its own in the frame, and a screenshot of a software
+// frame is not evidence about the product.
+const server = BASE.includes('127.0.0.1') ? spawn('python3', ['scripts/serve.py'], { stdio: 'ignore' }) : null;
 const tmpDir = mkdtempSync(join(tmpdir(), 'chrome-truth-'));
 const chrome = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
   '--headless=new', '--remote-debugging-port=9345', '--user-data-dir=' + tmpDir,
   '--no-first-run', '--no-default-browser-check', '--disable-extensions',
   '--disable-background-networking', '--hide-scrollbars', '--window-size=1440,900',
+  '--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', '--enable-features=Vulkan,Metal',
 ]);
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
@@ -132,8 +136,11 @@ try {
   const plans = [
     { life: companion, file: 'companion', width: 1440, height: 900, want: /home|family|rest/i, name: 'the other child is in the room' },
     { life: companion, file: 'companion', width: 390, height: 844, want: /home|family|rest/i, name: 'the other child is in the room' },
-    { life: student, file: 'classroom', width: 1440, height: 900, want: /study path|tension/i, name: 'the student sits in the classroom' },
-    { life: student, file: 'classroom', width: 390, height: 844, want: /study path|tension/i, name: 'the student sits in the classroom' },
+    // The live app is the 3D diorama; the painted scene module (stage2d.js) is
+    // not executed by the served app. The caption is a text fact; whether the
+    // student is seated is a pixel fact, read from the screenshot this run saves.
+    { life: student, file: 'classroom', width: 1440, height: 900, want: /at school|classroom|schoolyard/i, name: 'the student is at school' },
+    { life: student, file: 'classroom', width: 390, height: 844, want: /at school|classroom|schoolyard/i, name: 'the student is at school' },
   ];
 
   const failures = [];

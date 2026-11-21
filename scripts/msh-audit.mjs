@@ -64,7 +64,16 @@ const measure=()=>{
  const h1=document.querySelector('h1');
  return {ageContrast,chromeBand,readingUse,vw:innerWidth,vh:innerHeight,page:[document.scrollingElement.scrollWidth,document.scrollingElement.scrollHeight],chrome,canvas,h1:h1&&vis(h1)?R(h1.getBoundingClientRect()):null,fat,small,scrollers,overlap,fontSizes,bodyClass:document.body.className};
 };
-const b=await chromium.launch({args:['--use-gl=swiftshader','--enable-webgl','--ignore-gpu-blocklist']});
+// The pixels must come from the backend a player sees. A software rasteriser
+// (SwiftShader, llvmpipe) has known artefacts: it leaves the top-right of the
+// childhood frame unpainted where the real GPU paints artwork. Reading a visual
+// defect out of a software render is reading the rasteriser, not the product.
+// Hardware first; the renderer that answered is recorded in geometry.json.
+const GPU_ARGS=['--use-angle=metal','--enable-gpu','--ignore-gpu-blocklist','--enable-features=Vulkan,Metal'];
+const SOFT_ARGS=['--use-gl=swiftshader','--enable-webgl','--ignore-gpu-blocklist'];
+const b=await chromium.launch({args:process.env.MSH_GL==='swiftshader'?SOFT_ARGS:GPU_ARGS});
+let renderer='unknown',software=false;
+const rendererOf=async page=>await page.evaluate(()=>{const c=document.querySelector('canvas');if(!c)return 'no canvas';const gl=c.getContext('webgl2')||c.getContext('webgl');if(!gl)return 'no webgl';const ext=gl.getExtension('WEBGL_debug_renderer_info');return ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER);});
 const stages=['landing','intake','birth','childhood','review15','question','encounter','review40','recap'];
 const res={};
 for(const stage of stages){if(only&&!only.split(',').includes(stage))continue;
@@ -79,9 +88,11 @@ for(const stage of stages){if(only&&!only.split(',').includes(stage))continue;
    await page.goto(BASE+'/course/');await page.waitForTimeout(stage==='birth'||stage==='childhood'?2500:2000);}
   await page.waitForTimeout(800);
   const m=await page.evaluate(measure);m.errs=errs;
+  if(renderer==='unknown'){renderer=await rendererOf(page);software=/swiftshader|llvmpipe|software/i.test(renderer);m.renderer=renderer;m.software=software;}
   await page.screenshot({path:`${out}/${stage}-${w}.png`});
   res[stage+'-'+w]=m;await ctx.close();
  }}
 await b.close();fs.writeFileSync(out+'/geometry.json',JSON.stringify(res,null,1));
+console.log('renderer:',renderer,software?'(SOFTWARE — do not read visual defects from these shots)':'(hardware)');
 for(const[k,m]of Object.entries(res))console.log(k,'chrome',m.chromeBand,'canvas',JSON.stringify(m.canvas),'scroll',JSON.stringify(m.scrollers.map(s=>[String(s.e).slice(0,18),s.screens])),'fonts',m.fontSizes.length,'fat',JSON.stringify(m.fat.slice(0,2).map(f=>[f.t,f.ax])));
 const bad=failures(res);console.log(bad.join('\n')||'BUDGETS_PASS');process.exit(bad.length?1:0);

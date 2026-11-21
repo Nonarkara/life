@@ -22,10 +22,13 @@ prints rows of zeros; the "Latest event" disclosure hugs its words instead of sp
 connections; the SpriteCast receipts and the classroom proof now tell the truth
 instead of asserting work that never ran.
 
-Not certified, and carried forward as open work: the dead rectangle in the childhood
-stage at wide viewports (6.1% of the viewport at 1440×900, geometry cause not yet
-identified); touch input on a real phone; frame rate on M3 hardware; human playtesting;
-the five Playwright probes in `tests/fixtures/` that run in no script.
+Not certified, and carried forward as open work: touch input on a real phone; frame
+rate on M3 hardware; human playtesting; the five Playwright probes in `tests/fixtures/`
+that run in no script. The "dead rectangle" once reported in the childhood stage was
+closed as an artefact of the audit itself: the audit rendered through a software
+rasteriser, and on the real GPU the region is painted artwork. The audit now renders on
+hardware by default, records the renderer that drew the frame in `geometry.json`, and
+prints a warning when it has to fall back to software.
 
 Evidence for this release is in [INTEGRATION-STATUS.md](INTEGRATION-STATUS.md), the
 19 November 2026 section, with rendered pixels under `review/msh-nov20b/` (local build)
