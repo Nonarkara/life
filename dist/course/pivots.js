@@ -11,6 +11,7 @@ import {flagsOf,rand} from './sim.js';
 import {REGIONS,regionIdFor,homeRegion} from './regions.js';
 import {MARKET_PIVOTS,marketFits} from './market-moments.js';
 import {LEAGUE_PIVOTS,leagueFits} from './league-bets.js';
+import {JOB_PIVOTS,jobFits} from './job-moves.js';
 import {netWorth} from './finance.js';
 import {sceneFits,birthYearOf} from './thai-history.js';
 
@@ -551,7 +552,7 @@ export const PIVOTS=[
    {id:'sell',label:'Sell the house',cost:'You will rent, at your age, and you may never be thanked.',effects:{cash:-60000,wellbeing:-2},note:'You sold the house and rented the one behind it. The letters home were short and the results were good.'}]},
 ];
 
-export const pivotById=id=>PIVOTS.find(p=>p.id===id)??MARKET_PIVOTS.find(p=>p.id===id)??LEAGUE_PIVOTS.find(p=>p.id===id);
+export const pivotById=id=>PIVOTS.find(p=>p.id===id)??MARKET_PIVOTS.find(p=>p.id===id)??LEAGUE_PIVOTS.find(p=>p.id===id)??JOB_PIVOTS.find(p=>p.id===id);
 export const pivotsForStation=age=>PIVOTS.filter(p=>p.station===age);
 // A question tied to a plot point is asked only in the worlds where that happened.
 const WHEN={'flood-repair':/Floodwater/,'flood-move':/Floodwater/,'father-tools':/(?<!grand)father dies/,'stall-takeover':/(?<!grand)father dies/,'empty-house':/(?<!grand)mother dies/,'take-in':/(?<!grand)mother dies/};
@@ -587,6 +588,7 @@ const ADDED={
 // Each big question reaches under half of the lives it fits, fixed per life, so two lives seldom share their questions.
 const SPINE={'flood-repair':.45,'child-water-bike':.4,'partner-business':.45,'city-pay':.4,'share-offer':.35,'parent-ill':.45,'stay-on':.45,leave:.45,'promotion-away':.4,'father-tools':.5,'buy-house':.45,'child-city':.4,'partner-choice':.45,'school-fall-climb':.4,'house-travel':.5,'year-abroad':.4,nephew:.5};
 export function fits(pivot,state){
+  if(pivot.job)return jobFits(pivot,birthYearOf(state));
   if(pivot.league)return leagueFits(pivot,savingsOf(state),birthYearOf(state));
   if(pivot.market)return marketFits(pivot,savingsOf(state),birthYearOf(state));
   if(ADDED[pivot.id])return ADDED[pivot.id](state);
@@ -686,12 +688,15 @@ export function pendingPivots(state){
   const markets = MARKET_PIVOTS.filter(pivot=>pivot.station===state.age&&!answered.has(pivot.id)&&marketFits(pivot,savingsOf(state),birthYearOf(state)));
   // The old spine appeared in most lives. Each big question now reaches only some of them, fixed per life.
   const open = pivotsForStation(state.age).filter(pivot=>(SPINE[pivot.id]===undefined||(!state.intake?.class&&pivot.id!=='leave')||rand(state.seed,0,'spine:'+pivot.id)<SPINE[pivot.id])&&occurred(pivot,state)&&fits(pivot,state)&&sceneFits(pivot.id,state));
-  const free = [...answered].some(id=>!WHEN[id]&&!id.startsWith('mkt-')&&!id.startsWith('lg-'))?[]:open.filter(pivot=>!WHEN[pivot.id]);
+  const free = [...answered].some(id=>!WHEN[id]&&!id.startsWith('mkt-')&&!id.startsWith('lg-')&&!id.startsWith('job-'))?[]:open.filter(pivot=>!WHEN[pivot.id]);
   const pick = free.find(pivot=>pivot.id==='three-roads')??free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
   // One English-league bet at most per station, and not every station: drawn by this life's seed from the seasons in its next five years.
   const bets = [...answered].some(id=>id.startsWith('lg-'))?[]:LEAGUE_PIVOTS.filter(pivot=>pivot.station===state.age&&leagueFits(pivot,savingsOf(state),birthYearOf(state)));
   const bet = bets.length&&rand(state.seed,state.age,'league-offer')<.5?[bets[Math.floor(rand(state.seed,state.age,'league-year')*bets.length)]]:[];
-  return [...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets,...bet];
+  // One real job offer at most per station, same drawing.
+  const jobs = JOB_PIVOTS.filter(pivot=>pivot.station===state.age&&!answered.has(pivot.id)&&jobFits(pivot,birthYearOf(state)));
+  const job = jobs.length&&rand(state.seed,state.age,'job-offer')<.5?[jobs[Math.floor(rand(state.seed,state.age,'job-year')*jobs.length)]]:[];
+  return [...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets,...bet,...job];
 }
 
 // The commitment a question made: an axis cannot go below this for five years.
