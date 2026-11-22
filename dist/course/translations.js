@@ -3225,3 +3225,23 @@ phrases.push(["Motion source: line-art-animation","แหล่งที่ม�
 phrases.push(["The schoolyard image could not load.","โหลดภาพลานโรงเรียนไม่ได้","校园图片未能加载。","校庭の画像を読み込めませんでした。","운동장 이미지를 불러오지 못했습니다."]);
 
 phrases.push(["Replay","เล่นซ้ำ","重播","もう一度再生","다시 재생"]);
+
+phrases.push(["A downturn hit at age {a} ({y})","เศรษฐกิจชะลอตัวตอนอายุ {a} ปี ({y})","{a} 岁（{y} 年）发生经济低迷","{a}歳（{y}年）に景気後退が起きた","{a}세({y}년)에 경기 침체가 찾아왔다"]);
+phrases.push(["A downturn hit at age {a}","เศรษฐกิจชะลอตัวตอนอายุ {a} ปี","{a} 岁发生经济低迷","{a}歳に景気後退が起きた","{a}세에 경기 침체가 찾아왔다"]);
+phrases.push(["Remembered from your last life ({from}–{to}): {events}.","จำได้จากชีวิตก่อน (อายุ {from}–{to} ปี): {events}","来自上一世的记忆（{from}–{to} 岁）：{events}。","前の人生の記憶（{from}–{to}歳）：{events}。","이전 삶의 기억({from}–{to}세): {events}."]);
+phrases.push(["Floodwater reached the family home","น้ำท่วมเข้ามาถึงบ้านครอบครัว","洪水淹到了家里","洪水が家族の家に達した","홍수가 가족의 집까지 차올랐다"]);
+phrases.push(["Your father passed away in this chapter","พ่อของคุณจากไปในช่วงนี้","父亲在这一阶段去世","この章で父が亡くなった","이 시기에 아버지가 세상을 떠났다"]);
+phrases.push(["Your mother passed away in this chapter","แม่ของคุณจากไปในช่วงนี้","母亲在这一阶段去世","この章で母が亡くなった","이 시기에 어머니가 세상을 떠났다"]);
+phrases.push(["Someone you trusted took your savings","คนที่คุณไว้ใจเอาเงินออมของคุณไป","你信任的人卷走了你的积蓄","信頼していた人に貯蓄を持ち逃げされた","믿었던 사람이 저축을 가져갔다"]);
+phrases.push(["An accident put you out of work","อุบัติเหตุทำให้คุณต้องหยุดทำงาน","一次意外让你无法工作","事故で仕事ができなくなった","사고로 일을 쉬어야 했다"]);
+phrases.push(["An unexpected windfall arrived","มีโชคลาภก้อนหนึ่งเข้ามาโดยไม่คาดคิด","一笔意外之财降临","思いがけない臨時収入があった","예상치 못한 횡재가 찾아왔다"]);
+phrases.push(["a partner","คู่ชีวิต","伴侣","パートナー","동반자"]);
+phrases.push(["a child","ลูก","孩子","子ども","자녀"]);
+phrases.push(["a home of your own","บ้านของตัวเอง","自己的家","自分の家","내 집"]);
+phrases.push(["Left behind from your last life: {items}.","สิ่งที่ทิ้งไว้ในชีวิตก่อน: {items}","留在上一世的：{items}。","前の人生に置いてきたもの：{items}。","이전 삶에 두고 온 것: {items}."]);
+phrases.push(["Found in this life instead: {items}.","สิ่งที่พบในชีวิตนี้แทน: {items}","这一世取而代之的：{items}。","この人生で代わりに見つけたもの：{items}。","이번 삶에서 대신 얻은 것: {items}."]);
+phrases.push(["Echoes of this birth","เสียงสะท้อนของชาติกำเนิดนี้","这一出生的回声","この生まれの残響","이 출생의 메아리"]);
+phrases.push(["Echoes of this birth · {n} lives","เสียงสะท้อนของชาติกำเนิดนี้ · {n} ชีวิต","这一出生的回声 · {n} 段人生","この生まれの残響 · {n}つの人生","이 출생의 메아리 · {n}번의 삶"]);
+phrases.push(["This life","ชีวิตนี้","这一世","この人生","이번 삶"]);
+phrases.push(["Life #{n}","ชีวิตที่ #{n}","第 {n} 世","人生 #{n}","삶 #{n}"]);
+phrases.push(["Ikigai {n}","อิคิไก {n}","生之意义 {n}","生きがい {n}","이키가이 {n}"]);

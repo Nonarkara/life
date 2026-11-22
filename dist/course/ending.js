@@ -11,6 +11,7 @@ import {birthURL} from './birthcode.js';
 import {resultShare,deliverShare,copyShare} from './share-result.js';
 import {lifeCardView} from './card-view.js';
 import {replayComparison} from './replay-compare.js';
+import {branchTradeoffs,sameBirthEchoes} from './replay-echoes.js';
 import {renderReading,themCode} from './life-reading.js';
 import {pathOf,lifeArc} from './life-verdict.js';
 import {buildCV} from './cv.js';
@@ -107,9 +108,29 @@ export function renderEnding(root,state,{storage}={}){
     .replace('{n}',cmp.earlyRoad.age).replace('{a}',t(cmp.earlyRoad.before)).replace('{b}',t(cmp.earlyRoad.now));box.append(p);
   }
   if(cmp.split){const p=document.createElement('p');p.textContent=t('The two lives first parted at age {n}. Then: {a}. Now: {b}.').replace('{n}',cmp.split.age).replace('{a}',t(cmp.split.before)).replace('{b}',t(cmp.split.now));box.append(p);}
+  const trade=branchTradeoffs(state);
+  if(trade){
+   if(trade.lost.length){const p=document.createElement('p');p.className='ending-tradeoff';p.textContent=t('Left behind from your last life: {items}.').replace('{items}',trade.lost.map(x=>t(x)).join(', '));box.append(p);}
+   if(trade.gained.length){const p=document.createElement('p');p.className='ending-tradeoff';p.textContent=t('Found in this life instead: {items}.').replace('{items}',trade.gained.map(x=>t(x)).join(', '));box.append(p);}
+  }
   const note=document.createElement('p');note.className='fine';note.textContent=t('Two lives are two stories, not an experiment. The gap is not proof that one choice caused it.');box.append(note);root.append(box);}}
  // A card to keep or send: where you went, what you were, one line in your own words.
- try{recordLife(storage,state,{ikigai:reading?.score,notes:lifeNotes(state)});}catch{}
+ let savedLives=[];try{savedLives=recordLife(storage,state,{ikigai:reading?.score,notes:lifeNotes(state)});}catch{}
+ {const echoes=sameBirthEchoes(savedLives,state);
+  if(echoes.length>=2){
+   const box=document.createElement('section');box.className='ending-echoes';box.setAttribute('aria-label',t('Echoes of this birth'));
+   const h=document.createElement('h2');h.textContent=t('Echoes of this birth · {n} lives').replace('{n}',echoes.length);box.append(h);
+   const ol=document.createElement('ol');ol.className='echo-strip';
+   for(const echo of echoes){
+    const li=document.createElement('li');if(echo.current)li.className='echo-current';
+    const tag=echo.current?t('This life'):t('Life #{n}').replace('{n}',echo.runNumber);
+    const parts=[tag,t('Age {n}').replace('{n}',echo.age),...(echo.calling?[t(echo.calling)]:[]),...(echo.ikigai!==null?[t('Ikigai {n}').replace('{n}',echo.ikigai)]:[])];
+    const line=document.createElement('span');line.textContent=parts.join(' · ');li.append(line);
+    if(echo.words){const q=document.createElement('small');q.dataset.native='';q.textContent='“'+echo.words+'”';li.append(q);}
+    ol.append(li);
+   }
+   box.append(ol);root.append(box);
+  }}
  // The way to hand this life on: the same birth, for someone else to live their own way.
  const link=birthURL(state);
  const share=document.createElement('section');share.className='ending-share';const status=document.createElement('p');status.className='fine';status.setAttribute('role','status');status.hidden=true;const send=document.createElement('button');send.type='button';send.className='primary';const copy=document.createElement('button');copy.type='button';copy.textContent=t('Copy result');copy.className='quiet';

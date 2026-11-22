@@ -376,6 +376,14 @@
 /* This life beside the last one. */
 .ending-compare dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:8px 0}
 .ending-compare dt{color:var(--muted,#55645c)}.ending-compare dd{margin:0;font-variant-numeric:tabular-nums}
+.ending-tradeoff{font-size:calc(13px * var(--reading-scale));color:var(--ink,#192e2c);border-left:2px solid var(--amber,#a35d00);padding-left:8px;margin:6px 0}
+.ending-echoes{margin:14px 0;padding-top:10px;border-top:1px solid var(--line)}
+.ending-echoes h2{font-size:calc(13px * var(--reading-scale));font-weight:600;margin:0 0 6px}
+.echo-strip{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.echo-strip li{font-size:calc(12.5px * var(--reading-scale));padding:4px 0 4px 8px;border-left:2px solid var(--line);font-variant-numeric:tabular-nums;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.echo-strip li.echo-current{border-left-color:var(--amber,#a35d00);font-weight:500}
+.echo-strip small{color:var(--muted,#55645c);font-style:italic}
+.replay-foreknowledge{margin:8px 0;padding:6px 0 6px 8px;border-left:2px solid var(--amber,#a35d00);font-size:calc(12.5px * var(--reading-scale));line-height:1.45;color:var(--ink,#192e2c)}
 
 /* On a phone the ending is a page that scrolls, not a one-third-height window. */
 @media(max-width:1279px){
