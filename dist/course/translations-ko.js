@@ -2,6 +2,9 @@
 // Per-language translation pack for 한국어 (ko).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Remembered events", "기억하는 사건"],
+  ["From your last life: {club} won this season.", "지난 삶에서 이 시즌 우승팀은 {club}였습니다."],
+  ["{event} at age {a}", "{a}세에 {event}"],
   ["What happened afterward", "그 뒤에 일어난 일"],
   ["At age {n}, your path was “{path}”.", "{n}세에 ‘{path}’의 길을 택했습니다."],
   ["Replay this childhood →", "이 어린 시절 다시 살기 →"],

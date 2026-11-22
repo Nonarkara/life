@@ -119,7 +119,7 @@ export function renderEnding(root,state,{storage}={}){
  {const echoes=sameBirthEchoes(savedLives,state);
   if(echoes.length>=2){
    const box=document.createElement('section');box.className='ending-echoes';box.setAttribute('aria-label',t('Echoes of this birth'));
-   const h=document.createElement('h2');h.textContent=t('Echoes of this birth · {n} lives').replace('{n}',echoes.length);box.append(h);
+   const h=document.createElement('h2');h.textContent=t('Echoes of this birth');box.append(h);
    const ol=document.createElement('ol');ol.className='echo-strip';
    for(const echo of echoes){
     const li=document.createElement('li');if(echo.current)li.className='echo-current';

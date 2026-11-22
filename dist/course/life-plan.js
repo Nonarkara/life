@@ -1,5 +1,6 @@
 // The next five years, decided left to right. One card per decision, nothing bleeding off a
 // card; each choice moves you to the next card, and the far right card lives the years.
+import {formatForeknowledge,foreknowledgeForChapter} from './replay-echoes.js';
 import {AXES} from './sim.js';
 import {chapterPlans,chapterReceipt,effortFrom} from './chapter-play.js';
 export {effortFrom} from './chapter-play.js';
@@ -26,7 +27,13 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
  const steps=el('div','plan-steps');steps.setAttribute('role','group');steps.setAttribute('aria-label',t('The next five years'));const strip=el('div','plan-strip');const foot=el('div','plan-foot');const world=el('aside','plan-world');world.setAttribute('aria-label',t('The year around you'));const quick=el('section','chapter-play'),switcher=el('button','chapter-switch'),watchButton=el('button','chapter-watch','Watch these years');
  switcher.type=watchButton.type='button';
  watchButton.onclick=watch;
- root.append(quick,steps,strip,foot,switcher,world);
+ const tools=el('div','chapter-tools'),memory=el('details','chapter-memory'),summary=el('summary',undefined,'Remembered events');
+ const cue=el('p','replay-foreknowledge');cue.id='replay-foreknowledge';
+ memory.append(summary,cue);tools.append(switcher,memory);
+ memory.addEventListener('toggle',()=>{
+  if(memory.open&&!memory.hidden)memory.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});
+ });
+ root.append(quick,steps,strip,foot,tools,world);
  let local={},stationKey='',shown=-1;
  const go=i=>{const card=strip.children[i];if(!card)return;strip.scrollTo({left:card.offsetLeft-strip.offsetLeft,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});};
  const after=i=>requestAnimationFrame(()=>{if(strip.scrollWidth>strip.clientWidth+4)go(i+1);});
@@ -43,11 +50,14 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
  };
  function draw(){
   const s=getState(),key=s.seed+':'+s.age;
-  if(key!==stationKey){stationKey=key;local={};readEffort(s);strip.scrollLeft=0;}
+  if(key!==stationKey){stationKey=key;local={};readEffort(s);strip.scrollLeft=0;memory.open=false;}
   const advanced=!!local.advanced,blocked=!canWatch(),chosen=s.chapterChoiceAge===s.age;
   root.classList.toggle('chapter-advanced',advanced);
   quick.hidden=advanced||blocked;
-  switcher.hidden=blocked;
+  tools.hidden=blocked;
+  const remembered=blocked?null:foreknowledgeForChapter(s);
+  memory.hidden=!remembered;
+  cue.textContent=formatForeknowledge(remembered,t);
   switcher.textContent=t(advanced?'Back to chapter choices':'Adjust the plan');
   switcher.setAttribute('aria-expanded',String(advanced));
   steps.hidden=strip.hidden=blocked||!advanced;
@@ -86,7 +96,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   if(receipt&&before&&s.previous.restartedAt!==undefined){
    receipt.textContent+= ' · '+t('Before the replay')+' · '+t('Health')+' '+signed(before.health)+' · '+t('Wellbeing')+' '+signed(before.wellbeing);
   }
-  quick.replaceChildren(heading,cost,choices,...(receipt?[receipt]:[]));
+  quick.replaceChildren(heading,cost,choices);
   if(selected&&!quick.hidden)quick.querySelector('[data-chapter-plan="'+selected+'"]')?.focus({preventScroll:true});
   watchButton.hidden=blocked||(!chosen&&!advanced);
   commit.disabled=!blocked&&!chosen&&!advanced;
@@ -123,7 +133,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   renderYearPanel(world,s,t);
   if(blocked)world.hidden=true;
   {const warn=lifeWarning(s,t);if(warn&&cards[0])cards[0].append(el('p','plan-key plan-warning',warn));}
-  foot.replaceChildren(commit,watchButton);
+  foot.replaceChildren(commit,watchButton,...(receipt&&!advanced&&!blocked?[receipt]:[]));
   const latestAge=row?.from;
   if(advanced&&!blocked&&canRewind(latestAge)){
    const goBack=el('button','chapter-watch chapter-rewind',t('Replay from age {n} →').replace('{n}',latestAge));
@@ -140,7 +150,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   if(focusIndex>=0)strip.children[shown]?.querySelectorAll(controls)[focusIndex]?.focus({preventScroll:true});
  }
  const measure=new ResizeObserver(()=>fit(shown));
- measure.observe(steps);measure.observe(foot);measure.observe(quick);measure.observe(switcher);
+ measure.observe(steps);measure.observe(foot);measure.observe(quick);measure.observe(tools);
  function mark(){
   const first=strip.children[0];
   if(!first)return;
@@ -169,7 +179,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   if(innerWidth>=1280){strip.style.height=c?c.offsetHeight+'px':'';body.style.removeProperty('--rpg-height');return;}
   const panel=!quick.hidden?quick:!strip.hidden?strip:foot;
   const top=panel.getBoundingClientRect().top-dock.getBoundingClientRect().top;
-  const tail=switcher.offsetHeight+(panel===foot?0:foot.offsetHeight)+(c?0:6)+20;
+  const tail=tools.offsetHeight+(panel===foot?0:foot.offsetHeight)+(c?0:6)+20;
   const content=c?c.offsetHeight:panel.offsetHeight;
   const h=Math.min(Math.round(innerHeight*.53),Math.ceil(top+content+tail));
   strip.style.height=c?Math.max(44,h-top-tail)+'px':'';

@@ -2,6 +2,9 @@
 // Per-language translation pack for 日本語 (ja).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Remembered events", "覚えている出来事"],
+  ["From your last life: {club} won this season.", "前の人生では、このシーズンは{club}が優勝しました。"],
+  ["{event} at age {a}", "{a}歳で、{event}"],
   ["What happened afterward", "その後に起きたこと"],
   ["At age {n}, your path was “{path}”.", "{n}歳のとき、「{path}」という道を選びました。"],
   ["Replay this childhood →", "この子ども時代をやり直す →"],

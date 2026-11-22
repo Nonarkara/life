@@ -570,6 +570,7 @@ body.has-plan .life-plan {
  color: var(--muted);
  font-size: calc(12px * var(--reading-scale));
 }
+.plan-foot .chapter-receipt { flex-basis: 100%; }
 .chapter-choices { display: flex; flex-wrap: wrap; gap: 4px 12px; }
 .chapter-choice {
  display: grid;
@@ -589,7 +590,19 @@ body.has-plan .life-plan {
 .chapter-choice small { font-size: calc(12px * var(--reading-scale)); }
 .chapter-choice[aria-pressed="true"] { border-color: var(--amber); background: var(--ink); color: var(--paper); }
 .chapter-switch, .chapter-watch { min-height: 44px; max-width: 100%; justify-self: start; }
-.chapter-switch { grid-column: 1 / -1; grid-row: 4; }
+.chapter-tools {
+ grid-column: 1 / -1;
+ grid-row: 4;
+ display: flex;
+ align-items: start;
+ flex-wrap: wrap;
+ gap: 4px 12px;
+ min-width: 0;
+}
+.chapter-memory { max-width: 100%; min-width: 0; }
+.chapter-memory[open] { flex: 1 1 12rem; }
+.chapter-memory summary { width: fit-content; min-height: 44px; padding: 8px 4px; cursor: pointer; }
+.chapter-memory .replay-foreknowledge { overflow-wrap: anywhere; }
 .life-plan .plan-foot {
  grid-column: 1 / -1;
  grid-row: 3;

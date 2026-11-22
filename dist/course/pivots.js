@@ -689,7 +689,7 @@ export function pendingPivots(state){
   const free = [...answered].some(id=>!WHEN[id]&&!id.startsWith('mkt-')&&!id.startsWith('lg-'))?[]:open.filter(pivot=>!WHEN[pivot.id]);
   const pick = free.find(pivot=>pivot.id==='three-roads')??free.map(pivot=>[rand(state.seed,state.age,'pivot:'+pivot.id),pivot]).sort((a,b)=>a[0]-b[0])[0]?.[1];
   // One English-league bet at most per station, and not every station: drawn by this life's seed from the seasons in its next five years.
-  const bets = LEAGUE_PIVOTS.filter(pivot=>pivot.station===state.age&&!answered.has(pivot.id)&&leagueFits(pivot,savingsOf(state),birthYearOf(state)));
+  const bets = [...answered].some(id=>id.startsWith('lg-'))?[]:LEAGUE_PIVOTS.filter(pivot=>pivot.station===state.age&&leagueFits(pivot,savingsOf(state),birthYearOf(state)));
   const bet = bets.length&&rand(state.seed,state.age,'league-offer')<.5?[bets[Math.floor(rand(state.seed,state.age,'league-year')*bets.length)]]:[];
   return [...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets,...bet];
 }

@@ -34,7 +34,11 @@ test('lives meet it, answering stakes a tenth, and every text is translated',()=
  let met=0;
  for(let seed=1;seed<=80;seed++){let s=begin(configureLife(newLife(seed*7919),{birthYear:1955}));
   while(s.stage==='review'&&s.age<70){s=live(s);if(s.stage!=='review')break;
-   for(const p of pendingPivots(s)){const os=openOptions(p,s);if(p.league){met++;assert.ok(pivotById(p.id));s=applyPivot(s,p,'c2');assert.ok(s.pivotFlags['lg'+p.league+'a']>=0);assert.equal(s.pivotFlags['lg'+p.league+'p'],2);}
+   for(const p of pendingPivots(s)){const os=openOptions(p,s);if(p.league){met++;assert.ok(pivotById(p.id));
+   const noBet=applyPivot(s,p,'stay');
+   assert.ok(!pendingPivots(noBet).some(p=>p.league),'passing must close the league question for this station');
+   s=applyPivot(s,p,'c2');
+   assert.ok(!pendingPivots(s).some(p=>p.league),'betting must close the league question for this station');assert.ok(s.pivotFlags['lg'+p.league+'a']>=0);assert.equal(s.pivotFlags['lg'+p.league+'p'],2);}
   else if(os.length)s=applyPivot(s,p,os[(seed+s.age)%os.length].id);}
    const ps=s.story?.pending;if(ps){const os=encounterById(ps.id).options.filter(o=>choiceAvailable(s,o));s=resolveEncounter(s,os[seed%os.length].id,.05);}
   }}

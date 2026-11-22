@@ -2,6 +2,9 @@
 // Per-language translation pack for 简体中文 (zh-CN).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Remembered events", "记得的往事"],
+  ["From your last life: {club} won this season.", "上一回人生中，{club} 赢得了这个赛季。"],
+  ["{event} at age {a}", "{a}岁时，{event}"],
   ["What happened afterward", "后来发生了什么"],
   ["At age {n}, your path was “{path}”.", "{n}岁时，你走上了「{path}」这条路。"],
   ["Replay this childhood →", "重过这段童年 →"],

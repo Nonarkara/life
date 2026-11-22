@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {foreknowledgeForChapter,formatForeknowledge,branchTradeoffs,sameBirthEchoes} from '../../dist/course/replay-echoes.js';
+import {foreknowledgeForChapter,formatForeknowledge,branchTradeoffs,sameBirthEchoes,rememberedLeagueWinner,extractMilestones} from '../../dist/course/replay-echoes.js';
 import {newLife,configureLife,begin,live,replay} from '../../dist/course/sim.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {pendingPivots,applyPivot,openOptions} from '../../dist/course/pivots.js';
@@ -118,4 +118,28 @@ test('sameBirthEchoes groups 2+ runs of the same birth and ignores other births'
  assert.equal(echoes[1].current,false);
  assert.equal(echoes[1].runNumber,1);
  assert.equal(echoes[1].ikigai,64);
+ const later=lives2[0];
+ const crowded=[...lives2,...[3,4,5,6,7].map(n=>({...later,id:'different-run-'+n,at:n*1000}))];
+ const olderEnding=sameBirthEchoes(crowded,s1);
+ assert.equal(olderEnding.length,6);
+ assert.ok(olderEnding.some(r=>r.current&&r.runNumber===1),'an older ending includes itself in the visible gallery');
+});
+
+
+test('a wait is not a marriage, a plot of land is not a home, and a recorded shared purchase is',()=>{
+ const life={history:[{pivots:[{pivot:'partner-choice',choice:'wait',station:25,flags:{}}]}],finance:{purchases:[{key:'land'}]}};
+ assert.equal(extractMilestones(life).partner,false);
+ assert.equal(extractMilestones(life).home,false);
+ life.history[0].pivots.push({pivot:'buy-house',choice:'share',flags:{sharedHouse:true}});
+ assert.equal(extractMilestones(life).home,true);
+});
+
+test('only a settled match contributes a remembered winner',()=>{
+ const pivot={league:2015,station:40};
+ const state={age:40,previous:{history:[{from:40,age:45,event:'You put a tenth of your savings on a club outside last year’s top three for 2015–16.'}]}};
+ assert.equal(rememberedLeagueWinner(state,pivot),null);
+ state.previous.history.push({from:45,age:50,event:'Leicester City won the 2015–16 league. Your bet came in, and paid back more than you staked.'});
+ assert.equal(rememberedLeagueWinner(state,pivot),'Leicester City');
+ assert.equal(rememberedLeagueWinner(state,{...pivot,league:2016}),null);
+ assert.equal(rememberedLeagueWinner({...state,previous:null},pivot),null);
 });

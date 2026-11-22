@@ -2,6 +2,9 @@
 // Per-language translation pack for ไทย (th).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Remembered events", "เหตุการณ์ที่จำได้"],
+  ["From your last life: {club} won this season.", "ในชีวิตก่อน {club} ชนะฤดูกาลนี้"],
+  ["{event} at age {a}", "{event} เมื่ออายุ {a} ปี"],
   ["What happened afterward", "เกิดอะไรขึ้นต่อจากนั้น"],
   ["At age {n}, your path was “{path}”.", "เมื่ออายุ {n} ปี คุณเลือกทาง “{path}”"],
   ["Replay this childhood →", "ย้อนกลับไปวัยเด็ก →"],

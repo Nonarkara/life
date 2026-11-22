@@ -20,6 +20,9 @@ import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Remembered events|เหตุการณ์ที่จำได้|记得的往事|覚えている出来事|기억하는 사건
+From your last life: {club} won this season.|ในชีวิตก่อน {club} ชนะฤดูกาลนี้|上一回人生中，{club} 赢得了这个赛季。|前の人生では、このシーズンは{club}が優勝しました。|지난 삶에서 이 시즌 우승팀은 {club}였습니다.
+{event} at age {a}|{event} เมื่ออายุ {a} ปี|{a}岁时，{event}|{a}歳で、{event}|{a}세에 {event}
 What happened afterward|เกิดอะไรขึ้นต่อจากนั้น|后来发生了什么|その後に起きたこと|그 뒤에 일어난 일
 At age {n}, your path was “{path}”.|เมื่ออายุ {n} ปี คุณเลือกทาง “{path}”|{n}岁时，你走上了「{path}」这条路。|{n}歳のとき、「{path}」という道を選びました。|{n}세에 ‘{path}’의 길을 택했습니다.
 Replay this childhood →|ย้อนกลับไปวัยเด็ก →|重过这段童年 →|この子ども時代をやり直す →|이 어린 시절 다시 살기 →
