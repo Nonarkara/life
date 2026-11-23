@@ -7679,6 +7679,7 @@ export default new Map([
   ["canal boatman", "운하 뱃사공"],
   ["street vendor", "노점상"],
   ["seamstress", "재봉사"],
+  ["tailor", "재단사"],
   ["market porter", "시장 짐꾼"],
   ["bus driver", "버스 기사"],
   ["mechanic", "정비사"],

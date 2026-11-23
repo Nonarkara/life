@@ -7679,6 +7679,7 @@ export default new Map([
   ["canal boatman", "运河船夫"],
   ["street vendor", "街头小贩"],
   ["seamstress", "裁缝"],
+  ["tailor", "裁缝"],
   ["market porter", "市场搬运工"],
   ["bus driver", "公交车司机"],
   ["mechanic", "修理工"],

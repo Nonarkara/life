@@ -7679,6 +7679,7 @@ export default new Map([
   ["canal boatman", "運河の船頭"],
   ["street vendor", "露天商"],
   ["seamstress", "仕立て屋"],
+  ["tailor", "仕立て屋"],
   ["market porter", "市場の運び屋"],
   ["bus driver", "バス運転手"],
   ["mechanic", "整備士"],

@@ -41,6 +41,7 @@ function translateUncached(input,language='en'){
 }
 export let preferences={language:'en',size:'standard',motion:false,stage:'hybrid',palette:'auto'};
 if(typeof localStorage!=='undefined')try{const p=JSON.parse(localStorage.getItem('life-preferences-v1'));if(p){if(languages[p.language])preferences.language=p.language;if(['standard','large','extra'].includes(p.size))preferences.size=p.size;preferences.motion=p.motion===true;if(p.stage==='isometric')preferences.stage='isometric';}}catch{}
+if(typeof window!=='undefined'&&window.location?.search){try{const q=new URLSearchParams(window.location.search).get('lang');if(q&&languages[q])preferences.language=q;}catch{}}
 // What a caller is about to show: the translation, retold for this life's household. Text that is
 // translated before it reaches the page (the ending, the share card) is covered here, not only in localise.
 // While a language's pack is still on its way the authored line is left exactly as written: the page copies

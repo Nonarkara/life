@@ -198,7 +198,7 @@ html[lang=th] .pamphlet{--micro:12.5px}
 body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar-actions .begin{display:none}
 @media (max-width:720px){
  body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar{flex-wrap:nowrap;padding:0 16px;gap:12px}
- body:has(.menu button[data-sheet=overview][aria-pressed=true]) .menu{order:0;flex:1 1 0;padding:0}
+ body:has(.menu button[data-sheet=overview][aria-pressed=true]) .menu{order:0;flex:1 1 0;padding:0;-webkit-mask-image:linear-gradient(to right,#000 84%,transparent);mask-image:linear-gradient(to right,#000 84%,transparent)}
  body:has(.menu button[data-sheet=overview][aria-pressed=true]) .bar-actions{margin-left:0}
 }
 

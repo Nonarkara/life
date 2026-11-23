@@ -6,7 +6,8 @@ import {household} from './regions.js';
 
 const FATHER_NAMES=['Somchai','Prasert','Wichai','Somsak','Narong','Boonmee','Anan','Kittisak','Thaworn','Preecha'];
 const MOTHER_NAMES=['Malee','Suda','Wilai','Ratana','Nonglak','Chanthira','Yupin','Sunee','Kanya','Somporn'];
-const SIBLING_NAMES=['Ploy','Ton','Fah','Beam','Khao','Nok','Bank','Pim','Mek','Dao'];
+const BROTHER_NAMES=['Ton','Beam','Bank','Mek','Art','Nont','Golf','Oak'];
+const SISTER_NAMES=['Ploy','Fah','Khao','Nok','Pim','Dao','May','Mint'];
 
 const OCCUPATIONS={
  low_class:['rice farmer','day labourer','canal boatman','street vendor','seamstress','market porter'],
@@ -28,8 +29,9 @@ export function familyGuardians(life){
   const slot=index?'m':'f';
   const names=person.sex==='male'?FATHER_NAMES:MOTHER_NAMES;
   const name=pick(names.filter(name=>!usedNames.has(name)),'fam-'+slot+'-name');
-  const job=pick(jobs.filter(job=>!usedJobs.has(job)),'fam-'+slot+'-job');
+  let job=pick(jobs.filter(job=>!usedJobs.has(job)),'fam-'+slot+'-job');
   usedNames.add(name);usedJobs.add(job);
+  if(job==='seamstress'&&person.sex==='male')job='tailor';
   return {name,job,role:person.role,elder:!!person.elder};
  });
 }
@@ -48,12 +50,14 @@ export function familyRecord(life){
   const used=new Set();
   const list=[];
   for(let i=0;i<sibCount;i++){
-   let name=SIBLING_NAMES[Math.floor(rand(seed,i+1,'fam-sib-name')*SIBLING_NAMES.length)];
-   while(used.has(name))name=SIBLING_NAMES[(SIBLING_NAMES.indexOf(name)+1)%SIBLING_NAMES.length];
+   const isMale=rand(seed,i+1,'fam-sib-sex')<.5;
+   const pool=isMale?BROTHER_NAMES:SISTER_NAMES;
+   let name=pool[Math.floor(rand(seed,i+1,'fam-sib-name')*pool.length)];
+   while(used.has(name))name=pool[(pool.indexOf(name)+1)%pool.length];
    used.add(name);
    const role=rand(seed,i+1,'fam-sib-role')<.5
-    ?(rand(seed,i+1,'fam-sib-sex')<.5?t('older brother'):t('older sister'))
-    :(rand(seed,i+1,'fam-sib-sex')<.5?t('younger brother'):t('younger sister'));
+    ?(isMale?t('older brother'):t('older sister'))
+    :(isMale?t('younger brother'):t('younger sister'));
    list.push(`${name} (${role})`);
   }
   siblingsText=list.join(' · ');

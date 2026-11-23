@@ -7703,6 +7703,7 @@ export default new Map([
   ["canal boatman", "canal boatman"],
   ["street vendor", "street vendor"],
   ["seamstress", "seamstress"],
+  ["tailor", "tailor"],
   ["market porter", "market porter"],
   ["bus driver", "bus driver"],
   ["mechanic", "mechanic"],

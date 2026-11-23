@@ -622,7 +622,9 @@ body.has-plan .life-plan {
  font-weight: 600;
 }
 @media (max-width: 560px) {
- .chapter-choices { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; gap: 4px; }
+ .chapter-choices { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: stretch; gap: 6px; }
+ .chapter-choice { width: 100%; border: 1px solid var(--line); padding: 7px 10px; }
+ .world-bottom #world-headline { flex-shrink: 0; max-width: none; }
  .console-mode:not(.birth-stage):not(.recap-stage) .stage:has(#next-moment:not([hidden])) .world-bottom {
   left: 8px;
   right: 8px;
