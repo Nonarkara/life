@@ -22,9 +22,9 @@ test('a scene fits only a move year in the next five years, at working age',()=>
  assert.ok(jobFits(p,1955));assert.ok(!jobFits(p,1950));assert.ok(!jobFits(p,1960));assert.ok(!jobFits(p,null));
  for(const q of JOB_PIVOTS)assert.equal(new Set(q.options.map(o=>o.id)).size,2,q.id);
 });
-test('moving sets the flag, staying sets nothing',()=>{
+test('moving sets the flag, staying records the road not taken',()=>{
  let s=begin(configureLife(newLife(2*7919),{birthYear:1955}));const p=JOB_PIVOTS.find(x=>x.id==='job-1987-30');s={...s,age:30,stage:'review',pivots:[]};
- assert.equal(applyPivot(s,p,'move').pivotFlags.job1987,30);assert.equal(applyPivot(s,p,'stay').pivotFlags?.job1987,undefined);
+ assert.equal(applyPivot(s,p,'move').pivotFlags.job1987,30);const st=applyPivot(s,p,'stay').pivotFlags;assert.equal(st.job1987,undefined);assert.equal(st.job1987o,30);
 });
 test('lives meet job offers, one per station, and every text is translated',()=>{
  let met=0;
@@ -38,4 +38,14 @@ test('lives meet job offers, one per station, and every text is translated',()=>
  const have=new Set(phrases.map(r=>r[0]));
  for(const p of JOB_PIVOTS.filter(p=>p.station===30))for(const t of [p.prompt,p.context,...p.options.flatMap(o=>[o.label,o.note,o.cost])])assert.ok(have.has(t),t);
  for(const r of JOB_PHRASES)assert.equal(r.length,5);
+});
+test('turning a job down is told at the same review, with no money moved, in every language',()=>{
+ const [a]=jobsDue({job1996o:41},46,1000,1955);assert.equal(a.gain,0);assert.ok(a.missed);assert.match(a.text,/Had you moved, it would have cost you\.$/);
+ const [b]=jobsDue({job1987o:30},40,1000,1955);assert.equal(b.gain,0);assert.match(b.text,/Had you moved, it would have paid\.$/);
+ assert.equal(jobsDue({job1987o:30},35,1000,1955).length,0);
+ const have=new Set(phrases.map(r=>r[0]));for(const t of [a.text,b.text])assert.ok(have.has(t),t);
+});
+test('a job line waits for the last year it names',()=>{
+ // born 1957, station 30 is 1987: 1992 is too early for a line that names 1995
+ assert.equal(jobsDue({job1987:30},35,1000,1957).length,0);assert.equal(jobsDue({job1987:30},40,1000,1957).length,1);
 });

@@ -124,7 +124,8 @@ if(s.pivotFlags?.keptShop!==undefined&&from<60){setback-=40000;moodAdj+=1;}
 if(s.pivotFlags?.emigrated!==undefined&&from>=30){setback-=from<65?1000000:200000;moodAdj-=1;}
 // Past choices return: on the timeline, in this period's costs, in body and mind.
 // In a real-record life the stake is paid like the fund: the index after the price rises of those five years.
-for(const m of marketsDue(s.pivotFlags,from)){let gain=m.gain;if(s.economy?.version===3){let prices=1;for(let y=m.year+1;y<=m.year+5;y++)prices*=1+(worldAt(y)?.inflation??0)/100;gain=Math.round(m.stake*(m.per100/100/prices-1));}setback-=gain;event+=' '+m.text;}
+// A save from before the review timing moved may already hold this payout: never pay it twice.
+for(const m of marketsDue(s.pivotFlags,from,birthYearOf(s))){if(s.history.some(r=>r.event?.includes(m.text)))continue;let gain=m.gain;if(s.economy?.version===3){let prices=1;for(let y=m.year+1;y<=m.year+5;y++)prices*=1+(worldAt(y)?.inflation??0)/100;gain=Math.round(m.stake*(m.per100/100/prices-1));}setback-=gain;event+=' '+m.text;}
 for(const b of leaguesDue(s.pivotFlags,from)){setback-=b.gain;event+=' '+b.text;}
 for(const b of jobsDue(s.pivotFlags,from,earnings,birthYearOf(s))){setback-=b.gain;event+=' '+b.text;}
 for(const c of due){setback-=c.cash;bodyAdj+=c.health;moodAdj+=c.wellbeing;event+=' '+c.text;}

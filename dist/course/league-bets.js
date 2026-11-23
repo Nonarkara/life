@@ -59,10 +59,13 @@ const inNote=(y,k)=>`You put a tenth of your savings on ${k==='out'?'a club outs
 const wins=(y,k)=>k==='out'?!LEAGUE[y-1].includes(LEAGUE[y][0]):LEAGUE[y][0]===LEAGUE[y-1][PICKS.indexOf(k)];
 const after=(y,win)=>`${LEAGUE[y][0]} won the ${season(y)} league. ${win?'Your bet came in, and paid back more than you staked.':'Your bet did not come in. The tenth you staked is gone.'}`;
 export const LEAGUE_PIVOTS=Array.from({length:LAST-FIRST+1},(_,i)=>FIRST+i).flatMap(y=>LEAGUE_STATIONS.map(station=>({id:`lg-${y}-${station}`,station,league:y,prompt:prompt(y),context:'The table up to now is all there is. Nobody can show you this season.',options:[
- {id:'stay',label:OUT_LABEL,cost:OUT_COST,effects:{},note:outNote(y)},
+ {id:'stay',label:OUT_LABEL,cost:OUT_COST,effects:{},flags:{['lg'+y+'o']:station},note:outNote(y)},
  ...PICKS.map(k=>({id:k,label:label(y,k),cost:IN_COST,effects:{},flags:{['lg'+y]:station,['lg'+y+'p']:PICKS.indexOf(k)+1},tenthStake:'lg'+y+'a',note:inNote(y,k)}))]})));
 export const leagueFits=(pivot,savings,birthYear)=>birthYear!==null&&pivot.league>=FIRST&&pivot.league<=LAST&&birthYear+pivot.station<=pivot.league&&pivot.league<birthYear+pivot.station+5&&savings>=MIN_SAVINGS;
-export const leaguesDue=(flags,from)=>{const out=[];for(let y=FIRST;y<=LAST;y++){const k=PICKS[(flags?.['lg'+y+'p']??0)-1];if(!k||flags['lg'+y]+5!==from)continue;const stake=flags['lg'+y+'a']??0,win=wins(y,k);out.push({year:y,win,gain:win?Math.round(stake*MULT[k]):-stake,text:after(y,win)});}return out;};
+// Staying out is recorded too: the review shows who won, with no money moved.
+const MISS='You had stayed out of it.',MISS_T={th:(c,y)=>`${c} เป็นแชมป์ลีก ${season(y)} คุณไม่ได้แทง`,zh:(c,y)=>`${c}夺得${season(y)}赛季联赛冠军。你没有下注。`,ja:(c,y)=>`${c}が${season(y)}シーズンのリーグを制した。あなたは賭けなかった。`,ko:(c,y)=>`${season(y)} 시즌 리그 우승은 ${c}. 당신은 걸지 않았다.`};
+const missed=y=>`${LEAGUE[y][0]} won the ${season(y)} league. ${MISS}`;
+export const leaguesDue=(flags,from)=>{const out=[];for(let y=FIRST;y<=LAST;y++){if(flags?.['lg'+y+'o']+5===from&&!flags['lg'+y+'p'])out.push({year:y,win:null,gain:0,text:missed(y)});const k=PICKS[(flags?.['lg'+y+'p']??0)-1];if(!k||flags['lg'+y]+5!==from)continue;const stake=flags['lg'+y+'a']??0,win=wins(y,k);out.push({year:y,win,gain:win?Math.round(stake*MULT[k]):-stake,text:after(y,win)});}return out;};
 const T={
  th:{prompt:(y,a,b,c)=>`ก่อนฤดูกาล ${season(y)} ฤดูกาลที่แล้ว ${a} จบที่หนึ่ง ${b} ที่สอง ${c} ที่สาม คนที่ทำงานกำลังรับแทงบอลลีกอังกฤษ`,back:n=>`แทง ${n}`,again:n=>`แทง ${n} อีกครั้ง`,outside:'แทงทีมนอกสามอันดับแรกของปีที่แล้ว',inN:(y,n)=>`คุณเอาเงินเก็บหนึ่งในสิบแทง ${n} ในฤดูกาล ${season(y)}`,inO:y=>`คุณเอาเงินเก็บหนึ่งในสิบแทงทีมนอกสามอันดับแรกของปีที่แล้ว ในฤดูกาล ${season(y)}`,outN:y=>`คุณไม่ได้แทงบอลฤดูกาล ${season(y)}`,after:(y,w)=>`${LEAGUE[y][0]} เป็นแชมป์ลีก ${season(y)} ${w?'เดิมพันของคุณเข้า และได้คืนมากกว่าที่ลงไป':'เดิมพันของคุณไม่เข้า เงินหนึ่งในสิบที่ลงไปหายไปแล้ว'}`},
  zh:{prompt:(y,a,b,c)=>`${season(y)}赛季开始前。去年${a}第一，${b}第二，${c}第三。单位里有人在收英格兰顶级联赛的赌注。`,back:n=>`押${n}`,again:n=>`再押${n}`,outside:'押去年前三名之外的球队',inN:(y,n)=>`${season(y)}赛季，你拿十分之一的积蓄押了${n}。`,inO:y=>`${season(y)}赛季，你拿十分之一的积蓄押了去年前三名之外的球队。`,outN:y=>`${season(y)}赛季，你没有下注。`,after:(y,w)=>`${LEAGUE[y][0]}夺得${season(y)}赛季联赛冠军。${w?'你的赌注押中了，拿回的比押下的多。':'你的赌注没有押中。押下的十分之一没了。'}`},
@@ -81,5 +84,6 @@ export const LEAGUE_PHRASES=once([
   row(prompt(y),t=>t.prompt(y,a,b,c)),row(outNote(y),t=>t.outN(y)),
   ...[a,b,c].map((n,i)=>row(label(y,PICKS[i]),t=>(i?t.back:t.again)(n))),
   ...[a,b,c].map((n,i)=>row(inNote(y,PICKS[i]),t=>t.inN(y,n))),
-  row(inNote(y,'out'),t=>t.inO(y)),row(after(y,true),t=>t.after(y,true)),row(after(y,false),t=>t.after(y,false))];})
+  row(inNote(y,'out'),t=>t.inO(y)),row(after(y,true),t=>t.after(y,true)),row(after(y,false),t=>t.after(y,false)),
+  [missed(y),...L.map(l=>MISS_T[l](LEAGUE[y][0],y))]];})
 ]);

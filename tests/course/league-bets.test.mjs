@@ -46,3 +46,8 @@ test('lives meet it, answering stakes a tenth, and every text is translated',()=
  const have=new Set(phrases.map(r=>r[0]));
  for(const p of LEAGUE_PIVOTS.filter(p=>p.station===40))for(const t of [p.prompt,...p.options.flatMap(o=>[o.label,o.note,o.cost])])assert.ok(have.has(t),t);
 });
+test('staying out of a season is told at the review with no money moved',()=>{
+ const [a]=leaguesDue({lg2015o:40},45);assert.equal(a.gain,0);assert.equal(a.text,'Leicester City won the 2015–16 league. You had stayed out of it.');
+ assert.equal(leaguesDue({lg2015o:40},50).length,0);
+ assert.ok(new Set(phrases.map(r=>r[0])).has(a.text));
+});

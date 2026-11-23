@@ -17,10 +17,14 @@ const IN_LABEL='Put half your savings in',inNote=m=>`You put half your savings i
 const OUT='Keep it out';
 export const MARKET_STATIONS=[20,25,30,35,40,45,50,55,60,65,70,75];
 export const MARKET_PIVOTS=M.flatMap(m=>MARKET_STATIONS.map(station=>({id:`mkt-${m.year}-${station}`,station,market:m.year,prompt:m.prompt,context:CONTEXT,options:[
- {id:'out',label:OUT,cost:OUT_COST,effects:{},note:outNote(m)},
+ {id:'out',label:OUT,cost:OUT_COST,effects:{},flags:{['set'+m.year+'o']:station},note:outNote(m)},
  {id:'in',label:IN_LABEL,cost:IN_COST,effects:{},flags:{['set'+m.year]:station},halfStake:'set'+m.year+'a',note:inNote(m)}]})));
 export const marketFits=(pivot,savings,birthYear)=>{const m=M.find(x=>x.year===pivot.market);return !!m&&birthYear!==null&&birthYear+pivot.station<=m.year&&m.year<birthYear+pivot.station+5&&savings>=MIN_SAVINGS;};
-export const marketsDue=(flags,from)=>M.filter(m=>flags?.['set'+m.year]+5===from).map(m=>({gain:Math.round((flags['set'+m.year+'a']??0)*(m.per100-100)/100),stake:flags['set'+m.year+'a']??0,per100:m.per100,year:m.year,text:afterLine(m)}));
+// Pays at the first review that can know the year+5 index; with no birth year (older tests) the review five years on.
+const dueAt=(m,s,b)=>b==null||b+s===m.year?s+5:s+10;
+const missLine=m=>`You had kept out. By ${m.year+5} the index stood at ${idx(m.year+5)}. ฿100 put in would have been worth ฿${m.per100}.`;
+export const marketsDue=(flags,from,birthYear)=>[...M.filter(m=>Number.isFinite(flags?.['set'+m.year])&&dueAt(m,flags['set'+m.year],birthYear)===from).map(m=>({gain:Math.round((flags['set'+m.year+'a']??0)*(m.per100-100)/100),stake:flags['set'+m.year+'a']??0,per100:m.per100,year:m.year,text:afterLine(m)})),
+ ...M.filter(m=>Number.isFinite(flags?.['set'+m.year+'o'])&&!Number.isFinite(flags['set'+m.year])&&dueAt(m,flags['set'+m.year+'o'],birthYear)===from).map(m=>({gain:0,stake:0,per100:m.per100,year:m.year,missed:true,text:missLine(m)}))];
 export const marketMoment=year=>M.find(m=>m.year===year);
 const thY=y=>y+543;
 export const MARKET_PHRASES=[
@@ -33,6 +37,7 @@ export const MARKET_PHRASES=[
   [m.prompt,m.th,m.zh,m.ja,m.ko],
   [inNote(m),`ปี ${thY(m.year)} คุณเอาเงินเก็บครึ่งหนึ่งลงตลาดหุ้น`,`${m.year}年，你把一半积蓄投进了股市。`,`${m.year}年、貯金の半分を市場に入れた。`,`${m.year}년, 저축의 절반을 시장에 넣었다.`],
   [outNote(m),`ปี ${thY(m.year)} คุณไม่เอาเงินลงตลาดหุ้น`,`${m.year}年，你没有把钱投进股市。`,`${m.year}年、金を市場に入れなかった。`,`${m.year}년, 돈을 시장에 넣지 않았다.`],
+  [missLine(m),`คุณไม่ได้ลง ถึงปี ${thY(m.year+5)} ดัชนีอยู่ที่ ${idx(m.year+5)} ถ้าลงไป ฿100 จะกลายเป็น ฿${m.per100}`,`你没有投。到${m.year+5}年，指数是${idx(m.year+5)}。投入的每฿100本会值฿${m.per100}。`,`入れなかった。${m.year+5}年、指数は${idx(m.year+5)}になった。入れていれば฿100は฿${m.per100}になっていた。`,`넣지 않았다. ${m.year+5}년, 지수는 ${idx(m.year+5)}이었다. 넣었다면 ฿100는 ฿${m.per100}가 되어 있었을 것이다.`],
   [afterLine(m),`ถึงปี ${thY(m.year+5)} ดัชนีอยู่ที่ ${idx(m.year+5)} ทุก ฿100 ที่ลงไปกลายเป็น ฿${m.per100}`,`到${m.year+5}年，指数是${idx(m.year+5)}。你投入的每฿100值฿${m.per100}。`,`${m.year+5}年、指数は${idx(m.year+5)}になった。入れた฿100は฿${m.per100}になっていた。`,`${m.year+5}년, 지수는 ${idx(m.year+5)}이었다. 넣은 ฿100는 ฿${m.per100}가 되어 있었다.`]
  ])
 ];

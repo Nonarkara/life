@@ -298,3 +298,21 @@ test('fresh births expose different playable openings through age twenty',async(
  assert.ok(contested>=10&&ordinaryWins/contested>=.25,'ordinary scenes won '+ordinaryWins+' of '+contested+' stations beside a directed one');
  assert.ok(ordinaryBesideDirected.size>=5,'distinct ordinary winners '+ordinaryBesideDirected.size);
 });
+test('keeping out of the market is told when the record is known, with no money moved',()=>{
+ const [a]=marketsDue({set1993o:20},25);assert.equal(a.gain,0);assert.ok(a.missed);assert.match(a.text,/^You had kept out\. By 1998/);
+ // born 1975, station 20 is 1995: a 1993 stake is not offered there; born 1990 station 25 (2015) with 2017 pays at 35, when 2022 is known
+ assert.equal(marketsDue({set2017:25,set2017a:100},30,1990).length,0);assert.equal(marketsDue({set2017:25,set2017a:100},35,1990).length,1);
+ assert.equal(marketsDue({set2017o:25},35,1990)[0].gain,0);
+});
+test('a stake already paid under the old review timing is not paid again',async()=>{
+ const {newLife,configureLife,begin,live}=await import('../../dist/course/sim.js');const {marketMoment}=await import('../../dist/course/market-moments.js');
+ const {pendingPivots,applyPivot,openOptions}=await import('../../dist/course/pivots.js');const {encounterById,resolveEncounter}=await import('../../dist/course/encounters.js');const {choiceAvailable}=await import('../../dist/course/finance.js');
+ let s=begin(configureLife(newLife(7919),{birthYear:1970}));
+ for(let i=0;i<200&&s.stage==='review'&&s.age<35;i++){const ps=s.story?.pending;if(ps){const os=encounterById(ps.id).options.filter(o=>choiceAvailable(s,o));s=resolveEncounter(s,os[0].id,.05);continue;}
+  const p=pendingPivots(s)[0];if(p){s=applyPivot(s,p,p.market?'out':p.league||p.job?'stay':openOptions(p,s)[0].id);continue;}s=live(s);}
+ assert.equal(s.age,35);
+ const m=marketMoment(1998),text=`By 2003 the index stood at ${Math.round(772.15).toLocaleString('en')}. Every ฿100 you put in was worth ฿${m.per100}.`;
+ const old={...s,age:35,stage:'review',pivotFlags:{...(s.pivotFlags??{}),set1998:25,set1998a:100},history:s.history.map(r=>r.from===30?{...r,event:r.event+' '+text}:r),story:{...s.story,pending:null}};
+ const due=marketsDue(old.pivotFlags,35,1970);assert.equal(due.length,1);assert.equal(due[0].text,text);
+ const next=live(old);assert.ok(!next.history.at(-1).event.includes(text),'the old payout must not repeat');
+});
