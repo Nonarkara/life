@@ -1,8 +1,9 @@
 // Measures what a non-English player downloads on a plain reload with a stored
 // language preference, and whether that language actually renders.
-import { chromium } from '/Users/nonarkara/Projects/carbon/node_modules/playwright/index.mjs';
+import assert from 'node:assert/strict';
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
 
-const base = 'http://127.0.0.1:4219/';
+const base = (process.env.BASE || 'http://127.0.0.1:4219') + '/';
 const b = await chromium.launch();
 for (const lang of ['th', 'ja']) {
   const ctx = await b.newContext();
@@ -20,8 +21,10 @@ for (const lang of ['th', 'ja']) {
     thaiVisible: /[ก-๛]/.test(document.body.innerText.slice(0, 4000)),
     sample: document.body.innerText.slice(0, 120).replace(/\n/g, ' | ')
   }));
-  const bytes = await ctx.request.get('http://127.0.0.1:4219/build.json').then(r => r.text()).catch(() => 'n/a');
+  const bytes = await ctx.request.get(base + 'build.json').then(r => r.text()).catch(() => 'n/a');
   console.log(JSON.stringify({ lang, ...state, translationRequests: fetched, build: bytes }, null, 1));
+  assert.equal(state.lang, lang, 'the stored language must be the page language after a reload');
+  if (lang === 'th') assert.ok(state.thaiVisible, 'Thai text must render');
   await ctx.close();
 }
 await b.close();

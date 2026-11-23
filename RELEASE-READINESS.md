@@ -23,8 +23,9 @@ connections; the SpriteCast receipts and the classroom proof now tell the truth
 instead of asserting work that never ran.
 
 Not certified, and carried forward as open work: touch input on a real phone; frame
-rate on M3 hardware; human playtesting; the five Playwright probes in `tests/fixtures/`
-that run in no script. The "dead rectangle" once reported in the childhood stage was
+rate on M3 hardware; human playtesting. (The browser probes in `tests/fixtures/` that
+once ran in no script now run with `npm run probes`: a fresh build, a local server, real
+Chrome; 7 of 7 pass on 23 November 2026, including a job offer read and answered in Thai.) The "dead rectangle" once reported in the childhood stage was
 closed as an artefact of the audit itself: the audit rendered through a software
 rasteriser, and on the real GPU the region is painted artwork. The audit now renders on
 hardware by default, records the renderer that drew the frame in `geometry.json`, and
