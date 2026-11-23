@@ -127,7 +127,7 @@ if(s.pivotFlags?.emigrated!==undefined&&from>=30){setback-=from<65?1000000:20000
 // A save from before the review timing moved may already hold this payout: never pay it twice.
 for(const m of marketsDue(s.pivotFlags,from,birthYearOf(s))){if(s.history.some(r=>r.event?.includes(m.text)))continue;let gain=m.gain;if(s.economy?.version===3){let prices=1;for(let y=m.year+1;y<=m.year+5;y++)prices*=1+(worldAt(y)?.inflation??0)/100;gain=Math.round(m.stake*(m.per100/100/prices-1));}setback-=gain;event+=' '+m.text;}
 for(const b of leaguesDue(s.pivotFlags,from)){setback-=b.gain;event+=' '+b.text;}
-for(const b of jobsDue(s.pivotFlags,from,earnings,birthYearOf(s))){setback-=b.gain;event+=' '+b.text;}
+for(const b of jobsDue(s.pivotFlags,from,earnings,birthYearOf(s))){if(s.history.some(r=>r.event?.includes(b.text)))continue;setback-=b.gain;event+=' '+b.text;}
 for(const c of due){setback-=c.cash;bodyAdj+=c.health;moodAdj+=c.wellbeing;event+=' '+c.text;}
 const spending=adult?(retired?11000:14000):0;const habits=adult?((p.smoke==='yes'?4000:0)+(p.drink==='social'?2500:0)):0;
 if(pathway.route==='college'&&field){pathway.cash-=MAJORS[field].cost;pathway.description+=fieldFit<.35?' The field did not fit you yet; study was a struggle.':fieldFit>.7?' The work came naturally.':'';if(fieldFit<.35)moodAdj-=4;}event+=(pathway.description?' '+pathway.description:'');const cash=from>=15?s.cash-(flood?18000:0):Math.round(s.cash+Math.round(earnings*pathway.incomeFactor)-spending-habits-setback+pathway.cash);const aging=from<30?1:from<50?4:from<65?7:8;const health=clamp(s.health-aging+(from>=60?e.physique*.35:0)+e.physique*.5*eraWeight('physique',from)+s.attributes.physique*.15-(adult&&p.smoke==='yes'?6:0)-(adult&&p.drink==='social'?1.5:0)-healthShock+bodyAdj);

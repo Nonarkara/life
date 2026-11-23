@@ -134,7 +134,7 @@ test('a wait is not a marriage, a plot of land is not a home, and a recorded sha
  assert.equal(extractMilestones(life).home,true);
 });
 
-test('only a settled match contributes a remembered winner',()=>{
+test('a learned league result survives replay even when the player stayed out',()=>{
  const pivot={league:2015,station:40};
  const state={age:40,previous:{history:[{from:40,age:45,event:'You put a tenth of your savings on a club outside last year’s top three for 2015–16.'}]}};
  assert.equal(rememberedLeagueWinner(state,pivot),null);
@@ -142,4 +142,6 @@ test('only a settled match contributes a remembered winner',()=>{
  assert.equal(rememberedLeagueWinner(state,pivot),'Leicester City');
  assert.equal(rememberedLeagueWinner(state,{...pivot,league:2016}),null);
  assert.equal(rememberedLeagueWinner({...state,previous:null},pivot),null);
+ state.previous.history.at(-1).event='Leicester City won the 2015–16 league. You had stayed out of it.';
+ assert.equal(rememberedLeagueWinner(state,pivot),'Leicester City');
 });

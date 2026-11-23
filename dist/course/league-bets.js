@@ -65,6 +65,10 @@ export const leagueFits=(pivot,savings,birthYear)=>birthYear!==null&&pivot.leagu
 // Staying out is recorded too: the review shows who won, with no money moved.
 const MISS='You had stayed out of it.',MISS_T={th:(c,y)=>`${c} เป็นแชมป์ลีก ${season(y)} คุณไม่ได้แทง`,zh:(c,y)=>`${c}夺得${season(y)}赛季联赛冠军。你没有下注。`,ja:(c,y)=>`${c}が${season(y)}シーズンのリーグを制した。あなたは賭けなかった。`,ko:(c,y)=>`${season(y)} 시즌 리그 우승은 ${c}. 당신은 걸지 않았다.`};
 const missed=y=>`${LEAGUE[y][0]} won the ${season(y)} league. ${MISS}`;
+export function recordedLeagueWinner(year,text){
+ if(!LEAGUE[year]||typeof text!=='string')return null;
+ return [missed(year),after(year,true),after(year,false)].some(line=>text.includes(line))?LEAGUE[year][0]:null;
+}
 export const leaguesDue=(flags,from)=>{const out=[];for(let y=FIRST;y<=LAST;y++){if(flags?.['lg'+y+'o']+5===from&&!flags['lg'+y+'p'])out.push({year:y,win:null,gain:0,text:missed(y)});const k=PICKS[(flags?.['lg'+y+'p']??0)-1];if(!k||flags['lg'+y]+5!==from)continue;const stake=flags['lg'+y+'a']??0,win=wins(y,k);out.push({year:y,win,gain:win?Math.round(stake*MULT[k]):-stake,text:after(y,win)});}return out;};
 const T={
  th:{prompt:(y,a,b,c)=>`ก่อนฤดูกาล ${season(y)} ฤดูกาลที่แล้ว ${a} จบที่หนึ่ง ${b} ที่สอง ${c} ที่สาม คนที่ทำงานกำลังรับแทงบอลลีกอังกฤษ`,back:n=>`แทง ${n}`,again:n=>`แทง ${n} อีกครั้ง`,outside:'แทงทีมนอกสามอันดับแรกของปีที่แล้ว',inN:(y,n)=>`คุณเอาเงินเก็บหนึ่งในสิบแทง ${n} ในฤดูกาล ${season(y)}`,inO:y=>`คุณเอาเงินเก็บหนึ่งในสิบแทงทีมนอกสามอันดับแรกของปีที่แล้ว ในฤดูกาล ${season(y)}`,outN:y=>`คุณไม่ได้แทงบอลฤดูกาล ${season(y)}`,after:(y,w)=>`${LEAGUE[y][0]} เป็นแชมป์ลีก ${season(y)} ${w?'เดิมพันของคุณเข้า และได้คืนมากกว่าที่ลงไป':'เดิมพันของคุณไม่เข้า เงินหนึ่งในสิบที่ลงไปหายไปแล้ว'}`},

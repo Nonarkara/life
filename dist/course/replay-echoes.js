@@ -7,7 +7,7 @@ import {encounterById} from './encounters.js';
 import {PATHWAYS} from './pathways.js';
 import {albumSummary} from './album-summary.js';
 import {lifeId} from './lives.js';
-import {LEAGUE} from './league-bets.js';
+import {recordedLeagueWinner} from './league-bets.js';
 
 const birthYearOf=state=>{
  const y=state?.intake?.birthYear??state?.birth?.birthYear;
@@ -68,14 +68,15 @@ export function formatForeknowledge(cue,t=s=>s){
   .replace('{events}',parts.join(' · '));
 }
 
-// Football season results enter the ledger only when a prior bet actually settled.
+// The prior life can have seen the result without ever placing a bet.
 export function rememberedLeagueWinner(state,pivot){
- const y=pivot?.league,winner=LEAGUE[y]?.[0];
- if(!winner||pivot.station!==state?.age)return null;
- const season=y+'–'+String((y+1)%100).padStart(2,'0');
- const settled=winner+' won the '+season+' league. Your bet ';
- return state.previous?.history?.some(row=>row.age>pivot.station&&
-  typeof row.event==='string'&&row.event.includes(settled))?winner:null;
+ if(pivot?.station!==state?.age||!pivot?.league)return null;
+ for(const row of state.previous?.history??[]){
+  if(row.age<=pivot.station)continue;
+  const winner=recordedLeagueWinner(pivot.league,row.event);
+  if(winner)return winner;
+ }
+ return null;
 }
 
 function collectFlags(life){

@@ -524,6 +524,8 @@
  .personal-console .latest-event{position:absolute;left:440px;top:2px;margin:0;z-index:3;width:max-content}
  .personal-console .latest-event summary{color:var(--deck-text);font-size:calc(12px * var(--reading-scale));line-height:30px}
  .personal-console .latest-event #last-event{position:absolute;left:0;bottom:calc(100% + 34px);width:min(560px,60vw);margin:0;padding:8px 10px;background:var(--deck);color:var(--deck-text);border:1px solid var(--line)}
+ .personal-console.has-plan .latest-event{width:auto}
+ .personal-console.has-plan .latest-event #last-event{position:static;width:auto;max-width:65ch;margin:4px 0;padding:0 0 0 8px;background:none;color:var(--ink);border:0;border-inline-start:2px solid var(--amber)}
 }
 /* An event's cost sits beside the way on, one row fewer. */
 #year-event{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}

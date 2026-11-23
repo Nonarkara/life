@@ -49,3 +49,18 @@ test('a job line waits for the last year it names',()=>{
  // born 1957, station 30 is 1987: 1992 is too early for a line that names 1995
  assert.equal(jobsDue({job1987:30},35,1000,1957).length,0);assert.equal(jobsDue({job1987:30},40,1000,1957).length,1);
 });
+
+test('a job outcome recorded under the old timing is not paid again',()=>{
+ // A 1949 birth was offered the 1987 move at 35. The old payout ran in
+ // 45–50, while the revised rule schedules it for 50–55.
+ const flags={job1987:35},paid=jobsDue(flags,50,1000,1949)[0];
+ assert.equal(jobsDue(flags,45,1000,1949).length,0);
+ const before=begin(configureLife(newLife(7919),{birthYear:1949}));
+ const adult={...before,age:50,pivotFlags:flags,story:{...before.story,pending:null}};
+ const earlier={...adult,history:[...adult.history,{...adult.history.at(-1),age:50,event:paid.text}]};
+ const row=live(earlier).history.at(-1);
+ const control=live({...earlier,pivotFlags:{}}).history.at(-1);
+ assert.equal(row.age,55);
+ assert.equal(row.setback,control.setback);
+ assert.ok(!row.event.includes(paid.text));
+});

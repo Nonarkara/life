@@ -6,6 +6,9 @@ export function initPersonalConsole({getState,isMoving=()=>false}){
  const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
  document.body.classList.add('personal-console');
  const last=document.getElementById('last-event'),latest=el('details',undefined,'latest-event');latest.append(el('summary','Latest event'));last.before(latest);latest.append(last);
+ latest.addEventListener('toggle',()=>{
+  if(latest.open&&!latest.hidden)latest.scrollIntoView({block:'nearest',behavior:'instant'});
+ });
  const board=el('section',undefined,'personal-board');board.setAttribute('aria-label','Personal dashboard');
  const panels={};
  for(const [id,title]of [['ocean','OCEAN'],['condition','Condition'],['goals','Five-year goals']]){
