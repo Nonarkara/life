@@ -37,6 +37,7 @@ try{
  const opening=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block',reducedMotion:'reduce'});
  const first=await opening.newPage();
  await first.goto(base+'/intake/',{waitUntil:'domcontentloaded'});
+ await first.locator('#random-life:enabled').waitFor();
  await first.locator('#starting-conditions > summary').click();
  await first.locator('#birth-era').selectOption('1949');
  assert.match(await first.locator('#era-note').innerText(),/Thailand recovers after the war/);
