@@ -6,7 +6,7 @@ export function validJourney(state){const j=state.journey;if(j===undefined)retur
 // are used by the watch and step paths, including after a reload.
 export function nextJourneyEvent(destination,handled=[]){
  return (destination.history.at(-1)?.events??[]).reduce((next,event)=>{
-  if(event.origin!=='life'||handled.includes(event.age+':'+event.id))return next;
+  if(!['life','crisis'].includes(event.origin)||handled.includes(event.age+':'+event.id))return next;
   return !next||event.age<next.age?event:next;
  },null);
 }

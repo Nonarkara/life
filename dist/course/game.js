@@ -1,3 +1,5 @@
+import {crisisHousehold} from './crisis-chapter.js';
+import {familyGuardians} from './family-record.js';
 import {chapterPathways} from './chapter-play.js';
 import {isSchoolPreviewLife,openAtNine,schoolOutcomeRow} from './school-preview.js';
 import {createBirthMap} from './birth-opening.js';
@@ -187,6 +189,12 @@ function questions(){
  const badges=document.createElement('div');badges.className='question-badges';badges.append(questionCategoryBadge(questionCategory(pivot)));
  const question=document.createElement('h2');question.id='pivot-title';question.textContent=pivot.heading??pivot.prompt;
  const context=document.createElement('p');context.className='decision-context';context.textContent=pivot.heading?t(pivot.prompt)+' '+t(pivot.context):pivot.context;
+ const householdDue=crisisHousehold(state);
+ if(householdDue&&pivot.job===1996){
+  context.textContent=familyGuardians(state)[1].name+' · '+t('Your family is counting on a contribution this month.')+' '+money(householdDue);
+  const remembered=state.previous?.history?.flatMap(row=>row.events??[]).find(event=>event.origin==='crisis');
+  if(remembered)context.textContent+=' '+t('In your previous life, the baht floated on 2 July 1997.');
+ }
  const list=document.createElement('div');list.className='pivot-options';
  const marketChart=pivot.market?setChart(pivot.market):null;
  for(const option of inWorldOrder(openOptions(pivot,state),state.seed,pivot.id+state.age)){
@@ -204,7 +212,7 @@ function questions(){
     const button=document.createElement('button');button.type='button';button.className='pivot-option';
     const number=choiceSymbol(choiceSymbolKey(option,{pivot}));
     const label=document.createElement('span');label.className='pivot-label';label.textContent=option.label;
-    const cost=document.createElement('span');cost.className='pivot-cost';cost.textContent=option.cost;
+    const cost=document.createElement('span');cost.className='pivot-cost';cost.textContent=pivot.id==='job-crisis-support'&&option.id==='pay'?money(householdDue)+' · '+t(option.cost):option.cost;
     button.append(number,label,cost,...popLine(pivot.id,option.id));
     button.onclick=()=>{const before=state,next=applyPivot(state,pivot,option.id);if(next===before)return;state=next;showResult(before,state,{label:option.label,text:state.pivots.at(-1).note,record:state.pivots.at(-1)});render();};list.append(button);
   }
@@ -356,7 +364,7 @@ const tempo=()=>decisionTempo({stage:state.stage,moving:!!travel,incident:!!stat
 const decisionStage=initDecisionStage({onDismiss:key=>{dismissedDecision=key;if(travelEvent){continueJourney();return;}if(state.stage==='birth'){state=acknowledgeChild(state);childResult=null;paused=false;}if(decisionOutcome)$('choice-result')?.remove();decisionOutcome=null;tab='priorities';render();queueMicrotask(()=>{const target=$('commit').hidden?document.querySelector('.console-nav button'):$('commit');target?.focus({preventScroll:true});});}});
 function syncDecisionStage(){
  childUI.hide();yearUI.hide();
- if(travelEvent){decisionStage.show([yearUI.show(travelEvent)],{key:'year:'+travelEvent.age+':'+travelEvent.id,label:'year-event-title',event:travelEvent});return;}
+ if(travelEvent){decisionStage.show([yearUI.show(travelEvent,travelEvent.origin==='crisis'?familyGuardians(state)[1].name:undefined)],{key:'year:'+travelEvent.age+':'+travelEvent.id,label:'year-event-title',event:travelEvent});return;}
  if(state.stage==='birth'){const q=pendingChildChoice(state,age),key='child:'+q?.age;if(childResult){decisionStage.show([childUI.show(null,childResult)],{key:'child-result:'+state.childhood.choices.length,label:'child-title',result:true});return;}if(q&&dismissedDecision!==key){const prompt=isSchoolPreviewLife(state)&&q.age===9?{...q,context:'Through the wall, you hear the adults talking. There is money for one more year of school. They think your cousin should be the one to go.'}:q;decisionStage.show([childUI.show(prompt,null)],{key,label:'child-title'});return;}decisionStage.hide();return;}
  if(state.stage!=='review'||travel){decisionStage.hide();return;}
  const pending=state.story?.pending;
@@ -513,7 +521,7 @@ document.querySelector('.world-tools').append(nextMoment);
 function advanceJourney(){
  const event=nextJourneyEvent(travel.to,travel.handled);
  if(event&&event.age<=age){
-  age=event.age;travelEvent=event;render();return;
+  age=event.age;travelEvent=event;if(event.origin==='crisis')elapsed=event.offer==='move'?24:0;render();return;
  }
  if(age<travel.to.age)return;
  state={...travel.to,journey:undefined,chapterChoiceAge:undefined};

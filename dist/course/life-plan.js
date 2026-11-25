@@ -1,3 +1,4 @@
+import {crisisRecord} from './crisis-chapter.js';
 import {schoolReview} from './school-preview.js';
 // The next five years, decided left to right. One card per decision, nothing bleeding off a
 // card; each choice moves you to the next card, and the far right card lives the years.
@@ -100,6 +101,22 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
    receipt.textContent+= ' · '+t('Before the replay')+' · '+t('Health')+' '+signed(before.health)+' · '+t('Wellbeing')+' '+signed(before.wellbeing);
   }
   quick.replaceChildren(heading,cost,choices);
+  const crisis=quick.hidden?null:crisisRecord(s);
+  if(crisis){
+   const review=el('section','school-review');
+   const title=el('h2',undefined,t('What happened to your promise?'));
+   const costs=el('p',undefined,[
+    t('Modeled pay change over five years: {cash}').replace('{cash}',(crisis.wageChange<0?'−':'')+'฿'+Math.abs(crisis.wageChange).toLocaleString('en')),
+    crisis.support==='time'?t('Two effort points for family this chapter.'):
+     t('Household contribution: {cash}').replace('{cash}','฿'+crisis.householdPayment.toLocaleString('en'))
+   ].join(' · '));
+   review.append(title,el('p',undefined,t(crisis.reply)),costs);
+   if(canRewind(20)){
+    const again=el('button','chapter-watch',t('Return to the job offer →'));
+    again.type='button';again.onclick=()=>rewind(20);review.append(again);
+   }
+   quick.prepend(review);
+  }
   const school=quick.hidden?null:schoolReview(s,t);
   if(school){
    const review=el('section','school-review');
