@@ -5,13 +5,17 @@ import {translate,preferences} from '../../dist/course/i18n.js';
 import {familyRecord,familyGuardians} from '../../dist/course/family-record.js';
 import {newLife,configureLife} from '../../dist/course/sim.js';
 
-test('every Thailand province birthplace and regional household translates into all four languages',()=>{
+test('every Thailand province birthplace and regional household translates cleanly into all four languages',()=>{
  for(const [id,region] of Object.entries(REGIONS)){
   if(region.country!=='TH')continue;
   for(const lang of ['th','zh-CN','ja','ko']){
-   assert.notEqual(translate(region.place,lang),region.place,`${id}.place "${region.place}" untranslated in ${lang}`);
+   const place=translate(region.place,lang);
+   assert.notEqual(place,region.place,`${id}.place "${region.place}" untranslated in ${lang}`);
+   if(lang==='th')assert.doesNotMatch(place,/[A-Za-z]/,`${id}.place leaked Latin in Thai: ${place}`);
    if(region.home){
-    assert.notEqual(translate(region.home,lang),region.home,`${id}.home "${region.home}" untranslated in ${lang}`);
+    const home=translate(region.home,lang);
+    assert.notEqual(home,region.home,`${id}.home "${region.home}" untranslated in ${lang}`);
+    if(lang==='th')assert.doesNotMatch(home,/[A-Za-z]/,`${id}.home leaked Latin in Thai: ${home}`);
    }
   }
  }
