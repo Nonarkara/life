@@ -21,9 +21,9 @@ try{
  page.on('pageerror',error=>errors.push(error.message));
  page.setDefaultTimeout(20000);
  if(process.env.SCHOOL_PREVIEW_SIZE){
-  await page.addInitScript(({language,size})=>{
-   localStorage.setItem('life-preferences-v1',JSON.stringify({language,size,motion:false,stage:'hybrid',palette:'auto',v:3}));
-  },{language,size:process.env.SCHOOL_PREVIEW_SIZE});
+  await page.addInitScript(size=>{
+   localStorage.setItem('life-preferences-v1',JSON.stringify({language:'en',size,motion:false,stage:'hybrid',palette:'auto',v:3}));
+  },process.env.SCHOOL_PREVIEW_SIZE);
  }
  const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('life-course-v2')));
  const seen=page.locator('.decision-dialog[open]');
@@ -42,10 +42,11 @@ try{
  await play.click();
  const birth=page.locator('#birth-card[open]');
  await birth.waitFor();
- assert.equal(await birth.locator('h2').innerText(),t('Featured life · Born in 1975'));
+ await birth.getByRole('heading',{name:t('Featured life · Born in 1975'),exact:true}).waitFor();
  assert.equal(await read(),null,'opening the birth card does not write a save');
  await shot('birth');
  await birth.locator('#birth-begin').click();
+ await page.waitForURL(url=>url.pathname==='/course/'&&url.searchParams.get('lang')===language);
 
  async function openChoices(){
   const pager=seen.locator('.decision-pager:visible');
@@ -94,7 +95,7 @@ try{
   assert.fail('the age-25 review was not reached');
  }
 
- await seen.locator('#child-title').waitFor();
+ await seen.getByRole('heading',{name:t(child.title),exact:true}).waitFor();
  assert.equal(await seen.locator('.child-replay-memory').count(),0);
  assert.equal(await review.count(),0,'the first childhood does not reveal the adult result');
  await shot('child');

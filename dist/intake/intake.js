@@ -3,7 +3,7 @@ import {readTurningPoints,turningPointURL} from '../course/turning-points.js';
 import {AXES,balanced,transfer,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
 import {CLASS_WEIGHTS} from '../course/backgrounds.js';
 import {HISTORICAL_COHORTS,thaiEraForYear} from '../course/thai-history.js';
-import {initSettings,t} from '../course/i18n.js';
+import {initSettings,languages,preferences,t} from '../course/i18n.js';
 import {REGIONS,BAND_REGIONS,CLASS_REGIONS,COUNTRIES,household} from '../course/regions.js';
 import {retireClass} from '../course/save.js';
 import {RUNGS,birthRung} from '../course/housing-ladder.js';
@@ -56,7 +56,14 @@ function card(life){
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }
 function enter(options,fresh=false){try{featured=false;lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=fresh?drawAdaptiveBirth(localStorage,()=>drawBirth(options,{previous,varied})):drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});}catch{$('intake-error').textContent=t('Try again');}}
-$('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/'+(featured?'?'+schoolPreviewParam:'');}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
+function courseURL(){
+ const url=new URL('../course/',location.href);
+ if(featured)url.search=schoolPreviewParam;
+ const language=new URLSearchParams(location.search).get('lang');
+ if(Object.hasOwn(languages,language))url.searchParams.set('lang',preferences.language);
+ return url.href;
+}
+$('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href=courseURL();}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
 $('birth-edit').onclick=()=>{$('birth-card').close();$('starting-conditions').open=true;$('birth-era').focus();};
 $('birth-again').onclick=()=>{try{drawn=varied?drawAdaptiveBirth(localStorage,()=>drawBirth(lastOptions,{previous,varied})):drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
@@ -123,7 +130,7 @@ function invited(){
  if(isSchoolPreview(params)&&!params.has('birth')&&!params.has('player')){
   const saved=savedLife();
   if(saved&&saved.stage!=='recap'){
-   if(isSchoolPreviewLife(saved))location.replace('../course/?'+schoolPreviewParam);
+   if(isSchoolPreviewLife(saved)){featured=true;location.replace(courseURL());}
    return;
   }
   featured=true;drawn=schoolPreviewBirth();card(drawn);

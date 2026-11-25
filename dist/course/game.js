@@ -247,7 +247,11 @@ function otherSchoolReview(open=false){
  const target=replaying?'featured-school':'featured-school-replay';
  const point=readTurningPoints(store).find(entry=>entry.scene===target&&isSchoolPreviewLife(entry.state));
  if(!point)return false;
- if(open&&keepSchoolReview(replaying?'featured-school-replay':'featured-school'))location.href=turningPointURL(point.id);
+ if(open&&keepSchoolReview(replaying?'featured-school-replay':'featured-school')){
+  const url=new URL(turningPointURL(point.id),location.href);
+  if(requested.searchParams.has('lang'))url.searchParams.set('lang',preferences.language);
+  location.href=url.href;
+ }
  return true;
 }
 function rewindTo(age){

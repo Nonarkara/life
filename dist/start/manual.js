@@ -31,8 +31,11 @@ try{const saved=JSON.parse(localStorage.getItem('life-course-v2')),el=document.g
  if(featured||document.getElementById('last-life').hidden){
   const target=new URL('../intake/',location.href);
   target.searchParams.set(featured?'featured':'next',featured?'school':'1');
-  if(validLanguage)target.searchParams.set('lang',params.get('lang'));
-  for(const link of document.querySelectorAll('.bar-actions .begin,#overview .actions .begin'))link.href=target.href;
+  const route=()=>{
+   if(validLanguage)target.searchParams.set('lang',preferences.language);
+   for(const link of document.querySelectorAll('.bar-actions .begin,#overview .actions .begin'))link.href=target.href;
+  };
+  addEventListener('life-preferences',route);route();
  }
 }
 // A finite, user-started cover preview. Other input and task changes stop it.
