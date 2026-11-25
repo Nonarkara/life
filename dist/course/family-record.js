@@ -1,13 +1,22 @@
 // Deterministic, specific family details (named parents/guardians, occupations,
 // and siblings) derived from a life's seed, class, and household without mutating save state.
 import {rand} from './rand.js';
-import {t} from './i18n.js';
+import {t,preferences} from './i18n.js';
 import {household} from './regions.js';
 
 const FATHER_NAMES=['Somchai','Prasert','Wichai','Somsak','Narong','Boonmee','Anan','Kittisak','Thaworn','Preecha'];
 const MOTHER_NAMES=['Malee','Suda','Wilai','Ratana','Nonglak','Chanthira','Yupin','Sunee','Kanya','Somporn'];
 const BROTHER_NAMES=['Ton','Beam','Bank','Mek','Art','Nont','Golf','Oak'];
 const SISTER_NAMES=['Ploy','Fah','Khao','Nok','Pim','Dao','May','Mint'];
+const THAI_NAMES={
+ Somchai:'สมชาย',Prasert:'ประเสริฐ',Wichai:'วิชัย',Somsak:'สมศักดิ์',Narong:'ณรงค์',
+ Boonmee:'บุญมี',Anan:'อนันต์',Kittisak:'กิตติศักดิ์',Thaworn:'ถาวร',Preecha:'ปรีชา',
+ Malee:'มาลี',Suda:'สุดา',Wilai:'วิไล',Ratana:'รัตนา',Nonglak:'นงลักษณ์',
+ Chanthira:'จันทิรา',Yupin:'ยุพิน',Sunee:'สุนีย์',Kanya:'กัญญา',Somporn:'สมพร',
+ Ton:'ต้น',Beam:'บีม',Bank:'แบงก์',Mek:'เมฆ',Art:'อาร์ต',Nont:'นนท์',Golf:'กอล์ฟ',Oak:'โอ๊ค',
+ Ploy:'พลอย',Fah:'ฟ้า',Khao:'ข้าว',Nok:'นก',Pim:'พิม',Dao:'ดาว',May:'เมย์',Mint:'มิ้นท์'
+};
+const localName=name=>preferences.language==='th'?(THAI_NAMES[name]??name):name;
 
 const OCCUPATIONS={
  low_class:['rice farmer','day labourer','canal boatman','street vendor','seamstress','market porter'],
@@ -40,7 +49,7 @@ export function familyRecord(life){
  if(!life?.birth)return null;
  const seed=life.seed||1;
  const guardians=familyGuardians(life).map(({name,job,role})=>
-  `${name} · ${t(role[0].toUpperCase()+role.slice(1))} · ${t(job)}`).join(' / ');
+  `${localName(name)} · ${t(role[0].toUpperCase()+role.slice(1))} · ${t(job)}`).join(' / ');
 
  const sibCount=Math.floor(rand(seed,0,'fam-sib-n')*4);
  let siblingsText;
@@ -58,7 +67,7 @@ export function familyRecord(life){
    const role=rand(seed,i+1,'fam-sib-role')<.5
     ?(isMale?t('older brother'):t('older sister'))
     :(isMale?t('younger brother'):t('younger sister'));
-   list.push(`${name} (${role})`);
+   list.push(`${localName(name)} (${role})`);
   }
   siblingsText=list.join(' · ');
  }
