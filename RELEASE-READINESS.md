@@ -9,6 +9,37 @@ Current audit evidence: [integration review](review/integration-oct28/REVIEW.md)
 
 ---
 
+# Current state — 26 November 2026
+
+Build `105baccb8325` is live at https://life.nonarkara.org (Cloudflare Pages project
+`life`, branch `main`). 645 tests pass.
+
+This release audits the Thai localization by running the product, and fixes what the
+audit found. The dictionary was already complete — every regional household phrase,
+every place, every family name, in Thai, Simplified Chinese, Japanese and Korean — but
+the sentence the product assembles from those pieces came out half Thai and half
+English, because the engine filled a template at the first "in" it found and because
+its fallback stitched translated fragments into untranslated ones. The engine now tries
+every reading of a template and lets the dictionary choose, and it refuses to show a
+sentence with English inside it: one whole sentence or the other.
+
+The guard is now the sentences themselves — every province, every household, four
+languages, plus every label a day can print — because a test of the dictionary cannot
+see a fault the engine makes. Measured on the served tree: 645/645 tests pass, the
+truth prover passes 4/4 on hardware, the MSH audit passes its budgets on hardware, and a
+sweep of a real life in Thai reads 0 English words where the previous build showed 5
+visible ones and a hybrid birth card.
+
+Not certified, and carried forward as open work: touch input on a real phone; frame
+rate on M3 hardware; human playtesting; the 1024 recap screen still leaves about 40% of
+its width empty for a full screen; five Playwright probes in `tests/fixtures/` still run
+in no script and `ending.js` still has no DOM test.
+
+Evidence for this release is in [INTEGRATION-STATUS.md](INTEGRATION-STATUS.md), the
+26 November 2026 section.
+
+---
+
 # Current state — 19 November 2026
 
 Build `ecd5511e8cf8` is live at https://life.nonarkara.org (Cloudflare Pages project

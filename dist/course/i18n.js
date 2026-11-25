@@ -92,9 +92,12 @@ const known=(map,piece)=>!/[A-Za-z]/.test(piece)||map.has(piece);
 // and that no translated value carried. A sentence that mixes two languages is not a
 // translation, so it is never shown.
 const words=text=>(String(text).match(/[A-Za-z][A-Za-z'’-]*/g)||[]).map(w=>w.toLowerCase());
+// Latin a language keeps on purpose: the game's own acronyms and the names it does not
+// translate. A word in this list is not English left behind.
+const LATIN_KEPT=new Set(`aids al am ap apec arsenal asean associated aston atm bangkok big blackburn bts cc0 celentano chelsea city convenience crystal cv daeng din ealing earth eleven ems eq eria et ev everton examiner forex gdp forest gen ham harvard hiv hotspur idpc ikigai imf in8b.life ipswich iq journal l-2026 layers leeds leicester life2-card.png life2.0 line-art-animation liverpool mae manchester medicine meethom mm mrt natural nesdc newcastle noi norwich nottingham organization palace pbs plos poapongsakorn post press promptpay ptt qr republished robotics rovers sanzo seap seato sec set sheffield sims southampton sripa taipei talat tcas tdri thai thaiger thailand thammasat timeline times tokaido topline tottenham town tv united universe us usb utc v2026.1 vcd vhs via villa vroid wada watford wednesday west wikipedia world zipmex`.split(/\s+/));
 function englishLeft(result,source,carried){
   const have=new Set(words(result)),kept=new Set(carried.flatMap(words));
-  return words(source).some(w=>have.has(w)&&!kept.has(w));
+  return words(source).some(w=>w.length>1&&have.has(w)&&!kept.has(w)&&!LATIN_KEPT.has(w));
 }
 export let preferences={language:'en',size:'standard',motion:false,stage:'hybrid',palette:'auto'};
 if(typeof localStorage!=='undefined')try{const p=JSON.parse(localStorage.getItem('life-preferences-v1'));if(p){if(languages[p.language])preferences.language=p.language;if(['standard','large','extra'].includes(p.size))preferences.size=p.size;preferences.motion=p.motion===true;if(p.stage==='isometric')preferences.stage='isometric';}}catch{}

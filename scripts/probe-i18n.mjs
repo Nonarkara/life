@@ -3,10 +3,13 @@
 // English words inside Thai text; this prints both halves so the cause can be
 // read rather than guessed.
 import { createRequire } from 'node:module';
+import fs from 'node:fs';
 const require = createRequire((process.env.PLAYWRIGHT_FROM ?? '/Users/nonarkara/Projects/palette') + '/');
 const { chromium } = require('playwright');
 
 const BASE = (process.env.BASE || 'http://127.0.0.1:4321').replace(/\/$/, '');
+const OUT = process.env.OUT || 'review/i18n';
+fs.mkdirSync(OUT, { recursive: true });
 const SIZES = [[390, 844], [1440, 900]];
 
 const browser = await chromium.launch({ args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
@@ -47,6 +50,16 @@ const read = async (language, w, h) => {
     };
   });
   out.errors = errors.slice(0, 3);
+  // The birth card itself, not the world above it: the sentence a reader reads.
+  const visible = await page.evaluate(() => !!document.querySelector('#narrative')?.offsetParent);
+  if (visible) {
+    const card = await page.$('#narrative');
+    if (card) {
+      await card.scrollIntoViewIfNeeded();
+      await page.waitForTimeout(300);
+      await page.screenshot({ path: `${OUT}/birth-card-${language}-${w}.png` });
+    }
+  }
   await ctx.close();
   return out;
 };

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { REGIONS, HOUSEHOLDS } from '../../dist/course/regions.js';
 import { translate } from '../../dist/course/i18n.js';
 
@@ -75,5 +76,22 @@ test('no Thai translation is stitched onto Thai with a Latin word', async () => 
   const stitched = /[A-Za-z][฀-๿]|[฀-๿][A-Za-z]/;
   for (const [english, value] of map) {
     assert.ok(!stitched.test(String(value)), `stitched — ${english} → ${value}`);
+  }
+});
+
+test('every label a day can produce is in the dictionary', () => {
+  // The labels the routines and the axes print: they are the words a reader sees
+  // beside the life, so a day must not show one of them in English.
+  const source = readFileSync(new URL('../../dist/course/routines.js', import.meta.url), 'utf8');
+  const actions = [...new Set([...source.matchAll(/action:'([^']+)'/g)].map(m => m[1]))];
+  assert.ok(actions.length > 10, 'the day has labels to translate');
+  const sim = readFileSync(new URL('../../dist/course/sim.js', import.meta.url), 'utf8');
+  const labels = [...new Set([...sim.matchAll(/label:'([^']+)'/g)].map(m => m[1]))];
+  for (const language of LANGUAGES) {
+    for (const phrase of [...actions, ...labels]) {
+      const shown = translate(phrase, language);
+      assert.notEqual(shown, phrase, `${language}: ${phrase} is not translated`);
+      assert.deepEqual(latinWords(shown), [], `${language}: ${phrase} keeps English — ${shown}`);
+    }
   }
 });

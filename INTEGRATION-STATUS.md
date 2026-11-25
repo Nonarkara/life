@@ -5,6 +5,74 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
+## 26 November 2026 · The Thai localization audited by execution: the dictionary was clean, the engine was not (build 105baccb8325)
+
+A report arrived claiming that every previously untranslated Thai province, every regional
+household description and every family name was now translated, that 27 string-mangled
+households had been eliminated, and that a regression guard would keep it that way. The
+claim was checked by running the product, not by reading the report.
+
+**The dictionary was clean. The sentence was not.**
+
+- The pack did hold all 94 regional household phrases, all 88 places and all 5 household
+  wordings in `th`, `zh-CN`, `ja` and `ko` (counted from `dist/course/regions.js`, not
+  from the report).
+- The sentence the product assembles from them was half Thai and half English, on the
+  served tree. From the previous production deployment (`7ba906c8`, build
+  `8de56757b1a5`), read out of the live page:
+
+  ```
+  เกิดในa trading householdที่the old city by the temple in นครศรีธรรมราช เติบโตมากับแม่และยาย …
+  เกิดในa householdที่a แพร่ town house in แพร่ เติบโตมากับแม่และยาย …
+  เกิดในครอบครัวเกษตรกรที่the Mekong valley in หนองคาย เติบโตมากับแม่และพ่อ …
+  ```
+
+**The cause was the engine, in two parts** (`dist/course/i18n.js`):
+
+- *A template was filled at the first "in" it found.* `Born into {home} in {place}` was
+  matched lazily, so a household phrase that carries its own "in" — "a trading household
+  in the old city by the temple" — was cut in half, and the second half was handed to the
+  place. The pieces were fragments no dictionary held.
+- *The fallback stitched what it knew into what it did not.* The fallback replaced every
+  English phrase it recognised inside a longer string and left the rest, so a sentence
+  could come out as Thai with English inside it.
+
+**Fixed in the engine, not only in the dictionary**
+
+- Every reading of a template is now tried and the reading whose pieces the dictionary
+  knows wins; a template claims a sentence only when every piece of it is known.
+- The fallback refuses to hand back a sentence with English left in it: the reader gets
+  one whole sentence or the other, never a hybrid. Latin the product keeps on purpose
+  (its own acronyms — IQ, EQ, GDP, WHO — and the names it does not translate) is not
+  mistaken for English left behind.
+- The pack gained the sentences the product actually builds: `Born into {home}`,
+  `Born into {home} in {place}.`, `Born into {home} in {place}. Raised by {who}.`,
+  `SET {a}–{b}`, `{n} pts`, and the ten action labels a day can print ("Breakfast at
+  home", "At school", "Tending the stall" …).
+- Three composition sites were changed to fill a template with translated pieces instead
+  of concatenating English: the world's label, the SET chart's label and the points label.
+
+**The guard tests sentences, not dictionary entries** (`tests/course/i18n-rendered.test.mjs`):
+
+- every province × every household × four languages, for the birth card, the console line
+  and the recorded event;
+- a household phrase that carries its own "in" is not cut in half;
+- the engine never returns a half-translated sentence;
+- no Thai translation is stitched onto Thai with a Latin word;
+- every label a day can produce is in the dictionary.
+
+**Measured on the served tree** (live build `105baccb8325`): tests 645/645 pass;
+`scripts/verify-truth.mjs` → TRUTH PASSED (4/4, hardware renderer); `scripts/msh-audit.mjs`
+→ BUDGETS_PASS (hardware renderer); the new `scripts/sweep-thai.mjs` opens a real life in
+Thai and reads every word the page shows — **0 English left** where the previous build
+showed 5 visible English labels plus the hybrid birth card.
+
+**Stated plainly:** the birth-card sentence lives in the console's birth panel, and the
+console is hidden during the birth stage by design, so a reader on the arrival screen saw
+Thai. The defect was in the sentence the page renders, and the engine could stitch any
+composed sentence into any language. It is fixed in the engine, and the guard now fails
+on the class of fault that the dictionary-level test could not see.
+
 ## 19 November 2026 · Pooled audit of six days of agent work, then what measurement could prove (build ecd5511e8cf8)
 
 One integration writer audited the pooled work on `origin/main` (`cc6d266`, 146 files,

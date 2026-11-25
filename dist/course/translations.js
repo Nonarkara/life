@@ -1397,6 +1397,20 @@ Move to spendable|ย้ายมาเป็นเงินที่ใช้�
 {amount} · {hours} h|{amount} · {hours} ชม.|{amount} · {hours} 小时|{amount}・{hours}時間|{amount} · {hours}시간
 Born into {home} · {place}|เกิดใน{home} · {place}|出生于{home} · {place}|{home}に生まれる・{place}|{home}에서 태어남 · {place}
 Born into {home}|เกิดใน{home}|出生于{home}|{home}に生まれる|{home}에서 태어남
+Born into {home} in {place}.|เกิดใน{home}ที่{place}|出生于{place}的{home}。|{place}の{home}に生まれました。|{place}의 {home}에서 태어났습니다.
+Born into {home} in {place}. Raised by {who}.|เกิดใน{home}ที่{place} เติบโตมากับ{who}|出生于{place}的{home}，由{who}抚养长大。|{place}の{home}に生まれ、{who}に育てられました。|{place}의 {home}에서 태어나 {who}의 손에 자랍니다.
+SET {a}–{b}|ช่วงปี {a}–{b}|区间 {a}–{b} 年|{a}〜{b} 年|{a}~{b}년
+{n} pts|{n} คะแนน|{n} 分|{n}点|{n}점
+At school|ที่โรงเรียน|在学校|学校に|학교에서
+At work|ที่ทำงาน|在工作|職場で|일하면서
+Breakfast at home|กินข้าวเช้าที่บ้าน|在家吃早饭|家で朝食|집에서 아침 식사
+Caring for you|ดูแลคุณ|照顾你|あなたのお世話|당신을 돌보는 중
+In the garden|ในสวน|在花园里|庭で|정원에서
+Making art|สร้างงานศิลปะ|创作艺术|芸術を作る|예술을 만들며
+Playing at home|เล่นที่บ้าน|在家玩耍|家で遊ぶ|집에서 놀며
+Resting at home|พักผ่อนที่บ้าน|在家休息|家で休む|집에서 쉬며
+Tending the stall|ดูแลแผงขาย|照看摊位|屋台を営む|가판대를 돌보며
+Training|ฝึกซ้อม|训练|訓練する|훈련하며
 Settings|การตั้งค่า|设置|設定|설정
 Close|ปิด|关闭|閉じる|닫기
 Language|ภาษา|语言|言語|언어
