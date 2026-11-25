@@ -1,7 +1,7 @@
 // Runs every real-browser probe against the local build or a matching hosted preview.
 // npm run probes   (PLAYWRIGHT_MODULE=/abs/path/playwright/index.mjs if playwright is not installed here)
 import {createServer} from 'node:http';
-import {readFile,stat,readdir} from 'node:fs/promises';
+import {readFile,stat,readdir,mkdir,writeFile} from 'node:fs/promises';
 import {extname,join,normalize} from 'node:path';
 import {spawn} from 'node:child_process';
 const OUT='out',TYPES={'.html':'text/html; charset=utf-8','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.woff2':'font/woff2','.glb':'model/gltf-binary','.mp3':'audio/mpeg','.txt':'text/plain'};
@@ -21,10 +21,40 @@ await verifyStamp();
 console.log('Testing build '+JSON.parse(stamp).build);
 const only=process.argv.slice(2),probes=(await readdir('tests/fixtures')).filter(f=>f.endsWith('-probe.mjs')&&(!only.length||only.some(o=>f.includes(o))));
 if(!probes.length){console.error('no probes matched');process.exit(1);}
+const failureDir=process.env.LIFE_PROBE_FAILURE_DIR;
 let failed=0;
-for(const f of probes){const t=Date.now();const code=await new Promise(r=>{const c=spawn(process.execPath,['tests/fixtures/'+f],{env:{...process.env,BASE},stdio:['ignore',process.env.VERBOSE?'inherit':'ignore','pipe']});let err='';c.stderr.on('data',d=>err+=d);const kill=setTimeout(()=>c.kill('SIGKILL'),180000);c.on('error',()=>r(1));c.on('close',(exit,sig)=>{clearTimeout(kill);const code=exit??(sig?128:1);if(code)console.error(err.split('\n').filter(l=>!/ExperimentalWarning|trace-warnings/.test(l)).slice(0,12).join('\n'));r(code);});});
+for(const file of probes){
+ const start=Date.now();
+ const result=await new Promise(resolve=>{
+  const child=spawn(process.execPath,['tests/fixtures/'+file],{
+   env:{...process.env,BASE},stdio:['ignore',process.env.VERBOSE?'inherit':'pipe','pipe']
+  });
+  let stdout='',stderr='';
+  child.stdout?.on('data',data=>stdout+=data);
+  child.stderr.on('data',data=>stderr+=data);
+  const timeout=setTimeout(()=>child.kill('SIGKILL'),180000);
+  child.on('error',error=>{stderr+=error.stack??String(error);});
+  child.on('close',(code,signal)=>{
+   clearTimeout(timeout);
+   resolve({code:code??1,signal,stdout,stderr});
+  });
+ });
+ if(result.code){
+  failed++;
+  const details=result.stderr||'Probe closed with '+(result.signal??'exit code '+result.code);
+  console.error(details.split('\n').filter(line=>!/ExperimentalWarning|trace-warnings/.test(line)).slice(0,12).join('\n'));
+  if(failureDir){
+   await mkdir(failureDir,{recursive:true});
+   await writeFile(join(failureDir,file+'.log'),[
+    'Build '+JSON.parse(stamp).build,
+    'Exit '+result.code+(result.signal?' ('+result.signal+')':''),
+    result.stdout,result.stderr
+   ].join('\n'));
+  }
+ }
  if(await readFile(join(OUT,'build.json'),'utf8')!==stamp)throw new Error('Build changed during browser probes');
  if(hosted)await verifyStamp();
- console.log(`${code?'✖':'✔'} ${f} (${Date.now()-t} ms)`);if(code)failed++;}
+ console.log(`${result.code?'✖':'✔'} ${file} (${Date.now()-start} ms)`);
+}
 if(!hosted)server.close();
 console.log(`${probes.length-failed} of ${probes.length} probes pass`);process.exit(failed?1:0);
