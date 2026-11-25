@@ -4,6 +4,7 @@
 export const scenes=new WeakMap();
 
 export function showPaintedCanvas(original){
- const entry=scenes.get(original);if(entry&&entry!==false)entry.canvas.hidden=true;
- original.hidden=false;
+ const entry=scenes.get(original);
+ if(entry&&!entry.canvas.hidden)entry.canvas.hidden=true;
+ if(original.hidden)original.hidden=false;
 }

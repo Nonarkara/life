@@ -51,7 +51,8 @@ export function drawScene3D(original,state,age,time,mode,view={}){
   catch(error){scenes.set(original,false);console.warn('3D unavailable; using the retained Canvas scene.',error);return false;}
  }
  if(mode!=='world'){entry.canvas.hidden=true;original.hidden=false;return false;}
- original.hidden=true;entry.canvas.hidden=false;
+ if(!original.hidden)original.hidden=true;
+ if(entry.canvas.hidden)entry.canvas.hidden=false;
  try{entry.update(state,age,time,view);return true;}catch(error){entry.canvas.hidden=true;original.hidden=false;scenes.set(original,false);entry.dispose();console.warn('3D interrupted; using the retained Canvas scene.',error);return false;}
 }
 // The controlled sky, as a table of hours. t is the 60-second day.
@@ -245,7 +246,8 @@ function createScene(original){
   if(!world||appliedKey!==plan.key){appliedKey=plan.key;buildWorld(plan);scenery.update(plan);lastLooks='';camReady=false;shadowStep=null;}
   const looks=[appliedKey,state.seed,state.birth?.household,state.intake?.sex,Math.floor(age/5),family.partner,family.child,castReady].join('/');
   if(looks!==lastLooks){lastLooks=looks;applyLooks(state,age,here,born,plan,family,time);}
-  canvas.setAttribute('aria-label',original.getAttribute('aria-label')??'Your growing world');
+  const label=original.getAttribute('aria-label')??'Your growing world';
+  if(canvas.getAttribute('aria-label')!==label)canvas.setAttribute('aria-label',label);
   const context=routineContext(state,age),goal=state.profiles.at(-1)?.profile.aim??'balance',t=((time%60)+60)%60;
   const activity=routine('player',age,time,goal,context),focus=homeFrame?{...activity,x:context.residence.origin[0],y:context.residence.origin[1],moving:false,pose:'eat'}:activity;
   // Cast placement ----------------------------------------------------------------
@@ -294,7 +296,7 @@ function createScene(original){
   const [homeX,homeZ]=context.residence.origin;
   const stop=pick||cameraView==='district'?(!pick&&tall&&!P.abroad?townFrame(P):{kind:'town',x:6.4,z:6.6})
     :cameraView==='home'?{kind:'home',x:homeX,z:homeZ,rung:P.rung}
-    :(tour||cameraView==='tour')&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad)tourLine.textContent=tr(P.place.place);tourLine.hidden=(!stop&&!P.abroad)||!!pick||cameraView==='home'||cameraView==='district';
+    :(tour||cameraView==='tour')&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad){const line=tr(P.place.place);if(tourLine.textContent!==line)tourLine.textContent=line;}const hideTour=(!stop&&!P.abroad)||!!pick||cameraView==='home'||cameraView==='district';if(tourLine.hidden!==hideTour)tourLine.hidden=hideTour;
   let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4+age*.55:6.6+age*.65):still?(phone?5.6:7.4):(phone?7.8:10.5);
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const changedView=cam.view!==cameraView;cam.view=cameraView;
