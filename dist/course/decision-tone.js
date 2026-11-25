@@ -25,14 +25,20 @@ export function decisionTone({scenario,event,result=false}={}){
  // still demanding another answer. The recorded effects remain the evidence.
  return result&&tone==='urgent'?'pressured':tone;
 }
+const EDITORIAL_TONES={
+ reflective:{paper:'#f6f1e4',ink:'#192e2c',muted:'#455852',accent:'#9a5400'},
+ hopeful:{paper:'#faf6eb',ink:'#183029',muted:'#425951',accent:'#8a4f00'},
+ pressured:{paper:'#eef0eb',ink:'#1b2a29',muted:'#465755',accent:'#9a3b18'},
+ somber:{paper:'#192726',ink:'#f3ede0',muted:'#c8c4b7',accent:'#f0a846'},
+ urgent:{paper:'#142120',ink:'#f8f4eb',muted:'#ced2c8',accent:'#f4a23a'}
+};
 function readable(fg,bg){if(contrastRatio(fg,bg)>=4.5)return fg;return contrastRatio('#ffffff',bg)>contrastRatio('#000000',bg)?'#ffffff':'#000000';}
 export function decisionPresentation(input={}){
  const tone=decisionTone(input),id=input.scenario?.id;
  const rule=SCENARIO_PALETTES[id],pair=rule?.plates??EVENT_PALETTES[input.event?.type];
  const plate=pair?.[rule?.opening??(tone==='hopeful'?1:0)]??(tone==='hopeful'?147:tone==='reflective'?152:139);
- const palette=byPlate.get(plate),dark=tone==='urgent'||tone==='somber'||tone==='pressured';
- const paper=dark?palette.ink:palette.paper,ink=readable(dark?palette.paper:palette.ink,paper);
- const accent=readable(palette.accent,paper);
+ const spec=EDITORIAL_TONES[tone]??EDITORIAL_TONES.reflective;
+ const paper=spec.paper,ink=readable(spec.ink,paper),muted=readable(spec.muted,paper),accent=readable(spec.accent,paper);
  return {tone,plate,label:input.result?'Choice recorded · time is paused':DECISION_TONES[tone],
-  tokens:{'--paper':paper,'--ink':ink,'--muted':ink,'--line':ink+'55','--amber':accent,'--accent-ink':accent}};
+  tokens:{'--paper':paper,'--ink':ink,'--muted':muted,'--line':ink+'38','--amber':accent,'--accent-ink':accent}};
 }

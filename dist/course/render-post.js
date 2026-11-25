@@ -14,7 +14,7 @@ import {OutputPass} from 'three/examples/jsm/postprocessing/OutputPass.js';
 
 // ponytail: palette is per-channel levels, not a fixed 16-colour table; swap for a LUT if exact palettes matter.
 const Retro={
- uniforms:{tDiffuse:{value:null},resolution:{value:new T.Vector2(1,1)},cell:{value:3},time:{value:0},outline:{value:1},levels:{value:10}},
+ uniforms:{tDiffuse:{value:null},resolution:{value:new T.Vector2(1,1)},cell:{value:2},time:{value:0},outline:{value:1},levels:{value:16}},
  vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
  fragmentShader:`uniform sampler2D tDiffuse;uniform vec2 resolution;uniform float cell,time,outline,levels;varying vec2 vUv;
  float b2(vec2 a){return fract(a.x*.5+a.y*a.y*.75);}
@@ -26,14 +26,14 @@ const Retro={
   vec2 g=floor(vUv*resolution/cell);vec3 c=at(g);
   float l=luma(c),e=0.;
   if(outline>.5){e=max(max(abs(l-luma(at(g+vec2(1.,0.)))),abs(l-luma(at(g+vec2(0.,1.))))),max(abs(l-luma(at(g-vec2(1.,0.)))),abs(l-luma(at(g-vec2(0.,1.))))));}
-  // Shadows lean to the ink-teal of the painted plates, lights to warm lemon.
-  c=pow(c,vec3(.9));c=mix(vec3(luma(c)),c,1.25);c=mix(c,c*vec3(1.06,.99,.9),.5);
-  c=mix(c+(vec3(.16,.26,.34)-c)*.2,c,smoothstep(.1,.6,l));
-  float d=b4(g)-.5;c=floor(c*(levels-1.)+.5+d*.3)/(levels-1.);
-  float edge=step(.3,e)*(1.-step(.75,l));
-  c=mix(c,vec3(.1,.14,.15),edge*.7);
-  c+=(hash(g+floor(time*10.))-.5)*.035;
-  float v=distance(vUv,vec2(.5));c*=1.-smoothstep(.45,.85,v)*.28;
+  // Minimalist architectural print grade: luminous warm paper highlights, cool ink shadows, crisp subtle lines.
+  c=pow(c,vec3(.92));c=mix(vec3(luma(c)),c,1.16);c=mix(c,c*vec3(1.04,1.01,.95),.45);
+  c=mix(c+(vec3(.14,.23,.27)-c)*.14,c,smoothstep(.08,.55,l));
+  float d=b4(g)-.5;c=floor(c*(levels-1.)+.5+d*.14)/(levels-1.);
+  float edge=step(.26,e)*(1.-step(.78,l));
+  c=mix(c,vec3(.1,.16,.15),edge*.52);
+  c+=(hash(g)-.5)*.008;
+  float v=distance(vUv,vec2(.5));c*=1.-smoothstep(.5,.92,v)*.12;
   gl_FragColor=vec4(c,1.);}`
 };
 
@@ -47,11 +47,11 @@ export function createPost(renderer,scene,camera){
  let tier=1,frames=0,spent=0,last=0,windows=0,calm=0;
  const apply=()=>{bloom.enabled=tier>=1;retro.uniforms.outline.value=tier>=1?1:0;};
  return {
-  // One art pixel is about two CSS pixels, whatever the screen density.
-  setSize(w,h,ratio){composer.setPixelRatio(ratio);composer.setSize(w,h);retro.uniforms.resolution.value.set(w*ratio,h*ratio);retro.uniforms.cell.value=Math.max(2,Math.round((w<560?1.6:2)*ratio));},
+  // Crisp miniature pixel grid: light enough to keep faces and rooms clean on phones.
+  setSize(w,h,ratio){composer.setPixelRatio(ratio);composer.setSize(w,h);retro.uniforms.resolution.value.set(w*ratio,h*ratio);retro.uniforms.cell.value=Math.max(1.5,Math.round((w<560?1.25:1.5)*ratio));},
   // The eye-level moments build a new scene each time and share this same finish.
   use(nextScene,nextCamera){renderPass.scene=nextScene;renderPass.camera=nextCamera;},
-  setNight(night){bloom.strength=night?.5:0;bloom.threshold=night?.72:.99;},
+  setNight(night){bloom.strength=night?.35:0;bloom.threshold=night?.76:.99;},
   // Frame-to-frame time includes the GPU, which is what a slow phone runs out of. The first
   // window (shader compiles) is ignored; a struggling device steps down, a recovered one steps back up.
   render(){

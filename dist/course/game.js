@@ -520,7 +520,7 @@ function advanceJourney(){
  // Quick advance can leave the world paused at breakfast. Let this completed path
  // arrive at the workday phase of the recorded routine, without starting motion.
  const schoolOutcome=schoolOutcomeRow(state);
- if(!watchingJourney||schoolOutcome)elapsed=reviewSceneTime(state)??elapsed;
+ if(!watchingJourney||schoolOutcome)elapsed=reviewSceneTime(state)??([24,30,40,50][Math.floor(state.age/5)%4]);
  if(schoolOutcome)paused=true;
  travel=null;age=state.age;
  tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';
