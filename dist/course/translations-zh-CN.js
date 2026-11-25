@@ -31,6 +31,8 @@ export default new Map([
   ["You went back to age {n}.", "你回到了{n}岁。"],
   ["At age {n} your study or work changed from {a} to {b}.", "{n}岁时，你的学习或工作从「{a}」变成了「{b}」。"],
   ["In the simulated sample, {share}% fell into the same risk group. Of that group, {early}% died before 60.", "模拟样本中，{share}%属于同一风险组。该组中有{early}%在60岁前去世。"],
+  ["A scholarship could help. Your family still has to work out what it can afford.", "奖学金或许能帮上忙，家里仍得算一算能负担多少。"],
+  ["Household buffer change: {cash}.", "家庭备用金变动：{cash}。"],
   ["Ask a teacher what other ways there are", "问老师还有什么办法"],
   ["The teacher told you about a scholarship. The family still had to decide what it could afford.", "老师告诉你有奖学金，家里仍得盘算负担得起多少。"],
   ["Friends", "朋友"],

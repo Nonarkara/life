@@ -1,7 +1,7 @@
 // Small choices inside inherited circumstances. These do not allocate DNA or an adult career.
 import {rand} from './rand.js';
 import {birthYearOf} from './thai-history.js';
-const option=(id,label,note,effects,symbol)=>({id,label,note,effects,symbol});
+const option=(id,label,note,effects,symbol,hint)=>({id,label,note,effects,symbol,...(hint?{hint}:{})});
 export const CHILD_CHOICES=[
  {age:6,title:'Your first small choices',context:'School, play and helping at home all ask for your time.',options:[
   option('school','Keep time for school and play','You practised making room for lessons and play.',{skills:{iq:1},wellbeing:1},'book'),
@@ -70,7 +70,7 @@ CHILD_CHOICES.push(
  {age:9,classes:['low_class','working_class'],title:'Only one of you can go on',context:'There is money for one more year of school, and your cousin is cleverer than you. You heard them through the wall.',options:[
   option('school_say','Say your cousin should go','You were told you were a good child. You went to work in April.',{skills:{eq:2},wellbeing:-2},'people'),
   option('school_work','Study all night until they notice','You came first once. It was not enough, and then it was.',{skills:{iq:2},wellbeing:-1},'book'),
-  option('school_ask_teacher','Ask a teacher what other ways there are','The teacher told you about a scholarship. The family still had to decide what it could afford.',{skills:{iq:1,eq:1}},'book'),
+  option('school_ask_teacher','Ask a teacher what other ways there are','The teacher told you about a scholarship. The family still had to decide what it could afford.',{skills:{iq:1,eq:1}},'book','A scholarship could help. Your family still has to work out what it can afford.'),
   option('school_none','Pretend you did not hear','You still do not know who decided.',{wellbeing:-1},'home')]},
  {age:9,title:'The new radio',context:'Your father has brought a radio home and says only he may touch it. It is alone in the room, and you know where the screws are.',options:[
   option('radio_open','Open it and look','You put it back with one screw left over. You have never told him.',{skills:{craft:2}},'tools'),

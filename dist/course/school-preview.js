@@ -28,19 +28,27 @@ export function isSchoolPreviewLife(state){
   Object.entries(START).every(([key,value])=>state.intake?.[key]===value);
 }
 
+export function schoolOutcomeRow(state){
+ if(!isSchoolPreviewLife(state)||state.stage!=='review'||state.age!==25)return;
+ return state.history.find(row=>row.from===20&&row.age===25);
+}
+
 export function schoolReview(state,t){
- if(!isSchoolPreviewLife(state)||state.age!==25)return null;
- const option=choices.find(o=>o.id===state.childhood.choices.find(c=>c.age===9)?.choice);
- const row=state.history.find(r=>r.from===20&&r.age===25);
+ const row=schoolOutcomeRow(state);
+ const option=choices.find(o=>o.id===state.childhood?.choices.find(c=>c.age===9)?.choice);
  if(!option||!row)return null;
- const college=row.pivots?.some(record=>record.pivot==='college-cost');
+ const funding=row.pivots?.find(record=>record.pivot==='college-cost');
+ const cash=funding?.effects?.cash;
  const path=PATH_NAMES[row.pathway];
  const previous=state.previous?.history.find(r=>r.from===20&&r.age===25);
  const before=PATH_NAMES[previous?.pathway];
  const split=replayComparison(state)?.split;
  return {
   choice:t('At nine, you chose “{choice}”.').replace('{choice}',t(option.label)),
-  offer:t(college?'At twenty, you faced a choice about paying for college.':'At twenty, this life had no college-funding choice.'),
+  offer:t(funding?'At twenty, you faced a choice about paying for college.':'At twenty, this life had no college-funding choice.'),
+  outcome:[funding?.note?t(funding.note):'',Number.isFinite(cash)&&cash!==0?
+   t('Household buffer change: {cash}.').replace('{cash}',(cash<0?'−':'+')+'฿'+Math.abs(cash).toLocaleString('en')):'']
+   .filter(Boolean).join(' '),
   path:path?t('From twenty to twenty-five: {path}').replace('{path}',t(path)):'',
   earnings:Number.isFinite(row.earnings)?t('Work earnings: {cash}.')
    .replace('{cash}','฿'+row.earnings.toLocaleString('en')):'',

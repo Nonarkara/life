@@ -235,7 +235,7 @@ function createScene(original){
  let lastFrame=0,frameSum=0,frames=0,quality=2,calm=0,lastCut='',width=0,height=0,lastLooks='',lastTime=null,shadowStep=null,camReady=false,camSpan=0,lastSignature='',cutTick=0,hidden=new Set();
  const post=createPost(renderer,scene,camera);
  const cam={x:5.3,z:5.3,span:8},pinAt=new T.Vector3();
- function update(state,age,time,{homeFrame=false,tour=false,pick=null,animating=true,camera:cameraView="follow"}={}){
+ function update(state,age,time,{homeFrame=false,tour=false,pick=null,animating=true,focusSchoolOutcome=false,camera:cameraView="follow"}={}){
   if(lost)throw new Error('Graphics context lost');
   const w=canvas.clientWidth,h=canvas.clientHeight;if(w<2||h<2)return;
   if(w!==width||h!==height){width=w;height=h;const dpr=devicePixelRatio||1;renderer.setPixelRatio(Math.min(dpr,[1,1.5,2][quality],Math.sqrt(2.6e6/(w*h))));renderer.setSize(w,h,false);post.setSize(w,h,renderer.getPixelRatio());camera.aspect=w/h;lastSignature='';}
@@ -298,6 +298,7 @@ function createScene(original){
     :cameraView==='home'?{kind:'home',x:homeX,z:homeZ,rung:P.rung}
     :(tour||cameraView==='tour')&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad){const line=tr(P.place.place);if(tourLine.textContent!==line)tourLine.textContent=line;}const hideTour=(!stop&&!P.abroad)||!!pick||cameraView==='home'||cameraView==='district';if(tourLine.hidden!==hideTour)tourLine.hidden=hideTour;
   let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4+age*.55:6.6+age*.65):still?(phone?5.6:7.4):(phone?7.8:10.5);
+  if(!stop&&focusSchoolOutcome&&['study','craft'].includes(activity.pose))span*=.8;
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const changedView=cam.view!==cameraView;cam.view=cameraView;
   const dt=lastTime===null?1:Math.max(0,Math.min(1,time-lastTime));lastTime=time;

@@ -31,8 +31,9 @@ const context=routineContext(state,age),revealed=revealedPlaces(state,age);
 const labels=[];
 Object.assign(C,canvasWorld()??MOOD_CHORDS[lifeMoodAt(state,age)]);const portrait=state.stage==='birth'&&canvas.clientWidth<721;const bw=portrait?240:560,bh=portrait?Math.round(240*canvas.clientHeight/canvas.clientWidth):mode==='world'&&document.body.classList.contains('console-mode')?Math.max(180,Math.round(560*canvas.clientHeight/Math.max(1,canvas.clientWidth))):340;if(canvasBuffer.width!==bw||canvasBuffer.height!==bh){canvasBuffer.width=bw;canvasBuffer.height=bh;}const c=canvasBuffer.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#243f38';c.fillRect(0,0,bw,bh);
 if(mode==='course'){drawRouteMap(canvas,state);return;}
-const zoom=(view.camera==='district'?Math.min(1,bw/440,bh/280):view.camera==='home'?3:age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);
+const baseZoom=(view.camera==='district'?Math.min(1,bw/440,bh/280):view.camera==='home'?3:age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);
 const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance',context),follow=age<6?0:.7;
+const zoom=view.focusSchoolOutcome&&['study','craft'].includes(focus.pose)?baseZoom*1.25:baseZoom;
 const [homeX,homeY]=context.residence.origin;
 const center=view.camera==='district'?[0,95]:view.camera==='home'?[(homeX-homeY)*15,(homeX+homeY)*7.5-12]:[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:document.body.classList.contains('console-mode')&&state.stage!=='birth'?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);

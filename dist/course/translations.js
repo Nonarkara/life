@@ -50,6 +50,8 @@ You lived to age {n}.|คุณใช้ชีวิตถึงอายุ {n}
 You went back to age {n}.|คุณย้อนกลับไปตอนอายุ {n} ปี|你回到了{n}岁。|{n}歳に戻りました。|{n}세로 돌아갔습니다.
 At age {n} your study or work changed from {a} to {b}.|เมื่ออายุ {n} ปี เส้นทางเรียนหรือทำงานเปลี่ยนจาก {a} เป็น {b}|{n}岁时，你的学习或工作从「{a}」变成了「{b}」。|{n}歳で、進学や仕事の選択が「{a}」から「{b}」へ変わりました。|{n}세에 학업이나 일의 선택이 ‘{a}’에서 ‘{b}’로 바뀌었습니다.
 In the simulated sample, {share}% fell into the same risk group. Of that group, {early}% died before 60.|ในกลุ่มจำลอง {share}% อยู่ในกลุ่มความเสี่ยงเดียวกัน ในกลุ่มนั้น {early}% เสียชีวิตก่อนอายุ 60 ปี|模拟样本中，{share}%属于同一风险组。该组中有{early}%在60岁前去世。|シミュレーションでは{share}%が同じリスク群に入り、そのうち{early}%が60歳未満で亡くなりました。|시뮬레이션 표본에서 {share}%가 같은 위험군에 속했고, 그중 {early}%가 60세 전에 사망했습니다.
+A scholarship could help. Your family still has to work out what it can afford.|ทุนอาจช่วยได้ แต่ที่บ้านยังต้องดูว่าจ่ายไหวแค่ไหน|奖学金或许能帮上忙，家里仍得算一算能负担多少。|奨学金が助けになるかもしれない。家で出せる金額は、家族で考える必要がある。|장학금이 도움이 될 수 있다. 가족은 여전히 얼마까지 낼 수 있을지 따져 봐야 한다.
+Household buffer change: {cash}.|เงินสำรองของครอบครัวเปลี่ยนไป {cash}|家庭备用金变动：{cash}。|家計の予備費の増減：{cash}。|가족 비상금 변동: {cash}.
 Ask a teacher what other ways there are|ถามครูว่ามีทางอื่นไหม|问老师还有什么办法|ほかに方法がないか先生に聞く|다른 방법이 있는지 선생님께 물어보기
 The teacher told you about a scholarship. The family still had to decide what it could afford.|ครูเล่าให้ฟังว่ามีทุนการศึกษา แต่ที่บ้านยังต้องคิดว่าจะจ่ายไหวแค่ไหน|老师告诉你有奖学金，家里仍得盘算负担得起多少。|先生が奨学金のことを教えてくれました。家で出せるお金については、家族で決める必要がありました。|선생님이 장학금 이야기를 해 주었습니다. 가족은 여전히 얼마를 감당할 수 있을지 결정해야 했습니다.
 Friends|เพื่อน|朋友|友達|친구

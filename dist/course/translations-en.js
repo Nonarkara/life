@@ -30,6 +30,8 @@ export default new Map([
   ["You went back to age {n}.", "You went back to age {n}."],
   ["At age {n} your study or work changed from {a} to {b}.", "At age {n} your study or work changed from {a} to {b}."],
   ["In the simulated sample, {share}% fell into the same risk group. Of that group, {early}% died before 60.", "In the simulated sample, {share}% fell into the same risk group. Of that group, {early}% died before 60."],
+  ["A scholarship could help. Your family still has to work out what it can afford.", "A scholarship could help. Your family still has to work out what it can afford."],
+  ["Household buffer change: {cash}.", "Household buffer change: {cash}."],
   ["Ask a teacher what other ways there are", "Ask a teacher what other ways there are"],
   ["The teacher told you about a scholarship. The family still had to decide what it could afford.", "The teacher told you about a scholarship. The family still had to decide what it could afford."],
   ["Friends", "Friends"],

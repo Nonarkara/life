@@ -497,6 +497,36 @@
 }
 /* While time is paused the routine caption repeats the same morning: only the way to the map stays. */
 .is-review #scene-caption,.decision-open #scene-caption{display:none}
+@media(pointer:coarse){
+ .decision-dialog #child-choice:has(.pivot-option .pivot-cost) .pivot-option{min-height:44px}
+}
+/* The featured review names the activity shown in the diorama, beside its camera. */
+body.school-outcome-view:not(.decision-open) .world-bottom{
+ display:grid;
+ grid-template-columns:minmax(0,1fr) auto;
+ column-gap:8px;
+ align-content:end;
+}
+body.school-outcome-view:not(.decision-open) .world-bottom > p{
+ justify-self:start;
+ width:max-content;
+ max-width:100%;
+ margin:0;
+ padding:3px 5px;
+ background:var(--deck);
+ color:var(--deck-text);
+ line-height:1.2;
+}
+body.school-outcome-view:not(.decision-open) .world-bottom #world-headline{grid-column:1;grid-row:1;white-space:normal}
+body.school-outcome-view:not(.decision-open) .world-bottom #scene-caption{
+ display:block;
+ grid-column:1;
+ grid-row:2;
+ white-space:normal;
+ overflow:visible;
+}
+body.school-outcome-view:not(.decision-open) .world-bottom .world-tools{grid-column:2;grid-row:1 / span 2;align-self:end}
+
 @media(max-width:1279px) and (orientation:landscape){
  .console-mode .rpg-dock .player-console{width:max-content}
 }

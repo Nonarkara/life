@@ -1,5 +1,5 @@
 import {chapterPathways} from './chapter-play.js';
-import {isSchoolPreviewLife,openAtNine} from './school-preview.js';
+import {isSchoolPreviewLife,openAtNine,schoolOutcomeRow} from './school-preview.js';
 import {createBirthMap} from './birth-opening.js';
 import {keepDisplacedLife,keepTurningPoint,loadTurningPoint,readTurningPoints,turningPointURL,turningPointScene} from './turning-points.js';
 import {drawBirth} from './birth-draw.js';
@@ -80,6 +80,7 @@ state=restored?.state??saved.life??drawBirth({},{varied:true});
 if(isSchoolPreviewLife(state))await selectedLanguageReady().catch(()=>{});
 age=state.stage==='birth'?(state.progressAge??state.age):state.age;
 if(!state.journey)elapsed=reviewSceneTime(state)??elapsed;
+if(schoolOutcomeRow(state))paused=true;
 if(restored){
  setFamiliar(restored.met);
  keepPoint(store,state,true,restored.met);
@@ -487,7 +488,7 @@ function updateYearReadout(shownAge){
  $('age-metrics').textContent='฿'+worth.toLocaleString('en')+' · +'+Math.round(state.health)+' · ☺'+Math.round(state.wellbeing);
 }
 
-function describeScene(shownAge){
+function describeScene(shownAge,focusSchoolOutcome){
  const year=Math.floor(shownAge),context=routineContext(travel?.to??state,shownAge),goal=state.profiles.at(-1)?.profile.aim??'balance';
  const activity=routine('player',shownAge,elapsed,goal,context);
  const district=['work','craft'].includes(activity.pose)?context.workplace.id:['study','exercise','garden'].includes(activity.pose)?'local':context.residence.district;
@@ -498,6 +499,7 @@ function describeScene(shownAge){
   year<10?`Age ${year}: ${year<3?'a close view of the family around a baby in a cradle':'the view expands to home, neighbors and school'}.`:
   `Age ${year}: ${place}. ${activity.action.toLowerCase()}.`);
  if($('world').getAttribute('aria-label')!==label)$('world').setAttribute('aria-label',label);
+ if(focusSchoolOutcome)return t(activity.action);
  return mode==='course'?'Amber: the life you lived · one line per place · rings mark a move.':
   state.stage==='recap'?'A metaphorical world. A very particular life.':routineCaption(shownAge,elapsed,goal,context);
 }
@@ -517,7 +519,9 @@ function advanceJourney(){
  state={...travel.to,journey:undefined,chapterChoiceAge:undefined};
  // Quick advance can leave the world paused at breakfast. Let this completed path
  // arrive at the workday phase of the recorded routine, without starting motion.
- if(!watchingJourney)elapsed=reviewSceneTime(state)??elapsed;
+ const schoolOutcome=schoolOutcomeRow(state);
+ if(!watchingJourney||schoolOutcome)elapsed=reviewSceneTime(state)??elapsed;
+ if(schoolOutcome)paused=true;
  travel=null;age=state.age;
  tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';
  if(state.stage==='recap')mode='course';
@@ -611,14 +615,16 @@ function tick(now){
   const camera=$('world-view').hidden?'follow':$('world-view').value;
   const progress=departureReplay?.progress??(move&&age>=start&&age<move.since?(age-start)/DEPARTURE_WINDOW:null);
   const showing=progress!==null&&mode==='world'&&camera==='follow'&&!rhythm.held;
-  let caption=describeScene(shownAge);
+  const focusSchoolOutcome=!travel&&mode==='world'&&camera==='follow'&&!!schoolOutcomeRow(state);
+  document.body.classList.toggle('school-outcome-view',focusSchoolOutcome);
+  let caption=describeScene(shownAge,focusSchoolOutcome);
   if(showing){
    const life=travel?.to??state;
    departure.draw(progress,!motionAllowed,regionAt(life,(move?.since??state.age)-.01));
    caption='Leaving for college in Bangkok';
   }else{
    departure.hide();
-   const presentation=drawWorld($('world'),travel?.to??state,shownAge,elapsed,mode,{animating,camera});
+   const presentation=drawWorld($('world'),travel?.to??state,shownAge,elapsed,mode,{animating,camera,focusSchoolOutcome});
    caption=presentation?.caption??caption;
   }
   caption=t(caption);

@@ -107,7 +107,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
    title.tabIndex=-1;
    const action=el('button','chapter-watch school-replay',t('Replay this childhood →'));
    action.type='button';action.onclick=replaySchoolReview;
-   review.append(title,el('p',undefined,[school.choice,school.offer].join(' ')));
+   review.append(title,el('p',undefined,[school.choice,school.outcome||school.offer].join(' ')));
    const path=school.road||school.path;
    if(school.split)review.append(el('p',undefined,school.split));
    if(path||school.earnings)review.append(el('p',undefined,[path,school.earnings].filter(Boolean).join(' · ')));

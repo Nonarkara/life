@@ -31,6 +31,8 @@ export default new Map([
   ["You went back to age {n}.", "{n}歳に戻りました。"],
   ["At age {n} your study or work changed from {a} to {b}.", "{n}歳で、進学や仕事の選択が「{a}」から「{b}」へ変わりました。"],
   ["In the simulated sample, {share}% fell into the same risk group. Of that group, {early}% died before 60.", "シミュレーションでは{share}%が同じリスク群に入り、そのうち{early}%が60歳未満で亡くなりました。"],
+  ["A scholarship could help. Your family still has to work out what it can afford.", "奨学金が助けになるかもしれない。家で出せる金額は、家族で考える必要がある。"],
+  ["Household buffer change: {cash}.", "家計の予備費の増減：{cash}。"],
   ["Ask a teacher what other ways there are", "ほかに方法がないか先生に聞く"],
   ["The teacher told you about a scholarship. The family still had to decide what it could afford.", "先生が奨学金のことを教えてくれました。家で出せるお金については、家族で決める必要がありました。"],
   ["Friends", "友達"],

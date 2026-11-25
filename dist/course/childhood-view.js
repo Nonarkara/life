@@ -67,7 +67,7 @@ export function initChildhoodView({onChoose,onContinue,getState}){
      left.append(memory);
     }
    }
-   const options=el('div',undefined,'pivot-options');for(const o of question.options){const b=el('button',undefined,'pivot-option');b.type='button';b.append(choiceSymbol(o.symbol),el('span',o.label,'pivot-label'));b.onclick=()=>onChoose(question,o);options.append(b);}left.append(options);}
+   const options=el('div',undefined,'pivot-options');for(const o of question.options){const b=el('button',undefined,'pivot-option');b.type='button';b.append(choiceSymbol(o.symbol),el('span',o.label,'pivot-label'));if(o.hint)b.append(el('span',o.hint,'pivot-cost'));b.onclick=()=>onChoose(question,o);options.append(b);}left.append(options);}
   body.append(left);
   if(state&&!result)body.append(snapshot(state));
   root.append(body);
