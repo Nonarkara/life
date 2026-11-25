@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {configureLife,newLife,validate} from '../../dist/course/sim.js';
 import {encodeBirth} from '../../dist/course/birthcode.js';
 import {SAVE_KEY} from '../../dist/course/save.js';
+import {pendingPivots} from '../../dist/course/pivots.js';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
 const base=process.env.BASE||'http://127.0.0.1:4543';
 const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
@@ -39,7 +40,8 @@ async function play([seed,birthYear,cls,sex],watch,toEnd=false){
     assert.equal(encodeBirth(await read()),code);
     break;
    }
-   if(life.age===25&&!review){
+   // Compare the review after its arrival incident and mandatory questions are resolved.
+   if(life.age===25&&!review&&life.stage==='review'&&!life.story?.pending&&!pendingPivots(life).length&&!await dialog.count()){
     review=life.history.find(row=>row.age===25);
     assert.ok(review&&validate(life));
     if(!toEnd)break;

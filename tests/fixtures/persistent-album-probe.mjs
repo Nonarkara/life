@@ -55,7 +55,7 @@ try{
   }
   await page.locator('[data-settings]').click();await page.locator('#setting-size').selectOption(enlarged?'large':'extra');await page.locator('#settings-dialog button[type=submit]').click();assert.equal(await page.locator('#recent-life .life-album').getAttribute('open'),'','preference rerender keeps the album open');
   assert.deepEqual(errors,[]);console.log(JSON.stringify({width,enlarged,language,records:7,entries:saved[0].album.entries.length,notes:saved[0].album.notes.length,errors,...metrics}));
-  await page.reload({waitUntil:'domcontentloaded'});assert.equal(await page.locator('#lives-list > li').count(),6);assert.equal(await page.evaluate(()=>localStorage.getItem('life-course-v2')),before.active);
+  await page.reload({waitUntil:'domcontentloaded'});await rows.nth(5).waitFor({state:'attached'});assert.equal(await rows.count(),6);assert.equal(await page.evaluate(()=>localStorage.getItem('life-course-v2')),before.active);
   await page.close();
  }
 }finally{await browser.close();}
