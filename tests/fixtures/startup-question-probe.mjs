@@ -15,9 +15,16 @@ try{
  const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce',serviceWorkers:'block'});
  const errors=[];
  page.on('pageerror',error=>errors.push(error.message));
- await page.addInitScript(saved=>{
+ await page.addInitScript(({saved,canvasFallback})=>{
   if(!localStorage.getItem('life-course-v2'))localStorage.setItem('life-course-v2',JSON.stringify(saved));
- },state);
+  window.addEventListener('life-first-frame',()=>{window.lifeFirstFrame=true;},{once:true});
+  if(canvasFallback){
+   const getContext=HTMLCanvasElement.prototype.getContext;
+   HTMLCanvasElement.prototype.getContext=function(type,...options){
+    return type.startsWith('webgl')?null:getContext.call(this,type,...options);
+   };
+  }
+ },{saved:state,canvasFallback:process.env.LIFE_CANVAS_FALLBACK==='1'});
  const start=Date.now();
  await page.goto((process.env.BASE||'http://127.0.0.1:4219')+'/course/',{waitUntil:'domcontentloaded'});
  await page.locator('#pivot-title').waitFor({state:'visible',timeout:15000});
@@ -27,6 +34,7 @@ try{
  const year=await page.locator('#age').innerText();
  assert.match(year,/1991/,'the birth year is available from the first rendered review');
  assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('life-course-v2')).age),10);
+ await page.waitForFunction(()=>window.lifeFirstFrame===true);
  assert.deepEqual(errors,[]);
  console.log(JSON.stringify({question:expected.id,year,readyInMs:Date.now()-start,errors}));
 }finally{await browser.close();}

@@ -35,7 +35,7 @@ async function play([seed,birthYear,cls,sex],watch,toEnd=false){
     assert.ok(toEnd&&review);
     await page.locator('.ending-verdict').waitFor();
     await page.locator('.replay-childhood').click();
-    await dialog.locator('.child-replay-memory').waitFor();
+    await dialog.locator('.decision-rehearse').waitFor();
     assert.equal(encodeBirth(await read()),code);
     break;
    }

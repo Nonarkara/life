@@ -2,7 +2,7 @@ import {drawRouteMap} from './routemap.js';
 import {showPaintedCanvas} from './scene-registry.js';
 import {createRendererLoader} from './renderer-loader.js';
 const renderer=createRendererLoader(()=>import('./scene3d.js'),()=>window.dispatchEvent(new Event('life-stage-art')));
-import {t} from './i18n.js';
+import {preferences,t} from './i18n.js';
 import {lifeMoodAt,MOOD_CHORDS} from './events.js';
 import {canvasWorld} from './palettes.js';
 import {AXES} from './sim.js';
