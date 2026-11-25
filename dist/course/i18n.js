@@ -46,6 +46,8 @@ if(typeof window!=='undefined'&&window.location?.search){try{const q=new URLSear
 // translated before it reaches the page (the ending, the share card) is covered here, not only in localise.
 // While a language's pack is still on its way the authored line is left exactly as written: the page copies
 // shown text into dialogs, and a line retold in English could not be translated once the pack lands.
+// Screens that assemble translated templates can wait for the selected pack.
+export const selectedLanguageReady=()=>preferences.language==='en'?Promise.resolve():loadPack(preferences.language);
 export const t=text=>{const language=preferences.language;return language!=='en'&&order.includes(language)&&!packs.has(language)?text:kinLine(text,translate(text,language),language,x=>translate(x,language));};
 // A visitor who comes back with a saved language gets it at load, not only after changing Settings.
 if(typeof window!=='undefined'&&preferences.language!=='en'){

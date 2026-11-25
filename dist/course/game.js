@@ -44,7 +44,7 @@ import {inWorldOrder} from './option-order.js';
 import {stationAlternatives} from './alternatives.js';
 import {childhoodChapter,wombMarkup} from './childhood.js';
 import {TRAITS,personality,capacities,capacityHistory,comparison} from './personality.js';
-import {t,initSettings,preferences,localise} from './i18n.js';
+import {t,initSettings,preferences,localise,selectedLanguageReady} from './i18n.js';
 import {setKin} from './kin.js';
 import {eventsFor,eventsForAccount,lifeMood} from './events.js';
 import {lifeMoodAt} from './events.js';
@@ -73,6 +73,8 @@ if(restored){
 }
 if(turningId){requested.searchParams.delete('turning');history.replaceState(null,'',requested);}
 state=restored?.state??saved.life??drawBirth({},{varied:true});
+// The featured comparison assembles multiple translated phrases before display.
+if(isSchoolPreviewLife(state))await selectedLanguageReady().catch(()=>{});
 age=state.stage==='birth'?(state.progressAge??state.age):state.age;
 if(state.stage==='review'&&!state.journey&&isSchoolPreviewLife(state)&&age===25)elapsed=24;
 if(restored){

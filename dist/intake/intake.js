@@ -3,7 +3,7 @@ import {readTurningPoints,turningPointURL} from '../course/turning-points.js';
 import {AXES,balanced,transfer,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
 import {CLASS_WEIGHTS} from '../course/backgrounds.js';
 import {HISTORICAL_COHORTS,thaiEraForYear} from '../course/thai-history.js';
-import {initSettings,languages,preferences,t} from '../course/i18n.js';
+import {initSettings,languages,preferences,selectedLanguageReady,t} from '../course/i18n.js';
 import {REGIONS,BAND_REGIONS,CLASS_REGIONS,COUNTRIES,household} from '../course/regions.js';
 import {retireClass} from '../course/save.js';
 import {RUNGS,birthRung} from '../course/housing-ladder.js';
@@ -148,4 +148,6 @@ function invited(){
  $('birth-title').textContent=t(daily?'Today’s life':'A life was sent to you');
  $('birth-again').hidden=true;$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});
 }
-window.addEventListener('life-preferences',()=>{draw();classNote();eraNote();archive();});initSettings();draw();classNote();eraNote();archive();invited();
+window.addEventListener('life-preferences',()=>{draw();classNote();eraNote();archive();});initSettings();draw();classNote();eraNote();archive();
+if(isSchoolPreview(new URLSearchParams(location.search)))await selectedLanguageReady().catch(()=>{});
+invited();
