@@ -59,9 +59,14 @@ try{
     const cardMs=Date.now()-now,card=await marks(page);
     await confirm.click();
     if(mode==='ordinary')await page.locator('#arrival-choice:visible').click();
-    await page.locator('.decision-dialog[open] .pivot-option:visible').first().waitFor();
-    const firstChoiceMs=Date.now()-now,choice=await marks(page);
-    const row={cardMs,firstChoiceMs,transfer:landing.transfer+card.transfer+choice.transfer,
+    const options=page.locator('.decision-dialog[open] .pivot-option:visible');
+    await options.first().waitFor();
+    const firstChoiceMs=Date.now()-now;
+    // The game stays playable while a pack is late. Measure translated controls
+    // separately so a fallback prompt never counts as a completed Thai opening.
+    if(language==='th')await options.filter({hasText:/[\u0e00-\u0e7f]/u}).first().waitFor();
+    const translatedChoiceMs=Date.now()-now,choice=await marks(page);
+    const row={cardMs,firstChoiceMs,translatedChoiceMs,transfer:landing.transfer+card.transfer+choice.transfer,
      scriptTransfer:landing.scripts+card.scripts+choice.scripts,
      longTasks:landing.longTasks+card.longTasks+choice.longTasks,packs:[...landing.packs,...card.packs,...choice.packs]};
     runs[cache].push(row);
@@ -73,7 +78,7 @@ try{
   }
   for(const cache of ['cold','warm']){
    const values=runs[cache];
-   const summary=Object.fromEntries(['cardMs','firstChoiceMs','transfer','scriptTransfer','longTasks'].map(metric=>
+   const summary=Object.fromEntries(['cardMs','firstChoiceMs','translatedChoiceMs','transfer','scriptTransfer','longTasks'].map(metric=>
     [metric,{median:percentile(values.map(row=>row[metric]),.5),p75:percentile(values.map(row=>row[metric]),.75)}]));
    console.log(JSON.stringify({mode,language,cache,summary,samples:count}));
   }
