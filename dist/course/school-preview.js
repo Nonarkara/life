@@ -1,9 +1,10 @@
 import {CHILD_CHOICES} from './childhood-choices.js';
-import {PATHWAYS} from './pathways.js';
 import {replayComparison} from './replay-compare.js';
 import {configureLife,newLife} from './sim.js';
 
 const START={class:'low_class',sex:'female',birthYear:1975};
+const PATH_NAMES={school:'School education',college:'College studies',vocational:'Paid apprenticeship',
+ independent:'Independent work',work:'Salaried work'};
 const choices=CHILD_CHOICES.find(q=>q.age===9&&q.options.some(o=>o.id==='school_ask_teacher')).options;
 export const schoolPreviewParam='featured=school';
 
@@ -33,16 +34,18 @@ export function schoolReview(state,t){
  const row=state.history.find(r=>r.from===20&&r.age===25);
  if(!option||!row)return null;
  const college=row.pivots?.some(record=>record.pivot==='college-cost');
- const path=PATHWAYS[row.pathway];
- const comparison=replayComparison(state),split=comparison?.split,road=comparison?.earlyRoad;
+ const path=PATH_NAMES[row.pathway];
+ const previous=state.previous?.history.find(r=>r.from===20&&r.age===25);
+ const before=PATH_NAMES[previous?.pathway];
+ const split=replayComparison(state)?.split;
  return {
   choice:t('At nine, you chose “{choice}”.').replace('{choice}',t(option.label)),
   offer:t(college?'At twenty, you faced a choice about paying for college.':'At twenty, this life had no college-funding choice.'),
-  path:path?t('From twenty to twenty-five: {path}').replace('{path}',t(path.label)):'',
+  path:path?t('From twenty to twenty-five: {path}').replace('{path}',t(path)):'',
   earnings:Number.isFinite(row.earnings)?t('Work earnings: {cash}.')
    .replace('{cash}','฿'+row.earnings.toLocaleString('en')):'',
   split:split?.age===9?t('Before, at nine, you chose “{choice}”.').replace('{choice}',t(split.before)):'',
-  road:road?t('At age {n} your study or work changed from {a} to {b}.').replace('{n}',road.age)
-   .replace('{a}',t(road.before)).replace('{b}',t(road.now)):''
+  road:before&&path&&before!==path?t('At twenty: {before} → {now}.')
+   .replace('{before}',t(before)).replace('{now}',t(path)):''
  };
 }

@@ -8,6 +8,7 @@ export default new Map([
   ["At twenty, you faced a choice about paying for college.", "At twenty, you faced a choice about paying for college."],
   ["At twenty, this life had no college-funding choice.", "At twenty, this life had no college-funding choice."],
   ["From twenty to twenty-five: {path}", "From twenty to twenty-five: {path}"],
+  ["At twenty: {before} → {now}.", "At twenty: {before} → {now}."],
   ["Work earnings: {cash}.", "Work earnings: {cash}."],
   ["Before, at nine, you chose “{choice}”.", "Before, at nine, you chose “{choice}”."],
   ["Open the first run", "Open the first run"],

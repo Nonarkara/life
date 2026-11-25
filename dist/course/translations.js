@@ -28,6 +28,7 @@ At nine, you chose “{choice}”.|ตอนเก้าขวบ คุณเ�
 At twenty, you faced a choice about paying for college.|อายุ 20 คุณได้เลือกว่าจะหาเงินเรียนมหาวิทยาลัยอย่างไร|二十岁时，你面临如何支付大学费用的选择。|20歳で、大学の学費をどう工面するかという選択に直面した。|스무 살에 대학 학비를 어떻게 마련할지 선택해야 했다.
 At twenty, this life had no college-funding choice.|อายุ 20 รอบนี้ไม่มีทางเลือกเรื่องค่าเรียนมหาวิทยาลัย|二十岁时，这一世没有出现筹措大学学费的选择。|20歳で、この人生には大学の学費を工面する選択肢が現れなかった。|스무 살에 이번 삶에서는 대학 학비를 마련할 선택지가 나오지 않았다.
 From twenty to twenty-five: {path}|ช่วงอายุ 20 ถึง 25 ปี: {path}|二十岁到二十五岁：{path}|20歳から25歳まで：{path}|스무 살부터 스물다섯 살까지: {path}
+At twenty: {before} → {now}.|ตอนอายุ 20: {before} → {now}|二十岁时：{before} → {now}。|20歳のとき：{before} → {now}。|스무 살 때: {before} → {now}.
 Work earnings: {cash}.|รายได้จากงาน {cash}|工作收入：{cash}。|仕事の収入：{cash}。|일해서 번 돈: {cash}.
 Before, at nine, you chose “{choice}”.|ชีวิตรอบก่อน ตอนเก้าขวบ คุณเลือก “{choice}”|上一世九岁时，你选择了「{choice}」。|前の人生の9歳では「{choice}」を選んだ。|지난 삶의 아홉 살 때는 ‘{choice}’를 골랐다.
 Open the first run|กลับไปชีวิตรอบแรก|打开第一次人生|最初の人生を開く|첫 번째 삶 열기

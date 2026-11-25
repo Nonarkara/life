@@ -9,6 +9,7 @@ export default new Map([
   ["At twenty, you faced a choice about paying for college.", "20歳で、大学の学費をどう工面するかという選択に直面した。"],
   ["At twenty, this life had no college-funding choice.", "20歳で、この人生には大学の学費を工面する選択肢が現れなかった。"],
   ["From twenty to twenty-five: {path}", "20歳から25歳まで：{path}"],
+  ["At twenty: {before} → {now}.", "20歳のとき：{before} → {now}。"],
   ["Work earnings: {cash}.", "仕事の収入：{cash}。"],
   ["Before, at nine, you chose “{choice}”.", "前の人生の9歳では「{choice}」を選んだ。"],
   ["Open the first run", "最初の人生を開く"],

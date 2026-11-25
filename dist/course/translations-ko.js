@@ -9,6 +9,7 @@ export default new Map([
   ["At twenty, you faced a choice about paying for college.", "스무 살에 대학 학비를 어떻게 마련할지 선택해야 했다."],
   ["At twenty, this life had no college-funding choice.", "스무 살에 이번 삶에서는 대학 학비를 마련할 선택지가 나오지 않았다."],
   ["From twenty to twenty-five: {path}", "스무 살부터 스물다섯 살까지: {path}"],
+  ["At twenty: {before} → {now}.", "스무 살 때: {before} → {now}."],
   ["Work earnings: {cash}.", "일해서 번 돈: {cash}."],
   ["Before, at nine, you chose “{choice}”.", "지난 삶의 아홉 살 때는 ‘{choice}’를 골랐다."],
   ["Open the first run", "첫 번째 삶 열기"],

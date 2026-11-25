@@ -581,6 +581,7 @@ body.has-plan .life-plan {
  border-inline-start: 2px solid var(--amber);
 }
 .school-review h2 { font-size: calc(24px * var(--reading-scale)); line-height: 1.12; }
+.has-plan .school-review + .chapter-heading { font-size: calc(18px * var(--reading-scale)); }
 .school-review p { margin: 0; font-size: calc(14px * var(--reading-scale)); }
 .school-review-actions { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; }
 .chapter-choices { display: flex; flex-wrap: wrap; gap: 4px 12px; }
