@@ -1,3 +1,4 @@
+import {schoolReview} from './school-preview.js';
 // The next five years, decided left to right. One card per decision, nothing bleeding off a
 // card; each choice moves you to the next card, and the far right card lives the years.
 import {formatForeknowledge,foreknowledgeForChapter} from './replay-echoes.js';
@@ -21,7 +22,7 @@ const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className
 const BUDGETS=[['thrift','Save hard',{save:35,fun:5,learn:5}],['even','Keep it even',{save:20,fun:10,learn:10}],['enjoy','Enjoy it',{save:10,fun:25,learn:5}],['grow','Spend on learning',{save:15,fun:5,learn:25}]];
 const signed=n=>n>0?'+'+n:n<0?'−'+Math.abs(n):'±0';
 const axisName=a=>a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label;
-export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,rewind,onChosen=()=>{},canWatch,watch}){
+export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,rewind,onChosen=()=>{},canWatch,watch,replaySchoolReview,otherSchoolReview}){
  const root=el('section','life-plan');root.id='life-plan';root.setAttribute('aria-label','The next five years');root.hidden=true;mount.prepend(root);
  const steps=el('div','plan-steps');steps.setAttribute('role','group');steps.setAttribute('aria-label',t('The next five years'));const strip=el('div','plan-strip');const foot=el('div','plan-foot');const world=el('aside','plan-world');world.setAttribute('aria-label',t('The year around you'));const quick=el('section','chapter-play'),switcher=el('button','chapter-switch'),watchButton=el('button','chapter-watch','Watch these years');
  switcher.type=watchButton.type='button';
@@ -99,6 +100,24 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
    receipt.textContent+= ' · '+t('Before the replay')+' · '+t('Health')+' '+signed(before.health)+' · '+t('Wellbeing')+' '+signed(before.wellbeing);
   }
   quick.replaceChildren(heading,cost,choices);
+  const school=quick.hidden?null:schoolReview(s,t);
+  if(school){
+   const review=el('section','school-review');
+   const title=el('h2',undefined,t('What changed by twenty-five?'));
+   title.tabIndex=-1;
+   const action=el('button','chapter-watch school-replay',t('Replay this childhood →'));
+   action.type='button';action.onclick=replaySchoolReview;
+   review.append(title,el('p',undefined,[school.choice,school.offer].join(' ')));
+   const path=school.road||school.path;
+   if(school.split)review.append(el('p',undefined,school.split));
+   if(path||school.earnings)review.append(el('p',undefined,[path,school.earnings].filter(Boolean).join(' · ')));
+   const actions=el('div','school-review-actions');actions.append(action);
+   if(otherSchoolReview?.()){
+    const other=el('button','chapter-watch',t(s.previous?'Open the first run':'Open the replay'));
+    other.type='button';other.onclick=()=>otherSchoolReview(true);actions.append(other);
+   }
+   review.append(actions);quick.prepend(review);
+  }
   if(!quick.hidden&&routes.length>1){
    const row=el('div','chapter-pathway');
    const label=el('label',undefined,t('Study or work'));
@@ -209,5 +228,5 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
  }
  addEventListener('resize',()=>fit(shown));new MutationObserver(()=>fit(shown)).observe(document.body,{attributes:true,attributeFilter:['data-console-view']});
  strip.addEventListener('scroll',()=>requestAnimationFrame(mark),{passive:true});
- return {focus(){(quick.hidden?switcher:quick.firstChild)?.focus({preventScroll:true});},draw(){root.hidden=false;document.body.classList.add('has-plan');draw();},hide(){if(root.hidden)return;root.hidden=true;document.body.classList.remove('has-plan');commitHome.append(commit);fit(shown);}};
+ return {focus(){(quick.hidden?switcher:quick.querySelector('h2'))?.focus({preventScroll:true});},draw(){root.hidden=false;document.body.classList.add('has-plan');draw();},hide(){if(root.hidden)return;root.hidden=true;document.body.classList.remove('has-plan');commitHome.append(commit);fit(shown);}};
 }

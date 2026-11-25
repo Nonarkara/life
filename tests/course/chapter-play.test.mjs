@@ -94,6 +94,10 @@ test('replaying the same childhood can open the scholarship question eleven year
   return chapter(chapter(begin(life),1,'vocational'),2,'vocational');
  }
  const left=play(start,'school_say');
+ const kept=play(replay(left),'school_say');
+ assert.equal(replayComparison(kept).split,null);
+ assert.deepEqual(kept.history.map(row=>row.pathway),left.history.map(row=>row.pathway));
+ assert.ok(!pendingPivots(kept).some(p=>p.id==='college-cost'));
  const asked=play(replay(left),'school_ask_teacher');
  const offer=pendingPivots(asked).find(p=>p.id==='college-cost');
  assert.ok(offer);

@@ -21,6 +21,18 @@ import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+Featured life · Born in 1975|ชีวิตที่คัดมา · เกิดปี 2518|精选人生 · 生于1975年|特集の人生 · 1975年生まれ|이번에 살아볼 삶 · 1975년 출생
+Begin at age nine →|เริ่มตอนอายุเก้าขวบ →|从九岁开始 →|9歳から始める →|아홉 살부터 시작 →
+What changed by twenty-five?|ชีวิตเมื่ออายุ 25|到二十五岁，生活有哪些变化？|25歳までに、何が変わった？|스물다섯 살까지 무엇이 달라졌을까?
+At nine, you chose “{choice}”.|ตอนเก้าขวบ คุณเลือก “{choice}”|九岁时，你选择了「{choice}」。|9歳のとき、「{choice}」を選んだ。|아홉 살 때 ‘{choice}’를 골랐다.
+At twenty, you faced a choice about paying for college.|อายุ 20 คุณได้เลือกว่าจะหาเงินเรียนมหาวิทยาลัยอย่างไร|二十岁时，你面临如何支付大学费用的选择。|20歳で、大学の学費をどう工面するかという選択に直面した。|스무 살에 대학 학비를 어떻게 마련할지 선택해야 했다.
+At twenty, this life had no college-funding choice.|อายุ 20 รอบนี้ไม่มีทางเลือกเรื่องค่าเรียนมหาวิทยาลัย|二十岁时，这一世没有出现筹措大学学费的选择。|20歳で、この人生には大学の学費を工面する選択肢が現れなかった。|스무 살에 이번 삶에서는 대학 학비를 마련할 선택지가 나오지 않았다.
+From twenty to twenty-five: {path}|ช่วงอายุ 20 ถึง 25 ปี: {path}|二十岁到二十五岁：{path}|20歳から25歳まで：{path}|스무 살부터 스물다섯 살까지: {path}
+Work earnings: {cash}.|รายได้จากงาน {cash}|工作收入：{cash}。|仕事の収入：{cash}。|일해서 번 돈: {cash}.
+Before, at nine, you chose “{choice}”.|ชีวิตรอบก่อน ตอนเก้าขวบ คุณเลือก “{choice}”|上一世九岁时，你选择了「{choice}」。|前の人生の9歳では「{choice}」を選んだ。|지난 삶의 아홉 살 때는 ‘{choice}’를 골랐다.
+Open the first run|กลับไปชีวิตรอบแรก|打开第一次人生|最初の人生を開く|첫 번째 삶 열기
+Open the replay|เปิดชีวิตที่เล่นซ้ำ|打开重来的人生|やり直した人生を開く|다시 산 삶 열기
+Through the wall, you hear the adults talking. There is money for one more year of school. They think your cousin should be the one to go.|คุณได้ยินผู้ใหญ่คุยกันอีกฝั่งของผนัง เงินพอส่งเรียนอีกปีได้แค่คนเดียว พวกเขาคิดว่าควรให้ลูกพี่ลูกน้องของคุณไปเรียน|隔着墙，你听见大人们在说话。钱只够供一个人再上一年学。他们觉得应该让你的表亲去上学。|壁越しに大人たちの話が聞こえる。もう一年学校に通わせるお金は一人分しかない。大人たちは、いとこを通わせるべきだと思っている。|벽 너머로 어른들이 하는 말이 들린다. 한 사람만 학교에 일 년 더 보낼 돈이 있다. 어른들은 네 사촌이 가야 한다고 생각한다.
 Remembered events|เหตุการณ์ที่จำได้|记得的往事|覚えている出来事|기억하는 사건
 From your last life: {club} won this season.|ในชีวิตก่อน {club} ชนะฤดูกาลนี้|上一回人生中，{club} 赢得了这个赛季。|前の人生では、このシーズンは{club}が優勝しました。|지난 삶에서 이 시즌 우승팀은 {club}였습니다.
 {event} at age {a}|{event} เมื่ออายุ {a} ปี|{a}岁时，{event}|{a}歳で、{event}|{a}세에 {event}

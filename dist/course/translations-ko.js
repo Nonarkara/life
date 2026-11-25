@@ -2,6 +2,18 @@
 // Per-language translation pack for 한국어 (ko).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Featured life · Born in 1975", "이번에 살아볼 삶 · 1975년 출생"],
+  ["Begin at age nine →", "아홉 살부터 시작 →"],
+  ["What changed by twenty-five?", "스물다섯 살까지 무엇이 달라졌을까?"],
+  ["At nine, you chose “{choice}”.", "아홉 살 때 ‘{choice}’를 골랐다."],
+  ["At twenty, you faced a choice about paying for college.", "스무 살에 대학 학비를 어떻게 마련할지 선택해야 했다."],
+  ["At twenty, this life had no college-funding choice.", "스무 살에 이번 삶에서는 대학 학비를 마련할 선택지가 나오지 않았다."],
+  ["From twenty to twenty-five: {path}", "스무 살부터 스물다섯 살까지: {path}"],
+  ["Work earnings: {cash}.", "일해서 번 돈: {cash}."],
+  ["Before, at nine, you chose “{choice}”.", "지난 삶의 아홉 살 때는 ‘{choice}’를 골랐다."],
+  ["Open the first run", "첫 번째 삶 열기"],
+  ["Open the replay", "다시 산 삶 열기"],
+  ["Through the wall, you hear the adults talking. There is money for one more year of school. They think your cousin should be the one to go.", "벽 너머로 어른들이 하는 말이 들린다. 한 사람만 학교에 일 년 더 보낼 돈이 있다. 어른들은 네 사촌이 가야 한다고 생각한다."],
   ["Remembered events", "기억하는 사건"],
   ["From your last life: {club} won this season.", "지난 삶에서 이 시즌 우승팀은 {club}였습니다."],
   ["{event} at age {a}", "{a}세에 {event}"],

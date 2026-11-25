@@ -1,6 +1,7 @@
 // A small, device-only shelf of pre-answer snapshots independent of the active life.
 const KEY='life-turning-points-v1';
 const LIMIT=18;
+const reviewPoint=entry=>['featured-school','featured-school-replay'].includes(entry.scene);
 
 export function readTurningPoints(storage){
  try{
@@ -17,10 +18,12 @@ export function keepTurningPoint(storage,state,{scene,title,answer,met}){
  const id=[state.seed.toString(36),state.age,scene].join('.');
  const earlier=readTurningPoints(storage);
  if(earlier.some(e=>e.id===id))return id;
- const entry={id,scene,title,answer,met:[...met],state:{...state,previous:null}};
+ const entry={id,scene,title,answer,met:[...met],state:{...state,
+  previous:scene==='featured-school-replay'?state.previous??null:null}};
  let sameBirth=0;
- const retained=earlier.filter(point=>point.state.seed!==state.seed||++sameBirth<5);
- const entries=[entry,...retained].slice(0,LIMIT);
+ const retained=earlier.filter(point=>reviewPoint(point)||point.state.seed!==state.seed||++sameBirth<5);
+ const candidates=[entry,...retained];
+ const entries=[...candidates.filter(reviewPoint),...candidates.filter(point=>!reviewPoint(point))].slice(0,LIMIT);
  while(entries.length){
   try{storage.setItem(KEY,JSON.stringify(entries));return id;}
   catch{entries.pop();}

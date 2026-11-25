@@ -571,6 +571,18 @@ body.has-plan .life-plan {
  font-size: calc(12px * var(--reading-scale));
 }
 .plan-foot .chapter-receipt { flex-basis: 100%; }
+.school-review {
+ display: grid;
+ justify-items: start;
+ gap: 4px;
+ max-width: 65ch;
+ margin-block-end: 8px;
+ padding-inline-start: 8px;
+ border-inline-start: 2px solid var(--amber);
+}
+.school-review h2 { font-size: calc(24px * var(--reading-scale)); line-height: 1.12; }
+.school-review p { margin: 0; font-size: calc(14px * var(--reading-scale)); }
+.school-review-actions { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; }
 .chapter-choices { display: flex; flex-wrap: wrap; gap: 4px 12px; }
 .chapter-choice {
  display: grid;

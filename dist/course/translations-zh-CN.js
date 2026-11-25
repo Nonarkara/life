@@ -2,6 +2,18 @@
 // Per-language translation pack for 简体中文 (zh-CN).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Featured life · Born in 1975", "精选人生 · 生于1975年"],
+  ["Begin at age nine →", "从九岁开始 →"],
+  ["What changed by twenty-five?", "到二十五岁，生活有哪些变化？"],
+  ["At nine, you chose “{choice}”.", "九岁时，你选择了「{choice}」。"],
+  ["At twenty, you faced a choice about paying for college.", "二十岁时，你面临如何支付大学费用的选择。"],
+  ["At twenty, this life had no college-funding choice.", "二十岁时，这一世没有出现筹措大学学费的选择。"],
+  ["From twenty to twenty-five: {path}", "二十岁到二十五岁：{path}"],
+  ["Work earnings: {cash}.", "工作收入：{cash}。"],
+  ["Before, at nine, you chose “{choice}”.", "上一世九岁时，你选择了「{choice}」。"],
+  ["Open the first run", "打开第一次人生"],
+  ["Open the replay", "打开重来的人生"],
+  ["Through the wall, you hear the adults talking. There is money for one more year of school. They think your cousin should be the one to go.", "隔着墙，你听见大人们在说话。钱只够供一个人再上一年学。他们觉得应该让你的表亲去上学。"],
   ["Remembered events", "记得的往事"],
   ["From your last life: {club} won this season.", "上一回人生中，{club} 赢得了这个赛季。"],
   ["{event} at age {a}", "{a}岁时，{event}"],

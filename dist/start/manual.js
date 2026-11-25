@@ -23,6 +23,18 @@ for(const b of langs)b.addEventListener('click',()=>{applyPreferences({language:
 addEventListener('life-preferences',mark);mark();
 // Return hook: a life left mid-way is waiting where it stopped.
 try{const saved=JSON.parse(localStorage.getItem('life-course-v2')),el=document.getElementById('last-life');if(saved&&saved.stage!=='recap'&&saved.birth?.place&&Number.isInteger(saved.age)&&el){const paint=()=>{el.textContent=t('Your last life is waiting: age {n}, {place} →').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));};paint();el.hidden=false;addEventListener('life-preferences',paint);}}catch{}
+// One tap opens the card when no saved life is waiting. The conditions entry stays separate.
+{
+ const params=new URLSearchParams(location.search);
+ const featured=params.get('featured')==='school';
+ const validLanguage=/^(en|th|zh-CN|ja|ko)$/.test(params.get('lang')??'');
+ if(featured||document.getElementById('last-life').hidden){
+  const target=new URL('../intake/',location.href);
+  target.searchParams.set(featured?'featured':'next',featured?'school':'1');
+  if(validLanguage)target.searchParams.set('lang',params.get('lang'));
+  for(const link of document.querySelectorAll('.bar-actions .begin,#overview .actions .begin'))link.href=target.href;
+ }
+}
 // A finite, user-started cover preview. Other input and task changes stop it.
 {const img=document.getElementById('reel-img'),age=document.getElementById('reel-age'),tick=document.getElementById('reel-tick'),button=document.getElementById('reel-play');
  const frames=[[0,'home-day'],[6,'garden'],[12,'school'],[20,'street-day'],[30,'work'],[42,'stall'],[58,'abroad'],[80,'hospital']];

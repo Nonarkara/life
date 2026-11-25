@@ -2,6 +2,18 @@
 // Per-language translation pack for ไทย (th).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Featured life · Born in 1975", "ชีวิตที่คัดมา · เกิดปี 2518"],
+  ["Begin at age nine →", "เริ่มตอนอายุเก้าขวบ →"],
+  ["What changed by twenty-five?", "ชีวิตเมื่ออายุ 25"],
+  ["At nine, you chose “{choice}”.", "ตอนเก้าขวบ คุณเลือก “{choice}”"],
+  ["At twenty, you faced a choice about paying for college.", "อายุ 20 คุณได้เลือกว่าจะหาเงินเรียนมหาวิทยาลัยอย่างไร"],
+  ["At twenty, this life had no college-funding choice.", "อายุ 20 รอบนี้ไม่มีทางเลือกเรื่องค่าเรียนมหาวิทยาลัย"],
+  ["From twenty to twenty-five: {path}", "ช่วงอายุ 20 ถึง 25 ปี: {path}"],
+  ["Work earnings: {cash}.", "รายได้จากงาน {cash}"],
+  ["Before, at nine, you chose “{choice}”.", "ชีวิตรอบก่อน ตอนเก้าขวบ คุณเลือก “{choice}”"],
+  ["Open the first run", "กลับไปชีวิตรอบแรก"],
+  ["Open the replay", "เปิดชีวิตที่เล่นซ้ำ"],
+  ["Through the wall, you hear the adults talking. There is money for one more year of school. They think your cousin should be the one to go.", "คุณได้ยินผู้ใหญ่คุยกันอีกฝั่งของผนัง เงินพอส่งเรียนอีกปีได้แค่คนเดียว พวกเขาคิดว่าควรให้ลูกพี่ลูกน้องของคุณไปเรียน"],
   ["Remembered events", "เหตุการณ์ที่จำได้"],
   ["From your last life: {club} won this season.", "ในชีวิตก่อน {club} ชนะฤดูกาลนี้"],
   ["{event} at age {a}", "{event} เมื่ออายุ {a} ปี"],

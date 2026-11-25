@@ -1,3 +1,4 @@
+import {isSchoolPreviewLife,openAtNine} from './school-preview.js';
 import {createBirthMap} from './birth-opening.js';
 import {keepTurningPoint,loadTurningPoint,readTurningPoints,turningPointURL,turningPointScene} from './turning-points.js';
 import {drawBirth} from './birth-draw.js';
@@ -73,6 +74,7 @@ if(restored){
 if(turningId){requested.searchParams.delete('turning');history.replaceState(null,'',requested);}
 state=restored?.state??saved.life??drawBirth({},{varied:true});
 age=state.stage==='birth'?(state.progressAge??state.age):state.age;
+if(state.stage==='review'&&!state.journey&&isSchoolPreviewLife(state)&&age===25)elapsed=24;
 if(restored){
  setFamiliar(restored.met);
  keepPoint(store,state,true,restored.met);
@@ -220,11 +222,33 @@ function charts(){
 }
 
 function replayBirth(fromChoice=false){
+ const featured=isSchoolPreviewLife(state);
  setFamiliar(metFor(store,state.seed)??familiarIds());
  state=enableLifeEvents(replay(state));
  age=0;speed=1;childResult=null;travelEvent=null;decisionOutcome=null;dismissedDecision=null;childView=null;mode='world';paused=false;tab='priorities';
- if(fromChoice){arrival=0;skipTutorial();}
+ if(featured){state=openAtNine(state);age=9;arrival=0;paused=true;render();}
+ else if(fromChoice){arrival=0;skipTutorial();}
  else{startOpening();render();}
+}
+function keepSchoolReview(scene){
+ const id=keepTurningPoint(store,state,{scene,title:'Featured life · Born in 1975',
+  answer:'Age {n}'.replace('{n}',state.age),met:familiarIds()});
+ if(!id){
+  const status=$('save-status');status.hidden=false;
+  status.textContent=t('This browser could not save the session. Allow local storage, then try again.');
+ }
+ return id;
+}
+function replaySchoolReview(){
+ if(keepSchoolReview('featured-school'))replayBirth(true);
+}
+function otherSchoolReview(open=false){
+ const replaying=!!state.previous;
+ const target=replaying?'featured-school':'featured-school-replay';
+ const point=readTurningPoints(store).find(entry=>entry.scene===target&&isSchoolPreviewLife(entry.state));
+ if(!point)return false;
+ if(open&&keepSchoolReview(replaying?'featured-school-replay':'featured-school'))location.href=turningPointURL(point.id);
+ return true;
 }
 function rewindTo(age){
  const point=goBack(store,state,age,validate);
@@ -311,7 +335,7 @@ const decisionStage=initDecisionStage({onDismiss:key=>{dismissedDecision=key;if(
 function syncDecisionStage(){
  childUI.hide();yearUI.hide();
  if(travelEvent){decisionStage.show([yearUI.show(travelEvent)],{key:'year:'+travelEvent.age+':'+travelEvent.id,label:'year-event-title',event:travelEvent});return;}
- if(state.stage==='birth'){const q=pendingChildChoice(state,age),key='child:'+q?.age;if(childResult){decisionStage.show([childUI.show(null,childResult)],{key:'child-result:'+state.childhood.choices.length,label:'child-title',result:true});return;}if(q&&dismissedDecision!==key){decisionStage.show([childUI.show(q,null)],{key,label:'child-title'});return;}decisionStage.hide();return;}
+ if(state.stage==='birth'){const q=pendingChildChoice(state,age),key='child:'+q?.age;if(childResult){decisionStage.show([childUI.show(null,childResult)],{key:'child-result:'+state.childhood.choices.length,label:'child-title',result:true});return;}if(q&&dismissedDecision!==key){const prompt=isSchoolPreviewLife(state)&&q.age===9?{...q,context:'Through the wall, you hear the adults talking. There is money for one more year of school. They think your cousin should be the one to go.'}:q;decisionStage.show([childUI.show(prompt,null)],{key,label:'child-title'});return;}decisionStage.hide();return;}
  if(state.stage!=='review'||travel){decisionStage.hide();return;}
  const pending=state.story?.pending;
  if(decisionOutcome){$('title').textContent=decisionOutcome.label;decisionStage.show([$ ('title'),$('choice-result')],{key:decisionOutcome.key,label:'title',scenario:encounterById(decisionOutcome.scenario)??{id:decisionOutcome.scenario},result:true});return;}
@@ -435,6 +459,9 @@ function advanceJourney(){
  }
  if(age<travel.to.age)return;
  state={...travel.to,journey:undefined,chapterChoiceAge:undefined};
+ // Quick advance can leave the world paused at breakfast. Let this completed path
+ // arrive at the workday phase of the recorded routine, without starting motion.
+ if(!watchingJourney&&isSchoolPreviewLife(state)&&state.age===25)elapsed=24;
  travel=null;age=state.age;
  tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';
  if(state.stage==='recap')mode='course';
@@ -531,4 +558,4 @@ let lifePlan,topConsole;
 function thaiEraYear(){const shown=travel?.to??state,by=birthYearOf(shown);return by===null?null:by+Math.floor(childView??age);}
 function syncPlan(){if(!lifePlan)return;if(state.stage==='review'&&!travel)lifePlan.draw();else lifePlan.hide();nextMoment.hidden=!travel||!!travelEvent;
  if(topConsole){topConsole.update(thaiEraYear(),(childView??age)>=15);topConsole.persona(state);}}
-queueMicrotask(()=>{const commit=$('commit'),home=document.querySelector('.console-actions');lifePlan=initLifePlan({mount:$('editor').parentElement,getState:()=>state,apply:next=>{if(next===state)return;const ended=state.stage!=='recap'&&next.stage==='recap';state=next;if(ended){age=state.age;mode='course';tab='priorities';}save();render();if(ended)focusChapter();},commit,commitHome:home,canWatch:()=>!state.story?.pending&&!pendingPivots(state).length,watch:()=>startChapter(true),canRewind:age=>pointAges(store,state).includes(age),rewind:rewindTo});topConsole=initTopConsole({openWorld:()=>consoleUI?.select?.('world'),openYou:()=>consoleUI?.select?.('you')});render();});
+queueMicrotask(()=>{const commit=$('commit'),home=document.querySelector('.console-actions');lifePlan=initLifePlan({mount:$('editor').parentElement,getState:()=>state,apply:next=>{if(next===state)return;const ended=state.stage!=='recap'&&next.stage==='recap';state=next;if(ended){age=state.age;mode='course';tab='priorities';}save();render();if(ended)focusChapter();},commit,commitHome:home,replaySchoolReview,otherSchoolReview,canWatch:()=>!state.story?.pending&&!pendingPivots(state).length,watch:()=>startChapter(true),canRewind:age=>pointAges(store,state).includes(age),rewind:rewindTo});topConsole=initTopConsole({openWorld:()=>consoleUI?.select?.('world'),openYou:()=>consoleUI?.select?.('you')});render();});

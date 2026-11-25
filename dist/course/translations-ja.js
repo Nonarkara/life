@@ -2,6 +2,18 @@
 // Per-language translation pack for 日本語 (ja).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["Featured life · Born in 1975", "特集の人生 · 1975年生まれ"],
+  ["Begin at age nine →", "9歳から始める →"],
+  ["What changed by twenty-five?", "25歳までに、何が変わった？"],
+  ["At nine, you chose “{choice}”.", "9歳のとき、「{choice}」を選んだ。"],
+  ["At twenty, you faced a choice about paying for college.", "20歳で、大学の学費をどう工面するかという選択に直面した。"],
+  ["At twenty, this life had no college-funding choice.", "20歳で、この人生には大学の学費を工面する選択肢が現れなかった。"],
+  ["From twenty to twenty-five: {path}", "20歳から25歳まで：{path}"],
+  ["Work earnings: {cash}.", "仕事の収入：{cash}。"],
+  ["Before, at nine, you chose “{choice}”.", "前の人生の9歳では「{choice}」を選んだ。"],
+  ["Open the first run", "最初の人生を開く"],
+  ["Open the replay", "やり直した人生を開く"],
+  ["Through the wall, you hear the adults talking. There is money for one more year of school. They think your cousin should be the one to go.", "壁越しに大人たちの話が聞こえる。もう一年学校に通わせるお金は一人分しかない。大人たちは、いとこを通わせるべきだと思っている。"],
   ["Remembered events", "覚えている出来事"],
   ["From your last life: {club} won this season.", "前の人生では、このシーズンは{club}が優勝しました。"],
   ["{event} at age {a}", "{a}歳で、{event}"],

@@ -43,6 +43,7 @@
 #birth-card h2{font:600 var(--display)/1.1 var(--head);margin:0 0 14px}
 #birth-card .odds{font-weight:600;margin:14px 0 18px}
 #birth-card .actions{flex-wrap:wrap;gap:14px 22px}
+#birth-card #birth-begin{min-height:44px}
 
 /* A second way in, and the lives already lived. Quiet beside the one amber action. */
 .intake-page .quiet-link{display:inline-flex;align-items:center;min-height:32px;padding:4px 0;color:var(--ink);font-size:var(--body);text-decoration:underline;text-underline-offset:3px;cursor:pointer}

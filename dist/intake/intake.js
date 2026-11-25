@@ -1,3 +1,4 @@
+import {isSchoolPreview,isSchoolPreviewLife,schoolPreviewBirth,schoolPreviewParam} from '../course/school-preview.js';
 import {readTurningPoints,turningPointURL} from '../course/turning-points.js';
 import {AXES,balanced,transfer,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
 import {CLASS_WEIGHTS} from '../course/backgrounds.js';
@@ -29,17 +30,23 @@ export function birthOdds(life,options){
  if(!options.raised)p*=HOUSEHOLD_ODDS[life.birth.household]??1;
  return Math.max(1,Math.round(1/p));
 }
-let drawn=null,lastOptions={},varied=false,previous=null;
+let drawn=null,lastOptions={},varied=false,previous=null,featured=false;
 function savedLife(){
  try{const life=retireClass(JSON.parse(localStorage.getItem('life-course-v2')));return validate(life)?life:null;}
  catch{return null;}
 }
-const showBirthOdds=()=>!varied&&lastOptions.birthYear!=='historical';
+const showBirthOdds=()=>!featured&&!varied&&lastOptions.birthYear!=='historical';
+const birthActions=$('birth-begin').parentElement;
 const birthCanonical=document.createElement('p');birthCanonical.className='fine';birthCanonical.hidden=true;
 function card(life){
  const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class],cohort=HISTORICAL_COHORTS[life.intake.birthYear];
  const fam=familyRecord(life);
- $('birth-title').textContent=life.playerSlot?t('Player #{n} of 100').replace('{n}',life.playerSlot):t('You are born');
+ const begin=$('birth-begin');
+ begin.textContent=t(featured?'Begin at age nine →':'Begin this life →');
+ if(featured)$('birth-title').after(begin);
+ else birthActions.prepend(begin);
+ $('birth-again').hidden=featured;
+ $('birth-title').textContent=featured?t('Featured life · Born in 1975'):life.playerSlot?t('Player #{n} of 100').replace('{n}',life.playerSlot):t('You are born');
  const facts=[...(life.canonical?[['Canonical life',life.canonical.title]]:[]),['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],...(fam?[['Family',fam.guardians],['Siblings in childhood',fam.siblingsText]]:[['Raised by',t(household(b).text)]]),['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
@@ -48,13 +55,14 @@ function card(life){
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
 }
-function enter(options,fresh=false){try{lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=fresh?drawAdaptiveBirth(localStorage,()=>drawBirth(options,{previous,varied})):drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});}catch{$('intake-error').textContent=t('Try again');}}
-$('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/';}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
+function enter(options,fresh=false){try{featured=false;lastOptions=options;varied=fresh;previous=fresh?savedLife():null;drawn=fresh?drawAdaptiveBirth(localStorage,()=>drawBirth(options,{previous,varied})):drawBirth(options,{previous,varied});card(drawn);$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});}catch{$('intake-error').textContent=t('Try again');}}
+$('birth-begin').onclick=()=>{try{localStorage.setItem('life-course-v2',JSON.stringify(drawn));location.href='../course/'+(featured?'?'+schoolPreviewParam:'');}catch{$('birth-card').close();$('intake-error').textContent='This browser could not save the session. Allow local storage, then try again.';}};
 $('birth-edit').onclick=()=>{$('birth-card').close();$('starting-conditions').open=true;$('birth-era').focus();};
 $('birth-again').onclick=()=>{try{drawn=varied?drawAdaptiveBirth(localStorage,()=>drawBirth(lastOptions,{previous,varied})):drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
 // family and place with the same luck, and chooses for themselves.
-export const birthLink=life=>birthURL(life);
+export const birthLink=life=>isSchoolPreviewLife(life)
+ ?new URL('/?'+schoolPreviewParam,location.href).href:birthURL(life);
 const birthCopy=document.createElement('button');birthCopy.type='button';birthCopy.className='quiet';birthCopy.textContent=t('Copy birth link');$('birth-share').after(birthCopy);
 const birthManual=document.createElement('textarea');birthManual.readOnly=true;birthManual.hidden=true;birthManual.rows=3;birthManual.setAttribute('aria-label',t('Birth text and link'));$('birth-shared').after(birthManual);
 const shareBirth=async copyOnly=>{
@@ -112,6 +120,16 @@ function archive(){
 // A link someone sent, or today's shared birth, opens straight onto its card.
 function invited(){
  const params=new URLSearchParams(location.search);
+ if(isSchoolPreview(params)&&!params.has('birth')&&!params.has('player')){
+  const saved=savedLife();
+  if(saved&&saved.stage!=='recap'){
+   if(isSchoolPreviewLife(saved))location.replace('../course/?'+schoolPreviewParam);
+   return;
+  }
+  featured=true;drawn=schoolPreviewBirth();card(drawn);
+  $('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});
+  return;
+ }
  const slot=params.get('player');
  if(!params.has('birth')&&/^(?:[1-9]|[1-9][0-9]|100)$/.test(slot??'')){lastOptions={};varied=true;drawn=playerSlotBirth(Number(slot));card(drawn);$('birth-again').hidden=true;$('birth-card').showModal();$('birth-card').scrollTop=0;$('birth-begin').focus({preventScroll:true});return;}
  const asked=params.get('birth');if(!asked){if(params.get('next')==='1')enter({},true);return;}
