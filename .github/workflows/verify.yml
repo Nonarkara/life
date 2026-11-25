@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      LIFE_PROBE_FAILURE_DIR: ${{ runner.temp }}/life-probe-failures
+      LIFE_PROBE_FAILURE_DIR: .life-probe-failures
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,4 +34,5 @@ jobs:
         with:
           name: browser-probe-failures
           path: ${{ env.LIFE_PROBE_FAILURE_DIR }}
+          include-hidden-files: true
           if-no-files-found: ignore
