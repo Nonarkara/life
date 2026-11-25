@@ -246,6 +246,8 @@ For the pinned browser, run `npx playwright install chromium` and set
 `LIFE_BROWSER_CHANNEL=chrome`. Run `npm run verify` for build, units, geometry,
 and recovery smoke. Run `npm run probes` before serving a release candidate.
 The runner prints its verified build identity and rejects a rebuild mid-run.
+After preview deploy, run `LIFE_PROBE_BASE=<preview origin> node scripts/probes.mjs`
+against that same build. The runner checks the hosted stamp before and between probes.
 
 For an opening comparison, run `BASE=<preview origin> node scripts/measure-opening.mjs`
 on each candidate in the same conditions. Output is JSON Lines with cold and warm
