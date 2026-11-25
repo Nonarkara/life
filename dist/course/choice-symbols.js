@@ -89,7 +89,7 @@ export function questionType(pivot){
 // Priority order: spiritual → relationships → money → work → health (catch-all).
 // Health is checked last because nearly every authored option has some
 // wellbeing or health effect; it should not dominate every question.
-export function questionCategory(pivot){if(pivot?.market||pivot?.league||pivot?.job)return 'money';
+export function questionCategory(pivot){if(pivot?.id==='job-crisis-support')return 'family';if(pivot?.market||pivot?.league||pivot?.job)return 'money';
  const allEffects=pivot.options.flatMap(o=>[o.effects?.skills??{},o.effects?.cash!==undefined?{cash:1}:{},o.effects?.health!==undefined?{health:1}:{},o.effects?.wellbeing!==undefined?{wellbeing:1}:{}]);
  const flags=pivot.options.flatMap(o=>o.flags??{});
  const flagStr=JSON.stringify(flags);

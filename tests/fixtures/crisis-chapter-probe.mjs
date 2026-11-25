@@ -7,7 +7,7 @@ const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROW
 const base=process.env.BASE||'http://127.0.0.1:48571';
 try{
  for(const [slot,path] of [[4,'Take the finance job'],[13,'Stay where you are']]){
-  const page=await browser.newPage({viewport:{width:Number(process.env.CRISIS_WIDTH||390),height:844},reducedMotion:'reduce'});
+  const page=await browser.newPage({viewport:{width:Number(process.env.CRISIS_WIDTH||390),height:844},hasTouch:Number(process.env.CRISIS_WIDTH||390)<1024,reducedMotion:'reduce'});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('life-course-v2')));
   await page.goto(base+'/intake/?player='+slot);
@@ -51,6 +51,7 @@ try{
    }
    if(await dialog.getByText('The envelope in 1997',{exact:true}).isVisible()){
     sawCrisis=true;
+    if(await page.evaluate(()=>matchMedia('(pointer: coarse)').matches))assert.ok(await dialog.locator('#year-event-continue').evaluate(button=>button.getBoundingClientRect().height>=44));
     assert.match(await dialog.innerText(),/2 July 1997/);
     assert.match(await dialog.innerText(),slot===4?/pay envelope is thinner/:/kept your old job/);
     if(process.env.CRISIS_SHOTS)await page.screenshot({path:process.env.CRISIS_SHOTS+'-'+slot+'-crisis.png'});

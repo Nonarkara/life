@@ -2,7 +2,7 @@ import {choiceSymbol} from './choice-symbols.js';
 import {t,localise} from './i18n.js';
 export function initLifeEventView({onContinue}){
  const root=document.createElement('section');root.id='year-event';root.hidden=true;document.body.append(root);
- return {root,hide(){root.hidden=true;},show(event,guardian){root.replaceChildren();root.hidden=false;
+ return {root,hide(){root.hidden=true;},show(event,guardian){root.replaceChildren();root.hidden=false;root.classList.toggle('crisis-event',event.origin==='crisis');
  const heading=document.createElement('h2');heading.id='year-event-title';heading.textContent=event.title;
  const icon=choiceSymbol(['accident','illness','dengue'].includes(event.type)?'care':event.type==='fired'?'work':event.type==='loss'?'tree':'heart');heading.prepend(icon);
  const text=document.createElement('p');text.className='decision-context';text.textContent=event.text;
