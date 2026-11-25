@@ -48,7 +48,6 @@ function writeReceipt(spec, targetDir, status, steps, note) {
   const receipt = {
     id: spec.id,
     name: spec.name,
-    generatedAt: new Date().toISOString(),
     pipeline: 'spritecast',
     pipelineVersion: '1.0',
     steps,
@@ -57,7 +56,7 @@ function writeReceipt(spec, targetDir, status, steps, note) {
     msh: spec.msh ?? {},
     note: note ?? null,
     sourceSpec: spec.path,
-    outputDir: targetDir,
+    outputDir: 'course/characters/'+spec.id,
   };
   writeFileSync(join(targetDir, 'receipt.json'), JSON.stringify(receipt, null, 2));
   writeFileSync(join(targetDir, 'spec.json'), JSON.stringify(spec, null, 2));

@@ -2,6 +2,9 @@
 // Per-language translation pack for 简体中文 (zh-CN).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["This life changed in another tab. Reload to continue from the saved version.", "这一人生已在另一个标签页更新。请重新加载，从已保存的版本继续。"],
+  ["Your earlier life could not be opened. Its original save is still in this browser.", "之前的人生无法打开，原始存档仍在此浏览器中。"],
+  ["The earlier life could not be archived. It is still the active save.", "之前的人生无法归档，目前仍是当前存档。"],
   ["Featured life · Born in 1975", "精选人生 · 生于1975年"],
   ["Begin at age nine →", "从九岁开始 →"],
   ["What changed by twenty-five?", "到二十五岁，生活有哪些变化？"],

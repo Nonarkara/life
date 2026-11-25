@@ -2,6 +2,9 @@
 // Per-language translation pack for 한국어 (ko).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["This life changed in another tab. Reload to continue from the saved version.", "다른 탭에서 이 삶이 변경됐습니다. 새로고침하면 저장된 버전에서 이어갈 수 있습니다."],
+  ["Your earlier life could not be opened. Its original save is still in this browser.", "이전 삶을 열 수 없습니다. 원본 저장은 이 브라우저에 남아 있습니다."],
+  ["The earlier life could not be archived. It is still the active save.", "이전 삶을 보관할 수 없었습니다. 여전히 현재 저장으로 남아 있습니다."],
   ["Featured life · Born in 1975", "이번에 살아볼 삶 · 1975년 출생"],
   ["Begin at age nine →", "아홉 살부터 시작 →"],
   ["What changed by twenty-five?", "스물다섯 살까지 무엇이 달라졌을까?"],

@@ -29,7 +29,8 @@ body.console-mode{height:100dvh;overflow:hidden}
 .console-note{font-size:calc(12px * var(--reading-scale));line-height:1.5;max-width:60ch;color:var(--muted)}
 /* Save state and the action share one compact row; full event prose stays in Plan. */
 .console-actions{flex:none;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px;padding:3px 12px;background:var(--paper);border-top:1px solid var(--line)}
-.console-actions #save-status{margin:0;font-size:calc(12px * var(--reading-scale));color:var(--muted);white-space:normal}
+body.has-top-console>header:has(>#save-status:not([hidden])){display:grid;gap:4px}
+body.has-top-console>header>#save-status{margin:0;font-size:calc(12px * var(--reading-scale));border-inline-start:2px solid var(--amber);padding-inline-start:6px}
 .console-actions #commit{margin:0;max-width:24ch}
 .console-actions[hidden],.console-actions:has(button[hidden]){display:none}
 .console-panel{scrollbar-gutter:stable;scrollbar-width:thin;scrollbar-color:var(--muted) var(--paper)}
@@ -137,8 +138,8 @@ body.console-mode>header{flex:none}
 }
 /* A flex child with auto side margins otherwise shrink-wraps an auto-fit deck. */
 .console-mode main{width:100%;margin:0}
-.console-actions:has(#save-status[hidden]){grid-template-columns:1fr}
-.console-actions:has(#save-status[hidden]) #commit{justify-self:end}
+.console-actions{grid-template-columns:1fr}
+.console-actions #commit{justify-self:end}
 
 /* On handheld screens the scene leads; controls occupy the remaining reading
    surface. Captions overlay the scene instead of becoming another bottom band. */
@@ -181,7 +182,6 @@ body.console-mode>header{flex:none}
  .console-mode .rpg-dock .player-console{flex:none;min-height:0;max-height:none;border:0}
  .console-mode .rpg-dock .console-actions{min-height:30px;padding:2px 12px}
  .console-mode .rpg-dock .console-actions #commit{font-size:calc(12px * var(--reading-scale));padding:2px 0;min-height:28px}
- .console-mode .rpg-dock .console-actions #save-status{font-size:calc(11px * var(--reading-scale))}
  .console-mode .rpg-dock .console-nav{padding:0 8px;gap:10px}
  .console-mode .rpg-dock .console-nav button{padding:2px 4px;min-height:28px;font-size:calc(12px * var(--reading-scale))}
  /* Phone: all eight tabs fit at 360 px in English; longer labels still scroll. */

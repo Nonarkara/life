@@ -18,20 +18,20 @@ for(let i=0;i<90&&ended.stage!=='recap';i++){
 assert(validate(ended));assert.equal(ended.stage,'recap');
 const fresh=configureLife(newLife(333),{class:'working_class',sex:'male',birthYear:1981});assert(validate(fresh));
 const language=process.env.LANGUAGE||'en',base=process.env.BASE||'http://127.0.0.1:4299';
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 try{
  for(const [width,enlarged] of (process.env.WIDTH?[[Number(process.env.WIDTH),false]]:[[390,false],[1024,false],[1440,false],[390,true]])){
   const page=await browser.newPage({viewport:{width,height:width===390?844:900},reducedMotion:'reduce',serviceWorkers:'block'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(({ended,language,enlarged})=>{if(!localStorage.getItem('life-course-v2'))localStorage.setItem('life-course-v2',JSON.stringify(ended));localStorage.setItem('life-preferences-v1',JSON.stringify({language,size:enlarged?'extra':'standard',motion:true}));},{ended,language,enlarged});
-  await page.goto(base+'/course/',{waitUntil:'networkidle'});await page.locator('.score-total').waitFor();
+  await page.goto(base+'/course/',{waitUntil:'domcontentloaded'});await page.locator('.score-total').waitFor();
   const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('life-lives-v1')));
   assert.equal(saved.length,1);assert.ok(saved[0].album.entries.length>0);assert.ok(saved[0].album.notes.length>0);
   assert.equal(saved[0].code,encodeBirth(ended));
   // Overwrite only the active session, just as starting the next life does. Keep an old summary without an invented album.
   await page.evaluate(({fresh,summary})=>{localStorage.setItem('life-course-v2',JSON.stringify(fresh));const entries=JSON.parse(localStorage.getItem('life-lives-v1'));for(let i=0;i<6;i++){const old={...summary,id:'older-summary-'+i,words:'A remembered life '+i};delete old.album;entries.push(old);}localStorage.setItem('life-lives-v1',JSON.stringify(entries));},{fresh,summary:saved[0]});
   const before=await page.evaluate(()=>({active:localStorage.getItem('life-course-v2'),archive:localStorage.getItem('life-lives-v1'),taste:localStorage.getItem('life-taste-v1'),almanac:localStorage.getItem('life-almanac-v1')}));
-  await page.goto(base+'/intake/',{waitUntil:'networkidle'});
+  await page.goto(base+'/intake/',{waitUntil:'domcontentloaded'});
   await page.locator('#lives-summary').waitFor({state:'visible'});await page.locator('#lives-summary').click();
   if(language==='th')assert.match(await page.locator('#collection-summary').innerText(),/สมุดบันทึกชีวิต/);
   const rows=page.locator('#lives-list > li');assert.equal(await rows.count(),6,'six earlier lives plus the visible latest life remain reachable');
@@ -55,7 +55,7 @@ try{
   }
   await page.locator('[data-settings]').click();await page.locator('#setting-size').selectOption(enlarged?'large':'extra');await page.locator('#settings-dialog button[type=submit]').click();assert.equal(await page.locator('#recent-life .life-album').getAttribute('open'),'','preference rerender keeps the album open');
   assert.deepEqual(errors,[]);console.log(JSON.stringify({width,enlarged,language,records:7,entries:saved[0].album.entries.length,notes:saved[0].album.notes.length,errors,...metrics}));
-  await page.reload({waitUntil:'networkidle'});assert.equal(await page.locator('#lives-list > li').count(),6);assert.equal(await page.evaluate(()=>localStorage.getItem('life-course-v2')),before.active);
+  await page.reload({waitUntil:'domcontentloaded'});assert.equal(await page.locator('#lives-list > li').count(),6);assert.equal(await page.evaluate(()=>localStorage.getItem('life-course-v2')),before.active);
   await page.close();
  }
 }finally{await browser.close();}

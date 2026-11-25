@@ -20,11 +20,11 @@ assert.equal(validate(s),true);assert.equal(s.stage,'recap');
 const cv=buildCV(s);assert.ok(cv.some(e=>e.kind==='experiences'));
 const declined=buildCV({...s,story:{seen:[{id:'commitment',choice:'decline',age:30}]}});assert.ok(!declined.some(e=>e.id==='event:commitment'));
 const planned=buildCV({...s,bucket:{custom:[],done:[],planned:[{key:'library',label:'Spend a day at the library',age:70,days:1,cost:0,id:'planned'}]}});assert.ok(!planned.some(e=>e.kind==='experiences'));
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 const language=process.env.LANGUAGE||'en';
 for(const [width,enlarged] of [[390,false],[1024,false],[1440,false],[390,true]]){
  const page=await browser.newPage({viewport:{width,height:width===390?844:900},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.addInitScript(({s,enlarged,language})=>{localStorage.setItem('life-course-v2',JSON.stringify(s));localStorage.setItem('life-preferences-v1',JSON.stringify({language,size:enlarged?'extra':'standard',motion:true}));},{s,enlarged,language});await page.goto((process.env.BASE||'http://127.0.0.1:4287')+'/course/',{waitUntil:'networkidle'});
+ await page.addInitScript(({s,enlarged,language})=>{localStorage.setItem('life-course-v2',JSON.stringify(s));localStorage.setItem('life-preferences-v1',JSON.stringify({language,size:enlarged?'extra':'standard',motion:true}));},{s,enlarged,language});await page.goto((process.env.BASE||'http://127.0.0.1:4287')+'/course/',{waitUntil:'domcontentloaded'});
  const summary=page.getByText(language==='th'?'สิ่งที่เก็บไว้จากชีวิตนี้':'What you kept from this life',{exact:true});await summary.waitFor({state:'visible'});await summary.scrollIntoViewIfNeeded();await summary.click();
  await page.screenshot({path:`/tmp/journey-review-${width}${enlarged?'-enlarged':''}.png`});
  const metrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,album:document.querySelector('.ending-score details').innerText,breakdown:document.querySelector('.score-breakdown').innerText,total:Number(document.querySelector('.score-total').innerText)}));

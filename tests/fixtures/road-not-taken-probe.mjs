@@ -64,7 +64,7 @@ for(let seed=1;seed<=90&&fixtures.size<3;seed++){
 }
 assert.equal(fixtures.size,3,'find three recorded offer and arrival-encounter fixtures');
 
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 const base=process.env.BASE||'http://127.0.0.1:4219';
 try{
  for(const [kind,{state,p,option,result,flag}] of fixtures){

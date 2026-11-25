@@ -2,6 +2,9 @@
 // Per-language translation pack for ไทย (th).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["This life changed in another tab. Reload to continue from the saved version.", "ชีวิตนี้เปลี่ยนไปในอีกแท็บ โหลดหน้าใหม่เพื่อเล่นต่อจากที่บันทึกไว้"],
+  ["Your earlier life could not be opened. Its original save is still in this browser.", "เปิดชีวิตก่อนหน้าไม่ได้ ข้อมูลเดิมยังอยู่ในเบราว์เซอร์นี้"],
+  ["The earlier life could not be archived. It is still the active save.", "เก็บชีวิตก่อนหน้าเข้าคลังไม่ได้ ชีวิตนั้นยังเป็นรายการที่เปิดอยู่"],
   ["Featured life · Born in 1975", "ชีวิตที่คัดมา · เกิดปี 2518"],
   ["Begin at age nine →", "เริ่มตอนอายุเก้าขวบ →"],
   ["What changed by twenty-five?", "ชีวิตเมื่ออายุ 25"],

@@ -2,6 +2,9 @@
 // Per-language translation pack for 日本語 (ja).
 // English source phrase -> translated phrase.
 export default new Map([
+  ["This life changed in another tab. Reload to continue from the saved version.", "別のタブでこの人生が更新されました。再読み込みして保存済みの続きから進めてください。"],
+  ["Your earlier life could not be opened. Its original save is still in this browser.", "以前の人生を開けませんでした。元のセーブはこのブラウザに残っています。"],
+  ["The earlier life could not be archived. It is still the active save.", "以前の人生を保管できませんでした。そのセーブが現在も有効です。"],
   ["Featured life · Born in 1975", "特集の人生 · 1975年生まれ"],
   ["Begin at age nine →", "9歳から始める →"],
   ["What changed by twenty-five?", "25歳までに、何が変わった？"],

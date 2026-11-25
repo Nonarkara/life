@@ -96,3 +96,12 @@ export function routineContext(state,age=state.age){
  const style=REGIONS[region]?.style;
  const householdWork=style==='market'?'stall':style==='village'?'fieldWork':'familyWork',pond=pondDx(region);
  const completed=state.history?.filter(row=>row.age<=age).at(-1),activity=state.history?.filter(row=>(row.from??row.age)<=age).at(-1);return {pondDx:pond,...locationContext(state,age),householdWork,commute:recordedCommute(state,age,activity?.pathway??(age===state.age?state.pathway:undefined)),pathway:activity?.pathway??(age===state.age?state.pathway:undefined),recovering:(completed?.health??100)<60&&/health setback/.test(completed?.event??'')};}
+
+// Quick review should show the recorded activity when it already has a scene.
+// The same still frame can be recovered on reload without storing camera state.
+export function reviewSceneTime(state){
+ if(state.stage!=='review'||![20,25,30].includes(state.age))return null;
+ const row=state.history?.at(-1);
+ if(row?.age!==state.age||!['school','college','work','vocational','independent'].includes(row.pathway))return null;
+ return 24;
+}

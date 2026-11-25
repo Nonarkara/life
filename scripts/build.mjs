@@ -1,5 +1,6 @@
 import {cpSync,mkdirSync,readdirSync,readFileSync,writeFileSync,mkdtempSync,existsSync,renameSync,rmSync,statSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
 import {versionReferences} from './asset-versions.mjs';
 import {buildCharacters} from './spritecast-build.mjs';
 const output=mkdtempSync('.life-build-');
@@ -29,19 +30,40 @@ mkdirSync(output+'/intake',{recursive:true});cpSync('dist/intake',output+'/intak
 
 mkdirSync(output+'/study',{recursive:true});cpSync('dist/study',output+'/study',{recursive:true});
 const {build}=await import('esbuild');
+// Intake, course, and the study pages reuse the same immutable selected pack.
+mkdirSync(output+'/language');
+const languageURLs=new Map();
+for(const id of ['th','zh-CN','ja','ko']){
+ const file='translations-'+id+'.js';
+ const source=readFileSync('dist/course/'+file);
+ const hash=createHash('sha256').update(source).digest('hex').slice(0,16);
+ const url='/language/'+id+'-'+hash+'.js';
+ writeFileSync(output+url,source);
+ languageURLs.set('./'+file,url);
+}
+// The small manual entry loads the unbundled course localizer.
+const localizer=output+'/course/i18n.js';
+let localizerSource=readFileSync(localizer,'utf8');
+for(const [source,url] of languageURLs)localizerSource=localizerSource.replaceAll(source,url);
+writeFileSync(localizer,localizerSource);
+const languagePacks={name:'shared-language-packs',setup(builder){
+ builder.onResolve({filter:/^\.\/translations-(?:th|zh-CN|ja|ko)\.js$/},args=>
+  ({path:languageURLs.get(args.path),external:true}));
+}};
+const bundle=options=>build({...options,plugins:[languagePacks]});
 // The intake entry is a module graph with per-language packs behind dynamic
 // imports. Bundled into one file those packs ship in the entry view; split, the
 // visitor downloads the entry and only the pack they actually read.
-await build({entryPoints:['dist/intake/intake.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/intake',entryNames:'intake',chunkNames:'chunk-[hash]'});
+await bundle({entryPoints:['dist/intake/intake.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/intake',entryNames:'intake',chunkNames:'chunk-[hash]'});
 // The town picker pulls in the 3D world and, through it, the language packs.
 // Bundled flat it carried all four packs (6.7 MB) into a file the visitor only
 // opens on request; split, it carries the world and fetches a pack if needed.
-await build({entryPoints:['dist/intake/town-pick.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/intake',entryNames:'town-pick',chunkNames:'chunk-[hash]'});
+await bundle({entryPoints:['dist/intake/town-pick.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/intake',entryNames:'town-pick',chunkNames:'chunk-[hash]'});
 // The four study benches share one world, one renderer and one set of language
 // packs. Built flat, each carried its own copy: 35 MB of published files for
 // four pages. Built together and split, the shared parts are fetched once.
-await build({entryPoints:['dist/study/deck-edge.js','dist/course/scene-study.js','dist/study/control-bench.js','dist/study/thai-life.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/study',entryNames:'[name].bundle',chunkNames:'chunk-[hash]'});
-await build({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',splitting:true,entryNames:'game.bundle',chunkNames:'chunk-[hash]',outdir:output+'/course'});
+await bundle({entryPoints:['dist/study/deck-edge.js','dist/course/scene-study.js','dist/study/control-bench.js','dist/study/thai-life.js'],bundle:true,minify:true,format:'esm',splitting:true,outdir:output+'/study',entryNames:'[name].bundle',chunkNames:'chunk-[hash]'});
+await bundle({entryPoints:['dist/course/game.js'],bundle:true,minify:true,format:'esm',splitting:true,entryNames:'game.bundle',chunkNames:'chunk-[hash]',outdir:output+'/course'});
 writeBenchFixture();
 function writeBenchFixture(){
  const html=readFileSync('dist/course/index.html','utf8').replace(/(href|src)="(course|settings|console|personal-console|economy)\.css"/g,'$1="../course/$2.css"').replace('src="boot.js"','src="control-bench.bundle.js"').replace('src="fonts.js"','src="../course/fonts.js"');
@@ -50,7 +72,6 @@ function writeBenchFixture(){
 }
 
 // A build owns one module graph. Old preview caches must not mix its files.
-const {createHash}=await import('node:crypto');
 for(const f of readdirSync(output,{recursive:true}))if(f.endsWith('.DS_Store'))rmSync(output+'/'+f);// OS junk must not change the build id or ship
 function files(root){return readdirSync(root,{withFileTypes:true}).flatMap(e=>e.isDirectory()?files(root+'/'+e.name):[root+'/'+e.name]).sort();}
 const buildHash=createHash('sha256');
@@ -67,7 +88,8 @@ writeFileSync(output+'/build.json',JSON.stringify({version:'2026.1',build:buildI
 // Entry documents must be fetched again on navigation; versioned assets keep
 // their normal cache policy. An already-open older document still needs reload.
 writeFileSync(output+'/_headers',['/','/*.html','/course/','/start/','/intake/','/build.json']
- .map(path=>path+'\n  Cache-Control: no-store').join('\n\n')+'\n');
+ .map(path=>path+'\n  Cache-Control: no-store').join('\n\n')+
+ '\n\n/language/*\n  Cache-Control: public, max-age=31536000, immutable\n');
 console.log('Versioned module graph: '+buildId);
 
 // The painted stage names its art by path. Versioning those paths with the

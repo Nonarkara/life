@@ -31,7 +31,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
  const plan=element('section');plan.id='console-plan';plan.className='console-panel console-card';plan.setAttribute('aria-label','Plan');
  // The action button is read before the decision panel is moved: a node that
  // is not yet attached to the document cannot be found by id.
- const commit=document.getElementById('commit'),saveStatus=document.getElementById('save-status');
+ const commit=document.getElementById('commit');
  plan.append(decision);
 
  // The reader: the year around you, and the records this life keeps.
@@ -46,7 +46,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
  }
  panes.history.append(resources,method);const comparison=element('section',undefined,'baseline-compare');comparison.setAttribute('aria-label','Your life and the life you did not choose');panes.history.append(comparison);
  const actions=element('div',undefined,'console-actions');
- actions.append(saveStatus,commit);
+ actions.append(commit);
  cards.append(...Object.values(panes).filter(p=>p.id!=='console-plan'));
  reader.append(worldNow,nav,cards);
  player.append(plan,actions);

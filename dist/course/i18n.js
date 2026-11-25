@@ -47,11 +47,20 @@ if(typeof window!=='undefined'&&window.location?.search){try{const q=new URLSear
 // While a language's pack is still on its way the authored line is left exactly as written: the page copies
 // shown text into dialogs, and a line retold in English could not be translated once the pack lands.
 // Screens that assemble translated templates can wait for the selected pack.
-export const selectedLanguageReady=()=>preferences.language==='en'?Promise.resolve():loadPack(preferences.language);
+export async function selectedLanguageReady(){
+ if(preferences.language==='en')return;
+ let timer;
+ try{
+  await Promise.race([loadPack(preferences.language),new Promise(resolve=>{timer=setTimeout(resolve,4000);})]);
+ }finally{clearTimeout(timer);}
+}
 export const t=text=>{const language=preferences.language;return language!=='en'&&order.includes(language)&&!packs.has(language)?text:kinLine(text,translate(text,language),language,x=>translate(x,language));};
 // A visitor who comes back with a saved language gets it at load, not only after changing Settings.
 if(typeof window!=='undefined'&&preferences.language!=='en'){
-  loadPack(preferences.language).then(()=>{if(document.body)localise();}).catch(()=>{});
+  loadPack(preferences.language).then(()=>{
+   if(document.body)localise();
+   window.dispatchEvent(new Event('life-language-ready'));
+  }).catch(()=>{});
 }
 const textSources=new WeakMap(),attributeSources=new WeakMap();let queued=false;
 export function localise(root=document.body){

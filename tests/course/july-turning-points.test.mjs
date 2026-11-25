@@ -40,6 +40,29 @@ test('archived points restore a valid exact review after a new birth and preserv
  assert.ok(loadTurningPoint(box,id,validate),'a single other birth cannot crowd out the original');
 });
 
+test('a new point dropped under quota cannot return a successful ID',()=>{
+ let persisted=null;
+ const box={getItem:()=>persisted,setItem:(_,value)=>{
+  if(JSON.parse(value).length>1)throw new Error('quota');
+  persisted=value;
+ }};
+ const state=birth(5),record={title:'Decision',answer:'Answer',met:[]};
+ const original=keepTurningPoint(box,state,{...record,scene:'featured-school'});
+ assert.equal(keepTurningPoint(box,state,{...record,scene:'ordinary'}),null);
+ assert.deepEqual(readTurningPoints(box).map(point=>point.id),[original]);
+});
+
+test('two conditions of the same seed keep distinct points and the old link stays valid',()=>{
+ const box=storage(),a=birth(5);
+ const b=begin(configureLife(newLife(5),{birthYear:1975,class:'low_class',sex:'female'}));
+ const record={scene:'school',title:'Decision',answer:'Answer',met:[]};
+ box.setItem('life-turning-points-v1',JSON.stringify([{...record,id:'5.10.school',state:a}]));
+ const id=keepTurningPoint(box,b,record);
+ assert.notEqual(id,'5.10.school');
+ assert.equal(keepTurningPoint(box,a,record),'5.10.school');
+ assert.equal(loadTurningPoint(box,id,validate).state.intake.birthYear,1975);
+});
+
 test('all household roles agree with the birth record and all Thai births have sourced province geometry',()=>{
  for(const [id,composition] of Object.entries(HOUSEHOLDS)){
   const people=familyGuardians({seed:6,birth:{household:id,class:'working_class'}});

@@ -237,3 +237,22 @@ fallbacknarrow/otherstates; full methods accessible, fonts/saves preserved.
 MSH captured+recalled. Evidence:review/console-height/REVIEW.md. This acceptance
 covers console height; broader art quality, hardwareFPS and player testing are
 not newly certified by this release.
+
+## Round 3 preview verification
+
+Use the Node version in `.node-version` and install from the lockfile with `npm ci`.
+For the pinned browser, run `npx playwright install chromium` and set
+`LIFE_BROWSER_CHANNEL=chromium`. Locally the probes also accept Chrome via
+`LIFE_BROWSER_CHANNEL=chrome`. Run `npm run verify` for build, units, geometry,
+and recovery smoke. Run `npm run probes` before serving a release candidate.
+The runner prints its verified build identity and rejects a rebuild mid-run.
+
+For an opening comparison, run `BASE=<preview origin> node scripts/measure-opening.mjs`
+on each candidate in the same conditions. Output is JSON Lines with cold and warm
+measurements for each first-visit path. Browser timings describe the test profile.
+Record actual phone timings and rendered review separately.
+
+Deploy only to the candidate branch, check the served build and critical assets,
+and retain the previous immutable deployment for rollback. Reopen representative
+older and candidate-written saves during the preview rollback check. Publish to
+production after approval of the release evidence.

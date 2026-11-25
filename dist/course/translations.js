@@ -21,6 +21,9 @@ import {BANK_PHRASES} from './bank-copy.js';
 import {ERA_SCENARIO_PHRASES} from './era-scenario-copy.js';
 // English source phrases; columns: Thai, Simplified Chinese, Japanese, Korean.
 export const phrases=`
+This life changed in another tab. Reload to continue from the saved version.|ชีวิตนี้เปลี่ยนไปในอีกแท็บ โหลดหน้าใหม่เพื่อเล่นต่อจากที่บันทึกไว้|这一人生已在另一个标签页更新。请重新加载，从已保存的版本继续。|別のタブでこの人生が更新されました。再読み込みして保存済みの続きから進めてください。|다른 탭에서 이 삶이 변경됐습니다. 새로고침하면 저장된 버전에서 이어갈 수 있습니다.
+Your earlier life could not be opened. Its original save is still in this browser.|เปิดชีวิตก่อนหน้าไม่ได้ ข้อมูลเดิมยังอยู่ในเบราว์เซอร์นี้|之前的人生无法打开，原始存档仍在此浏览器中。|以前の人生を開けませんでした。元のセーブはこのブラウザに残っています。|이전 삶을 열 수 없습니다. 원본 저장은 이 브라우저에 남아 있습니다.
+The earlier life could not be archived. It is still the active save.|เก็บชีวิตก่อนหน้าเข้าคลังไม่ได้ ชีวิตนั้นยังเป็นรายการที่เปิดอยู่|之前的人生无法归档，目前仍是当前存档。|以前の人生を保管できませんでした。そのセーブが現在も有効です。|이전 삶을 보관할 수 없었습니다. 여전히 현재 저장으로 남아 있습니다.
 Featured life · Born in 1975|ชีวิตที่คัดมา · เกิดปี 2518|精选人生 · 生于1975年|特集の人生 · 1975年生まれ|이번에 살아볼 삶 · 1975년 출생
 Begin at age nine →|เริ่มตอนอายุเก้าขวบ →|从九岁开始 →|9歳から始める →|아홉 살부터 시작 →
 What changed by twenty-five?|ชีวิตเมื่ออายุ 25|到二十五岁，生活有哪些变化？|25歳までに、何が変わった？|스물다섯 살까지 무엇이 달라졌을까?

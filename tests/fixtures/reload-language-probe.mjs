@@ -12,9 +12,10 @@ for (const lang of ['th', 'ja']) {
   }, lang);
   const page = await ctx.newPage();
   const fetched = [];
-  page.on('request', r => { const u = r.url(); if (u.includes('/course/') && /translat|copy\.js/.test(u)) fetched.push(u.split('/course/')[1]); });
-  await page.goto(base, { waitUntil: 'networkidle' });
-  await page.waitForTimeout(2500);
+  page.on('request', r => { const u = r.url(); if (/\/language\/|\/course\/.*(?:translat|copy\.js)/.test(u)) fetched.push(new URL(u).pathname); });
+  await page.goto(base, { waitUntil: 'domcontentloaded' });
+  await page.waitForFunction(language=>document.documentElement.lang===language&&
+   (language!=='th'||/[ก-๛]/.test(document.body.innerText.slice(0,4000))),lang);
   const state = await page.evaluate(() => ({
     lang: document.documentElement.lang,
     title: document.title,

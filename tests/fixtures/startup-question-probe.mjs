@@ -10,7 +10,7 @@ const state={...initial,story:{...initial.story,pending:null}};
 assert.ok(validate(state));
 const expected=pendingPivots(state)[0];
 assert.ok(expected);
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 try{
  const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce',serviceWorkers:'block'});
  const errors=[];

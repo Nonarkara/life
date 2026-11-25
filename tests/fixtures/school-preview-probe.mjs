@@ -12,7 +12,7 @@ const language=process.env.SCHOOL_PREVIEW_LANGUAGE||'en';
 const width=Number(process.env.SCHOOL_PREVIEW_WIDTH||390);
 const height=Number(process.env.SCHOOL_PREVIEW_HEIGHT||844);
 const t=message=>translate(message,language);
-const browser=await chromium.launch({channel:'chrome',headless:true});
+const browser=await chromium.launch({channel:process.env.LIFE_BROWSER_CHANNEL||'chrome',headless:true});
 const child=CHILD_CHOICES.find(q=>q.age===9&&q.options.some(o=>o.id==='school_ask_teacher'));
 const filePrefix=process.env.SCHOOL_PREVIEW_SHOTS;
 try{

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readSave,SAVE_KEY,BACKUP_KEY} from '../../dist/course/save.js';
+import {readSave,saveSession,SAVE_KEY,BACKUP_KEY} from '../../dist/course/save.js';
 import {newLife,begin,validate} from '../../dist/course/sim.js';
 
 const store=(initial={},{failGet=false,failSet=false}={})=>{const data={...initial};return {data,getItem:k=>{if(failGet)throw new Error('blocked');return k in data?data[k]:null;},setItem:(k,v)=>{if(failSet)throw new Error('full');data[k]=String(v);}};};
@@ -24,4 +24,25 @@ test('a browser that blocks storage is reported, and does not throw',()=>{
   assert.equal(readSave(null,validate).storage,false);
   const full=readSave(store({[SAVE_KEY]:'{bad'},{failSet:true}),validate);
   assert.equal(full.unreadable,true,'a full disk cannot stop the game from starting');
+});
+
+
+test('a failed corrupt backup blocks autosave and replacement',()=>{
+ const box=store({[SAVE_KEY]:'{bad'},{failSet:true});
+ const session=saveSession(box,validate),life=begin(newLife(11));
+ assert.equal(session.initial.backedUp,false);
+ assert.equal(session.write(life),'unreadable');
+ assert.equal(session.write(life,()=>true),'unreadable');
+ assert.equal(box.data[SAVE_KEY],'{bad');
+});
+
+test('replacement requires preserving the active life and stale writers cannot overwrite it',()=>{
+ const old=begin(newLife(5)),next=begin(newLife(11)),box=store({[SAVE_KEY]:JSON.stringify(old)});
+ const tab=saveSession(box,validate),stale=saveSession(box,validate);
+ assert.equal(tab.write(next,()=>false),'archive');
+ assert.deepEqual(JSON.parse(box.data[SAVE_KEY]),old);
+ assert.equal(tab.write(next,archived=>archived.seed===old.seed),'saved');
+ assert.equal(stale.write(old),'changed');
+ assert.equal(JSON.parse(box.data[SAVE_KEY]).seed,next.seed);
+ assert.equal(tab.write(next,()=>{throw new Error('already written');}),'saved');
 });

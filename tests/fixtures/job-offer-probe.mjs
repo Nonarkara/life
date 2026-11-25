@@ -17,7 +17,7 @@ for(let seed=1;seed<=200&&!job;seed++){let s=begin(configureLife(newLife(seed*79
   else for(const p of waiting)if(p.job)s=applyPivot(s,p,'stay');}}
 assert.ok(job,'no life met a job offer');assert.ok(validate(state));
 const move=job.options.find(o=>o.id==='move'),th=r=>phrases.find(x=>x[0]===r)[1];
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 try{for(const lang of ['en','th']){
  const page=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce',serviceWorkers:'block'});const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(([saved,lang])=>{localStorage.setItem('life-course-v2',JSON.stringify(saved));localStorage.setItem('life-preferences-v1',JSON.stringify({language:lang,size:'standard',motion:false,stage:'hybrid',palette:'auto',v:3}));},[state,lang]);

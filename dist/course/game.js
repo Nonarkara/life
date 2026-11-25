@@ -1,6 +1,7 @@
+import {chapterPathways} from './chapter-play.js';
 import {isSchoolPreviewLife,openAtNine} from './school-preview.js';
 import {createBirthMap} from './birth-opening.js';
-import {keepTurningPoint,loadTurningPoint,readTurningPoints,turningPointURL,turningPointScene} from './turning-points.js';
+import {keepDisplacedLife,keepTurningPoint,loadTurningPoint,readTurningPoints,turningPointURL,turningPointScene} from './turning-points.js';
 import {drawBirth} from './birth-draw.js';
 import {familyRecord} from './family-record.js';
 import {renderEncounterChoices} from './encounter-view.js';
@@ -16,7 +17,7 @@ import {initChildhoodView} from './childhood-view.js';
 import {choiceSymbol,choiceSymbolKey,questionCategory,questionCategoryBadge} from './choice-symbols.js';
 import {decisionTempo} from './decision-tempo.js';
 import {initDecisionStage} from './decision-stage.js';
-import {readSave} from './save.js';
+import {saveSession} from './save.js';
 import {openRouteView} from './route-view.js';
 import {placeDeckAction} from './deck-action.js';
 import {resetProfileFields} from './profile-editor.js';
@@ -58,32 +59,34 @@ import {initTransport} from './transport.js';
 import {paletteFor,setPalette} from './palettes.js';
 import {ikigai} from './ikigai.js';
 import {holdingsValue} from './investments.js';
-import {routine,routineContext,routineCaption} from './routines.js';
+import {routine,routineContext,routineCaption,reviewSceneTime} from './routines.js';
 import {thaiEraForState,HISTORICAL_COHORTS,birthYearOf} from './thai-history.js';
 import {headlinesFor} from './world-headlines.js';
 import {worldLine as worldLineParts} from './world-line.js';
-const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let state,age=0,speed=2,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,mode='world',tab='priorities',travel=null,elapsed=0,lastTime=0,lastPaint=0,dirty=true,saveOK=true,lastCheckpoint=0,arrival=0,childView=null,lastVisibleYear=-1;
+const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let state,age=0,speed=2,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,mode='world',tab='priorities',travel=null,elapsed=0,lastTime=0,lastPaint=0,dirty=true,lastCheckpoint=0,arrival=0,childView=null,lastVisibleYear=-1;
 // Device scene memory is set before the first scene is offered on load (journey restore included).
 setFamiliar(metScenes());
-let store=null;try{store=localStorage;}catch{}const saved=readSave(store,validate);saveOK=saved.storage;const unreadable=saved.unreadable;const requested=new URL(location.href);
+let store=null;try{store=localStorage;}catch{}const writer=saveSession(store,validate),saved=writer.initial;const requested=new URL(location.href);
+let saveIssue='';
 const turningId=requested.searchParams.get('turning');
 let restored=turningId?loadTurningPoint(store,turningId,validate):null;
 if(restored){
- try{store.setItem('life-course-v2',JSON.stringify(restored.state));}catch{restored=null;}
+ const result=writer.write(restored.state,life=>keepDisplacedLife(store,life,familiarIds()));
+ if(result!=='saved'){restored=null;saveIssue=result;}
 }
 if(turningId){requested.searchParams.delete('turning');history.replaceState(null,'',requested);}
 state=restored?.state??saved.life??drawBirth({},{varied:true});
 // The featured comparison assembles multiple translated phrases before display.
 if(isSchoolPreviewLife(state))await selectedLanguageReady().catch(()=>{});
 age=state.stage==='birth'?(state.progressAge??state.age):state.age;
-if(state.stage==='review'&&!state.journey&&isSchoolPreviewLife(state)&&age===25)elapsed=24;
+if(!state.journey)elapsed=reviewSceneTime(state)??elapsed;
 if(restored){
  setFamiliar(restored.met);
  keepPoint(store,state,true,restored.met);
  paused=true;tab='questions';
 }
 // A life that keeps its reviews also keeps the scene memory it began with, so going back after a reload meets the same scenes.
-{const met=metFor(store,state.seed);if(met)setFamiliar(met);}
+{const met=metFor(store,state.seed,state);if(met)setFamiliar(met);}
 if(state.stage==='birth'){speed=1;paused=false;if(age>=6&&!state.childhood)state={...state,childhood:{origin:{cash:state.cash,health:state.health,wellbeing:state.wellbeing},choices:[],startsAt:Math.min(10,Math.ceil(age))}};}
 const recordedDay=dailyDateFor(state);if(recordedDay&&state.dailyDay===undefined)state={...state,dailyDay:recordedDay};state=enableLifeEvents(state);state=refreshMarketPrompt({...state,story:state.story??newStory(state.seed)});state=openFinance(state);if(state.journey){const next=live(state);if(next!==state){travel={from:state.age,to:next,handled:[...state.journey.handled]};age=state.journey.progress;paused=true;}}let consoleUI,personalUI;const music=initMusic({getMood:()=>lifeMood(state)});
 const TUTORIAL_KEY='life-tutorial-v1';
@@ -121,7 +124,19 @@ function showBirthOpening(dt){
  if(arrival===0&&hasTutorial()&&!state.childhood?.choices.length)skipTutorial();
 }
 const money=v=>'฿'+v.toLocaleString('en');function svgEl(tag,attrs={},text){const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;}
-function save(){rememberScenes(state);try{localStorage.setItem('life-course-v2',JSON.stringify({...state,journey:journeySnapshot(state,travel,age),progressAge:state.stage==='birth'?age:state.age}));}catch{saveOK=false;}$('save-status').hidden=saveOK&&!unreadable;$('save-status').textContent='Fictional life · '+(!saveOK?'browser save unavailable':unreadable?'your earlier life could not be opened; a copy is kept in this browser':'saved in this browser');}
+function save(){
+ const result=writer.write({...state,journey:journeySnapshot(state,travel,age),
+  progressAge:state.stage==='birth'?age:state.age});
+ if(result==='saved')rememberScenes(state);
+ const issue=result==='saved'?saveIssue:result, status=$('save-status');
+ status.hidden=!issue;
+ if(!issue)return;
+ const message=t(issue==='changed'?'This life changed in another tab. Reload to continue from the saved version.':
+  issue==='unreadable'?'Your earlier life could not be opened. Its original save is still in this browser.':
+  issue==='archive'?'The earlier life could not be archived. It is still the active save.':
+  'This browser could not save the session. Allow local storage, then try again.');
+ if(status.textContent!==message)status.textContent=message;
+}
 function radar(){const el=$('radar');el.replaceChildren();const point=(i,v)=>{const a=-Math.PI/2+i*2*Math.PI/5;return[150+Math.cos(a)*75*v/10,112+Math.sin(a)*75*v/10]};const poly=v=>AXES.map((a,i)=>point(i,typeof v==='number'?v:v[a.key]).join(',')).join(' ');for(const ring of [2,5,10])el.append(svgEl('polygon',{points:poly(ring),fill:'none',stroke:'var(--line)','stroke-width':.7}));AXES.forEach((a,i)=>{const q=point(i,10);el.append(svgEl('line',{x1:150,y1:112,x2:q[0],y2:q[1],stroke:'var(--line)','stroke-width':.7}));const t=point(i,13);el.append(svgEl('text',{x:t[0],y:t[1]+4,'text-anchor':'middle'},a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label));});if(state.original)el.append(svgEl('polygon',{points:poly(state.original),fill:'none',stroke:'#52635b','stroke-width':1,'stroke-dasharray':'3 3'}));el.append(svgEl('polygon',{points:poly(state.effort),fill:'var(--amber)','fill-opacity':.25,stroke:'var(--accent-ink)','stroke-width':2}));el.setAttribute('aria-label','Ten-point allocation: '+AXES.map(a=>a.label+' '+state.effort[a.key]).join(', '));}
 function allocations(){state={...state,effort:lockedEffort(state)};const root=$('allocation');root.replaceChildren();const locks=locksFor(state),first=state.profiles.length===0&&!state.intake;const routes=availablePathways(state.age,state),route=routes.some(([k])=>k===state.pathway)?state.pathway:(state.age<20?'school':'work'),source={...state,pathway:route},projInfo=projectedSkillGains(source);for(const a of AXES){const row=document.createElement('div');row.className='allocation-row';const label=document.createElement('span'),short=a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label;label.textContent=short;let meta=null;if(!first){meta=document.createElement('small');meta.className='axis-rate';const gain=projInfo.gains[a.key];meta.textContent=(gain>=0?'+':'')+gain;meta.title=t('Predicted five-year skill gain');meta.setAttribute('aria-label',t('Predicted five-year skill gain')+': '+meta.textContent);}const output=document.createElement('output');output.setAttribute('aria-live','polite');output.textContent=state.effort[a.key];const minus=document.createElement('button'),plus=document.createElement('button');for(const[b,d,t]of [[minus,-1,'−'],[plus,1,'+']]){b.type='button';b.dataset.point=a.key+':'+d;b.textContent=t;b.setAttribute('aria-label',(d>0?'Add one point to ':'Remove one point from ')+a.label);b.disabled=transfer(state.effort,a.key,d,locks)===state.effort;b.onclick=()=>{const point=b.dataset.point;state={...state,effort:transfer(state.effort,a.key,d,locks)};render();const same=document.querySelector(`[data-point="${point}"]`);(same&&!same.disabled?same:document.querySelector(`[data-point="${a.key}:${-d}"]`))?.focus({preventScroll:true});};}// One fact per column: the points you give, then what they become in five years.
  row.append(label,minus,output,plus,meta??document.createElement('span'));if(locks[a.key]!==undefined){const held=document.createElement('span');held.className='allocation-lock';held.textContent='held at '+locks[a.key]+' by your answer';row.append(held);}root.append(row);}
@@ -204,7 +219,7 @@ function questions(){
  card.append(reading,list);root.append(card);
 }
 
-function profiles(){const editor=$('profile'),habitsOpen=editor.querySelector('.profile-habits')?.open??false,root=resetProfileFields(editor);const routes=availablePathways(state.age,state);if(routes.length){const wrap=document.createElement('div');wrap.className='profile-field';const label=document.createElement('label');label.htmlFor='pathway';label.textContent='Education and work';const select=document.createElement('select');select.id='pathway';for(const[key,route]of routes){const o=document.createElement('option');o.value=key;o.textContent=route.label;select.append(o);}select.value=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');select.onchange=()=>{state={...state,pathway:select.value};save();render();document.querySelector('#pathway')?.focus({preventScroll:true});};wrap.append(label,select);
+function profiles(){const editor=$('profile'),habitsOpen=editor.querySelector('.profile-habits')?.open??false,root=resetProfileFields(editor);const routes=chapterPathways(state);if(routes.length){const wrap=document.createElement('div');wrap.className='profile-field';const label=document.createElement('label');label.htmlFor='pathway';label.textContent='Education and work';const select=document.createElement('select');select.id='pathway';select.disabled=routes.length===1;for(const[key,route]of routes){const o=document.createElement('option');o.value=key;o.textContent=route.label;select.append(o);}select.value=routes.some(([key])=>key===state.pathway)?state.pathway:(state.age<20?'school':'work');select.onchange=()=>{state={...state,pathway:select.value};save();render();document.querySelector('#pathway')?.focus({preventScroll:true});};wrap.append(label,select);
  // All fields laid out together; how well one fits you is only learned by studying it.
  if(select.value==='college'){const fl=document.createElement('label');fl.htmlFor='major';fl.textContent='Field of study';const fs=document.createElement('select');fs.id='major';const none=document.createElement('option');none.value='';none.textContent='Undecided';fs.append(none);for(const[key,m]of Object.entries(MAJORS)){const o=document.createElement('option');o.value=key;o.textContent=m.label+' · ฿'+m.cost.toLocaleString('en')+' tuition';fs.append(o);}fs.value=state.major??'';fs.onchange=()=>{state={...state,major:fs.value||undefined};save();render();document.querySelector('#major')?.focus({preventScroll:true});};wrap.append(fl,fs);}const note=document.createElement('p');note.className='fine';note.textContent='Costs, family support and uncertain earnings shape this route. No path guarantees wealth.';wrap.append(note);root.append(wrap);}field('aim','Life direction',Object.entries(goals));field('focus','This chapter’s priority',[['none','No particular focus'],...Object.entries(FOCUSES)]);const hint=document.createElement('p');hint.className='fine';hint.textContent=FOCUS_HINTS[state.profile.focus]??'Choose a focus; your actions and circumstances still shape the outcome.';root.append(hint);const source=document.createElement('details');source.className='focus-source';const summary=document.createElement('summary');summary.textContent='About these six needs';const credit=document.createElement('p');credit.textContent='Inspired by Tony Robbins’ six human needs. A coaching lens, not a psychological test.';const link=document.createElement('a');link.href='https://printing.tonyrobbins.com/podcasts/why-we-do-what-we-do';link.textContent='Framework source';link.target='_blank';link.rel='noopener noreferrer';source.append(summary,credit,link);root.append(source);field('religion','Religion or spiritual practice · expressive choice',[['explore','Still exploring'],['practice','Make time for practice'],['none','No religious practice']]);if(state.age>=20){field('drink','Alcohol in your social life',[['no','I can socialise without drinking'],['social','I would drink socially']]);field('smoke','Smoking',[['no','I would not smoke'],['yes','I would smoke']]);field('intimacy','Love and sex · expressive choice',[['unsure','I am still figuring it out'],['together','I want them together'],['separate','They can be separate']]);}else{const p=document.createElement('p');p.className='profile-note';p.textContent='Adult habits and relationship values open after 15, at your age-20 review. Your choices can change later.';root.append(p);}if(state.age>=20){const details=document.createElement('details');details.className='profile-habits';details.open=habitsOpen;const summary=document.createElement('summary');summary.textContent='Habits & relationships';details.append(summary);for(const key of ['drink','smoke','intimacy'])details.append(root.querySelector('#profile-'+key).closest('.profile-field'));root.append(details);}}
 function chart(id,key,max,min=0,dataRows=null){const el=$(id);el.setAttribute('role','group');el.replaceChildren();const rows=dataRows??(state.history.length?state.history:[{age:0,health:state.health,wellbeing:state.wellbeing,cash:state.cash}]);const endAge=Math.max(10,state.age),ticks=[0,Math.round(endAge/10)*5,endAge];const x=a=>64+a/endAge*266,y=v=>76-(v-min)/(max-min)*60;for(const v of [min,max])el.append(svgEl('text',{x:0,y:y(v)+4},key==='cash'?(Math.abs(v)>=1000?Math.round(v/1000)+'k':String(Math.round(v))):String(v)));for(const a of [...new Set(ticks)]){el.append(svgEl('text',{x:x(a),y:106,'text-anchor':'middle'},String(a)));}el.append(svgEl('line',{x1:64,y1:76,x2:330,y2:76,stroke:'var(--line)'}));if(min<0)el.append(svgEl('line',{x1:64,y1:y(0),x2:330,y2:y(0),stroke:'#9a9e90','stroke-dasharray':'3 3'}));el.append(svgEl('polyline',{points:rows.map(r=>[x(r.age),y(r[key])].join(',')).join(' '),fill:'none',stroke:'#192e2c','stroke-width':2}));for(const r of rows)el.append(svgEl('circle',{cx:x(r.age),cy:y(r[key]),r:2,fill:'#a35d00'}));for(const r of rows){const markers=key==='cash'?eventsForAccount(r,id==='family-cash-chart'||!state.finance?'household':'personal'):eventsFor(r).filter(e=>e.category===key);markers.forEach((event,index)=>{const marker=svgEl('g',{transform:`translate(${x(r.age)+(index-(markers.length-1)/2)*16},${Math.max(8,y(r[key])-12)})`,tabindex:0,role:'button','aria-label':t('Age {n}'.replace('{n}',r.age))+': '+t(event.label)});marker.append(svgEl('path',{d:symbolPaths[event.symbol],fill:'var(--paper)',stroke:'#192e2c','stroke-width':1.5}));marker.append(svgEl('title',{},t(event.label)));const show=()=>{$('event-detail').textContent='Age '+r.age+': '+event.label+' — '+financialEvent(r,event);};marker.onclick=show;marker.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show();}};el.append(marker);});}el.setAttribute('aria-label',(key==='cash'?(id==='family-cash-chart'||!state.finance?'Household buffer':'Personal net worth'):key==='health'?'Physical health':'Wellbeing')+' by age: '+rows.map(r=>r.age+': '+Math.round(r[key])).join(', '));}
@@ -225,7 +240,7 @@ function charts(){
 
 function replayBirth(fromChoice=false){
  const featured=isSchoolPreviewLife(state);
- setFamiliar(metFor(store,state.seed)??familiarIds());
+ setFamiliar(metFor(store,state.seed,state)??familiarIds());
  state=enableLifeEvents(replay(state));
  age=0;speed=1;childResult=null;travelEvent=null;decisionOutcome=null;dismissedDecision=null;childView=null;mode='world';paused=false;tab='priorities';
  if(featured){state=openAtNine(state);age=9;arrival=0;paused=true;render();}
@@ -467,7 +482,7 @@ function advanceJourney(){
  state={...travel.to,journey:undefined,chapterChoiceAge:undefined};
  // Quick advance can leave the world paused at breakfast. Let this completed path
  // arrive at the workday phase of the recorded routine, without starting motion.
- if(!watchingJourney&&isSchoolPreviewLife(state)&&state.age===25)elapsed=24;
+ if(!watchingJourney)elapsed=reviewSceneTime(state)??elapsed;
  travel=null;age=state.age;
  tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';
  if(state.stage==='recap')mode='course';
@@ -553,6 +568,7 @@ function tick(now){
  else{departure.hide();const presentation=drawWorld($('world'),travel?.to??state,childView??age,elapsed,mode,{animating,camera});if(presentation?.caption)$('scene-caption').textContent=presentation.caption;}transport.render();dirty=false;}
  if((state.stage==='birth'||travel)&&now-lastCheckpoint>2000){lastCheckpoint=now;save();}requestAnimationFrame(tick);
 }
+window.addEventListener('life-language-ready',()=>{if(isSchoolPreviewLife(state))render();});
 window.addEventListener('life-open-you',()=>consoleUI?.select?.('you'));window.addEventListener('life-preferences',()=>{dirty=true;render();});window.addEventListener('life-fonts-loaded',()=>{dirty=true;});window.addEventListener('life-stage-art',()=>{dirty=true;});window.addEventListener('life-settings-open',()=>{paused=true;dirty=true;});window.addEventListener('life-bucket-open',()=>{paused=true;dirty=true;});initSettings();window.addEventListener('resize',()=>{dirty=true;arrangeDeck($('life-deck'));placeDeckAction();});document.addEventListener('visibilitychange',()=>{lastTime=0;if(document.hidden){paused=true;dirty=true;}});consoleUI=initConsole({getState:()=>state,getAge:()=>age,isMoving:()=>!!travel,change:next=>{state=next;if(travel){state={...state,pendingAlternatives:stationAlternatives(state)};travel={...travel,to:live(state)};}render();}});personalUI=initPersonalConsole({getState:()=>state,isMoving:()=>!!travel});if(state.stage==='review'&&pendingPivots(state).length)tab='questions';render();requestAnimationFrame(tick);
 
 // The record up to the year being lived, and not one year further.

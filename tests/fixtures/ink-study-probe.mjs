@@ -3,13 +3,13 @@
 import assert from 'node:assert/strict';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
 const base=process.env.BASE||'http://127.0.0.1:4319',language=process.env.LANGUAGE||'en';
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 try{
  for(const [width,enlarged] of (process.env.WIDTH?[[Number(process.env.WIDTH),false]]:[[390,false],[1024,false],[1440,false],[390,true]])){
   const page=await browser.newPage({viewport:{width,height:width===390?844:900},reducedMotion:'no-preference',serviceWorkers:'block'}),errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(({language,enlarged})=>localStorage.setItem('life-preferences-v1',JSON.stringify({language,size:enlarged?'extra':'standard',motion:false})),{language,enlarged});
-  await page.goto(base+'/course/ink-study.html',{waitUntil:'networkidle'});await page.locator('#ink-yard[data-ready=true]').waitFor();
+  await page.goto(base+'/course/ink-study.html',{waitUntil:'domcontentloaded'});await page.locator('#ink-yard[data-ready=true]').waitFor();
   if(language==='th')assert.equal(await page.locator('#study-reset').innerText(),'เล่นซ้ำ');
   const geometry=await page.evaluate(()=>{
    const api=inkStudy,root=api.actor.root,original=[root,...root.querySelectorAll('*')],person=root.dataset.person;

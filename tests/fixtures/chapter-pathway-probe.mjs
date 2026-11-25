@@ -31,7 +31,7 @@ const fixture=finishDecisions(live(atFifteen));
 assert.equal(fixture.age,20);
 assert.ok(validate(fixture));
 
-const browser=await chromium.launch({headless:true,channel:'chrome'});
+const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 const results={};
 try{
  const opening=await browser.newContext({viewport:{width:390,height:844},serviceWorkers:'block',reducedMotion:'reduce'});
