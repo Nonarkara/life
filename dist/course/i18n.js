@@ -25,19 +25,76 @@ const cachedTranslation=cacheTranslations(translateUncached),prePack=(input,lang
 export function translate(input,language='en'){
   // Until the language's pack has arrived nothing is looked up, so an English miss is never cached as the answer.
   if(language==='en'||!order.includes(language)||!input)return input;
-  return prePack(String(input),language);
+  return prePack(String(input),language).text;
 }
+// A translation, and whether it is complete. A sentence that is only half translated is
+// never shown: the honest English sentence stands in its place instead.
 function translateUncached(input,language='en'){
-  if(language==='en'||!order.includes(language)||!input)return input;
+  if(language==='en'||!order.includes(language)||!input)return {text:input,clean:true};
   const map=packs.get(language);
-  if(!map)return input; // the pack is still in flight; English stands in until it lands
-  const source=String(input),direct=map.get(source);if(direct)return direct;
-  for(const[key,value]of [...map].filter(([key])=>key.includes('{')).sort((a,b)=>b[0].replace(/\{\w+\}/g,'').length-a[0].replace(/\{\w+\}/g,'').length)){const names=[];const pattern=key.split(/(\{\w+\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),/^\{(n|a|b)\}$/.test(part)?'([0-9]+)':'(.+?)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');const match=source.match(new RegExp('^'+pattern+'$'));if(match){let result=value;names.forEach((name,i)=>{result=result.replaceAll('{'+name+'}',translate(match[i+1],language));});return result;}}
+  if(!map)return {text:input,clean:false}; // the pack is still in flight; English stands in until it lands
+  const source=String(input),direct=map.get(source);if(direct)return {text:direct,clean:true};
+  // A template with placeholders. The source can fill it in more than one way, so every reading
+  // is tried and the reading whose pieces the dictionary knows wins: "Born into {home} in {place}"
+  // must not cut a household phrase at its own "in". A template claims the source only when every
+  // piece of its reading is known; otherwise the sentence is better served by the dictionary below.
+  for(const[key,value]of [...map].filter(([key])=>key.includes('{')).sort((a,b)=>b[0].replace(/\{\w+\}/g,'').length-a[0].replace(/\{\w+\}/g,'').length)){
+    const {parts,names}=templateParts(key),options=readings(source,parts);
+    if(!options.length)continue;
+    let best=null,bestScore=-1;
+    for(const option of options){let score=0;for(const piece of option)if(known(map,piece))score++;if(score>bestScore){bestScore=score;best=option;}}
+    if(bestScore<best.length)continue;
+    let result=value,clean=true;
+    best.forEach((piece,i)=>{const one=cachedTranslation(piece,language);if(!one.clean)clean=false;result=result.replaceAll('{'+names[i]+'}',one.text);});
+    return {text:clean?result:source,clean};
+  }
   // Generated recap/captions join individually authored phrases and numbers.
-  let result=source;
+  let result=source,carried=[];
   // Named story sentences also occur inside longer life-record paragraphs.
-  for(const[key,value]of map){if(!/\{(?:friend|partner)\}/.test(key))continue;const names=[];const pattern=key.split(/(\{(?:friend|partner)\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),'([A-Za-z]+)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');result=result.replace(new RegExp(pattern,'g'),(...match)=>{let out=value;names.forEach((name,i)=>{out=out.replaceAll('{'+name+'}',translate(match[i+1],language));});return out;});}
-  for(const[key,value]of [...map].filter(([key])=>!key.includes('{')&&key.length>2).sort((a,b)=>b[0].length-a[0].length)){if(result.includes(key))result=result.replaceAll(key,value);}return result;
+  for(const[key,value]of map){if(!/\{(?:friend|partner)\}/.test(key))continue;const names=[];const pattern=key.split(/(\{(?:friend|partner)\})/).map(part=>/^\{/.test(part)?(names.push(part.slice(1,-1)),'([A-Za-z]+)'):part.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('');result=result.replace(new RegExp(pattern,'g'),(...match)=>{let out=value;names.forEach((name,i)=>{out=out.replaceAll('{'+name+'}',translate(match[i+1],language));});carried.push(out);return out;});}
+  for(const[key,value]of [...map].filter(([key])=>!key.includes('{')&&key.length>2).sort((a,b)=>b[0].length-a[0].length)){if(result.includes(key)){result=result.replaceAll(key,value);carried.push(value);}}
+  const clean=!englishLeft(result,source,carried);
+  return {text:clean?result:source,clean};
+}
+// A template's literal text and the names of its placeholders.
+function templateParts(key){
+  const parts=[],names=[];let last=0;
+  for(const m of key.matchAll(/\{(\w+)\}/g)){parts.push(key.slice(last,m.index));names.push(m[1]);last=m.index+m[0].length;}
+  parts.push(key.slice(last));return {parts,names};
+}
+// Every way the source can fill a template. A placeholder that may swallow the text after it
+// has more than one reading, so all of them are listed and the dictionary chooses.
+function readings(source,parts,limit=240){
+  const last=parts.length-1,out=[];
+  if(last<1||!source.startsWith(parts[0]))return out;
+  const walk=(i,pos,acc)=>{
+    if(out.length>=limit)return;
+    const lit=parts[i];
+    if(i===last){const at=source.length-lit.length;if(at>=pos&&source.endsWith(lit)){acc.push(source.slice(pos,at));out.push(acc.slice());acc.pop();}return;}
+    let from=pos;
+    while(out.length<limit){
+      const at=lit?source.indexOf(lit,from):from;
+      if(at<0)break;
+      if(at>=pos){acc.push(source.slice(pos,at));walk(i+1,at+lit.length,acc);acc.pop();}
+      if(!lit)break;
+      from=at+1;
+      if(from>source.length)break;
+    }
+  };
+  walk(1,parts[0].length,[]);
+  return out;
+}
+// A piece of a sentence the dictionary knows: a phrase it has translated, or a piece
+// with no English in it (a number, a figure of money). A piece it does not know would
+// leave English inside the sentence.
+const known=(map,piece)=>!/[A-Za-z]/.test(piece)||map.has(piece);
+// English prose left inside a translated sentence: a word of the source that is still there
+// and that no translated value carried. A sentence that mixes two languages is not a
+// translation, so it is never shown.
+const words=text=>(String(text).match(/[A-Za-z][A-Za-z'’-]*/g)||[]).map(w=>w.toLowerCase());
+function englishLeft(result,source,carried){
+  const have=new Set(words(result)),kept=new Set(carried.flatMap(words));
+  return words(source).some(w=>have.has(w)&&!kept.has(w));
 }
 export let preferences={language:'en',size:'standard',motion:false,stage:'hybrid',palette:'auto'};
 if(typeof localStorage!=='undefined')try{const p=JSON.parse(localStorage.getItem('life-preferences-v1'));if(p){if(languages[p.language])preferences.language=p.language;if(['standard','large','extra'].includes(p.size))preferences.size=p.size;preferences.motion=p.motion===true;if(p.stage==='isometric')preferences.stage='isometric';}}catch{}

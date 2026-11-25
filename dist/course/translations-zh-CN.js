@@ -1353,6 +1353,7 @@ export default new Map([
   ["Move to spendable", "转为可支配现金"],
   ["{amount} · {hours} h", "{amount} · {hours} 小时"],
   ["Born into {home} · {place}", "出生于{home} · {place}"],
+  ["Born into {home}", "出生于{home}"],
   ["Settings", "设置"],
   ["Close", "关闭"],
   ["Language", "语言"],

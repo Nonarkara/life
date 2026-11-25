@@ -1353,6 +1353,7 @@ export default new Map([
   ["Move to spendable", "사용 가능한 돈으로 옮기기"],
   ["{amount} · {hours} h", "{amount} · {hours}시간"],
   ["Born into {home} · {place}", "{home}에서 태어남 · {place}"],
+  ["Born into {home}", "{home}에서 태어남"],
   ["Settings", "설정"],
   ["Close", "닫기"],
   ["Language", "언어"],

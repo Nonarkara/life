@@ -1353,6 +1353,7 @@ export default new Map([
   ["Move to spendable", "使えるお金に移す"],
   ["{amount} · {hours} h", "{amount}・{hours}時間"],
   ["Born into {home} · {place}", "{home}に生まれる・{place}"],
+  ["Born into {home}", "{home}に生まれる"],
   ["Settings", "設定"],
   ["Close", "閉じる"],
   ["Language", "言語"],

@@ -1353,6 +1353,7 @@ export default new Map([
   ["Move to spendable", "ย้ายมาเป็นเงินที่ใช้ได้"],
   ["{amount} · {hours} h", "{amount} · {hours} ชม."],
   ["Born into {home} · {place}", "เกิดใน{home} · {place}"],
+  ["Born into {home}", "เกิดใน{home}"],
   ["Settings", "การตั้งค่า"],
   ["Close", "ปิด"],
   ["Language", "ภาษา"],

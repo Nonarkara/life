@@ -1375,6 +1375,7 @@ export default new Map([
   ["Move to spendable", "Move to spendable"],
   ["{amount} · {hours} h", "{amount} · {hours} h"],
   ["Born into {home} · {place}", "Born into {home} · {place}"],
+  ["Born into {home}", "Born into {home}"],
   ["Settings", "Settings"],
   ["Close", "Close"],
   ["Language", "Language"],

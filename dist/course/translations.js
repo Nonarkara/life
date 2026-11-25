@@ -1396,6 +1396,7 @@ Amount from reserve|จำนวนเงินจากเงินสำรอ
 Move to spendable|ย้ายมาเป็นเงินที่ใช้ได้|转为可支配现金|使えるお金に移す|사용 가능한 돈으로 옮기기
 {amount} · {hours} h|{amount} · {hours} ชม.|{amount} · {hours} 小时|{amount}・{hours}時間|{amount} · {hours}시간
 Born into {home} · {place}|เกิดใน{home} · {place}|出生于{home} · {place}|{home}に生まれる・{place}|{home}에서 태어남 · {place}
+Born into {home}|เกิดใน{home}|出生于{home}|{home}に生まれる|{home}에서 태어남
 Settings|การตั้งค่า|设置|設定|설정
 Close|ปิด|关闭|閉じる|닫기
 Language|ภาษา|语言|言語|언어

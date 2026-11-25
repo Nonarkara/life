@@ -28,7 +28,10 @@ test('every system-selected chord has readable UI accent text while preserving w
  assert.equal(paletteFor({},15,'bright','not-a-palette'),paletteFor({},15,'bright','auto'));
 });
 test('palette settings explanation and controls have native copy',()=>{
- for(const lang of ['th','zh-CN','ja','ko']){const text='Colours follow the events and mood of this life. Painted illustrations retain their authored colours.';assert.notEqual(translate(text,lang),text,lang+': '+text);}
+ // The copy the product shows, not a paraphrase of it: it must read in the chosen
+ // language, and it must not keep one English word inside the other language.
+ for(const lang of ['th','zh-CN','ja','ko'])for(const text of ['Controls and 3D follow this scheme. Painted illustrations keep their authored colours.',"The world's colours follow the events and mood of this life; the controls keep one set of colours. Painted illustrations retain their authored colours."]){
+  const shown=translate(text,lang);assert.notEqual(shown,text,lang+': '+text);assert.ok(!/[A-Za-z]{2,}/.test(shown),lang+' keeps English: '+shown);}
 });
 
 test('world exposure shows whole-chapter money and styles negative returns without printing class names',async()=>{
