@@ -2,10 +2,9 @@
 // card; each choice moves you to the next card, and the far right card lives the years.
 import {formatForeknowledge,foreknowledgeForChapter} from './replay-echoes.js';
 import {AXES} from './sim.js';
-import {chapterPlans,chapterReceipt,effortFrom} from './chapter-play.js';
+import {chapterPathways,chapterPlans,chapterReceipt,effortFrom} from './chapter-play.js';
 export {effortFrom} from './chapter-play.js';
 import {locksFor} from './pivots.js';
-import {availablePathways} from './pathways.js';
 import {MAJORS} from './life-choices.js';
 import {setBudget,monthlyFlow} from './finance.js';
 import {RUNGS,TOP,rungAt,birthRung,setRung,canAfford,ladderOpen} from './housing-ladder.js';
@@ -62,6 +61,9 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   switcher.setAttribute('aria-expanded',String(advanced));
   steps.hidden=strip.hidden=blocked||!advanced;
   const selected=document.activeElement?.dataset.chapterPlan;
+  const pathwayFocused=document.activeElement?.id==='chapter-pathway';
+  const routes=chapterPathways(s);
+  const pathway=routes.some(([key])=>key===s.pathway)?s.pathway:(s.age<20?'school':'work');
   const heading=el('h2','chapter-heading',t('How will you spend the next five years?'));
   heading.id='chapter-heading';
   heading.tabIndex=-1;
@@ -97,6 +99,26 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
    receipt.textContent+= ' · '+t('Before the replay')+' · '+t('Health')+' '+signed(before.health)+' · '+t('Wellbeing')+' '+signed(before.wellbeing);
   }
   quick.replaceChildren(heading,cost,choices);
+  if(!quick.hidden&&routes.length>1){
+   const row=el('div','chapter-pathway');
+   const label=el('label',undefined,t('Study or work'));
+   label.htmlFor='chapter-pathway';
+   const select=el('select');
+   select.id='chapter-pathway';
+   for(const [key,route] of routes){
+    const option=el('option',undefined,t(key==='vocational'?'Paid apprenticeship':route.label));
+    option.value=key;
+    select.append(option);
+   }
+   select.value=pathway;
+   select.onchange=()=>{
+    apply({...getState(),pathway:select.value});
+    onChosen();
+   };
+   row.append(label,select);
+   quick.append(row);
+   if(pathwayFocused)select.focus({preventScroll:true});
+  }
   if(selected&&!quick.hidden)quick.querySelector('[data-chapter-plan="'+selected+'"]')?.focus({preventScroll:true});
   watchButton.hidden=blocked||(!chosen&&!advanced);
   commit.disabled=!blocked&&!chosen&&!advanced;
@@ -109,7 +131,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   // Priority
   {const list=prioritiesFor(s.age);if(list.length){const c=card('Put first'),i=cards.length;for(const id of list)c.append(option(PRIORITIES[id].label,s.profile.priority===id,()=>{const fx=PRIORITIES[id];apply({...getState(),profile:{...getState().profile,priority:id,aim:fx.aim,focus:fx.focus}});onChosen();after(i);}));cards.push(c);}}
   // Road
-  {const routes=availablePathways(s.age,s);if(routes.length>1){const c=card('Study or work'),i=cards.length,cur=routes.some(([k])=>k===s.pathway)?s.pathway:(s.age<20?'school':'work');for(const[k,r]of routes)c.append(option(r.label,k===cur,()=>{apply({...getState(),pathway:k});onChosen();if(k!=='college')after(i);}));if(cur==='college'){const label=el('label','plan-field','Field of study');const sel=el('select');sel.id='plan-major';const none=el('option',undefined,'Undecided');none.value='';sel.append(none);for(const[k,m]of Object.entries(MAJORS)){const o=el('option',undefined,m.label);o.value=k;sel.append(o);}sel.value=s.major??'';sel.onchange=()=>{apply({...getState(),major:sel.value||undefined});};label.append(sel);c.append(label);}cards.push(c);}}
+  {if(routes.length>1||routes.length===1&&pathway==='college'){const c=card('Study or work'),i=cards.length,cur=pathway;if(routes.length>1)for(const[k,r]of routes)c.append(option(r.label,k===cur,()=>{apply({...getState(),pathway:k});onChosen();if(k!=='college')after(i);}));if(cur==='college'){const label=el('label','plan-field','Field of study');const sel=el('select');sel.id='plan-major';const none=el('option',undefined,'Undecided');none.value='';sel.append(none);for(const[k,m]of Object.entries(MAJORS)){const o=el('option',undefined,m.label);o.value=k;sel.append(o);}sel.value=s.major??'';sel.onchange=()=>{apply({...getState(),major:sel.value||undefined});};label.append(sel);c.append(label);}cards.push(c);}}
   // What you are secretly after: dealt three, keep two.
   if(canChooseGoals(s)){const c=card('What you are secretly after'),now=s.lifeGoals??[];for(const id of dealtGoals(s.seed))c.append(option(t(GOALS[id].label),now.includes(id),()=>{const cur=getState().lifeGoals??[],next=cur.includes(id)?cur.filter(x=>x!==id):[...cur,id].slice(-2);apply(setGoals(getState(),next));onChosen();},GOALS[id].pts+' pts'));c.append(el('p','plan-key',t('Keep two. Nobody sees them until the end.')));cards.push(c);}
   // One stop on the road, if the budget leaves room for it.

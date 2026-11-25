@@ -570,8 +570,9 @@ const hasSchoolAgeChild=s=>{
  const childAge=s.age-flags.parent;
  return flags.childLost===undefined&&childAge>=6&&childAge<=20;
 };
-const leftSchool=s=>{
- const buildingSite=(s.pivots??[]).some(r=>r.station===15&&r.pivot==='school-leave'&&r.choice==='go');
+export const leftSchool=s=>{
+ const records=[...(s.pivots??[]),...(s.history??[]).flatMap(row=>row.pivots??[])];
+ const buildingSite=records.some(r=>r.station===15&&r.pivot==='school-leave'&&r.choice==='go');
  const workedAsChild=s.childhood?.choices.some(c=>c.age===9&&c.choice==='school_say');
  return (buildingSite||workedAsChild)&&!['school','college'].includes(s.history?.at(-1)?.pathway);
 };

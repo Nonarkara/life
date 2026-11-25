@@ -1,7 +1,7 @@
 import {readTurningPoints,turningPointURL} from '../course/turning-points.js';
 import {AXES,balanced,transfer,validate,CLASS_TIERS,CLASS_KEYS} from '../course/sim.js';
 import {CLASS_WEIGHTS} from '../course/backgrounds.js';
-import {HISTORICAL_COHORTS} from '../course/thai-history.js';
+import {HISTORICAL_COHORTS,thaiEraForYear} from '../course/thai-history.js';
 import {initSettings,t} from '../course/i18n.js';
 import {REGIONS,BAND_REGIONS,CLASS_REGIONS,COUNTRIES,household} from '../course/regions.js';
 import {retireClass} from '../course/save.js';
@@ -43,7 +43,6 @@ function card(life){
  const facts=[...(life.canonical?[['Canonical life',life.canonical.title]]:[]),['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],...(fam?[['Family',fam.guardians],['Siblings in childhood',fam.siblingsText]]:[['Raised by',t(household(b).text)]]),['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
- if(cohort?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cohort.note);$('birth-facts').append(note);}
  if(life.canonical?.summary){birthCanonical.hidden=false;birthCanonical.textContent=life.canonical.summary;if(life.canonical.sourceHref){const src=document.createElement('a');src.href=life.canonical.sourceHref;src.target='_blank';src.rel='noopener noreferrer';src.textContent=' ('+life.canonical.sourceLabel+')';birthCanonical.append(src);}$('birth-shared').after(birthCanonical);}else{birthCanonical.hidden=true;birthCanonical.replaceChildren();}
  $('birth-odds').hidden=!showBirthOdds();
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
@@ -80,7 +79,7 @@ $('pick-close').onclick=closePick;pickDialog.addEventListener('cancel',()=>picke
 $('see-town').onclick=async()=>{drawPins();pickDialog.showModal();try{if(!picker){const {townPicker}=await import(new URL('town-pick.js',import.meta.url).href);picker=townPicker($('pick-world'),placePins);}if(!pickDialog.open)return;const era=Number($('birth-era').value);picker.show(era||1981);}catch(error){console.warn('The 3D town could not open; showing the list.',error);placePins(null);}};
 $('random-life').onclick=()=>{const year=Number($('birth-era').value);enter(year?{birthYear:year}:$('birth-era').value==='random'?{birthYear:'random'}:{},true);};$('intake-form').onsubmit=e=>{e.preventDefault();const era=$('birth-era')?.value;submitted();};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
 try{const saved=retireClass(JSON.parse(localStorage.getItem('life-course-v2')));if(validate(saved)&&saved.stage!=='recap'){const continuation=$('continue-life');continuation.hidden=false;continuation.textContent=t('Continue: age {n} · {place}').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));document.querySelector('.entry-intro').prepend(continuation);}}catch{}
-function eraNote(){const era=$('birth-era')?.value,cohort=HISTORICAL_COHORTS[Number(era)];if($('era-note'))$('era-note').textContent=cohort?t(cohort.note):t('Watch Thailand transform from 1949 canals and 16mm cinema to the 1997 crisis, Skytrain and cashless 2020s streets.');}
+function eraNote(){const era=$('birth-era')?.value,cohort=HISTORICAL_COHORTS[Number(era)];if($('era-note'))$('era-note').textContent=cohort?t(thaiEraForYear(cohort.year).summary):t('Watch Thailand transform from 1949 canals and 16mm cinema to the 1997 crisis, Skytrain and cashless 2020s streets.');}
 function classNote(){const v=$('birth-class').value==='street'?'low_class':$('birth-class').value,cls=CLASS_TIERS[v];$('class-note').textContent=cls?t(cls.note):t('The condition you are born into sets family resources and pressures, not your intelligence or destiny.');$('class-regions').textContent=(CLASS_REGIONS[v]??[]).map(id=>REGIONS[id]?.place).join(' · ')||t('Any Thai region.');eraNote();}
 $('birth-class').addEventListener('change',classNote);$('birth-era')?.addEventListener('change',eraNote);
 // The lives already lived, each with a way to live the same birth again.

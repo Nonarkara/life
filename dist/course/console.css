@@ -587,6 +587,25 @@ body.has-plan .life-plan {
  font-size: calc(14px * var(--reading-scale));
  line-height: 1.2;
 }
+.chapter-pathway {
+ display: grid;
+ grid-template-columns: max-content minmax(0, max-content);
+ justify-content: start;
+ align-items: center;
+ gap: 8px;
+ font-size: calc(12px * var(--reading-scale));
+}
+.chapter-pathway select {
+ min-height: 44px;
+ min-width: 0;
+ max-width: 100%;
+ padding: 4px 6px;
+ border: 1px solid var(--line);
+ background: var(--paper);
+ color: var(--ink);
+ font: inherit;
+ font-size: calc(14px * var(--reading-scale));
+}
 .chapter-choice small { font-size: calc(12px * var(--reading-scale)); }
 .chapter-choice[aria-pressed="true"] { border-color: var(--amber); background: var(--ink); color: var(--paper); }
 .chapter-switch, .chapter-watch { min-height: 44px; max-width: 100%; justify-self: start; }
@@ -624,6 +643,12 @@ body.has-plan .life-plan {
 @media (max-width: 560px) {
  .chapter-choices { display: grid; grid-template-columns: minmax(0, 1fr); justify-items: stretch; gap: 6px; }
  .chapter-choice { width: 100%; border: 1px solid var(--line); padding: 7px 10px; }
+ html[data-text-size="extra"] .chapter-play:has(.chapter-pathway) .chapter-choice {
+  grid-template-columns: fit-content(38%) minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: 8px;
+  padding-block: 5px;
+ }
  .world-bottom #world-headline { flex-shrink: 0; max-width: none; }
  .console-mode:not(.birth-stage):not(.recap-stage) .stage:has(#next-moment:not([hidden])) .world-bottom {
   left: 8px;

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {AXES,begin,configureLife,live,newLife,replay,validate,validPoints} from '../../dist/course/sim.js';
-import {chapterPlans} from '../../dist/course/chapter-play.js';
+import {chapterPathways,chapterPlans} from '../../dist/course/chapter-play.js';
 import {locksFor,pendingPivots,applyPivot,openOptions} from '../../dist/course/pivots.js';
 import {routeOf} from '../../dist/course/life-routes.js';
 import {lifeArc} from "../../dist/course/life-verdict.js";
@@ -46,6 +46,18 @@ test('one changed dedication can open a different life route from the same birth
   assert.equal(receipt.health,Math.round(next.health)-Math.round(state.health));
   assert.equal(receipt.wellbeing,Math.round(next.wellbeing)-Math.round(state.wellbeing));
  }
+});
+
+test('chapter choices respect a closed school route and a tuition decision',()=>{
+ const student={...begin(birth()),age:20,pathway:'vocational'};
+ const routes=s=>chapterPathways(s).map(([id])=>id);
+ assert.ok(routes(student).includes('college'));
+ const left={...student,history:[{pathway:'vocational',pivots:[{station:15,pivot:'school-leave',choice:'go'}]}]};
+ assert.deepEqual(routes(left),['vocational','independent','work']);
+ const worked={...student,pathway:'work',pivots:[{station:20,pivot:'college-cost',choice:'work',pathway:'work'}]};
+ assert.deepEqual(routes(worked),['work']);
+ const studied={...student,pathway:'college',pivots:[{station:20,pivot:'college-cost',choice:'merit',pathway:'college'}]};
+ assert.deepEqual(routes(studied),['college']);
 });
 
 test('step and watch share the same chronological event order across reload',()=>{

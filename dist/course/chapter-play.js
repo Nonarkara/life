@@ -1,5 +1,7 @@
 import {AXES} from './sim.js';
-import {locksFor} from './pivots.js';
+import {leftSchool,locksFor} from './pivots.js';
+import {availablePathways} from './pathways.js';
+import {encounterById} from './encounters.js';
 import {PRIORITIES,prioritiesFor} from './priorities.js';
 
 // Each decision spends the same ten points. A promise already made gets paid first.
@@ -37,6 +39,21 @@ export function chapterPlans(state){
   const effort=effortFrom(...focuses[id],locks);
   return {id,label,effort,profile:{...state.profile,priority:id,aim,focus}};
  });
+}
+
+// A story decision that committed these years to a path still owns that chapter.
+export function chapterPathways(state){
+ const routes=availablePathways(state.age,state);
+ const pivot=state.pivots?.some(record=>record.station===state.age&&
+  (record.pathway||record.pivot==='college-cost'));
+ const encounter=state.story?.seen?.some(record=>record.age===state.age&&
+  encounterById(record.id)?.options.some(option=>option.id===record.choice&&option.pathway));
+ if(pivot||encounter){
+  const current=routes.some(([id])=>id===state.pathway)?state.pathway:(state.age<20?'school':'work');
+  return routes.filter(([id])=>id===current);
+ }
+ if(!leftSchool(state))return routes;
+ return routes.filter(([id])=>id===state.pathway||!['school','college'].includes(id));
 }
 
 export function chapterReceipt(row){
