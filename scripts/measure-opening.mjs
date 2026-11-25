@@ -62,13 +62,16 @@ try{
     const now=Date.now();
     await page.goto(target.href,{waitUntil:'domcontentloaded'});
     const play=page.locator('#overview .actions .begin');
-    if(mode==='featured')await page.waitForFunction(()=>document.querySelector('#overview .actions .begin').href.includes('featured=school'));
+    await page.waitForFunction(({mode,language})=>{
+     const link=document.querySelector('#overview .actions .begin');
+     if(!link)return false;
+     const target=new URL(link.href);
+     return target.searchParams.get('lang')===language
+      &&(mode==='featured'?target.searchParams.get('featured')==='school':target.searchParams.get('next')==='1');
+    },{mode,language});
     const landingTasks=await longTasks(page);
     await play.click();
     await page.waitForURL(url=>url.pathname==='/intake/');
-    if(!await page.locator('#birth-card[open]').count()&&!new URL(page.url()).searchParams.has('next')&&mode==='ordinary'){
-     await page.locator('#random-life').click();
-    }
     const confirm=page.locator('#birth-card[open] #birth-begin');
     await confirm.waitFor();
     const cardMs=Date.now()-now,cardTasks=await longTasks(page);
