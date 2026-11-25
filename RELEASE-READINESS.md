@@ -252,7 +252,8 @@ against that same build. The runner checks the hosted stamp before and between p
 For an opening comparison, run `BASE=<preview origin> node scripts/measure-opening.mjs`
 on each candidate in the same conditions. Output is JSON Lines with cold and warm
 measurements for each first-visit path. Thai runs report when a choice is usable
-and when Thai text is visible. Browser timings describe the test profile.
+and when Thai text is visible. Chromium records completed encoded transfers across
+the landing, intake and course navigations. Timings describe the test profile.
 Record actual phone timings and rendered review separately.
 
 Deploy only to the candidate branch, check the served build and critical assets,

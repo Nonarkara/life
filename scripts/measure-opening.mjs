@@ -11,17 +11,30 @@ const build=await fetch(new URL('/build.json',base)).then(res=>res.json());
 const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 const percentile=(values,p)=>[...values].sort((a,b)=>a-b)[Math.ceil(values.length*p)-1];
 
-async function marks(page){
- return page.evaluate(()=>{
-  const entries=performance.getEntriesByType('navigation').concat(performance.getEntriesByType('resource'));
-  const same=entries.filter(entry=>new URL(entry.name).origin===location.origin);
-  return {url:location.pathname,transfer:same.reduce((sum,entry)=>sum+entry.transferSize,0),
-   scripts:same.filter(entry=>new URL(entry.name).pathname.endsWith('.js')).reduce((sum,entry)=>sum+entry.transferSize,0),
-   packs:same.filter(entry=>new URL(entry.name).pathname.startsWith('/language/')).map(entry=>({
-    name:new URL(entry.name).pathname,bytes:entry.transferSize})),
-   longTasks:window.lifeOpeningLongTasks};
+function trackTransfer(cdp,origin){
+ const requests=new Map();
+ const resources=[];
+ cdp.on('Network.requestWillBeSent',({requestId,request,redirectResponse})=>{
+  if(redirectResponse)requests.delete(requestId);
+  const url=new URL(request.url);
+  if(url.origin===origin)requests.set(requestId,url.pathname);
  });
+ cdp.on('Network.loadingFinished',({requestId,encodedDataLength})=>{
+  const name=requests.get(requestId);
+  if(name)resources.push({name,bytes:encodedDataLength});
+  requests.delete(requestId);
+ });
+ cdp.on('Network.loadingFailed',({requestId})=>requests.delete(requestId));
+ return ()=>{
+  const finished=resources.splice(0);
+  return {
+   transfer:finished.reduce((sum,entry)=>sum+entry.bytes,0),
+   scriptTransfer:finished.filter(entry=>entry.name.endsWith('.js')).reduce((sum,entry)=>sum+entry.bytes,0),
+   packs:finished.filter(entry=>entry.name.startsWith('/language/'))
+  };
+ };
 }
+const longTasks=page=>page.evaluate(()=>window.lifeOpeningLongTasks);
 
 try{
  console.log(JSON.stringify({build:build.build,browser:browser.version(),viewport:[390,844],profile,cpu:2}));
@@ -37,10 +50,12 @@ try{
     }
    });
    const page=await context.newPage(),cdp=await context.newCDPSession(page);
+   const takeTransfer=trackTransfer(cdp,base.origin);
    await cdp.send('Network.enable');
    await cdp.send('Network.emulateNetworkConditions',profile);
    await cdp.send('Emulation.setCPUThrottlingRate',{rate:2});
    for(const cache of ['cold','warm']){
+    takeTransfer();
     const target=new URL('/',base);
     target.searchParams.set('lang',language);
     if(mode==='featured')target.searchParams.set('featured','school');
@@ -48,7 +63,7 @@ try{
     await page.goto(target.href,{waitUntil:'domcontentloaded'});
     const play=page.locator('#overview .actions .begin');
     if(mode==='featured')await page.waitForFunction(()=>document.querySelector('#overview .actions .begin').href.includes('featured=school'));
-    const landing=await marks(page);
+    const landingTasks=await longTasks(page);
     await play.click();
     await page.waitForURL(url=>url.pathname==='/intake/');
     if(!await page.locator('#birth-card[open]').count()&&!new URL(page.url()).searchParams.has('next')&&mode==='ordinary'){
@@ -56,7 +71,7 @@ try{
     }
     const confirm=page.locator('#birth-card[open] #birth-begin');
     await confirm.waitFor();
-    const cardMs=Date.now()-now,card=await marks(page);
+    const cardMs=Date.now()-now,cardTasks=await longTasks(page);
     await confirm.click();
     if(mode==='ordinary')await page.locator('#arrival-choice:visible').click();
     const options=page.locator('.decision-dialog[open] .pivot-option:visible');
@@ -65,10 +80,9 @@ try{
     // The game stays playable while a pack is late. Measure translated controls
     // separately so a fallback prompt never counts as a completed Thai opening.
     if(language==='th')await options.filter({hasText:/[\u0e00-\u0e7f]/u}).first().waitFor();
-    const translatedChoiceMs=Date.now()-now,choice=await marks(page);
-    const row={cardMs,firstChoiceMs,translatedChoiceMs,transfer:landing.transfer+card.transfer+choice.transfer,
-     scriptTransfer:landing.scripts+card.scripts+choice.scripts,
-     longTasks:landing.longTasks+card.longTasks+choice.longTasks,packs:[...landing.packs,...card.packs,...choice.packs]};
+    const translatedChoiceMs=Date.now()-now,choiceTasks=await longTasks(page);
+    const row={cardMs,firstChoiceMs,translatedChoiceMs,...takeTransfer(),
+     longTasks:landingTasks+cardTasks+choiceTasks};
     runs[cache].push(row);
     console.log(JSON.stringify({mode,language,cache,run:run+1,...row}));
     await page.goto('about:blank');
