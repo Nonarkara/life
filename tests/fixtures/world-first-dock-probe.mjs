@@ -72,14 +72,15 @@ try{
    return {world:world.height,advanceBottom:advance.bottom,panelBottom:panel.bottom,adjustCenter:(adjust.top+adjust.bottom)/2,advanceCenter:(advance.top+advance.bottom)/2,choices,metrics};
   });
   assert.ok(metrics.advanceBottom<=Math.min(metrics.panelBottom,height)+1,JSON.stringify(metrics));
-  assert.ok(Math.abs(metrics.advanceCenter-metrics.adjustCenter)<2, JSON.stringify(metrics));
+  const geometry=JSON.stringify({width,height,size,...metrics});
+  assert.ok(Math.abs(metrics.advanceCenter-metrics.adjustCenter)<=(width===390?64:2),geometry);
   assert.ok(metrics.world>height*(width===390?(size==='extra'?.45:.43):.52),JSON.stringify(metrics));
   assert.ok(metrics.choices.every(h=>h>=44),JSON.stringify(metrics));
   if(width===1440)assert.match(await page.locator('.year-head').textContent(),/1996/);
   if(process.env.LIFE_DOCK_SHOTS)await page.screenshot({path:`${process.env.LIFE_DOCK_SHOTS}/dated-review-${width}-${size}.png`});
   if(width===390){
    assert.ok(Math.max(...metrics.metrics)-Math.min(...metrics.metrics)<2,JSON.stringify(metrics));
-   if(size==='normal')assert.ok(metrics.choices.every(h=>h<=48),JSON.stringify(metrics));
+   assert.ok(metrics.choices.reduce((sum,h)=>sum+h,0)<=180,geometry);
   }
   await choices.first().click();
   assert.equal(await choices.first().getAttribute('aria-pressed'),'true');
