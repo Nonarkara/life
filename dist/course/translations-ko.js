@@ -38,7 +38,7 @@ export default new Map([
   ["Friends", "친구"],
   ["Family", "가족"],
   ["How will you spend the next five years?", "앞으로 5년, 어디에 힘을 쏟을까요?"],
-  ["Pick one.", "하나를 고르세요."],
+  ["Pick one. Earlier promises already use {n} of your 10 points.", "하나를 고르세요. 이전에 한 약속에 10점 중 {n}점이 들어갑니다."],
   ["Spend 10 effort points. Pick one.", "노력 점수 10점을 어떻게 쓸지 하나를 고르세요."],
   ["Live to age {n} →", "{n}세까지 살아보기 →"],
   ["Watch these years", "이 시기 지켜보기"],

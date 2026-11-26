@@ -34,21 +34,30 @@ assert.equal(review.age,15);
 async function open(state,width,height,size='normal'){
  const page=await browser.newPage({viewport:{width,height},hasTouch:width<600,reducedMotion:'reduce'});
  const errors=[];
+ let releasePack;
+ if(width===390&&size==='normal'&&state.stage==='review'){
+  const ready=new Promise(resolve=>{releasePack=resolve;});
+  await page.route(/\/language\/th-[a-f0-9]+\.js$/,async route=>{await ready;await route.continue();});
+ }
  page.on('pageerror',error=>errors.push(error.message));
  await page.addInitScript(({state,size})=>{
   localStorage.setItem('life-course-v2',JSON.stringify(state));
   localStorage.setItem('life-preferences-v1',JSON.stringify({language:'th',size,motion:false}));
  },{state,size});
  await page.goto(base+'/course/',{waitUntil:'domcontentloaded'});
- return {page,errors};
+ return {page,errors,releasePack};
 }
 try{
  for(const [width,height,size] of [[390,844,'normal'],[390,844,'extra'],[1024,768,'normal'],[1440,900,'normal']]){
-  const {page,errors}=await open(review,width,height,size);
+  const {page,errors,releasePack}=await open(review,width,height,size);
   const choices=page.locator('.chapter-choice');
   const advance=page.locator('#commit');
   const adjust=page.locator('.chapter-switch');
   await choices.first().waitFor();
+  if(releasePack){
+   assert.match(await page.locator('.chapter-cost').textContent(),/^Pick one\./);
+   releasePack();
+  }
   await page.waitForFunction(()=>document.querySelector('.chapter-cost')?.textContent.includes('เลือกหนึ่งอย่าง'));
   await page.evaluate(()=>document.fonts.ready);
   assert.equal(await choices.count(),3);

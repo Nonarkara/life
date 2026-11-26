@@ -38,7 +38,7 @@ export default new Map([
   ["Friends", "เพื่อน"],
   ["Family", "ครอบครัว"],
   ["How will you spend the next five years?", "ห้าปีข้างหน้าจะทุ่มเทให้กับอะไร?"],
-  ["Pick one.", "เลือกหนึ่งอย่าง"],
+  ["Pick one. Earlier promises already use {n} of your 10 points.", "เลือกหนึ่งอย่าง คำมั่นที่ให้ไว้ใช้ไปแล้ว {n} จาก 10 แต้ม"],
   ["Spend 10 effort points. Pick one.", "เลือกว่าจะใช้แต้มความทุ่มเททั้ง 10 แต้มอย่างไร"],
   ["Live to age {n} →", "ใช้ชีวิตต่อถึงอายุ {n} ปี →"],
   ["Watch these years", "ดูช่วงชีวิตนี้"],

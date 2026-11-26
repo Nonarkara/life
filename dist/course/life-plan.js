@@ -69,7 +69,7 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   heading.id='chapter-heading';
   heading.tabIndex=-1;
   const held=Object.values(locksFor(s)).reduce((sum,n)=>sum+n,0);
-  const cost=el('p','chapter-cost',held?t('Pick one.')+' '+t('Earlier promises already use {n} of your 10 points.').replace('{n}',held):t('Spend 10 effort points. Pick one.'));
+  const cost=el('p','chapter-cost',held?t('Pick one. Earlier promises already use {n} of your 10 points.').replace('{n}',held):t('Spend 10 effort points. Pick one.'));
   const choices=el('div','chapter-choices');
   for(const plan of chapterPlans(s)){
    const active=chosen&&s.profile.priority===plan.id&&AXES.every(a=>s.effort[a.key]===plan.effort[a.key]);
