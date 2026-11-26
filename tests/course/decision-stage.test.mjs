@@ -18,7 +18,17 @@ class Node{
  querySelector(){return walk(this).find(n=>n.tagName==='button'&&!n.disabled);}
 }
 const walk=n=>n.children.flatMap(c=>[c,...walk(c)]);
-function setup(){const old=globalThis.document;globalThis.document={body:new Node('body'),createElement:tag=>new Node(tag),createComment:()=>new Node('comment'),getElementById:id=>walk(document.body).find(n=>n.id===id)};return ()=>{globalThis.document=old;};}
+function setup(){
+ const {document:oldDocument,ResizeObserver:oldObserver,requestAnimationFrame:oldFrame}=globalThis;
+ globalThis.document={body:new Node('body'),createElement:tag=>new Node(tag),createComment:()=>new Node('comment'),getElementById:id=>walk(document.body).find(n=>n.id===id)};
+ globalThis.ResizeObserver=class{observe(){}disconnect(){}};
+ globalThis.requestAnimationFrame=()=>1;
+ return ()=>{
+  globalThis.document=oldDocument;
+  globalThis.ResizeObserver=oldObserver;
+  globalThis.requestAnimationFrame=oldFrame;
+ };
+}
 test('a removed outcome receipt stays removed when the stage restores real controls',()=>{
  const cleanup=setup();try{
   const home=new Node('main'),title=new Node('h1'),receipt=new Node('section'),question=new Node('section');title.id='title';receipt.id='choice-result';question.id='questions';home.append(title,receipt,question);document.body.append(home);

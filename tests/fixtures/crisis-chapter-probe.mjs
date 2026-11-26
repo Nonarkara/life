@@ -6,18 +6,25 @@ import {translate} from '../../dist/course/i18n.js';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
 const browser=await chromium.launch({headless:true,channel:process.env.LIFE_BROWSER_CHANNEL||'chrome'});
 const base=process.env.BASE||'http://127.0.0.1:48571';
-const language=process.env.CRISIS_LANGUAGE||'en',t=text=>translate(text,language);
+const language=process.env.CRISIS_LANGUAGE||'en',size=process.env.CRISIS_SIZE||'standard',t=text=>translate(text,language);
 try{
  for(const [slot,path] of [[4,'Take the finance job'],[13,'Stay where you are']]){
   const page=await browser.newPage({viewport:{width:Number(process.env.CRISIS_WIDTH||390),height:844},hasTouch:Number(process.env.CRISIS_WIDTH||390)<1024,reducedMotion:'reduce'});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   const read=()=>page.evaluate(()=>JSON.parse(localStorage.getItem('life-course-v2')));
-  await page.addInitScript(lang=>localStorage.setItem('life-preferences-v1',JSON.stringify({language:lang,size:'standard',motion:false})),language);
+  await page.addInitScript(({language,size})=>localStorage.setItem('life-preferences-v1',JSON.stringify({language,size,motion:false})),{language,size});
   await page.goto(base+'/intake/?player='+slot+'&lang='+language);
   await page.locator('#birth-card[open] #birth-begin').click();
   await page.locator('#arrival-choice:visible').click();
   const dialog=page.locator('.decision-dialog[open]');
   const plan=page.locator('.chapter-choice:visible');
+  const readChoices=async()=>{
+   const pager=dialog.locator('.decision-pager:visible');
+   if(await pager.count()&&await dialog.getAttribute('data-reading-stage')==='context'){
+    if(await page.evaluate(()=>matchMedia('(pointer: coarse)').matches))assert.ok((await pager.boundingBox()).height>=44);
+    await pager.click();
+   }
+  };
   const recap=page.getByRole('heading',{name:t('What happened to your promise?')});
   let sawOffer=false,sawPromise=false,sawCrisis=false,rewound=false;
   for(let step=0;step<125;step++){
@@ -46,10 +53,12 @@ try{
      break;
     }
     sawOffer=true;if(process.env.CRISIS_SHOTS)await page.screenshot({path:process.env.CRISIS_SHOTS+'-'+slot+'-offer.png'});
+    await readChoices();
     await dialog.getByRole('button').filter({hasText:t(path)}).click();continue;
    }
    if(await dialog.getByText(t('The envelope on the table'),{exact:true}).isVisible()){
     sawPromise=true;
+    await readChoices();
     if(await page.evaluate(()=>matchMedia('(pointer: coarse) and (orientation: portrait)').matches)){
      await page.waitForFunction(()=>[...document.querySelectorAll('.decision-dialog[open] .pivot-option')].every(button=>{
       const r=button.getBoundingClientRect();
@@ -71,6 +80,7 @@ try{
    }
    const next=page.locator('#year-event-continue:visible,#decision-continue:visible,#child-continue:visible,#next-moment:visible').first();
    if(await next.count()){await next.click();continue;}
+   await readChoices();
    const options=dialog.locator('.pivot-option:visible:enabled,.encounter-choice:visible:enabled');
    if(await options.count()){await options.first().click();continue;}
    if(await plan.count()){

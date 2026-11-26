@@ -706,4 +706,7 @@ body.has-plan .life-plan {
 .child-replay-memory summary, .encounter-replay-memory summary { width: fit-content; min-height: 32px; cursor: pointer; }
 
 body:has(.decision-dialog[open] #year-event.crisis-event) .top-world{display:none}
-@media(pointer:coarse){.decision-dialog #year-event.crisis-event #year-event-continue{min-height:44px}}
+@media(pointer:coarse){
+ .decision-dialog #year-event.crisis-event #year-event-continue,
+ html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-pager{min-height:44px}
+}
