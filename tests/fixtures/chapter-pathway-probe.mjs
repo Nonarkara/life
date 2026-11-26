@@ -78,8 +78,11 @@ try{
   await page.reload({waitUntil:'domcontentloaded'});
   assert.equal(await road.inputValue(),pathway);
   const commit=page.locator('#commit');
-  assert.ok(await commit.evaluate(button=>button.getBoundingClientRect().bottom<=innerHeight),
-   'the next action is on the first screen');
+  await page.waitForFunction(()=>{
+   const button=document.getElementById('commit');
+   const box=button.getBoundingClientRect();
+   return box.height>=44&&box.bottom<=innerHeight&&button.contains(document.elementFromPoint(box.x+box.width/2,box.y+box.height/2));
+  });
   assert.ok(await road.evaluate(select=>{
    const box=select.getBoundingClientRect();
    return box.height>=44&&box.top>=0&&box.bottom<=innerHeight&&

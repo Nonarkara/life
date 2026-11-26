@@ -242,7 +242,16 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   const tail=tools.offsetHeight+(panel===foot?0:foot.offsetHeight)+(c?0:6)+20;
   const content=c?c.offsetHeight:panel.offsetHeight;
   const portraitPhone=matchMedia('(max-width: 480px) and (orientation: portrait)').matches;
-  const h=Math.min(Math.round(innerHeight*(portraitPhone ? .45 : .53)),Math.ceil(top+content+tail));
+  const limit=Math.round(innerHeight*.53);
+  let budget=limit;
+  if(portraitPhone){
+   // Long native-script rows can wrap on different fonts. Give first-screen
+   // space to Advance before the optional actions or receipt below it.
+   const scrollTop=root.closest('#console-plan')?.scrollTop??0;
+   const untilAdvance=panel===quick?Math.ceil(commit.getBoundingClientRect().bottom-dock.getBoundingClientRect().top+scrollTop+8):0;
+   budget=Math.min(limit,Math.max(Math.round(innerHeight*.45),untilAdvance));
+  }
+  const h=Math.min(budget,Math.ceil(top+content+tail));
   strip.style.height=c?Math.max(44,h-top-tail)+'px':'';
   body.style.setProperty('--rpg-height',h+'px');
  }
