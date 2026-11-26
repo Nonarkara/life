@@ -37,6 +37,7 @@ export default new Map([
   ["Friends", "Friends"],
   ["Family", "Family"],
   ["How will you spend the next five years?", "How will you spend the next five years?"],
+  ["Pick one.", "Pick one."],
   ["Spend 10 effort points. Pick one.", "Spend 10 effort points. Pick one."],
   ["Live to age {n} →", "Live to age {n} →"],
   ["Watch these years", "Watch these years"],

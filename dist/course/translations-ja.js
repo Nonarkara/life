@@ -38,6 +38,7 @@ export default new Map([
   ["Friends", "友達"],
   ["Family", "家族"],
   ["How will you spend the next five years?", "次の5年間、何に力を注ぎますか？"],
+  ["Pick one.", "ひとつ選びます。"],
   ["Spend 10 effort points. Pick one.", "10点の努力をどう配分するか、ひとつ選びます。"],
   ["Live to age {n} →", "{n}歳まで進む →"],
   ["Watch these years", "この数年を見届ける"],

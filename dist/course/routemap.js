@@ -18,7 +18,7 @@ export function routeModel(state){
  for(const mk of marks.sort((a,b)=>a.age-b.age)){if(once.includes(mk.label)){if(seen.has(mk.label))continue;seen.add(mk.label);}if(!byAge.has(mk.age))byAge.set(mk.age,[]);byAge.get(mk.age).push(mk.label);}
  return {end,born,lanes,at,moves,marks:[...byAge].map(([age,labels])=>({age,labels}))};
 }
-export function routeText(state){const m=routeModel(state),spans=[];let from=0;for(let a=1;a<=m.end+1;a++)if(a>m.end||m.at[a]!==m.at[a-1]){spans.push(t(region(m.at[from]).place)+' '+from+'–'+(a>m.end?m.end:a));from=a;}return t('Where your life went')+': '+spans.join('; ')+'.';}
+export function routeText(state){const m=routeModel(state),spans=[];let from=0;for(let a=1;a<=m.end+1;a++)if(a>m.end||m.at[a]!==m.at[a-1]){spans.push(t(region(m.at[from]).place)+' '+from+'–'+(a>m.end?m.end:a));from=a;}const marks=m.marks.map(({age,labels})=>t('Age {n}').replace('{n}',age)+' '+labels.map(t).join(', '));return t('Where your life went')+': '+[...spans,...marks].join('; ')+'.';}
 export function drawRouteMap(canvas,state,fixed){
  const dpr=fixed?.dpr??(fixed?1:Math.min(devicePixelRatio||1,2)),w=fixed?.width??Math.max(280,canvas.clientWidth),h=fixed?.height??Math.max(120,canvas.clientHeight);
  if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);}
@@ -48,9 +48,28 @@ export function drawRouteMap(canvas,state,fixed){
  for(let a=0;a<=m.end;a+=5){const py=y(lane(m.at[a]));c.fillStyle=PAPER;c.strokeStyle=INK;c.lineWidth=1.5;c.beginPath();c.arc(x(a),py,3,0,Math.PI*2);c.fill();c.stroke();}
  for(const mv of m.moves){const px=x(mv.age),py=y(lane(mv.to));c.fillStyle=PAPER;c.strokeStyle=INK;c.lineWidth=2.5;c.beginPath();c.arc(px,py,7,0,Math.PI*2);c.fill();c.stroke();}
  const ex=x(m.end),ey=y(lane(m.at[m.end]));c.fillStyle=INK;c.beginPath();c.arc(ex,ey,7,0,Math.PI*2);c.fill();c.fillStyle=PAPER;c.beginPath();c.arc(ex,ey,3,0,Math.PI*2);c.fill();
- const spans=[];m.lanes.forEach((id,i)=>{c.fillStyle=id===m.born?INK:MUTED;c.textAlign=phone?'left':'right';c.font=`${id===m.born?600:400} ${size}px ${font}`;halo(t(region(id).place),phone?left:left-12,phone?y(i)-15:y(i));spans[i]=phone?left+c.measureText(t(region(id).place)).width+8:0;});
- // Moments, alternating above and below the path so labels never sit on each other.
- c.font=`${size-1}px ${font}`;c.textAlign='center';let lastX=-1e9,flip=1;
- for(const mk of m.marks){const px=x(mk.age),py=y(lane(m.at[Math.min(m.end,mk.age)]));flip=px-lastX<46?-flip:1;const li=lane(m.at[Math.min(m.end,mk.age)]);if(flip<0&&px-30<spans[li])flip=1;lastX=px;const ly=py+flip*(phone?15:18),label=mk.labels.map(t).join(' · '),half=c.measureText(label).width/2,tx=Math.max(left+half,Math.min(w-right-half,px));c.fillStyle=INK;c.fillRect(px-.5,Math.min(py,ly)+(flip>0?5:4),1,Math.abs(ly-py)-9);halo(label,tx,ly+flip*4);}
+ const occupied=[];
+ m.lanes.forEach((id,i)=>{
+  const name=t(region(id).place),py=y(i)-(phone?15:0);
+  c.fillStyle=id===m.born?INK:MUTED;c.textAlign=phone?'left':'right';
+  c.font=`${id===m.born?600:400} ${size}px ${font}`;
+  halo(name,phone?left:left-12,py);
+  if(phone)occupied.push({l:left-3,r:left+c.measureText(name).width+3,y:py});
+ });
+ // Use the translated text's actual bounds after the right-edge clamp.
+ c.font=`${size-1}px ${font}`;c.textAlign='center';
+ let omitted=false;
+ for(const mk of m.marks){
+  const px=x(mk.age),py=y(lane(m.at[Math.min(m.end,mk.age)])),label=mk.labels.map(t).join(' · ');
+  const half=c.measureText(label).width/2,tx=Math.max(left+half,Math.min(w-right-half,px));
+  const l=tx-half-3,r=tx+half+3,offset=phone?19:22;
+  const side=[1,-1].find(sign=>r<=w-2&&occupied.every(p=>l>=p.r||r<=p.l||Math.abs(py+sign*offset-p.y)>=size+4));
+  c.fillStyle=INK;
+  if(side===undefined){omitted=true;c.fillRect(px-1,py-1,2,2);continue;}
+  const ly=py+side*offset;
+  c.fillRect(px-.5,Math.min(py,ly)+(side>0?5:8),1,offset-13);
+  halo(label,tx,ly);occupied.push({l,r,y:ly});
+ }
  c.textAlign='left';c.font=`600 ${size}px ${font}`;c.fillStyle=INK;c.fillText(t('Where your life went'),left,16);
+ return omitted;
 }

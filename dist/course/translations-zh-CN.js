@@ -38,6 +38,7 @@ export default new Map([
   ["Friends", "朋友"],
   ["Family", "家人"],
   ["How will you spend the next five years?", "接下来的五年，你要把精力放在哪里？"],
+  ["Pick one.", "选一种。"],
   ["Spend 10 effort points. Pick one.", "10点精力，选一种分配方式。"],
   ["Live to age {n} →", "活到{n}岁 →"],
   ["Watch these years", "观看这几年"],

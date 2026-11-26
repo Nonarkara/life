@@ -58,6 +58,7 @@ The teacher told you about a scholarship. The family still had to decide what it
 Friends|เพื่อน|朋友|友達|친구
 Family|ครอบครัว|家人|家族|가족
 How will you spend the next five years?|ห้าปีข้างหน้าจะทุ่มเทให้กับอะไร?|接下来的五年，你要把精力放在哪里？|次の5年間、何に力を注ぎますか？|앞으로 5년, 어디에 힘을 쏟을까요?
+Pick one.|เลือกหนึ่งอย่าง|选一种。|ひとつ選びます。|하나를 고르세요.
 Spend 10 effort points. Pick one.|เลือกว่าจะใช้แต้มความทุ่มเททั้ง 10 แต้มอย่างไร|10点精力，选一种分配方式。|10点の努力をどう配分するか、ひとつ選びます。|노력 점수 10점을 어떻게 쓸지 하나를 고르세요.
 Live to age {n} →|ใช้ชีวิตต่อถึงอายุ {n} ปี →|活到{n}岁 →|{n}歳まで進む →|{n}세까지 살아보기 →
 Watch these years|ดูช่วงชีวิตนี้|观看这几年|この数年を見届ける|이 시기 지켜보기

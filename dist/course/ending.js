@@ -81,7 +81,16 @@ export function renderEnding(root,state,{storage}={}){
  // How much of the bank this device has met, across lives.
  {const met=new Set([...metScenes()].filter(id=>encounterById(id)));if(met.size){const p=document.createElement('p');p.className='fine';p.textContent=t('Across your lives on this device you have met {a} of {b} scenes.').replace('{a}',met.size).replace('{b}',ENCOUNTERS.length);numbers.append(p);}}
  // Where the life went leads the ending; the resource tracks follow it.
- const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);root.append(route);new ResizeObserver(()=>drawRouteMap(map,state)).observe(map);
+ const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);root.append(route);
+ const moments=document.createElement('details'),momentTitle=document.createElement('summary'),momentList=document.createElement('ol');
+ moments.hidden=true;momentTitle.textContent=t('Remembered events');
+ for(const {age,labels} of model.marks){
+  const item=document.createElement('li');
+  item.textContent=t('Age {n}').replace('{n}',age)+' · '+labels.map(t).join(' · ');
+  momentList.append(item);
+ }
+ moments.append(momentTitle,momentList);route.append(moments);
+ new ResizeObserver(()=>{moments.hidden=!drawRouteMap(map,state);}).observe(map);
  // Ikigai: four readings and the overlap between them. Money alone cannot fill it.
  const reading=ikigai(state);if(reading){const box=document.createElement('section');box.className='ending-ikigai';box.setAttribute('aria-label','Ikigai');const head=document.createElement('h2');head.textContent='Ikigai '+reading.score+' / 100';box.append(head);const list=document.createElement('dl');for(const[key,label,hint]of [['love','What you love','effort toward your chosen direction, kept up and made into something'],['good','What you became good at','practice, not what you were born with'],['world','What the world got from you','help, care, teaching, raising others'],['paid','What sustained you','chapters where income covered costs; enough, not wealth']]){const dt=document.createElement('dt'),dd=document.createElement('dd'),bar=document.createElement('span'),small=document.createElement('small');dt.textContent=label;small.textContent=hint;bar.className='ikigai-bar';bar.style.setProperty('--v',(reading.parts[key]??0)+'%');dd.append(bar,document.createTextNode(reading.parts[key]===null?'—':String(reading.parts[key])));dt.append(small);list.append(dt,dd);}
  // Where the four readings meet: the overlaps were computed all along and never shown.
@@ -235,7 +244,7 @@ export function renderEnding(root,state,{storage}={}){
   const taste=recordTaste(storage,state),dom=dominantTaste(taste);
   add('p','score-taste',t('Taste engine: learned from {n} lives ({style}) — next life tuned to what you explore.').replace('{n}',taste.lives).replace('{style}',t(dom.label)));
   {const nextLink=document.createElement('a');nextLink.className='ending-rewind';nextLink.href='../intake/?next=1';nextLink.textContent=t('Play next tuned life →');box.append(nextLink);}
-  add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));numbers.before(box);
+  add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));route.after(box);
   if(learned.length){const boxL=document.createElement('details');boxL.className='full-life-record ending-learned';const sumL=document.createElement('summary');sumL.textContent=t('What this life taught · {n} field notes').replace('{n}',learned.length);boxL.append(sumL);const ulL=document.createElement('ul');for(const item of learned){const li=document.createElement('li');li.textContent=t('Age {n}').replace('{n}',item.age)+' · '+t(item.title)+': '+t(item.text);ulL.append(li);}boxL.append(ulL);numbers.before(boxL);}}
  {const said=document.createElement('details');said.className='full-life-record ending-said';const sum=document.createElement('summary');sum.textContent=t('What this life said');said.append(sum);renderReading(said,state);numbers.before(said);
   const roads=said.querySelector('.reading-roads');

@@ -91,3 +91,15 @@ The street is fictional soi-inspired architecture, not a survey of the birthplac
 /study is a clearly labelled fixture comparison with the actual renderer and no
 access to the player's save. Adult commute duration changes routine boundaries
 from the existing financial commute model, without changing earnings/outcomes.
+
+## World and chapter controls — 26 November 2026
+
+The column grid leads from the inhabited world to one chapter choice and its
+advance action. The advance, watch and detailed planning controls occupy one
+group. The chapter receipt sits below them. On wide screens the year and its
+rates sit alongside. In the recap, the path and score have room beside the
+verdict, with the same reading order in the document and on a phone.
+
+Adapted from [Inkline Town by Sandro Maglione](https://github.com/SandroMaglione/inkline-town/tree/2a0fe9a71a612339c6c1d0dc528cf9bc0b146842),
+particularly the way its phone HUD keeps the active task beside the town and
+folds secondary controls. Life uses its existing renderer, controls and records.

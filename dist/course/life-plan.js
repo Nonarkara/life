@@ -29,9 +29,9 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
  watchButton.onclick=watch;
  const tools=el('div','chapter-tools'),memory=el('details','chapter-memory'),summary=el('summary',undefined,'Remembered events');
  const cue=el('p','replay-foreknowledge');cue.id='replay-foreknowledge';
- memory.append(summary,cue);tools.append(switcher,memory);
+ memory.append(summary,cue);tools.append(memory);
  memory.addEventListener('toggle',()=>{
-  if(memory.open&&!memory.hidden)memory.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});
+  if(memory.open&&!tools.hidden)memory.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});
  });
  root.append(quick,steps,strip,foot,tools,world);
  let local={},stationKey='',shown=-1;
@@ -54,9 +54,9 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   const advanced=!!local.advanced,blocked=!canWatch(),chosen=s.chapterChoiceAge===s.age;
   root.classList.toggle('chapter-advanced',advanced);
   quick.hidden=advanced||blocked;
-  tools.hidden=blocked;
+  switcher.hidden=blocked;
   const remembered=blocked?null:foreknowledgeForChapter(s);
-  memory.hidden=!remembered;
+  tools.hidden=!remembered;
   cue.textContent=formatForeknowledge(remembered,t);
   switcher.textContent=t(advanced?'Back to chapter choices':'Adjust the plan');
   switcher.setAttribute('aria-expanded',String(advanced));
@@ -65,11 +65,11 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   const pathwayFocused=document.activeElement?.id==='chapter-pathway';
   const routes=chapterPathways(s);
   const pathway=routes.some(([key])=>key===s.pathway)?s.pathway:(s.age<20?'school':'work');
-  const heading=el('h2','chapter-heading',t('How will you spend the next five years?'));
+  const heading=el('h2','chapter-heading',t('Your next five years'));
   heading.id='chapter-heading';
   heading.tabIndex=-1;
   const held=Object.values(locksFor(s)).reduce((sum,n)=>sum+n,0);
-  const cost=el('p','chapter-cost',held?t('Earlier promises already use {n} of your 10 points.').replace('{n}',held):t('Spend 10 effort points. Pick one.'));
+  const cost=el('p','chapter-cost',held?t('Pick one.')+' '+t('Earlier promises already use {n} of your 10 points.').replace('{n}',held):t('Spend 10 effort points. Pick one.'));
   const choices=el('div','chapter-choices');
   for(const plan of chapterPlans(s)){
    const active=chosen&&s.profile.priority===plan.id&&AXES.every(a=>s.effort[a.key]===plan.effort[a.key]);
@@ -174,7 +174,9 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   renderYearPanel(world,s,t);
   if(blocked)world.hidden=true;
   {const warn=lifeWarning(s,t);if(warn&&cards[0])cards[0].append(el('p','plan-key plan-warning',warn));}
-  foot.replaceChildren(commit,watchButton,...(receipt&&!advanced&&!blocked?[receipt]:[]));
+  const restoreSwitchFocus=document.activeElement===switcher;
+  foot.replaceChildren(commit,watchButton,switcher,...(receipt&&!advanced&&!blocked?[receipt]:[]));
+  if(restoreSwitchFocus&&!blocked)switcher.focus({preventScroll:true});
   const latestAge=row?.from;
   if(advanced&&!blocked&&canRewind(latestAge)){
    const goBack=el('button','chapter-watch chapter-rewind',t('Replay from age {n} →').replace('{n}',latestAge));
@@ -222,7 +224,8 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
   const top=panel.getBoundingClientRect().top-dock.getBoundingClientRect().top;
   const tail=tools.offsetHeight+(panel===foot?0:foot.offsetHeight)+(c?0:6)+20;
   const content=c?c.offsetHeight:panel.offsetHeight;
-  const h=Math.min(Math.round(innerHeight*.53),Math.ceil(top+content+tail));
+  const portraitPhone=matchMedia('(max-width: 480px) and (orientation: portrait)').matches;
+  const h=Math.min(Math.round(innerHeight*(portraitPhone ? .45 : .53)),Math.ceil(top+content+tail));
   strip.style.height=c?Math.max(44,h-top-tail)+'px':'';
   body.style.setProperty('--rpg-height',h+'px');
  }
