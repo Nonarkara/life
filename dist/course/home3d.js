@@ -1,3 +1,4 @@
+import {INTERIORS} from './interior-layout.js';
 // The life's own room: same footprints every life, so routines and seats hold; what stands on
 // them, and what the walls are made of, follow the place, the income and the year.
 import {furniture} from './layout.js';
@@ -24,7 +25,8 @@ const KINDS={
 export function furnishHome({root,batchOf,group,chair,plan}){
  const K=KINDS[plan.homeKind]??KINDS.shophouse,R=plan.room,b=batchOf(root),floor=plan.homeKind==='shophouse'||plan.homeKind==='flat'?K.floor:K.floor,wall=['stilt','plank','shack','row','bungalow','pavement'].includes(plan.homeKind)?K.wall:plan.palette.wall,acc=plan.palette.accent,poor=plan.homeKind==='pavement'||plan.homeKind==='shack',seatAt=(x,z,a,f,p)=>{if(!poor)return chair(x,z,a,f,p);b.cylinder(x,z,f,.09,.08,furnishHome.metrics.seat+.03,'#3f6f9a',8);};
  const bare=plan.homeKind==='pavement',wallH=bare?m(1.7):WALL;
- b.box(3,3,0,4,3.6,FLOOR,floor);
+ const [hx,hz,hw,hd]=INTERIORS.home.bounds;
+ b.box(hx,hz,0,hw,hd,FLOOR,floor);
  if(!bare)for(let x=3;x<7;x+=plan.homeKind==='tatami'?1:.25)b.box(x,3,FLOOR,.008,3.6,.002,K.lines);
  if(plan.homeKind==='tatami')for(let z=3;z<6.6;z+=.9)b.box(3,z,FLOOR,4,.008,.002,K.lines);
  if(!plan.lift)b.box(3,6.6,0,4,.6,FLOOR*.5,floor);
@@ -42,7 +44,7 @@ export function furnishHome({root,batchOf,group,chair,plan}){
  const seat=furniture[3];seatAt(seat.x+seat.w/2,seat.y+seat.d/2,Math.PI,FLOOR,root);
  for(const [name,[x,z]] of Object.entries(HOME))seatAt(x,z,HOME_FACING[name],FLOOR,root);
  // Dining table.
- const d=furniture[4],top=FLOOR+furnishHome.metrics.tableTop;b.box(d.x,d.y,top,d.w,d.d,.035,bare?'#b89b6a':plan.tier>=2?'#a58a66':'#94805f');if(bare)for(const x of [d.x+.04,d.x+d.w-.34])b.box(x,d.y+.06,FLOOR,.3,d.d-.12,top-FLOOR,'#a58a5e');else for(const x of [d.x,d.x+d.w-.04])for(const z of [d.y,d.y+d.d-.04])b.box(x,z,FLOOR,.04,.04,top-FLOOR,'#77684f');const plates=[[5.4,6.3],[6,6.3],[5.7,6.24],[5.55,6.47],[5.9,6.47]].map(([x,z])=>{const g=group();batchOf(g).ball(x,top+.05,z,.09,.018,.09,'#e7dfcc',8);return g;});
+ const d=furniture[4],top=FLOOR+furnishHome.metrics.tableTop;b.box(d.x,d.y,top,d.w,d.d,.035,bare?'#b89b6a':plan.tier>=2?'#a58a66':'#94805f');if(bare)for(const x of [d.x+.04,d.x+d.w-.34])b.box(x,d.y+.06,FLOOR,.3,d.d-.12,top-FLOOR,'#a58a5e');else for(const x of [d.x,d.x+d.w-.04])for(const z of [d.y,d.y+d.d-.04])b.box(x,z,FLOOR,.04,.04,top-FLOOR,'#77684f');const plates=[[5.4,6.3],[6,6.3],[5.7,6.24],[5.55,6.41],[5.9,6.41]].map(([x,z])=>{const g=group();batchOf(g).ball(x,top+.05,z,.09,.018,.09,'#e7dfcc',8);return g;});
  // Kitchen corner beside the routine's cook spot.
  if(poor){b.cylinder(3.5,5.9,FLOOR,.14,.11,.14,'#4a4a48',10);b.ball(3.5,FLOOR+.2,5.9,.1,.07,.1,'#5a5f5a',8);}else{b.box(3.1,5.3,FLOOR,.42,1.2,m(.86),'#9a8566');b.box(3.08,5.28,FLOOR+m(.86),.46,1.24,.03,plan.year>=1975?'#c9c3b1':'#a08868');}
  if(poor){}else if(plan.year>=1970&&!R.oilLamp)b.box(3.14,5.62,FLOOR+m(.86)+.03,.34,.3,.03,'#3f4644');else b.cylinder(3.3,5.78,FLOOR+m(.86)+.03,.13,.11,.1,'#8f6a4a',10);
@@ -109,7 +111,8 @@ export function buildHomeShell({group,batchOf,plan,register}){
  const K=KINDS[plan.homeKind]??KINDS.shophouse,g=group(),b=batchOf(g),wall=['stilt','plank','shack','row','bungalow'].includes(plan.homeKind)?K.wall:plan.palette.wall,H=FLOOR+WALL;
  // No house to close: a sheet tied to someone else's wall.
  if(K.shape==='sheet'){b.beam(5,H-.1,3.1,5,FLOOR+m(1.25),4.6,3.6,.02,plan.year>=1970?K.roof:'#8a8270');for(const x of [3.4,6.5])b.box(x,4.55,FLOOR,.03,.03,m(1.25),'#6b5236');register(g);return {group:g};}
- b.box(3,6.52,FLOOR,3.3,.08,WALL,wall);b.box(6.92,3,FLOOR,.08,3.6,WALL,wall);b.box(6.3,6.52,FLOOR+m(2.1),.7,.08,WALL-m(2.1),wall);
+ const [hx,hz,hw,hd]=INTERIORS.home.bounds,[left,right]=INTERIORS.home.opening;
+ b.box(hx,hz+hd-.08,FLOOR,left-hx,.08,WALL,wall);b.box(hx+hw-.08,hz,FLOOR,.08,hd,WALL,wall);b.box(left,hz+hd-.08,FLOOR+m(2.1),right-left,.08,WALL-m(2.1),wall);
  for(const x of [3.5,5])b.box(x,6.6,FLOOR+m(1),.9,.012,m(1.2),'#3e4e54',1);for(const z of [3.6,5.1])b.box(7,z,FLOOR+m(1),.012,.9,m(1.2),'#3e4e54',1);
  if(K.shape==='gable')b.gable(3,3,H,4,3.6,m(1.5),K.roof,{over:.18,along:'x',gableColor:wall});
  else if(K.shape==='hip'){const up=plan.homeKind==='villa'&&!plan.abroad?m(3):0;if(up)b.box(3,3,H,4,3.6,up,wall);b.hip(3,3,H+up,4,3.6,m(1.6),K.roof,.2);}

@@ -1,3 +1,4 @@
+import {crisisQuestions} from './crisis-chapter.js';
 // The spine of a life: thirty hard questions across the fourteen five-year
 // stations from ten to seventy-five.
 //
@@ -697,7 +698,8 @@ export function pendingPivots(state){
   // One real job offer at most per station, same drawing.
   const jobs = JOB_PIVOTS.filter(pivot=>pivot.station===state.age&&!answered.has(pivot.id)&&jobFits(pivot,birthYearOf(state)));
   const job = jobs.length&&rand(state.seed,state.age,'job-offer')<.5?[jobs[Math.floor(rand(state.seed,state.age,'job-year')*jobs.length)]]:[];
-  return [...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets,...bet,...job];
+  const crisis=crisisQuestions(state,answered,jobs);
+  return [...(crisis??[]),...open.filter(pivot=>(WHEN[pivot.id]||pivot===pick)&&!answered.has(pivot.id)),...markets,...bet,...(crisis===null?job:[])];
 }
 
 // The commitment a question made: an axis cannot go below this for five years.

@@ -1,5 +1,6 @@
 // A shared 60-second day: home, journey, activity, return, evening.
 // Paths use the same world coordinates as the room and its furniture.
+import {INTERIORS,SCHOOL_APPROACH} from './interior-layout.js';
 import {RESIDENCES,WORKPLACES,locationContext} from './locations.js';
 import {recordedCommute,commuteSchedule} from './biography.js';
 import {REGIONS,regionIdFor,childhoodAway,homeRegion,pondDx} from './regions.js';
@@ -13,7 +14,7 @@ const destinations={
  familyWork:{path:[HOME.mother,[5,6.8],...EXIT,[13.8,7.2],[13.8,5.8],[12.4,5.8]],action:'At work',pose:'work'},
  fieldWork:{path:[HOME.mother,[5,6.8],...EXIT,[8.5,13.8],[4.7,13.8]],action:'In the garden',pose:'garden'},
  work:{path:[HOME.father,[6.4,6.8],...EXIT,[13.8,7.2],[13.8,5.8],[12.4,5.8]],action:'At work',pose:'work'},
- school:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,1.6],[10.5,1.6]],action:'At school',pose:'study'},
+ school:{path:[...INTERIORS.home.path.toReversed(),EXIT.at(-1),...SCHOOL_APPROACH],action:'At school',pose:'study'},
  play:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[9.8,9.8]],action:'Playing outside',pose:'play'},
  sport:{path:[HOME.player,[6.5,5.8],...EXIT,[8.5,9.8],[10,10.5]],action:'Training',pose:'exercise'},
  swim:{path:[HOME.player,[6.5,5.8],[6.75,6.8],[6.75,7.2],[4.3,7.2],[4.3,8.7],[4.3,9.55],[3.85,9.55]],action:'Learning to swim',pose:'swim'},
@@ -77,7 +78,7 @@ export function routine(actor,age,time,goal='balance',context={}){
   if(key==='work'){const work=context.workplace??WORKPLACES.local;route={...route,path:[home.origin,...home.pathToRoad,...work.approach,work.destination]};}
   else if(home.id!=='family'){
    if(key==='art'||key==='home'){const dx=home.base[0]-3,dy=home.base[1]-3;route={...route,path:route.path.map(([x,y])=>[x+dx,y+dy])};}
-   else route={...route,path:[home.origin,...home.pathToRoad,[8.5,7.2],...route.path.slice(5)]};
+   else route={...route,path:[home.origin,...home.pathToRoad,[8.5,7.2],...(key==='school'?SCHOOL_APPROACH:route.path.slice(5))]};
   }
  }
  const schedule=actor==='player'&&age>=20&&key==='work'?commuteSchedule(context.commute):commuteSchedule(null);

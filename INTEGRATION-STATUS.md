@@ -5,6 +5,28 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
+## 26 November 2026 · Overnight integration
+
+The localization commits `55aea35`, `8fc6e34`, and `bb1aa4c` are ancestors of
+`e1e509c`. The earlier build report is superseded by the whole-sentence and
+late-language-pack fixes. Replay memories, delayed reviews, and the school
+pathway are also already in that release.
+
+Two preview branches carried unique gameplay changes:
+
+- `codex/crisis-chapter` provides the 1997 household story for canonical slots
+  4 and 13. The July scene links to the Bank of Thailand chronology and shows
+  the news available that day. The chapter records the cash or time promise,
+  and rewind carries back the historical event from the first life.
+- `codex/interior-pilot` provides the classroom walls, door, aisle, and desk route
+  plus shophouse furniture clearance. The building inspector remains on its
+  local preview branch.
+
+The declined-offer browser probe exercises market, job, and football outcomes.
+It verifies the chapter's rendered disclosure after arrival and reload, and
+checks that declining leaves the financial adjustment unchanged. The complete
+probe runner now runs on pushes to main.
+
 ## 26 November 2026 · The Thai localization audited by execution: the dictionary was clean, the engine was not (build 105baccb8325)
 
 A report arrived claiming that every previously untranslated Thai province, every regional

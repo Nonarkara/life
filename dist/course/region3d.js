@@ -3,6 +3,7 @@ import {createBatch,bake,m} from './diorama-kit.js';
 import {lifeRandom} from './diorama-plan.js';
 import {crowdRoster} from './diorama-cast.js';
 import {LOTS,clearOfLots} from './housing-ladder.js';
+import {INTERIORS,SCHOOL_APPROACH} from './interior-layout.js';
 // The town on the board. Institutions keep their positions in every life (school, work,
 // market, clinic), so routes and seats never move; everything else is laid out here from the
 // life's seed, its place and its year. Free-standing props are plain data so tests can prove
@@ -210,7 +211,9 @@ function prop([kind,x,z,w,d],b,plan,r){
  if(kind==='pillar'){b.cylinder(x+.1,z+.1,0,.11,.11,.92,'#b23a2e',10);b.ball(x+.1,.94,z+.1,.12,.09,.12,'#b23a2e',8);return;}
 }
 // Ground that is not available to building: roads, home, pond, field, stall, the garden path.
-export const KEEP_CLEAR=[[2.5,2.6,4.8,4.7],[3,8.3,2.6,2.2],[8.8,8.8,4.4,3.6],[6,8.3,2.4,2],[-5.6,7,24.2,1.9],[7.1,-5.6,2,24],[4.2,12.9,4.5,1.6],[8.3,1.2,6.2,.8],[10,5.2,4.1,1.2],[13.4,5.2,.8,2],[14.2,-.9,3.9,2.8],...LOTS];
+const [[approachX,approachZ],[turnX]]=SCHOOL_APPROACH;
+const schoolClearance=[approachX-.18,INTERIORS.school.door[1]-.08,turnX-approachX+.36,approachZ-INTERIORS.school.door[1]+.26];
+export const KEEP_CLEAR=[[2.5,2.6,4.8,4.7],[3,8.3,2.6,2.2],[8.8,8.8,4.4,3.6],[6,8.3,2.4,2],[-5.6,7,24.2,1.9],[7.1,-5.6,2,24],[4.2,12.9,4.5,1.6],[8.3,1.2,6.2,.8],[10,5.2,4.1,1.2],[13.4,5.2,.8,2],[14.2,-.9,3.9,2.8],INTERIORS.school.bounds,schoolClearance,...LOTS];
 let KEEP=KEEP_CLEAR;
 export const clearOfRoutes=(x,z,w,d)=>!KEEP.some(([a,b,c,e])=>x<a+c&&x+w>a&&z<b+e&&z+d>b);
 export function createRegionScenery({scene,registerBuilding}){

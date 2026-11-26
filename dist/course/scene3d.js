@@ -1,3 +1,4 @@
+import {INTERIORS,SCHOOL_SEAT,inInterior,wallEdges} from './interior-layout.js';
 import {scenes} from './scene-registry.js';
 export {showPaintedCanvas} from './scene-registry.js';
 import * as T from 'three';
@@ -126,7 +127,16 @@ function createScene(original){
   const road=batchOf(root);
   // Lit desks and work corners the routines already use.
   const manual=group(),office=group(),desks=plan.farm?[taskDesks[0]]:taskDesks;for(const [x,z] of desks)table(x,z,.75,root);if(plan.farm){const p2=batchOf(root);p2.box(10.4,5.25,-.022,3.9,1.55,.012,'#8ea27a');for(let x=10.5;x<14.2;x+=.3)for(let z=5.35;z<6.75;z+=.3)p2.box(x,z,-.012,.03,.03,.1,'#7fa05a');}
-  chair(10.5,1.6,0,0,root);chair(11.3,5.8,0,0,office);if(!plan.farm)chair(12.4,5.8,0,0,root);batchOf(office).box(11.06,6.2,tableTop+.04,.3,.2,.02,'#536760');batchOf(office).box(11.06,6.37,tableTop+.05,.3,.02,.2,'#526a66');batchOf(manual).box(11.08,6.24,tableTop+.04,.3,.18,.08,'#bea37a');
+  const classroom=group(),room=INTERIORS.school,[sx,sz,sw,sd]=room.bounds,b=batchOf(classroom);
+  b.box(sx,sz,-.016,sw,sd,.016,plan.palette.floor);
+  for(const [index,[x,z,w,d]] of wallEdges(room).entries()){
+   const height=index===0?m(1.65):m(.45);
+   b.box(x,z,0,w,d,height,plan.palette.wall);
+  }
+  b.box(9.65,1.16,m(.8),1.8,.03,m(.5),'#394d43');
+  const [deskX,deskZ,deskW]=room.furniture[1];
+  table(deskX,deskZ,deskW,classroom);chair(deskX+.32,deskZ-.35,0,0,classroom);
+  chair(...SCHOOL_SEAT,0,0,classroom);chair(11.3,5.8,0,0,office);if(!plan.farm)chair(12.4,5.8,0,0,root);batchOf(office).box(11.06,6.2,tableTop+.04,.3,.2,.02,'#536760');batchOf(office).box(11.06,6.37,tableTop+.05,.3,.02,.2,'#526a66');batchOf(manual).box(11.08,6.24,tableTop+.04,.3,.18,.08,'#bea37a');
   for(const[x,z]of [[10.3,2]])batchOf(root).box(x,z,tableTop+.04,.3,.2,.012,'#ece5d5');
   // Stall: the mother's post on the south side of the lane.
   const stall=group(),st=batchOf(stall),acc=plan.palette.accent;st.box(6.4,9,0,1.5,.55,.5,'#9d8965');st.box(6.38,8.98,.5,1.54,.59,.03,'#8a7458');for(const x of [6.42,7.82])st.box(x,9.02,.53,.04,.04,.82,'#6b5236');st.gable(6.3,8.85,1.35,1.7,.85,.14,acc,{over:.04,along:'x'});for(let i=0;i<5;i++)st.ball(6.62+i*.26,.57,9.28,.08,.07,.08,['#c9a14a','#b5553c','#7f8f5a'][i%3],6);
@@ -298,6 +308,7 @@ function createScene(original){
     :cameraView==='home'?{kind:'home',x:homeX,z:homeZ,rung:P.rung}
     :(tour||cameraView==='tour')&&age>=5&&!P.abroad?tourStop(P.rung,time):null;if(stop){const line=stop.kind==='town'?tr('Everyone lives in the same town'):stop.kind==='home'?tr(RUNGS[stop.rung].label)+' · '+tr('You live here'):(c=>tr(c.doing)+' · '+tr(c.home))(lotCaption(stop.rung,age,P.year,time));if(tourLine.textContent!==line)tourLine.textContent=line;}if(!stop&&P.abroad){const line=tr(P.place.place);if(tourLine.textContent!==line)tourLine.textContent=line;}const hideTour=(!stop&&!P.abroad)||!!pick||cameraView==='home'||cameraView==='district';if(tourLine.hidden!==hideTour)tourLine.hidden=hideTour;
   let span=stop?(stop.kind==='town'?(pick?(w/h>=1.2?20:29/Math.min(1,w/h)):phone?26:17):(phone?6.6:7.6)):age<1?(phone?4.6:5.6):age<5?(phone?5.4+age*.55:6.6+age*.65):still?(phone?5.6:7.4):(phone?7.8:10.5);
+  if(!stop&&cameraView==='follow'&&activity.pose==='study'&&inInterior(INTERIORS.school.bounds,focus.x,focus.y))span*=.86;
   if(!stop&&focusSchoolOutcome&&['study','craft'].includes(activity.pose))span*=.8;
   if(!phone&&w/h>1.6&&age>=5)span*=1.08;
   const changedView=cam.view!==cameraView;cam.view=cameraView;

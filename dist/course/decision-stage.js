@@ -14,19 +14,24 @@ export function initDecisionStage({onDismiss}){
  function restore(){for(const node of shown)if(node.isConnected&&dialog.contains(node))homes.get(node)?.after(node);shown=[];}
  // On phones and tablets the panel is exactly as tall as what it says. The rest belongs to the world.
  const fit=()=>{if(innerWidth>1279||!dialog.open)return;dialog.style.height='auto';dialog.style.maxHeight='none';const h=Math.ceil(dialog.getBoundingClientRect().height);dialog.style.height='';dialog.style.maxHeight='';document.body.style.setProperty('--rpg-height',Math.min(h,Math.round(innerHeight*.62))+'px');};
- function hide(){restore();if(dialog.open)dialog.close();document.body.classList.remove('decision-open');document.body.style.removeProperty?.('--rpg-height');activeKey=null;}
+ let frame=0;
+ const scheduleFit=()=>{if(!frame)frame=requestAnimationFrame(()=>{frame=0;fit();});};
+ const measure=new ResizeObserver(scheduleFit);
+ function hide(){measure.disconnect();restore();if(dialog.open)dialog.close();document.body.classList.remove('decision-open');document.body.style.removeProperty?.('--rpg-height');activeKey=null;}
  const dismiss=()=>{const key=activeKey;hide();onDismiss(key);};
  close.onclick=dismiss;dialog.addEventListener('cancel',event=>{event.preventDefault();dismiss();});
  return {hide,show(nodes,{key,label,...context}){
   if(key!==activeKey)dialog.dataset.readingStage='context';dialog.dataset.hasChoices=String(!context.result&&(nodes.some(n=>n.id==='encounter'||n.id==='questions'||n.id==='child-choice')));page();
   const presentation=decisionPresentation(context);dialog.dataset.tone=presentation.tone;dialog.dataset.chord=String(presentation.plate);cue.textContent=t(presentation.label);
   for(const [name,value]of Object.entries(presentation.tokens))dialog.style.setProperty(name,value);
-  restore();
+  measure.disconnect();restore();
   const action=nodes.find(n=>n.id==='encounter'||n.id==='choice-result');
   content.classList.toggle('has-actions',!!action);content.replaceChildren(...(action?[reading,actions]:[]));
   for(const node of nodes){if(!homes.has(node)){const anchor=document.createComment('decision home');node.before(anchor);homes.set(node,anchor);}(action?(node===action?actions:reading):content).append(node);}shown=[...nodes];
   dialog.setAttribute('aria-labelledby',label);document.body.classList.add('decision-open');
   if(!dialog.open)dialog.showModal();
-  if(key!==activeKey){dialog.scrollTop=0;const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});}activeKey=key;globalThis.requestAnimationFrame?.(fit);
+  if(key!==activeKey){dialog.scrollTop=0;const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});}activeKey=key;
+  measure.observe(head);for(const node of shown)measure.observe(node);
+  scheduleFit();
  }};
 }

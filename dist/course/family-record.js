@@ -16,7 +16,7 @@ const THAI_NAMES={
  Ton:'ต้น',Beam:'บีม',Bank:'แบงก์',Mek:'เมฆ',Art:'อาร์ต',Nont:'นนท์',Golf:'กอล์ฟ',Oak:'โอ๊ค',
  Ploy:'พลอย',Fah:'ฟ้า',Khao:'ข้าว',Nok:'นก',Pim:'พิม',Dao:'ดาว',May:'เมย์',Mint:'มิ้นท์'
 };
-const localName=name=>preferences.language==='th'?(THAI_NAMES[name]??name):name;
+export const localName=name=>preferences.language==='th'?(THAI_NAMES[name]??name):name;
 
 const OCCUPATIONS={
  low_class:['rice farmer','day labourer','canal boatman','street vendor','seamstress','market porter'],

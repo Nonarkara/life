@@ -704,3 +704,6 @@ body.has-plan .life-plan {
 .replay-childhood { margin: 0 0 8px; max-width: 100%; }
 .child-replay-memory, .encounter-replay-memory { margin-block: 4px; }
 .child-replay-memory summary, .encounter-replay-memory summary { width: fit-content; min-height: 32px; cursor: pointer; }
+
+body:has(.decision-dialog[open] #year-event.crisis-event) .top-world{display:none}
+@media(pointer:coarse){.decision-dialog #year-event.crisis-event #year-event-continue{min-height:44px}}

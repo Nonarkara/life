@@ -2,7 +2,7 @@ name: Verify life
 on:
   pull_request:
   push:
-    branches: [codex/round3-reliability]
+    branches: [main, codex/round3-reliability]
   workflow_dispatch:
 permissions:
   contents: read

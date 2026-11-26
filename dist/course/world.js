@@ -1,3 +1,4 @@
+import {INTERIORS,inInterior,wallEdges} from './interior-layout.js';
 import {drawRouteMap} from './routemap.js';
 import {showPaintedCanvas} from './scene-registry.js';
 import {createRendererLoader} from './renderer-loader.js';
@@ -33,7 +34,9 @@ Object.assign(C,canvasWorld()??MOOD_CHORDS[lifeMoodAt(state,age)]);const portrai
 if(mode==='course'){drawRouteMap(canvas,state);return;}
 const baseZoom=(view.camera==='district'?Math.min(1,bw/440,bh/280):view.camera==='home'?3:age<10?6-age*.42:age<20?1.8-(age-10)*.01:Math.max(1.25,1.7-(age-20)*.011))*(portrait?.7:1);
 const focus=routine('player',age,time,state.profiles.at(-1)?.profile.aim??'balance',context),follow=age<6?0:.7;
-const zoom=view.focusSchoolOutcome&&['study','craft'].includes(focus.pose)?baseZoom*1.25:baseZoom;
+const insideSchool=focus.pose==='study'&&inInterior(INTERIORS.school.bounds,focus.x,focus.y);
+const detail=view.focusSchoolOutcome&&['study','craft'].includes(focus.pose)||insideSchool;
+const zoom=detail?baseZoom*1.25:baseZoom;
 const [homeX,homeY]=context.residence.origin;
 const center=view.camera==='district'?[0,95]:view.camera==='home'?[(homeX-homeY)*15,(homeX+homeY)*7.5-12]:[(focus.x-focus.y)*15*follow,75*(1-follow)+(focus.x+focus.y)*7.5*follow];
 c.save();c.translate(bw/2,portrait?bh*.56:document.body.classList.contains('console-mode')&&state.stage!=='birth'?bh*.56:age<3?215:190);c.scale(zoom,zoom);c.translate(-center[0],-center[1]);
@@ -64,8 +67,11 @@ poly([[3.1,8.75,.03],[5.5,8.75,.03],[5.5,10.35,.03],[3.1,10.35,.03]],C.edge);
 poly([[3.22,8.87,.04],[5.38,8.87,.04],[5.38,10.23,.04],[3.22,10.23,.04]],C.water);
 poly([[4.02,8.35,.05],[4.58,8.35,.05],[4.58,9.1,.05],[4.02,9.1,.05]],C.wood);
 poly([[9,9,.04],[13,9,.04],[13,12,.04],[9,12,.04]],'#65875a');for(const pair of [[[9,9,.06],[13,9,.06]],[[13,9,.06],[13,12,.06]],[[13,12,.06],[9,12,.06]],[[9,12,.06],[9,9,.06]],[[11,9,.06],[11,12,.06]]])line(...pair,C.paper,.15);
-// Home is a cutaway, so walls never disappear arbitrarily with camera time.
-box(3,3,0,4,4,.2,'#ad9064');for(let x=3;x<7;x+=.35)line([x,3,.21],[x,7,.21],'#92764f',.12);box(3,3,.2,4,.12,1.8,C.wall,C.shade,C.wall);box(3,3,.2,.12,4,1.8,C.wall,C.shade,C.shade);
+// Home is a cutaway, with the same entrance as the 3D world.
+const [hx,hz,hw,hd]=INTERIORS.home.bounds;
+box(hx,hz,0,hw,hd,.2,'#ad9064');
+for(let board=hx;board<hx+hw;board+=.35)line([board,hz,.21],[board,hz+hd,.21],'#92764f',.12);
+for(const [i,[wx,wz,ww,wd]] of wallEdges(INTERIORS.home).entries())box(wx,wz,.2,ww,wd,i<2?1.8:.18,C.wall);
 poly([[4,3.13,.8],[5.6,3.13,.8],[5.6,3.13,1.6],[4,3.13,1.6]],'#78958b');line([4.8,3.14,.8],[4.8,3.14,1.6],C.wood,.12);
 const objects=[];const add=(depth,fn)=>objects.push({depth,fn});
 for(const id of revealed.homes){if(id==='family')continue;const room=RESIDENCES[id],[x,y]=room.base;add(x+y+8,()=>{
@@ -81,6 +87,16 @@ add(7.4,()=>{const f=furniture[0];box(f.x,f.y,.2,f.w,f.d,.4,C.wood);box(3.3,3.5,
 // Cradle stays in the same place through infancy and childhood.
 add(10,()=>{const f=furniture[1];box(f.x,f.y,.2,f.w,f.d,.45,C.wood);box(4.68,4.68,.65,.94,.74,.04,C.paper);if(age<1){box(4.85,4.9,.7,.6,.35,.1,C.amber,C.amber,C.amber);box(5.45,4.9,.7,.22,.35,.1,'#d3ad85','#d3ad85','#d3ad85');const eye=p(5.55,5.1,.81);c.fillStyle=C.ink;c.fillRect(eye[0],eye[1],.5,.5);}for(let x=4.6;x<5.8;x+=.2)box(x,5.45,.65,.025,.025,.3,C.wood);box(4.6,5.45,.95,1.1,.03,.03,C.wood);});
 add(10,()=>{const f=furniture[2],seat=furniture[3];box(f.x,f.y,.2,f.w,f.d,.7,C.wood);box(6.1,3.7,.91,.4,.3,.02,C.paper);box(seat.x,seat.y,.2,seat.w,seat.d,.35,C.wood);});
+add(11,()=>{
+ const room=INTERIORS.school,[x,z,w,d]=room.bounds;
+ box(x,z,-.015,w,d,.015,C.paper);
+ for(const [i,[wx,wz,ww,wd]] of wallEdges(room).entries())box(wx,wz,0,ww,wd,i===0?1.06:.29,C.wall);
+ box(9.65,1.16,.51,1.8,.03,.32,'#394d43','#394d43','#394d43');
+ for(const [dx,dz,dw,dd] of room.furniture){
+  for(const leg of [dx+.04,dx+dw-.1])box(leg,dz+dd-.09,0,.06,.06,.43,C.wood,C.wood,C.wood);
+  box(dx,dz,.43,dw,dd,.06,C.wood);
+ }
+});
 add(6,()=>tree(1,4));add(16,()=>tree(9,6));add(6,()=>tree(4,1));add(20,()=>tree(5,15));add(26,()=>tree(14,12));
 add(6,()=>building(-.5,-.5,2.5,2,1.4,'MARKET'));add(12,()=>building(9,-1,3,2,1.8,'SCHOOL'));add(18,()=>building(11,3,3,2,2,'WORK'));add(22,()=>building(1,11,2.3,2,1.6,'CLINIC'));
 add(3,()=>{building(-2,-2,1.8,1.5,1.4,'');building(0,-3,1.9,1.6,1.7,'CITY');});
@@ -89,7 +105,7 @@ for(const[from,x,y,w,d,h]of townGrowth)if(age>=from)add(x+y+w+d,()=>building(x,y
 add(13,()=>{box(6.4,8.5,0,1.6,.8,.7,C.wood);box(6.25,8.35,1.65,1.9,1.1,.12,C.roofLight,C.roof,C.roof);for(const x of [6.4,7.9])box(x,8.5,.7,.05,.05,.95,C.wood);box(6.7,8.7,.7,.4,.35,.12,'#81765c');});
 function person(x,y,shirt,floor=.2,size=1,activity=null){
  const q=p(x,y,floor),moving=activity?.moving,pose=activity?.pose??'stand';
- const seated=['rest','eat'].includes(pose),wave=moving?Math.sin(time*7)*2.3:Math.sin(time*2)*.3;
+ const seated=['rest','eat','study'].includes(pose),wave=moving?Math.sin(time*7)*2.3:Math.sin(time*2)*.3;
  c.save();c.translate(...q);c.scale(size,size);
  function limb(points,color,width){c.beginPath();points.forEach((p,i)=>i?c.lineTo(...p):c.moveTo(...p));c.strokeStyle=color;c.lineWidth=width;c.lineCap='round';c.stroke();}
  const hip=seated?-4:-8,shoulder=seated?-11:-16,head=seated?-17:-22;
