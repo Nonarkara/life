@@ -1,4 +1,4 @@
-import {crisisPeriod} from './crisis-chapter.js';
+import {JULY_EPISODE,crisisPeriod} from './crisis-chapter.js';
 import {goldStep} from './gold.js';
 import {birthYearOf} from './thai-history.js';
 import {validJourney} from './journey.js';
@@ -129,7 +129,7 @@ if(s.pivotFlags?.emigrated!==undefined&&from>=30){setback-=from<65?1000000:20000
 for(const m of marketsDue(s.pivotFlags,from,birthYearOf(s))){if(s.history.some(r=>r.event?.includes(m.text)))continue;let gain=m.gain;if(s.economy?.version===3){let prices=1;for(let y=m.year+1;y<=m.year+5;y++)prices*=1+(worldAt(y)?.inflation??0)/100;gain=Math.round(m.stake*(m.per100/100/prices-1));}setback-=gain;event+=' '+m.text;}
 for(const b of leaguesDue(s.pivotFlags,from)){setback-=b.gain;event+=' '+b.text;}
 const crisis=crisisPeriod(s,earnings);
-if(crisis){setback+=crisis.householdPayment-crisis.wageChange;event+=' '+crisis.text;}
+if(crisis){setback+=crisis.householdPayment-crisis.wageChange-(crisis.wagePremium??0);event+=' '+crisis.text;}
 for(const b of jobsDue(s.pivotFlags,from,earnings,birthYearOf(s))){
  if(b.year===1996&&s.history.some(row=>row.events?.some(e=>e.origin==='crisis')))continue;if(s.history.some(r=>r.event?.includes(b.text)))continue;setback-=b.gain;event+=' '+b.text;}
 for(const c of due){setback-=c.cash;bodyAdj+=c.health;moodAdj+=c.wellbeing;event+=' '+c.text;}
@@ -167,7 +167,8 @@ export function live(s0){
   wellbeing:Math.round(settled.wellbeing)-Math.round(s.wellbeing),
   worth:s.finance&&settled.finance?netWorth(settled.finance)-netWorth(s.finance):null
  };
- return offerEncounter({...settled,history:[...settled.history.slice(0,-1),{...row,chapterResult}]},rand(s.seed,settled.age,'encounter'));
+ const result={...settled,history:[...settled.history.slice(0,-1),{...row,chapterResult}]};
+ return s.episode===JULY_EPISODE?result:offerEncounter(result,rand(s.seed,settled.age,'encounter'));
 }
 // The previous timeline is a ledger. Keeping it out of its own snapshot bounds replay depth.
 export function previousLife(s,{restartedAt}={}){

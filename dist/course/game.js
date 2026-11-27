@@ -1,3 +1,5 @@
+import {isJulyDemo,julyDemoURL} from './july-demo-link.js';
+import {julyDemoStart,julyDemoStorage} from './july-demo.js';
 import {crisisHousehold} from './crisis-chapter.js';
 import {chapterPathways} from './chapter-play.js';
 import {isSchoolPreviewLife,openAtNine,schoolOutcomeRow} from './school-preview.js';
@@ -67,21 +69,34 @@ import {headlinesFor} from './world-headlines.js';
 import {worldLine as worldLineParts} from './world-line.js';
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';let state,age=0,speed=2,paused=matchMedia('(prefers-reduced-motion: reduce)').matches,mode='world',tab='priorities',travel=null,elapsed=0,lastTime=0,lastPaint=0,dirty=true,lastCheckpoint=0,arrival=0,childView=null,lastReadoutAge=-1;
 // Device scene memory is set before the first scene is offered on load (journey restore included).
-setFamiliar(metScenes());
-let store=null;try{store=localStorage;}catch{}const writer=saveSession(store,validate),saved=writer.initial;const requested=new URL(location.href);
+const requested=new URL(location.href),july=isJulyDemo(requested.searchParams);
+setFamiliar(july?[]:metScenes());
+let store=null;try{store=localStorage;}catch{}
+if(july){
+ store=julyDemoStorage(store);
+ document.body.classList.add('july-demo');
+ $('reset').textContent='Back to July 1997';
+}
+const writer=saveSession(store,validate),saved=writer.initial;
 let saveIssue='';
-const turningId=requested.searchParams.get('turning');
+const turningId=july?null:requested.searchParams.get('turning');
 let restored=turningId?loadTurningPoint(store,turningId,validate):null;
 if(restored){
  const result=writer.write(restored.state,life=>keepDisplacedLife(store,life,familiarIds()));
  if(result!=='saved'){restored=null;saveIssue=result;}
 }
 if(turningId){requested.searchParams.delete('turning');history.replaceState(null,'',requested);}
-state=restored?.state??saved.life??drawBirth({},{varied:true});
+state=restored?.state??saved.life??(july?julyDemoStart():drawBirth({},{varied:true}));
 // The featured comparison assembles multiple translated phrases before display.
-if(isSchoolPreviewLife(state))await selectedLanguageReady().catch(()=>{});
+if(july||isSchoolPreviewLife(state))await selectedLanguageReady().catch(()=>{});
 age=state.stage==='birth'?(state.progressAge??state.age):state.age;
 if(!state.journey)elapsed=reviewSceneTime(state)??elapsed;
+if(july){
+ paused=true;elapsed=0;
+ if(!saved.life&&(saved.unreadable?writer.write(state,()=>true):writer.write(state))==='saved'){
+  keepPoint(store,state,true,[]);
+ }
+}
 if(schoolOutcomeRow(state))paused=true;
 if(restored){
  setFamiliar(restored.met);
@@ -130,7 +145,7 @@ const money=v=>'฿'+v.toLocaleString('en');function svgEl(tag,attrs={},text){co
 function save(){
  const result=writer.write({...state,journey:journeySnapshot(state,travel,age),
   progressAge:state.stage==='birth'?age:state.age});
- if(result==='saved')rememberScenes(state);
+ if(result==='saved'&&!july)rememberScenes(state);
  const issue=result==='saved'?saveIssue:result, status=$('save-status');
  status.hidden=!issue;
  if(!issue)return;
@@ -191,11 +206,16 @@ function questions(){
  const context=document.createElement('p');context.className='decision-context';context.textContent=pivot.heading?t(pivot.prompt)+' '+t(pivot.context):pivot.context;
  const householdDue=crisisHousehold(state);
  if(householdDue&&pivot.job===1996){
-  context.replaceChildren(localName(familyGuardians(state)[1].name)+' · ', 'Your family is counting on a contribution this month.', ' '+money(householdDue));
+  const guardian=localName(familyGuardians(state)[1].name);
+  context.replaceChildren(...(july?[t('Yaowarat, 1995'),' · ']:[]),guardian+' · ', t('Your family is counting on a contribution this month.'), ' '+money(householdDue));
   const remembered=state.previous?.history?.flatMap(row=>row.events??[]).find(event=>event.origin==='crisis');
-  if(remembered)context.append(' ', 'In your previous life, the baht floated on 2 July 1997.');
+  if(remembered){
+   const memory=document.createElement('span');memory.className='replay-foreknowledge july-memory';
+   memory.textContent=t('In your previous life, the baht floated on 2 July 1997.');
+   context.append(' ',memory);
+  }
  }else if(pivot.id==='job-crisis-support'){
-  context.replaceChildren(pivot.prompt,' ',pivot.context);
+  context.replaceChildren(...(july?[localName(familyGuardians(state)[1].name)+' · ']:[]),t(pivot.prompt),' ',t(pivot.context));
  }
  const list=document.createElement('div');list.className='pivot-options';
  const marketChart=pivot.market?setChart(pivot.market):null;
@@ -216,7 +236,7 @@ function questions(){
     const label=document.createElement('span');label.className='pivot-label';label.textContent=option.label;
     const cost=document.createElement('span');cost.className='pivot-cost';if(pivot.id==='job-crisis-support'&&option.id==='pay')cost.append(money(householdDue)+' · ',option.cost);else cost.textContent=option.cost;
     button.append(number,label,cost,...popLine(pivot.id,option.id));
-    button.onclick=()=>{const before=state,next=applyPivot(state,pivot,option.id);if(next===before)return;state=next;showResult(before,state,{label:option.label,text:state.pivots.at(-1).note,record:state.pivots.at(-1)});render();};list.append(button);
+    button.onclick=()=>{const before=state,next=applyPivot(state,pivot,option.id);if(next===before)return;state=next;if(july){playSfx('choose');render();focusChapter();return;}showResult(before,state,{label:option.label,text:state.pivots.at(-1).note,record:state.pivots.at(-1)});render();};list.append(button);
   }
  }
  const reading=document.createElement('div');reading.className='pivot-reading';reading.append(progress,badges,question,context,...(marketChart?[marketChart]:[]));
@@ -358,6 +378,10 @@ function focusChapter(){
  });
 }
 let decisionOutcome=null,dismissedDecision=null,childResult=childReceipt(state),travelEvent=null;
+if(july&&travel){
+ const event=nextJourneyEvent(travel.to,travel.handled);
+ if(event?.age<=age){travelEvent=event;elapsed=0;}
+}
 const acknowledgeTravel=()=>{if(travel&&travelEvent)travel.handled=[...(travel.handled??[]),travelEvent.age+':'+travelEvent.id];travelEvent=null;};
 const continueJourney=()=>{acknowledgeTravel();if(watchingJourney){paused=false;render();}else stepJourney();};
 const yearUI=initLifeEventView({onContinue:continueJourney});
@@ -523,7 +547,7 @@ document.querySelector('.world-tools').append(nextMoment);
 function advanceJourney(){
  const event=nextJourneyEvent(travel.to,travel.handled);
  if(event&&event.age<=age){
-  age=event.age;travelEvent=event;if(event.origin==='crisis')elapsed=event.offer==='move'?24:0;render();return;
+  age=event.age;travelEvent=event;if(event.origin==='crisis')elapsed=!july&&event.offer==='move'?24:0;render();return;
  }
  if(age<travel.to.age)return;
  state={...travel.to,journey:undefined,chapterChoiceAge:undefined};
@@ -531,6 +555,7 @@ function advanceJourney(){
  // arrive at the workday phase of the recorded routine, without starting motion.
  const schoolOutcome=schoolOutcomeRow(state);
  if(!watchingJourney||schoolOutcome)elapsed=reviewSceneTime(state)??([24,30,40,50][Math.floor(state.age/5)%4]);
+ if(july){elapsed=0;paused=true;}
  if(schoolOutcome)paused=true;
  travel=null;age=state.age;
  tab=pendingPivots(state).length?'questions':state.age===15||state.age===20?'profile':'priorities';
@@ -549,13 +574,13 @@ function startChapter(watch=false){
  closeDepartureReplay();
  $('choice-result')?.remove();dismissedDecision=null;
  if(state.stage==='recap'){location.href='../intake/?next=1';return;}
- if(state.stage!=='review'||travel)return;
+ if(state.stage!=='review'||travel||july&&state.age!==20)return;
  if(state.story?.pending||pendingPivots(state).length){tab='questions';render();return;}
  let source=state;
  const routes=availablePathways(state.age,state);
  if(routes.length&&!routes.some(([key])=>key===state.pathway))source={...source,pathway:state.age<20?'school':'work'};
  if(state.profiles.length===0&&!state.intake)source={...source,attributes:{...state.effort},original:{...state.effort},history:state.history.map(r=>({...r,effort:{...state.effort}}))};
- source={...source,pendingAlternatives:stationAlternatives(source)};
+ if(!july)source={...source,pendingAlternatives:stationAlternatives(source)};
  const next=live(source);
  if(next.age<=source.age)return;
  playSfx('advance');
@@ -568,7 +593,7 @@ $('commit').onclick=()=>startChapter();
 $('tab-priorities').onclick=()=>{tab='priorities';render()};$('tab-questions').onclick=()=>{tab='questions';render()};$('tab-profile').onclick=()=>{tab='profile';render()};$('overview').onclick=()=>{
  if(mode==='course'){mode='world';$('overview').textContent=t('Life course');dirty=true;return;}
  const wasPaused=paused;paused=true;dirty=true;openRouteView(state,{trigger:$('overview'),onClose:()=>{paused=wasPaused;dirty=true;}});
-};$('reset').onclick=()=>{location.href='../intake/?next=1';};
+};$('reset').onclick=()=>{location.href=july?julyDemoURL('/course/july-1997.html',preferences.language):'../intake/?next=1';};
 $('world-view').onchange=()=>{closeDepartureReplay();dirty=true;};
 const departure=createDeparture(document.querySelector('.stage'));
 const replayDeparture=$('replay-departure');
@@ -644,16 +669,16 @@ function tick(now){
  }
  if((state.stage==='birth'||travel)&&now-lastCheckpoint>2000){lastCheckpoint=now;save();}requestAnimationFrame(tick);
 }
-window.addEventListener('life-language-ready',()=>{if(isSchoolPreviewLife(state))render();});
-window.addEventListener('life-open-you',()=>consoleUI?.select?.('you'));window.addEventListener('life-preferences',()=>{dirty=true;render();});window.addEventListener('life-fonts-loaded',()=>{dirty=true;});window.addEventListener('life-stage-art',()=>{dirty=true;});window.addEventListener('life-settings-open',()=>{paused=true;dirty=true;});window.addEventListener('life-bucket-open',()=>{paused=true;dirty=true;});initSettings();window.addEventListener('resize',()=>{dirty=true;arrangeDeck($('life-deck'));placeDeckAction();});document.addEventListener('visibilitychange',()=>{lastTime=0;if(document.hidden){paused=true;dirty=true;}});consoleUI=initConsole({getState:()=>state,getAge:()=>age,isMoving:()=>!!travel,change:next=>{state=next;if(travel){state={...state,pendingAlternatives:stationAlternatives(state)};travel={...travel,to:live(state)};}render();}});personalUI=initPersonalConsole({getState:()=>state,isMoving:()=>!!travel});if(state.stage==='review'&&pendingPivots(state).length)tab='questions';render();requestAnimationFrame(tick);
+window.addEventListener('life-language-ready',()=>{if(july||isSchoolPreviewLife(state))render();});
+window.addEventListener('life-open-you',()=>consoleUI?.select?.('you'));window.addEventListener('life-preferences',()=>{dirty=true;render();});window.addEventListener('life-fonts-loaded',()=>{dirty=true;});window.addEventListener('life-stage-art',()=>{dirty=true;});window.addEventListener('life-settings-open',()=>{paused=true;dirty=true;});window.addEventListener('life-bucket-open',()=>{paused=true;dirty=true;});initSettings();window.addEventListener('resize',()=>{dirty=true;arrangeDeck($('life-deck'));placeDeckAction();});document.addEventListener('visibilitychange',()=>{lastTime=0;if(document.hidden){paused=true;dirty=true;}});consoleUI=initConsole({july,getState:()=>state,getAge:()=>age,isMoving:()=>!!travel,change:next=>{if(july)return;state=next;if(travel){state={...state,pendingAlternatives:stationAlternatives(state)};travel={...travel,to:live(state)};}render();}});if(!july)personalUI=initPersonalConsole({getState:()=>state,isMoving:()=>!!travel});if(state.stage==='review'&&pendingPivots(state).length)tab='questions';render();requestAnimationFrame(tick);
 
 // The record up to the year being lived, and not one year further.
 function setChart(year){const ys=Object.keys(SET_CLOSE).map(Number).filter(y=>y<=year),max=Math.max(...ys.map(y=>SET_CLOSE[y])),pts=ys.map((y,i)=>`${(i/(ys.length-1)*296+2).toFixed(1)},${(66-SET_CLOSE[y]/max*62).toFixed(1)}`).join(' '),fig=document.createElement('figure');fig.className='market-chart';const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg'),line=document.createElementNS(svgNS,'polyline');svg.setAttribute('viewBox','0 0 300 68');svg.setAttribute('role','img');svg.setAttribute('aria-label',t('SET {a}–{b}').replace('{a}',String(ys[0])).replace('{b}',String(year)));line.setAttribute('points',pts);line.setAttribute('fill','none');line.setAttribute('stroke','currentColor');line.setAttribute('stroke-width','2');line.setAttribute('vector-effect','non-scaling-stroke');svg.append(line);const cap=document.createElement('figcaption'),n=y=>Math.round(SET_CLOSE[y]).toLocaleString('en');cap.textContent=`${ys[0]}: ${n(ys[0])} · ${year}: ${n(year)}. `+t('SET Index, December close (Wikipedia table).');fig.append(svg,cap);return fig;}
-document.addEventListener('life-branch',e=>{if(!e.detail||e.detail.stage!=='review'||!validate(e.detail))return;state=enableLifeEvents(e.detail);forgetAfter(store,state);travel=null;decisionOutcome=null;dismissedDecision=null;age=state.age;speed=1;childResult=null;travelEvent=null;arrival=0;childView=null;mode='world';paused=true;tab='questions';render();focusChapter();window.scrollTo(0,0);});
+document.addEventListener('life-branch',e=>{if(!e.detail||e.detail.stage!=='review'||!validate(e.detail))return;state=enableLifeEvents(e.detail);forgetAfter(store,state);travel=null;decisionOutcome=null;dismissedDecision=null;age=state.age;if(july)elapsed=0;speed=1;childResult=null;travelEvent=null;arrival=0;childView=null;mode='world';paused=true;tab='questions';render();focusChapter();window.scrollTo(0,0);});
 
 // The planner and the top console.
 let lifePlan,topConsole;
 function thaiEraYear(){const shown=travel?.to??state,by=birthYearOf(shown);return by===null?null:by+Math.floor(childView??age);}
 function syncPlan(){if(!lifePlan)return;if(state.stage==='review'&&!travel)lifePlan.draw();else lifePlan.hide();nextMoment.hidden=!travel||!!travelEvent;
  if(topConsole){topConsole.update(thaiEraYear(),(childView??age)>=15);topConsole.persona(state);}}
-queueMicrotask(()=>{const commit=$('commit'),home=document.querySelector('.console-actions');lifePlan=initLifePlan({mount:$('editor').parentElement,getState:()=>state,apply:next=>{if(next===state)return;const ended=state.stage!=='recap'&&next.stage==='recap';state=next;if(ended){age=state.age;mode='course';tab='priorities';}save();render();if(ended)focusChapter();},commit,commitHome:home,replaySchoolReview,otherSchoolReview,canWatch:()=>!state.story?.pending&&!pendingPivots(state).length,watch:()=>startChapter(true),canRewind:age=>pointAges(store,state).includes(age),rewind:rewindTo});topConsole=initTopConsole({openWorld:()=>consoleUI?.select?.('world'),openYou:()=>consoleUI?.select?.('you')});render();});
+queueMicrotask(()=>{const commit=$('commit'),home=document.querySelector('.console-actions');lifePlan=initLifePlan({mount:$('editor').parentElement,getState:()=>state,apply:next=>{if(next===state)return;const ended=state.stage!=='recap'&&next.stage==='recap';state=next;if(ended){age=state.age;mode='course';tab='priorities';}save();render();if(ended)focusChapter();},commit,commitHome:home,july,guardian:()=>localName(familyGuardians(state)[1].name),replaySchoolReview,otherSchoolReview,canWatch:()=>!state.story?.pending&&!pendingPivots(state).length,watch:()=>startChapter(true),canRewind:age=>pointAges(store,state).includes(age),rewind:rewindTo});topConsole=initTopConsole({openWorld:()=>consoleUI?.select?.('world'),openYou:july?undefined:()=>consoleUI?.select?.('you')});render();});

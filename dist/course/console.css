@@ -710,3 +710,22 @@ body:has(.decision-dialog[open] #year-event.crisis-event) .top-world{display:non
  .decision-dialog #year-event.crisis-event #year-event-continue,
  html[data-text-size=extra] .decision-dialog[data-has-choices=true] .decision-pager{min-height:44px}
 }
+
+.july-demo-plan{justify-items:start;gap:8px;max-width:65ch}
+.july-demo-plan h2{margin:0;font-size:calc(24px * var(--reading-scale));line-height:1.15}
+.july-demo-plan p{margin:0}
+.july-demo-plan #commit{width:auto}
+.july-demo-plan button,.july-demo-plan a{min-height:44px}
+.july-demo-plan p a{min-height:0}
+.july-demo-actions{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px}
+.july-demo-actions a{display:inline-flex;align-items:center;color:inherit;text-underline-offset:3px}
+.july-demo-actions input{max-width:100%}
+.july-comparison{border-collapse:collapse;font-size:calc(14px * var(--reading-scale));text-align:start}
+.july-comparison th,.july-comparison td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:start;vertical-align:top}
+.july-comparison tr > :first-child{padding-inline-start:0}
+.july-memory{display:block;margin-block-start:8px}
+.july-comparison{table-layout:fixed;width:100%;max-width:34em;font-variant-numeric:tabular-nums}
+.july-demo #last-event{display:none}
+.july-demo .rpg-dock .console-nav{justify-content:start;gap:12px}
+.july-demo .console-actions:not(:has(button)){display:none}
+.july-demo .top-tick{animation:none}

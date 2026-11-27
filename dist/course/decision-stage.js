@@ -25,6 +25,7 @@ export function initDecisionStage({onDismiss}){
   if(key!==activeKey)dialog.dataset.readingStage='context';dialog.dataset.hasChoices=String(!context.result&&(nodes.some(n=>n.id==='encounter'||n.id==='questions'||n.id==='child-choice')));page();
   const presentation=decisionPresentation(context);dialog.dataset.tone=presentation.tone;dialog.dataset.chord=String(presentation.plate);cue.textContent=t(presentation.label);
   for(const [name,value]of Object.entries(presentation.tokens))dialog.style.setProperty(name,value);
+  const focused=dialog.contains(document.activeElement)?document.activeElement:null;
   measure.disconnect();restore();
   const action=nodes.find(n=>n.id==='encounter'||n.id==='choice-result');
   content.classList.toggle('has-actions',!!action);content.replaceChildren(...(action?[reading,actions]:[]));
@@ -33,8 +34,14 @@ export function initDecisionStage({onDismiss}){
   if(!dialog.open)dialog.showModal();
   if(key!==activeKey){
    if(!context.result)playSfx(presentation.tone==='urgent'||presentation.tone==='somber'?'shock':'card');
-   dialog.scrollTop=0;const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});
-  }activeKey=key;
+   dialog.scrollTop=0;
+  }
+  if(key!==activeKey||!focused?.isConnected){
+   const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});
+  }else if(dialog.contains(focused)&&focused!==document.activeElement){
+   focused.focus({preventScroll:true});
+  }
+  activeKey=key;
   measure.observe(head);for(const node of shown)measure.observe(node);
   scheduleFit();
  }};

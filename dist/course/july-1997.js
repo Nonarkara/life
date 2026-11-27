@@ -1,4 +1,5 @@
-import {initSettings,t} from './i18n.js';
+import {julyDemoURL} from './july-demo-link.js';
+import {initSettings,preferences,selectedLanguageReady,t} from './i18n.js';
 
 const households={
  clerk:{
@@ -52,6 +53,11 @@ function render(focus=false){
  const copy=element('p',current?(answer===null?current.scene:current.choices[answer][1]):'Play three Thai households through the same crisis.');
  const actions=document.createElement('div');actions.className='july-actions';
  if(!current){
+  const start=element('a','Play the Yaowarat episode →');
+  start.className='july-start';
+  start.href=julyDemoURL('/course/',preferences.language);
+  copy.textContent=t('A finance job pays more. Your family needs you at home.');
+  root.replaceChildren(title,copy,start,element('h2','Three short stories'));
   actions.append(...Object.entries(households).map(([id,home])=>{
    const choose=button(home.name,()=>{household=id;answer=null;});
    choose.append(element('small',home.place));
@@ -65,7 +71,7 @@ function render(focus=false){
  }
  const place=current?element('p',current.name):null;
  if(place)place.className='july-person';
- root.replaceChildren(...(place?[place]:[]),title,copy,actions);
+ if(current)root.replaceChildren(place,title,copy,actions);else root.append(actions);
  if(current&&answer!==null){
   const note=document.createElement('aside');
   note.append(element('h3','What happened in Thailand'),element('p',current.note));
@@ -75,4 +81,6 @@ function render(focus=false){
 }
 initSettings();
 window.addEventListener('life-preferences',()=>render());
+window.addEventListener('life-language-ready',()=>render());
+await selectedLanguageReady().catch(()=>{});
 render();

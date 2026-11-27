@@ -18,7 +18,7 @@ export function decisionTone({scenario,event,result=false}={}){
  let tone=scenario?.tone;
  if(!Object.hasOwn(DECISION_TONES,tone)){
   const id=scenario?.id;
-  tone=event?(['asthma','asthmaAgain','river'].includes(event.id)?'urgent':event.type==='loss'?'somber':(event.health??0)<0||event.type==='fired'||event.type==='heartbreak'?'pressured':'hopeful'):
+  tone=event?(event.origin==='crisis'?'somber':['asthma','asthmaAgain','river'].includes(event.id)?'urgent':event.type==='loss'?'somber':(event.health??0)<0||event.type==='fired'||event.type==='heartbreak'?'pressured':'hopeful'):
    somber.has(id)?'somber':pressured.has(id)?'pressured':hopeful.has(id)?'hopeful':'reflective';
  }
  // A receipt acknowledges what was done; it must not imply the emergency is

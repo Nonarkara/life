@@ -1,5 +1,6 @@
 // The public chronology is fixed. The employer, household figures and dialogue
 // are authored fiction.
+export const JULY_EPISODE='july-1997';
 export const CRISIS_SOURCE='https://www.bot.or.th/en/our-roles/special-measures/Tom-Yum-Kung-lesson.html';
 const REPLY='job-crisis-support';
 const SUPPORT={107504:1800,107513:900};
@@ -13,7 +14,7 @@ export function crisisQuestions(s,answered,jobs){
  const amount=crisisHousehold(s);
  if(!amount||s.age!==20||s.journey&&!answered.has(REPLY))return null;
  if(!answered.has('job-1996-20'))return jobs.filter(job=>job.job===1996).map(job=>({
-  ...job,prompt:'A finance company offers nearly a third more pay for a job starting in 1996.',options:job.options.map(option=>option.id==='move'?{...option,pathway:'work'}:option)
+  ...job,tone:'pressured',prompt:'A finance company offers nearly a third more pay for a job starting in 1996.',options:job.options.map(option=>option.id==='move'?{...option,pathway:'work'}:option)
  }));
  if(answered.has(REPLY))return [];
  return [{
@@ -33,8 +34,17 @@ export function crisisPeriod(s,pay){
  const offer=s.pivots?.find(p=>p.pivot==='job-1996-20');
  const support=s.pivots?.find(p=>p.pivot===REPLY);
  if(!offer||!support)return null;
- const moved=offer.choice==='move',paid=support.choice==='pay';
- const wageChange=moved?-Math.round(.15*pay*60):0;
+ const moved=offer.choice==='move',paid=support.choice==='pay',demo=s.episode===JULY_EPISODE;
+ // In this episode the offer pays from January 1996. The fictional cut begins
+ // at the float. These figures are scenario inputs, not a historical wage series.
+ const wagePremium=demo&&moved?Math.round(.30*pay*18):0;
+ const wageChange=moved?-Math.round(demo?.25*pay*30:.15*pay*60):0;
+ const promise=paid?'You paid the bill from your own pay.':'You took the evening shift and your family got a night off.';
+ if(demo)return {origin:'crisis',id:'crisis',type:'work',age:22,title:'The envelope in 1997',
+  text:moved?'Your pay went up when you took the job. Now the office has cut it. You bring the thinner envelope home.'
+   :'You still have your regular pay. At home, a supplier wants cash up front.',
+  reply:paid?'“I left the bill beside your envelope.”':'“I left the ledger open for your shift.”',
+  promise,wagePremium,wageChange,householdPayment:paid?amount:0,offer:offer.choice,support:support.choice};
  return {origin:'crisis',id:'crisis',type:'work',age:22,title:'The envelope in 1997',
   text:moved
    ?'At the finance office, the pay envelope is thinner. At home, the bills are still on the table.'
@@ -44,5 +54,5 @@ export function crisisPeriod(s,pay){
 }
 
 export function crisisRecord(s){
- return s.history?.at(-1)?.events?.find(event=>event.origin==='crisis');
+ return s?.history?.at(-1)?.events?.find(event=>event.origin==='crisis');
 }

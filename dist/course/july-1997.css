@@ -27,7 +27,7 @@ dialog form{display:grid;gap:8px}
 .settings-head h2{font-size:1.3em}
 select{font:inherit;max-width:100%;min-height:44px}
 
-.july-timeline h2{font-size:calc(22px * var(--reading-scale))}
+.july-timeline summary{font-weight:650;align-content:center;min-height:44px;cursor:pointer}
 .july-timeline dl{border-top:1px solid var(--rule);margin:12px 0}
 .july-timeline dl div{padding:8px 0;border-bottom:1px solid var(--rule)}
 .july-timeline dt{font-weight:650}
@@ -38,3 +38,5 @@ select{font:inherit;max-width:100%;min-height:44px}
  .july-timeline{margin-top:0}
 }
 header a{display:inline-flex;align-items:center;min-height:44px}
+.july-start{display:inline-flex;align-items:center;min-height:44px;margin-block-end:16px;padding-inline:12px;background:#233933;color:#f4efe1;font-weight:650;text-decoration:none}
+#july-story h2{margin-block:4px 0;font-size:calc(22px * var(--reading-scale))}

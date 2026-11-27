@@ -16,7 +16,7 @@ import {baselineComparison} from './baseline.js';
 import {alternativeDeltas} from './alternatives.js';
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
 const ORDER=[['plan','Plan'],['you','You'],['bucket','Bucket list'],['money','Money'],['cv','CV'],['world','World'],['research','Research'],['history','History']];
-export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getState().age}){
+export function initConsole({july=false,getState,change,isMoving=()=>false,getAge=()=>getState().age}){
  let research=null;const openResearch=pane=>{research??=renderResearch(pane,()=>{const s=getState(),by=birthYearOf(s);return by===null?null:by+Math.floor(getAge());});research.show();};
  const bucketUI=initBucketView({getState,getAge,change});
  const main=document.querySelector('main'),stage=main.querySelector('.stage'),decision=main.querySelector('.decision'),resources=main.querySelector('.resources'),method=main.querySelector('.method');
@@ -72,6 +72,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
  place();wide.addEventListener('change',place);
 
  function select(key,{align=true,reset=true}={}){
+  if(july&&key!=='plan'&&key!=='world')return;
   if(key==='research')openResearch(panes.research);
   const opened=active!==key;active=key;document.body.dataset.consoleView=key;document.body.classList.toggle('plan-active',key==='plan');
   if(key==='you')renderPersona(panes.you,getState(),next=>change(next));
@@ -84,7 +85,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
   if(key==='world'){worldPane(getState());renderWorldNow(worldNow,getState());}
   // The Plan console is permanent on a wide screen; every console is a card in
   // one swipeable strip on a narrow one.
-  for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(wide.matches?k!==key:false);buttons[k].setAttribute('aria-pressed',String(k===key));}
+  for(const[k,p]of Object.entries(panes)){p.hidden=k!=='plan'&&(july&&k!=='world'||wide.matches&&k!==key);buttons[k].setAttribute('aria-pressed',String(k===key));}
   // On wide screens the reader opens only for the selected record.
   // Returning to Plan releases its space to the world.
   reader.hidden=wide.matches&&key==='plan';worldNow.hidden=wide.matches&&key!=='plan'&&key!=='world';
@@ -193,7 +194,7 @@ export function initConsole({getState,change,isMoving=()=>false,getAge=()=>getSt
  }
  function render(){const scroll=wide.matches?reader.scrollTop:panes[active].scrollTop,s=getState();
   // One review surface first: a tab appears only once it has something of this life to show.
-  const end=s.stage==='recap',opens={bucket:6,money:15,cv:20,world:0,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&(k==='bucket'?getAge():s.age)<age;if(buttons[active]?.hidden)active='plan';
-  baselinePane(s);renderWorldNow(worldNow,s);select(active);if(wide.matches)reader.scrollTop=scroll;else panes[active].scrollTop=scroll;}
+  const end=s.stage==='recap',opens={bucket:6,money:15,cv:20,world:0,history:15};for(const[k,age]of Object.entries(opens))buttons[k].hidden=!end&&(k==='bucket'?getAge():s.age)<age;if(july)for(const [k,b] of Object.entries(buttons))b.hidden=k!=='plan'&&k!=='world';if(buttons[active]?.hidden)active='plan';
+  if(!july)baselinePane(s);renderWorldNow(worldNow,s);select(active);if(wide.matches)reader.scrollTop=scroll;else panes[active].scrollTop=scroll;}
  return {render,select};
 }

@@ -1,3 +1,4 @@
+import {renderJulyDemo} from './july-demo-view.js';
 import {crisisRecord} from './crisis-chapter.js';
 import {schoolReview} from './school-preview.js';
 // The next five years, decided left to right. One card per decision, nothing bleeding off a
@@ -23,7 +24,7 @@ const el=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className
 const BUDGETS=[['thrift','Save hard',{save:35,fun:5,learn:5}],['even','Keep it even',{save:20,fun:10,learn:10}],['enjoy','Enjoy it',{save:10,fun:25,learn:5}],['grow','Spend on learning',{save:15,fun:5,learn:25}]];
 const signed=n=>n>0?'+'+n:n<0?'−'+Math.abs(n):'±0';
 const axisName=a=>a.key==='iq'?'IQ':a.key==='eq'?'EQ':a.label;
-export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,rewind,onChosen=()=>{},canWatch,watch,replaySchoolReview,otherSchoolReview}){
+export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,rewind,onChosen=()=>{},canWatch,watch,july,guardian,replaySchoolReview,otherSchoolReview}){
  const root=el('section','life-plan');root.id='life-plan';root.setAttribute('aria-label','The next five years');root.hidden=true;mount.prepend(root);
  const steps=el('div','plan-steps');steps.setAttribute('role','group');steps.setAttribute('aria-label',t('The next five years'));const strip=el('div','plan-strip');const foot=el('div','plan-foot');const world=el('aside','plan-world');world.setAttribute('aria-label',t('The year around you'));const quick=el('section','chapter-play'),switcher=el('button','chapter-switch'),watchButton=el('button','chapter-watch','Watch these years');
  switcher.type=watchButton.type='button';
@@ -51,6 +52,18 @@ export function initLifePlan({mount,getState,apply,commit,commitHome,canRewind,r
  };
  function draw(){
   const s=getState(),key=s.seed+':'+s.age;
+  if(july){
+   const blocked=!canWatch();
+   world.hidden=tools.hidden=strip.hidden=steps.hidden=switcher.hidden=foot.hidden=true;
+   quick.classList.add('july-demo-plan');
+   quick.hidden=false;
+   commit.disabled=false;
+   commit.hidden=s.age!==20;
+   if(commit.hidden)commitHome.append(commit);
+   renderJulyDemo(quick,s,{blocked,commit,canRewind,rewind,guardian:guardian()});
+   fit(-1);
+   return;
+  }
   if(key!==stationKey){stationKey=key;local={};readEffort(s);strip.scrollLeft=0;memory.open=false;}
   const advanced=!!local.advanced,blocked=!canWatch(),chosen=s.chapterChoiceAge===s.age;
   root.classList.toggle('chapter-advanced',advanced);

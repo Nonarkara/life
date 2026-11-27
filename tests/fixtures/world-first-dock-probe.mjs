@@ -126,6 +126,20 @@ try{
  const albumSummary=page.locator('.ending-score summary').and(page.getByText(translate('What you kept from this life','th'),{exact:true}));
  await albumSummary.click();
  assert.ok(await albumSummary.evaluate(el=>el.parentElement.open));
+ const card=page.locator('.life-card-tools');
+ await card.locator('summary').click();
+ const downloadCard=card.getByRole('button',{name:translate('Download card','th'),exact:true});
+ await downloadCard.waitFor();
+ await page.waitForFunction(()=>[...document.querySelectorAll('.card-pair img')].filter(img=>img.naturalWidth===1080&&img.naturalHeight===1512).length===2);
+ const faces=[];
+ const pair=new Promise(resolve=>page.on('download',file=>{faces.push(file);if(faces.length===2)resolve();}));
+ await downloadCard.click();
+ let timer;
+ try{await Promise.race([pair,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Two PNG downloads expected')),5000);})]);}
+ finally{clearTimeout(timer);}
+ assert.deepEqual(faces.map(file=>file.suggestedFilename()).sort(),['life2-card-back.png','life2-card-front.png']);
+ assert.deepEqual(await Promise.all(faces.map(file=>file.failure())),[null,null]);
+
  assert.deepEqual(errors,[]);
  await page.close();
 
