@@ -729,3 +729,24 @@ body:has(.decision-dialog[open] #year-event.crisis-event) .top-world{display:non
 .july-demo .rpg-dock .console-nav{justify-content:start;gap:12px}
 .july-demo .console-actions:not(:has(button)){display:none}
 .july-demo .top-tick{animation:none}
+.july-demo-actions [role=status]:empty{display:none}
+@media(min-width:1000px){
+ body.july-demo.has-plan .life-plan{grid-template-columns:minmax(0,1fr)}
+ .july-demo-plan.july-demo-compare{
+  grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+  align-items:start;
+  column-gap:24px;
+  max-width:72rem;
+ }
+ .july-demo-compare .july-comparison{grid-column:2;grid-row:1 / span 4;max-width:none}
+ .july-demo-compare > :not(table){grid-column:1}
+}
+.july-demo .stage{position:relative}
+.july-world-loading{display:none}
+.world-pending .july-world-loading{
+ display:block;position:absolute;inset-block-start:32%;inset-inline:16px;
+ width:fit-content;margin-inline:auto;color:var(--stage-text,#f4f0e6);text-align:center;
+}
+@media(max-width:480px) and (orientation:portrait){
+ .july-demo .top-console:not(.tools-open) .top-world{display:none}
+}

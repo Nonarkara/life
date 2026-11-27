@@ -16,7 +16,7 @@ function comparison(first,current){
   const cell=el('th',label);cell.scope='col';head.append(cell);
  }
  const body=table.createTBody();
- for(const [label,value] of [['Job choice',choice],['Pay effect of job choice',pay],['Family promise',promise]]){
+ for(const [label,value] of [['Job choice',choice],['Modeled raise and cut',pay],['Family promise',promise]]){
   const row=body.insertRow(),labelCell=el('th',t(label));
   labelCell.scope='row';
   row.append(labelCell);
@@ -26,6 +26,7 @@ function comparison(first,current){
 }
 
 export function renderJulyDemo(root,state,{blocked,commit,canRewind,rewind,guardian}){
+ root.classList.remove('july-demo-compare');
  if(blocked){root.replaceChildren(commit);return;}
  const record=crisisRecord(state);
  const previous=crisisRecord(state.previous);
@@ -38,11 +39,12 @@ export function renderJulyDemo(root,state,{blocked,commit,canRewind,rewind,guard
   return;
  }
 
+ root.classList.toggle('july-demo-compare',!!previous);
  const reply=el('p');reply.append(guardian+' · ',t(record.promise));
  const source=el('a',t('On 2 July 1997, Thailand floated the baht.'));
  source.href=CRISIS_SOURCE;source.target='_blank';source.rel='noopener';
  const history=el('p');history.append(source);
- const evidence=previous?comparison(previous,record):el('p',t('Pay effect of job choice')+' '+baht(record.wagePremium+record.wageChange)+' · '+
+ const evidence=previous?comparison(previous,record):el('p',t('Modeled raise and cut')+' '+baht(record.wagePremium+record.wageChange)+' · '+
   (record.support==='time'?t('Two effort points for family this chapter.'):t('Household contribution: {cash}').replace('{cash}',baht(record.householdPayment).slice(1))));
  const actions=el('div');actions.className='july-demo-actions';
  if(canRewind(20)){

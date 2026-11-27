@@ -52,6 +52,7 @@ try{
   assert.equal(await page.locator('html').getAttribute('lang'),language);
   assert.equal(await offer.evaluate(el=>el===document.activeElement),true);
   assert.ok((await dialog.innerText()).includes(t('Yaowarat, 1995')));
+  assert.ok((await dialog.innerText()).includes(t('{name}, your mother').replace('{name}',language==='th'?'จันทิรา':'Chanthira')));
   await page.waitForFunction(()=>!!localStorage.getItem('july-1997:life-course-v2'));
   const start=await read();
   assert.ok(validate(start));
@@ -115,6 +116,12 @@ try{
 
   const comparison=page.locator('.july-comparison');
   assert.equal(await comparison.locator('tbody tr').count(),3);
+  if(width>=1024){
+   const title=await page.getByRole('heading',{name:t('Two lives in Yaowarat')}).boundingBox();
+   const ledger=await comparison.boundingBox();
+   assert.ok(ledger.x>=title.x+title.width+12&&Math.abs(ledger.y-title.y)<16,
+    'the ledger fits beside the story on wide screens');
+  }
   for(const phrase of ['First run','New job','Old job','2 effort points']){
    assert.ok((await comparison.innerText()).includes(t(phrase)));
   }
@@ -132,6 +139,12 @@ try{
   await clean.goto(link);
   await clean.getByRole('heading',{name:t('A finance company offers nearly a third more pay for a job starting in 1996.')}).waitFor();
   assert.equal(await clean.evaluate(()=>localStorage.getItem('life-course-v2')),null);
+  await clean.waitForFunction(()=>!document.body.classList.contains('world-pending'));
+  const loading=clean.locator('.july-world-loading');
+  assert.ok(await loading.isHidden());
+  await clean.evaluate(()=>document.body.classList.add('world-pending'));
+  assert.equal(await loading.innerText(),t('Loading the Yaowarat shophouse…'));
+  assert.ok(await loading.isVisible());
   assert.equal(await clean.getByText(t('In your previous life, the baht floated on 2 July 1997.'),{exact:true}).count(),0);
   await clean.close();
   assert.deepEqual(errors,[]);

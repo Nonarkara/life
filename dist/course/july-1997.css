@@ -40,3 +40,4 @@ select{font:inherit;max-width:100%;min-height:44px}
 header a{display:inline-flex;align-items:center;min-height:44px}
 .july-start{display:inline-flex;align-items:center;min-height:44px;margin-block-end:16px;padding-inline:12px;background:#233933;color:#f4efe1;font-weight:650;text-decoration:none}
 #july-story h2{margin-block:4px 0;font-size:calc(22px * var(--reading-scale))}
+.july-story-choice strong{text-decoration:underline;text-underline-offset:3px}

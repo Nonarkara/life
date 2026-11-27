@@ -89,6 +89,13 @@ if(turningId){requested.searchParams.delete('turning');history.replaceState(null
 state=restored?.state??saved.life??(july?julyDemoStart():drawBirth({},{varied:true}));
 // The featured comparison assembles multiple translated phrases before display.
 if(july||isSchoolPreviewLife(state))await selectedLanguageReady().catch(()=>{});
+if(july){
+ const loading=document.createElement('p');
+ loading.className='july-world-loading';
+ loading.textContent=t('Loading the Yaowarat shophouse…');
+ loading.setAttribute('role','status');
+ document.querySelector('.stage').append(loading);
+}
 age=state.stage==='birth'?(state.progressAge??state.age):state.age;
 if(!state.journey)elapsed=reviewSceneTime(state)??elapsed;
 if(july){
@@ -207,7 +214,7 @@ function questions(){
  const householdDue=crisisHousehold(state);
  if(householdDue&&pivot.job===1996){
   const guardian=localName(familyGuardians(state)[1].name);
-  context.replaceChildren(...(july?[t('Yaowarat, 1995'),' · ']:[]),guardian+' · ', t('Your family is counting on a contribution this month.'), ' '+money(householdDue));
+  context.replaceChildren(...(july?[t('Yaowarat, 1995'),' · ']:[]),(july?t('{name}, your mother').replace('{name}',guardian):guardian)+' · ', t('Your family is counting on a contribution this month.'), ' '+money(householdDue));
   const remembered=state.previous?.history?.flatMap(row=>row.events??[]).find(event=>event.origin==='crisis');
   if(remembered){
    const memory=document.createElement('span');memory.className='replay-foreknowledge july-memory';

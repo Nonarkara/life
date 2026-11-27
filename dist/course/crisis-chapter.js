@@ -38,8 +38,8 @@ export function crisisPeriod(s,pay){
  // In this episode the offer pays from January 1996. The fictional cut begins
  // at the float. These figures are scenario inputs, not a historical wage series.
  const wagePremium=demo&&moved?Math.round(.30*pay*18):0;
- const wageChange=moved?-Math.round(demo?.25*pay*30:.15*pay*60):0;
- const promise=paid?'You paid the bill from your own pay.':'You took the evening shift and your family got a night off.';
+ const wageChange=moved?-Math.round(demo ? .25*pay*30 : .15*pay*60):0;
+ const promise=paid?'“That bill is paid. I’ll put the receipt in the ledger.”':'“Thanks for giving me the evening off.”';
  if(demo)return {origin:'crisis',id:'crisis',type:'work',age:22,title:'The envelope in 1997',
   text:moved?'Your pay went up when you took the job. Now the office has cut it. You bring the thinner envelope home.'
    :'You still have your regular pay. At home, a supplier wants cash up front.',

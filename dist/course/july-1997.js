@@ -60,7 +60,8 @@ function render(focus=false){
   root.replaceChildren(title,copy,start,element('h2','Three short stories'));
   actions.append(...Object.entries(households).map(([id,home])=>{
    const choose=button(home.name,()=>{household=id;answer=null;});
-   choose.append(element('small',home.place));
+   choose.className='july-story-choice';
+   choose.replaceChildren(element('strong',home.name),element('small',home.place));
    return choose;
   }));
  }else if(answer===null){
