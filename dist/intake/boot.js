@@ -1,3 +1,4 @@
+import {t} from '../course/i18n.js';
 // A native form submit before the game module loads would discard the chosen year.
 try {
   await import('./intake.js');
@@ -7,10 +8,10 @@ try {
 } catch (error) {
   console.error('Life2.0 intake could not open', error);
   const status = document.getElementById('intake-error');
-  status.textContent = 'Life2.0 could not open. ';
+  status.textContent = t('Life2.0 could not open. ');
   const retry = document.createElement('button');
   retry.type = 'button';
-  retry.textContent = 'Reload Life2.0';
+  retry.textContent = t('Reload Life2.0');
   retry.onclick = () => location.reload();
   status.append(retry);
 }

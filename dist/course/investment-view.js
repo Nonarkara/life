@@ -1,5 +1,6 @@
 import {ASSETS,holdingsOf,holdingsValue,trade,tradeFee,marketClosed} from './investments.js';
 import {economyFor,recordAt} from './economy.js';
+import {t} from './i18n.js';
 export const INVESTMENT_COPY=[
  'Investments','Fund','Value','Cost basis','Unrealized: {value}','Realized after fees: {value}',
  'No investments yet. Buying a fund moves spendable cash into a holding; it does not create wealth.',
@@ -23,11 +24,11 @@ export function renderInvestments(root,s,{getState,change,draft,locked=false}){
  for(const title of ['Fund','Value','Cost basis']){const th=el('th',title);th.scope='col';hr.append(th);}head.append(hr);table.append(head);
  const body=el('tbody');for(const [key,asset]of Object.entries(ASSETS)){
   const row=el('tr'),name=el('th',asset.label);name.scope='row';name.className='fund-'+key;
-  name.append(el('small','Unrealized: '+money(holdings[key].value-holdings[key].basis)));
+  name.append(el('small',t('Unrealized: '+money(holdings[key].value-holdings[key].basis))));
   row.append(name,el('td',money(holdings[key].value)),el('td',money(holdings[key].basis)));body.append(row);
  }table.append(body);section.append(table);
  if(!holdingsValue(f))section.append(el('p','No investments yet. Buying a fund moves spendable cash into a holding; it does not create wealth.','console-note'));
- section.append(el('p','Realized after fees: '+money(f.realizedGain??0),'console-note'));
+ section.append(el('p',t('Realized after fees: '+money(f.realizedGain??0)),'console-note'));
  const form=el('div',undefined,'investment-order'),assetLabel=el('label','Fund'),assetSelect=el('select');assetSelect.id='investment-asset';assetLabel.htmlFor=assetSelect.id;
  for(const[key,asset]of Object.entries(ASSETS)){const o=el('option',asset.label);o.value=key;assetSelect.append(o);}assetSelect.value=draft.asset;
  const amountLabel=el('label','Fund value to trade · ฿'),amount=el('input');amount.id='investment-amount';amountLabel.htmlFor=amount.id;amount.type='number';amount.min='1';amount.step='1';amount.inputMode='numeric';amount.value=draft.amount;

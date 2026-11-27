@@ -376,7 +376,19 @@ function recap(){playSfx('ending');const root=$('recap');root.replaceChildren();
  const sameBirth=document.createElement('button');
  sameBirth.type='button';sameBirth.textContent=t('Live this birth again');sameBirth.onclick=()=>replayBirth();
  tools.append(sameBirth);
- root.append(tools);const details=document.createElement('details');details.className='full-life-record';const summary=document.createElement('summary');summary.textContent='Every five-year decision';details.append(summary);const list=document.createElement('ol');for(const r of state.history.filter(r=>r.age>=15)){const li=document.createElement('li');const strongest=AXES.reduce((a,b)=>r.effort[a.key]>=r.effort[b.key]?a:b);li.textContent=`${r.from}–${r.age}: ${goals[r.profile.aim]}. ${r.profile.focus&&FOCUSES[r.profile.focus]?'Chapter focus'+': '+FOCUSES[r.profile.focus]+'. ':''}Most effort: ${strongest.label} (${r.effort[strongest.key]}/10). ${r.pathway?PATHWAYS[r.pathway].label+'. ':''}${r.event} ${r.profile.smoke==='yes'?'Smoking was part of your routine. ':''}${r.profile.drink==='social'?'You drank socially. ':''}${r.profile.religion==='practice'?'You made space for spiritual practice. ':''}${r.profile.intimacy==='together'?'You wanted love and sex together.':r.profile.intimacy==='separate'?'You saw love and sex as separable.':''}`;list.append(li);}details.append(list);root.append(details);if(state.previous){const p=document.createElement('p');p.className='previous';p.textContent=`Your previous life in this scenario reached ${state.previous.age}, with ${money(state.previous.finance?netWorth(state.previous.finance):state.previous.cash)} remaining. Comparing different lengths of life does not measure success.`;root.prepend(p);}}
+ root.append(tools);const details=document.createElement('details');details.className='full-life-record';const summary=document.createElement('summary');summary.textContent='Every five-year decision';details.append(summary);const list=document.createElement('ol');for(const r of state.history.filter(r=>r.age>=15)){const li=document.createElement('li');const strongest=AXES.reduce((a,b)=>r.effort[a.key]>=r.effort[b.key]?a:b);// The record is read piece by piece: each part is translated on its own, so a
+// sentence is never half in one language and half in another.
+ const record=[`${r.from}–${r.age}:`,t(goals[r.profile.aim])+'.'];
+ if(r.profile.focus&&FOCUSES[r.profile.focus])record.push(t('Chapter focus: '+FOCUSES[r.profile.focus])+'.');
+ record.push(t('Most effort:')+' '+t(strongest.label)+' ('+r.effort[strongest.key]+'/10).');
+ if(r.pathway)record.push(t(PATHWAYS[r.pathway].label)+'.');
+ record.push(t(r.event));
+ if(r.profile.smoke==='yes')record.push(t('Smoking was part of your routine.'));
+ if(r.profile.drink==='social')record.push(t('You drank socially.'));
+ if(r.profile.religion==='practice')record.push(t('You made space for spiritual practice.'));
+ if(r.profile.intimacy==='together')record.push(t('You wanted love and sex together.'));
+ if(r.profile.intimacy==='separate')record.push(t('You saw love and sex as separable.'));
+ li.textContent=record.join(' ');list.append(li);}details.append(list);root.append(details);if(state.previous){const p=document.createElement('p');p.className='previous';p.textContent=`Your previous life in this scenario reached ${state.previous.age}, with ${money(state.previous.finance?netWorth(state.previous.finance):state.previous.cash)} remaining. Comparing different lengths of life does not measure success.`;root.prepend(p);}}
 function focusChapter(){
  queueMicrotask(()=>{
   if(document.querySelector('dialog[open]'))return;
@@ -514,7 +526,7 @@ function updateYearReadout(shownAge){
   $('childhood-title').textContent=guide?.[0]??chapter.title;
   $('childhood-decision').textContent=guide?.[1]??chapter.decision;
   $('childhood-biology').textContent=chapter.biology;
-  $('family-income').textContent='Family income · ฿'+chapter.income.toLocaleString('en')+' / year · game scenario';
+  $('family-income').textContent=t('Family income · ฿'+chapter.income.toLocaleString('en')+' / year · game scenario');
   $('childhood-back').hidden=year===0;$('childhood-now').hidden=childView===null;
   renderChildGuide(year);
  }

@@ -1,6 +1,7 @@
 import {GDP_OBSERVATIONS} from './economy-data.js';
 import {economyFor,economyYears,periodEconomy,recordAt} from './economy.js';
 import {thaiEraForState,THAI_ERAS,renderEraArtworkSVG} from './thai-history.js';
+import {t} from './i18n.js';
 export const ECONOMY_COPY=[
  'Shared economy','Sampled GDP growth · % per year','Scenario years {from}–{to}',
  'The economy unfolds as you live. Future years are hidden.',
@@ -66,9 +67,9 @@ export function renderWorldNow(root,s){
   if(value<0)fill.style.right='50%';else fill.style.left='50%';
   track.append(fill);row.append(line,track);meters.append(row);
  }
- root.append(meters,el('p','Each bar runs from the centre line; the widest bar on this scale is ±'+scale.toFixed(0)+' %.','world-now-note'));
+ root.append(meters,el('p',t('Each bar runs from the centre line; the widest bar on this scale is ±'+scale.toFixed(0)+' %.'),'world-now-note'));
  const chapter=s.history.at(-1)?.economy;
- if(chapter){const group=el('section',undefined,'economy-exposure');group.append(el('h3','Latest completed chapter'),el('p','Totals for ages '+chapter.from+'–'+chapter.to,'world-now-note'),el('p','Work income effect: '+money(chapter.incomeAdjustment)),el('p','Your holdings changed: '+money(chapter.marketChange)),el('p','Contraction years in that chapter: '+chapter.contractions.length));root.append(group);}
+ if(chapter){const group=el('section',undefined,'economy-exposure');group.append(el('h3','Latest completed chapter'),el('p',t('Totals for ages '+chapter.from+'–'+chapter.to),'world-now-note'),el('p',t('Work income effect: '+money(chapter.incomeAdjustment))),el('p',t('Your holdings changed: '+money(chapter.marketChange))),el('p',t('Contraction years in that chapter: '+chapter.contractions.length)));root.append(group);}
 }
 export function renderEconomy(root,s){
  const world=economyFor(s),rows=economyYears(world,s.age),eraInfo=thaiEraForState(s,s.age),currentEra=eraInfo?.era??THAI_ERAS.at(-1),currentYear=eraInfo?.year??(2030+s.age);
@@ -90,7 +91,7 @@ export function renderEconomy(root,s){
  allEras.append(eraList);chronicle.append(allEras);root.append(chronicle);
  const section=el('section',undefined,'economy-view');section.setAttribute('aria-label','Shared economy');
  section.append(el('h2','Shared economy'));
- if(!s.economy||world.activeFrom>0)section.append(el('p','Economic record begins at age '+world.activeFrom+'.','console-note'));
+ if(!s.economy||world.activeFrom>0)section.append(el('p',t('Economic record begins at age '+world.activeFrom+'.'),'console-note'));
  if(rows.length<2)section.append(el('p','The economy unfolds as you live. Future years are hidden.','console-note'));
  section.append(el('p',{real:'Thailand’s real record: GDP growth and the SET index, after prices. The bond fund is a game rule.',after:'There is no record after 2025. From here the years are sampled from the past, as a game rule.',scenario:'Historical GDP · game fund returns'}[recordAt(world,s.age)],'console-note'));
  const details=el('details');details.append(el('summary',world.version===3?'Annual record':'Annual scenario record'));const list=el('ol',undefined,'economy-years');
@@ -101,7 +102,7 @@ export function renderEconomy(root,s){
  }details.append(list);section.append(details);
  const last=s.history.at(-1);const recent=last?.from!==undefined?periodEconomy(world,last.from,last.age).contractions:[];
  const parallel=historicalParallel(recent.length?recent:rows);if(parallel){const fact=el('details');fact.open=recent.length>0;fact.append(el('summary','A historical parallel'),el('p',parallel.text));const a=el('a',parallel.label);a.href=parallel.href;a.target='_blank';a.rel='noopener';fact.append(a);section.append(fact);}
- const method=el('details');method.append(el('summary','About this economy'));const spells=GDP_OBSERVATIONS.filter((r,i)=>r.growth<0&&(i===0||GDP_OBSERVATIONS[i-1].growth>=0)).length;if(world.version!==3)method.append(el('p','Source: '+GDP_OBSERVATIONS.length+' annual observations; '+spells+' contraction spells. This does not establish a cycle.'));if(world.activeFrom>0)method.append(el('p','This saved life joins the economy at age '+world.activeFrom+'. Earlier records stay unchanged.'));for(const text of world.version===3?['Growth is the World Bank figure for each year from 1961 to 2025. The equity fund is the SET index between December closes, after that year’s price rise and before dividends. The bond fund, and how growth moves pay, are game rules. After 2025 there is no record, and the years are sampled from the past.']:[...ECONOMY_COPY.slice(19,22),ECONOMY_COPY[25],ECONOMY_COPY[4]])method.append(el('p',text));
+ const method=el('details');method.append(el('summary','About this economy'));const spells=GDP_OBSERVATIONS.filter((r,i)=>r.growth<0&&(i===0||GDP_OBSERVATIONS[i-1].growth>=0)).length;if(world.version!==3)method.append(el('p',t('Source: '+GDP_OBSERVATIONS.length+' annual observations; '+spells+' contraction spells. This does not establish a cycle.')));if(world.activeFrom>0)method.append(el('p',t('This saved life joins the economy at age '+world.activeFrom+'. Earlier records stay unchanged.')));for(const text of world.version===3?['Growth is the World Bank figure for each year from 1961 to 2025. The equity fund is the SET index between December closes, after that year’s price rise and before dividends. The bond fund, and how growth moves pay, are game rules. After 2025 there is no record, and the years are sampled from the past.']:[...ECONOMY_COPY.slice(19,22),ECONOMY_COPY[25],ECONOMY_COPY[4]])method.append(el('p',text));
  method.append(el('p',world.version===3?'Lesson reference funds start half in each fund and are held without fees or new contributions. They describe a price path, not your personal return.':'Lesson reference funds start half in each scenario fund and are held without fees or new contributions. They describe a price path, not your personal return.'));
  for(const[text,url]of [['World Bank · GDP growth','https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=TH'],['SEC · Asset allocation','https://www.investor.gov/introduction-investing/getting-started/asset-allocation']]){const a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener';method.append(a);}section.append(method);root.append(section);
 }

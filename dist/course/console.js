@@ -14,6 +14,7 @@ import {buildCV} from './cv.js';
 import {eventsFor} from './events.js';
 import {baselineComparison} from './baseline.js';
 import {alternativeDeltas} from './alternatives.js';
+import {pivotById} from './pivots.js';
 const money=n=>'฿'+Math.round(n).toLocaleString('en');
 const ORDER=[['plan','Plan'],['you','You'],['bucket','Bucket list'],['money','Money'],['cv','CV'],['world','World'],['research','Research'],['history','History']];
 export function initConsole({july=false,getState,change,isMoving=()=>false,getAge=()=>getState().age}){
@@ -90,7 +91,7 @@ export function initConsole({july=false,getState,change,isMoving=()=>false,getAg
   // Returning to Plan releases its space to the world.
   reader.hidden=wide.matches&&key==='plan';worldNow.hidden=wide.matches&&key!=='plan'&&key!=='world';
   document.body.classList.toggle('reader-open',wide.matches&&key!=='plan');
-  reader.setAttribute('aria-label',ORDER.find(([k])=>k===key)?.[1]??'Life console');
+  reader.setAttribute('aria-label',t(ORDER.find(([k])=>k===key)?.[1]??'Life console'));
   if(!wide.matches&&align){const target=panes[key];cards.scrollTo({left:cards.scrollLeft+target.getBoundingClientRect().left-cards.getBoundingClientRect().left,behavior:'instant'});}
   if(reset){panes[key].scrollTop=0;if(wide.matches)reader.scrollTop=0;}placeDeckAction();
  }
@@ -120,15 +121,15 @@ export function initConsole({july=false,getState,change,isMoving=()=>false,getAg
   const policy=element('fieldset',undefined,'budget-policy');policy.append(element('legend','After essentials, split your next income'));
   const feedback=element('p','','budget-feedback');feedback.setAttribute('aria-live','polite');
   for(const[key,label]of [['save','Cash reserve'],['fun','Enjoyment'],['learn','Books and learning']]){const row=element('label',undefined,'budget-row');row.append(element('span',label));const input=element('input');input.type='number';input.min='0';input.max='100';input.step='1';input.value=f.budget[key];input.id='budget-'+key;input.disabled=s.stage!=='review';input.onchange=()=>{const budget={...getState().finance.budget,[key]:Number(input.value)},next=setBudget(getState(),budget);if(next===getState()){feedback.textContent='Allocations must fit within 100%.';return;}change(next);document.getElementById(input.id)?.focus({preventScroll:true});};row.append(input,element('span','%'));policy.append(row);}
-  policy.append(element('p','Spendable remainder: '+(100-f.budget.save-f.budget.fun-f.budget.learn)+'%','console-note'),feedback);p.append(policy);
-  if(s.age>=20){const label=element('label','Where you live','housing-choice'),select=element('select'),here=currentRegion(s);select.id='region';select.setAttribute('aria-label','Where you live');select.disabled=s.stage!=='review';for(const key of [...new Set([here,...MOVE_TARGETS])]){const o=element('option',REGIONS[key].place);o.value=key;select.append(o);}select.value=here;select.onchange=()=>{change(setRegion(getState(),select.value));document.getElementById('region')?.focus({preventScroll:true});};label.append(select);const r=REGIONS[here];p.append(label,element('p','Pay ×'+r.pay+' · living costs ×'+r.cost+' here. Authored game tuning, not wage or price data.','console-note'));}
-  if(s.age>=20){const label=element('label','Housing and travel','housing-choice'),select=element('select');select.id='housing';select.setAttribute('aria-label','Housing and travel');select.disabled=s.stage!=='review';for(const[key,home]of Object.entries(HOUSING)){const o=element('option',home.label);o.value=key;select.append(o);}select.value=f.housing;select.onchange=()=>{change(setHousing(getState(),select.value));document.getElementById('housing')?.focus({preventScroll:true});};label.append(select);p.append(label);const home=HOUSING[f.housing];p.append(element('p','Rent '+money(flow.rent)+' + travel '+money(flow.transport)+' / month · '+flow.commute+' min / day','console-note'));}
+  policy.append(element('p',t('Spendable remainder: '+(100-f.budget.save-f.budget.fun-f.budget.learn)+'%'),'console-note'),feedback);p.append(policy);
+  if(s.age>=20){const label=element('label','Where you live','housing-choice'),select=element('select'),here=currentRegion(s);select.id='region';select.setAttribute('aria-label','Where you live');select.disabled=s.stage!=='review';for(const key of [...new Set([here,...MOVE_TARGETS])]){const o=element('option',REGIONS[key].place);o.value=key;select.append(o);}select.value=here;select.onchange=()=>{change(setRegion(getState(),select.value));document.getElementById('region')?.focus({preventScroll:true});};label.append(select);const r=REGIONS[here];p.append(label,element('p',t('Pay ×'+r.pay+' · living costs ×'+r.cost+' here. Authored game tuning, not wage or price data.'),'console-note'));}
+  if(s.age>=20){const label=element('label','Housing and travel','housing-choice'),select=element('select');select.id='housing';select.setAttribute('aria-label','Housing and travel');select.disabled=s.stage!=='review';for(const[key,home]of Object.entries(HOUSING)){const o=element('option',home.label);o.value=key;select.append(o);}select.value=f.housing;select.onchange=()=>{change(setHousing(getState(),select.value));document.getElementById('housing')?.focus({preventScroll:true});};label.append(select);p.append(label);const home=HOUSING[f.housing];p.append(element('p',t('Rent '+money(flow.rent)+' + travel '+money(flow.transport)+' / month · '+flow.commute+' min / day'),'console-note'));}
   if(s.age>=20){const label=element('label','Work base','housing-choice'),select=element('select');select.id='workplace';select.setAttribute('aria-label','Work base');select.disabled=s.stage!=='review';for(const[key,place]of Object.entries(WORKPLACES)){const o=element('option',place.label);o.value=key;select.append(o);}select.value=f.workplace??'local';select.onchange=()=>{change(setWorkplace(getState(),select.value));document.getElementById('workplace')?.focus({preventScroll:true});};label.append(select);p.append(label,element('p','City work: 15% higher authored work pay. Living farther away adds travel costs and time. Allowances and pensions are unchanged.','console-note'));}
   const shop=element('div',undefined,'small-purchases');shop.append(element('h2','A little money, a little time'));
   for(const[key,item]of Object.entries(PURCHASES)){if(item.minAge&&s.age<item.minAge||item.once&&f.purchases.some(q=>q.key===key))continue;const b=element('button');b.type='button';b.append(element('span',item.label),element('small',money(item.cost)+' · '+item.hours+' h'));b.disabled=s.stage!=='review'||!!s.story?.pending||f.available<item.cost||f.purchases.some(q=>q.age===s.age&&q.key===key)||f.purchases.filter(q=>q.age===s.age).reduce((n,q)=>n+PURCHASES[q.key].hours,0)+item.hours>8;b.onclick=()=>change(buy(getState(),key));shop.append(b);}p.append(shop);
   p.append(element('p',s.story?.pending?'Resolve the current moment in Plan before spending.':'Each activity is available once at this review. Eight hours are available for these choices.','console-note'));
   const ledger=element('details');ledger.append(element('summary','Personal money ledger'));const list=element('ol');for(const r of f.receipts.slice(-8).reverse())list.append(element('li','Age '+r.age+' · '+{opening:'Family allowance',period:'Income and spending',purchase:'Purchase',bucket:'Bucket list',encounter:'Life event',trade:'Trading fee',market:'Market change'}[r.kind]+' · '+(r.change>=0?'+':'')+money(r.change)));ledger.append(list);p.append(ledger);
-  const lesson=element('details');lesson.append(element('summary','Saving and investing'),element('p','A cash reserve can meet a near-term expense. Investments can lose value, and fees reduce what you keep. Use Invest to hold a bond or equity fund; its value can fall.'));p.append(lesson);
+  const lesson=element('details');lesson.append(element('summary','Saving and investing'),element('p',t('A cash reserve can meet a near-term expense. Investments can lose value, and fees reduce what you keep.')+' '+t('Use Invest to hold a bond or equity fund; its value can fall.')));p.append(lesson);
  }
  function cvPane(s){
   const p=panes.cv;heading(p,'Your CV','Completed records, not plans. Studies do not automatically mean a degree.');const grid=element('div',undefined,'cv-grid'),entries=buildCV(s);
@@ -142,7 +143,7 @@ export function initConsole({july=false,getState,change,isMoving=()=>false,getAg
   if(s.age<15||s.history.filter(row=>row.age>=10).length<2){p.append(element('p','From 15, this life is measured against the one you did not choose.','console-note'));return;}
   const {rows,delta,endedEarly}=baselineComparison(s);
   if(!rows.length){p.append(element('p','No comparison is available yet.','console-note'));return;}
-  p.append(element('p','Same birth, same world, same shocks. The other life spends every station in the default shape and takes no story decision, so the difference you see below is yours.','console-note'));
+  p.append(element('p',t('Same birth, same world, same shocks. The other life spends every station in the default shape and takes no story decision, so the difference you see below is yours.'),'console-note'));
   const table=element('table'),head=element('thead'),headRow=element('tr');
   for(const label of ['Age','Money · yours / unchosen','Health · yours / unchosen','Wellbeing · yours / unchosen']){const th=element('th',undefined);th.scope='col';th.textContent=label;headRow.append(th);}
   head.append(headRow);table.append(head);
@@ -156,20 +157,23 @@ export function initConsole({july=false,getState,change,isMoving=()=>false,getAg
    tr.append(age,cash,health,wellbeing);body.append(tr);
   }
   table.append(body);p.append(table);
-  if(delta){const sign=n=>(n>=0?'+':'')+n;p.append(element('p','At '+rows.at(-1).age+', your choices moved money by '+sign(money(delta.cash).replace('฿',''))+' ฿, health by '+sign(Math.round(delta.health))+' and wellbeing by '+sign(Math.round(delta.wellbeing))+' against that other life.','console-note'));}
-  if(endedEarly)p.append(element('p','That other life ended early, so its later stations are missing.','console-note'));
+  if(delta){const sign=n=>(n>=0?'+':'')+n;p.append(element('p',t('At '+rows.at(-1).age+', your choices moved money by '+sign(money(delta.cash).replace('฿',''))+' ฿, health by '+sign(Math.round(delta.health))+' and wellbeing by '+sign(Math.round(delta.wellbeing))+' against that other life.'),'console-note'));}
+  if(endedEarly)p.append(element('p',t('That other life ended early, so its later stations are missing.'),'console-note'));
   // The roads not taken: the other answer to a question, lived to the end of
   // those five years with the same luck and the same world.
   const roads=alternativeDeltas(s);
   if(roads.length){
-   p.append(element('h3','The roads you did not take'));
-   p.append(element('p','At every question, each other answer was lived to the end of those five years. Same seed, same world, same luck: the only difference is the answer.','console-note'));
-   const list=element('ul','road-list');
+   p.append(element('h3',t('The roads you did not take')));
+   p.append(element('p',t('At every question, each other answer was lived to the end of those five years. Same seed, same world, same luck: the only difference is the answer.'),'console-note'));
+   const list=element('ul',undefined,'road-list');
    for(const road of roads){
     const item=element('li');
-    const head=element('p','road-head');head.textContent=t('Age '+road.station+': '+road.label);
-    const detail=element('p','fine');const sign=n=>(n>=0?'+':'')+n;
-    detail.textContent=t('instead of '+road.taken+' — money '+sign(money(road.cashDelta).replace('฿',''))+' ฿, health '+sign(Math.round(road.healthDelta))+', wellbeing '+sign(Math.round(road.wellbeingDelta))+' by age '+(road.station+5)+'.');
+    const head=element('p',undefined,'road-head');head.textContent=t('Age '+road.station+': '+road.label);
+    const detail=element('p',undefined,'fine');const sign=n=>(n>=0?'+':'')+n;
+    // The road that was taken is named, not numbered: the player reads a life,
+    // not an identifier.
+    const taken=pivotById(road.pivot)?.options?.find(o=>o.id===road.taken)?.label??road.label;
+    detail.textContent=t('instead of '+taken+' — money '+sign(money(road.cashDelta).replace('฿',''))+' ฿, health '+sign(Math.round(road.healthDelta))+', wellbeing '+sign(Math.round(road.wellbeingDelta))+' by age '+(road.station+5)+'.');
     item.append(head,detail);list.append(item);
    }
    p.append(list);

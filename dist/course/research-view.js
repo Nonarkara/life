@@ -23,7 +23,7 @@ export function renderResearch(root,getYear){
   for(const[id,label]of KINDS)btn(kinds,label,kind===id,()=>{kind=id;draw();});
   const rows=bank.filter(e=>{const[,,a,b]=ERAS.find(x=>x[0]===era)??[,,-Infinity,Infinity];return (q||(e.to>=a&&e.from<=b))&&(kind==='all'||kindOf(e)===kind)&&(!q||[e.title,e.summary,e.th?.[0],e.th?.[1],e.place,e.who].some(v=>v?.toLowerCase().includes(q)));});
   count.textContent=t('{n} entries').replace('{n}',rows.length);
-  list.replaceChildren(...rows.map(e=>{const li=el('li','research-item'),th=lang==='th'&&e.th,when_=el('span','research-when',when(e)),body=el('div');body.append(el('h3','research-title',th?e.th[0]:e.title),el('p','research-summary',th?e.th[1]:e.summary));const src=el('p','research-source',e.source.book+', p. '+e.source.page+(e.kind==='texture'?' · '+t('fiction'):''));body.append(src);li.append(when_,body);return li;}));
+  list.replaceChildren(...rows.map(e=>{const li=el('li','research-item'),th=lang==='th'&&e.th,when_=el('span','research-when',when(e)),body=el('div');body.append(el('h3','research-title',th?e.th[0]:e.title),el('p','research-summary',th?e.th[1]:e.summary));const src=el('p','research-source',e.source.book+t(', p. ')+e.source.page+(e.kind==='texture'?' · '+t('fiction'):''));body.append(src);li.append(when_,body);return li;}));
   lastLang=lang;
  }
  search.oninput=()=>{query=search.value;draw();};

@@ -101,9 +101,9 @@ export function renderEnding(root,state,{storage}={}){
  const returned=state.history.flatMap(r=>r.consequences??[]),taken=(state.story?.seen??[]).filter(e=>LESSONS.some(l=>l.id===e.id));
  const at60=state.history.find(r=>r.age===60&&r.finance),period=at60&&state.finance?.receipts.find(r=>r.kind==='period'&&r.age===60),monthly=period?Math.max(1,Math.round(period.essential/Math.max(1,period.months))):0;
  if(returned.length||taken.length||at60){const box=document.createElement('section');box.className='ending-lessons';box.setAttribute('aria-label','Lessons this life taught');
-  if(at60&&monthly){const p=document.createElement('p');p.className='ending-runway';p.textContent='At 60 you could have lived '+Math.max(0,Math.floor(netWorth(at60.finance)/monthly))+' months without income.';box.append(p);}
+  if(at60&&monthly){const p=document.createElement('p');p.className='ending-runway';p.textContent=t('At 60 you could have lived '+Math.max(0,Math.floor(netWorth(at60.finance)/monthly))+' months without income.');box.append(p);}
   if(returned.length){const h=document.createElement('h2');h.textContent='What your choices cost later';const ol=document.createElement('ol');for(const c of returned){const li=document.createElement('li'),age=document.createElement('b'),text=document.createElement('span'),from=document.createElement('small');age.textContent='Age '+c.age;from.textContent=LESSONS.find(l=>l.id===c.lesson)?.title??'';text.append(from);text.append(document.createTextNode(c.text+(c.cash?' '+(c.cash>0?'+':'−')+money(Math.abs(c.cash)):'')));li.append(age,text);ol.append(li);}box.append(h,ol);}
-  if(taken.length){const h=document.createElement('h2');h.textContent='Lessons this life taught';const ol=document.createElement('ol');ol.className='taught';for(const e of taken){const l=LESSONS.find(x=>x.id===e.id),li=document.createElement('li'),title=document.createElement('b'),chose=document.createElement('span'),lesson=document.createElement('p'),link=document.createElement('a');title.textContent=l.title;chose.textContent='You chose: '+l.options.find(o=>o.id===e.choice).label;lesson.textContent=l.lesson;link.href=l.source;link.target='_blank';link.rel='noopener';link.textContent='Read the essay';li.append(title,chose,lesson);if(l.source)li.append(link);ol.append(li);}box.append(h,ol);}
+  if(taken.length){const h=document.createElement('h2');h.textContent='Lessons this life taught';const ol=document.createElement('ol');ol.className='taught';for(const e of taken){const l=LESSONS.find(x=>x.id===e.id),li=document.createElement('li'),title=document.createElement('b'),chose=document.createElement('span'),lesson=document.createElement('p'),link=document.createElement('a');title.textContent=l.title;chose.textContent=t('You chose: '+l.options.find(o=>o.id===e.choice).label);lesson.textContent=l.lesson;link.href=l.source;link.target='_blank';link.rel='noopener';link.textContent='Read the essay';li.append(title,chose,lesson);if(l.source)li.append(link);ol.append(li);}box.append(h,ol);}
   root.append(box);}
  // This life beside the last one, when there was one.
  {const cmp=replayComparison(state);if(cmp){const box=document.createElement('section');box.className='ending-compare';box.setAttribute('aria-label',t('Compared with your last life'));const h=document.createElement('h2');h.textContent=t('Compared with your last life');box.append(h);
@@ -163,7 +163,7 @@ export function renderEnding(root,state,{storage}={}){
  detail.append(label,age,values,event,analysis,note);const figure=document.createElement('figure');figure.className='ending-plot';figure.append(chart);if(fastest){const caption=document.createElement('figcaption');caption.textContent='Shaded interval: fastest cash growth.';figure.append(caption);}frame.append(figure,detail);numbers.append(frame);
  const svg=(tag,attrs={},text)=>{const el=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs))el.setAttribute(k,v);if(text!==undefined)el.textContent=text;return el;};
  const show=()=>{
-  const row=rows.find(r=>r.age===Number(age.value))??rows.at(-1);values.replaceChildren();for(const[key,name]of metric){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=name;dd.textContent=key==='cash'?money(row[key]):Math.round(row[key])+t(' / 100');values.append(dt,dd);}
+  const row=rows.find(r=>r.age===Number(age.value))??rows.at(-1);values.replaceChildren();for(const[key,name]of metric){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(name);dd.textContent=key==='cash'?money(row[key]):Math.round(row[key])+t(' / 100');values.append(dt,dd);}
   event.textContent=rememberedMoments(state).find(m=>m.age===row.age)?.text??(row.age<=10?t('Before you choose.'):t('An ordinary five years. Small habits accumulate.'));draw(row.age);
  };
  function draw(selected){
@@ -171,15 +171,15 @@ export function renderEnding(root,state,{storage}={}){
   metric.forEach(([key,name,color],i)=>{
    const top=24+i*102,base=top+68,all=[0,...rows.map(r=>r[key])],min=key==='cash'?Math.min(...all):0,max=key==='cash'?Math.max(...all):100,span=max-min||1,y=v=>base-(v-min)/span*52;
    if(fastest)chart.append(svg('rect',{x:x(fastest.from),y:top+4,width:x(fastest.to)-x(fastest.from),height:64,fill:'#a32750','fill-opacity':.07}));
-   chart.append(svg('text',{x:left,y:top-6,class:'ending-metric',fill:color},name+(key==='cash'?' · ฿':'')));
+   chart.append(svg('text',{x:left,y:top-6,class:'ending-metric',fill:color},t(name)+(key==='cash'?' · ฿':'')));
    for(const v of [...new Set([min,max])]){chart.append(svg('text',{x:left-8,y:y(v)+4,'text-anchor':'end',class:'ending-tick'},key==='cash'?new Intl.NumberFormat(preferences.language,{notation:'compact',maximumFractionDigits:1}).format(v):v));chart.append(svg('line',{x1:left,x2:width-right,y1:y(v),y2:y(v),stroke:'#b4b9a9','stroke-width':.7}));}
    if(min<0)chart.append(svg('line',{x1:left,x2:width-right,y1:y(0),y2:y(0),stroke:'#b4b9a9','stroke-dasharray':'3 3'}));
    chart.append(svg('line',{x1:x(selected),x2:x(selected),y1:top+4,y2:base,stroke:'#52635b','stroke-dasharray':'2 4'}));
    chart.append(svg('polyline',{points:rows.map(r=>`${x(r.age)},${y(r[key])}`).join(' '),fill:'none',stroke:color,'stroke-width':2.5}));
-   for(const r of rows){const g=svg('g',{role:'button',tabindex:0,'aria-label':'Age '+r.age+': '+name+' '+(key==='cash'?money(r[key]):Math.round(r[key])+' / 100')});g.append(svg('circle',{cx:x(r.age),cy:y(r[key]),r:9,fill:'transparent'}),svg('circle',{cx:x(r.age),cy:y(r[key]),r:r.age===selected?4:2,fill:color}));const select=()=>{age.value=r.age;show();age.focus({preventScroll:true});};g.onclick=select;g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}};chart.append(g);}
+   for(const r of rows){const g=svg('g',{role:'button',tabindex:0,'aria-label':t('Age {n}: {name} {value}').replace('{n}',r.age).replace('{name}',t(name)).replace('{value}',key==='cash'?money(r[key]):Math.round(r[key])+' / 100')});g.append(svg('circle',{cx:x(r.age),cy:y(r[key]),r:9,fill:'transparent'}),svg('circle',{cx:x(r.age),cy:y(r[key]),r:r.age===selected?4:2,fill:color}));const select=()=>{age.value=r.age;show();age.focus({preventScroll:true});};g.onclick=select;g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select();}};chart.append(g);}
   });
   const step=end<=20?5:end<=40?10:20;for(const n of [...new Set([0,...Array.from({length:Math.floor(end/step)},(_,i)=>(i+1)*step),end])])chart.append(svg('text',{x:x(n),y:338,'text-anchor':'middle',class:'ending-tick'},n));
-  chart.append(svg('text',{x:left,y:353,class:'ending-tick'},'Age'));
+  chart.append(svg('text',{x:left,y:353,class:'ending-tick'},t('Age')));
  }
  age.onchange=show;show();let lastWidth=chart.getBoundingClientRect().width;resizeObserver=new ResizeObserver(()=>{const width=chart.getBoundingClientRect().width;if(width!==lastWidth){lastWidth=width;draw(Number(age.value));}});resizeObserver.observe(chart);
  // The life you did not choose: the same world, with no decisions taken.
@@ -188,7 +188,7 @@ export function renderEnding(root,state,{storage}={}){
   const box=document.createElement('section');box.className='ending-baseline';box.setAttribute('aria-label','Your life and the life you did not choose');
   const head=document.createElement('h2');head.textContent='Against the life you did not choose';
   box.append(head);
-  const note=document.createElement('p');note.className='fine';note.textContent='Same birth, same world, same shocks. That other life spends every station in the default shape and takes no story decision. The difference is what your choices moved.';
+  const note=document.createElement('p');note.className='fine';note.textContent=t('Same birth, same world, same shocks. That other life spends every station in the default shape and takes no story decision. The difference is what your choices moved.');
   box.append(note);
   const table=document.createElement('table'),headRow=document.createElement('tr');
   for(const label of ['Age','Money · yours / unchosen','Health · yours / unchosen','Wellbeing · yours / unchosen']){const th=document.createElement('th');th.scope='col';th.textContent=label;headRow.append(th);}
@@ -204,7 +204,7 @@ export function renderEnding(root,state,{storage}={}){
   }
   table.append(body);box.append(table);
   const delta=comparison.delta;
-  if(delta){const sign=n=>(n>=0?'+':'')+n;const line=document.createElement('p');line.className='ending-baseline-line';line.textContent='By '+comparison.rows.at(-1).age+', your choices moved money by '+sign(money(delta.cash).replace('฿',''))+' ฿, health by '+sign(Math.round(delta.health))+' and wellbeing by '+sign(Math.round(delta.wellbeing))+' against that other life.';box.append(line);}
+  if(delta){const sign=n=>(n>=0?'+':'')+n;const line=document.createElement('p');line.className='ending-baseline-line';line.textContent=t('By '+comparison.rows.at(-1).age+', your choices moved money by '+sign(money(delta.cash).replace('฿',''))+' ฿, health by '+sign(Math.round(delta.health))+' and wellbeing by '+sign(Math.round(delta.wellbeing))+' against that other life.');box.append(line);}
   if(comparison.endedEarly){const line=document.createElement('p');line.className='fine';line.textContent='That other life ended early, so its later stations are missing.';box.append(line);}
   numbers.append(box);
  }

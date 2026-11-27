@@ -20,7 +20,7 @@ export function initChildhoodView({onChoose,onContinue,getState}){
   skills.append(el('h4',t('Skills'),'snapshot-sub'));
   for(const[key,label]of[['iq','IQ'],['eq','EQ'],['craft','Creativity'],['drive','Drive'],['physique','Physique']]){
    const row=el('div',undefined,'snapshot-skill-row');
-   row.append(el('span',label),el('output',state.skills[key]));
+   row.append(el('span',t(label)),el('output',state.skills[key]));
    skills.append(row);
   }
   panel.append(skills);
@@ -33,7 +33,7 @@ export function initChildhoodView({onChoose,onContinue,getState}){
     const o=q?.options.find(o=>o.id===c.choice);
     if(o){
      const item=el('div',undefined,'snapshot-choice');
-     item.append(el('span',c.age+' · '+o.label));
+     item.append(el('span',c.age+' · '+t(o.label)));
      prev.append(item);
     }
    }
