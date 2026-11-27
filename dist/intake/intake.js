@@ -40,7 +40,7 @@ function savedLife(){
 }
 const showBirthOdds=()=>!featured&&!varied&&lastOptions.birthYear!=='historical';
 const birthActions=$('birth-begin').parentElement;
-const birthCanonical=document.createElement('p');birthCanonical.className='fine';birthCanonical.hidden=true;
+const birthCanonical=document.createElement('p');birthCanonical.id='birth-canonical';birthCanonical.className='fine';birthCanonical.hidden=true;
 function card(life){
  const b=life.birth,sex={female:'Female',male:'Male',intersex:'Intersex variation'}[life.intake.sex],cls=CLASS_TIERS[life.intake.class],cohort=HISTORICAL_COHORTS[life.intake.birthYear];
  const fam=familyRecord(life);

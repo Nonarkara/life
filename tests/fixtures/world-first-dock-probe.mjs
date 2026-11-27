@@ -3,6 +3,8 @@ import {begin,configureLife,live,newLife} from '../../dist/course/sim.js';
 import {applyPivot,openOptions,pendingPivots} from '../../dist/course/pivots.js';
 import {encounterById,resolveEncounter} from '../../dist/course/encounters.js';
 import {choiceAvailable} from '../../dist/course/finance.js';
+import {translate} from '../../dist/course/i18n.js';
+import {CANONICAL_LIVES} from '../../dist/course/canonical-lives.js';
 
 function fixture(seed,age,birth){
  const initial=newLife(seed);
@@ -121,10 +123,25 @@ try{
  assert.ok(await page.locator('#commit').isHidden());
  assert.equal(await page.locator('.ending-score a.ending-rewind').getAttribute('href'),'../intake/?next=1');
  if(process.env.LIFE_DOCK_SHOTS)await page.screenshot({path:`${process.env.LIFE_DOCK_SHOTS}/recap-1024.png`});
- await page.locator('.ending-score details summary').click();
- assert.ok(await page.locator('.ending-score details').evaluate(el=>el.open));
+ const albumSummary=page.locator('.ending-score summary').and(page.getByText(translate('What you kept from this life','th'),{exact:true}));
+ await albumSummary.click();
+ assert.ok(await albumSummary.evaluate(el=>el.parentElement.open));
  assert.deepEqual(errors,[]);
  await page.close();
+
+ const intake=await browser.newPage({viewport:{width:390,height:844}});
+ await intake.goto(base+'/intake/?lang=th',{waitUntil:'domcontentloaded'});
+ const almanac=intake.locator('#almanac-shelf details');
+ await almanac.locator('summary').click();
+ const lives=almanac.locator('.almanac-canonical a');
+ assert.equal(await lives.count(),16);
+ await lives.first().click();
+ await intake.locator('#birth-card[open]').waitFor();
+ assert.equal(new URL(intake.url()).searchParams.get('lang'),'th');
+ const biography=translate(CANONICAL_LIVES[0].summary,'th');
+ await intake.waitForFunction(expected=>document.documentElement.lang==='th'&&
+  document.querySelector('#birth-canonical')?.textContent.includes(expected),biography);
+ await intake.close();
 }finally{
  await browser.close();
 }

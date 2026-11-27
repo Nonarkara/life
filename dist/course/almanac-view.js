@@ -4,7 +4,7 @@ import {almanacSummary} from './almanac.js';
 import {ROUTE_DATA} from './route-data.js';
 import {STOPS} from './journey-stops.js';
 import {CANONICAL_LIVES} from './canonical-lives.js';
-import {t} from './i18n.js';
+import {preferences,t} from './i18n.js';
 
 export function renderAlmanacDrawer(storage,{onIntake=false,className='almanac-drawer'}={}){
  const alm=almanacSummary(storage);
@@ -63,7 +63,8 @@ export function renderAlmanacDrawer(storage,{onIntake=false,className='almanac-d
  for(const c of CANONICAL_LIVES){
   const li=document.createElement('li');
   const a=document.createElement('a');
-  a.href=(onIntake?'?player=':'../intake/?player=')+c.slot;
+  const query=new URLSearchParams({player:String(c.slot),lang:preferences.language});
+  a.href=(onIntake?'?':'../intake/?')+query;
   a.textContent=t(c.title);
   li.append(a);
   olCanon.append(li);
