@@ -51,6 +51,11 @@ export function growthWindows(history){
 export function renderEnding(root,state,{storage}={}){
  if(storage===undefined){try{storage=localStorage;}catch{storage=null;}}
  releaseCard?.();resizeObserver?.disconnect();const personal=!!state.finance,metric=baseMetrics.map(([key,label,color])=>[key,key==='cash'&&personal?'Personal net worth':label,color]);const rows=personal?state.history.map(row=>({...row,cash:row.finance?netWorth(row.finance):0})):state.history;if(!rows.length)return;
+ // The recap is read in two stacks that stand side by side: the life itself on the left, what it came to on the right.
+ // Each stack is its own flow, so one column never leaves a hole beside the other.
+ const lead=document.createElement('div');lead.className='recap-column recap-column--lead';
+ const data=document.createElement('div');data.className='recap-column recap-column--data';
+ root.append(lead,data);
  // One page, one path for the eye: the verdict is the title, then the arc of the life, then what it comes to.
  {const v=document.createElement('section');v.className='ending-verdict';const say=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;n.textContent=text;return n;};
   const arc=lifeArc(state,id=>encounterById(id)?.title??null);
@@ -70,7 +75,7 @@ export function renderEnding(root,state,{storage}={}){
    if(did.length){const ol=document.createElement('ol');ol.className='verdict-did';for(const e of did){const li=document.createElement("li"),enc=encounterById(e.id),o=enc?.options.find(x=>x.id===e.choice),line=say('span',null,o?.outcome&&!o.uncertain?storyText(t(o.outcome),state.story):e.outcome);if(enc?.title)line.prepend(say('span','did-what',storyText(t(enc.title),state.story)+' · '));li.append(say('b',null,String(e.age)),line);ol.append(li);}v.append(ol);}}
   if(state.death&&!state.death.ordained){v.append(say('p','verdict-cause',t(state.death.cause)));const sex=state.intake?.sex;v.append(say('p','verdict-death',t(sex==='female'?'“Do you still have the dream, girl?” Death asked, and picked you up.':sex==='male'?'“Do you still have the dream, boy?” Death asked, and picked you up.':'“Do you still have the dream, child?” Death asked, and picked you up.')));if(/mind/.test(state.death.cause))v.append(say('p','score-credit',t('If this is close to home, the Mental Health Hotline is 1323.')));}
   const fed=Array.from({length:state.age+1},(_,a)=>kitchenFeeds(state,a));v.append(say('p',null,t('The Thai word for family, ครอบครัว, has the kitchen, ครัว, inside it. At its fullest yours fed {a}. At the end, {b}.').replace('{a}',Math.max(...fed)).replace('{b}',fed.at(-1))));
-  root.append(v);}
+  lead.append(v);}
  const numbers=document.createElement('details');numbers.className='full-life-record ending-numbers';{const s=document.createElement('summary');s.textContent='The numbers';numbers.append(s);}
  const population=POPULATION.paths[pathOf(state)];
  if(population){
@@ -82,7 +87,7 @@ export function renderEnding(root,state,{storage}={}){
  // How much of the bank this device has met, across lives.
  {const met=new Set([...metScenes()].filter(id=>encounterById(id)));if(met.size){const p=document.createElement('p');p.className='fine';p.textContent=t('Across your lives on this device you have met {a} of {b} scenes.').replace('{a}',met.size).replace('{b}',ENCOUNTERS.length);numbers.append(p);}}
  // Where the life went leads the ending; the resource tracks follow it.
- const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);root.append(route);
+ const route=document.createElement('figure'),map=document.createElement('canvas'),model=routeModel(state);route.className='ending-route';map.setAttribute('role','img');map.setAttribute('aria-label',routeText(state));map.style.height=(model.lanes.length*(innerWidth<560?54:64)+84)+'px';route.append(map);lead.append(route);
  const moments=document.createElement('details'),momentTitle=document.createElement('summary'),momentList=document.createElement('ol');
  moments.hidden=true;momentTitle.textContent=t('Remembered events');
  for(const {age,labels} of model.marks){
@@ -123,7 +128,7 @@ export function renderEnding(root,state,{storage}={}){
    if(trade.lost.length){const p=document.createElement('p');p.className='ending-tradeoff';p.textContent=t('Left behind from your last life: {items}.').replace('{items}',trade.lost.map(x=>t(x)).join(', '));box.append(p);}
    if(trade.gained.length){const p=document.createElement('p');p.className='ending-tradeoff';p.textContent=t('Found in this life instead: {items}.').replace('{items}',trade.gained.map(x=>t(x)).join(', '));box.append(p);}
   }
-  const note=document.createElement('p');note.className='fine';note.textContent=t('Two lives are two stories, not an experiment. The gap is not proof that one choice caused it.');box.append(note);root.append(box);}}
+  const note=document.createElement('p');note.className='fine';note.textContent=t('Two lives are two stories, not an experiment. The gap is not proof that one choice caused it.');box.append(note);lead.append(box);}}
  // A card to keep or send: where you went, what you were, one line in your own words.
  let savedLives=[];try{savedLives=recordLife(storage,state,{ikigai:reading?.score,notes:lifeNotes(state)});}catch{}
  {const echoes=sameBirthEchoes(savedLives,state);
@@ -139,7 +144,7 @@ export function renderEnding(root,state,{storage}={}){
     if(echo.words){const q=document.createElement('small');q.dataset.native='';q.textContent='“'+echo.words+'”';li.append(q);}
     ol.append(li);
    }
-   box.append(ol);root.append(box);
+   box.append(ol);lead.append(box);
   }}
  // The way to hand this life on: the same birth, for someone else to live their own way.
  const link=birthURL(state);
@@ -148,7 +153,7 @@ export function renderEnding(root,state,{storage}={}){
  send.textContent=t('Share this result');
  const sendResult=async copying=>{const action=copying?copy:send;action.disabled=true;manual.hidden=true;preview.hidden=false;status.hidden=false;status.textContent=t('Preparing share…');try{const payload=resultShare(state,{score:reading?.score,translate:t,themCode});const outcome=await (copying?copyShare:deliverShare)(payload,navigator,{onWaiting:()=>{status.textContent=t('Still waiting for sharing. You can copy the text below.');manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;}});status.textContent=t({copied:'Copied. Paste it anywhere.',shared:'Passed to your device’s sharing system.',cancelled:'Sharing cancelled.',unavailable:'This birth cannot be shared.',manual:'Sharing was unavailable. Select and copy the text below.'}[outcome]);if(outcome==='manual'){manual.value=payload.text+' '+payload.url;manual.hidden=false;preview.hidden=true;manual.focus();manual.select();}}finally{action.disabled=false;}};send.onclick=()=>sendResult(false);copy.onclick=()=>sendResult(true);
  const preview=document.createElement('p');preview.className='fine';preview.textContent=(resultShare(state,{score:reading?.score,translate:t,themCode})?.text??'').replace(/[:：]\s*$/,'.');share.append(preview);
- const cardTools=lifeCardView(state,storage);releaseCard=cardTools.destroy;share.append(...(link?[send,copy]:[]),cardTools.root,status,manual);root.insertBefore(share,route.nextSibling);
+ const cardTools=lifeCardView(state,storage);releaseCard=cardTools.destroy;share.append(...(link?[send,copy]:[]),cardTools.root,status,manual);data.append(share);
  const frame=document.createElement('div');frame.className='ending-visual';
  const chart=document.createElementNS(NS,'svg');chart.classList.add('ending-chart');chart.setAttribute('role','group');chart.setAttribute('aria-label','Health, wellbeing and cash across age');
  const detail=document.createElement('section');detail.className='ending-reading';
@@ -240,15 +245,43 @@ export function renderEnding(root,state,{storage}={}){
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
   const learned=lifeNotes(state);
   recordAlmanac(storage,state,{score:r.total,noteIds:learned.map(x=>x.id)});
-  box.append(renderAlmanacDrawer(storage,{onIntake:false,className:'almanac-drawer score-almanac'}));
+  root.append(renderAlmanacDrawer(storage,{onIntake:false,className:'almanac-drawer score-almanac'}));
   const taste=recordTaste(storage,state),dom=dominantTaste(taste);
   add('p','score-taste',t('Taste engine: learned from {n} lives ({style}) — next life tuned to what you explore.').replace('{n}',taste.lives).replace('{style}',t(dom.label)));
   {const nextLink=document.createElement('a');nextLink.className='ending-rewind';nextLink.href='../intake/?next=1';nextLink.textContent=t('Play next tuned life →');box.append(nextLink);}
-  add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));route.after(box);
+  add('p','score-credit',t('Collecting inspired by the board games CV and Tokaido.'));data.insertBefore(box,share);
   if(learned.length){const boxL=document.createElement('details');boxL.className='full-life-record ending-learned';const sumL=document.createElement('summary');sumL.textContent=t('What this life taught · {n} field notes').replace('{n}',learned.length);boxL.append(sumL);const ulL=document.createElement('ul');for(const item of learned){const li=document.createElement('li');li.textContent=t('Age {n}').replace('{n}',item.age)+' · '+t(item.title)+': '+t(item.text);ulL.append(li);}boxL.append(ulL);numbers.before(boxL);}}
  {const said=document.createElement('details');said.className='full-life-record ending-said';const sum=document.createElement('summary');sum.textContent=t('What this life said');said.append(sum);renderReading(said,state);numbers.before(said);
   const roads=said.querySelector('.reading-roads');
   if(roads){const btn=document.createElement('button');btn.type='button';btn.className='ending-rewind';btn.textContent=t('Try another turning point →');btn.onclick=()=>{said.open=true;roads.scrollIntoView({behavior:'smooth',block:'nearest'});};said.before(btn);}}
+}
+
+// The two stacks of the recap must not leave one side of the screen empty.
+// A long verdict, or a life with many road stops, can make one stack much
+// taller than the other, and a column that ends in mid-air beside live text
+// is a hole in the page.
+// The map of the life is a wide graphic. When the two stacks cannot stand
+// together, the map leaves them and takes the full width of the band under
+// them, where a timeline of the life belongs anyway.
+export function balanceRecap(root){
+ const lead=root.querySelector('.recap-column--lead'),data=root.querySelector('.recap-column--data');
+ const route=lead?.querySelector(':scope > .ending-route');
+ if(!lead||!data||!route)return;
+ const height=el=>el.getBoundingClientRect().height;
+ const before=Math.abs(height(lead)-height(data));
+ if(before<=120)return;
+ const anchor=route.nextElementSibling;
+ const moving=[route];
+ for(let node=route.nextElementSibling;node;node=node.nextElementSibling){
+  if(!node.matches('.ending-tools,.ending-backs'))break;
+  moving.push(node);
+ }
+ const band=root.querySelector(':scope > .ending-lessons')??null;
+ root.insertBefore(route,band);
+ for(const node of moving.slice(1))route.after(node);
+ if(Math.abs(height(lead)-height(data))>=before){
+  for(const node of moving)lead.insertBefore(node,anchor);
+ }
 }
 
 export {lifeCard} from './life-card.js';

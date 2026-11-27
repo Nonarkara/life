@@ -36,7 +36,7 @@ import {DISTRICTS} from './locations.js';
 import {FOCUSES,FOCUS_HINTS,focusEvidence} from './motivations.js';
 import {initConsole} from './console.js';
 import {openFinance,choiceAvailable,netWorth,monthlyFlow,setBudget} from './finance.js';
-import {renderEnding} from './ending.js';
+import {renderEnding,balanceRecap} from './ending.js';
 import {rememberedMoments} from './recap.js';
 import {rememberedLeagueWinner} from './replay-echoes.js';
 import {newStory,encounterById,storyContext,storyText,resolveEncounter,setFamiliar,familiarIds} from './encounters.js';
@@ -372,7 +372,7 @@ function renderRewind(root){
   rewind.after(count);
  }
 }
-function recap(){playSfx('ending');const root=$('recap');root.replaceChildren();const text=document.createElement('p');text.className='recap-title';text.textContent=state.death?'The rest was never promised.':'Eighty years. No straight line.';root.append(text);text.hidden=true;renderEnding(root,state);renderRewind(root);const tools=document.createElement('div');tools.className='ending-tools';for(const[label,cls]of [['Growing world','show-ending-world'],['Detailed comparisons','show-ending-details']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-expanded','false');button.onclick=()=>{if(cls==='show-ending-details'&&consoleUI){consoleUI.select('history');return;}const open=document.body.classList.toggle(cls);button.setAttribute('aria-expanded',String(open));button.textContent=open?(cls==='show-ending-world'?'Hide growing world':'Hide detailed comparisons'):label;if(cls==='show-ending-world'){mode='world';$('overview').textContent='Life course';dirty=true;}};tools.append(button);}
+function recap(){playSfx('ending');const root=$('recap');root.replaceChildren();const text=document.createElement('p');text.className='recap-title';text.textContent=state.death?'The rest was never promised.':'Eighty years. No straight line.';root.append(text);text.hidden=true;renderEnding(root,state);renderRewind(root);balanceRecap(root);document.fonts?.ready?.then(()=>balanceRecap(root));const tools=document.createElement('div');tools.className='ending-tools';for(const[label,cls]of [['Growing world','show-ending-world'],['Detailed comparisons','show-ending-details']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-expanded','false');button.onclick=()=>{if(cls==='show-ending-details'&&consoleUI){consoleUI.select('history');return;}const open=document.body.classList.toggle(cls);button.setAttribute('aria-expanded',String(open));button.textContent=open?(cls==='show-ending-world'?'Hide growing world':'Hide detailed comparisons'):label;if(cls==='show-ending-world'){mode='world';$('overview').textContent='Life course';dirty=true;}};tools.append(button);}
  const sameBirth=document.createElement('button');
  sameBirth.type='button';sameBirth.textContent=t('Live this birth again');sameBirth.onclick=()=>replayBirth();
  tools.append(sameBirth);

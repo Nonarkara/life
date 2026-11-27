@@ -400,13 +400,15 @@ body.has-plan .latest-event>summary{color:var(--ink)}
 #child-choice .pivot-option,.decision-dialog #child-choice .pivot-option{grid-template-columns:18px minmax(0,1fr)}
 #child-choice .pivot-cost,.decision-dialog #child-choice .pivot-cost{grid-column:2;grid-row:2;white-space:normal}
 .decision-dialog #child-choice .child-snapshot{display:none}
-/* The ending shares one edge; on a wide screen the route answers the verdict beside it. */
+/* The ending shares one edge; on a wide screen the life stands on the left and its numbers on the right.
+   Two independent stacks, so a long column never leaves a hole beside a short one. */
 @media(min-width:960px){
  #recap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0 24px;align-items:start}
- #recap>*{grid-column:1/-1}
- #recap>.ending-verdict{grid-column:1;grid-row:1/3}
- #recap>.ending-route{grid-column:2;grid-row:1;margin:0}
- #recap>.ending-score{grid-column:2;grid-row:2;margin:12px 0 16px}
+ #recap>.recap-column--lead{grid-column:1;grid-row:1;min-width:0}
+ #recap>.recap-column--data{grid-column:2;grid-row:1;min-width:0}
+ #recap>*:not(.recap-column){grid-column:1/-1}
+ .recap-column--lead>.ending-route{margin:0 0 16px}
+ .recap-column--data>.ending-score{margin:0 0 16px;padding-top:0;border-top:0}
 }
 
 .ending-score{max-width:65ch;margin:0 0 16px;padding-top:8px;border-top:1px solid var(--line)}.score-total{font-size:32px;line-height:1.1;margin:0;font-variant-numeric:tabular-nums}.score-of{margin:0 0 6px;color:var(--muted)}.score-goals{list-style:none;margin:0 0 6px;padding:0}.score-missed{margin:0 0 6px}.score-titles{margin:0 0 6px;font-weight:600}.score-credit{margin:0;font-size:12px;color:var(--muted)}

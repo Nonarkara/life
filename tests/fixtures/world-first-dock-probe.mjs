@@ -117,8 +117,18 @@ try{
  await route.waitFor();
  const routeBox=await route.boundingBox(),verdictBox=await verdict.boundingBox();
  assert.ok(routeBox.width>=420,`the route was only ${routeBox.width}px wide`);
- assert.ok(Math.abs(routeBox.y-verdictBox.y)<2);
- assert.ok(await route.evaluate(el=>el.nextElementSibling?.classList.contains('ending-score')));
+ // The map of the life answers the verdict: it stands under it in the left stack,
+ // or, when the two stacks cannot stand together, it takes the full width below them.
+ const routeInLead=await route.evaluate(el=>el.closest('.recap-column')?.classList.contains('recap-column--lead'));
+ const routeInBand=await route.evaluate(el=>el.parentElement?.id==='recap');
+ assert.ok(routeInLead||routeInBand,'the map of the life left the recap');
+ if(routeInLead)assert.ok(Math.abs(routeBox.y-(verdictBox.y+verdictBox.height))<40);
+ else assert.ok(routeBox.width>=900,`the map in the band was only ${routeBox.width}px wide`);
+ assert.equal(await page.locator('.ending-score').evaluate(el=>el.closest('.recap-column')?.classList.contains('recap-column--data')),true);
+ // Neither stack stands empty beside the other.
+ const lead=await page.locator('.recap-column--lead').boundingBox(),data=await page.locator('.recap-column--data').boundingBox();
+ const stackGap=Math.abs(lead.height-data.height),stackTaller=Math.max(lead.height,data.height);
+ assert.ok(stackGap<=160&&stackGap<=stackTaller*0.25,`the two stacks of the recap differ by ${stackGap}px`);
  assert.match(await route.locator('canvas').getAttribute('aria-label'),/75/);
  assert.ok(await page.locator('#commit').isHidden());
  assert.equal(await page.locator('.ending-score a.ending-rewind').getAttribute('href'),'../intake/?next=1');
