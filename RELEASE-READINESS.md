@@ -11,8 +11,8 @@ Current audit evidence: [integration review](review/integration-oct28/REVIEW.md)
 
 # Current state — 28 November 2026
 
-Build `cb43eb6d4513` is live at https://life.nonarkara.org (Cloudflare Pages project
-`life`, branch `main`, deployment source `a1aa73e`). 656 tests pass.
+Build `94392fd375fe` is live at https://life.nonarkara.org (Cloudflare Pages project
+`life`, branch `main`, deployment `5e9cf136`, source `5283b2f`). 656 tests pass.
 
 This release audits the commercial-polish release that shipped before it — the
 Almanac, the 16 sourced historical lives, the July 1997 episode — by running
@@ -40,20 +40,36 @@ languages; `tests/course/i18n-narrative.test.mjs` plays lives and reads every
 record they show. `scripts/event-gap.mjs` measures the same gap from outside, so
 it can be watched rather than argued about.
 
-Measured on the served tree: 656/656 tests pass, 16/16 browser probes pass, the
+Measured on the served tree: 656/656 tests pass, 17/17 browser probes pass, the
 geometry gates pass 7/7, the MSH audit passes its budgets on hardware, the truth
 prover passes 4/4 on the live build, and a sweep of a whole life at the recap
 reads **0 English words** across the recap and all eight console sections, where
 the previous build showed 8, a machine id and a class name printed as text. The
 new surfaces read 0 as well.
 
+Since that release the recap itself has been rebuilt, and `ending.js` has its
+DOM test. The recap was read in one grid whose rows both columns shared: the
+verdict stood in the left column beside a score column 1,794 px tall, so the
+left half of the screen was empty from y=627 to y=2,109 — about 40 % of the
+width, for a full screen and a half. Now the life stands on the left, its
+numbers on the right, each an independent stack, and the lessons, the full
+record and the collection run as a full-width band under them. The collection,
+46 silhouettes of what you found, leaves the narrow column it was a ribbon in.
+When a long verdict or a many-stop life makes the two stacks disagree, the map
+of the life leaves them and takes the full width of the band, where a timeline
+of the life belongs anyway. Measured on rendered pixels across five lives at
+1024 and 1440, the two stacks now end within 8–141 px of each other, most lives
+under 40, against 188–1,467 px before.
+
+`tests/fixtures/ending-dom-probe.mjs` reads the tree the player reads: the two
+stacks and the law that they end together, the verdict beats, the metric names
+in the reader's language, the aria-label on every point of the chart, the
+goals, and the machine names that must never reach the page.
+
 Not certified, and carried forward as open work: touch input on a real phone;
-frame rate on M3 hardware; human playtesting; the 1024 recap screen still leaves
-about 40% of its width empty for a full screen; `ending.js` still has no DOM
-test — the two new tests cover the sentences it assembles, not the DOM it writes.
-A person's name inside a narrative sentence stays in Latin on purpose, and a
-research citation names its source in the language it was published in, with the
-page label translated.
+frame rate on M3 hardware; human playtesting. A person's name inside a narrative
+sentence stays in Latin on purpose, and a research citation names its source in
+the language it was published in, with the page label translated.
 
 Evidence for this release is in [INTEGRATION-STATUS.md](INTEGRATION-STATUS.md), the
 28 November 2026 section, and in `review/audit/`.

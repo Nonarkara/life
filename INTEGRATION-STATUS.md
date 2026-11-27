@@ -5,6 +5,47 @@ DESIGN-RULES.md before merging another agent's report. Reports are leads to
 verify, not authority to overwrite current main. Read the actual diff and state
 what is confirmed, corrected or rejected.
 
+## 28 November 2026 · The recap stands in two stacks, and the ending is read as DOM (build 94392fd375fe)
+
+The two items carried forward from the last release are closed, and both were
+closed by measurement rather than by reading the code.
+
+**The recap no longer leaves half the screen empty.** It was read in one grid
+whose rows both columns shared: the verdict stood in the left column beside a
+score column 1,794 px tall, so the left half of the screen was empty from
+y=627 to y=2,109 — about 40 % of the width, for a full screen and a half. The
+recap is now two independent stacks at 960 px and wider: the life on the left
+(the verdict, the map of the life), its numbers on the right (the score, the
+share), and a full-width band under them for the lessons, the full record and
+the collection. The collection — the almanac of 46 silhouettes — leaves the
+narrow score column, where it stood as a tall ribbon of locked shapes. The map
+of the life is a wide graphic: when a long verdict or a many-stop life makes
+the two stacks disagree, the map leaves them and takes the full width of the
+band, where a timeline of the life belongs anyway. The reading order is
+unchanged: verdict, map, numbers, share, lessons, record.
+
+Measured on rendered pixels, Thai, at 1024 and 1440, five lives: the two stacks
+now end within 8–141 px of each other, most lives under 40, against 188–1,467 px
+before. Evidence in `review/audit/recap-stacks/` and `review/audit/msh/`.
+
+**`ending.js` now has a DOM test.** `tests/fixtures/ending-dom-probe.mjs` is a
+real-browser probe that reads the tree the player reads: the two stacks and the
+law that they end together, the verdict beats, the metric names in the reader's
+language, the aria-label on every point of the chart, the goals, and the machine
+names that must never reach the page — the class-as-text bug of 27 November,
+caught in the DOM where it happens rather than in the dictionary. It also holds
+the collection out of the narrow column and the full record at full width.
+`tests/fixtures/world-first-dock-probe.mjs` was rewritten to the same law: the
+map answers the verdict under it, or takes the full width of the band.
+
+On the served tree (build `94392fd375fe`, deployment `5e9cf136`, source
+`5283b2f`): 656/656 tests pass, 17/17 browser probes pass against the live
+build (`review/audit/probes-live.log`), the truth prover passes 4/4, the MSH
+budgets pass on hardware, the Thai sweep of the recap and the console reads 0
+English, the i18n guard checks 583 calls with 0 unserved, and the lessons, the
+record and the collection keep their places in the band. The rendered recap on
+the live site is in `review/audit/recap-stacks/live-recap-th-*.png`.
+
 ## 26 November 2026 · Overnight integration
 
 The localization commits `55aea35`, `8fc6e34`, and `bb1aa4c` are ancestors of
