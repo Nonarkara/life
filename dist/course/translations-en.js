@@ -8209,7 +8209,7 @@ export default new Map([
   ["“I left the ledger open for your shift.”", "“I left the ledger open for your shift.”"],
   ["“That bill is paid. I’ll put the receipt in the ledger.”", "“That bill is paid. I’ll put the receipt in the ledger.”"],
   ["“Thanks for giving me the evening off.”", "“Thanks for giving me the evening off.”"],
-  ["First run", "First run"],
+  ["Previous run", "Previous run"],
   ["Modeled raise and cut", "Modeled raise and cut"],
   ["Family promise", "Family promise"],
   ["2 effort points", "2 effort points"],

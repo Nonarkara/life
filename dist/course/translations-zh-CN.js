@@ -8185,7 +8185,7 @@ export default new Map([
   ["“I left the ledger open for your shift.”", "“账本我翻开了，你来接班吧。”"],
   ["“That bill is paid. I’ll put the receipt in the ledger.”", "“账付清了。我把收据夹进账本。”"],
   ["“Thanks for giving me the evening off.”", "“谢谢你，让我今晚能歇一歇。”"],
-  ["First run", "第一次"],
+  ["Previous run", "上一轮"],
   ["Modeled raise and cut", "模拟加薪与减薪"],
   ["Family promise", "对家人的承诺"],
   ["2 effort points", "两点精力"],

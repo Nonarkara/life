@@ -8185,7 +8185,7 @@ export default new Map([
   ["“I left the ledger open for your shift.”", "「帳簿は開いてあるよ。交代を頼むね」"],
   ["“That bill is paid. I’ll put the receipt in the ledger.”", "「支払いは済んだよ。領収書は帳簿に挟んでおくね」"],
   ["“Thanks for giving me the evening off.”", "「おかげで今夜は休めるよ。ありがとう」"],
-  ["First run", "最初の人生"],
+  ["Previous run", "前の人生"],
   ["Modeled raise and cut", "昇給と減給の試算"],
   ["Family promise", "家族との約束"],
   ["2 effort points", "努力点2点"],

@@ -122,7 +122,7 @@ try{
    assert.ok(ledger.x>=title.x+title.width+12&&Math.abs(ledger.y-title.y)<16,
     'the ledger fits beside the story on wide screens');
   }
-  for(const phrase of ['First run','New job','Old job','2 effort points']){
+  for(const phrase of ['Previous run','New job','Old job','2 effort points']){
    assert.ok((await comparison.innerText()).includes(t(phrase)));
   }
   await tap(page.getByRole('button',{name:t('Copy episode link')}));

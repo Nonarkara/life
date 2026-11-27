@@ -12,7 +12,7 @@ function comparison(first,current){
  const table=el('table');
  table.className='july-comparison';
  const head=table.createTHead().insertRow();
- for(const label of ['',t('First run'),t('Replay')]){
+ for(const label of ['',t('Previous run'),t('Replay')]){
   const cell=el('th',label);cell.scope='col';head.append(cell);
  }
  const body=table.createTBody();

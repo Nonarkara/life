@@ -8185,7 +8185,7 @@ export default new Map([
   ["“I left the ledger open for your shift.”", "“네 차례라 장부를 펴 뒀어.”"],
   ["“That bill is paid. I’ll put the receipt in the ledger.”", "“청구서 값은 냈어. 영수증은 장부에 끼워 둘게.”"],
   ["“Thanks for giving me the evening off.”", "“덕분에 오늘 저녁은 쉴 수 있겠네. 고마워.”"],
-  ["First run", "첫 번째 삶"],
+  ["Previous run", "이전 삶"],
   ["Modeled raise and cut", "모형상 임금 인상·삭감"],
   ["Family promise", "가족과의 약속"],
   ["2 effort points", "노력 점수 2점"],

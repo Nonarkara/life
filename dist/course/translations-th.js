@@ -8185,7 +8185,7 @@ export default new Map([
   ["“I left the ledger open for your shift.”", "“เปิดสมุดบัญชีไว้ให้แล้วนะ ถึงเวรเธอแล้ว”"],
   ["“That bill is paid. I’ll put the receipt in the ledger.”", "“จ่ายบิลแล้วนะ แม่จะเก็บใบเสร็จไว้ในสมุดบัญชี”"],
   ["“Thanks for giving me the evening off.”", "“ขอบใจนะ คืนนี้แม่ได้พัก”"],
-  ["First run", "ชีวิตแรก"],
+  ["Previous run", "ชีวิตก่อน"],
   ["Modeled raise and cut", "ปรับค่าจ้าง"],
   ["Family promise", "สัญญาที่บ้าน"],
   ["2 effort points", "แรง 2 แต้ม"],
