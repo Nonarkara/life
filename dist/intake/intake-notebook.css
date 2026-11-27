@@ -97,3 +97,11 @@
 .intake-page .note-title{font-size:calc(20px * var(--reading-scale))}
 .intake-page .notebook-locator figcaption{font-size:calc(12px * var(--reading-scale))}
 @media(max-width:720px){.intake-page .remembered-identity h2{font-size:calc(36px * var(--reading-scale))}}
+
+.almanac-drawer .almanac-body{padding:6px 0 4px}
+.almanac-drawer .almanac-body h3{font-size:12px;font-weight:600;margin:8px 0 4px;color:var(--muted)}
+.almanac-drawer .almanac-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:3px 10px}
+.almanac-drawer .almanac-grid li{font-size:12px;line-height:1.35}
+.almanac-drawer .almanac-grid li.is-locked{color:var(--muted);opacity:0.65}
+.almanac-drawer .almanac-canonical{margin:0;padding-left:18px;display:grid;gap:3px}
+.almanac-drawer .almanac-canonical li{font-size:12px;line-height:1.35}

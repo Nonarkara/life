@@ -13,6 +13,8 @@ import {readLives} from '../course/lives.js';
 import {archivedAlbumView} from '../course/album-view.js';
 import {rememberedLife,emptyNotebook} from '../course/life-notebook.js';
 import {almanacSummary} from '../course/almanac.js';
+import {renderAlmanacDrawer} from '../course/almanac-view.js';
+import {playSfx} from '../course/sfx.js';
 import {familyRecord} from '../course/family-record.js';
 import {drawAdaptiveBirth,playerSlotBirth} from '../course/taste-engine.js';
 import {deliverShare,copyShare} from '../course/share-result.js';
@@ -51,7 +53,7 @@ function card(life){
  const facts=[...(life.canonical?[['Canonical life',life.canonical.title]]:[]),['Place',t(b.place)],['Home',t(RUNGS[birthRung(life)].label)],['Household',t(b.home)],...(fam?[['Family',fam.guardians],['Siblings in childhood',fam.siblingsText]]:[['Raised by',t(household(b).text)]]),['Body profile',t(sex)],...(cohort?[['Historical era',t(cohort.label)]]:[]),[cls?'Birth class':'Upbringing',t(cls?.label??({constrained:'Limited household resources',middle:'Middle household resources',comfortable:'Comfortable household resources'}[life.intake.upbringing]))]];
  $('birth-facts').replaceChildren(...facts.flatMap(([k,v])=>{const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=t(k);dd.textContent=v;return [dt,dd];}));
  if(cls?.note){const note=document.createElement('dd');note.className='fine';note.textContent=t(cls.note);$('birth-facts').append(note);}
- if(life.canonical?.summary){birthCanonical.hidden=false;birthCanonical.textContent=life.canonical.summary;if(life.canonical.sourceHref){const src=document.createElement('a');src.href=life.canonical.sourceHref;src.target='_blank';src.rel='noopener noreferrer';src.textContent=' ('+life.canonical.sourceLabel+')';birthCanonical.append(src);}$('birth-shared').after(birthCanonical);}else{birthCanonical.hidden=true;birthCanonical.replaceChildren();}
+ if(life.canonical?.summary){birthCanonical.hidden=false;birthCanonical.textContent=t(life.canonical.summary);if(life.canonical.sourceHref){const src=document.createElement('a');src.href=life.canonical.sourceHref;src.target='_blank';src.rel='noopener noreferrer';src.textContent=' ('+life.canonical.sourceLabel+')';birthCanonical.append(src);}$('birth-shared').after(birthCanonical);}else{birthCanonical.hidden=true;birthCanonical.replaceChildren();}
  $('birth-odds').hidden=!showBirthOdds();
  $('birth-odds').textContent=t('In this game, about 1 in {n} lives begin like this.').replace('{n}',birthOdds(life,lastOptions).toLocaleString('en'));
  shareRevision++;$('birth-shared').textContent='';$('birth-shared').hidden=true;birthManual.hidden=true;$('birth-share').disabled=false;birthCopy.disabled=false;
@@ -65,6 +67,7 @@ function courseURL(){
  return url.href;
 }
 $('birth-begin').onclick=()=>{
+ playSfx('choose');
  const result=writer.write(drawn,life=>keepDisplacedLife(store,life));
  if(result==='saved'){location.href=courseURL();return;}
  $('birth-card').close();
@@ -74,7 +77,7 @@ $('birth-begin').onclick=()=>{
   'This browser could not save the session. Allow local storage, then try again.');
 };
 $('birth-edit').onclick=()=>{$('birth-card').close();$('starting-conditions').open=true;$('birth-era').focus();};
-$('birth-again').onclick=()=>{try{drawn=varied?drawAdaptiveBirth(store,()=>drawBirth(lastOptions,{previous,varied})):drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
+$('birth-again').onclick=()=>{playSfx('card');try{drawn=varied?drawAdaptiveBirth(store,()=>drawBirth(lastOptions,{previous,varied})):drawBirth(lastOptions,{previous,varied});card(drawn);}catch{$('birth-shared').hidden=false;$('birth-shared').textContent=t('Try again');}};
 // The link carries the whole birth (seed and conditions): whoever opens it is born into the same
 // family and place with the same luck, and chooses for themselves.
 export const birthLink=life=>isSchoolPreviewLife(life)
@@ -101,7 +104,7 @@ function drawPins(){pinBox.classList.add('pick-list');pinBox.replaceChildren(...
 function placePins(where){if(!where){pinBox.classList.add('pick-list');pins.forEach(b=>{b.style.left=b.style.top='';});return;}pinBox.classList.remove('pick-list');const stage=pinBox.getBoundingClientRect(),placed=[];for(const {rung,x,y} of [...where].sort((a,b)=>b.y-a.y)){const b=pins.find(p=>Number(p.dataset.rung)===rung),W=b.offsetWidth,H=b.offsetHeight,left=Math.max(W/2+4,Math.min(stage.width-W/2-4,x));let top=y;for(const o of placed)if(Math.abs(o.left-left)<(o.W+W)/2+4&&top>o.top-o.H-4&&top<o.top+H+4)top=o.top-o.H-4;placed.push({left,top,W,H});b.style.left=left+'px';b.style.top=Math.max(H+4,top)+'px';}}
 $('pick-close').onclick=closePick;pickDialog.addEventListener('cancel',()=>picker?.hide());
 $('see-town').onclick=async()=>{drawPins();pickDialog.showModal();try{if(!picker){const {townPicker}=await import(new URL('town-pick.js',import.meta.url).href);picker=townPicker($('pick-world'),placePins);}if(!pickDialog.open)return;const era=Number($('birth-era').value);picker.show(era||1981);}catch(error){console.warn('The 3D town could not open; showing the list.',error);placePins(null);}};
-$('random-life').onclick=()=>{const year=Number($('birth-era').value);enter(year?{birthYear:year}:$('birth-era').value==='random'?{birthYear:'random'}:{},true);};$('intake-form').onsubmit=e=>{e.preventDefault();const era=$('birth-era')?.value;submitted();};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
+$('random-life').onclick=()=>{playSfx('card');const year=Number($('birth-era').value);enter(year?{birthYear:year}:$('birth-era').value==='random'?{birthYear:'random'}:{},true);};$('intake-form').onsubmit=e=>{e.preventDefault();const era=$('birth-era')?.value;submitted();};$('point-minus').onclick=()=>{points=transfer(points,selected,-1);draw();};$('point-plus').onclick=()=>{points=transfer(points,selected,1);draw();};
 try{const saved=savedLife();if(saved&&saved.stage!=='recap'){const continuation=$('continue-life');continuation.hidden=false;continuation.textContent=t('Continue: age {n} · {place}').replace('{n}',saved.age).replace('{place}',t(saved.birth.place));document.querySelector('.entry-intro').prepend(continuation);}}catch{}
 function eraNote(){const era=$('birth-era')?.value,cohort=HISTORICAL_COHORTS[Number(era)];if($('era-note'))$('era-note').textContent=cohort?t(thaiEraForYear(cohort.year).summary):t('Watch Thailand transform from 1949 canals and 16mm cinema to the 1997 crisis, Skytrain and cashless 2020s streets.');}
 function classNote(){const v=$('birth-class').value==='street'?'low_class':$('birth-class').value,cls=CLASS_TIERS[v];$('class-note').textContent=cls?t(cls.note):t('The condition you are born into sets family resources and pressures, not your intelligence or destiny.');$('class-regions').textContent=(CLASS_REGIONS[v]??[]).map(id=>REGIONS[id]?.place).join(' · ')||t('Any Thai region.');eraNote();}
@@ -122,6 +125,8 @@ function archive(){
  const fullOpen=!!recent.querySelector('.life-album[open]'),noteOpen=!!recent.querySelector('.remembered-note[open]');
  recent.hidden=false;recent.replaceChildren(lives.length?rememberedLife(lives[0],turns):emptyNotebook());
  if(fullOpen)recent.querySelector('.life-album')?.setAttribute('open','');if(noteOpen)recent.querySelector('.remembered-note')?.setAttribute('open','');
+ const almShelf=$('almanac-shelf');
+ if(almShelf){const wasOpen=!!almShelf.querySelector('details[open]');const dr=renderAlmanacDrawer(store,{onIntake:true,className:'lives almanac-drawer'});if(wasOpen)dr.open=true;almShelf.replaceChildren(dr);}
  $('intake-form').classList.toggle('has-history',lives.length>0);
  box.hidden=!earlier.length;if(!lives.length)return;
  const summary=$('lives-summary'),title=document.createElement('span');title.textContent=t('Earlier lives');summary.replaceChildren(title,document.createTextNode(' · '+earlier.length));

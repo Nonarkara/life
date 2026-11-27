@@ -3,6 +3,8 @@ import {ikigai} from './ikigai.js';
 import {birthURL} from './birthcode.js';
 import {drawRouteMap,routeModel} from './routemap.js';
 import {netWorth} from './finance.js';
+import {verdictTitle} from './life-verdict.js';
+import {scoreLife} from './life-collection.js';
 export function cardSeries(state){
  const rows=(state.history??[]).filter(r=>Number.isFinite(r.age)&&r.age<=state.age).sort((a,b)=>a.age-b.age),personal=!!state.finance;
  return [{label:'Physical health',value:state.health,color:'#192e2c',points:rows.filter(r=>Number.isFinite(r.health)).map(r=>({age:r.age,value:r.health})),min:0,max:100},
@@ -13,9 +15,14 @@ export function cardSeries(state){
 export async function lifeCard(state,words){
  const extra=Math.max(0,routeModel(state).lanes.length-2)*24,W=1200,H=630+extra,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d'),font=getComputedStyle(document.body).fontFamily;
  g.fillStyle='#f4efe3';g.fillRect(0,0,W,H);g.fillStyle='#111614';g.fillRect(0,H-44,W,44);
- g.fillStyle='#273d35';g.font='600 46px '+font;g.fillText('Life2.0',48,72);
- const score=ikigai(state)?.score;g.textAlign='right';g.font='600 28px '+font;g.fillText('Ikigai '+(score??'—')+' / 100',W-48,72);g.textAlign='left';
- g.font='26px '+font;g.fillText(t('Born in')+' '+t(state.birth.place)+' · '+t('Age {n}').replace('{n}',state.age),48,114,W-96);
+ g.fillStyle='#273d35';g.font='600 44px '+font;g.fillText('Life2.0',48,68);
+ const score=ikigai(state)?.score,lifeScore=scoreLife(state).total;
+ g.textAlign='right';g.font='600 26px '+font;
+ g.fillText(t('Score {n}').replace('{n}',lifeScore)+' · Ikigai '+(score??'—')+' / 100',W-48,68);
+ g.textAlign='left';
+ const verdict=verdictTitle(state,t);
+ g.font='600 24px '+font;g.fillStyle='#192e2c';
+ g.fillText(verdict+' · '+t('Born in')+' '+t(state.birth.place)+' · '+t('Age {n}').replace('{n}',state.age),48,110,W-96);
  if(words){let size=24;const text='“'+words+'”';g.font='italic '+size+'px '+font;while(wrapCardText(text,s=>g.measureText(s).width,W-96).length>2&&size>14){size--;g.font='italic '+size+'px '+font;}wrapCardText(text,s=>g.measureText(s).width,W-96).forEach((line,i)=>g.fillText(line,48,148+i*27));}
  const map=document.createElement('canvas');drawRouteMap(map,state,{width:W-96,height:120+extra});g.drawImage(map,48,180);
  const compact=n=>new Intl.NumberFormat('en',{notation:'compact',maximumFractionDigits:1}).format(n);

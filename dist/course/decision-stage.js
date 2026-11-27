@@ -1,5 +1,6 @@
 import {decisionPresentation} from './decision-tone.js';
 import {t} from './i18n.js';
+import {playSfx} from './sfx.js';
 // One native reading surface; move the real controls, never clone their state.
 export function initDecisionStage({onDismiss}){
  const dialog=document.createElement('dialog');dialog.className='decision-dialog';
@@ -30,7 +31,10 @@ export function initDecisionStage({onDismiss}){
   for(const node of nodes){if(!homes.has(node)){const anchor=document.createComment('decision home');node.before(anchor);homes.set(node,anchor);}(action?(node===action?actions:reading):content).append(node);}shown=[...nodes];
   dialog.setAttribute('aria-labelledby',label);document.body.classList.add('decision-open');
   if(!dialog.open)dialog.showModal();
-  if(key!==activeKey){dialog.scrollTop=0;const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});}activeKey=key;
+  if(key!==activeKey){
+   if(!context.result)playSfx(presentation.tone==='urgent'||presentation.tone==='somber'?'shock':'card');
+   dialog.scrollTop=0;const heading=document.getElementById(label);heading?.setAttribute('tabindex','-1');heading?.focus({preventScroll:true});
+  }activeKey=key;
   measure.observe(head);for(const node of shown)measure.observe(node);
   scheduleFit();
  }};

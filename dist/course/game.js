@@ -29,6 +29,7 @@ import {household,region,regionAt,appearance,regionIdFor} from './regions.js';
 import {outfitFor} from './moment-plan.js';
 import {initPersonalConsole} from './personal-console.js';
 import {initMusic} from './music.js';
+import {playSfx} from './sfx.js';
 import {DISTRICTS} from './locations.js';
 import {FOCUSES,FOCUS_HINTS,focusEvidence} from './motivations.js';
 import {initConsole} from './console.js';
@@ -344,7 +345,7 @@ function renderRewind(root){
   rewind.after(count);
  }
 }
-function recap(){const root=$('recap');root.replaceChildren();const text=document.createElement('p');text.className='recap-title';text.textContent=state.death?'The rest was never promised.':'Eighty years. No straight line.';root.append(text);text.hidden=true;renderEnding(root,state);renderRewind(root);const tools=document.createElement('div');tools.className='ending-tools';for(const[label,cls]of [['Growing world','show-ending-world'],['Detailed comparisons','show-ending-details']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-expanded','false');button.onclick=()=>{if(cls==='show-ending-details'&&consoleUI){consoleUI.select('history');return;}const open=document.body.classList.toggle(cls);button.setAttribute('aria-expanded',String(open));button.textContent=open?(cls==='show-ending-world'?'Hide growing world':'Hide detailed comparisons'):label;if(cls==='show-ending-world'){mode='world';$('overview').textContent='Life course';dirty=true;}};tools.append(button);}
+function recap(){playSfx('ending');const root=$('recap');root.replaceChildren();const text=document.createElement('p');text.className='recap-title';text.textContent=state.death?'The rest was never promised.':'Eighty years. No straight line.';root.append(text);text.hidden=true;renderEnding(root,state);renderRewind(root);const tools=document.createElement('div');tools.className='ending-tools';for(const[label,cls]of [['Growing world','show-ending-world'],['Detailed comparisons','show-ending-details']]){const button=document.createElement('button');button.type='button';button.textContent=label;button.setAttribute('aria-expanded','false');button.onclick=()=>{if(cls==='show-ending-details'&&consoleUI){consoleUI.select('history');return;}const open=document.body.classList.toggle(cls);button.setAttribute('aria-expanded',String(open));button.textContent=open?(cls==='show-ending-world'?'Hide growing world':'Hide detailed comparisons'):label;if(cls==='show-ending-world'){mode='world';$('overview').textContent='Life course';dirty=true;}};tools.append(button);}
  const sameBirth=document.createElement('button');
  sameBirth.type='button';sameBirth.textContent=t('Live this birth again');sameBirth.onclick=()=>replayBirth();
  tools.append(sameBirth);
@@ -360,7 +361,7 @@ let decisionOutcome=null,dismissedDecision=null,childResult=childReceipt(state),
 const acknowledgeTravel=()=>{if(travel&&travelEvent)travel.handled=[...(travel.handled??[]),travelEvent.age+':'+travelEvent.id];travelEvent=null;};
 const continueJourney=()=>{acknowledgeTravel();if(watchingJourney){paused=false;render();}else stepJourney();};
 const yearUI=initLifeEventView({onContinue:continueJourney});
-const childUI=initChildhoodView({onChoose:(q,o)=>{const before=state,next=chooseChild(state,q.age,o.id);if(next===before)return;state=next;childResult={label:o.label,note:o.note,effects:{health:state.health-before.health,wellbeing:state.wellbeing-before.wellbeing,cash:state.cash-before.cash,skills:Object.fromEntries(Object.keys(o.effects.skills??{}).map(k=>[k,state.skills[k]-before.skills[k]]))}};render();},onContinue:()=>{state=acknowledgeChild(state);childResult=null;dismissedDecision=null;paused=false;age=nextChildAge(state);render();},getState:()=>state});
+const childUI=initChildhoodView({onChoose:(q,o)=>{const before=state,next=chooseChild(state,q.age,o.id);if(next===before)return;playSfx('choose');state=next;childResult={label:o.label,note:o.note,effects:{health:state.health-before.health,wellbeing:state.wellbeing-before.wellbeing,cash:state.cash-before.cash,skills:Object.fromEntries(Object.keys(o.effects.skills??{}).map(k=>[k,state.skills[k]-before.skills[k]]))}};render();},onContinue:()=>{state=acknowledgeChild(state);childResult=null;dismissedDecision=null;paused=false;age=nextChildAge(state);render();},getState:()=>state});
 const tempo=()=>decisionTempo({stage:state.stage,moving:!!travel,incident:!!state.story?.pending,questions:pendingPivots(state).length>0,outcome:!!decisionOutcome,activity:!!travelEvent,childhood:state.stage==='birth'&&!!(pendingChildChoice(state,age)||childResult),speed,remaining:travel?travel.to.age-age:Infinity});
 const decisionStage=initDecisionStage({onDismiss:key=>{dismissedDecision=key;if(travelEvent){continueJourney();return;}if(state.stage==='birth'){state=acknowledgeChild(state);childResult=null;paused=false;}if(decisionOutcome)$('choice-result')?.remove();decisionOutcome=null;tab='priorities';render();queueMicrotask(()=>{const target=$('commit').hidden?document.querySelector('.console-nav button'):$('commit');target?.focus({preventScroll:true});});}});
 function syncDecisionStage(){
@@ -389,7 +390,7 @@ function renderEncounter(){
  const sceneMemory=state.previous?.story?.seen;
  const prior=Array.isArray(sceneMemory)?sceneMemory.find(e=>e.id===scene.id&&e.age===state.age):null;
  const priorOption=scene.options.find(o=>o.id===prior?.choice);
- renderEncounterChoices(root,state,scene,{formatMoney:money,extra:choice=>popLine(scene.id,choice.id),onChoose:choice=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before)showResult(before,state,{label:storyText(choice.label,before.story)});render();}});
+ renderEncounterChoices(root,state,scene,{formatMoney:money,extra:choice=>popLine(scene.id,choice.id),onChoose:choice=>{const before=state;state=resolveEncounter(state,choice.id,rand(state.seed,state.age,'encounter-result'));if(state!==before){playSfx('choose');showResult(before,state,{label:storyText(choice.label,before.story)});}render();}});
  if(priorOption){
   const memory=document.createElement('details');
   memory.className='encounter-replay-memory';
@@ -557,6 +558,7 @@ function startChapter(watch=false){
  source={...source,pendingAlternatives:stationAlternatives(source)};
  const next=live(source);
  if(next.age<=source.age)return;
+ playSfx('advance');
  state=source;travel={from:age,to:next,handled:[]};
  mode='world';watchingJourney=watch;paused=!watch;
  if(watch){render();queueMicrotask(()=>nextMoment.focus({preventScroll:true}));}

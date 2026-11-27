@@ -18,6 +18,7 @@ import {buildCV} from './cv.js';
 import {STOPS} from './life-collection.js';
 import {scoreLife} from './life-collection.js';
 import {recordAlmanac} from './almanac.js';
+import {renderAlmanacDrawer} from './almanac-view.js';
 import {recordTaste,dominantTaste} from './taste-engine.js';
 // A row that says zero is a row that takes space and says nothing. Sentences are
 // written as clauses joined by ' · '; a clause whose own count is zero is dropped
@@ -238,9 +239,8 @@ export function renderEnding(root,state,{storage}={}){
   if(r.missed)add('p','score-missed',t('You passed over goals you would have met: +{n}.').replace('{n}',r.missed));
   if(r.titles.length)add('p','score-titles',r.titles.map(x=>t(x)).join(' · '));
   const learned=lifeNotes(state);
-  const alm=recordAlmanac(storage,state,{score:r.total,noteIds:learned.map(x=>x.id)});
-  const almanac=withoutZeroClauses(t('Almanac: {r}/{tr} callings · {s}/{ts} road stops · {n} field notes'),[['r',alm.routes.length],['s',alm.stops.length],['n',alm.notes.length]]);
-  if(almanac)add('p','score-almanac',almanac.replace('{r}',alm.routes.length).replace('{tr}',alm.totalRoutes).replace('{s}',alm.stops.length).replace('{ts}',alm.totalStops).replace('{n}',alm.notes.length));
+  recordAlmanac(storage,state,{score:r.total,noteIds:learned.map(x=>x.id)});
+  box.append(renderAlmanacDrawer(storage,{onIntake:false,className:'almanac-drawer score-almanac'}));
   const taste=recordTaste(storage,state),dom=dominantTaste(taste);
   add('p','score-taste',t('Taste engine: learned from {n} lives ({style}) — next life tuned to what you explore.').replace('{n}',taste.lives).replace('{style}',t(dom.label)));
   {const nextLink=document.createElement('a');nextLink.className='ending-rewind';nextLink.href='../intake/?next=1';nextLink.textContent=t('Play next tuned life →');box.append(nextLink);}

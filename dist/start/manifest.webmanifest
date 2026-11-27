@@ -1,14 +1,21 @@
 {
  "name": "Life2.0",
  "short_name": "Life2.0",
- "description": "Live a whole life in one sitting, then see its shape and live it again.",
+ "description": "Live a whole life in Thailand from 1949 to today in one sitting, see its shape, and live it again.",
  "start_url": "/",
  "scope": "/",
  "display": "standalone",
+ "orientation": "any",
+ "categories": ["games", "simulation", "role-playing"],
  "background_color": "#f4f0e6",
  "theme_color": "#f4f0e6",
  "icons": [
   {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},
-  {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+  {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+ ],
+ "shortcuts": [
+  {"name": "Draw a new life", "short_name": "New life", "url": "/intake/?next=1"},
+  {"name": "Today’s shared life", "short_name": "Today’s life", "url": "/intake/?birth=daily"},
+  {"name": "Play July 1997", "short_name": "July 1997", "url": "/course/july-1997.html"}
  ]
 }
