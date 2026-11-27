@@ -121,8 +121,11 @@ try{
  assert.ok(await page.locator('#commit').isHidden());
  assert.equal(await page.locator('.ending-score a.ending-rewind').getAttribute('href'),'../intake/?next=1');
  if(process.env.LIFE_DOCK_SHOTS)await page.screenshot({path:`${process.env.LIFE_DOCK_SHOTS}/recap-1024.png`});
- await page.locator('.ending-score details summary').click();
- assert.ok(await page.locator('.ending-score details').evaluate(el=>el.open));
+ // The score holds two disclosures: this life's album, and the almanac drawer.
+ // Open the album. A broader locator matches both summaries and is not strict.
+ const kept=page.locator('.ending-score > details:not(.almanac-drawer)');
+ await kept.locator('> summary').click();
+ assert.ok(await kept.evaluate(el=>el.open));
  assert.deepEqual(errors,[]);
  await page.close();
 }finally{
