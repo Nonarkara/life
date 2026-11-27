@@ -9,6 +9,57 @@ Current audit evidence: [integration review](review/integration-oct28/REVIEW.md)
 
 ---
 
+# Current state — 28 November 2026
+
+Build `cb43eb6d4513` is live at https://life.nonarkara.org (Cloudflare Pages project
+`life`, branch `main`, deployment source `a1aa73e`). 656 tests pass.
+
+This release audits the commercial-polish release that shipped before it — the
+Almanac, the 16 sourced historical lives, the July 1997 episode — by running
+the closing screens in Thai, and fixes what the run found. The audited release
+passed its own gates (652/652 tests, 7/7 geometry, the MSH budgets, the truth
+prover); its guard simply could not see these faults, because a dictionary-level
+test cannot see a sentence the product assembles from pieces.
+
+What the run found on the closing screens: the record of a life was assembled
+from English sentences the dictionary never held (89 of 995 event strings across
+60 played lives); the console printed the literal word `road-list` on the page,
+because a class name was passed where the text belongs; the road not taken was
+named by its machine id ("instead of accept — money +0 ฿"); the console's reader
+kept the accessible name "History" while its button read Thai; and the canonical
+lives' source labels, the childhood skill labels and the ending's metric names
+never reached the dictionary at all. All fixed at the composition site and in the
+dictionary: 106 new phrases in Thai, Simplified Chinese, Japanese and Korean,
+8502 in all.
+
+Three guards, each of which can fail: `scripts/i18n-guard.mjs` checks that every
+translation the product asks for is one the four packs can serve and that no
+string reaches the screen without a route into the dictionary;
+`tests/course/i18n-closing.test.mjs` reads the closing sentences in four
+languages; `tests/course/i18n-narrative.test.mjs` plays lives and reads every
+record they show. `scripts/event-gap.mjs` measures the same gap from outside, so
+it can be watched rather than argued about.
+
+Measured on the served tree: 656/656 tests pass, 16/16 browser probes pass, the
+geometry gates pass 7/7, the MSH audit passes its budgets on hardware, the truth
+prover passes 4/4 on the live build, and a sweep of a whole life at the recap
+reads **0 English words** across the recap and all eight console sections, where
+the previous build showed 8, a machine id and a class name printed as text. The
+new surfaces read 0 as well.
+
+Not certified, and carried forward as open work: touch input on a real phone;
+frame rate on M3 hardware; human playtesting; the 1024 recap screen still leaves
+about 40% of its width empty for a full screen; `ending.js` still has no DOM
+test — the two new tests cover the sentences it assembles, not the DOM it writes.
+A person's name inside a narrative sentence stays in Latin on purpose, and a
+research citation names its source in the language it was published in, with the
+page label translated.
+
+Evidence for this release is in [INTEGRATION-STATUS.md](INTEGRATION-STATUS.md), the
+28 November 2026 section, and in `review/audit/`.
+
+---
+
 # Current state — 26 November 2026
 
 Build `105baccb8325` is live at https://life.nonarkara.org (Cloudflare Pages project

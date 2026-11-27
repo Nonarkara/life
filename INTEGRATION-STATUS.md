@@ -490,3 +490,73 @@ are in `review/ink-schoolyard/` and `tests/fixtures/ink-study-probe.mjs`.
 603 unit/simulation tests pass. Full-game product audit still reports one
 medium finding (3.7MB initial view); frame pacing was unmeasured. Neither the
 trial nor those tests prove 3D prop contact, finished art, or low-end-phone FPS.
+
+## 28 November 2026 · the closing screens in the player's language
+
+The audited release was `b54419b` (procedural SFX, the Almanac and 16 sourced
+historical lives, the July 1997 episode, the viral life card, the PWA manifest).
+It was sound in its own terms — 652/652 tests, 7/7 geometry gates, the MSH
+budgets passed, the truth prover passed — and its own guard could not see the
+faults below, because a dictionary-level test cannot see a sentence the
+product assembles. Running the closing screens in Thai showed what the
+guard could not.
+
+Found by execution, not by reading:
+
+  - `console.js` printed the literal word `road-list` on the page: the class
+    name was passed where the helper takes the text. The same mistake hid the
+    `.road-head` and `.fine` classes, so the list also lost its styling.
+  - The road not taken was named by its machine id — "instead of accept — money
+    +0 ฿" — a player is shown an identifier, not a life.
+  - The console's reader kept the accessible name "History" while its button
+    read ประวัติ, because the label was rewritten on every section change
+    after the dictionary had run.
+  - The record of a life was assembled from English sentences the dictionary
+    never held: 89 of 995 event strings across 60 played lives could not be
+    served in any language. The sentences behind them — the ordinary chapters,
+    the years the country turns, the parents who go — were missing from all
+    four packs.
+  - The canonical lives' source labels, the childhood skill labels, the ending
+    metric names and the ending's closing paragraphs never reached the
+    dictionary at all.
+
+Fixed at the composition site and in the dictionary. 106 phrases added in
+Thai, Simplified Chinese, Japanese and Korean; the dictionary now holds 8,502.
+The road is named by its label, the class is a class again, the reader's name
+is translated, and the record of a life reads whole in the language chosen.
+
+Three instruments, each of which can fail:
+
+  - `scripts/i18n-guard.mjs` (also `tests/course/i18n-guard.test.mjs`): every
+    `t(...)` the product calls must resolve in all four packs — as a whole key
+    or as a template whose literal parts carry the ones the call writes — and
+    every string written straight to the screen must be routed through the
+    dictionary or be in all four packs. 582 calls checked, 0 unserved.
+  - `tests/course/i18n-closing.test.mjs`: the closing sentences in four
+    languages, never half in one language and half in another.
+  - `tests/course/i18n-narrative.test.mjs`: every record a played life shows,
+    read as the player reads it. 40 lives, four languages, 0 English words.
+  - `scripts/event-gap.mjs` measures the same thing from the outside, so the
+    gap can be watched rather than argued about.
+
+Measured on the tree that is served. `origin/main` is `a1aa73e`; the live
+build is `cb43eb6d4513` at https://life.nonarkara.org (Cloudflare Pages
+project `life`, branch `main`, deployment source `a1aa73e`). 656/656 tests
+pass, 16/16 browser probes pass, the geometry gates pass 7/7, the MSH audit
+passes its budgets, and the truth prover passes 4/4 on the live build. A
+sweep of a whole life at the recap reads **0 English words** across the recap
+and all eight console sections, where the previous build showed 8, a machine
+id and a class name printed as text; the new surfaces — the intake with the
+Almanac open, canonical lives 1 and 9, Settings, the July 1997 episode — read
+0 English words, and the review stage still reads 0.
+
+Evidence: `review/audit/recap-th-390.png`, `recap-th-1440.png`,
+`recap-en-1440.png`, `review/audit/msh/`, and the instruments above.
+
+Carried forward, unchanged: the 1024 recap screen still leaves about 40% of
+its width empty for a full screen; `ending.js` still has no DOM test (the two
+new tests cover the sentences it assembles, not the DOM it writes); a person's
+name inside a narrative sentence stays in Latin on purpose, as a name the
+language keeps; a research citation names its source in the language it was
+published in, with the page label translated; the era scenarios that have no
+four-language copy are not shipped, by the rule in `era-scenario-copy.js`.
